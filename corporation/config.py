@@ -20,4 +20,3 @@ class Config:
     RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
     RECAPTCHA_PRIVATE_KEY = config.get('RECAP_PRVKEY')
     RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
-    RECAPTCHA_DISABLE = True
