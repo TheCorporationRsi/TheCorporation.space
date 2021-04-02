@@ -1,0 +1,63 @@
+{% extends "main.html"%}
+{% block content %}
+<main role="main" class="container">
+<div class="content-section">
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ image_file }}">
+        <div class="media-body">
+            <h2 class="account-heading">{{ current_user.RSI_handle }}</h2>
+            <p class="text-warning">{{ current_user.email }}</p>
+            {% if current_user.discord_username != null %}
+            <p class="text-warning">Discord: {{ current_user.discord_username }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <!-- FORM HERE -->
+    <div class="content-section">
+        {% if current_user.discord_username != null %}
+        <legend class="border-bottom mb-4">Change Discord</legend>
+        {% else %}
+        <legend class="border-bottom mb-4">Link Discord</legend>
+        {% endif %}
+                <div class="form-group bg-dark"
+                    style="border-radius: 10px; width: 140px; height: 50px; position: left; padding-left: 20px; padding-top: 5px; ">
+                    <a href="/discord/2">
+                        <img src="{{ url_for('static', filename='discord.svg')}}" width="100" height="40">
+                    </a>
+                </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label")}}
+
+                    {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.picture.label() }}
+                    {{ form.picture(class="form-control-file") }}
+                    {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                    <span>{{ error }}</span></br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary")}}
+            </div>
+        </form>
+    </div>
+</div>
+</main>
+{% endblock content %}

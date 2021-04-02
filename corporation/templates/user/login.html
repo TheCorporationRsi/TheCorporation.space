@@ -1,0 +1,78 @@
+{% extends "main.html"%}
+{% block content %}
+<main role="main" class="container">
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Discord login</legend>
+                <div class="form-group bg-dark"
+                    style="border-radius: 10px; width: 140px; height: 50px; position: left; padding-left: 20px; padding-top: 5px; ">
+                    <a href="/discord/1">
+                        <img src="{{ url_for('static', filename='discord.svg')}}" width="100" height="40">
+                    </a>
+                </div>
+                <legend class="border-bottom mb-4">Login</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label")}}
+
+                    {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label")}}
+
+                    {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {% if form.recaptcha.errors %}
+                    {{ form.recaptcha()}}
+                    <div class="invalid-feedback">
+                        {% for error in form.recaptcha.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.recaptcha() }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary")}}
+            </div>
+            <small class="text-muted ml-2">
+                <a href="{{url_for('users.reset_request')}}">Forgot Password?</a>
+            </small>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-light">
+            Need an account? <a class="ml-2 text-success" href="{{ url_for('users.register') }}">
+                Sign Up Now
+            </a>
+        </small>
+    </div>
+</main>
+{% endblock content %}

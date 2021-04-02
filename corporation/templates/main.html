@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='corplogo2.ico') }}" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+  <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
+  <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
+  <meta property="og:image" content="{{ url_for('static', filename = 'corplogo.png') }}" />
+  <meta property="og:url" content=”https://TheCorporation.space/” />
+  <meta property=”og:type” content=”website” />
+  <meta property="og:site_name" content="The Corporation inc.">
+
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'main.css') }}">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+  <style>
+    html,
+    body {
+      overflow: overlay;
+      scroll-snap-type: y proximity;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: rgb(0, 60, 255);
+      border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgb(255, 230, 0);
+    }
+
+    .navbar {
+      box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, .5);
+
+      /* the rest of your styling */
+    }
+
+    .navbar a {
+      font-size: 1.5em !important;
+    }
+
+    .corp-logo {
+      display: block;
+      background-color: transparent;
+      margin-bottom: 0px;
+      margin-top: 0px;
+      text-align: center;
+      margin-right: 20px;
+      padding-left: 20px;
+      padding-top: 0px;
+      width: 50px;
+      height: 50px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      float: left;
+
+    }
+
+    .corp-logo img {
+      width: 50px;
+      height: 50px;
+    }
+
+
+    @media only screen and (min-width: 990px) {
+      .corp-logo {
+        display: block;
+        background-color: rgb(0, 51, 161);
+        margin-bottom: -60px;
+        margin-top: -10px;
+        text-align: center;
+        margin-right: 20px;
+        padding-left: 20px;
+        padding-top: 15px;
+        width: 140px;
+        height: 130px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        float: left;
+
+      }
+
+      .corp-logo img {
+        width: 100px;
+        height: 100px;
+      }
+
+
+    }
+  </style>
+  {% if request.path != "/home" and request.path != "/" %}
+  <style>
+    html {
+      background-color: #403dff;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(240)'%3E%3Cstop offset='0' stop-color='%23403dff'/%3E%3Cstop offset='1' stop-color='%232e87ff'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='300' height='250' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.14'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+    body {
+      background: transparent;
+    }
+
+    .corp-logo {
+      display: block;
+      background-color: transparent;
+      margin-bottom: 0px;
+      margin-top: 0px;
+      text-align: center;
+      margin-right: 20px;
+      padding-left: 20px;
+      padding-top: 0px;
+      width: 50px;
+      height: 50px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      float: left;
+
+    }
+
+    .corp-logo img {
+      width: 50px;
+      height: 50px;
+    }
+
+
+    @media only screen and (min-width: 990px) {
+      .corp-logo {
+        display: block;
+        background-color: rgb(49, 49, 49);
+        margin-bottom: -60px;
+        margin-top: -10px;
+        text-align: center;
+        margin-right: 20px;
+        padding-left: 20px;
+        padding-top: 15px;
+        width: 140px;
+        height: 130px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        float: left;
+
+      }
+
+      .corp-logo img {
+        width: 100px;
+        height: 100px;
+      }
+
+    }
+
+    .site-header {
+      margin-bottom: 30px;
+    }
+  </style>
+  {% endif %}
+
+  {% block style %}
+  {% endblock style%}
+
+  {% if title %}
+  <title>The Corporation - {{ title }}</title>
+  {% else %}
+  <title>The Corporation</title>
+  {% endif %}
+
+
+</head>
+
+<body>
+  <header class="site-header">
+    {% if request.path == "/home" or request.path == "/" %}
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary bg-gradient-primary ">
+      {% else %}
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark ">
+        {% endif %}
+        <div class="container-fluid">
+          <div class="corp-logo">
+            <a class=" mr-4" href="/">
+              <img style="margin-left: auto;" src="{{ url_for('static', filename='logo.svg')}}" alt="">
+            </a>
+          </div>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+            aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Info
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item nav-link" href="{{ url_for('main.home') }}">Presentation</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item nav-link" href="#">Influence system</a>
+                  <a class="dropdown-item nav-link" href="#">Usefull document</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Departement
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item nav-link" href="{{ url_for('departements.dep_info') }}">Info</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item nav-link" href="#">Exploration</a>
+                  <a class="dropdown-item nav-link" href="#">Business</a>
+                  <a class="dropdown-item nav-link" href="#">Resources</a>
+                  <a class="dropdown-item nav-link" href="#">Security</a>
+                  <a class="dropdown-item nav-link" href="#">Social</a>
+                  <a class="dropdown-item nav-link" href="#">Support</a>
+                  <a class="dropdown-item nav-link" href="#">Media</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Media
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item nav-link" href="{{ url_for('news.corpnews') }}">News</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item nav-link" href="#">Official content</a>
+                  <a class="dropdown-item nav-link" href="#">CORP content</a>
+                </div>
+              </li>
+
+              {% if current_user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Social
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item nav-link" href="{{ url_for('main.calendar') }}">Calendar</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item nav-link" href="{{ url_for('posts.forum') }}">Forum</a>
+                </div>
+              </li>
+              {% endif %}
+
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}
+              {% if request.path=="/forum" %}
+              <a class="nav-item nav-link" href="{{ url_for('posts.new_post') }}">New_Post</a>
+              {% endif %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <img class="rounded-circle article-img" style="height: 40px; width: 40px; margin-right: 10px;"
+                    src="{{ url_for('static', filename='profile_pics/'+ current_user.image_file) }}">
+                  {{ current_user.RSI_handle }}
+                </a>
+                <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+                  {% if current_user.RSI_handle == 'Cyber-Dreamer' %}
+                  <a class="dropdown-item nav-link" href="{{ url_for('managers.user_manager') }}">User manager</a>
+                  {% endif %}
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                </div>
+              </li>
+              {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+              <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+  </header>
+
+  <div class="container" class="notification">
+    <div class="row mw-100">
+      <div class="col  mw-100">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages%}
+        <div class="alert alert-{{ category }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        <!--content here-->
+        {% endblock %}
+
+      </div>
+    </div>
+  </div>
+
+  {% block page %}
+
+
+
+
+
+  {% endblock page %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>

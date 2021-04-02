@@ -1,0 +1,444 @@
+{% extends "main.html" %}
+{% block style %}
+<style>
+    h2:hover,
+    a {
+        color: rgb(255, 255, 255) !important;
+        text-decoration: none !important;
+    }
+</style>
+
+
+{% endblock style %}
+{% block page %}
+<main role="main" class="container">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(1, 75, 4, 0.432);  
+    backdrop-filter: blur(5px);">
+        <div class="col-md-5 text-wrap py-1" style="margin: auto">
+            <div class="row " style="margin: auto">
+                <a class=" mx-auto d-block" href="">
+                    <h2 class="divname text-wrap mx-auto d-block" style="font-size:5em; color:green;">
+                        Exploration
+                    </h2>
+                </a>
+            </div>
+            <a href="">
+                <img class="rounded mt-3 mb-3 mx-auto d-block"
+                    src="{{ url_for('static', filename='departement/exploration.svg') }}"
+                    alt="Generic placeholder image" width="300" height="300">
+            </a>
+
+        </div>
+        <div class="col-md-7 text-wrap py-5" style="margin: auto">
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:green;">Prospecting</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:green;">Cartography</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:green;">Research</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(1, 86, 112, 0.432);  
+    backdrop-filter: blur(5px);">
+        <div class="col-md-5 text-wrap py-1" style="margin: auto">
+            <div class="row " style="margin: auto">
+                <a class=" mx-auto d-block" href="">
+                    <h2 class="divname text-wrap mx-auto d-block" style="font-size:5em; color:rgb(0, 140, 255);">
+                        Business
+                    </h2>
+                </a>
+            </div>
+            <a href="">
+                <img class="rounded mt-3 mb-3 mx-auto d-block"
+                    src="{{ url_for('static', filename='departement/business.svg') }}" alt="Generic placeholder image"
+                    width="300" height="300">
+            </a>
+
+        </div>
+        <div class="col-md-7 text-wrap py-5" style="margin: auto">
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(0, 140, 255);">Finance</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(0, 140, 255);">Trade</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(0, 140, 255);">Contract</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(88, 87, 2, 0.39);  
+    backdrop-filter: blur(5px);">
+        <div class="col-md-5 text-wrap py-1" style="margin: auto">
+            <div class="row" style="margin: auto">
+                <a class=" mx-auto d-block" href="">
+                    <h2 class="divname text-wrap mx-auto d-block" style="font-size:5em; color:yellow;">
+                        Resources
+                    </h2>
+                </a>
+            </div>
+            <a href="">
+                <img class="rounded mt-3 mb-3 mx-auto d-block"
+                    src="{{ url_for('static', filename='departement/resources.svg') }}" alt="Generic placeholder image"
+                    width="300" height="300">
+            </a>
+
+        </div>
+        <div class="col-md-7 text-wrap py-5" style="margin: auto">
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:yellow;">Extraction</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:yellow;">Transport</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:yellow;">Developement</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(107, 0, 0, 0.432);  
+    backdrop-filter: blur(5px);"">
+        <div class=" col-md-5 text-wrap py-1" style="margin: auto">
+        <div class="row" style="margin: auto">
+            <a class=" mx-auto d-block" href="">
+                <h2 class=" mx-auto d-block" style="font-size:5em; color:red;">
+                    Security
+                </h2>
+            </a>
+        </div>
+        <a href="">
+            <img class="rounded mx-auto d-block mt-3 mb-3"
+                src="{{ url_for('static', filename='departement/security.svg') }}" alt="Generic placeholder image"
+                width="300" height="300">
+        </a>
+
+    </div>
+    <div class="col-md-7 text-wrap py-5" style="margin: auto">
+        <div class="row px-5">
+            <div class="row">
+
+                <h1 class="divname" style=" color:red;">Repo</h1>
+
+            </div>
+            <div class="row">
+                <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                    fringilla. Vestibulum id ligula porta felis euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac cursus
+                    commodo.</p>
+            </div>
+        </div>
+        <div class="row px-5">
+            <div class="row">
+
+                <h1 class="divname" style=" color:red;">Space</h1>
+
+            </div>
+            <div class="row">
+                <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                    fringilla. Vestibulum id ligula porta felis euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac cursus
+                    commodo.</p>
+            </div>
+        </div>
+        <div class="row px-5">
+            <div class="row">
+
+                <h1 class="divname" style=" color:red;">Ground</h1>
+
+            </div>
+            <div class="row">
+                <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                    fringilla. Vestibulum id ligula porta felis euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                    ac cursus
+                    commodo.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(30, 3, 80, 0.432);  
+    backdrop-filter: blur(5px);">
+        <div class="col-md-5 text-wrap py-1" style="margin: auto">
+            <div class="row" style="margin: auto">
+                <a class=" mx-auto d-block" href="">
+                    <h2 class="divname mx-auto d-block" style="font-size:5em; color:rgb(192, 93, 250);">
+                        Social
+                    </h2>
+                </a>
+            </div>
+            <a href="">
+                <img class="rounded mt-3 mb-3 mx-auto d-block"
+                    src="{{ url_for('static', filename='departement/social.svg') }}" alt="Generic placeholder image"
+                    width="300" height="300">
+            </a>
+
+        </div>
+        <div class="col-md-7 text-wrap py-5" style="margin: auto">
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(192, 93, 250);">Diplomacy</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(192, 93, 250);">HR</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(192, 93, 250);">Training</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(179, 170, 121, 0.432);  
+    backdrop-filter: blur(5px);">
+        <div class="col-md-5 text-wrap py-1" style="margin: auto">
+            <div class="row " style="margin: auto">
+                <a class=" mx-auto d-block" href="">
+                    <h2 class="divname text-wrap mx-auto d-block" style="font-size:5em; color:rgb(199, 178, 132);">
+                        Support
+                    </h2>
+                </a>
+            </div>
+            <a href="">
+                <img class="rounded mt-3 mb-3 mx-auto d-block"
+                    src="{{ url_for('static', filename='departement/support.svg') }}" alt="Generic placeholder image"
+                    width="300" height="300">
+            </a>
+
+        </div>
+        <div class="col-md-7 text-wrap py-5" style="margin: auto">
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(199, 178, 132);">CSAR</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(199, 178, 132);">Engineering</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette" style="font-family: 'Roboto', sans-serif; border-radius: 20px; background-color: rgba(56, 26, 53, 0.432);  
+    backdrop-filter: blur(5px);">
+        <div class="col-md-5 text-wrap py-1" style="margin: auto">
+            <div class="row " style="margin: auto">
+                <a class=" mx-auto d-block" href="">
+                    <h2 class="divname text-wrap mx-auto d-block" style="font-size:5em; color:rgb(146, 0, 175);">
+                        Content
+                    </h2>
+                </a>
+            </div>
+            <a href="">
+                <img class="rounded mt-3 mb-3 mx-auto d-block"
+                    src="{{ url_for('static', filename='departement/content.svg') }}" alt="Generic placeholder image"
+                    width="300" height="300">
+            </a>
+
+        </div>
+        <div class="col-md-7 text-wrap py-5" style="margin: auto">
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(146, 0, 175);">Media</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+            <div class="row px-5">
+                <div class="row">
+
+                    <h1 class="divname" style=" color:rgb(146, 0, 175);">eSports</h1>
+
+                </div>
+                <div class="row">
+                    <p class="divdescription text-wrap text-white text-justify">Donec ullamcorper nulla non metus auctor
+                        fringilla. Vestibulum id ligula porta felis euismod
+                        semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus
+                        ac cursus
+                        commodo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+</main>
+{% endblock page %}
