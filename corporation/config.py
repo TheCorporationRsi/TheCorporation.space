@@ -19,4 +19,5 @@ class Config:
     RECAPTCHA_USE_SSL = False
     RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
     RECAPTCHA_PRIVATE_KEY = config.get('RECAP_PRVKEY')
-    RECAPTCHA_THEME = 'dark'
+    RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
+    RECAPTCHA_DISABLE = True
