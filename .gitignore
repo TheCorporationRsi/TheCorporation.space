@@ -1,9 +1,11 @@
 .vscode/*
+vscode/*
 manage.py
 site.db
 venv/lib64
 venv/*
 trash/*
+extra/*
 node_modules/*
 migrations/*
 discordbot/*
