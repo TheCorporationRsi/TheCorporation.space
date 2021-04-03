@@ -22,9 +22,7 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(RSI_handle= form.RSI_handle.data, email= form.email.data, password= hashed_password)
-        role = Post(title= "Corporateer", member= current_user)
         db.session.add(user)
-        db.session.add(role)
         db.session.commit()
         flash(f'Your account has been created! You can now login.', 'success')
         return redirect(url_for('users.login'))
