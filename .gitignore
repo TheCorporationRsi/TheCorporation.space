@@ -1,4 +1,4 @@
-vscode/*
+.vscode/*
 manage.py
 site.db
 venv/lib64
