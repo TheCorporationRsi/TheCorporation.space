@@ -42,7 +42,7 @@ notepad.exe /etc/config.json
 python create_empty_database.py
 ```
 
-From there all should work except discord AUTH since it send the user to the real website after confirmation.
+From there all should work except maybe discord AUTH.
 
 
 ## Usage
