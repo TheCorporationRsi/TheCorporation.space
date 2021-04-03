@@ -47,6 +47,10 @@ From there all should work except maybe discord AUTH.
 
 ## Usage
 
+Please follow this tutorial to understand the code structure: 
+
+https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
+
 - debug setting  
 ```json
 {
