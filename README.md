@@ -83,16 +83,6 @@ From there all should work except maybe discord AUTH.
 
 
 
-how to update database model
-python manage.py db init
-
-
-python manage.py db migrate
-
-
-python manage.py db upgrade
-
-
 ## License
 This is the property of TheCorporation.space
 You may ask CyberDreamer#9412 on discord before reusing the code.
