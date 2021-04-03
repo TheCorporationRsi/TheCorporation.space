@@ -33,6 +33,7 @@ notepad.exe /etc/config.json
     "DISCORD_ID": "enter_discord_api_id",
     "DISCORD_SECRET":"enter_discord_secret",
     "DISCORD_BOT_TOKEN": "enter_discord_bot_token",
+    "DISCORD_REDIRECT_URI":"localhost:5000/discord_callback",
     "RECAP_PRVKEY":"enter_recapcha_private_key",
     "RECAP_PUBKEY":"enter_recapcha_public_key"
 }
