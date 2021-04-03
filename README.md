@@ -88,5 +88,6 @@ https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
 
 
 ## License
-This is the property of TheCorporation.space
-You may ask CyberDreamer#9412 on discord before reusing the code.
+This is the property of TheCorporation.space .
+
+You may ask CyberDreamer#9412 on discord before reusing the code on another project.
