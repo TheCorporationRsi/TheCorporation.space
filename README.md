@@ -10,7 +10,7 @@ Foobar is a Python library for dealing with word pluralization.
 pip install -r requirements.txt
 ```
 
--Create a json file at this path called config.json
+- Create a json file at this path called config.json
 
 
 ```bash
@@ -37,7 +37,7 @@ notepad.exe /etc/config.json
     "RECAP_PUBKEY":"enter_recapcha_public_key"
 }
 ```
--Create an empty database
+- Create an empty database
 ```bash
 python create_empty_database.py
 ```
