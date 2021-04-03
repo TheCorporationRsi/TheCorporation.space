@@ -46,7 +46,52 @@ From there all should work except maybe discord AUTH.
 
 
 ## Usage
-lol
+
+- debug setting  
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Flask",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "run.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1",
+                "TESTING":"True" 
+            },
+            "args": [
+                "run",
+                "--no-debugger",
+                "--no-reload"
+            ],
+            "jinja": true
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
+```
+
+
+
+how to update database model
+python manage.py db init
+
+
+python manage.py db migrate
+
+
+python manage.py db upgrade
+
 
 ## License
 This is the property of TheCorporation.space
