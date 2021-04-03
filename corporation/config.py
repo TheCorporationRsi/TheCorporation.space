@@ -14,7 +14,7 @@ class Config:
     MAIL_PASSWORD = config.get('EMAIL_PASS')
     DISCORD_CLIENT_ID = config.get('DISCORD_ID')
     DISCORD_CLIENT_SECRET = config.get('DISCORD_SECRET')
-    DISCORD_REDIRECT_URI = "https://thecorporation.space/discord_callback"
+    DISCORD_REDIRECT_URI = config.get('DISCORD_REDIRECT_URI')
     DISCORD_BOT_TOKEN = config.get('DISCORD_BOT_TOKEN')
     RECAPTCHA_USE_SSL = False
     RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
