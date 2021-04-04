@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     guilded_username = db.Column(db.String(20), unique=False, nullable=True)
     guilded_id =db.Column(db.String(20), unique=True, nullable=True)
     
-    #Security mesure
+    #Security level
     security = db.Column(db.Integer, unique=False, nullable=True)
     
     #Content
