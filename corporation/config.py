@@ -7,6 +7,13 @@ with open('/etc/config.json') as config_file:
 class Config: 
     SECRET_KEY = config.get('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = config.get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_BINDS = {
+    'influence_db': 'sqlite:///influence.db',
+    'role_db': 'sqlite:///role.db',
+    'social_db': 'sqlite:///social.db'
+    }
+
+
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True

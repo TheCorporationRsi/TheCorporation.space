@@ -51,6 +51,7 @@ class User(db.Model, UserMixin):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
 
 class Role(db.Model):
+    __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -61,6 +62,7 @@ class Role(db.Model):
 
     
 class Post(db.Model):
+    __bind_key__ = 'social_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -72,6 +74,7 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
     
 class Message(db.Model):
+    __bind_key__ = 'social_db'
     id = db.Column(db.Integer, primary_key=True)
     sender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

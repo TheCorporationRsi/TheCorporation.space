@@ -22,3 +22,7 @@ corporation/posts/__pycache__/*
 corporation/users/__pycache__/*
 .vscode/launch.json
 .vscode/setting.json
+corporation/user.db
+corporation/role.db
+corporation/social.db
+corporation/influence.db
