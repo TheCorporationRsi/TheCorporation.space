@@ -19,32 +19,18 @@
                 {{ form.title(class="form-control form-control-lg")}}
                 {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.departement.label(class="form-control-label")}}
-
-                {% if form.departement.errors %}
-                {{ form.departement(class="form-control form-control-lg is-invalid")}}
-                <div class="invalid-feedback">
-                    {% for error in form.departement.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.departement(class="form-control form-control-lg")}}
-                {% endif %}
-            </div>
         </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-primary")}}
         </div>
     </form>
-    <h1 class="mb-3 text-white">Division list</h1>
-    {% for division in divisions %}
+    <h1 class="mb-3 text-white">Departement list</h1>
+    {% for departement in departements %}
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2 postuser" href="">{{ division.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ User_Role.query.filter_by(division_id = division.id).count() }}</small>
+                <a class="mr-2 postuser" href="">{{ departement.title }}</a>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ User_Role.query.filter_by(departement_id = departement.id).count() }}</small>
             </div>
         </div>
     </article>
