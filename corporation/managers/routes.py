@@ -21,6 +21,7 @@ def user_manager():
     
     return render_template("managers/user_manager.html", title = "User manager", users = users)
 
+
 @managers.route("/role_manager", methods=['GET', 'POST'])
 @login_required
 def role_manager():
@@ -72,6 +73,9 @@ def division_manager():
     divisions = Division.query.order_by(Division.departement_id).all()
     return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, User_Role = User_Role)
 
+
+
+""" 
 @managers.route("/departement_manager/<int:departement_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_departement(departement_id):
@@ -95,6 +99,12 @@ def delete_division(division_id):
     db.session.commit()
     flash('Division has been deleted!', 'success')
     return redirect(url_for('managers.division_manager'))
+    
+    
+     """
+    
+    
+    
     
 @managers.route("/erkul")
 def erkul():
