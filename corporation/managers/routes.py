@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 from corporation import db, discord
-from corporation.models import Post, User, Role, Division
+from corporation.models import Post, User, Role, Division, User_Role, Departement
 from flask_discord import requires_authorization
 from corporation.managers.forms import CreationForm
 
@@ -46,9 +46,9 @@ def division_manager():
         db.session.commit()
         flash('Your post has been created!', 'success')
     
-    divisions = Division.query.order_by(Division.id.desc()).all()
+    divisions = Division.query.order_by(Division.title).all()
     print(divisions)
-    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form)
+    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, User_Role = User_Role)
 
 
 @managers.route("/division_manager/<int:divison_id>/delete", methods=['POST'])

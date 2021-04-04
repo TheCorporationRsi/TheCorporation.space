@@ -58,6 +58,7 @@ class User_Role(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
+    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
     
     def __repr__(self):
         return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
@@ -68,8 +69,9 @@ class Role(db.Model):
     title = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
     
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=False)
+    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
     members = db.relationship('User_Role', backref='role', lazy=True)
     
     def __repr__(self):
@@ -83,7 +85,24 @@ class Division(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     roles = db.relationship('Role', backref='division', lazy=True)
+    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
+    
     members = db.relationship('User_Role', backref='division', lazy=True)
+    
+    def __repr__(self):
+        return f"Role('{self.title}', '{self.date_added}')"
+    
+class Departement(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    roles = db.relationship('Role', backref='departement', lazy=True)
+    divisions = db.relationship('Division', backref='departement', lazy=True)
+    
+    members = db.relationship('User_Role', backref='departement', lazy=True)
     
     admins = db.relationship('User', backref='user.id', lazy=True)
     
