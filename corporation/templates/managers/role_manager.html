@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+<main role="main" class="container">
+    <h1 class="mb-3 text-white">Role list</h1>
+    {% for role in roles.items %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2 postuser" href="">{{ role.title }}</a>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count{{ User_Role.query.filter_by(role == role.id).count() }}</small>
+            </div>
+            <p class="article-content">{{ role.created_by }}</p>
+        </div>
+    </article>
+    {% endfor %}
+</main>
+{% endblock content %}

@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     
     #role
-    roles = db.relationship('Role', backref='member', lazy=True)
+    roles = db.relationship('User_Role', backref='member', lazy=True)
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -50,15 +50,46 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
 
-class Role(db.Model):
+class User_Role(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
     
     def __repr__(self):
         return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
+
+class Role(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
+    
+    members = db.relationship('User_Role', backref='role', lazy=True)
+    
+    def __repr__(self):
+        return f"Role('{self.title}', '{self.date_added}')"
+    
+class Division(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    roles = db.relationship('Role', backref='division', lazy=True)
+    members = db.relationship('User_Role', backref='division', lazy=True)
+    
+    admins = db.relationship('User', backref='user.id', lazy=True)
+    
+    
+    def __repr__(self):
+        return f"Division('{self.title}', '{self.date_added}')"
 
     
 class Post(db.Model):
