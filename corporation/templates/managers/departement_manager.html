@@ -30,7 +30,7 @@
         <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2 postuser" href="">{{ departement.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ User_Role.query.filter_by(departement_id = departement.id).count() }}</small>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ departement.members.count() }}</small>
             </div>
         </div>
     </article>

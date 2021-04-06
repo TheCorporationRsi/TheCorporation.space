@@ -1,6 +1,29 @@
 {% extends "main.html" %}
 {% block content %}
 <main role="main" class="container">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> All
+        </label>
+        {% for departement in departements %}
+        <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked> {{ departement.title }}
+        </label>
+        {% endfor %}
+    </div>
+    <br>
+    <br>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <label class="btn btn-secondary active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> All
+    </label>
+
+    {% for division in divisions %}
+    <label class="btn btn-secondary">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked>{{ division.title }}
+    </label>
+    {% endfor %}
+    </div>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
@@ -44,7 +67,7 @@
         <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2 postuser" href="">{{ role.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ User_Role.query.filter_by(role_id = role.id).count() }}</small>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ role.members.count() }}</small>
             </div>
         </div>
     </article>

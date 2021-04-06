@@ -28,16 +28,16 @@ def user_manager():
 @managers.route("/role_manager/<int:departement>/<int:division>", methods=['GET', 'POST'])
 @login_required
 def role_manager(departement, division):
-    
-    print(division)
-    print(departement)
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
+    
+    
+    
     form = Role_Form()
     if form.validate_on_submit():
-        departement_id = Division.query.filter_by(id = form.division.data.id).first().id
-        role = Role(title= form.title.data, division_id= form.division.data.id, departement_id= departement_id ,created_by= current_user.id)
+        departement = Division.query.filter_by(id = form.division.data.id).first()
+        role = Role(title= form.title.data, division= form.division.data, departement= departement ,created_by= current_user.id)
         db.session.add(role)
         db.session.commit()
         flash('Role has been created!', 'success')
@@ -49,8 +49,12 @@ def role_manager(departement, division):
         roles = Role.query.filter_by(division_id = division).all()
     elif departement > 0:
         roles = Role.query.filter_by(departement_id = departement).all()
+        
+    if current_user.RSI_handle == 'Cyber-Dreamer':
+        divisions = Division.query.order_by(Division.title).all()
+        departements = Departement.query.order_by(Departement.title).all()
     
-    return render_template("managers/role_manager.html", title = "Role manager", roles = roles,  form=form, User_Role = User_Role)
+    return render_template("managers/role_manager.html", title = "Role manager", roles = roles,  form=form, User_Role = User_Role, divisions = divisions, departements = departements)
 
 
 #================================================= Division =========================================================
@@ -64,7 +68,7 @@ def division_manager(departement = 0):
     
     form = Division_Form()
     if form.validate_on_submit():
-        division = Division(title= form.title.data, departement_id= form.departement.data.id ,created_by= current_user.id)
+        division = Division(title= form.title.data, departement= form.departement.data ,created_by= current_user.id)
         db.session.add(division)
         db.session.commit()
         flash('Division has been created!', 'success')
