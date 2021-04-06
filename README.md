@@ -89,6 +89,6 @@ https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
 
 
 ## License
-This is the property of TheCorporation.space .
+This is the property of thecorporation (CORP), a Star citizen community.
 
-You may ask CyberDreamer#9412 on discord before reusing the code on another project.
+You may ask CyberDreamer#9412 on discord before reusing the code on another project outside of the CORP.
