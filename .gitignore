@@ -27,3 +27,4 @@ corporation/role.db
 corporation/social.db
 corporation/influence.db
 corporation/static/profile_pics/*
+corporation/logs.db

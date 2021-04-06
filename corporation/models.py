@@ -133,7 +133,28 @@ class Message(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+
+
+
+
+
+
+class Logs(db.Model):
+    __bind_key__ = 'logs_db'
+    id = db.Column(db.Integer, primary_key=True)
+    RSI_handle = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    action_type = db.Column(db.String(100), nullable=False)
+    original = db.Column(db.String(100), nullable=False)
+    Result = db.Column(db.String(100), nullable=False)
     
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
+
+
+
+
     
 ''' 
 class News_post(db.Model):
