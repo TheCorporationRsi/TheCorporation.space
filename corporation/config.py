@@ -10,7 +10,8 @@ class Config:
     SQLALCHEMY_BINDS = {
     'influence_db': 'sqlite:///influence.db',
     'role_db': 'sqlite:///role.db',
-    'social_db': 'sqlite:///social.db'
+    'social_db': 'sqlite:///social.db',
+    'logs_db':  'sqlite:///logs.db'
     }
 
 
