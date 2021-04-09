@@ -24,8 +24,9 @@ def register():
         user = User(RSI_handle= form.RSI_handle.data, email= form.email.data, password= hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash(f'Your account has been created! You can now login.', 'success')
-        return redirect(url_for('users.login'))
+        login_user(user, remember= False)
+        flash(f'Your account has been created!', 'success')
+        return redirect(url_for('users.account'))
     return render_template("user/register.html", title = "Register", form = form)
 
 @users.route("/discord/<int:type>")

@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block content %}
+<main role="main" class="container">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label")}}
+
+                {% if form.title.errors %}
+                {{ form.title(class="form-control form-control-lg is-invalid")}}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control form-control-lg")}}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary")}}
+        </div>
+    </form>
+    <h1 class="mb-3 text-white">Departement list</h1>
+    {% for departement in departements %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2 postuser" href="">{{ departement.title }}</a>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ departement.members.count() }}</small>
+            </div>
+        </div>
+    </article>
+    {% else %}
+    <p> No division found </p>
+    {% endfor %}
+</main>
+{% endblock content %}

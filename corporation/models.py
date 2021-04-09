@@ -25,14 +25,14 @@ class User(db.Model, UserMixin):
     guilded_username = db.Column(db.String(20), unique=False, nullable=True)
     guilded_id =db.Column(db.String(20), unique=True, nullable=True)
     
-    #Security mesure
+    #Security level
     security = db.Column(db.Integer, unique=False, nullable=True)
     
     #Content
     posts = db.relationship('Post', backref='author', lazy=True)
     
     #role
-    roles = db.relationship('Role', backref='member', lazy=True)
+    roles = db.relationship('User_Role', backref='member', lazy=True)
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -50,17 +50,70 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
 
-class Role(db.Model):
+class User_Role(db.Model):
+    __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    RSI_handle = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
+    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
     
     def __repr__(self):
         return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
 
+class Role(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    members = db.relationship('User_Role', backref='role', lazy='dynamic')
+    
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=False)
+    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
+    
+    def __repr__(self):
+        return f"Role('{self.title}', '{self.date_added}')"
+    
+class Division(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    members = db.relationship('User_Role', backref='division', lazy='dynamic')
+    roles = db.relationship('Role', backref='division', lazy='dynamic')
+    
+    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
+    
+    
+    
+    def __repr__(self):
+        return f"Role('{self.title}', '{self.date_added}')"
+    
+class Departement(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    members = db.relationship('User_Role', backref='departement', lazy= 'dynamic')
+    roles = db.relationship('Role', backref='departement', lazy='dynamic')
+    divisions = db.relationship('Division', backref='departement', lazy='dynamic')
+    
+    
+    def __repr__(self):
+        return f"Division('{self.title}', '{self.date_added}')"
+
     
 class Post(db.Model):
+    __bind_key__ = 'social_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -72,6 +125,7 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
     
 class Message(db.Model):
+    __bind_key__ = 'social_db'
     id = db.Column(db.Integer, primary_key=True)
     sender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -80,7 +134,28 @@ class Message(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+
+
+
+
+
+
+class Logs(db.Model):
+    __bind_key__ = 'logs_db'
+    id = db.Column(db.Integer, primary_key=True)
+    RSI_handle = db.Column(db.String(100), nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    action_type = db.Column(db.String(100), nullable=False)
+    original = db.Column(db.String(100), nullable=False)
+    Result = db.Column(db.String(100), nullable=False)
     
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
+
+
+
+
     
 ''' 
 class News_post(db.Model):
