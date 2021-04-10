@@ -62,7 +62,7 @@ def role_manager(department, division):
 @managers.route("/division_manager", defaults={"department": 0}, methods=['GET', 'POST'])
 @managers.route("/division_manager/<int:department>", methods=['GET', 'POST'])
 @login_required
-def division_manager(department = 0):
+def division_manager(department):
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
@@ -82,8 +82,15 @@ def division_manager(department = 0):
         flash('Division has been created!', 'success')
         return redirect(url_for('managers.division_manager'))
     
-    divisions = Division.query.order_by(Division.department_id).all()
-    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, User_Role = User_Role)
+    if department == 0:
+        divisions = Division.query.order_by(Division.department_id).all()
+    elif department > 0:
+        divisions = Division.query.filter_by(department_id = department).order_by(Division.title).all()
+        
+    if current_user.RSI_handle == 'Cyber-Dreamer':
+        departments = Department.query.order_by(Department.title).all()
+    
+    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, User_Role = User_Role, departments = departments, currentdep = department)
 
 
 """ 

@@ -15,9 +15,12 @@ class Department_Form(FlaskForm):
     submit = SubmitField('Create')
     
     def validate_title(self, title):
-        title = Department.query.filter_by(title = title.data).first()
-        if title:
+        test = Department.query.filter_by(title = title.data).first()
+        if test:
             raise ValidationError('Allready exist!')
+        test = Division.query.filter_by(title = title.data).first()
+        if test:
+            raise ValidationError('Cannot be the same as a division that exist!')
     
 class Division_Form(FlaskForm):
     
@@ -28,20 +31,30 @@ class Division_Form(FlaskForm):
     submit = SubmitField('Create')
     
     def validate_title(self, title):
-        title = Division.query.filter_by(title = title.data).first()
-        if title:
+        test = Division.query.filter_by(title = title.data).first()
+        if test:
             raise ValidationError('Allready exist!')
+        
+        test = Department.query.filter_by(title = title.data).first()
+        if test:
+            raise ValidationError('Cannot be the same as a department that exist!')
     
 
 class Role_Form(FlaskForm):
     
     title = StringField('Title', validators= [DataRequired()] )
     
-    division = QuerySelectField(query_factory=lambda: Division.query.all(), get_label='title', allow_blank= True, blank_text=(u'No division'), get_pk=lambda x: 'id')
+    division = QuerySelectField(query_factory=lambda: Division.query.all(), get_label='title', allow_blank= True, blank_text=(u'No division'), get_pk=lambda x: x.id)
     
     submit = SubmitField('Create')
     
     def validate_title(self, title):
-        title = Role.query.filter_by(title = title.data).first()
-        if title:
+        test = Role.query.filter_by(title = title.data).first()
+        if test:
             raise ValidationError('Allready exist!')
+        test = Division.query.filter_by(title = title.data).first()
+        if test:
+            raise ValidationError('Cannot be the same as a division that exist!')
+        test = Department.query.filter_by(title = title.data).first()
+        if test:
+            raise ValidationError('Cannot be the same as a department that exist!')

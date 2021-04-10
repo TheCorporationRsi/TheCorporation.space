@@ -1,6 +1,25 @@
 {% extends "main.html" %}
 {% block content %}
 <main role="main" class="container">
+    <div class="btn-group">
+
+        {% if currentdep == 0 %}
+        <a href="{{ url_for('managers.division_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.division_manager') }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+        
+        {% for department in departments %}
+            {% if currentdep == department.id %}
+                <a href="{{ url_for('managers.division_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
+            {% else %}
+                <a href="{{ url_for('managers.division_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+    <br>
+
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
