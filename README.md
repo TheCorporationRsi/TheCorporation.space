@@ -39,16 +39,16 @@ notepad.exe /etc/config.json
     "RECAP_PUBKEY":"enter_recapcha_public_key"
 }
 ```
-SECRET_KEY : Random charact
-SQLALCHEMY_DATABASE_URI : keep like it is;
-EMAIL_USER : "enter_your_gmail",
-EMAIL_PASS : email password or API specific password
-DISCORD_ID : Discord API id from https://discord.com/developers/applications
-DISCORD_SECRET : Discord API secret key
-DISCORD_BOT_TOKEN : Discord BOT token
-DISCORD_REDIRECT_URI : keep the same thing, but the fact that it need https will prevent it to work
-RECAP_PRVKEY : private key, you have to create your own application on https://cloud.google.com
-RECAP_PUBKEY : public key
+- SECRET_KEY : Random charact
+- SQLALCHEMY_DATABASE_URI : keep like it is
+- EMAIL_USER : "enter_your_gmail"
+- EMAIL_PASS : email password or API specific password
+- DISCORD_ID : Discord API id from https://discord.com/developers/applications
+- DISCORD_SECRET : Discord API secret key
+- DISCORD_BOT_TOKEN : Discord BOT token
+- DISCORD_REDIRECT_URI : keep the same thing, but the fact that it need https will prevent it to work
+- RECAP_PRVKEY : private key, you have to create your own application on https://cloud.google.com
+- RECAP_PUBKEY : public key
 
 - Create an empty database (you have to respond a question while the program run)
 ```bash
