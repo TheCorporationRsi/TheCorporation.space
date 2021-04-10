@@ -1,6 +1,5 @@
-.vscode/
-.vscode/*
-vscode/*
+.vscode/**
+!.vscode/launch.json
 manage.py
 site.db
 venv/lib64
@@ -20,8 +19,6 @@ corporation/departements/__pycache__/*
 corporation/news/__pycache__/*
 corporation/posts/__pycache__/*
 corporation/users/__pycache__/*
-.vscode/launch.json
-.vscode/setting.json
 corporation/user.db
 corporation/role.db
 corporation/social.db
