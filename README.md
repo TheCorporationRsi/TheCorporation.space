@@ -1,6 +1,6 @@
 # TheCorporation.space
 
-Foobar is a Python library for dealing with word pluralization.
+This program need python3.9
 
 ## Installation step
 
