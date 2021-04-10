@@ -4,7 +4,7 @@ Foobar is a Python library for dealing with word pluralization.
 
 ## Installation step
 
--Use pip to install all the requirement
+- Use pip to install all the requirement
 
 ```bash
 pip install -r requirements.txt
@@ -49,6 +49,8 @@ notepad.exe /etc/config.json
 - DISCORD_REDIRECT_URI : keep the same thing, but the fact that it need https will prevent it to work
 - RECAP_PRVKEY : private key, you have to create your own application on https://cloud.google.com
 - RECAP_PUBKEY : public key
+
+
 
 - Create an empty database (you have to respond a question while the program run)
 ```bash
