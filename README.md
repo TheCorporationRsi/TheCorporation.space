@@ -66,40 +66,7 @@ Please follow this tutorial to understand the code structure:
 
 https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
 
-- debug setting  
-```json
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Python: Flask",
-            "type": "python",
-            "request": "launch",
-            "module": "flask",
-            "env": {
-                "FLASK_APP": "run.py",
-                "FLASK_ENV": "development",
-                "FLASK_DEBUG": "1",
-                "TESTING":"True" 
-            },
-            "args": [
-                "run",
-                "--no-debugger",
-                "--no-reload"
-            ],
-            "jinja": true
-        },
-        {
-            "type": "pwa-chrome",
-            "request": "launch",
-            "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}"
-        }
-    ]
-}
-```
-
+For debugging, use VSCode Debugger (the config is already set).
 
 
 ## License
