@@ -49,8 +49,8 @@ notepad.exe /etc/config.json
 - DISCORD_REDIRECT_URI : keep the same thing, but the fact that it need https will prevent it to work
 - RECAP_PRVKEY : private key, you have to create your own application on https://cloud.google.com
 - RECAP_PUBKEY : public key
-
-
+<br />
+<br />
 
 - Create an empty database (you have to respond a question while the program run)
 ```bash
