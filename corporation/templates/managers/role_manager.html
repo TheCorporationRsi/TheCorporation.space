@@ -1,29 +1,45 @@
 {% extends "main.html" %}
 {% block content %}
 <main role="main" class="container">
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> All
-        </label>
-        {% for departement in departements %}
-        <label class="btn btn-secondary active">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> {{ departement.title }}
-        </label>
-        {% endfor %}
-    </div>
-    <br>
-    <br>
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-    <label class="btn btn-secondary active">
-        <input type="radio" name="options" id="option1" autocomplete="off" checked> All
-    </label>
+    <div class="btn-group">
 
-    {% for division in divisions %}
-    <label class="btn btn-secondary">
-        <input type="radio" name="options" id="option1" autocomplete="off" checked>{{ division.title }}
-    </label>
-    {% endfor %}
+        {% if currentdep == 0 %}
+        <a href="{{ url_for('managers.role_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.role_manager') }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+        
+        {% for department in departments %}
+            {% if currentdep == department.id %}
+                <a href="{{ url_for('managers.role_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
+            {% else %}
+                <a href="{{ url_for('managers.role_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
+            {% endif %}
+        {% endfor %}
+
     </div>
+    <br>
+    <br>
+    <div class="btn-group">
+
+        {% if currentdiv == 0 %}
+        <a href="{{ url_for('managers.role_manager', department = currentdep ) }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.role_manager', department = currentdep) }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+
+        {% for division in divisions %}
+        {% if currentdep == 0 or currentdep == division.department.id %}
+            {% if currentdiv == division.id %}
+                <a href="{{ url_for('managers.role_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary active">{{ division.title }}</a>
+            {% else %} 
+                <a href="{{ url_for('managers.role_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary">{{ division.title }}</a>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">

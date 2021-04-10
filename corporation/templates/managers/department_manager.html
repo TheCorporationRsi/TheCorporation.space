@@ -24,13 +24,13 @@
             {{ form.submit(class="btn btn-primary")}}
         </div>
     </form>
-    <h1 class="mb-3 text-white">Departement list</h1>
-    {% for departement in departements %}
+    <h1 class="mb-3 text-white">Department list</h1>
+    {% for department in departments %}
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2 postuser" href="">{{ departement.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ departement.members.count() }}</small>
+                <a class="mr-2 postuser" href="">{{ department.title }}</a>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: {{ department.members.count() }}</small>
             </div>
         </div>
     </article>
