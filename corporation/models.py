@@ -9,6 +9,10 @@ from flask import current_app
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+rolevsuser = db.Table('rolevsuser',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('role_id', db.Integer, db.ForeignKey('role.id'), primary_key=True)
+)
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     
@@ -32,7 +36,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     
     #role
-    roles = db.relationship('User_Role', backref='member', lazy=True)
+    roles = db.relationship('Role', secondary = rolevsuser, lazy= 'dynamic', backref= db.backref('users', lazy = 'dynamic'))
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -50,31 +54,19 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
 
-class User_Role(db.Model):
-    __bind_key__ = 'role_db'
-    id = db.Column(db.Integer, primary_key=True)
-    RSI_handle = db.Column(db.String(100), nullable=False)
-    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
-    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
-    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
-    
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
+
 
 class Role(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(100), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    members = db.relationship('User_Role', backref='role', lazy='dynamic')
-    
-    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=False)
-    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable= True)
+    dep_head = db.Column(db.Boolean, nullable=False, default= False)
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable= True)
+    div_head = db.Column(db.Boolean, nullable=False, default= False)
     
     def __repr__(self):
         return f"Role('{self.title}', '{self.date_added}')"
@@ -82,30 +74,28 @@ class Role(db.Model):
 class Division(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(100), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    members = db.relationship('User_Role', backref='division', lazy='dynamic')
-    roles = db.relationship('Role', backref='division', lazy='dynamic')
     
-    departement_id = db.Column(db.Integer, db.ForeignKey('departement.id'), nullable=False)
+    roles = db.relationship('Role', backref='division', lazy='dynamic')
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
     
     
     
     def __repr__(self):
         return f"Role('{self.title}', '{self.date_added}')"
     
-class Departement(db.Model):
+class Department(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(100), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    members = db.relationship('User_Role', backref='departement', lazy= 'dynamic')
-    roles = db.relationship('Role', backref='departement', lazy='dynamic')
-    divisions = db.relationship('Division', backref='departement', lazy='dynamic')
+    roles = db.relationship('Role', backref='department', lazy='dynamic')
+    divisions = db.relationship('Division', backref='department', lazy='dynamic')
     
     
     def __repr__(self):

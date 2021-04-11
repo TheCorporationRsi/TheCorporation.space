@@ -228,10 +228,10 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
-                  Departement
+                  Department
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item nav-link" href="{{ url_for('departements.dep_info') }}">Info</a>
+                  <a class="dropdown-item nav-link" href="{{ url_for('departments.dep_info') }}">Info</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item nav-link" href="#">Exploration</a>
                   <a class="dropdown-item nav-link" href="#">Business</a>
@@ -289,7 +289,7 @@
                   <a class="dropdown-item nav-link" href="{{ url_for('managers.user_manager') }}">User manager</a>
                   <a class="dropdown-item nav-link" href="{{ url_for('managers.role_manager') }}">Role manager</a>
                   <a class="dropdown-item nav-link" href="{{ url_for('managers.division_manager') }}">Division manager</a>
-                  <a class="dropdown-item nav-link" href="{{ url_for('managers.departement_manager') }}">Departement manager</a>
+                  <a class="dropdown-item nav-link" href="{{ url_for('managers.department_manager') }}">Department manager</a>
                   {% endif %}
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>

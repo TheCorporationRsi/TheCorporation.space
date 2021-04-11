@@ -1,81 +1,111 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 from corporation import db, discord
-from corporation.models import Post, User, Role, Division, User_Role, Departement
+from corporation.models import Post, User, Role, Division, Department
 from flask_discord import requires_authorization
-from corporation.managers.forms import Departement_Form, Division_Form, Role_Form
+from corporation.managers.forms import Department_Form, Division_Form, Role_Form
 
 from flask import Blueprint
 
 managers = Blueprint('managers', __name__)
 
 
-@managers.route("/user_manager", methods=['GET', 'POST'])
+
+@managers.route("/user_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
-def user_manager():
+def user_manager(department, division):
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
     page = request.args.get('page', 1, type=int)
-    users = User.query.order_by(User.id.desc()).paginate(page= page, per_page=100)
     
-    return render_template("managers/user_manager.html", title = "User manager", users = users)
+    
+    if department == 0 and division == 0:
+        users = User.query.order_by(User.RSI_handle).paginate(page= page, per_page=100)
+    elif division > 0:
+        users = User.query.join(Role, User.roles).filter(Role.division_id == division).paginate(page= page, per_page=100)
+    elif department > 0:
+        users = User.query.join(Role, User.roles).filter(Role.department_id == department).paginate(page= page, per_page=100)
+        
+        
+    if current_user.RSI_handle == 'Cyber-Dreamer':
+        divisions = Division.query.order_by(Division.title).all()
+        departments = Department.query.order_by(Department.title).all()
+    
+    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
 
 
 #================================================= Role =========================================================
-@managers.route("/role_manager", defaults={"departement": 0, "division": 0}, methods=['GET', 'POST'])
-@managers.route("/role_manager/<int:departement>", defaults={"division": 0}, methods=['GET', 'POST'])
-@managers.route("/role_manager/<int:departement>/<int:division>", methods=['GET', 'POST'])
+@managers.route("/role_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
+@managers.route("/role_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])
+@managers.route("/role_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
-def role_manager(departement, division):
+def role_manager(department, division):
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
-    
-    
-    
     form = Role_Form()
     if form.validate_on_submit():
-        departement = Division.query.filter_by(id = form.division.data.id).first()
-        role = Role(title= form.title.data, division= form.division.data, departement= departement ,created_by= current_user.id)
+        if form.division.data:
+            department = Division.query.filter_by(id = form.division.data.id).first()
+            role = Role(title= form.title.data, division= form.division.data, department= department ,created_by= current_user.id)
+        else:
+            role = Role(title= form.title.data, created_by= current_user.id)
         db.session.add(role)
         db.session.commit()
         flash('Role has been created!', 'success')
         return redirect(url_for('managers.role_manager'))
     
-    if departement == 0 and division == 0:
-        roles = Role.query.order_by(Role.departement_id).all()
+    if department == 0 and division == 0:
+        roles = Role.query.order_by(Role.title).all()
     elif division > 0:
-        roles = Role.query.filter_by(division_id = division).all()
-    elif departement > 0:
-        roles = Role.query.filter_by(departement_id = departement).all()
+        roles = Role.query.filter_by(division_id = division).order_by(Role.title).all()
+    elif department > 0:
+        roles = Role.query.filter_by(department_id = department).order_by(Role.title).all()
         
     if current_user.RSI_handle == 'Cyber-Dreamer':
         divisions = Division.query.order_by(Division.title).all()
-        departements = Departement.query.order_by(Departement.title).all()
+        departments = Department.query.order_by(Department.title).all()
     
-    return render_template("managers/role_manager.html", title = "Role manager", roles = roles,  form=form, User_Role = User_Role, divisions = divisions, departements = departements)
+    return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
 
 
 #================================================= Division =========================================================
 
-@managers.route("/division_manager", defaults={"departement": 0}, methods=['GET', 'POST'])
-@managers.route("/division_manager/<int:departement>", methods=['GET', 'POST'])
+@managers.route("/division_manager", defaults={"department": 0}, methods=['GET', 'POST'])
+@managers.route("/division_manager/<int:department>", methods=['GET', 'POST'])
 @login_required
-def division_manager(departement = 0):
+def division_manager(department):
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
     form = Division_Form()
     if form.validate_on_submit():
-        division = Division(title= form.title.data, departement= form.departement.data ,created_by= current_user.id)
+        division = Division(title= form.title.data, department= form.department.data ,created_by= current_user.id)
         db.session.add(division)
+        db.session.commit()
+        
+        division_id = division.id
+        department_id = division.department.id
+        div_head = Role(title= form.title.data + " Head", div_head = True , created_by = current_user.id , department_id = department_id, division_id = division_id)
+        div_proxy = Role(title= form.title.data + " Proxy", created_by = current_user.id , department_id = department_id, division_id = division_id )
+        db.session.add(div_head)
+        db.session.add(div_proxy)
         db.session.commit()
         flash('Division has been created!', 'success')
         return redirect(url_for('managers.division_manager'))
     
-    divisions = Division.query.order_by(Division.departement_id).all()
-    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, User_Role = User_Role)
+    if department == 0:
+        divisions = Division.query.order_by(Division.department_id).all()
+    elif department > 0:
+        divisions = Division.query.filter_by(department_id = department).order_by(Division.title).all()
+        
+    if current_user.RSI_handle == 'Cyber-Dreamer':
+        departments = Department.query.order_by(Department.title).all()
+    
+    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, departments = departments, currentdep = department)
 
 
 """ 
@@ -92,40 +122,47 @@ def delete_division(division_id):
     return redirect(url_for('managers.division_manager'))
 """
 
-#================================================= Departement =========================================================
+#================================================= Department =========================================================
 
 
-@managers.route("/departement_manager", methods=['GET', 'POST'])
+@managers.route("/department_manager", methods=['GET', 'POST'])
 @login_required
-def departement_manager():
+def department_manager():
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
     
-    form = Departement_Form()
+    form = Department_Form()
     if form.validate_on_submit():
-        departement = Departement(title= form.title.data, created_by= current_user.id)
-        db.session.add(departement)
+        department = Department(title= form.title.data, created_by= current_user.id)
+        db.session.add(department)
         db.session.commit()
-        flash('Your post has been created!', 'success')
-        return redirect(url_for('managers.departement_manager'))
+        
+        department_id = department.id
+        dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.id , department_id = department_id )
+        dp_proxy = Role(title= form.title.data + " Proxy", created_by = current_user.id , department_id = department_id )
+        db.session.add(dp_head)
+        db.session.add(dp_proxy)
+        db.session.commit()
+        flash('The Department has been created!', 'success')
+        return redirect(url_for('managers.department_manager'))
     
-    departements = Departement.query.order_by(Departement.title).all()
-    return render_template("managers/departement_manager.html", title = "Departement manager", departements = departements,  form=form, User_Role = User_Role)
+    departments = Department.query.order_by(Department.title).all()
+    return render_template("managers/department_manager.html", title = "Department manager", Role = Role, departments = departments,  form=form)
 
 
 """ 
-@managers.route("/departement_manager/<int:departement_id>/delete", methods=['GET', 'POST'])
+@managers.route("/department_manager/<int:department_id>/delete", methods=['GET', 'POST'])
 @login_required
-def delete_departement(departement_id):
+def delete_department(department_id):
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
-    departement = Departement.query.get_or_404(departement_id)
-    db.session.delete(departement)
+    department = Department.query.get_or_404(department_id)
+    db.session.delete(department)
     db.session.commit()
-    flash('Departement has been deleted!', 'success')
-    return redirect(url_for('managers.departement_manager'))
+    flash('Departemnt has been deleted!', 'success')
+    return redirect(url_for('managers.department_manager'))
 
 """
 

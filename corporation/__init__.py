@@ -52,13 +52,13 @@ def create_app(config_class = Config):
     from corporation.errors.handlers import errors
     from corporation.news.routes import news
     from corporation.managers.routes import managers
-    from corporation.departements.routes import departements
+    from corporation.departments.routes import departments
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
     app.register_blueprint(news)
     app.register_blueprint(managers)
-    app.register_blueprint(departements)
+    app.register_blueprint(departments)
 
     return app

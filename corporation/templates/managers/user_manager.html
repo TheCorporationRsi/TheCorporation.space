@@ -1,6 +1,45 @@
 {% extends "main.html" %}
 {% block content %}
 <main role="main" class="container">
+    <div class="btn-group">
+
+        {% if currentdep == 0 %}
+        <a href="{{ url_for('managers.user_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.user_manager') }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+        
+        {% for department in departments %}
+            {% if currentdep == department.id %}
+                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
+            {% else %}
+                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+    <br>
+    <br>
+    <div class="btn-group">
+
+        {% if currentdiv == 0 %}
+        <a href="{{ url_for('managers.user_manager', department = currentdep ) }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.user_manager', department = currentdep) }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+
+        {% for division in divisions %}
+        {% if currentdep == 0 or currentdep == division.department.id %}
+            {% if currentdiv == division.id %}
+                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary active">{{ division.title }}</a>
+            {% else %} 
+                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary">{{ division.title }}</a>
+            {% endif %}
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
     <h1 class="mb-3 text-white">User list</h1>
     {% for user in users.items %}
     <article class="media content-section">
@@ -10,8 +49,7 @@
             <div class="article-metadata">
                 <a class="mr-2 postuser" href="">{{
                     user.RSI_handle }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;">{{ user.discord_username
-                    }}</small>
+                <small class="" style=" color:rgb(231, 231, 231)!important;">{{ user.discord_username }}</small>
             </div>
             <p class="article-content">{{ user.email }}</p>
         </div>
