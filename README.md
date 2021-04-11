@@ -31,15 +31,15 @@ notepad.exe /etc/config.json
     "SQLALCHEMY_DATABASE_URI": "sqlite:///site.db",
     "EMAIL_USER": "enter_your_gmail",
     "EMAIL_PASS": "enter_gmail_password",
-    "DISCORD_ID": "enter_discord_api_id",
-    "DISCORD_SECRET":"enter_discord_secret",
-    "DISCORD_BOT_TOKEN": "enter_discord_bot_token",
+    "DISCORD_ID": "830787414699016202",
+    "DISCORD_SECRET":"Vg13hSlt-DLcEdHS2BUs7IVfBflc4l-r",
+    "DISCORD_BOT_TOKEN": "ODMwNzg3NDE0Njk5MDE2MjAy.YHLxEg.HQwmdYJ85mqA2WreUuNw1-DrmyY",
     "DISCORD_REDIRECT_URI":"localhost:5000/discord_callback",
     "RECAP_PRVKEY":"enter_recapcha_private_key",
     "RECAP_PUBKEY":"enter_recapcha_public_key"
 }
 ```
-- SECRET_KEY : Random charact
+- SECRET_KEY : Random characters, you can simply google hex key generator
 - SQLALCHEMY_DATABASE_URI : keep like it is
 - EMAIL_USER : "enter_your_gmail"
 - EMAIL_PASS : email password or API specific password
