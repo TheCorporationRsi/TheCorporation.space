@@ -7,5 +7,5 @@ if answer == "yes":
     app.app_context().push()
     with app.app_context(): db.create_all()
 
-elif answer == "no": 
+else: 
     print('No database created')

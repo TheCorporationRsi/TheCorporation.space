@@ -22,8 +22,12 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
-mail = Mail()
-discord = DiscordOAuth2Session()
+
+try:
+    mail = Mail()
+    discord = DiscordOAuth2Session()
+except:
+    print("This application Multiple feature will not work properly")
 
 
 
@@ -34,8 +38,13 @@ def create_app(config_class = Config):
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    mail.init_app(app)
-    discord.init_app(app)
+    
+    try:
+        mail.init_app(app)
+        discord.init_app(app)
+    except:
+        print("This application Multiple feature will not work properly")
+
 
     from corporation.users.routes import users
     from corporation.posts.routes import posts

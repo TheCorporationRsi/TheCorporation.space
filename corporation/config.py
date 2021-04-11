@@ -15,17 +15,19 @@ class Config:
     'logs_db':  'sqlite:///logs.db'
     }
 
-
-    MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = config.get('EMAIL_USER')
-    MAIL_PASSWORD = config.get('EMAIL_PASS')
-    DISCORD_CLIENT_ID = config.get('DISCORD_ID')
-    DISCORD_CLIENT_SECRET = config.get('DISCORD_SECRET')
-    DISCORD_REDIRECT_URI = config.get('DISCORD_REDIRECT_URI')
-    DISCORD_BOT_TOKEN = config.get('DISCORD_BOT_TOKEN')
-    RECAPTCHA_USE_SSL = False
-    RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
-    RECAPTCHA_PRIVATE_KEY = config.get('RECAP_PRVKEY')
-    RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
+    try:
+        MAIL_SERVER = 'smtp.gmail.com'
+        MAIL_PORT = 587
+        MAIL_USE_TLS = True
+        MAIL_USERNAME = config.get('EMAIL_USER')
+        MAIL_PASSWORD = config.get('EMAIL_PASS')
+        DISCORD_CLIENT_ID = config.get('DISCORD_ID')
+        DISCORD_CLIENT_SECRET = config.get('DISCORD_SECRET')
+        DISCORD_REDIRECT_URI = config.get('DISCORD_REDIRECT_URI')
+        DISCORD_BOT_TOKEN = config.get('DISCORD_BOT_TOKEN')
+        RECAPTCHA_USE_SSL = False
+        RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
+        RECAPTCHA_PRIVATE_KEY = config.get('RECAP_PRVKEY')
+        RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
+    except:
+        print("This application Multiple feature will not work properly")
