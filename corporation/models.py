@@ -9,10 +9,15 @@ from flask import current_app
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-rolevsuser = db.Table('rolevsuser',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
-    db.Column('role_id', db.Integer, db.ForeignKey('role.id'), primary_key=True)
-)
+
+class Rolevsuser(db.Model):
+    __bind_key__ = 'role_db'
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    role = db.relationship("Role", back_populates="members")
+    user = db. relationship("User", back_populates="roles")
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     
@@ -36,7 +41,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     
     #role
-    roles = db.relationship('Role', secondary = rolevsuser, lazy= 'dynamic', backref= db.backref('users', lazy = 'dynamic'))
+    roles = db.relationship("Rolevsuser", back_populates="user", lazy='dynamic')
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -62,6 +67,8 @@ class Role(db.Model):
     title = db.Column(db.String(100), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    members = db.relationship("Rolevsuser", back_populates="role", lazy='dynamic')
     
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable= True)
     dep_head = db.Column(db.Boolean, nullable=False, default= False)

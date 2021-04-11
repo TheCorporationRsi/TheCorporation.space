@@ -58,3 +58,5 @@ class Role_Form(FlaskForm):
         test = Department.query.filter_by(title = title.data).first()
         if test:
             raise ValidationError('Cannot be the same as a department that exist!')
+        
+
