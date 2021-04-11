@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 from corporation import db, discord
-from corporation.models import Post, User, Role, Division, Department, UserRole
+from corporation.models import Post, User, Role, Division, Department
 from flask_discord import requires_authorization
 from corporation.managers.forms import Department_Form, Division_Form, Role_Form
 
@@ -25,9 +25,9 @@ def user_manager(department, division):
     if department == 0 and division == 0:
         users = User.query.order_by(User.RSI_handle).paginate(page= page, per_page=100)
     elif division > 0:
-        users = User.query.join(UserRole).filter(UserRole.division_id == division).order_by(User.RSI_handle).paginate(page= page, per_page=100)
+        users = User.query.join(Role, User.roles).filter(Role.division_id == division).paginate(page= page, per_page=100)
     elif department > 0:
-        users = User.query.join(UserRole).filter(UserRole.division_id == division).order_by(User.RSI_handle).paginate(page= page, per_page=100)
+        users = User.query.join(Role, User.roles).filter(Role.department_id == department).paginate(page= page, per_page=100)
         
         
     if current_user.RSI_handle == 'Cyber-Dreamer':

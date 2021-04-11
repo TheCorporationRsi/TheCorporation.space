@@ -15,7 +15,7 @@ corporation/__pycache__/*
 corporation/managers/__pycache__/*
 corporation/main/__pycache__/*
 corporation/errors/__pycache__/*
-corporation/departements/__pycache__/*
+corporation/departments/__pycache__/*
 corporation/news/__pycache__/*
 corporation/posts/__pycache__/*
 corporation/users/__pycache__/*
