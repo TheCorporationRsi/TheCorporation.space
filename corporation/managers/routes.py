@@ -25,10 +25,11 @@ def user_manager(department, division):
     if department == 0 and division == 0:
         users = User.query.order_by(User.RSI_handle).paginate(page= page, per_page=100)
     elif division > 0:
-        users = User.query.join(Role, User.roles).filter(Role.division_id == division).paginate(page= page, per_page=100)
+        users = User.query.filter(User.roles.any(Role.division_id == division))
+            
     elif department > 0:
-        users = User.query.join(Role, User.roles).filter(Role.department_id == department).paginate(page= page, per_page=100)
-        
+        users = User.query.filter(User.roles.any(Role.department_id == department))
+            
         
     if current_user.RSI_handle == 'Cyber-Dreamer':
         divisions = Division.query.order_by(Division.title).all()
