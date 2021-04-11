@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     
     #role
-    roles = db.relationship('User_Role', backref='member', lazy=True)
+    roles = db.relationship('UserRole', backref='member', lazy= 'dynamic')
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -50,16 +50,14 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
 
-class User_Role(db.Model):
+class UserRole(db.Model):
     __bind_key__ = 'role_db'
-    id = db.Column(db.Integer, primary_key=True)
-    RSI_handle = db.Column(db.String(100), nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, primary_key = True)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False, primary_key = True)
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
-    department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=True)
     
     def __repr__(self):
         return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
@@ -71,7 +69,7 @@ class Role(db.Model):
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    members = db.relationship('User_Role', backref='role', lazy='dynamic')
+    members = db.relationship('UserRole', backref='role', lazy='dynamic')
     
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable= True)
     dep_head = db.Column(db.Boolean, nullable=False, default= False)
@@ -88,7 +86,7 @@ class Division(db.Model):
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    members = db.relationship('User_Role', backref='division', lazy='dynamic')
+    members = db.relationship('UserRole', backref='division', lazy='dynamic')
     roles = db.relationship('Role', backref='division', lazy='dynamic')
     
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
@@ -105,7 +103,7 @@ class Department(db.Model):
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    members = db.relationship('User_Role', backref='department', lazy= 'dynamic')
+    members = db.relationship('UserRole', backref='department', lazy= 'dynamic')
     roles = db.relationship('Role', backref='department', lazy='dynamic')
     divisions = db.relationship('Division', backref='department', lazy='dynamic')
     

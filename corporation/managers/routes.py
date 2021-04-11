@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 from corporation import db, discord
-from corporation.models import Post, User, Role, Division, User_Role, Department
+from corporation.models import Post, User, Role, Division, Department, UserRole
 from flask_discord import requires_authorization
 from corporation.managers.forms import Department_Form, Division_Form, Role_Form
 
@@ -10,16 +10,31 @@ from flask import Blueprint
 managers = Blueprint('managers', __name__)
 
 
-@managers.route("/user_manager", methods=['GET', 'POST'])
+
+@managers.route("/user_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
-def user_manager():
+def user_manager(department, division):
     if current_user.RSI_handle != 'Cyber-Dreamer':
         return redirect(url_for('main.home'))
     
     page = request.args.get('page', 1, type=int)
-    users = User.query.order_by(User.id.desc()).paginate(page= page, per_page=100)
     
-    return render_template("managers/user_manager.html", title = "User manager", users = users)
+    
+    if department == 0 and division == 0:
+        users = User.query.order_by(User.RSI_handle).paginate(page= page, per_page=100)
+    elif division > 0:
+        users = User.query.join(UserRole).filter(UserRole.division_id == division).order_by(User.RSI_handle).paginate(page= page, per_page=100)
+    elif department > 0:
+        users = User.query.join(UserRole).filter(UserRole.division_id == division).order_by(User.RSI_handle).paginate(page= page, per_page=100)
+        
+        
+    if current_user.RSI_handle == 'Cyber-Dreamer':
+        divisions = Division.query.order_by(Division.title).all()
+        departments = Department.query.order_by(Department.title).all()
+    
+    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
 
 
 #================================================= Role =========================================================
@@ -54,7 +69,7 @@ def role_manager(department, division):
         divisions = Division.query.order_by(Division.title).all()
         departments = Department.query.order_by(Department.title).all()
     
-    return render_template("managers/role_manager.html", title = "Role manager", roles = roles,  form=form, User_Role = User_Role, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
+    return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
 
 
 #================================================= Division =========================================================
@@ -90,7 +105,7 @@ def division_manager(department):
     if current_user.RSI_handle == 'Cyber-Dreamer':
         departments = Department.query.order_by(Department.title).all()
     
-    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, User_Role = User_Role, departments = departments, currentdep = department)
+    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, departments = departments, currentdep = department)
 
 
 """ 
@@ -133,7 +148,7 @@ def department_manager():
         return redirect(url_for('managers.department_manager'))
     
     departments = Department.query.order_by(Department.title).all()
-    return render_template("managers/department_manager.html", title = "Department manager", departments = departments,  form=form, User_Role = User_Role)
+    return render_template("managers/department_manager.html", title = "Department manager", Role = Role, departments = departments,  form=form)
 
 
 """ 
