@@ -35,8 +35,8 @@ notepad.exe /etc/config.json
     "DISCORD_SECRET":"enter_discord_secret",
     "DISCORD_BOT_TOKEN": "enter_bot_token",
     "DISCORD_REDIRECT_URI":"localhost:5000/discord_callback",
-    "RECAP_PRVKEY":"enter_recapcha_private_key",
-    "RECAP_PUBKEY":"enter_recapcha_public_key"
+    "RECAP_PRVKEY":"6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
+    "RECAP_PUBKEY":"6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
 }
 ```
 - SECRET_KEY : Random characters, you can simply google hex key generator
