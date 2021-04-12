@@ -55,6 +55,51 @@ class User(db.Model, UserMixin):
         except:
             return None
         return User.query.get(user_id)
+    
+    def has_role(self, role):
+        for link in self.roles:
+            if link.role == role:
+                return True
+        return False
+    
+    def is_manager(self, manager_type = None, division = -1 , department = -1):
+        if self.security == 5:
+            return True
+        
+        if division == -1  and department == -1:
+            for link in self.roles:
+                if (link.role.dep_head and (manager_type == "dep_head" or manager_type == None)) or (link.role.div_head and manager_type == None):
+                    return True
+                
+        elif division == 0  and department == 0:
+            if self.security == 5:
+                return True
+                
+        elif department > -1:
+            for link in self.roles:
+                if (link.role.dep_head and link.role.department_id == department):
+                    return True
+                
+        elif division > -1:
+            division = Division.query.filter_by(id = division).first()
+            for link in self.roles:
+                if (link.role.dep_head and link.role.department_id == division.department_id ) or (link.role.div_head and link.role.division_id == division.id):
+                    return True
+        return False
+    
+    def highest_rank(self):
+        if self.security == 5:
+            return "admin"
+        elif self.is_manager("dep_head"):
+            for link in self.roles:
+                if link.role.dep_head:
+                    return link.role
+        elif self.is_manager():
+            for link in self.roles:
+                if link.role.div_head:
+                    return link.role
+        else:
+            return None        
 
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
@@ -75,6 +120,9 @@ class Role(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable= True)
     div_head = db.Column(db.Boolean, nullable=False, default= False)
     
+    def member_count(self):
+        return self.members.count()
+    
     def __repr__(self):
         return f"Role('{self.title}', '{self.date_added}')"
     
@@ -90,6 +138,14 @@ class Division(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
     
     
+    def member_count(self):
+        users = []
+        for role in self.roles:
+            for member in role.members:
+                user = User.query.filter_by(id = member.user_id).first()
+                if user not in users:
+                    users.append(user)
+        return len(users)
     
     def __repr__(self):
         return f"Role('{self.title}', '{self.date_added}')"
@@ -104,6 +160,14 @@ class Department(db.Model):
     roles = db.relationship('Role', backref='department', lazy='dynamic')
     divisions = db.relationship('Division', backref='department', lazy='dynamic')
     
+    def member_count(self):
+        users = []
+        for role in self.roles:
+            for member in role.members:
+                user = User.query.filter_by(id = member.user_id).first()
+                if user not in users:
+                    users.append(user)
+        return len(users)
     
     def __repr__(self):
         return f"Division('{self.title}', '{self.date_added}')"

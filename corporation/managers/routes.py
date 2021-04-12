@@ -40,19 +40,30 @@ def security_test(user = 0, handle = None, division = 0, department = 0):
 @managers.route("/add_role/<int:user>/<int:role>", methods=['GET', 'POST'])
 @login_required
 def add_role(user, role, admin = 0):
+    if not current_user.is_manager():
+        return redirect(url_for('main.home'))
+    
     next_page = request.args.get('next')
     role = Role.query.filter_by(id = role).first()
     roles = Role.query.order_by(Role.title).all()
-    
     user = User.query.filter_by(id = user).first()
-    for therole in roles:
-        for link in therole.members:
-            if link.user == user and link.role == role :
-                flash('User allready have the role!', 'danger')
-                return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    if role.dep_head and not current_user.is_manager("admin"):
+        flash('You dont have the proper permission!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    elif role.div_head and not current_user.is_manager(department = role.department_id):
+        flash('You dont have the proper permission!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    elif not current_user.is_manager():
+        flash('You dont have the proper permission!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    if user.has_role(role):
+        flash('User allready have the role!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
             
-    if security_test(user = current_user.id, division = role.division_id, department = role.department_id) == False or admin == 1:
-        return redirect(url_for('main.home'))
                 
     if user and role:
         link = Rolevsuser( user = user, role = role)
@@ -65,19 +76,29 @@ def add_role(user, role, admin = 0):
 @managers.route("/remove_role/<int:user>/<int:role>", methods=['GET', 'POST'])
 @login_required
 def remove_role(user, role):
-    if user == current_user.id and current_user.RSI_handle != "Cyber-Dreamer":
+    if not current_user.is_manager():
         return redirect(url_for('main.home'))
     
     role = Role.query.filter_by(id = role).first()
-    if security_test(user = current_user.id, division = role.division_id, department = role.department_id) == False:
-        return redirect(url_for('main.home'))
+    user = User.query.filter_by(id = user).first()
+    next_page = request.args.get('next')
     
-    if user and role:
-        user = User.query.filter_by(id = user).first()
-        Rolevsuser.query.filter_by(user = user, role = role).delete()
-        
-        db.session.commit()
-        flash('Role has been removed!', 'success')
+    if role.dep_head and not current_user.is_manager("admin"):
+        flash('You dont have the proper permission!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    elif role.div_head and not current_user.is_manager(department = role.department_id):
+        flash('You dont have the proper permission!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    if not user.has_role(role):
+        flash('User dont have the role!', 'danger')
+        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+    
+    
+    Rolevsuser.query.filter_by(user = user, role = role).delete()
+    db.session.commit()
+    flash('Role has been removed!', 'success')
     
     next_page = request.args.get('next')
     return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
@@ -90,8 +111,13 @@ def remove_role(user, role):
 @managers.route("/user_manager/<int:department>/<int:division>/<search>", methods=['GET', 'POST'])
 @login_required
 def user_manager(department, division, search):
-    if security_test(user = current_user.id, division = division, department = department) == False:
-        return redirect(url_for('main.home'))
+    if division > 0:
+        if not current_user.is_manager(division = division):
+            return redirect(url_for('main.home'))
+    else:
+        if not current_user.is_manager(department = department, division = division):
+            return redirect(url_for('main.home'))
+    
     
     
     if search is not None:
@@ -121,16 +147,15 @@ def user_manager(department, division, search):
             for member in role.members:
                 user = User.query.filter_by(id = member.user_id).first()
                 if user not in users:
-
                     users.append(user)
         
         #User.query.join(User.roles).filter(User.roles.any(Role.department_id == department)).options(contains_eager(User.roles)).all()
     
         
-    if current_user.RSI_handle == 'Cyber-Dreamer':
-        divisions = Division.query.order_by(Division.title).all()
-        departments = Department.query.order_by(Department.title).all()
-        roles = Role.query.order_by(Role.title).all()
+    
+    divisions = Division.query.order_by(Division.title).all()
+    departments = Department.query.order_by(Department.title).all()
+    roles = Role.query.order_by(Role.title).all()
     return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, roles = roles)
 
 
@@ -140,14 +165,20 @@ def user_manager(department, division, search):
 @managers.route("/role_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
 def role_manager(department, division):
-    if security_test(user = current_user.id, division = division, department = department) == False:
-        return redirect(url_for('main.home'))
+    if division > 0:
+        if not current_user.is_manager(division = division):
+            return redirect(url_for('main.home'))
+    else:
+        if not current_user.is_manager(department = department, division = division):
+            return redirect(url_for('main.home'))
     
     form = Role_Form()
     if form.validate_on_submit():
-        if form.division.data:
-            department = Division.query.filter_by(id = form.division.data.id).first()
-            role = Role(title= form.title.data, division= form.division.data, department= department ,created_by= current_user.id)
+        if department > 0 and division > 0:
+            division = Division.query.filter_by(id = division ).first()
+            role = Role(title= form.title.data, division= division, department= department ,created_by= current_user.id)
+        elif department > 0:
+            role = Role(title= form.title.data, department= department ,created_by= current_user.id)
         else:
             role = Role(title= form.title.data, created_by= current_user.id)
         db.session.add(role)
@@ -162,9 +193,9 @@ def role_manager(department, division):
     elif department > 0:
         roles = Role.query.filter_by(department_id = department).order_by(Role.title).all()
         
-    if current_user.RSI_handle == 'Cyber-Dreamer':
-        divisions = Division.query.order_by(Division.title).all()
-        departments = Department.query.order_by(Department.title).all()
+    
+    divisions = Division.query.order_by(Division.title).all()
+    departments = Department.query.order_by(Department.title).all()
     
     return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
 
@@ -175,32 +206,38 @@ def role_manager(department, division):
 @managers.route("/division_manager/<int:department>", methods=['GET', 'POST'])
 @login_required
 def division_manager(department):
-    if security_test(user = current_user.id, department = department) == False:
+    if not current_user.is_manager(department = department):
         return redirect(url_for('main.home'))
     
     form = Division_Form()
     if form.validate_on_submit():
-        division = Division(title= form.title.data, department= form.department.data ,created_by= current_user.id)
+        if department == 0:
+            flash('You have to selct a department!', 'warning')
+            return redirect(url_for('managers.division_manager', department = department))
+        
+        division = Division(title= form.title.data, department_id= department ,created_by= current_user.id)
         db.session.add(division)
         db.session.commit()
         
         division_id = division.id
         department_id = division.department.id
         div_head = Role(title= form.title.data + " Head", div_head = True , created_by = current_user.id , department_id = department_id, division_id = division_id)
-        div_proxy = Role(title= form.title.data + " Proxy", created_by = current_user.id , department_id = department_id, division_id = division_id )
+        div_proxy = Role(title= form.title.data + " Proxy", div_head = True , created_by = current_user.id , department_id = department_id, division_id = division_id )
+        member = Role(title= form.title.data + " Member", created_by = current_user.id , department_id = department_id, division_id = division_id )
         db.session.add(div_head)
         db.session.add(div_proxy)
+        db.session.add(member)
         db.session.commit()
         flash('Division has been created!', 'success')
-        return redirect(url_for('managers.division_manager'))
+        return redirect(url_for('managers.division_manager', department = department))
     
     if department == 0:
         divisions = Division.query.order_by(Division.department_id).all()
     elif department > 0:
         divisions = Division.query.filter_by(department_id = department).order_by(Division.title).all()
         
-    if current_user.RSI_handle == 'Cyber-Dreamer':
-        departments = Department.query.order_by(Department.title).all()
+    
+    departments = Department.query.order_by(Department.title).all()
     
     return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, departments = departments, currentdep = department)
 
@@ -225,21 +262,26 @@ def delete_division(division_id):
 @managers.route("/department_manager", methods=['GET', 'POST'])
 @login_required
 def department_manager():
-    if security_test(user = current_user.id) == False:
+    if not current_user.is_manager('admin'):
         return redirect(url_for('main.home'))
     
     
     form = Department_Form()
     if form.validate_on_submit():
+        if not current_user.is_manager('admin'):
+            return redirect(url_for('main.home'))
+        
         department = Department(title= form.title.data, created_by= current_user.id)
         db.session.add(department)
         db.session.commit()
         
         department_id = department.id
         dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.id , department_id = department_id )
-        dp_proxy = Role(title= form.title.data + " Proxy", created_by = current_user.id , department_id = department_id )
+        dp_proxy = Role(title= form.title.data + " Proxy", dep_head = True, created_by = current_user.id , department_id = department_id )
+        member = Role(title= form.title.data + " Member", created_by = current_user.id , department_id = department_id )
         db.session.add(dp_head)
         db.session.add(dp_proxy)
+        db.session.add(member)
         db.session.commit()
         flash('The Department has been created!', 'success')
         return redirect(url_for('managers.department_manager'))

@@ -3,17 +3,21 @@
 <main role="main" class="container">
     <div class="btn-group">
 
+        {% if current_user.is_manager("admin") %}
         {% if currentdep == 0 %}
         <a href="{{ url_for('managers.division_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
         {% else %}
         <a href="{{ url_for('managers.division_manager') }}" class="btn btn-primary" aria-current="page">All</a>
         {% endif %}
-        
+        {% endif %}
+
         {% for department in departments %}
+            {% if current_user.is_manager(department = department.id) %}
             {% if currentdep == department.id %}
                 <a href="{{ url_for('managers.division_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
             {% else %}
                 <a href="{{ url_for('managers.division_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
+            {% endif %}
             {% endif %}
         {% endfor %}
 
@@ -38,20 +42,6 @@
                 {{ form.title(class="form-control form-control-lg")}}
                 {% endif %}
             </div>
-            <div class="form-group">
-                {{ form.department.label(class="form-control-label")}}
-
-                {% if form.department.errors %}
-                {{ form.department(class="form-control form-control-lg is-invalid")}}
-                <div class="invalid-feedback">
-                    {% for error in form.department.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.department(class="form-control form-control-lg")}}
-                {% endif %}
-            </div>
         </fieldset>
         <div class="form-group">
             {{ form.submit(class="btn btn-primary")}}
@@ -63,7 +53,7 @@
         <div class="media-body">
             <div class="article-metadata">
                 <a class="mr-2 postuser" href="">{{ division.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> Count: 0</small>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> User count: {{ division.member_count() }}</small>
             </div>
         </div>
     </article>

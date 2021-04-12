@@ -26,8 +26,6 @@ class Division_Form(FlaskForm):
     
     title = StringField('Title', validators= [DataRequired()] )
     
-    department = QuerySelectField(query_factory=lambda: Department.query.all(), get_label='title', allow_blank=False, blank_text=(u'Select a department'), get_pk=lambda x: x.id)
-    
     submit = SubmitField('Create')
     
     def validate_title(self, title):
@@ -43,8 +41,6 @@ class Division_Form(FlaskForm):
 class Role_Form(FlaskForm):
     
     title = StringField('Title', validators= [DataRequired()] )
-    
-    division = QuerySelectField(query_factory=lambda: Division.query.all(), get_label='title', allow_blank= True, blank_text=(u'No division'), get_pk=lambda x: x.id)
     
     submit = SubmitField('Create')
     
