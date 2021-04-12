@@ -51,7 +51,7 @@ def add_role(user, role, admin = 0):
                 flash('User allready have the role!', 'danger')
                 return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
             
-    if security_test(user = current_user.id, division = role.division_id.id, department = role.department_id.id) == False or admin == 1:
+    if security_test(user = current_user.id, division = role.division_id, department = role.department_id) == False or admin == 1:
         return redirect(url_for('main.home'))
                 
     if user and role:

@@ -10,6 +10,18 @@
             {% if current_user.discord_username != null %}
             <p class="text-warning">Discord: {{ current_user.discord_username }}</p>
             {% endif %}
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Roles
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for link in current_user.roles %}
+                    <a class="dropdown-item" href="#">{{ link.role.title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
     <!-- FORM HERE -->
