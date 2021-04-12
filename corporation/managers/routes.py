@@ -1,40 +1,137 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 from corporation import db, discord
-from corporation.models import Post, User, Role, Division, Department
+from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
 from corporation.managers.forms import Department_Form, Division_Form, Role_Form
+from sqlalchemy.orm import contains_eager
 
 from flask import Blueprint
 
 managers = Blueprint('managers', __name__)
 
+def security_test(user = 0, handle = None, division = 0, department = 0):
+    if user > 0: 
+        user = User.query.filter_by(id = user).first()
+    else:
+        user = User.query.filter_by(RSI_handle = handle).first()
+    
+    if user.RSI_handle == "Cyber-Dreamer" or user.security == 5:
+        return True
+    
+    
+    if division > 0:
+        division = Division.query.filter_by(id = division).first()
+        for role in division.roles:
+            for link in role.members:
+                if link.user == user and link.role.division_id == division.id and link.role.div_head :
+                    return True
+                
+    elif department > 0:
+        department = Department.query.filter_by(id = department).first()
+        for role in department.roles:
+            for link in role.members:
+                if link.user == user and link.role.department_id == department.id and link.role.dep_head :
+                    return True
+    
+    return False
+    
 
-
-@managers.route("/user_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
-@managers.route("/user_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])
-@managers.route("/user_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
+@managers.route("/add_role/<int:user>/<int:role>", methods=['GET', 'POST'])
 @login_required
-def user_manager(department, division):
-    if current_user.RSI_handle != 'Cyber-Dreamer':
+def add_role(user, role, admin = 0):
+    next_page = request.args.get('next')
+    role = Role.query.filter_by(id = role).first()
+    roles = Role.query.order_by(Role.title).all()
+    
+    user = User.query.filter_by(id = user).first()
+    for therole in roles:
+        for link in therole.members:
+            if link.user == user and link.role == role :
+                flash('User allready have the role!', 'danger')
+                return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+            
+    if security_test(user = current_user.id, division = role.division_id.id, department = role.department_id.id) == False or admin == 1:
+        return redirect(url_for('main.home'))
+                
+    if user and role:
+        link = Rolevsuser( user = user, role = role)
+        db.session.add(link)
+        db.session.commit()
+        flash('Role has been added!', 'success')
+    
+    return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+
+@managers.route("/remove_role/<int:user>/<int:role>", methods=['GET', 'POST'])
+@login_required
+def remove_role(user, role):
+    if user == current_user.id and current_user.RSI_handle != "Cyber-Dreamer":
         return redirect(url_for('main.home'))
     
-    page = request.args.get('page', 1, type=int)
+    role = Role.query.filter_by(id = role).first()
+    if security_test(user = current_user.id, division = role.division_id, department = role.department_id) == False:
+        return redirect(url_for('main.home'))
+    
+    if user and role:
+        user = User.query.filter_by(id = user).first()
+        Rolevsuser.query.filter_by(user = user, role = role).delete()
+        
+        db.session.commit()
+        flash('Role has been removed!', 'success')
+    
+    next_page = request.args.get('next')
+    return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
+
+
+
+@managers.route("/user_manager", defaults={"department": 0, "division": 0, "search": None}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>", defaults={"division": 0, "search": None}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>/<int:division>", defaults={"search": None}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>/<int:division>/<search>", methods=['GET', 'POST'])
+@login_required
+def user_manager(department, division, search):
+    if security_test(user = current_user.id, division = division, department = department) == False:
+        return redirect(url_for('main.home'))
+    
+    
+    if search is not None:
+        print(search)
+        users = User.query.filter(User.RSI_handle.like('%' + search + '%')).all()
+    else:
+        users = User.query
+        
     
     
     if department == 0 and division == 0:
-        users = User.query.order_by(User.RSI_handle).paginate(page= page, per_page=100)
+        users = users.order_by(User.RSI_handle).all()
     elif division > 0:
-        users = User.query.join(Role, User.roles).filter(Role.division_id == division).paginate(page= page, per_page=100)
+        roles = Role.query.filter_by(division_id = division)
+        users = []
+        for role in roles:
+            print(role.members)
+            for member in role.members:
+                user = User.query.filter_by(id = member.user_id).first()
+                if user not in users:
+                    users.append(user)
+            
     elif department > 0:
-        users = User.query.join(Role, User.roles).filter(Role.department_id == department).paginate(page= page, per_page=100)
+        roles = Role.query.filter_by(department_id = department).all()
+        users = []
+        for role in roles:
+            for member in role.members:
+                user = User.query.filter_by(id = member.user_id).first()
+                if user not in users:
+
+                    users.append(user)
         
+        #User.query.join(User.roles).filter(User.roles.any(Role.department_id == department)).options(contains_eager(User.roles)).all()
+    
         
     if current_user.RSI_handle == 'Cyber-Dreamer':
         divisions = Division.query.order_by(Division.title).all()
         departments = Department.query.order_by(Department.title).all()
-    
-    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
+        roles = Role.query.order_by(Role.title).all()
+    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, roles = roles)
 
 
 #================================================= Role =========================================================
@@ -43,7 +140,7 @@ def user_manager(department, division):
 @managers.route("/role_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
 def role_manager(department, division):
-    if current_user.RSI_handle != 'Cyber-Dreamer':
+    if security_test(user = current_user.id, division = division, department = department) == False:
         return redirect(url_for('main.home'))
     
     form = Role_Form()
@@ -78,7 +175,7 @@ def role_manager(department, division):
 @managers.route("/division_manager/<int:department>", methods=['GET', 'POST'])
 @login_required
 def division_manager(department):
-    if current_user.RSI_handle != 'Cyber-Dreamer':
+    if security_test(user = current_user.id, department = department) == False:
         return redirect(url_for('main.home'))
     
     form = Division_Form()
@@ -128,7 +225,7 @@ def delete_division(division_id):
 @managers.route("/department_manager", methods=['GET', 'POST'])
 @login_required
 def department_manager():
-    if current_user.RSI_handle != 'Cyber-Dreamer':
+    if security_test(user = current_user.id) == False:
         return redirect(url_for('main.home'))
     
     

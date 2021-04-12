@@ -1,6 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
-<main role="main" class="container">
+<main role="main" class="container" style="bottom: 0px">
     <div class="btn-group">
 
         {% if currentdep == 0 %}
@@ -8,13 +8,15 @@
         {% else %}
         <a href="{{ url_for('managers.user_manager') }}" class="btn btn-primary" aria-current="page">All</a>
         {% endif %}
-        
+
         {% for department in departments %}
-            {% if currentdep == department.id %}
-                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
-            {% else %}
-                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
-            {% endif %}
+        {% if currentdep == department.id %}
+        <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary active">{{
+            department.title }}</a>
+        {% else %}
+        <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary">{{
+            department.title }}</a>
+        {% endif %}
         {% endfor %}
 
     </div>
@@ -23,25 +25,45 @@
     <div class="btn-group">
 
         {% if currentdiv == 0 %}
-        <a href="{{ url_for('managers.user_manager', department = currentdep ) }}" class="btn btn-primary active" aria-current="page">All</a>
+        <a href="{{ url_for('managers.user_manager', department = currentdep ) }}" class="btn btn-primary active"
+            aria-current="page">All</a>
         {% else %}
-        <a href="{{ url_for('managers.user_manager', department = currentdep) }}" class="btn btn-primary" aria-current="page">All</a>
+        <a href="{{ url_for('managers.user_manager', department = currentdep) }}" class="btn btn-primary"
+            aria-current="page">All</a>
         {% endif %}
 
         {% for division in divisions %}
-        {% if currentdep == 0 or currentdep == division.department.id %}
-            {% if currentdiv == division.id %}
-                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary active">{{ division.title }}</a>
-            {% else %} 
-                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary">{{ division.title }}</a>
-            {% endif %}
+        {% if currentdep == 0 or currentdep == division.department_id %}
+        {% if currentdiv == division.id %}
+        <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}"
+            class="btn btn-primary active">{{ division.title }}</a>
+        {% else %}
+        <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}"
+            class="btn btn-primary">{{ division.title }}</a>
+        {% endif %}
         {% endif %}
         {% endfor %}
 
     </div>
+    <br>
+    <br>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Roles
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for role in roles %}
+            {% if currentdep == 0 or (currentdep == role.department_id and ( currentdiv == 0 or currentdiv ==
+            role.division_id )) %}
+            <a class="dropdown-item" href="#">{{ role.title }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
 
     <h1 class="mb-3 text-white">User list</h1>
-    {% for user in users.items %}
+    {% for user in users %}
     <article class="media content-section">
         <img class="rounded-circle article-img"
             src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}">
@@ -51,20 +73,59 @@
                     user.RSI_handle }}</a>
                 <small class="" style=" color:rgb(231, 231, 231)!important;">{{ user.discord_username }}</small>
             </div>
-            <p class="article-content">{{ user.email }}</p>
+
+
+
+            <div class="row">
+
+                <div class="col">
+                    <p class="article-content">{{ user.email }}</p>
+                </div>
+                <div class="col">
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Remove Role
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for role in roles %}
+
+                            {% for link in role.members %}
+                            {% if link.user == user %}
+                            <a class="dropdown-item"
+                                href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}">{{
+                                role.title }}</a>
+                            {% endif %}
+                            {% endfor %}
+
+
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col">
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Add Role
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {% for role in roles %}
+                            <a class="dropdown-item" href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}">{{ role.title }}</a>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </article>
     {% endfor %}
-    {% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-    {% if page_num %}
-    {% if users.page == page_num %}
-    <a class="btn btn-dark mb-4" href="{{ url_for('managers.user_manager', page=page_num) }}">{{ page_num }}</a>
-    {% else %}
-    <a class="btn btn-dark btn-outline-light mb-4" href="{{ url_for('managers.user_manager', page=page_num) }}">{{ page_num }}</a>
-    {% endif %}
-    {% else %}
-    ...
-    {% endif %}
-    {% endfor %}
+
+
 </main>
 {% endblock content %}
