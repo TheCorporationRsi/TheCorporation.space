@@ -278,10 +278,8 @@ def department_manager():
         department_id = department.id
         dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.id , department_id = department_id )
         dp_proxy = Role(title= form.title.data + " Proxy", dep_head = True, created_by = current_user.id , department_id = department_id )
-        member = Role(title= form.title.data + " Member", created_by = current_user.id , department_id = department_id )
         db.session.add(dp_head)
         db.session.add(dp_proxy)
-        db.session.add(member)
         db.session.commit()
         flash('The Department has been created!', 'success')
         return redirect(url_for('managers.department_manager'))

@@ -5,6 +5,7 @@ from flask import url_for, current_app
 from flask_mail import Message
 from corporation import mail
 import requests
+from bs4 import BeautifulSoup
 
 
 def save_picture(form_picture):
