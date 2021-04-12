@@ -14,17 +14,17 @@
                 </div>
                 <legend class="border-bottom mb-4">Login</legend>
                 <div class="form-group">
-                    {{ form.email.label(class="form-control-label")}}
+                    {{ form.RSI_handle.label(class="form-control-label")}}
 
-                    {% if form.email.errors %}
-                    {{ form.email(class="form-control form-control-lg is-invalid")}}
+                    {% if form.RSI_handle.errors %}
+                    {{ form.RSI_handle(class="form-control form-control-lg is-invalid")}}
                     <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
+                        {% for error in form.RSI_handle.errors %}
                         <span>{{ error }}</span>
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.email(class="form-control form-control-lg")}}
+                    {{ form.RSI_handle(class="form-control form-control-lg")}}
                     {% endif %}
                 </div>
                 <div class="form-group">
