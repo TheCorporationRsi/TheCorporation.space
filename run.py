@@ -1,5 +1,4 @@
 from corporation import create_app
-import bot
 
 
 app = create_app()

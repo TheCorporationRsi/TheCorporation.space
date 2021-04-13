@@ -25,3 +25,5 @@ corporation/social.db
 corporation/influence.db
 corporation/static/profile_pics/*
 corporation/logs.db
+backup/*
+corporation/discord_bot/__pycache__/*
