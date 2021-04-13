@@ -7,6 +7,11 @@ from flask_mail import Mail
 from corporation.config import Config
 from flask_discord import DiscordOAuth2Session
 
+import discord
+from discord.ext import commands
+
+client = commands.Bot(command_prefix = '$')
+
 from sqlalchemy import MetaData
 
 naming_convention = {
@@ -24,8 +29,8 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
 try:
-    mail = Mail()
     discord = DiscordOAuth2Session()
+    mail = Mail()
 except:
     print("This application Multiple feature will not work properly")
 
@@ -39,8 +44,8 @@ def create_app(config_class = Config):
     login_manager.init_app(app)
     
     try:
-        mail.init_app(app)
         discord.init_app(app)
+        mail.init_app(app)
     except:
         print("This application Multiple feature will not work properly")
 
@@ -52,6 +57,7 @@ def create_app(config_class = Config):
     from corporation.news.routes import news
     from corporation.managers.routes import managers
     from corporation.departments.routes import departments
+    from corporation.discord_bot.routes import discord_bot
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
@@ -59,5 +65,6 @@ def create_app(config_class = Config):
     app.register_blueprint(news)
     app.register_blueprint(managers)
     app.register_blueprint(departments)
+    app.register_blueprint(discord_bot)
 
     return app

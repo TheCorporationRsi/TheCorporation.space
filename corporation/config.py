@@ -29,5 +29,6 @@ class Config:
         RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
         RECAPTCHA_PRIVATE_KEY = config.get('RECAP_PRVKEY')
         RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
+        TESTING_GUILD = 831248117571649566
     except:
         print("This application Multiple feature will not work properly")
