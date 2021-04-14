@@ -1,12 +1,31 @@
 import discord
 import os
-from discord.ext import commands
+from discord.ext import commands, ipc
 
 import json
 with open('/etc/config.json') as config_file:
     config = json.load(config_file)
+    
+class Bot(commands.Bot):
+    
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args, **kwargs)
 
-client = commands.Bot(command_prefix = '$')
+        self.ipc = ipc.Server(self, secret_key = config.get('DISCORD_BOT_IPC_SECRET'))
+        
+    async def on_ready(self):
+            print('We have logged in as {0.user}'.format(self))
+            user = await self.fetch_user(217337301364244480)
+            await user.send("I\'m online!")
+            
+    async def on_ipc_ready(self):
+            print("Ipc is ready.")
+            
+    async def on_ipc_error(self, endpoint, error):
+            print(endpoint, "raised", error)
+
+
+client = Bot(command_prefix = '$', intents = discord.Intents.default())
 
 
 @client.command()
@@ -46,4 +65,5 @@ for filename in os.listdir('./cogs'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
 
+client.ipc.start()
 client.run(config.get('DISCORD_BOT_TOKEN'))

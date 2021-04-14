@@ -27,3 +27,5 @@ corporation/static/profile_pics/*
 corporation/logs.db
 backup/*
 corporation/discord_bot/__pycache__/*
+corporation/setup/__pycache__/*
+cogs/__pycache__/*
