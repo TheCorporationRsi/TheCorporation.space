@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from corporation.config import Config
 from flask_discord import DiscordOAuth2Session
+import json
 
 import discord
 from discord.ext import ipc
@@ -28,7 +29,10 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-discord_bot = ipc.Client(secret_key = config.get('DISCORD_BOT_IPC_SECRET'))
+with open('/etc/config.json') as config_file:
+    config_info = json.load(config_file)
+    
+discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET'))
 
 try:
     discord = DiscordOAuth2Session()
