@@ -7,6 +7,7 @@ from corporation.users.utils import save_picture, send_reset_email
 from flask_discord import requires_authorization
 
 
+
 from flask import Blueprint
 
 users = Blueprint('users', __name__)

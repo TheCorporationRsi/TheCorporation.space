@@ -6,6 +6,13 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from corporation.config import Config
 from flask_discord import DiscordOAuth2Session
+import json
+from flask_discord_interactions import DiscordInteractions
+
+import discord
+from discord.ext import ipc
+
+
 
 from sqlalchemy import MetaData
 
@@ -23,12 +30,18 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-try:
-    mail = Mail()
-    discord = DiscordOAuth2Session()
-except:
-    print("This application Multiple feature will not work properly")
 
+with open('/etc/config.json') as config_file:
+    config_info = json.load(config_file)
+
+
+
+try:
+    discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET'))
+    discord = DiscordOAuth2Session()
+    mail = Mail()
+except:
+    print("This application is not set properly. Multiple feature will not work properly")
 
 
 def create_app(config_class = Config):
@@ -37,13 +50,20 @@ def create_app(config_class = Config):
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    
     try:
-        mail.init_app(app)
         discord.init_app(app)
+        discord_command = DiscordInteractions(app)
+        mail.init_app(app)
     except:
         print("This application Multiple feature will not work properly")
 
+    @discord_command.command()
+    def ping(ctx):
+        "Respond with a friendly 'pong'!"
+        return "Pong!"
+
+    discord_command.set_route("/interactions")
+    discord_command.update_slash_commands(guild_id= 831248117571649566)
 
     from corporation.users.routes import users
     from corporation.posts.routes import posts
@@ -52,6 +72,9 @@ def create_app(config_class = Config):
     from corporation.news.routes import news
     from corporation.managers.routes import managers
     from corporation.departments.routes import departments
+    from corporation.discord_bot_routes.routes import discord_bot_routes
+    from corporation.setup.routes import setup
+    
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
@@ -59,5 +82,9 @@ def create_app(config_class = Config):
     app.register_blueprint(news)
     app.register_blueprint(managers)
     app.register_blueprint(departments)
+    app.register_blueprint(discord_bot_routes)
+    app.register_blueprint(setup)
 
     return app
+
+

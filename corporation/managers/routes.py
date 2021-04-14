@@ -4,37 +4,10 @@ from corporation import db, discord
 from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
 from corporation.managers.forms import Department_Form, Division_Form, Role_Form
-from sqlalchemy.orm import contains_eager
 
 from flask import Blueprint
 
 managers = Blueprint('managers', __name__)
-
-def security_test(user = 0, handle = None, division = 0, department = 0):
-    if user > 0: 
-        user = User.query.filter_by(id = user).first()
-    else:
-        user = User.query.filter_by(RSI_handle = handle).first()
-    
-    if user.RSI_handle == "Cyber-Dreamer" or user.security == 5:
-        return True
-    
-    
-    if division > 0:
-        division = Division.query.filter_by(id = division).first()
-        for role in division.roles:
-            for link in role.members:
-                if link.user == user and link.role.division_id == division.id and link.role.div_head :
-                    return True
-                
-    elif department > 0:
-        department = Department.query.filter_by(id = department).first()
-        for role in department.roles:
-            for link in role.members:
-                if link.user == user and link.role.department_id == department.id and link.role.dep_head :
-                    return True
-    
-    return False
     
 
 @managers.route("/add_role/<int:user>/<int:role>", methods=['GET', 'POST'])
@@ -278,10 +251,8 @@ def department_manager():
         department_id = department.id
         dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.id , department_id = department_id )
         dp_proxy = Role(title= form.title.data + " Proxy", dep_head = True, created_by = current_user.id , department_id = department_id )
-        member = Role(title= form.title.data + " Member", created_by = current_user.id , department_id = department_id )
         db.session.add(dp_head)
         db.session.add(dp_proxy)
-        db.session.add(member)
         db.session.commit()
         flash('The Department has been created!', 'success')
         return redirect(url_for('managers.department_manager'))
@@ -304,6 +275,32 @@ def delete_department(department_id):
     return redirect(url_for('managers.department_manager'))
 
 """
+
+""" def security_test(user = 0, handle = None, division = 0, department = 0):
+    if user > 0: 
+        user = User.query.filter_by(id = user).first()
+    else:
+        user = User.query.filter_by(RSI_handle = handle).first()
+    
+    if user.RSI_handle == "Cyber-Dreamer" or user.security == 5:
+        return True
+    
+    
+    if division > 0:
+        division = Division.query.filter_by(id = division).first()
+        for role in division.roles:
+            for link in role.members:
+                if link.user == user and link.role.division_id == division.id and link.role.div_head :
+                    return True
+                
+    elif department > 0:
+        department = Department.query.filter_by(id = department).first()
+        for role in department.roles:
+            for link in role.members:
+                if link.user == user and link.role.department_id == department.id and link.role.dep_head :
+                    return True
+    
+    return False """
 
 #================================================= Other =========================================================
 

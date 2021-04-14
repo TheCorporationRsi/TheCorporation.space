@@ -35,6 +35,8 @@ notepad.exe /etc/config.json
     "DISCORD_SECRET":"enter_discord_secret",
     "DISCORD_BOT_TOKEN": "enter_bot_token",
     "DISCORD_REDIRECT_URI":"localhost:5000/discord_callback",
+    "DISCORD_BOT_IPC_SECRET": "create_your_own_IPC_secret_key",
+    "DISCORD_PUBLIC_KEY": "",
     "RECAP_PRVKEY":"6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
     "RECAP_PUBKEY":"6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
 }

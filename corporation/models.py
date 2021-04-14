@@ -22,17 +22,17 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     
     #User info
-    RSI_handle = db.Column(db.String(20), unique=True, nullable=False)
+    RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     image_file = db.Column(db.String(20), nullable= False, default='default.jpg' )
     
     #Linked account
-    discord_username = db.Column(db.String(20), unique=True, nullable=True)
-    discord_id =db.Column(db.String(20), unique=True, nullable=True)
+    discord_username = db.Column(db.String(32), unique=True, nullable=True)
+    discord_id = db.Column(db.String(32), unique=True, nullable=True)
     
-    guilded_username = db.Column(db.String(20), unique=False, nullable=True)
-    guilded_id =db.Column(db.String(20), unique=True, nullable=True)
+    guilded_username = db.Column(db.String(32), unique=False, nullable=True)
+    guilded_id = db.Column(db.String(32), unique=True, nullable=True)
     
     #Security level
     security = db.Column(db.Integer, unique=False, nullable=True)
@@ -114,11 +114,13 @@ class Role(db.Model):
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     members = db.relationship("Rolevsuser", back_populates="role", lazy='dynamic')
-    
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable= True)
     dep_head = db.Column(db.Boolean, nullable=False, default= False)
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable= True)
     div_head = db.Column(db.Boolean, nullable=False, default= False)
+    
+    discord_id = db.Column(db.String(32), unique=True, nullable=True)
+    guilded_id = db.Column(db.String(32), unique=True, nullable=True)
     
     def member_count(self):
         return self.members.count()
