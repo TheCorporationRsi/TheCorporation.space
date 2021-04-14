@@ -45,6 +45,10 @@ def callback():
         user_account = User.query.filter_by(RSI_handle= current_user.RSI_handle).first()
         user_account.discord_id = user.id
         user_account.discord_username = user.username+'#'+ user.discriminator
+        
+        if user.is_owner() :
+            user_account.security = 5
+        
         db.session.commit()
         discord.revoke()
         return redirect(url_for('users.account'))
