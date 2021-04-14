@@ -30,3 +30,4 @@ corporation/discord_bot/__pycache__/*
 corporation/setup/__pycache__/*
 cogs/__pycache__/*
 cogs/ipc/__pycache__/*
+corporation/discord_bot_routes/__pycache__/*
