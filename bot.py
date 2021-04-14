@@ -13,6 +13,10 @@ class Bot(commands.Bot):
 
         self.ipc = ipc.Server(self, secret_key = config.get('DISCORD_BOT_IPC_SECRET'))
         
+        for filename in os.listdir('./cogs/ipc'):
+            if filename.endswith('.py'):
+                self.load_extension(f'cogs.ipc.{filename[:-3]}')
+        
     async def on_ready(self):
             print('We have logged in as {0.user}'.format(self))
             user = await self.fetch_user(217337301364244480)

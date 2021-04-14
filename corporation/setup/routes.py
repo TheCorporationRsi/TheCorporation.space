@@ -1,12 +1,21 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
-from corporation import db, discord
+from corporation import db
 from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
 from corporation.setup.forms import Role_Form
-
+import requests
+import json
 
 from flask import Blueprint
+import discord
+from discord.ext import ipc
+
+with open('/etc/config.json') as config_file:
+    config_info = json.load(config_file)
+
+
+discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET'))
 
 setup = Blueprint('setup', __name__)
 
@@ -20,9 +29,8 @@ server_id = 831248117571649566
 @login_required
 def role_setup(department, division):
     
-    server = bot.client.get_guild(server_id)
-    for role in server.roles:
-        print(role.name)
+    discord_role = discord_bot.request("get_roles")
+    print(discord_role)
 
     if division > 0:
         if not current_user.is_manager(division = division):

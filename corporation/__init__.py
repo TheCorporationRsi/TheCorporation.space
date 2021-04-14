@@ -31,14 +31,15 @@ login_manager.login_message_category = 'info'
 
 with open('/etc/config.json') as config_file:
     config_info = json.load(config_file)
-    
-discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET'))
+
+
 
 try:
+    discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET'))
     discord = DiscordOAuth2Session()
     mail = Mail()
 except:
-    print("This application Multiple feature will not work properly")
+    print("This application is not set properly. Multiple feature will not work properly")
 
 
 
