@@ -64,7 +64,7 @@ def create_app(config_class = Config):
     from corporation.news.routes import news
     from corporation.managers.routes import managers
     from corporation.departments.routes import departments
-    from corporation.discord_bot.routes import discord_bot
+    from corporation.discord_bot_routes.routes import discord_bot_routes
     from corporation.setup.routes import setup
     
     app.register_blueprint(users)
@@ -74,7 +74,7 @@ def create_app(config_class = Config):
     app.register_blueprint(news)
     app.register_blueprint(managers)
     app.register_blueprint(departments)
-    app.register_blueprint(discord_bot)
+    app.register_blueprint(discord_bot_routes)
     app.register_blueprint(setup)
 
     return app
