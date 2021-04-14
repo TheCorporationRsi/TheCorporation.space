@@ -7,6 +7,7 @@ from corporation.users.utils import save_picture, send_reset_email
 from flask_discord import requires_authorization
 
 
+
 from flask import Blueprint
 
 users = Blueprint('users', __name__)
@@ -45,6 +46,10 @@ def callback():
         user_account = User.query.filter_by(RSI_handle= current_user.RSI_handle).first()
         user_account.discord_id = user.id
         user_account.discord_username = user.username+'#'+ user.discriminator
+        
+        if user.is_owner() :
+            user_account.security = 5
+        
         db.session.commit()
         discord.revoke()
         return redirect(url_for('users.account'))
