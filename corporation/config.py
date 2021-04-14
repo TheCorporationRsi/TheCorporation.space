@@ -14,7 +14,6 @@ class Config:
     'social_db': 'sqlite:///social.db',
     'logs_db':  'sqlite:///logs.db'
     }
-
     try:
         MAIL_SERVER = 'smtp.gmail.com'
         MAIL_PORT = 587
@@ -25,6 +24,7 @@ class Config:
         DISCORD_CLIENT_SECRET = config.get('DISCORD_SECRET')
         DISCORD_REDIRECT_URI = config.get('DISCORD_REDIRECT_URI')
         DISCORD_BOT_TOKEN = config.get('DISCORD_BOT_TOKEN')
+        DISCORD_PUBLIC_KEY = config.get('DISCORD_PUBLIC_KEY')
         RECAPTCHA_USE_SSL = False
         RECAPTCHA_PUBLIC_KEY = config.get('RECAP_PUBKEY')
         RECAPTCHA_PRIVATE_KEY = config.get('RECAP_PRVKEY')
