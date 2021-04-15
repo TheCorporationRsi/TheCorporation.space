@@ -16,7 +16,8 @@ class role_manager(commands.Cog):
     async def get_roles(self, data):
         server = self.client.get_guild(self.server_id)
         
-        return server.roles[0].name
+        
+        return server.roles
 
 
 

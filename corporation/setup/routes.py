@@ -1,21 +1,22 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
-from corporation import db
+from corporation import db, discord_bot
 from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
 from corporation.setup.forms import Role_Form
 import requests
 import json
+import asyncio
 
 from flask import Blueprint
 import discord
 from discord.ext import ipc
 
-with open('/etc/config.json') as config_file:
+""" with open('/etc/config.json') as config_file:
     config_info = json.load(config_file)
 
 
-discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET'))
+discord_bot = ipc.Client(secret_key = config_info.get('DISCORD_BOT_IPC_SECRET')) """
 
 setup = Blueprint('setup', __name__)
 
@@ -29,8 +30,9 @@ server_id = 831248117571649566
 @login_required
 def role_setup(department, division):
     
-    discord_role = discord_bot.request("get_roles")
-    print(discord_role)
+    discord_role = asyncio.run(discord_bot.request("get_roles"))
+    for role in discord_role:
+        print(role)
 
     if division > 0:
         if not current_user.is_manager(division = division):

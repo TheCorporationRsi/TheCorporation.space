@@ -29,4 +29,7 @@ cogs/__pycache__/*
 cogs/ipc/__pycache__/*
 corporation/discord_bot_routes/__pycache__/*
 corporation/setup/__pycache__/*
-
+cogs/__pycache__/*
+corporation/discord_bot_routes/__pycache__/*
+cogs/__pycache__/init.cpython-39.pyc
+cogs/__pycache__/*

@@ -1,6 +1,6 @@
 from flask import render_template, request, Blueprint
 from flask import Blueprint
-from flask_discord_interactions import DiscordInteractions, DiscordInteractionsBlueprin, Member, Role, Channel
+from flask_discord_interactions import DiscordInteractions, DiscordInteractionsBlueprint, Member, Role, Channel
 from corporation.models import Post, User, Division, Department, Rolevsuser
 import discord
 
