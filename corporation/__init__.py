@@ -54,14 +54,6 @@ def create_app(config_class = Config):
         discord.init_app(app)
         discord_command = DiscordInteractions(app)
         mail.init_app(app)
-        
-        @discord_command.command()
-        def ping(ctx):
-            "Respond with a friendly 'pong'!"
-            return "Pong!"
-
-        discord_command.set_route("/interactions")
-        discord_command.update_slash_commands(guild_id= 831248117571649566)
     except:
         print("This application Multiple feature will not work properly")
 
@@ -74,6 +66,7 @@ def create_app(config_class = Config):
     from corporation.managers.routes import managers
     from corporation.departments.routes import departments
     from corporation.discord_bot_routes.routes import discord_bot_routes
+    from corporation.discord_bot_routes.routes import discord_actions
     from corporation.setup.routes import setup
     
     app.register_blueprint(users)
@@ -84,7 +77,11 @@ def create_app(config_class = Config):
     app.register_blueprint(managers)
     app.register_blueprint(departments)
     app.register_blueprint(discord_bot_routes)
+    discord_command.register_blueprint(discord_actions)
     app.register_blueprint(setup)
+    
+    discord_command.set_route("/interactions")
+    discord_command.update_slash_commands(guild_id= 831248117571649566)
 
     return app
 
