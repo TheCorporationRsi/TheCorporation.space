@@ -28,3 +28,5 @@ corporation/logs.db
 cogs/__pycache__/*
 cogs/ipc/__pycache__/*
 corporation/discord_bot_routes/__pycache__/*
+corporation/setup/__pycache__/*
+
