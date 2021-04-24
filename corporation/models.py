@@ -12,10 +12,9 @@ def load_user(user_id):
 
 class Rolevsuser(db.Model):
     __bind_key__ = 'role_db'
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
-    role = db.relationship("Role", back_populates="members")
-    user = db. relationship("User", back_populates="roles")
+    id = db.Column(db.Integer, primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    RSI_handle = db.Column(db.String(32))
 
 
 class User(db.Model, UserMixin):
@@ -36,12 +35,6 @@ class User(db.Model, UserMixin):
     
     #Security level
     security = db.Column(db.Integer, unique=False, nullable=True)
-    
-    #Content
-    posts = db.relationship('Post', backref='author', lazy=True)
-    
-    #role
-    roles = db.relationship("Rolevsuser", back_populates="user", lazy='dynamic')
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -57,7 +50,8 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
     
     def has_role(self, role):
-        for link in self.roles:
+        links = Rolevsuser.query.filter_by(RSI_handle = self.RSI_handle).all()
+        for link in links:
             if link.role == role:
                 return True
         return False
@@ -65,26 +59,36 @@ class User(db.Model, UserMixin):
     def is_manager(self, manager_type = None, division = -1 , department = -1):
         if self.security == 5:
             return True
-        
+        links = Rolevsuser.query.filter_by(RSI_handle = self.RSI_handle).all() 
         if division == -1  and department == -1:
-            for link in self.roles:
-                if (link.role.dep_head and (manager_type == "dep_head" or manager_type == None)) or (link.role.div_head and manager_type == None):
+            for link in links:
+                if manager_type == None and (link.role.dep_head or link.role.dep_proxy or link.role.div_head or link.role.div_proxy):
+                    return True
+                elif(manager_type == "dep_head" and link.role.dep_head ):
+                    return True
+                elif(manager_type == "div_head" and link.role.div_head ):
+                    return True
+                elif(manager_type == "dep_proxy" and link.role.dep_proxy ):
+                    return True
+                elif(manager_type == "div_proxy" and link.role.div_proxy ):
                     return True
                 
         elif division == 0  and department == 0:
             if self.security == 5:
                 return True
-                
+            
+        elif division > -1:
+            division = Division.query.filter_by(id = division).first()
+            for link in links:
+                if ((link.role.dep_head or link.role.div_head) and link.role.division_id == division.id):
+                    return True
+
         elif department > -1:
-            for link in self.roles:
+            for link in links:
                 if (link.role.dep_head and link.role.department_id == department):
                     return True
                 
-        elif division > -1:
-            division = Division.query.filter_by(id = division).first()
-            for link in self.roles:
-                if (link.role.dep_head and link.role.department_id == division.department_id ) or (link.role.div_head and link.role.division_id == division.id):
-                    return True
+        
         return False
     
     def highest_rank(self):
@@ -109,21 +113,22 @@ class User(db.Model, UserMixin):
 class Role(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), unique=True, nullable=False)
+    title = db.Column(db.String(32), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_by = db.Column(db.String(32), nullable=False)
     
-    members = db.relationship("Rolevsuser", back_populates="role", lazy='dynamic')
     division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable= True)
     dep_head = db.Column(db.Boolean, nullable=False, default= False)
+    dep_proxy = db.Column(db.Boolean, nullable=False, default= False)
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable= True)
     div_head = db.Column(db.Boolean, nullable=False, default= False)
+    div_proxy = db.Column(db.Boolean, nullable=False, default= False)
     
     discord_id = db.Column(db.String(32), unique=True, nullable=True)
     guilded_id = db.Column(db.String(32), unique=True, nullable=True)
     
     def member_count(self):
-        return self.members.count()
+        return Rolevsuser.query.filter_by(role_id = self.id).count()
     
     def __repr__(self):
         return f"Role('{self.title}', '{self.date_added}')"
@@ -133,7 +138,7 @@ class Division(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_by = db.Column(db.String(32), nullable=False)
     
     
     roles = db.relationship('Role', backref='division', lazy='dynamic')
@@ -143,8 +148,9 @@ class Division(db.Model):
     def member_count(self):
         users = []
         for role in self.roles:
-            for member in role.members:
-                user = User.query.filter_by(id = member.user_id).first()
+            members = Rolevsuser.query.filter_by(role_id = role.id).all()
+            for member in members:
+                user = User.query.filter_by(RSI_handle = member.RSI_handle).first()
                 if user not in users:
                     users.append(user)
         return len(users)
@@ -157,7 +163,7 @@ class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), unique=True, nullable=False)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_by = db.Column(db.String(32), nullable=False)
     
     roles = db.relationship('Role', backref='department', lazy='dynamic')
     divisions = db.relationship('Division', backref='department', lazy='dynamic')
@@ -165,8 +171,9 @@ class Department(db.Model):
     def member_count(self):
         users = []
         for role in self.roles:
-            for member in role.members:
-                user = User.query.filter_by(id = member.user_id).first()
+            members = Rolevsuser.query.filter_by(role_id = role.id).all()
+            for member in members:
+                user = User.query.filter_by(RSI_handle = member.RSI_handle).first()
                 if user not in users:
                     users.append(user)
         return len(users)
@@ -182,7 +189,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     chat = db.relationship('Message', backref='container', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    RSI_handle = db.Column(db.String(32), nullable=False)
     
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -190,7 +197,7 @@ class Post(db.Model):
 class Message(db.Model):
     __bind_key__ = 'social_db'
     id = db.Column(db.Integer, primary_key=True)
-    sender = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    sender = db.Column(db.String(32), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     link = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
@@ -215,7 +222,6 @@ class Logs(db.Model):
     
     def __repr__(self):
         return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
-
 
 
 

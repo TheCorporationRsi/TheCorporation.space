@@ -5,8 +5,6 @@ from corporation.models import Post, User, Role, Division, Department, Rolevsuse
 from flask_discord import requires_authorization
 from corporation.managers.forms import Department_Form, Division_Form, Role_Form
 
-from flask import Blueprint
-
 managers = Blueprint('managers', __name__)
     
 
@@ -39,7 +37,7 @@ def add_role(user, role, admin = 0):
             
                 
     if user and role:
-        link = Rolevsuser( user = user, role = role)
+        link = Rolevsuser( user = user.RSI_handle, role = role)
         db.session.add(link)
         db.session.commit()
         flash('Role has been added!', 'success')
@@ -69,7 +67,7 @@ def remove_role(user, role):
         return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
     
     
-    Rolevsuser.query.filter_by(user = user, role = role).delete()
+    Rolevsuser.query.filter_by(user = user.RSI_handle, role = role).delete()
     db.session.commit()
     flash('Role has been removed!', 'success')
     
@@ -149,11 +147,11 @@ def role_manager(department, division):
     if form.validate_on_submit():
         if department > 0 and division > 0:
             division = Division.query.filter_by(id = division ).first()
-            role = Role(title= form.title.data, division= division, department= department ,created_by= current_user.id)
+            role = Role(title= form.title.data, division= division, department= department ,created_by= current_user.RSI_handle)
         elif department > 0:
-            role = Role(title= form.title.data, department= department ,created_by= current_user.id)
+            role = Role(title= form.title.data, department= department ,created_by= current_user.RSI_handle)
         else:
-            role = Role(title= form.title.data, created_by= current_user.id)
+            role = Role(title= form.title.data, created_by= current_user.RSI_handle)
         db.session.add(role)
         db.session.commit()
         flash('Role has been created!', 'success')
@@ -188,15 +186,15 @@ def division_manager(department):
             flash('You have to selct a department!', 'warning')
             return redirect(url_for('managers.division_manager', department = department))
         
-        division = Division(title= form.title.data, department_id= department ,created_by= current_user.id)
+        division = Division(title= form.title.data, department_id= department ,created_by= current_user.RSI_handle)
         db.session.add(division)
         db.session.commit()
         
         division_id = division.id
         department_id = division.department.id
-        div_head = Role(title= form.title.data + " Head", div_head = True , created_by = current_user.id , department_id = department_id, division_id = division_id)
-        div_proxy = Role(title= form.title.data + " Proxy", div_head = True , created_by = current_user.id , department_id = department_id, division_id = division_id )
-        member = Role(title= form.title.data + " Member", created_by = current_user.id , department_id = department_id, division_id = division_id )
+        div_head = Role(title= form.title.data + " Head", div_head = True , created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id)
+        div_proxy = Role(title= form.title.data + " Proxy", div_head = True , created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id )
+        member = Role(title= form.title.data + " Member", created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id )
         db.session.add(div_head)
         db.session.add(div_proxy)
         db.session.add(member)
@@ -244,13 +242,13 @@ def department_manager():
         if not current_user.is_manager('admin'):
             return redirect(url_for('main.home'))
         
-        department = Department(title= form.title.data, created_by= current_user.id)
+        department = Department(title= form.title.data, created_by= current_user.RSI_handle)
         db.session.add(department)
         db.session.commit()
         
         department_id = department.id
-        dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.id , department_id = department_id )
-        dp_proxy = Role(title= form.title.data + " Proxy", dep_head = True, created_by = current_user.id , department_id = department_id )
+        dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.RSI_handle , department_id = department_id )
+        dp_proxy = Role(title= form.title.data + " Proxy", dep_head = True, created_by = current_user.RSI_handle , department_id = department_id )
         db.session.add(dp_head)
         db.session.add(dp_proxy)
         db.session.commit()
