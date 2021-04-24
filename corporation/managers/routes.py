@@ -16,7 +16,6 @@ def add_role(user, role, admin = 0):
     
     next_page = request.args.get('next')
     role = Role.query.filter_by(id = role).first()
-    roles = Role.query.order_by(Role.title).all()
     user = User.query.filter_by(id = user).first()
     
     if role.dep_head and not current_user.is_manager("admin"):
@@ -37,7 +36,7 @@ def add_role(user, role, admin = 0):
             
                 
     if user and role:
-        link = Rolevsuser( user = user.RSI_handle, role = role)
+        link = Rolevsuser( RSI_handle = user.RSI_handle, role_id = role.id)
         db.session.add(link)
         db.session.commit()
         flash('Role has been added!', 'success')
@@ -67,7 +66,7 @@ def remove_role(user, role):
         return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
     
     
-    Rolevsuser.query.filter_by(user = user.RSI_handle, role = role).delete()
+    Rolevsuser.query.filter_by(RSI_handle = user.RSI_handle, role_id = role.id).delete()
     db.session.commit()
     flash('Role has been removed!', 'success')
     
@@ -105,9 +104,9 @@ def user_manager(department, division, search):
         roles = Role.query.filter_by(division_id = division)
         users = []
         for role in roles:
-            print(role.members)
-            for member in role.members:
-                user = User.query.filter_by(id = member.user_id).first()
+            links = Rolevsuser.query.filter_by(role_id = role.id).all()
+            for link in links:
+                user = User.query.filter_by(RSI_handle = link.RSI_handle).first()
                 if user not in users:
                     users.append(user)
             
@@ -115,8 +114,9 @@ def user_manager(department, division, search):
         roles = Role.query.filter_by(department_id = department).all()
         users = []
         for role in roles:
-            for member in role.members:
-                user = User.query.filter_by(id = member.user_id).first()
+            links = Rolevsuser.query.filter_by(role_id = role.id).all()
+            for link in links:
+                user = User.query.filter_by(RSI_handle = link.RSI_handle).first()
                 if user not in users:
                     users.append(user)
         

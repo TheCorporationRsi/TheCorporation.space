@@ -13,11 +13,13 @@
 
         {% for department in departments %}
         {% if current_user.is_manager(department = department.id) %}
-            {% if currentdep == department.id %}
-                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
-            {% else %}
-                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
-            {% endif %}
+        {% if currentdep == department.id %}
+        <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary active">{{
+            department.title }}</a>
+        {% else %}
+        <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary">{{
+            department.title }}</a>
+        {% endif %}
         {% endif %}
         {% endfor %}
 
@@ -39,11 +41,13 @@
         {% for division in divisions %}
         {% if currentdep == 0 or currentdep == division.department_id %}
         {% if current_user.is_manager(division = division.id) %}
-            {% if currentdiv == division.id %}
-                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary active">{{ division.title }}</a>
-            {% else %}
-                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary">{{ division.title }}</a>
-            {% endif %}
+        {% if currentdiv == division.id %}
+        <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}"
+            class="btn btn-primary active">{{ division.title }}</a>
+        {% else %}
+        <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}"
+            class="btn btn-primary">{{ division.title }}</a>
+        {% endif %}
         {% endif %}
         {% endif %}
         {% endfor %}
@@ -51,14 +55,15 @@
     </div>
     <br>
     <br>
-    <div class="dropdown" >
+    <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Roles
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow: auto">
             {% for role in roles %}
-            {% if currentdep == 0 or (currentdep == role.department_id and ( currentdiv == 0 or currentdiv == role.division_id )) %}
+            {% if currentdep == 0 or (currentdep == role.department_id and ( currentdiv == 0 or currentdiv ==
+            role.division_id )) %}
             <a class="dropdown-item" href="#">{{ role.title }}</a>
             {% endif %}
             {% endfor %}
@@ -87,10 +92,14 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Remove Role
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height:100px;">
-                            {% for link in user.roles %}
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                            style="overflow-y:scroll; height:100px;">
+                            {% for role in roles %}
+                            {% if user.has_role(role) %}
                             <a class="dropdown-item"
-                                href="{{ url_for('managers.remove_role', user = link.user.id, role = link.role.id,  next=request.url) }}">{{ link.role.title }}</a>
+                                href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}">{{
+                                role.title }}</a>
+                            {% endif %}
                             {% endfor %}
                         </div>
 
@@ -103,10 +112,13 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Add Role
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height:200px;">
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                            style="overflow-y:scroll; height:200px;">
                             {% for role in roles %}
                             {% if not user.has_role(role) %}
-                            <a class="dropdown-item" href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}">{{ role.title }}</a>
+                            <a class="dropdown-item"
+                                href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}">{{
+                                role.title }}</a>
                             {% endif %}
                             {% endfor %}
                         </div>

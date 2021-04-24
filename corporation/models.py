@@ -13,8 +13,8 @@ def load_user(user_id):
 class Rolevsuser(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
-    RSI_handle = db.Column(db.String(32))
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    RSI_handle = db.Column(db.String(32), nullable=False)
 
 
 class User(db.Model, UserMixin):
@@ -52,7 +52,7 @@ class User(db.Model, UserMixin):
     def has_role(self, role):
         links = Rolevsuser.query.filter_by(RSI_handle = self.RSI_handle).all()
         for link in links:
-            if link.role == role:
+            if link.role_id == role.id:
                 return True
         return False
     
