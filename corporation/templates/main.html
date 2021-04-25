@@ -31,7 +31,7 @@
     html,
     body {
       overflow: overlay;
-      height:100vh;
+      height: 100vh;
     }
 
     /* width */
@@ -196,7 +196,7 @@
 <body>
   <header class="site-header">
     {% if request.path == "/home" or request.path == "/" %}
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary bg-gradient-primary ">
+    <nav class="navbar sticky-top navbar-expand-lg bg-gradient-primary  ">
       {% else %}
       <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark ">
         {% endif %}
@@ -289,19 +289,31 @@
                   {% if current_user.is_manager("admin") %}
                   <a class="dropdown-item nav-link" href="{{ url_for('managers.user_manager') }}">User manager</a>
                   <a class="dropdown-item nav-link" href="{{ url_for('managers.role_manager') }}">Role manager</a>
-                  <a class="dropdown-item nav-link" href="{{ url_for('managers.division_manager') }}">Division manager</a>
-                  <a class="dropdown-item nav-link" href="{{ url_for('managers.department_manager') }}">Department manager</a>
+                  <a class="dropdown-item nav-link" href="{{ url_for('managers.division_manager') }}">Division
+                    manager</a>
+                  <a class="dropdown-item nav-link" href="{{ url_for('managers.department_manager') }}">Department
+                    manager</a>
                   {% elif current_user.is_manager("dep_head") %}
-                    {% if current_user.highest_rank().dep_head %}
-                    <a class="dropdown-item nav-link" href="{{ url_for('managers.user_manager', department = current_user.highest_rank().department_id ) }}">User manager</a>
-                    <a class="dropdown-item nav-link" href="{{ url_for('managers.role_manager', department = current_user.highest_rank().department_id ) }}">Role manager</a>
-                    <a class="dropdown-item nav-link" href="{{ url_for('managers.division_manager', department = current_user.highest_rank().department_id ) }}">Division manager</a>
-                    {% endif %}
+                  {% if current_user.highest_rank().dep_head %}
+                  <a class="dropdown-item nav-link"
+                    href="{{ url_for('managers.user_manager', department = current_user.highest_rank().department_id ) }}">User
+                    manager</a>
+                  <a class="dropdown-item nav-link"
+                    href="{{ url_for('managers.role_manager', department = current_user.highest_rank().department_id ) }}">Role
+                    manager</a>
+                  <a class="dropdown-item nav-link"
+                    href="{{ url_for('managers.division_manager', department = current_user.highest_rank().department_id ) }}">Division
+                    manager</a>
+                  {% endif %}
                   {% elif current_user.is_manager() %}
-                    {% if current_user.highest_rank().div_head %}
-                    <a class="dropdown-item nav-link" href="{{ url_for('managers.user_manager', division = current_user.highest_rank().division_id ) }}">User manager</a>
-                    <a class="dropdown-item nav-link" href="{{ url_for('managers.role_manager', division = current_user.highest_rank().division_id ) }}">Role manager</a>
-                    {% endif %}
+                  {% if current_user.highest_rank().div_head %}
+                  <a class="dropdown-item nav-link"
+                    href="{{ url_for('managers.user_manager', division = current_user.highest_rank().division_id ) }}">User
+                    manager</a>
+                  <a class="dropdown-item nav-link"
+                    href="{{ url_for('managers.role_manager', division = current_user.highest_rank().division_id ) }}">Role
+                    manager</a>
+                  {% endif %}
                   {% endif %}
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
