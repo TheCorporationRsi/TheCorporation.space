@@ -230,9 +230,8 @@ class Influence_account(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
-    rank = db.Column(db.Integer, db.ForeignKey('influence_rank.id'), nullable= False , default=0)
-    influence = db.Column(db.Integer, db.ForeignKey('influence_rank.id'), nullable= True)
-    tribute = db.Column(db.Integer, db.ForeignKey('influence_rank.id'), nullable= True)
+    lifetime_influence = db.Column(db.Integer, nullable= False, default=0)
+    tribute = db.Column(db.Integer, nullable= False, default=0)
     
     def update(self):
         return 0
@@ -253,6 +252,33 @@ class Influence_rank(db.Model):
     def __repr__(self):
         return f"Rank('{self.title}', '{self.date_added}')"
 
+class Influence(db.Model):
+    __bind_key__ = 'influence_db'
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(32), unique=True, nullable=False)
+    RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
+    influence = db.Column(db.Integer, nullable= False, default=0)
+    lifetime_influence = db.Column(db.Integer, nullable= False, default=0)
+    tribute = db.Column(db.Integer, nullable= False, default=0)
+    
+    def __repr__(self):
+        return f"Influence('{self.title}', '{self.date_added}')"
+    
+class Influence_transaction(db.Model):
+    __bind_key__ = 'influence_db'
+    id = db.Column(db.Integer, primary_key=True)
+    user_from = db.Column(db.String(32), unique=True, nullable=False)
+    user_to = db.Column(db.String(32), unique=True, nullable=False)
+    amount = db.Column(db.Integer, nullable= False, default=0)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    message = db.Column(db.Text, nullable=True)
+    
+    def member_count(self):
+        return Influence_account.query.filter_by(rank = self.id).count()
+    
+    def __repr__(self):
+        return f"Transaction('{self.title}', '{self.date_added}')"
+
 
 #========================================================================
 # Influence Database
@@ -269,7 +295,7 @@ class Logs(db.Model):
     Result = db.Column(db.String(100), nullable=False)
     
     def __repr__(self):
-        return f"Post('{self.title}', '{self.user_id}', '{self.date_added}')"
+        return f"Logs('{self.title}', '{self.user_id}', '{self.date_added}')"
 
 
 
