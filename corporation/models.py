@@ -10,11 +10,10 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-class Rolevsuser(db.Model):
-    __bind_key__ = 'role_db'
-    id = db.Column(db.Integer, primary_key=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
-    RSI_handle = db.Column(db.String(32), nullable=False)
+
+#========================================================================
+# User Database
+#========================================================================
 
 
 class User(db.Model, UserMixin):
@@ -108,7 +107,18 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
 
+#========================================================================
+# User Database
+#========================================================================
+# Role database
+#========================================================================
 
+
+class Rolevsuser(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
+    RSI_handle = db.Column(db.String(32), nullable=False)
 
 class Role(db.Model):
     __bind_key__ = 'role_db'
@@ -156,7 +166,7 @@ class Division(db.Model):
         return len(users)
     
     def __repr__(self):
-        return f"Role('{self.title}', '{self.date_added}')"
+        return f"Division('{self.title}', '{self.date_added}')"
     
 class Department(db.Model):
     __bind_key__ = 'role_db'
@@ -179,9 +189,13 @@ class Department(db.Model):
         return len(users)
     
     def __repr__(self):
-        return f"Division('{self.title}', '{self.date_added}')"
+        return f"Department('{self.title}', '{self.date_added}')"
 
-    
+#========================================================================
+# Role Database
+#========================================================================
+# Social database
+#========================================================================   
 class Post(db.Model):
     __bind_key__ = 'social_db'
     id = db.Column(db.Integer, primary_key=True)
@@ -203,14 +217,48 @@ class Message(db.Model):
     link = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
 
     def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
+        return f"Message('{self.title}', '{self.date_posted}')"
+
+#========================================================================
+# Social Database
+#========================================================================
+# Influence database
+#========================================================================
+
+class Influence_account(db.Model):
+    __bind_key__ = 'influence_db'
+    id = db.Column(db.Integer, primary_key=True)
+    date_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
+    rank = db.Column(db.Integer, db.ForeignKey('influence_rank.id'), nullable= False , default=0)
+    influence = db.Column(db.Integer, db.ForeignKey('influence_rank.id'), nullable= True)
+    tribute = db.Column(db.Integer, db.ForeignKey('influence_rank.id'), nullable= True)
+    
+    def update(self):
+        return 0
+    
+    def __repr__(self):
+        return f"Account('{self.title}', '{self.date_added}')"
+    
+class Influence_rank(db.Model):
+    __bind_key__ = 'influence_db'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(32), unique=True, nullable=False)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_by = db.Column(db.String(32), nullable=False)
+    
+    def member_count(self):
+        return Influence_account.query.filter_by(rank = self.id).count()
+    
+    def __repr__(self):
+        return f"Rank('{self.title}', '{self.date_added}')"
 
 
-
-
-
-
-
+#========================================================================
+# Influence Database
+#========================================================================
+# Logs database
+#========================================================================
 class Logs(db.Model):
     __bind_key__ = 'logs_db'
     id = db.Column(db.Integer, primary_key=True)

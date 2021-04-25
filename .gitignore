@@ -35,3 +35,4 @@ cogs/__pycache__/init.cpython-39.pyc
 cogs/__pycache__/*
 corporation/discord_bot_routes/__pycache__/*
 env/*
+corporation/influence/__pycache__/*
