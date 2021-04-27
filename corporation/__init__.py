@@ -69,6 +69,7 @@ def create_app(config_class = Config):
     from corporation.discord_bot_routes.routes import discord_actions
     from corporation.setup.routes import setup
     from corporation.influence.routes import influence
+    from corporation.data.routes import data
     
     app.register_blueprint(users)
     app.register_blueprint(posts)
@@ -81,6 +82,7 @@ def create_app(config_class = Config):
     discord_command.register_blueprint(discord_actions)
     app.register_blueprint(setup)
     app.register_blueprint(influence)
+    app.register_blueprint(data)
     
     discord_command.set_route("/interactions")
     discord_command.update_slash_commands(guild_id= 831248117571649566)

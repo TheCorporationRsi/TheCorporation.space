@@ -17,6 +17,13 @@
                 "--no-reload"
             ],
             "jinja": true
+        },
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }

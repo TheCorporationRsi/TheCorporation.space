@@ -36,3 +36,5 @@ cogs/__pycache__/*
 corporation/discord_bot_routes/__pycache__/*
 env/*
 corporation/influence/__pycache__/*
+corporation/data/__pycache__/*
+corporation/discord_bot_routes/__pycache__/*

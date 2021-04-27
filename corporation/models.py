@@ -102,7 +102,10 @@ class User(db.Model, UserMixin):
                 if link.role.div_head:
                     return link.role
         else:
-            return None        
+            return None   
+        
+    def as_dict(self):
+        return {'name': self.RSI_handle}     
 
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
