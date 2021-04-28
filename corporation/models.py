@@ -34,10 +34,17 @@ class User(db.Model, UserMixin):
     
     #Security level
     security = db.Column(db.Integer, unique=False, nullable=True)
+    email_confirmed = db.Column(db.Boolean, nullable=False, default= False)
+    corp_confirmed = db.Column(db.Boolean, nullable=False, default= False)
 
     def get_reset_token(self, expires_sec= 1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
         return s.dumps({'user_id': self.id}).decode('utf-8')
+    
+    def get_confirmation_token(self, expires_sec= 172800):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+    
 
     @staticmethod
     def verify_reset_token(token):
@@ -47,6 +54,7 @@ class User(db.Model, UserMixin):
         except:
             return None
         return User.query.get(user_id)
+    
     
     def has_role(self, role):
         links = Rolevsuser.query.filter_by(RSI_handle = self.RSI_handle).all()

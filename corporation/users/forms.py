@@ -48,17 +48,9 @@ class LoginForm(FlaskForm):
 
 class UpdateAccountForm(FlaskForm):
 
-    email = StringField('Email', validators=[DataRequired(), Email()])
-
     picture = FileField('Update Profile Picture', validators= [FileAllowed(['jpeg','png'])])
 
     submit = SubmitField('Update')
-        
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            user = User.query.filter_by(email= email.data).first()
-            if user:
-                raise ValidationError('That email is already taken')
 
 class RequestResetForm(FlaskForm):
     

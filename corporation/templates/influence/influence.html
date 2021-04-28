@@ -1,34 +1,74 @@
 {% extends "main.html"%}
 {% block style %}
-<script type="text/javascript" >
+<script type="text/javascript">
     $(document).ready(function () {
-        var countries = [];
+        var users = [];
 
-        function loadCountries() {
-            $.getJSON('/countries', function (data, status, xhr) {
+        function loadUsers() {
+            $.getJSON('/data/users', function (data, status, xhr) {
                 for (var i = 0; i < data.length; i++) {
-                    countries.push(data[i].name);
+                    users.push(data[i].name);
                 }
             });
         };
 
-        loadCountries();
+        loadUsers();
 
-        $('#country').autocomplete({
-            source: countries,
+        $('#RSI_handle').autocomplete({
+            source: users,
         });
     });
 </script>
 {% endblock style %}
 {% block page %}
 <main role="main" class="container">
-    <form class="form-inline">
+    <div class="content-section">
+    <form method="POST" action="">
         {{ form.csrf_token }}
         <div class="form-group">
-            {{form.country(class="form-control")}}
+            {{ form.RSI_handle.label(class="form-control-label")}}
+            {% if form.RSI_handle.errors %}
+            {{ form.RSI_handle(class="form-control form-control-lg is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.RSI_handle.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.RSI_handle(class="form-control form-control-lg")}}
+            {% endif %}
         </div>
-        <button type="submit" class="btn btn-info">Submit</button>
+        <div class="form-group">
+            {{ form.amount.label(class="form-control-label")}}
+            {% if form.amount.errors %}
+            {{ form.amount(class="form-control form-control-lg is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.amount.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.amount(class="form-control form-control-lg")}}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.message.label(class="form-control-label")}}
+            {% if form.message.errors %}
+            {{ form.message(class="form-control form-control-lg is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.message.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ form.message(class="form-control form-control-lg")}}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary")}}
+        </div>
     </form>
     <div id="result"></div>
+</div>
 </main>
 {% endblock page %}

@@ -34,6 +34,19 @@ def send_reset_email(user):
     If you did not make this request then simply ignore this email and no change will be made
     '''
     mail.send(msg)
+    
+def send_confirmation_email(user):
+    token = user.get_confirmation_token()
+    msg = Message('Email confirmation for Corporation account', sender='cyberdreamercorp@gmail.com', recipients=[user.email])
+    msg.body = f'''To confirm your account, visit the following link:
+
+    {url_for('users.confirm_email', token= token, _external=True)}
+
+    If you did not make this request then simply ignore this email and no change will be made
+    
+    This email is good for 48h, after that, you may request a new email.
+    '''
+    mail.send(msg)
 
 
 

@@ -1,12 +1,20 @@
-from flask import render_template, request, Blueprint
-from corporation.models import Post
+from flask import render_template, request, Blueprint, flash, url_for, redirect
+from corporation.models import Post, User
 from corporation.influence.forms import MyForm
+from flask_login import current_user, login_required
 
 influence = Blueprint('influence', __name__)
 
 
-@influence.route("/influence")
-def influence_control():
+@influence.route("/influence", methods=['GET', 'POST'])
+@login_required
+def influence_send():
+    
+    
     form = MyForm()
+    if form.validate_on_submit():
+        
+        flash(f'Transfer sucessful!', 'success')
+    
     return render_template("influence/influence.html", title = "Influence", form=form)
 

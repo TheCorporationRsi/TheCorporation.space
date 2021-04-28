@@ -297,6 +297,7 @@
                 </a>
                 <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+                  <a class="dropdown-item nav-link" href="{{ url_for('influence.influence_send') }}">Influence panel</a>
 
                   {% if current_user.is_manager("admin") %}
                   <a class="dropdown-item nav-link" href="{{ url_for('managers.user_manager') }}">User manager</a>

@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from corporation import db, bcrypt, discord
 from corporation.models import User, Post
 from corporation.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm)
-from corporation.users.utils import save_picture, send_reset_email
+from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 
 
@@ -25,9 +25,9 @@ def register():
         user = User(RSI_handle= form.RSI_handle.data, email= form.email.data, password= hashed_password)
         db.session.add(user)
         db.session.commit()
-        login_user(user, remember= False)
-        flash(f'Your account has been created!', 'success')
-        return redirect(url_for('users.account'))
+        send_confirmation_email(user)
+        flash(f'Your account has been created! Please look for a confirmation email.', 'success')
+        return redirect(url_for('users.login'))
     return render_template("user/register.html", title = "Register", form = form)
 
 @users.route("/discord/<int:type>")
@@ -82,10 +82,14 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(RSI_handle= form.RSI_handle.data).first()
+        if user.email_confirmed == False:
+            send_confirmation_email(user)
+            flash('Login Unsuccessful. Please check your email for verification', 'danger')
+            
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember= form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page) if next_page else redirect(url_for('users.login'))
         else:
             flash('Login Unsuccessful. Please check RSI handle and password', 'danger')
     return render_template("user/login.html", title = "Login", form = form)
@@ -105,12 +109,11 @@ def account():
             picture_file= save_picture(form.picture.data)
             current_user.image_file = picture_file
 
-        current_user.email = form.email.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
-    elif request.method == 'GET':
-        form.email.data = current_user.email
+    # elif request.method == 'GET':
+    #     form.email.data = current_user.email
     image_file = url_for('static', filename= 'profile_pics/'+ current_user.image_file )
     return render_template("user/account.html", title = "Account", image_file= image_file, form= form)
 
@@ -161,6 +164,21 @@ def reset_token(token):
         return redirect(url_for('users.login'))
 
     return render_template('user/reset_token.html', title= "Reset Password", form= form )
+
+@users.route("/confirm_email/<token>", methods=['GET', 'POST'])
+def confirm_email(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('users.login'))
+
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+    else:
+        user.email_confirmed = True
+        db.session.commit()
+        flash('Email confirm, please login!', 'success')
+
+    return redirect(url_for('users.login'))
 
 
 
