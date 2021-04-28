@@ -55,6 +55,13 @@ class User(db.Model, UserMixin):
             return None
         return User.query.get(user_id)
     
+    def roles(self):
+        links = Rolevsuser.query.filter_by(RSI_handle = self.RSI_handle).all()
+        roles = []
+        for link in links:
+            role = Role.query.filter_by(id=link.role_id).first()
+            roles.append(role)
+        return roles
     
     def has_role(self, role):
         links = Rolevsuser.query.filter_by(RSI_handle = self.RSI_handle).all()
@@ -145,8 +152,8 @@ class Role(db.Model):
     div_head = db.Column(db.Boolean, nullable=False, default= False)
     div_proxy = db.Column(db.Boolean, nullable=False, default= False)
     
-    discord_id = db.Column(db.String(32), unique=True, nullable=True)
-    guilded_id = db.Column(db.String(32), unique=True, nullable=True)
+    discord_id = db.Column(db.Integer, unique=True, nullable=True)
+    guilded_id = db.Column(db.Integer, unique=True, nullable=True)
     
     def member_count(self):
         return Rolevsuser.query.filter_by(role_id = self.id).count()
@@ -266,8 +273,8 @@ class Influence_rank(db.Model):
 class Influence(db.Model):
     __bind_key__ = 'influence_db'
     id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(32), unique=True, nullable=False)
-    RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
+    type = db.Column(db.String(32), unique=False, nullable=False)
+    RSI_handle = db.Column(db.String(32), unique=False, nullable=False)
     influence = db.Column(db.Integer, nullable= False, default=0)
     lifetime_influence = db.Column(db.Integer, nullable= False, default=0)
     tribute = db.Column(db.Integer, nullable= False, default=0)

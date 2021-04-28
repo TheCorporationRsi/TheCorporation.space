@@ -54,18 +54,28 @@ def RSIverify(handle, code):
         link = 'https://robertsspaceindustries.com/citizens/'
         try:
             page = requests.get(link + handle)
+            print(page)
             pagecontent = page.text
-            handles_tart = pagecontent.find('<span class="label">Handle name</span>')
-            handle_end = pagecontent.find('</p>', handles_tart)
+            handles_start = pagecontent.find('<span class="label">Handle name</span>')
+            handle_end = pagecontent.find('</p>', handles_start)
+            Org_start = pagecontent.find("<strong class=\"value data6\">") 
+            Org_start = pagecontent.find("</strong>", Org_start)
             bio_start = pagecontent.find('<span class="label">Bio</span>')
             bio_end = pagecontent.find('</div>', bio_start)
-            if bio_start < 0 or handles_tart < 0:
+            if bio_start < 0 or handles_start < 0:
                 return -1
         except:
             return -1
 
-        if pagecontent.find(code, bio_start, bio_end) > 0:
-            return 1
+        if code == None:
+            if pagecontent.find("CORP", bio_start, bio_end) > 0: 
+                return 2
+        
+        elif pagecontent.find(code, bio_start, bio_end) > 0:
+            if pagecontent.find("CORP", bio_start, bio_end) > 0:
+                return 2
+            else:
+                return 1
 
         elif bio_start > -1:
             return 0

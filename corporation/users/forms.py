@@ -27,7 +27,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(RSI_handle= RSI_handle.data).first()
         if user:
             raise ValidationError('That RSI_handle already have an account, pls contact moderator')
-        elif RSIverify(RSI_handle, self.email) == 1:
+        elif RSIverify(RSI_handle, self.email) > 0:
             raise ValidationError('Please add your email in your RSI bio')
         
 
