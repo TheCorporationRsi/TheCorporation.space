@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from corporation import db, bcrypt, discord
 from corporation.models import User, Post, Role, Rolevsuser, Influence_account
-from corporation.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm)
+from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form
 from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 from corporation.users.utils import RSIverify
@@ -119,19 +119,22 @@ def logout():
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-    form = UpdateAccountForm()
+    form = UpdateAccountForm(prefix="info")
     if form.validate_on_submit():
         if form.picture.data:
             picture_file= save_picture(form.picture.data)
             current_user.image_file = picture_file
-
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
+    
+    inf_form = inf_Form(prefix="influence")
+    if inf_form.validate_on_submit():
+        flash(f'Transfer sucessful!', 'success')
     # elif request.method == 'GET':
     #     form.email.data = current_user.email
     image_file = url_for('static', filename= 'profile_pics/'+ current_user.image_file )
-    return render_template("user/account2.html", title = "Account", image_file= image_file, form= form)
+    return render_template("user/account2.html", title = "Account", image_file= image_file, form= form, inf_form = inf_form)
 
 
 
