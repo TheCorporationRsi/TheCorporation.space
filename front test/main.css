@@ -1,14 +1,27 @@
 @import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Orbitron&display=swap");
 ul,
 li {
   margin: 0;
   padding: 0;
 }
 
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
 body {
-  background: #000000;
+  background: #202020;
+  /* background-image: url("CentauriSaiseiFujin.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover; */
   color: white;
-  font-family: "Sen";
+  font-family: "Orbitron";
+  font-weight: bold;
+  font-stretch: bold;
   margin: 0;
   margin-bottom: 200px;
 }
@@ -21,25 +34,23 @@ header {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background: #858585;
+  background: transparent;
 }
 header .banner {
   background: #474747;
   width: 18%;
   margin-left: 2%;
-  margin-right: 2%;
-  margin-bottom: -7vw;
+  margin-right: 1%;
+  margin-bottom: -5%;
   margin-top: 0px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   text-align: center;
-  padding-bottom: 1vw;
-  padding-top: 1vw;
 }
 header .banner img {
   width: 75%;
-  margin-top: 10%;
-  margin-top: 5%;
+  margin-top: 15%;
+  margin-bottom: 10%;
 }
 header .user-tab {
   width: 40%;
@@ -60,6 +71,15 @@ header nav {
       -ms-flex-pack: left;
           justify-content: left;
 }
+header #wrapper .dropdown {
+  display: block;
+  float: left;
+  text-align: center;
+  width: 25%;
+  height: 100%;
+  -webkit-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+}
 header .dropdown {
   padding: 20px 40px;
   display: -webkit-box;
@@ -72,20 +92,34 @@ header .dropdown {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  color: #fff;
-  background: #858585;
+  color: white;
+  background: transparent;
   position: relative;
-  font-size: 18px;
+  font-size: 25px;
   -webkit-perspective: 1000px;
           perspective: 1000px;
   z-index: 100;
 }
 header .dropdown:hover {
-  background: #474747;
   cursor: pointer;
 }
 header .dropdown:hover .dropdown_menu li {
   display: block;
+}
+header .dropdown::after {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 5px;
+  left: 50%;
+  bottom: 0;
+  background-color: #0000ff;
+  -webkit-transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.2s;
+}
+header .dropdown:hover::after {
+  width: 100%;
+  left: 0;
 }
 header .dropdown_menu {
   position: absolute;
@@ -95,15 +129,19 @@ header .dropdown_menu {
   -webkit-perspective: 1000px;
           perspective: 1000px;
   z-index: -1;
+  padding-top: 5px;
 }
 header .dropdown_menu li {
   display: none;
   color: #fff;
   text-align: center;
-  background-color: #858585;
+  background-color: #6b6b6b;
   padding: 10px 20px;
   font-size: 16px;
   opacity: 0;
+  margin-top: -1px;
+  border-left: 2px solid #0000ff;
+  border-right: 2px solid #0000ff;
 }
 header .dropdown_menu li:hover {
   background-color: #474747;
@@ -119,8 +157,22 @@ header .dropdown_menu--animated li {
   opacity: 1;
 }
 header .last-item {
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 2px solid #0000ff;
+}
+header .last-item .scifi-bottom {
+  position: absolute;
+  width: 60%;
+  height: 50%;
+  margin-left: 0px;
+  bottom: -19.2px;
+  left: -3.2px;
+}
+header .first-item {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-top: 2px solid #0000ff;
 }
 header .dropdown_menu-4 .dropdown_item-1 {
   -webkit-transform-origin: top center;

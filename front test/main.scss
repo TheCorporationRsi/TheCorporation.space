@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
+
 
 @mixin keyframes($name) {
     @-o-keyframes #{$name} {
@@ -18,12 +21,12 @@
     }
 }
 
-$department: 6;
 $blue: #0000ff;
 $yellow: #fcff00;
-$light-grey:#858585;
+$light-grey:#6b6b6b;
 $dark-grey: #474747;
-$background: #000000;
+$background: #202020;
+$menu-font-color: rgb(255, 255, 255);
 
 
 ul,
@@ -32,11 +35,21 @@ li {
     padding: 0;
 }
 
+html, body {
+    margin: 0;
+    height: 100%;
+}
 
 body {
     background: $background;
+    /* background-image: url("CentauriSaiseiFujin.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover; */
     color: white;
-    font-family: 'Sen';
+    font-family: 'Orbitron';
+    font-weight: bold;
+    font-stretch: bold;
     margin: 0;
     margin-bottom: 200px;
 }
@@ -45,25 +58,23 @@ header {
     width: 100%;
     display: flex;
     justify-content: center;
-    background: $light-grey;
+    background: transparent;
 
     .banner {
         background: $dark-grey;
         width: 18%;
         margin-left: 2%;
-        margin-right: 2%;
-        margin-bottom: -7vw;
+        margin-right: 1%;
+        margin-bottom: -5%;
         margin-top: 0px;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         text-align: center;
-        padding-bottom: 1vw;
-        padding-top: 1vw;
 
         img {
             width: 75%;
-            margin-top: 10%;
-            margin-top: 5%;
+            margin-top: 15%;
+            margin-bottom: 10%;
         }
     }
 
@@ -80,26 +91,52 @@ header {
         justify-content: left;
     }
 
+    #wrapper .dropdown{
+        display: block;
+        float: left;
+        text-align: center;
+        width: 25%;
+        height: 100%;
+        transition: all ease-in-out .2s;
+    }
+
     .dropdown {
         padding: 20px 40px;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        color: #fff;
-        background: $light-grey;
+        color: $menu-font-color;
+        background: transparent;
         position: relative;
-        font-size: 18px;
+        font-size: 25px;
         perspective: 1000px;
         z-index: 100;
 
         &:hover {
-            background: $dark-grey;
+            // background: $dark-grey;
             cursor: pointer;
+            
 
             .dropdown_menu li {
                 display: block;
             }
+        }
+
+        &::after{
+            content: '';
+            position: absolute;
+            width: 0px;
+            height: 5px;
+            left: 50%;
+            bottom:0;
+            background-color: $blue;
+            transition: all ease-in-out .2s;
+        }
+
+        &:hover::after{
+            width: 100%;
+            left: 0;
         }
     }
 
@@ -110,6 +147,8 @@ header {
         width: 100%;
         perspective: 1000px;
         z-index: -1;
+        padding-top: 5px;
+
 
         li {
             display: none;
@@ -119,6 +158,10 @@ header {
             padding: 10px 20px;
             font-size: 16px;
             opacity: 0;
+            margin-top: -1px;
+            border-left: 2px solid $blue;
+            border-right: 2px solid $blue;
+
 
 
 
@@ -142,8 +185,24 @@ header {
     }
 
     .last-item {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-bottom: 2px solid $blue;
+
+        .scifi-bottom {
+            position: absolute;
+            width: 60%;
+            height: 50%;
+            margin-left: 0px;
+            bottom: -19.2px;
+            left: -3.2px;
+        }
+    }
+
+    .first-item {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-top: 2px solid $blue;
     }
 
     @for $i from 1 to 10 {
@@ -172,3 +231,4 @@ header {
         transform: scale(1);
     }
 }
+
