@@ -8,28 +8,61 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="main.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        setTimeout(function () {
+            $('.loader_bg').fadeToggle();
+        }, 1500);
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("navbar").style.background = "#363636";
+                document.getElementById("logo").style.height = "50px";
+                var elems = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < elems.length; i++) {
+                    elems[i].style.height = "35px"
+                }
+            } else {
+                document.getElementById("navbar").style.background = "transparent";
+                document.getElementById("logo").style.height = "80%";
+                var elems = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < elems.length; i++) {
+                    elems[i].style.height = "64px"
+                }
+
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" type="text/js" href="main.js">
+
 </head>
 
 <body>
-    <header>
+
+    <div class="loader_bg">
+        <div class="test_loader"></div>
+    </div>
+
+    <header id="navbar">
         <div class="banner">
-            <img src="logo.svg">
+            <a href="index.html"><img id="logo" src="corplogo_true_color.svg"></a>
         </div>
         <nav>
 
-            <li class="dropdown">
+            <li id="nav-dropdown" class="dropdown">
                 INFO
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item">Presentation</li>
                     <li class="dropdown_item-2">Influence system</li>
                     <li class="dropdown_item-3">Certification</li>
-                    <li class="dropdown_item-4 last-item">
-                        <div class="scifi-bottom"><img src="bottom-left.svg"></div>
-                        History
-                    </li>
+                    <li class="dropdown_item-4 last-item">History</li>
                 </ul>
             </li>
-            <li class="dropdown">
+            <li id="nav-dropdown" class="dropdown">
                 Department
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item">Exploration</li>
@@ -38,53 +71,80 @@
                     <li class="dropdown_item-4">Business</li>
                     <li class="dropdown_item-5">Support</li>
                     <li class="dropdown_item-6">Social</li>
-                    <li class="dropdown_item-7 last-item">
-                        <div class="scifi-bottom"><img src="bottom-left.svg"></div>
-                        Content
-                    </li>
+                    <li class="dropdown_item-7 last-item">Content</li>
                 </ul>
             </li>
-            <li class="dropdown">
+            <li id="nav-dropdown" class="dropdown">
                 News
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item">SC news</li>
                     <li class="dropdown_item-2">CORP news</li>
                     <li class="dropdown_item-3">CORP content</li>
-                    <li class="dropdown_item-4 last-item">
-                        <div class="scifi-bottom"><img src="bottom-left.svg"></div>
-                        Item 5
-                    </li>
+                    <li class="dropdown_item-4 last-item">Item 5</li>
                 </ul>
             </li>
-            <li class="dropdown">
+            <li id="nav-dropdown" class="dropdown">
                 Tools
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item">Ship loadout</li>
                     <li class="dropdown_item-2">Trading</li>
                     <li class="dropdown_item-3">Inventory</li>
-                    <li class="dropdown_item-4 last-item">
-                        <div class="scifi-bottom"><img src="bottom-left.svg"></div>
-                        Fleet manager
-                    </li>
+                    <li class="dropdown_item-4 last-item">Fleet manager</li>
                 </ul>
             </li>
         </nav>
         <div class="user-tab">
-            <li class="dropdown">
+            <!-- <li id="nav-dropdown" class="dropdown login">
                 Login
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item">Account</li>
                     <li class="dropdown_item-2">User manager</li>
                     <li class="dropdown_item-3">Structure manager</li>
                     <li class="dropdown_item-4">Discord manager</li>
-                    <li class="dropdown_item-5 last-item"> 
-                        <div class="scifi-bottom"><img src="bottom-left.svg"></div>
-                        Website manager
-                    </li>
+                    <li class="dropdown_item-5 last-item"> Website manager</li>
+                </ul>
+            </li> -->
+            <li id="nav-dropdown" class="dropdown login">
+                Join
+                <ul class="dropdown_menu dropdown_menu-4">
+                    <li class="dropdown_item-1 first-item">Account</li>
+                    <li class="dropdown_item-2">User manager</li>
+                    <li class="dropdown_item-3">Structure manager</li>
+                    <li class="dropdown_item-4">Discord manager</li>
+                    <li class="dropdown_item-5 last-item"> Website manager</li>
                 </ul>
             </li>
         </div>
     </header>
+
+
+
+    <main>
+
+        <div class="hero">
+            <div class="pic-wrapper">
+                <figure class="pic-1"></figure>
+                <figure class="pic-2"></figure>
+                <figure class="pic-3"></figure>
+                <figure class="pic-4"></figure>
+            </div>
+        </div>
+        <div class="link-info">
+            <div class="link-item">
+                <div class="logo"><img src=""></div>
+                <div class="description"></div>
+            </div>
+            <div class="link-item">
+                <div class="logo"></div>
+                <div class="description"></div>
+            </div>
+            <div class="link-item">
+                <div class="logo"></div>
+                <div class="description"></div>
+            </div>
+        </div>
+
+    </main>
 </body>
 
 </html>
