@@ -19,12 +19,12 @@
 
         function scrollFunction() {
             if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-                document.getElementById("navbar").style.background = "#363636";
                 document.getElementById("logo").style.height = "50px";
                 var elems = document.getElementsByClassName("dropdown");
                 for (var i = 0; i < elems.length; i++) {
                     elems[i].style.height = "35px"
                 }
+                document.getElementById("navbar").style.background = "#363636";
             } else {
                 document.getElementById("navbar").style.background = "transparent";
                 document.getElementById("logo").style.height = "80%";
@@ -129,19 +129,50 @@
                 <figure class="pic-4"></figure>
             </div>
         </div>
+
         <div class="link-info">
             <div class="link-item">
-                <div class="logo"><img src=""></div>
-                <div class="description"></div>
+                <div class="logo"><a href=""><img src="MadeByTheCommunity_White.png"></a></div>
+                <div class="title">Star Citizen</div>
+                <div class="description">The Corporation is a Star Citizen community form by backers. We have been
+                    playing, supporting and funding the game since the start.</div>
             </div>
             <div class="link-item">
-                <div class="logo"></div>
-                <div class="description"></div>
+                <div class="logo"><a href=""><img src="discord.svg"></a></div>
+                <div class="title">Discord</div>
+                <div class="description">Discord is our main platform of operation. It is where we communicate, play and
+                    meme toguether.</div>
             </div>
             <div class="link-item">
-                <div class="logo"></div>
-                <div class="description"></div>
+                <div class="logo"><a href=""><img src="guilded.svg"></a></div>
+                <div class="title">Guilded</div>
+                <div class="description">We are present on guilded too. While we are not active on the platform, we use
+                    some of the functionnality and plan to transfer when the software get stable.</div>
             </div>
+        </div>
+
+        <div class="content-panel">
+
+            <div class="text-zone right-panel">
+                <div class="title">This is a title</div> 
+                This is some text
+            </div>
+
+            <div class="picture-zone left-panel" style="background-image: url('CentauriSaiseiFujin.jpg');">
+            </div>
+
+        </div>
+
+        <div class="content-panel">
+
+            <div class="text-zone left-panel">
+                <div class="title">This is a title</div> 
+                This is some text
+            </div>
+
+            <div class="picture-zone right-panel" style="background-image: url('sub.png');">
+            </div>
+
         </div>
 
     </main>

@@ -166,6 +166,7 @@ header {
             color: $yellow !important;
             text-decoration: none !important;
         }
+
         ul li {
             font-size: 0.4em;
             margin-right: 5%;
@@ -454,14 +455,64 @@ main {
     }
 
     .link-info {
-        height: 60vh;
+        height: 50vh;
         padding: auto;
         text-align: center;
         grid-column: 1fr;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        margin-left: 10vw;
-        margin-right: 10vw;
+        padding: 10vh;
+        padding-left: 20vw;
+        padding-right: 20vw;
+        padding-top: 20vh;;
+        grid-gap: 10vw;
+        background-image: url("steel.jpg");
+        background-size: cover;
+        background-position-y: 40%;
+        box-shadow: inset 1px 100px 100px -100px rgb(0, 0, 0);
+
+        .link-item {
+            grid-column: 1fr;
+            margin-left: auto;
+            margin-right: auto;
+            display: grid;
+            //background-color: $dark-grey;
+            grid-template-rows: 30% 10% 60%;
+            //border-radius: 20px;
+            grid-gap: 5%;
+
+            .logo {
+                width: 100px;
+                height: 150px;
+                grid-row: 1fr;
+                margin-left: auto;
+                margin-right: auto;
+                transition: all .3s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.3);
+                }
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .title {
+                font-size: 1.5em;
+                color: $yellow;
+            }
+
+            .description {
+                width: 100%;
+                grid-row: 1fr;
+                margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+        }
     }
 
     .connection {
@@ -479,10 +530,10 @@ main {
 
             .login-section {
                 border-radius: 20px;
-                background-color: $dark-grey-tr ;
+                background-color: $dark-grey-tr;
                 margin: 10%;
                 padding: 50px;
-                padding-bottom:auto;
+                padding-bottom: auto;
                 box-shadow: 0px 0px 10px #000000;
                 text-shadow: 0px 0px 5px #000000;
                 height: auto;
@@ -513,7 +564,7 @@ main {
                         transform: scale(1.2);
                     }
                 }
-    
+
                 .title {
                     width: 100%;
                     font-family: "Orbitron";
@@ -526,11 +577,11 @@ main {
                     color: $yellow;
                     text-shadow: #000000;
                 }
-    
+
                 fieldset {
                     border: 0;
                 }
-    
+
                 input[type=text],
                 input[type=password],
                 select {
@@ -542,7 +593,7 @@ main {
                     border-radius: 4px;
                     box-sizing: border-box;
                 }
-    
+
                 input[type=submit] {
                     width: 100%;
                     background-color: $blue;
@@ -556,17 +607,17 @@ main {
                     font-family: $main-font;
                     font-weight: bold;
                     transition: all ease-in-out .3s;
-    
+
                 }
-    
+
                 input[type=submit]:hover {
                     background-color: $yellow;
                     color: black;
                     transform: scale(1.03);
                 }
             }
-    
-    
+
+
             .register-form {
                 border-radius: 20px;
                 background-color: $dark-grey-tr;
@@ -588,11 +639,11 @@ main {
                     color: $yellow;
                     text-shadow: #000000;
                 }
-    
+
                 fieldset {
                     border: 0;
                 }
-    
+
                 input[type=text],
                 input[type=password],
                 select {
@@ -604,7 +655,7 @@ main {
                     border-radius: 4px;
                     box-sizing: border-box;
                 }
-    
+
                 input[type=submit] {
                     width: 100%;
                     background-color: $blue;
@@ -618,15 +669,15 @@ main {
                     font-family: $main-font;
                     font-weight: bold;
                     transition: all ease-in-out .3s;
-    
+
                 }
-    
+
                 input[type=submit]:hover {
                     background-color: $yellow;
                     color: black;
                     transform: scale(1.03);
                 }
-    
+
                 .info {
                     height: 50px;
                     width: 102%;
@@ -635,7 +686,7 @@ main {
                     margin-left: -10px;
                     margin-top: -10px;
                     position: relative;
-    
+
                     &:after {
                         content: "Please put your email inside your RSI bio";
                         position: absolute;
@@ -643,7 +694,7 @@ main {
                         left: 55px;
                         font-size: 1.3em;
                     }
-    
+
                     .tooltip {
                         font-family: Arial, Helvetica, sans-serif;
                         background: #000000;
@@ -659,29 +710,29 @@ main {
                         flex-direction: column;
                         text-align: justify;
                     }
-    
+
                     .tooltip.top-right {
                         clip-path: circle(var(--clip-width) at 20px 20px);
                         left: 6px;
                     }
-    
+
                     .tooltip:hover {
                         clip-path: circle(100%);
                         z-index: 2;
                     }
-    
+
                     .tooltip:hover::before,
                     .tooltip:hover::after {
                         background-color: white;
                         color: #000000;
                         border: none;
                     }
-    
+
                     .tooltip::before,
                     .tooltip::after {
                         margin: 5px;
                     }
-    
+
                     .tooltip.top-left::before,
                     .tooltip.top-right::before,
                     .tooltip.bottom-left::after,
@@ -699,25 +750,66 @@ main {
                         transition: all .1s ease-in-out;
                         shape-outside: circle(50%);
                     }
-    
+
                     .tooltip.top-right::before {
                         margin-left: var(--margin-info-default);
                         margin-top: var(--margin-info-default);
                     }
-    
+
                     .tooltip-text {
                         line-height: 1.3;
                     }
-    
+
                 }
-    
+
             }
 
 
         }
 
-        
+
     }
+
+    .content-panel {
+        height: 70vh;
+        grid-column: 1fr;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 0px;
+        padding: auto;
+
+        @media (max-width: 1000px) {
+            height: 100vw;
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+
+        @media (min-width: 1000px) {
+
+            .right-panel {
+                order: 1;
+            }
+            .left-panel {
+                order: 2;
+            }
+        }
+
+        .text-zone {
+            grid-column: 1fr;
+            height: 100%;
+            min-width: 500px;
+        }
+
+        .picture-zone {
+            grid-column: 1fr;
+            height: 100%;
+            background-size: cover;
+            background-position: right;
+            box-shadow: inset 0 100px 100px -7px rgba(0, 0, 0, 0.4);
+            min-width: 500px;
+        }
+    }
+
 }
 
 @include keyframes(scaleZ) {
@@ -745,12 +837,6 @@ main {
         opacity: 1;
     }
 }
-
-// =================== caroussel =====================
-
-
-
-// ==================== tooltip ====================
 
 // =================== preloader =====================
 
@@ -790,7 +876,6 @@ main {
     }
 
 }
-
 
 @include keyframes(loader) {
     0% {
