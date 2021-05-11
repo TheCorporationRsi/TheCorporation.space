@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
     <link rel="stylesheet" type="text/css" href="main.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -15,24 +15,38 @@
             $('.loader_bg').fadeToggle();
         }, 1500);
 
+        function show_menu() {
+            var x = document.getElementsByTagName("NAV");
+            if (x[0].style.display === "grid") {
+                x[0].style.display = "none";
+            } else {
+                x[0].style.display = "grid";
+            }
+        }
+
         window.onscroll = function () { scrollFunction() };
 
         function scrollFunction() {
             if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
                 document.getElementById("logo").style.height = "50px";
-                var elems = document.getElementsByClassName("dropdown");
-                for (var i = 0; i < elems.length; i++) {
-                    elems[i].style.height = "35px"
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "35px"
+                    }
                 }
                 document.getElementById("navbar").style.background = "#363636";
             } else {
                 document.getElementById("navbar").style.background = "transparent";
                 document.getElementById("logo").style.height = "80%";
-                var elems = document.getElementsByClassName("dropdown");
-                for (var i = 0; i < elems.length; i++) {
-                    elems[i].style.height = "64px"
-                }
 
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "64px"
+                    }
+                }
             }
         }
     </script>
@@ -51,45 +65,78 @@
         <div class="banner">
             <a href="index.html"><img id="logo" src="corplogo_true_color.svg"></a>
         </div>
-        <nav>
 
+        <a href="javascript:void(0);" onclick="show_menu()">
+            <div class="mobile-button">
+                <img src="ham.png">
+            </div>
+        </a>
+
+        <nav>
+            <a href="javascript:void(0);" onclick="show_menu()">
+                <div class="mobile-button">
+                    <img src="up.png">
+                </div>
+            </a>
+            <div class="user-tab-mobile">
+                <!-- <li id="nav-dropdown" class="dropdown login">
+                    Login
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li class="dropdown_item-1 first-item">Account</li>
+                        <li class="dropdown_item-2">User manager</li>
+                        <li class="dropdown_item-3">Structure manager</li>
+                        <li class="dropdown_item-4">Discord manager</li>
+                        <li class="dropdown_item-5 last-item"> Website manager</li>
+                    </ul>
+                </li> -->
+                <li id="nav-dropdown" class="dropdown">
+                    <a href="#" >Join</a>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li class="dropdown_item-1 first-item"><a href="#" >Account</a></li>
+                        <li class="dropdown_item-2"><a href="#" >User manager</a></li>
+                        <li class="dropdown_item-3"><a href="#" >Structure manager</a></li>
+                        <li class="dropdown_item-4"><a href="#" >Discord manager</a></li>
+                        <li class="dropdown_item-5 last-item"> <a href="#" >Website manager</a></li>
+                    </ul>
+                </li>
+            </div>
             <li id="nav-dropdown" class="dropdown">
-                INFO
+                <a href="#" >INFO</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item">Presentation</li>
-                    <li class="dropdown_item-2">Influence system</li>
-                    <li class="dropdown_item-3">Certification</li>
-                    <li class="dropdown_item-4 last-item">History</li>
+                    <li class="dropdown_item-1 first-item"><a href="#" >Presentation</a></li>
+                    <li class="dropdown_item-2"><a href="#" >Influence system</a></li>
+                    <li class="dropdown_item-3"><a href="#" >Certification</a></li>
+                    <li class="dropdown_item-4 last-item"><a href="#" >History</a></li>
                 </ul>
             </li>
             <li id="nav-dropdown" class="dropdown">
-                Department
+                <a href="#" >Department</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item">Exploration</li>
-                    <li class="dropdown_item-2">Security</li>
-                    <li class="dropdown_item-3">Ressources</li>
-                    <li class="dropdown_item-4">Business</li>
-                    <li class="dropdown_item-5">Support</li>
-                    <li class="dropdown_item-6">Social</li>
-                    <li class="dropdown_item-7 last-item">Content</li>
+                    <li class="dropdown_item-1 first-item"><a href="#" >Exploration</a></li>
+                    <li class="dropdown_item-2"><a href="#" >Security</a></li>
+                    <li class="dropdown_item-3"><a href="#" >Ressources</a></li>
+                    <li class="dropdown_item-4"><a href="#" >Business</a></li>
+                    <li class="dropdown_item-5"><a href="#" >Support</a></li>
+                    <li class="dropdown_item-6"><a href="#" >Social</a></li>
+                    <li class="dropdown_item-7 last-item"><a href="#" ></a>Content</li>
                 </ul>
             </li>
             <li id="nav-dropdown" class="dropdown">
-                News
+                <a href="#" >News</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item">SC news</li>
-                    <li class="dropdown_item-2">CORP news</li>
-                    <li class="dropdown_item-3">CORP content</li>
-                    <li class="dropdown_item-4 last-item">Item 5</li>
+                    <li class="dropdown_item-1 first-item"><a href="#" >SC news</a></li>
+                    <li class="dropdown_item-2"><a href="#" >CORP news</a></li>
+                    <li class="dropdown_item-3"><a href="#" >CORP content</a></li>
+                    <li class="dropdown_item-4 last-item"><a href="#" >Item 5</a></li>
                 </ul>
             </li>
             <li id="nav-dropdown" class="dropdown">
-                Tools
+                <a href="#" >Tools</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item">Ship loadout</li>
-                    <li class="dropdown_item-2">Trading</li>
-                    <li class="dropdown_item-3">Inventory</li>
-                    <li class="dropdown_item-4 last-item">Fleet manager</li>
+                    <li class="dropdown_item-1 first-item"><a href="#" >Ship loadout</a></li>
+                    <li class="dropdown_item-2"><a href="#" >Trading</a></li>
+                    <li class="dropdown_item-3"><a href="#" >Inventory</a></li>
+                    <li class="dropdown_item-4 last-item"><a href="#" >Fleet manager</a></li>
                 </ul>
             </li>
         </nav>
@@ -105,13 +152,13 @@
                 </ul>
             </li> -->
             <li id="nav-dropdown" class="dropdown login">
-                Join
+                <a href="#" >Join</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item">Account</li>
-                    <li class="dropdown_item-2">User manager</li>
-                    <li class="dropdown_item-3">Structure manager</li>
-                    <li class="dropdown_item-4">Discord manager</li>
-                    <li class="dropdown_item-5 last-item"> Website manager</li>
+                    <li class="dropdown_item-1 first-item"><a href="#" >Account</a></li>
+                    <li class="dropdown_item-2"><a href="#" >User manager</a></li>
+                    <li class="dropdown_item-3"><a href="#" >Structure manager</a></li>
+                    <li class="dropdown_item-4"><a href="#" >Discord manager</a></li>
+                    <li class="dropdown_item-5 last-item"> <a href="#" >Website manager</a></li>
                 </ul>
             </li>
         </div>
@@ -151,26 +198,39 @@
             </div>
         </div>
 
-        <div class="content-panel">
+        <div class="content-panel" style="background-image: url('CentauriSaiseiFujin.jpg');">
 
             <div class="text-zone right-panel">
-                <div class="title">This is a title</div> 
-                This is some text
+                <div class="title">Money doesn't buy happiness. <span>But it help.</span></div>
+                <div class="description">This is some text</div>
+                
             </div>
 
-            <div class="picture-zone left-panel" style="background-image: url('CentauriSaiseiFujin.jpg');">
+            <div class="picture-zone left-panel">
             </div>
 
         </div>
 
-        <div class="content-panel">
+        <div class="content-panel" style="background-image: url('steel.jpg');">
 
-            <div class="text-zone left-panel">
-                <div class="title">This is a title</div> 
-                This is some text
+            <div class="text-zone left-panel" >
+                <div class="title">Recycling is simple. <span>Give back to nature.</span></div>
+                <div class="description">This is some text</div>
             </div>
 
-            <div class="picture-zone right-panel" style="background-image: url('sub.png');">
+            <div class="picture-zone right-panel">
+            </div>
+
+        </div>
+
+        <div class="content-panel" style="background-image: url('line.jpg');">
+
+            <div class="text-zone right-panel">
+                <div class="title">We respect the law. <span>Sometimes.</span></div>
+                <div class="description">This is some text</div>
+            </div>
+
+            <div class="picture-zone left-panel">
             </div>
 
         </div>
