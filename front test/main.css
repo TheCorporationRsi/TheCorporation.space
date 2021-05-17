@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Orbitron&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 :root {
   --clip-width: 14px;
   --margin-info-default: -7px;
@@ -90,6 +91,9 @@ body {
     color: white;
   }
   header .mobile-button {
+    display: none;
+  }
+  header .user-tab-mobile {
     display: none;
   }
   header .banner {
@@ -682,6 +686,7 @@ main .link-info .link-item .logo img {
 main .link-info .link-item .title {
   font-size: 1.5em;
   color: #fcff00;
+  text-shadow: 0px 0px 8px black;
 }
 main .link-info .link-item .description {
   width: 100%;
@@ -690,6 +695,7 @@ main .link-info .link-item .description {
   margin-right: auto;
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: 0px 0px 8px black;
 }
 main .connection {
   height: 100vh;
@@ -706,7 +712,7 @@ main .connection .connection-zone {
 }
 main .connection .connection-zone .login-section {
   border-radius: 20px;
-  background-color: #414141b2;
+  background-color: #414141be;
   margin: 10%;
   padding: 50px;
   padding-bottom: auto;
@@ -790,7 +796,7 @@ main .connection .connection-zone .login-section input[type=submit]:hover {
 }
 main .connection .connection-zone .register-form {
   border-radius: 20px;
-  background-color: #414141b2;
+  background-color: #414141be;
   padding: 50px;
   -webkit-box-shadow: 0px 0px 10px #000000;
           box-shadow: 0px 0px 10px #000000;
@@ -944,43 +950,57 @@ main .content-panel {
   padding: auto;
   background-position-y: center;
   background-position-x: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 @media (max-width: 1000px) {
   main .content-panel {
     height: 120vh;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
+    -webkit-box-shadow: inset 0 100vh 40vw -20vw rgba(0, 0, 0, 0.747);
+            box-shadow: inset 0 100vh 40vw -20vw rgba(0, 0, 0, 0.747);
   }
 }
 @media (min-width: 1000px) {
   main .content-panel .right-panel {
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+  }
+  main .content-panel .left-panel {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1;
   }
-  main .content-panel .left-panel {
-    -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+  main .content-panel.right {
+    -webkit-box-shadow: inset -80vw 0 60vw -20vw rgba(0, 0, 0, 0.747);
+            box-shadow: inset -80vw 0 60vw -20vw rgba(0, 0, 0, 0.747);
+  }
+  main .content-panel.left {
+    -webkit-box-shadow: inset 80vw 0 60vw -20vw rgba(0, 0, 0, 0.747);
+            box-shadow: inset 80vw 0 60vw -20vw rgba(0, 0, 0, 0.747);
   }
 }
 main .content-panel .text-zone {
   grid-column: 1fr;
   display: grid;
-  grid-template-rows: 40% 60%;
+  margin: auto;
+  grid-template-rows: 20% 75%;
   grid-gap: 5%;
   height: 100%;
-  background-color: #000000a4;
-  -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
 }
 main .content-panel .text-zone .title {
+  padding-top: 5%;
   grid-row: 1fr;
   margin: auto;
-  font-size: 2em;
+  font-size: 2vw;
   font-weight: bold;
   text-justify: center;
+  text-align: center;
   color: #0083ff;
+  width: 100%;
+  text-shadow: 0px 0px 8px black;
 }
 @media (max-width: 1000px) {
   main .content-panel .text-zone .title {
@@ -989,20 +1009,24 @@ main .content-panel .text-zone .title {
 }
 main .content-panel .text-zone .title span {
   color: #fcff00;
+  text-shadow: 0px 0px 8px black;
 }
 main .content-panel .text-zone .description {
   grid-row: 1fr;
   margin-left: auto;
   margin-right: auto;
-  font-size: 1.6em;
+  padding: 40px;
+  font-weight: bold;
+  text-justify: center;
+  text-align: justify;
+  font-size: 1.8em;
   color: white;
+  text-shadow: 0px 0px 8px black;
 }
 main .content-panel .picture-zone {
   grid-column: 1fr;
   height: 100%;
   background-size: cover;
-  -webkit-box-shadow: inset 0 100px 100px -7px rgba(0, 0, 0, 0.4);
-          box-shadow: inset 0 100px 100px -7px rgba(0, 0, 0, 0.4);
 }
 @-webkit-keyframes scaleZ {
   0% {

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
 @import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 :root {
     --clip-width: 14px;
@@ -30,7 +31,8 @@ $blue: #0083ff;
 $yellow: #fcff00;
 $light-grey:#646464;
 $dark-grey: #444444;
-$dark-grey-tr: #414141b2;
+$dark-grey-tr: #414141be;
+$background-tr: #363636d5;
 $background: #363636;
 $menu-font-color: rgb(255, 255, 255);
 $menu-svg: url('bottom-left.svg');
@@ -115,6 +117,10 @@ body {
         }
 
         .mobile-button {
+            display: none;
+        }
+
+        .user-tab-mobile {
             display: none;
         }
 
@@ -678,6 +684,7 @@ main {
             .title {
                 font-size: 1.5em;
                 color: $yellow;
+                text-shadow: 0px 0px 8px black;
             }
 
             .description {
@@ -687,6 +694,7 @@ main {
                 margin-right: auto;
                 text-align: center;
                 margin-bottom: 20px;
+                text-shadow: 0px 0px 8px black;
             }
         }
     }
@@ -956,40 +964,62 @@ main {
         padding: auto;
         background-position-y: center;
         background-position-x: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+
+
+
+
 
         @media (max-width: 1000px) {
             height: 120vh;
             grid-template-columns: 1fr;
             grid-template-rows: 1fr 1fr;
+            box-shadow: inset 0 100vh 40vw -20vw rgba(0, 0, 0, 0.747);
         }
 
         @media (min-width: 1000px) {
 
             .right-panel {
-                order: 1;
+                order: 2;
             }
 
             .left-panel {
-                order: 2;
+                order: 1;
+            }
+
+            &.right {
+                box-shadow: inset -80vw 0 60vw -20vw rgba(0, 0, 0, 0.747);
+            }
+
+            &.left {
+                box-shadow: inset 80vw 0 60vw -20vw rgba(0, 0, 0, 0.747);
             }
         }
 
         .text-zone {
             grid-column: 1fr;
             display: grid;
-            grid-template-rows: 40% 60%;
+            margin: auto;
+            grid-template-rows: 20% 75%;
             grid-gap: 5%;
             height: 100%;
-            background-color: #000000a4;
-            backdrop-filter: blur(4px);
+            // background-color: $background-tr;
+            // background-color: rgba(0, 0, 0, 0.514);
+            // backdrop-filter: blur(4px);
 
             .title {
+                padding-top: 5%;
                 grid-row: 1fr;
                 margin: auto;
-                font-size: 2em;
+                font-size: 2vw;
                 font-weight: bold;
                 text-justify: center;
+                text-align: center;
                 color: $blue;
+                width: 100%;
+                text-shadow: 0px 0px 8px black;
 
                 @media (max-width: 1000px) {
                     font-size: 1.5em;
@@ -997,6 +1027,7 @@ main {
 
                 span {
                     color: $yellow;
+                    text-shadow: 0px 0px 8px black;
                 }
             }
 
@@ -1004,8 +1035,15 @@ main {
                 grid-row: 1fr;
                 margin-left: auto;
                 margin-right: auto;
-                font-size: 1.6em;
+                padding: 40px;
+                // font-family: 'Roboto';
+                font-weight: bold;
+                //padding-top: 0;
+                text-justify: center;
+                text-align: justify;
+                font-size: 1.8em;
                 color: white;
+                text-shadow: 0px 0px 8px black;
             }
         }
 
@@ -1013,7 +1051,7 @@ main {
             grid-column: 1fr;
             height: 100%;
             background-size: cover;
-            box-shadow: inset 0 100px 100px -7px rgba(0, 0, 0, 0.4);
+            // box-shadow: inset 0 100px 100px -7px rgba(0, 0, 0, 0.4);
         }
     }
 
