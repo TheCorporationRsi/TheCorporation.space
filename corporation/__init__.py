@@ -85,7 +85,7 @@ def create_app(config_class = Config):
     app.register_blueprint(data)
     
     discord_command.set_route("/interactions")
-    discord_command.update_slash_commands(guild_id= 831248117571649566)
+    #discord_command.update_slash_commands(guild_id= 831248117571649566)
 
     return app
 

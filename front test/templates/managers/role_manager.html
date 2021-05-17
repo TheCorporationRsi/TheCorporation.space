@@ -1,0 +1,98 @@
+{% extends "main.html" %}
+{% block content %}
+<main role="main" class="container">
+    <div class="btn-group">
+
+        {% if current_user.is_manager("admin") %}
+        {% if currentdep == 0 %}
+        <a href="{{ url_for('managers.role_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.role_manager') }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+        {% endif %}
+        
+        {% for department in departments %}
+        {% if current_user.is_manager(department = department.id) %}
+            {% if currentdep == department.id %}
+                <a href="{{ url_for('managers.role_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
+            {% else %}
+                <a href="{{ url_for('managers.role_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
+            {% endif %}
+        {% else %}
+            {% for division in department.divisions %}
+            {% if current_user.is_manager(division = division.id) %}
+            {% if currentdep == department.id %}
+                <a href="{{ url_for('managers.role_manager', department= department.id, division= division.id) }}" class="btn btn-primary active">{{ department.title }}</a>
+            {% else %}
+                <a href="{{ url_for('managers.role_manager', department= department.id, division= division.id) }}" class="btn btn-primary">{{ department.title }}</a>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% endfor %}
+
+    </div>
+    <br>
+    <br>
+    <div class="btn-group">
+
+        {% if current_user.is_manager("admin") or current_user.is_manager(department = currentdep) %}
+        {% if currentdiv == 0 %}
+        <a href="{{ url_for('managers.role_manager', department = currentdep ) }}" class="btn btn-primary active" aria-current="page">All</a>
+        {% else %}
+        <a href="{{ url_for('managers.role_manager', department = currentdep) }}" class="btn btn-primary" aria-current="page">All</a>
+        {% endif %}
+        {% endif %}
+
+        {% for division in divisions %}
+        {% if currentdep == 0 or currentdep == division.department.id %}
+        {% if current_user.is_manager(division = division.id) %}
+            {% if currentdiv == division.id %}
+                <a href="{{ url_for('managers.role_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary active">{{ division.title }}</a>
+            {% else %} 
+                <a href="{{ url_for('managers.role_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary">{{ division.title }}</a>
+            {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+    </div>
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label")}}
+
+                {% if form.title.errors %}
+                {{ form.title(class="form-control form-control-lg is-invalid")}}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control form-control-lg")}}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary")}}
+        </div>
+    </form>
+    <h1 class="mb-3 text-white">Role list</h1>
+    {% for role in roles %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2 postuser" href="">{{ role.title }}</a>
+                <small class="" style=" color:rgb(231, 231, 231)!important;"> User count: {{ role.member_count() }} </small>
+            </div>
+        </div>
+    </article>
+    {% else %}
+    <p> No division found </p>
+    {% endfor %}
+</main>
+{% endblock content %}
