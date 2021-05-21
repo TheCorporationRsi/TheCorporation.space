@@ -619,4 +619,279 @@ body {
             transform: scale(1);
     opacity: 0;
   }
-}/*# sourceMappingURL=main.css.map */
+}
+main {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  width: 100vw;
+  background-image: url("/static/texture.svg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+}
+main .user-info {
+  min-height: 40vh;
+  display: grid;
+  grid-gap: 30px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin-top: 120px;
+}
+@media (min-width: 800px) {
+  main .user-info {
+    grid-template-columns: 40% 60%;
+  }
+}
+@media (max-width: 800px) {
+  main .user-info {
+    grid-template-rows: 40% 55%;
+  }
+}
+main .user-info .user-tab {
+  background-color: #363636;
+  border-radius: 10px;
+}
+main .user-info .summary {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
+}
+main .user-info .summary .top-section {
+  display: grid;
+  grid-template-columns: 40% 55%;
+  grid-gap: 5%;
+}
+main .user-info .summary .top-section img {
+  border-right: 5px solid #444444;
+  border-bottom: 5px solid #444444;
+  height: auto;
+  width: 100%;
+  border-top-left-radius: 10px;
+}
+main .user-info .summary .top-section .handle {
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: text-top;
+  text-align: left;
+  text-justify: top;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-rows: 1fr 1fr;
+}
+main .user-info .summary .top-section .handle .title {
+  color: #9b9b9b;
+  font-size: 1.3vw;
+}
+main .user-info .user-link {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  padding: 30px;
+}
+main .user-info .user-link .link-item {
+  display: grid;
+  grid-template-columns: 20% 75%;
+  grid-gap: 2%;
+  background-color: #444444;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px;
+}
+main .user-info .user-link .link-item div {
+  display: block;
+  text-align: left;
+  padding: auto;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  font-size: 1vw;
+}
+main .tools {
+  min-height: 40vh;
+  display: grid;
+  grid-gap: 30px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+@media (min-width: 800px) {
+  main .tools {
+    grid-template-columns: 40% 29% 29%;
+  }
+}
+@media (max-width: 800px) {
+  main .tools {
+    grid-template-rows: 100vh 100vh;
+  }
+}
+main .tools .tools-tab {
+  background-color: #363636;
+  border-radius: 10px;
+}
+main .tools .role-section {
+  display: grid;
+  grid-template-rows: 5% 90%;
+  grid-gap: 5%;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
+  margin-top: 30px;
+}
+main .tools .role-section .roles {
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+main .tools .role-section .roles div {
+  display: grid;
+  grid-template-columns: 10% 90%;
+  grid-gap: 3px;
+  align-self: flex-start;
+  text-decoration: none;
+  font-weight: normal;
+  border: 2px solid red;
+  border-radius: 15px;
+  height: 20px;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  padding-left: 5px;
+  padding-right: 10px;
+  font-size: 15px;
+  margin-right: 5px;
+  margin-top: 4px;
+  text-align: center;
+  vertical-align: center;
+}
+main .tools .role-section .roles div p {
+  display: block;
+  border-radius: 15px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  margin: auto;
+}
+main .tools .influence-info {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  padding: 30px;
+}
+main .tools .influence-info .item {
+  display: grid;
+  grid-template-columns: 45% 50%;
+  grid-gap: 1%;
+}
+main .tools .influence-info .item div {
+  display: block;
+  text-align: left;
+  padding: auto;
+  vertical-align: middle;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  font-size: 1vw;
+}
+main .tools .influence-transfer {
+  padding: 30px;
+}
+main .tools .influence-transfer .title {
+  width: 100%;
+  font-family: "Orbitron";
+  font-size: 6em;
+  margin-top: -120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #fcff00;
+  text-shadow: #000000;
+}
+main .tools .influence-transfer fieldset {
+  border: 0;
+}
+main .tools .influence-transfer .invalid-feedback {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+main .tools .influence-transfer input[type=text],
+main .tools .influence-transfer input[type=password],
+main .tools .influence-transfer textarea,
+main .tools .influence-transfer select {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+main .tools .influence-transfer input[type=text].error,
+main .tools .influence-transfer input[type=password].error,
+main .tools .influence-transfer textarea.error,
+main .tools .influence-transfer select.error {
+  border: 2px solid red;
+}
+main .tools .influence-transfer textarea {
+  min-height: 200px;
+}
+main .tools .influence-transfer input[type=submit] {
+  width: 100%;
+  background-color: #0083ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: "Orbitron";
+  font-weight: bold;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+main .tools .influence-transfer input[type=submit]:hover {
+  background-color: #fcff00;
+  color: black;
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+main .system {
+  min-height: 40vh;
+  display: grid;
+  grid-gap: 30px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin-bottom: 30px;
+}
+@media (min-width: 800px) {
+  main .system {
+    grid-template-columns: 50% 50%;
+  }
+}
+@media (max-width: 800px) {
+  main .system {
+    grid-template-rows: 100vh 100vh;
+  }
+}
+main .system .system-tab {
+  background-color: #363636;
+  border-radius: 10px;
+}/*# sourceMappingURL=account.css.map */

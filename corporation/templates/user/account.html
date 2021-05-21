@@ -1,61 +1,188 @@
-{% extends "main.html"%}
-{% block content %}
-<main role="main" class="container">
-<div class="content-section">
-    <div class="media">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-        <div class="media-body">
-            <h2 class="account-heading">{{ current_user.RSI_handle }}</h2>
-            <p class="text-warning">{{ current_user.email }}</p>
-            {% if current_user.discord_username != null %}
-            <p class="text-warning">Discord: {{ current_user.discord_username }}</p>
-            {% endif %}
+{% extends "header.html" %}
 
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Roles
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for link in current_user.roles %}
-                    <a class="dropdown-item" href="#">{{ link.role.title }}</a>
-                    {% endfor %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/account.css') }}">
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var users = [];
+
+        function loadUsers() {
+            $.getJSON('/data/users', function (data, status, xhr) {
+                for (var i = 0; i < data.length; i++) {
+                    users.push(data[i].name);
+                }
+            });
+        };
+
+        loadUsers();
+
+        $('#influence-RSI_handle').autocomplete({
+            source: users,
+        });
+    });
+</script>
+
+{% endblock style %}
+
+
+
+{% block content %}
+<div class="user-info">
+    <div class="user-tab summary">
+        <div class="top-section">
+            <img src="{{ image_file }}">
+
+
+
+            <div class="handle">
+                <p class="title">RSI moniker:</p>
+                <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_handle }}</p>
+                <p class="title">RSI handle:</p>
+                <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_handle }}</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="update-section">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    <legend class="">Account Info</legend>
+                    <div>
+                        {{ form.picture.label() }}
+                        {{ form.picture() }}
+                        {% if form.picture.errors %}
+                        {% for error in form.picture.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div>
+                    {{ form.submit()}}
                 </div>
+            </form>
+        </div>
+    </div>
+    <div class="user-tab user-link">
+
+        <div class="link-item">
+            <div class="title">Star Citizen link:</div>
+            <div class="value">https://robertsspaceindustries.com/citizens/{{ current_user.RSI_handle }}</div>
+        </div>
+        <div class="link-item">
+            <div class="title">Email:</div>
+            <div class="value">{{ current_user.email }}</div>
+        </div>
+        <div class="link-item">
+            <div class="title">Discord username</div>
+            <div class="value">{{ current_user.discord_username }}</div>
+        </div>
+        <div class="link-item">
+            <div class="title">Guilded username</div>
+            <div class="value">{{ current_user.guilded_username }}</div>
+        </div>
+        <div class="link-item">
+            <div class="title">Other stuff</div>
+            <div class="value">blablabla</div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="tools">
+
+    <div class="tools-tab roles">
+        <div class="role-section">
+            <div class="title">
+                Roles:
+            </div>
+            <div class="roles">
+                {% for role in current_user.roles() %}
+                <div style=" border-color: {{ role.color }}; ">
+                    <p class="circle" style="background-color: {{ role.color }};"></p>
+                    {{ role.title }}
+                </div>
+                {% endfor %}
+
             </div>
         </div>
     </div>
-    <!-- FORM HERE -->
-    <div class="content-section">
-        {% if current_user.discord_username != null %}
-        <legend class="border-bottom mb-4">Change Discord</legend>
-        {% else %}
-        <legend class="border-bottom mb-4">Link Discord</legend>
-        {% endif %}
-                <div class="form-group bg-dark"
-                    style="border-radius: 10px; width: 140px; height: 50px; position: left; padding-left: 20px; padding-top: 5px; ">
-                    <a href="/discord/2">
-                        <img src="{{ url_for('static', filename='discord.svg')}}" width="100" height="40">
-                    </a>
-                </div>
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Account Info</legend>
-                <div class="form-group">
-                    {{ form.picture.label() }}
-                    {{ form.picture(class="form-control-file") }}
-                    {% if form.picture.errors %}
-                    {% for error in form.picture.errors %}
-                    <span>{{ error }}</span></br>
+
+    <div class="tools-tab influence-info">
+        <div class="item">
+            <div class="title">Rank:</div>
+            <div class="data">Drone</div>
+        </div>
+        <div class="item">
+            <div class="title">Lifetime influence:</div>
+            <div class="data">69420</div>
+        </div>
+        <div class="item">
+            <div class="title">Weekly tribute:</h6></div>
+            <div class="data">300</div>
+        </div>
+    </div>
+
+    <div class="tools-tab influence-transfer">
+        <form method="POST" action="">
+            {{ inf_form.csrf_token }}
+            <div>
+                {{ inf_form.RSI_handle.label()}}
+                {% if inf_form.RSI_handle.errors %}
+                {{ inf_form.RSI_handle(class="error")}}
+                <div class="invalid-feedback">
+                    {% for error in inf_form.RSI_handle.errors %}
+                    <span>{{ error }}</span>
                     {% endfor %}
-                    {% endif %}
                 </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-primary")}}
+                {% else %}
+                {{ inf_form.RSI_handle()}}
+                {% endif %}
+            </div>
+            <div>
+                {{ inf_form.amount.label()}}
+                {% if inf_form.amount.errors %}
+                {{ inf_form.amount(class="error")}}
+                <div class="invalid-feedback">
+                    {% for error in inf_form.amount.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ inf_form.amount()}}
+                {% endif %}
+            </div>
+            <div>
+                {{ inf_form.message.label()}}
+                {% if inf_form.message.errors %}
+                {{ inf_form.message(class="error")}}
+                <div class="invalid-feedback">
+                    {% for error in inf_form.message.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ inf_form.message()}}
+                {% endif %}
+            </div>
+            <div>
+                {{ inf_form.send()}}
             </div>
         </form>
     </div>
 </div>
-</main>
+<div class="system">
+    <div class="system-tab settings">
+
+    </div>
+
+    <div class="system-tab influence">
+
+    </div>
+</div>
 {% endblock content %}

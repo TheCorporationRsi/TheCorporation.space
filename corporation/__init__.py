@@ -8,6 +8,7 @@ from corporation.config import Config
 from flask_discord import DiscordOAuth2Session
 import json
 from flask_discord_interactions import DiscordInteractions
+from flask_crontab import Crontab
 
 import discord
 from discord.ext import ipc
@@ -29,6 +30,7 @@ bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
+crontab = Crontab()
 
 
 with open('/etc/config.json') as config_file:
@@ -50,6 +52,7 @@ def create_app(config_class = Config):
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    crontab.init_app(app)
     try:
         discord.init_app(app)
         discord_command = DiscordInteractions(app)

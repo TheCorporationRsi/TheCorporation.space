@@ -23,10 +23,17 @@
     <meta property=”og:type” content=”website” />
     <meta property="og:site_name" content="The Corporation inc.">
 
+    <!-- CSS sheets-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
+    <!--END CSS sheets-->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
     <script>
+
+
 
         $(document).ready(function () {
                 $('.loader_bg').fadeToggle();
@@ -83,7 +90,7 @@
 
     <header id="navbar">
         <div class="banner">
-            <a href="index.html"><img id="logo" src="/static/main/corplogo_true_color.svg"></a>
+            <a href="/"><img id="logo" src="/static/main/corplogo_true_color.svg"></a>
         </div>
 
         <a href="javascript:void(0);" onclick="show_menu()">
@@ -175,13 +182,17 @@
             {% if current_user.is_authenticated %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="#">{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('users.account') }}" style="font-size: {{ 30/current_user.RSI_handle|length }}vw ";>{{ current_user.RSI_handle }}</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">Account</a></li>
+                    <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
+
+                    {% if current_user.is_manager("admin") %}
                     <li class="dropdown_item-2"><a href="#">User manager</a></li>
                     <li class="dropdown_item-3"><a href="#">Structure manager</a></li>
                     <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
-                    <li class="dropdown_item-5 last-item"> <a href="#">Website manager</a></li>
+                    <li class="dropdown_item-5"> <a href="#">Website manager</a></li>
+                    {% endif %}
+                    <li class="dropdown_item-5 last-item"> <a href="{{ url_for('users.logout') }}">Logout</a></li>
                 </ul>
             </li>
 
@@ -190,15 +201,14 @@
             {% if request.path=="/register" %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="#">Login</a>
+                <a href="{{ url_for('users.login') }}">Login</a>
             </li>
 
             {% else %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="#">Join</a>
+                <a href="{{ url_for('users.register') }}">Join</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">Login</a></li>
                 </ul>
             </li>
             {% endif %}

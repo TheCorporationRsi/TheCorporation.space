@@ -1,6 +1,7 @@
 {% extends "header.html" %}
-{% block style %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/landing.css') }}">
 {% endblock style %}
 
 
@@ -30,7 +31,8 @@
             meme toguether.</div>
     </div>
     <div class="link-item">
-        <div class="logo"><a href="https://www.guilded.gg/Corporation?i=8d8apn0m"><img src="/static/landing_page/guilded.svg"></a></div>
+        <div class="logo"><a href="https://www.guilded.gg/Corporation?i=8d8apn0m"><img
+                    src="/static/landing_page/guilded.svg"></a></div>
         <div class="title">Guilded</div>
         <div class="description">We are present on guilded too. While we are not active on the platform, we use
             some of the functionnality and plan to transfer when the software get stable.</div>
@@ -54,8 +56,7 @@
 
 </div>
 
-<div class="content-panel left"
-    style="background-image: url('/static/landing_page/nature.png'); ">
+<div class="content-panel left" style="background-image: url('/static/landing_page/nature.png'); ">
 
     <div class="text-zone left-panel">
         <div class="title">Recycling is simple. <span>Give back to nature.</span></div>
@@ -87,5 +88,28 @@
 
 </div>
 
+<!-- <div style="overflow: auto;">
+    <p style="
+      font-family: SQ Market;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 500;
+    ">Help the corp</p>
+    <a target="_blank"
+        href="https://checkout.square.site/merchant/MLB386TM42RM4/checkout/OQ3XRRCLK4NQ5LG5BHD3UZNI?src=embed" style="
+      display: inline-block;
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      line-height: 48px;
+      height: 48px;
+      color: #ffffff;
+      min-width: 165px;
+      background-color: #000000;
+      border-radius: 4px;
+      text-align: center;
+      box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
+    " id="_idgpn_404">Faire un don</a>
+</div>
+ -->
 
 {% endblock content %}

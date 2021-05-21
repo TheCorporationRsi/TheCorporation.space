@@ -134,7 +134,7 @@ def account():
     # elif request.method == 'GET':
     #     form.email.data = current_user.email
     image_file = url_for('static', filename= 'profile_pics/'+ current_user.image_file )
-    return render_template("user/account2.html", title = "Account", image_file= image_file, form= form, inf_form = inf_form)
+    return render_template("user/account.html", title = "Account", image_file= image_file, form= form, inf_form = inf_form)
 
 
 

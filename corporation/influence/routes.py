@@ -1,4 +1,5 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
+from corporation import crontab
 from corporation.models import Post, User
 from corporation.influence.forms import MyForm
 from flask_login import current_user, login_required
@@ -17,4 +18,8 @@ def influence_send():
         flash(f'Transfer sucessful!', 'success')
     
     return render_template("influence/influence.html", title = "Influence", form=form)
+
+@crontab.job(minute="1", hour="0")
+def my_scheduled_job():
+    print('test')
 
