@@ -272,11 +272,11 @@ body {
                 border-left: 3px solid $blue;
                 border-right: 3px solid $blue;
                 text-shadow: 0px 0px 5px black;
-                
+
                 a {
-                    color: white!important;
+                    color: white !important;
                     width: 100%;
-                    
+
                 }
 
                 &:hover {
@@ -374,6 +374,52 @@ body {
         }
     }
 }
+
+
+.notifications {
+    position: fixed;
+    z-index: 100000;
+    top: 0px;
+    left: 0px;
+
+    .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        text-align: center;
+        width: calc(100vw - 40px);
+
+        &.danger {
+            background-color: red;
+        }
+
+        &.success {
+            background-color: green;
+        }
+
+        &.warning {
+            background-color: yellow;
+        }
+
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
+}
+
+
 
 @media (max-width: 800px) {
     header {

@@ -36,9 +36,7 @@ def add_role(user, role, admin = 0):
             
                 
     if user and role:
-        link = Rolevsuser( RSI_handle = user.RSI_handle, role_id = role.id)
-        db.session.add(link)
-        db.session.commit()
+        user.add_role(role)
         flash('Role has been added!', 'success')
     
     return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))

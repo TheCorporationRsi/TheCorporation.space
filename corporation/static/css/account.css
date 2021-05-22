@@ -373,6 +373,43 @@ body {
             animation: scaleZ 300ms 540ms ease-in-out forwards;
   }
 }
+.notifications {
+  position: fixed;
+  z-index: 100000;
+  top: 0px;
+  left: 0px;
+}
+.notifications .alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  text-align: center;
+  width: calc(100vw - 40px);
+}
+.notifications .alert.danger {
+  background-color: red;
+}
+.notifications .alert.success {
+  background-color: green;
+}
+.notifications .alert.warning {
+  background-color: yellow;
+}
+.notifications .alert .closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+.notifications .alert .closebtn:hover {
+  color: black;
+}
+
 @media (max-width: 800px) {
   header {
     width: 100%;

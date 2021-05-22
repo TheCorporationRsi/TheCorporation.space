@@ -1,11 +1,12 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from corporation import db, bcrypt, discord
-from corporation.models import User, Post, Role, Rolevsuser, Influence_account
+from corporation.models import User, Post, Role, Rolevsuser
 from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form
 from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 from corporation.users.utils import RSIverify
+from sqlalchemy import func
 
 
 from flask import Blueprint
@@ -24,10 +25,10 @@ def register():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(RSI_handle= form.RSI_handle.data, email= form.email.data, password= hashed_password)
 
-        test = Influence_account.query.filter_by(RSI_handle=form.RSI_handle.data).first()
-        if not test:
-            inf_account = Influence_account(RSI_handle=form.RSI_handle.data)
-            db.session.add(inf_account)
+        # test = Influence_account.query.filter_by(RSI_handle=form.RSI_handle.data).first()
+        # if not test:
+        #     inf_account = Influence_account(RSI_handle=form.RSI_handle.data)
+        #     db.session.add(inf_account)
             
         db.session.add(user)
         db.session.commit()
@@ -95,7 +96,8 @@ def login():
         return redirect(url_for('main.home'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(RSI_handle= form.RSI_handle.data).first()
+        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(form.RSI_handle.data)).first()
+        user.upgrade()
             
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             if user.email_confirmed == False:
@@ -130,10 +132,18 @@ def account():
     
     inf_form = inf_Form(prefix="influence")
     if inf_form.validate_on_submit():
-        flash(f'Transfer sucessful!', 'success')
+        receiver = User.query.filter(func.lower(User.RSI_handle) == func.lower(inf_form.RSI_handle.data)).first()
+        
+        current_user.send_tribute(receiver, inf_form.amount.data)
+        
+        flash(f'Sucessful transfer of '+ str(inf_form.amount.data) +' influence to '+ receiver.RSI_handle, 'success')
+        return redirect(url_for('users.account'))
+    
     # elif request.method == 'GET':
     #     form.email.data = current_user.email
     image_file = url_for('static', filename= 'profile_pics/'+ current_user.image_file )
+    
+    
     return render_template("user/account.html", title = "Account", image_file= image_file, form= form, inf_form = inf_form)
 
 

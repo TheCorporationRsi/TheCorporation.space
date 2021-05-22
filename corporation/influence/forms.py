@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, SelectField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
-from corporation.models import Post, User, Role, Division, Department, Influence_account
+from corporation.models import Post, User, Role, Division, Department
 from corporation import db
 
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
@@ -23,9 +23,9 @@ class MyForm(FlaskForm):
             raise ValidationError('You cannot send influence to yourself')
             
     
-    def validate_amount(self, amount):
+"""     def validate_amount(self, amount):
         account_amount = Influence_account.query.filter_by(RSI_handle= current_user.RSI_handle ).first()
         if not account_amount:
             raise ValidationError('Error: the account doesn\'t exist, please let CyberDreamer know.')
         elif account_amount.tribute < amount.data:
-            raise ValidationError('Not enough tribue in your influence account.')
+            raise ValidationError('Not enough tribue in your influence account.') """

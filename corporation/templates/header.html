@@ -36,7 +36,7 @@
 
 
         $(document).ready(function () {
-                $('.loader_bg').fadeToggle();
+            $('.loader_bg').fadeToggle();
         });
 
         function show_menu() {
@@ -84,9 +84,26 @@
 
 <body>
 
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    <div class="notifications">
+        {% for category, message in messages %}
+        <div class="alert {{ category }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
     <div class="loader_bg">
         <div class="test_loader"></div>
     </div>
+
 
     <header id="navbar">
         <div class="banner">
@@ -182,7 +199,8 @@
             {% if current_user.is_authenticated %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="{{ url_for('users.account') }}" style="font-size: {{ 30/current_user.RSI_handle|length }}vw ";>{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('users.account') }}" style="font-size: {{ 30/current_user.RSI_handle|length }}vw "
+                    ;>{{ current_user.RSI_handle }}</a>
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
 
@@ -216,7 +234,6 @@
             {% endif %}
         </div>
     </header>
-
 
     <!-- This is where the rest of the webpage will be -->
     <main id="main">

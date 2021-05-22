@@ -22,8 +22,7 @@ class User(db.Model, UserMixin):
     RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    image_file = db.Column(db.String(20), nullable=False,
-                           default='default.jpg')
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
 
     # Linked account
     discord_username = db.Column(db.String(32), unique=True, nullable=True)
@@ -68,6 +67,11 @@ class User(db.Model, UserMixin):
             if link.role_id == role.id:
                 return True
         return False
+
+    def add_role(self, role):
+        link = Rolevsuser( RSI_handle = self.RSI_handle, role_id = role.id)
+        db.session.add(link)
+        db.session.commit()
 
     def is_manager(self, manager_type=None, division=-1, department=-1):
         if self.security == 5:
@@ -118,24 +122,77 @@ class User(db.Model, UserMixin):
         else:
             return None
 
-    def influence_count(self):
-        influences = Influence.query.filter_by(
-            RSI_handle=self.RSI_handle).all()
+    def tribute(self):
+        tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
+        
+        if not tribute:
+            self.upgrade()
+        
+        tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
+        
+        return tribute
+    
+    def send_tribute(self, receiver, amount):
+        tribute = self.tribute()
+        receiver_tribute = receiver.tribute()
+        
+        if not receiver.tribute():
+            receiver.upgrade()
+            
+        if receiver is self.RSI_handle or tribute.amount < amount:
+            return -1
+        
+        tribute.amount -= amount
+        receiver_tribute.amount += amount
+        db.session.commit()
+        
+        #to be completed
+    
+    def upgrade(self):
+        tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
+        
+        if not tribute:
+            tribute = Tribute(RSI_handle=self.RSI_handle)
+            db.session.add(tribute)
+            db.session.commit()
+    
+    def influence_count(self, type=None):
+        if type is None:
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle).all()
+        else:
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, type=type).all()
         count = 0
         for influence in influences:
             count += influence.amount
 
         return count
 
-    def lifetime_influence_count(self):
-        influences = Influence.query.filter_by(
-            RSI_handle=self.RSI_handle).all()
+    def lifetime_influence_count(self, type=None):
+        if type is None:
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle).all()
+        else:
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, type=type).all()
         count = 0
         for influence in influences:
             count += influence.lifetime_amount
 
         return count
 
+    def influence_rank(self):
+        ranks = Influence_rank.query.order_by(Influence_rank.required_influence.desc()).all()
+        lifetime_influence = self.lifetime_influence_count()
+        
+        for rank in ranks:
+            if lifetime_influence >= rank.required_influence:
+                return rank
+
+    def receive_weekly_tribute(self):
+        rank = self.influence_rank()
+        tribute = self.tribute()
+        
+        tribute.amount += rank.weekly_amount
+        db.session.commit()
+            
     def as_dict(self):
         return {'name': self.RSI_handle}
 
@@ -313,12 +370,14 @@ class Influence_rank(db.Model):
     __bind_key__ = 'influence_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(32), unique=True, nullable=False)
-    date_added = db.Column(db.DateTime, nullable=False,
-                           default=datetime.utcnow)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    required_influence = db.Column(db.Integer, unique= True, nullable=False, default=0)
     created_by = db.Column(db.String(32), nullable=False)
+    weekly_amount = db.Column(db.Integer, unique= True, nullable=False, default= 50)
 
     def member_count(self):
-        return Influence_account.query.filter_by(rank=self.id).count()
+        ...
+        #return Influence_account.query.filter_by(rank=self.id).count()
 
     def __repr__(self):
         return f"Rank('{self.title}', '{self.date_added}')"
@@ -347,9 +406,6 @@ class Influence_transaction(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     message = db.Column(db.Text, nullable=True)
-
-    def member_count(self):
-        return Influence_account.query.filter_by(rank=self.id).count()
 
     def __repr__(self):
         return f"Transaction('{self.title}', '{self.date_added}')"
