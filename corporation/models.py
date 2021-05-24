@@ -20,6 +20,8 @@ class User(db.Model, UserMixin):
 
     # User info
     RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
+    RSI_moniker = db.Column(db.String(32), nullable=True)
+    RSI_number = db.Column(db.Integer, nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(60), nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
@@ -72,7 +74,7 @@ class User(db.Model, UserMixin):
         link = Rolevsuser( RSI_handle = self.RSI_handle, role_id = role.id)
         db.session.add(link)
         db.session.commit()
-
+        
     def is_manager(self, manager_type=None, division=-1, department=-1):
         if self.security == 5:
             return True
@@ -156,22 +158,33 @@ class User(db.Model, UserMixin):
             db.session.add(tribute)
             db.session.commit()
     
-    def influence_count(self, type=None):
-        if type is None:
+    def influence_count(self, type=None, department=None, division=None):
+        
+        if type == "general":
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, department = department, division = division).all()
+        elif department is None and division is None:
             influences = Influence.query.filter_by(RSI_handle=self.RSI_handle).all()
+        elif division is None:
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, department = department).all()
         else:
-            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, type=type).all()
+            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, department = department, division = division).all()
         count = 0
         for influence in influences:
             count += influence.amount
 
         return count
 
-    def lifetime_influence_count(self, type=None):
-        if type is None:
-            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle).all()
+    def lifetime_influence_count(self, type = None, department=None, division=None):
+        
+        if type == "general":
+            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle, department = department, division = division).all()
+        elif department is None and division is None:
+            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle).all()
+        elif division is None:
+            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle, department = department).all()
         else:
-            influences = Influence.query.filter_by(RSI_handle=self.RSI_handle, type=type).all()
+            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle, department = department, division = division).all()
+            
         count = 0
         for influence in influences:
             count += influence.lifetime_amount
@@ -191,6 +204,10 @@ class User(db.Model, UserMixin):
         tribute = self.tribute()
         
         tribute.amount += rank.weekly_amount
+        
+        if tribute.amount > 1.5*rank.weekly_amount:
+            tribute.amount = 1.5*rank.weekly_amount
+            
         db.session.commit()
             
     def as_dict(self):
@@ -206,12 +223,18 @@ class User(db.Model, UserMixin):
 # ========================================================================
 
 
+class Weight(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    RSI_handle = db.Column(db.String(32), nullable=False)
+    weight = db.Column(db.Integer, nullable=True, default= 0)
+    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
+    
 class Rolevsuser(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
     RSI_handle = db.Column(db.String(32), nullable=False)
-
 
 class Role(db.Model):
     __bind_key__ = 'role_db'
@@ -265,6 +288,13 @@ class Division(db.Model):
                     users.append(user)
         return len(users)
 
+    def has_member(self, member):
+        
+        for role in self.roles:
+            if member.has_role(role):
+                return True
+        return False
+    
     def __repr__(self):
         return f"Division('{self.title}', '{self.date_added}')"
 
@@ -383,17 +413,30 @@ class Influence_rank(db.Model):
         return f"Rank('{self.title}', '{self.date_added}')"
 
 
+class Influence_history(db.Model):
+    __bind_key__ = 'influence_db'
+    id = db.Column(db.Integer, primary_key=True)
+    RSI_handle = db.Column(db.String(32), nullable=False)
+    lifetime_amount = db.Column(db.Integer, nullable=False, default=0)
+    
+    department = db.Column(db.Integer, nullable= True)
+    division = db.Column(db.Integer, nullable= True)
+
+    def __repr__(self):
+        return f"Influence_history('{self.title}', '{self.date_added}')"
+    
 class Influence(db.Model):
     __bind_key__ = 'influence_db'
     id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(32), unique=False, nullable=False)
     RSI_handle = db.Column(db.String(32), unique=False, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
-    lifetime_amount = db.Column(db.Integer, nullable=False, default=0)
-    tribute = db.Column(db.Integer, nullable=False, default=0)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
+    department = db.Column(db.Integer, nullable= True)
+    division = db.Column(db.Integer, nullable= True)
 
     def __repr__(self):
-        return f"Influence('{self.title}', '{self.date_added}')"
+        return f"Influence_history('{self.title}', '{self.date_added}')"
 
 
 class Influence_transaction(db.Model):
@@ -403,9 +446,11 @@ class Influence_transaction(db.Model):
     user_to = db.Column(db.String(32), nullable=False)
     method = db.Column(db.String(32), nullable=False, default='unkown')
     amount = db.Column(db.Integer, nullable=False, default=0)
-    date_added = db.Column(db.DateTime, nullable=False,
-                           default=datetime.utcnow)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     message = db.Column(db.Text, nullable=True)
+    
+    department = db.Column(db.Integer, nullable= True)
+    division = db.Column(db.Integer, nullable= True)
 
     def __repr__(self):
         return f"Transaction('{self.title}', '{self.date_added}')"
@@ -420,8 +465,7 @@ class Logs(db.Model):
     __bind_key__ = 'logs_db'
     id = db.Column(db.Integer, primary_key=True)
     RSI_handle = db.Column(db.String(100), nullable=False)
-    date_added = db.Column(db.DateTime, nullable=False,
-                           default=datetime.utcnow)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     action_type = db.Column(db.String(100), nullable=False)
     original = db.Column(db.String(100), nullable=False)
     Result = db.Column(db.String(100), nullable=False)

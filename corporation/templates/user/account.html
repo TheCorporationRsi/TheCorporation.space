@@ -31,13 +31,13 @@
 <div class="user-info">
     <div class="user-tab summary">
         <div class="top-section">
-            <img src="{{ image_file }}">
+            <img src="{{ current_user.image_file }}">
 
 
 
             <div class="handle">
                 <p class="title">RSI moniker:</p>
-                <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_handle }}</p>
+                <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_moniker }}</p>
                 <p class="title">RSI handle:</p>
                 <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_handle }}</p>
 
@@ -182,7 +182,11 @@
     </div>
 
     <div class="system-tab influence">
-
+        {% for division in divisions %}
+            {% if division.has_member(member = current_user) %}
+                <p>{{division.title}}</p>
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
 {% endblock content %}

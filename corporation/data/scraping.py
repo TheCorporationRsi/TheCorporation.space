@@ -32,6 +32,7 @@ class RSI_account ():
         self.main_org = org[1].find("strong").string
         self.org_rank = org[2].find("strong").string
         self.join_date = info[0].find("strong").string
+        
         if len(info) == 3:
             self.location = info[1].find("strong").string.replace(',',' ').split()
             self.language = info[2].find("strong").string.replace(',',' ').split()
@@ -49,28 +50,3 @@ class RSI_account ():
             return True
         else:
             return False
-    
-
-
-user = RSI_account(RSI_handle = "cyber-dreamer2")
-
-print(user.link)
-print(user.citizen)
-print(user.image_link)
-print(user.Moniker)
-print(user.RSI_handle)
-print(user.Rank)
-print(user.main_org)
-print(user.org_rank)
-print(user.language)
-
-
-print(user.corp_member())
-
-try:
-    print(user.email.lower())
-    print(user.bio)
-    print(user.confirm_email(email= "gata23laroche_@hotmail.com"))
-    print(user.location)
-except:
-    print("error")

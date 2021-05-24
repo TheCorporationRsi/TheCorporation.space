@@ -1,37 +1,43 @@
 from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
-from corporation.models import User, Influence, Tribute
+from corporation.models import User, Influence, Tribute, Division, Weight
 from flask_wtf.file import FileField, FileAllowed
-from corporation.users.utils import RSIverify
+from corporation.data.scraping import RSI_account
+from sqlalchemy import func
 
 
 class RegistrationForm(FlaskForm):
 
-    RSI_handle = StringField('RSI_handle', validators=[
-                             DataRequired(), Length(min=2, max=32)])
+    RSI_handle = StringField('RSI_handle', validators=[DataRequired(), Length(min=2, max=32)])
 
     email = StringField('Email', validators=[DataRequired(), Email()])
 
     password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[
-                                     DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Confirm Password', validators=[ DataRequired(), EqualTo('password')])
 
     submit = SubmitField('Sign Up')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
+        RSI_info = RSI_account(RSI_handle= self.RSI_handle.data)
         if user:
             raise ValidationError('That email is already taken')
+        
+        elif not RSI_info.email:
+            raise ValidationError('Please add your email in your RSI bio')
+        
+        elif not RSI_info.confirm_email(email = email.data):
+            print(email.data.lower())
+            raise ValidationError('Email in the bio is not the same')
 
     def validate_RSI_handle(self, RSI_handle):
-        user = User.query.filter_by(RSI_handle=RSI_handle.data).first()
+        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle.data)).first()
+        RSI_info = RSI_account(RSI_handle= RSI_handle.data)
         if user:
             raise ValidationError(
                 'That RSI_handle already have an account, pls contact moderator')
-        elif RSIverify(RSI_handle, self.email) > 0:
-            raise ValidationError('Please add your email in your RSI bio')
 
 
 class LoginForm(FlaskForm):
@@ -101,3 +107,26 @@ class inf_Form(FlaskForm):
             raise ValidationError('Error: the account doesn\'t exist, please let CyberDreamer know.')
         elif tribute.amount < amount.data:
             raise ValidationError('Not enough tribue in your influence account.')
+
+
+
+class weight_Form(FlaskForm):
+    
+    def __init__(self, member):
+        self.member = member
+    
+    division = HiddenField("Field 1", validators=[DataRequired()])
+    weight = IntegerField('Weight', validators=[DataRequired(), NumberRange( min=1, max=100, message='Not a valid amount!')], render_kw={"placeholder": "Weight"})
+    
+    send = SubmitField('Set')
+    
+    def validate_weight(self, weight):
+        divisions = Division.query.all()
+        total = 0
+        for division in divisions:
+            if division.had_member(self.member):
+                percent = Weight.query.filter_by(RSI_handle= self.member.RSI_handle, division_id = division.id).first()
+                total += percent.weight
+                
+        if total > 100:
+            raise ValidationError('The total must be 100')
