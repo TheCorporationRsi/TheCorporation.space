@@ -25,7 +25,7 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError('That email is already taken')
         
-        elif not RSI_info.email:
+        elif RSI_info.email is None:
             raise ValidationError('Please add your email in your RSI bio')
         
         elif not RSI_info.confirm_email(email = email.data):
