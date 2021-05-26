@@ -127,6 +127,7 @@ def callback():
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
+    
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter(func.lower(
@@ -142,7 +143,7 @@ def login():
 
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('users.login'))
+            return redirect(next_page) if next_page else redirect(url_for('users.account'))
         else:
             flash('Login Unsuccessful. Please check RSI handle and password', 'danger')
     return render_template("user/login.html", title="Login", form=form)
