@@ -26,8 +26,7 @@ $menu-svg: url('bottom-left-white.svg'); */
 html,
 body {
   margin: 0;
-  height: 100%;
-  position: absolute;
+  min-height: 100vh;
 }
 
 body {
@@ -41,7 +40,6 @@ body {
   font-weight: bold;
   font-stretch: bold;
   margin: 0;
-  margin-bottom: 200px;
   opacity: 0;
   -webkit-animation: fadeInAnimation ease 0.5s;
           animation: fadeInAnimation ease 0.5s;
@@ -388,12 +386,15 @@ body {
 }
 .notifications .alert.danger {
   background-color: red;
+  color: black;
 }
 .notifications .alert.success {
   background-color: green;
+  color: white;
 }
 .notifications .alert.warning {
   background-color: yellow;
+  color: black;
 }
 .notifications .alert .closebtn {
   margin-left: 15px;
