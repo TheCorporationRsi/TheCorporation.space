@@ -131,9 +131,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter(func.lower(
             User.RSI_handle) == func.lower(form.RSI_handle.data)).first()
-        user.upgrade()
+        
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
+            user.upgrade()
             if user.email_confirmed == False:
                 send_confirmation_email(user)
                 flash(
