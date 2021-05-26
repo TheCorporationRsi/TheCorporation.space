@@ -200,7 +200,7 @@
 
             <li id="nav-dropdown" class="dropdown login">
                 {% if current_user.RSI_handle|length > 10 %}
-                <a href="{{ url_for('users.account') }}" style="font-size: {{ 15/(current_user.RSI_handle|length/4) }}vh ">{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('users.account') }}" style="font-size: {{ 7/(current_user.RSI_handle|length/4) }}vw ">{{ current_user.RSI_handle }}</a>
                 {% else %}
                 <a href="{{ url_for('users.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
                 {% endif %}
@@ -208,8 +208,8 @@
                     <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
 
                     {% if current_user.is_manager("admin") %}
-                    <li class="dropdown_item-2"><a href="#">User manager</a></li>
-                    <li class="dropdown_item-3"><a href="#">Structure manager</a></li>
+                    <li class="dropdown_item-2"><a href="">User manager</a></li>
+                    <li class="dropdown_item-3"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
                     <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
                     <li class="dropdown_item-5"> <a href="#">Website manager</a></li>
                     {% endif %}

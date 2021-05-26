@@ -1,41 +1,47 @@
-{% extends "main.html" %}
-{% block content %}
-<main role="main" class="container">
+{% extends "managers/structure_manager.html" %} 
+
+{% block page %}
+
+<div class="add-form">
+
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">{{ legend }}</legend>
             <div class="form-group">
-                {{ form.title.label(class="form-control-label")}}
-
+                {{ form.title.label(class="title")}}
                 {% if form.title.errors %}
-                {{ form.title(class="form-control form-control-lg is-invalid")}}
+                {{ form.title(class="error")}}
                 <div class="invalid-feedback">
                     {% for error in form.title.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
-                {% else %}
-                {{ form.title(class="form-control form-control-lg")}}
-                {% endif %}
+                {% else %} {{ form.title()}} {%
+                endif %}
             </div>
         </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary")}}
-        </div>
+        <div class="form-group">{{ form.submit()}}</div>
     </form>
-    <h1 class="mb-3 text-white">Department list</h1>
+</div>
+
+<div class="list-title">
+    <h1>Department list :</h1>
+</div>
+
+<div class="list">
     {% for department in departments %}
-    <article class="media content-section">
-        <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2 postuser" href="">{{ department.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> User count: {{ department.member_count() }}</small>
-            </div>
-        </div>
-    </article>
+
+
+    <div class="item">
+        <a href="">{{ department.title }}</a>
+        <small class="" style="color: rgb(231, 231, 231) !important">
+            User count: {{ department.member_count() }}</small>
+    </div>
+
     {% else %}
-    <p> No division found </p>
+    <p>No departement found</p>
     {% endfor %}
-</main>
-{% endblock content %}
+
+</div>
+
+{% endblock page %}

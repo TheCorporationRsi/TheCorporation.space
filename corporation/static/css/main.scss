@@ -59,8 +59,7 @@ $menu-svg: url('bottom-left-white.svg'); */
 html,
 body {
     margin: 0;
-    height: 100%;
-    position: absolute;
+    min-height: 100vh;
 }
 
 body {
@@ -74,7 +73,6 @@ body {
     font-weight: bold;
     font-stretch: bold;
     margin: 0;
-    margin-bottom: 200px;
     opacity: 0;
     animation: fadeInAnimation ease 0.5s;
     animation-iteration-count: 1;
@@ -391,14 +389,17 @@ body {
 
         &.danger {
             background-color: red;
+            color: black;
         }
 
         &.success {
             background-color: green;
+            color: white;
         }
 
         &.warning {
             background-color: yellow;
+            color: black;
         }
 
 
