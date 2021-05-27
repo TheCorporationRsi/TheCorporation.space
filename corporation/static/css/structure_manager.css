@@ -658,16 +658,18 @@ body {
     opacity: 0;
   }
 }
+body {
+  background-image: url("/static/texture.svg");
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
 main {
   display: grid;
   grid-template-rows: 1fr;
   grid-gap: 20px;
   width: 100vw;
-  background-image: url("/static/texture.svg");
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  min-height: 100vh;
 }
 main .structure-menu {
   background: #363636;
@@ -815,11 +817,8 @@ main .add-form input[type=submit]:hover {
           transform: scale(1.01);
 }
 main .list-title {
-  height: 10vh;
-  display: grid;
-  grid-gap: 30px;
-  padding: 30px;
-  margin-top: 20px;
+  padding-top: 30px;
+  padding-left: 30px;
 }
 main .list {
   min-height: 10vh;
@@ -840,6 +839,14 @@ main .list .user-item {
   padding: 20px;
   border-radius: 10px;
   min-height: 5vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 main .list .user-item a {
   text-decoration: none;
@@ -847,4 +854,61 @@ main .list .user-item a {
   margin: auto;
   text-align: center;
   vertical-align: middle;
+}
+main .list .user-item .user-dropdown {
+  width: 100%;
+  display: none;
+  background-color: #444444;
+  font-size: 1.6em;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 5vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+main .list .user-item .user-dropdown a {
+  text-decoration: none;
+  color: white;
+  margin: auto;
+  text-align: center;
+  vertical-align: middle;
+}
+main .list .user-item .user-dropdown .roles {
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60%;
+}
+main .list .user-item .user-dropdown .roles div {
+  display: grid;
+  grid-template-columns: 10% 90%;
+  grid-gap: 3px;
+  align-self: flex-start;
+  text-decoration: none;
+  font-weight: normal;
+  border: 2px solid red;
+  border-radius: 15px;
+  height: 20px;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  padding-left: 5px;
+  padding-right: 10px;
+  font-size: 15px;
+  margin-right: 5px;
+  margin-top: 4px;
+  text-align: center;
+  vertical-align: center;
+}
+main .list .user-item .user-dropdown .roles div p {
+  display: block;
+  border-radius: 15px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  margin: auto;
 }/*# sourceMappingURL=structure_manager.css.map */

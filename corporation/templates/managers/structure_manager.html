@@ -2,6 +2,18 @@
 
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/structure_manager.css') }}">
+
+<script>
+
+    function show_user_dropdown(handle) {
+        var x = document.getElementById(handle);
+        if (x.style.display === "flex") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "flex";
+        }
+    }
+</script>
 {% endblock style %}
 
 

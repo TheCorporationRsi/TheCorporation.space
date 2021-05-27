@@ -1,15 +1,17 @@
 @import 'main';
 
+
+body {
+    background-image: url("/static/texture.svg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
 main {
     display: grid;
     grid-template-rows: 1fr;
     grid-gap: 20px;
     width: 100vw;
-    background-image: url("/static/texture.svg");
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    min-height: 100vh;
 
     .structure-menu {
         background: $background;
@@ -183,11 +185,8 @@ main {
 
 
     .list-title {
-        height: 10vh;
-        display: grid;
-        grid-gap: 30px;
-        padding: 30px;
-        margin-top: 20px;
+        padding-top: 30px;
+        padding-left: 30px;
     }
 
     .list {
@@ -210,6 +209,9 @@ main {
             padding: 20px;
             border-radius: 10px;
             min-height: 5vh;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
 
             a {
                 text-decoration: none;
@@ -218,7 +220,69 @@ main {
                 text-align: center;
                 vertical-align: middle;
             }
+
+            .user-dropdown {
+                width: 100%;
+                display: none;
+                background-color: $dark-grey;
+                font-size: 1.6em;
+                padding: 20px;
+                border-radius: 10px;
+                min-height: 5vh;
+                align-items: center;
+    
+                a {
+                    text-decoration: none;
+                    color: white;
+                    margin: auto;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                .roles {
+                    align-content: flex-start;
+                    flex-wrap: wrap;
+                    display: flex;
+                    width: 60%;
+    
+                    div {
+                        display: grid;
+                        grid-template-columns: 10% 90%;
+                        grid-gap: 3px;
+                        align-self: flex-start;
+                        text-decoration: none;
+                        font-weight: normal;
+                        border: 2px solid rgb(255, 0, 0);
+                        border-radius: 15px;
+                        height: 20px;
+                        padding-top: 2.5px;
+                        padding-bottom: 2.5px;
+                        padding-left: 5px;
+                        padding-right: 10px;
+                        font-size: 15px;
+                        margin-right: 5px;
+                        margin-top: 4px;
+                        text-align: center;
+                        vertical-align: center;
+    
+                        p {
+                            display: block;
+                            border-radius: 15px;
+                            width: 15px;
+                            height: 15px;
+                            text-align: center;
+                            margin: auto;
+                        }
+                    }
+                }
+
+                .new-role-list {
+                    
+                }
+            }
         }
+
+        
     }
 
  

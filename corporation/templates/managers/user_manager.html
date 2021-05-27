@@ -1,4 +1,4 @@
-{% extends "managers/structure_manager.html" %} 
+{% extends "managers/structure_manager.html" %}
 
 
 
@@ -72,14 +72,44 @@
     {% endfor %}
 </div>
 
+<div class="list-title">
+    <h1>Users list :</h1>
+</div>
+
 <div class="list">
     {% for user in users %}
 
 
-    <div  class="user-item">
+    <div class="user-item">
         <img style=" height: 50px; width: 50px;" src="{{ user.image_file }}">
         <a href="">{{ user.RSI_handle }}</a>
+        <a href="javascript:void(0);" onclick="show_user_dropdown('{{ user.RSI_handle }}')">
+            <div class="mobile-button">
+                <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
+            </div>
+        </a>
+        <div id="{{ user.RSI_handle }}" class="user-dropdown">
+            <div class="roles">
+                {% for role in user.roles() %}
+                <div style=" border-color: {{ role.color }}; ">
+                    <p class="circle" style="background-color: {{ role.color }};"></p>
+                    {{ role.title }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <ul class="new-role-list" role="menu">
+                {% for role in roles %}
+                {% if not user.has_role(role) %}
+                <li><a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}">{{role.title }}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+
+            </ul>
+        </div>
     </div>
+
 
     {% else %}
     <p>No role found</p>
