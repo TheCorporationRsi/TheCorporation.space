@@ -1,4 +1,4 @@
-{% extends "managers/structure_manager.html" %} 
+{% extends "managers/structure_manager.html" %}
 
 {% block page %}
 
@@ -6,8 +6,8 @@
 
     <form method="POST" action="">
         {{ form.hidden_tag() }}
-        <fieldset class="form-group">
-            <div class="form-group">
+        <fieldset>
+            <div>
                 {{ form.title.label(class="title")}}
                 {% if form.title.errors %}
                 {{ form.title(class="error")}}
@@ -16,11 +16,11 @@
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
-                {% else %} {{ form.title()}} {%
-                endif %}
+                {% else %} {{ form.title()}}
+                {% endif %}
             </div>
         </fieldset>
-        <div class="form-group">{{ form.submit()}}</div>
+        <div>{{ form.submit()}}</div>
     </form>
 </div>
 
@@ -33,9 +33,45 @@
 
 
     <div class="item">
-        <a href="">{{ department.title }}</a>
+        <form method="POST" action="">
+            {{ update_form.csrf_token }}
+            {{ update_form.department_id(value= department.id|string )}}
+
+            {% if update_form.title.errors %}
+
+            {{ update_form.title(class="error", value=department.title)}}
+            <div class="invalid-feedback">
+                {% for error in update_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {% else %}
+
+            {{ update_form.title(value=department.title)}}
+
+            {% endif %}
+
+
+            {% if update_form.color.errors %}
+
+            {{ update_form.color(class="error", value=department.color)}}
+            <div class="invalid-feedback">
+                {% for error in update_form.color.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {% else %}
+
+            {{ update_form.color(value=department.color)}}
+
+            {% endif %}
+
+            {{ update_form.update()}}
+        </form>
         <small class="" style="color: rgb(231, 231, 231) !important">
-            User count: {{ department.member_count() }}</small>
+            User count : {{ department.member_count() }}</small>
     </div>
 
     {% else %}

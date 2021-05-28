@@ -103,8 +103,8 @@
             </div>
             <div class="roles">
                 {% for role in current_user.roles() %}
-                <div style=" border-color: {{ role.color }}; ">
-                    <p class="circle" style="background-color: {{ role.color }};"></p>
+                <div style=" border-color: {{ role.role_color() }}; ">
+                    <p class="circle" style="background-color: {{ role.role_color() }};"></p>
                     {{ role.title }}
                 </div>
                 {% endfor %}

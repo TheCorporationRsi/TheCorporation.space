@@ -161,24 +161,21 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm(prefix="info")
-    if form.validate_on_submit():
+    if form.submit.data and form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         db.session.commit()
         flash('Your account has been updated!', 'success')
-        return redirect(url_for('users.account'))
 
     inf_form = inf_Form(prefix="influence")
-    if inf_form.validate_on_submit():
+    if inf_form.send.data and inf_form.validate_on_submit():
         receiver = User.query.filter(func.lower(
             User.RSI_handle) == func.lower(inf_form.RSI_handle.data)).first()
 
         current_user.send_tribute(receiver, inf_form.amount.data)
 
-        flash(f'Sucessful transfer of ' + str(inf_form.amount.data) +
-              ' influence to ' + receiver.RSI_handle, 'success')
-        return redirect(url_for('users.account'))
+        flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
 
     # elif request.method == 'GET':
     #     form.email.data = current_user.email

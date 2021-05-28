@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from corporation import db, discord
 from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
-from corporation.managers.forms import Department_Form, Division_Form, Role_Form
+from corporation.managers.forms import Department_Form, Division_Form, Role_Form, Search_Form, Dep_Form
 
 managers = Blueprint('managers', __name__)
     
@@ -37,7 +37,7 @@ def add_role(user, role, admin = 0):
                 
     if user and role:
         user.add_role(role)
-        flash('Role has been added!', 'success')
+        flash(role.title +' has been added to '+ user.RSI_handle+'!', 'success')
     
     return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
 
@@ -73,12 +73,11 @@ def remove_role(user, role):
 
 
 
-@managers.route("/user_manager", defaults={"department": 0, "division": 0, "search": None}, methods=['GET', 'POST'])
-@managers.route("/user_manager/<int:department>", defaults={"division": 0, "search": None}, methods=['GET', 'POST'])
-@managers.route("/user_manager/<int:department>/<int:division>", defaults={"search": None}, methods=['GET', 'POST'])
-@managers.route("/user_manager/<int:department>/<int:division>/<search>", methods=['GET', 'POST'])
+@managers.route("/user_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])
+@managers.route("/user_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
-def user_manager(department, division, search):
+def user_manager(department, division):
     if division > 0:
         if not current_user.is_manager(division = division):
             return redirect(url_for('main.home'))
@@ -87,10 +86,11 @@ def user_manager(department, division, search):
             return redirect(url_for('main.home'))
     
     
-    
-    if search is not None:
-        print(search)
-        users = User.query.filter(User.RSI_handle.like('%' + search + '%')).all()
+    form = Search_Form()
+    if form.validate_on_submit():
+        print(form.RSI_handle.data)
+        users = User.query.filter(User.RSI_handle.like('%' + form.RSI_handle.data + '%'))
+        
     else:
         users = User.query
         
@@ -120,12 +120,11 @@ def user_manager(department, division, search):
         
         #User.query.join(User.roles).filter(User.roles.any(Role.department_id == department)).options(contains_eager(User.roles)).all()
     
-        
     
     divisions = Division.query.order_by(Division.title).all()
     departments = Department.query.order_by(Department.title).all()
     roles = Role.query.order_by(Role.title).all()
-    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, roles = roles)
+    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, roles = roles, form = form)
 
 
 #================================================= Role =========================================================
@@ -235,10 +234,8 @@ def department_manager():
         return redirect(url_for('main.home'))
     
     
-    form = Department_Form()
-    if form.validate_on_submit():
-        if not current_user.is_manager('admin'):
-            return redirect(url_for('main.home'))
+    form = Department_Form(prefix="new")
+    if form.submit.data and form.validate_on_submit():
         
         department = Department(title= form.title.data, created_by= current_user.RSI_handle)
         db.session.add(department)
@@ -253,8 +250,17 @@ def department_manager():
         flash('The Department has been created!', 'success')
         return redirect(url_for('managers.department_manager'))
     
+    update_form = Dep_Form(prefix="update")
+    if update_form.update.data and update_form.validate_on_submit():
+        department = Department.query.filter_by(id = update_form.department_id.data).first()
+        department.title = update_form.title.data
+        department.color = update_form.color.data
+        
+        db.session.commit()
+        flash('The Department has been updated!', 'success')
+    
     departments = Department.query.order_by(Department.title).all()
-    return render_template("managers/department_manager.html", title = "Department manager", Role = Role, departments = departments,  form=form)
+    return render_template("managers/department_manager.html", title = "Department manager", Role = Role, departments = departments,  form=form, update_form=update_form)
 
 
 """ 

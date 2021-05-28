@@ -98,10 +98,84 @@ main {
             }
         }
 
+    }
+
+    .search-form {
+        height: 10vh;
+        display: grid;
+        grid-gap: 30px;
+        padding-left: 60px;
+        padding-right: 60px;
+        padding-bottom: 60px;
+
+        .title {
+            width: 100%;
+            font-family: "Orbitron";
+            font-size: 2em;
+            margin-top: -120px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 15px;
+            text-align: center;
+            color: $yellow;
+            text-shadow: #000000;
+        }
+
+        fieldset {
+            border: 0;
+        }
+
+        .invalid-feedback {
+            color: red;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+
+        input[type=text],
+        input[type=password],
+        textarea,
+        select {
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+            &.error {
+                border: 2px solid red;
+            }
+        }
+
+        textarea {
+            min-height: 200px;
+        }
+
+        input[type=submit] {
+            width: 20%;
+            background-color: $blue;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            font-family: $main-font;
+            font-weight: bold;
+            transition: all ease-in-out .3s;
 
 
+        }
 
-
+        input[type=submit]:hover {
+            background-color: $yellow;
+            color: black;
+            transform: scale(1.01);
+        }
 
     }
 
@@ -110,7 +184,9 @@ main {
         height: 10vh;
         display: grid;
         grid-gap: 30px;
-        padding: 30px;
+        padding-left: 60px;
+        padding-right: 60px;
+        padding-bottom: 60px;
 
         .title {
             width: 100%;
@@ -186,14 +262,16 @@ main {
 
     .list-title {
         padding-top: 30px;
-        padding-left: 30px;
+        padding-left: 60px;
     }
 
     .list {
         min-height: 10vh;
         display: grid;
         grid-gap: 30px;
-        padding: 30px;
+        padding-left: 60px;
+        padding-right: 60px;
+        padding-bottom: 60px;
         margin-top: 20px;
 
         .item {
@@ -216,8 +294,8 @@ main {
             a {
                 text-decoration: none;
                 color: white;
-                margin: auto;
-                text-align: center;
+                margin-left: 20px;
+                margin-right: 20px;
                 vertical-align: middle;
             }
 
@@ -229,32 +307,39 @@ main {
                 padding: 20px;
                 border-radius: 10px;
                 min-height: 5vh;
-                align-items: center;
+                transition: ease-in-out;
+                flex-wrap: wrap;
     
                 a {
                     text-decoration: none;
                     color: white;
                     margin: auto;
+                }
+
+                .title {
+                    display: flex;
+                    width: 50%;
                     text-align: center;
                     vertical-align: middle;
+                    align-items: center;
                 }
 
                 .roles {
                     align-content: flex-start;
                     flex-wrap: wrap;
                     display: flex;
-                    width: 60%;
+                    width: 50%;
+                    text-align: center;
     
                     div {
-                        display: grid;
-                        grid-template-columns: 10% 90%;
+                        display: flex;
                         grid-gap: 3px;
                         align-self: flex-start;
                         text-decoration: none;
                         font-weight: normal;
                         border: 2px solid rgb(255, 0, 0);
                         border-radius: 15px;
-                        height: 20px;
+                        //height: 20px;
                         padding-top: 2.5px;
                         padding-bottom: 2.5px;
                         padding-left: 5px;
@@ -263,21 +348,28 @@ main {
                         margin-right: 5px;
                         margin-top: 4px;
                         text-align: center;
-                        vertical-align: center;
     
-                        p {
-                            display: block;
+                        a {
+                            display: flex;
+                            flex-grow: 1;
                             border-radius: 15px;
+                            grid-gap: 0px;
                             width: 15px;
                             height: 15px;
-                            text-align: center;
+                            align-items: center;
                             margin: auto;
+                            padding: auto;
+                            font-size: 15px;
+                            text-align: center;
+                            justify-content: center;
+                            
+
+                            &:hover{
+                                color: black!important;
+                            }
+
                         }
                     }
-                }
-
-                .new-role-list {
-                    
                 }
             }
         }

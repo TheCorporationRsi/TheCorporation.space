@@ -240,8 +240,6 @@ class Role(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(32), unique=True, nullable=False)
-    color = db.Column(db.String(32), unique=False,
-                      nullable=False, default='red')
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     created_by = db.Column(db.String(32), nullable=False)
@@ -254,12 +252,21 @@ class Role(db.Model):
         db.Integer, db.ForeignKey('department.id'), nullable=True)
     div_head = db.Column(db.Boolean, nullable=False, default=False)
     div_proxy = db.Column(db.Boolean, nullable=False, default=False)
-
+    color = db.Column(db.String(32), unique=False, nullable=True)
     discord_id = db.Column(db.Integer, unique=True, nullable=True)
     guilded_id = db.Column(db.Integer, unique=True, nullable=True)
 
     def member_count(self):
         return Rolevsuser.query.filter_by(role_id=self.id).count()
+    
+    def role_color(self):
+        if self.department_id:
+            department = Department.query.filter_by(id = self.department_id).first()
+            return department.color
+        elif self.color:
+            return self.color
+        else:
+            return "white"
 
     def __repr__(self):
         return f"Role('{self.title}', '{self.date_added}')"
@@ -269,10 +276,8 @@ class Division(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), unique=True, nullable=False)
-    date_added = db.Column(db.DateTime, nullable=False,
-                           default=datetime.utcnow)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.String(32), nullable=False)
-
     roles = db.relationship('Role', backref='division', lazy='dynamic')
     department_id = db.Column(db.Integer, db.ForeignKey(
         'department.id'), nullable=False)
@@ -295,6 +300,10 @@ class Division(db.Model):
                 return True
         return False
     
+    def color(self):
+        department = Department.query.filter_by(id = self.department_id).first()
+        return department.color
+    
     def __repr__(self):
         return f"Division('{self.title}', '{self.date_added}')"
 
@@ -303,10 +312,9 @@ class Department(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), unique=True, nullable=False)
-    date_added = db.Column(db.DateTime, nullable=False,
-                           default=datetime.utcnow)
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     created_by = db.Column(db.String(32), nullable=False)
-
+    color = db.Column(db.String(32), unique=False, nullable=False, default='red')
     roles = db.relationship('Role', backref='department', lazy='dynamic')
     divisions = db.relationship(
         'Division', backref='department', lazy='dynamic')

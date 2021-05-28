@@ -72,6 +72,28 @@
     {% endfor %}
 </div>
 
+<div class="add-form">
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class="form-group">
+                {{ form.RSI_handle.label(class="title")}}
+                {% if form.RSI_handle.errors %}
+                {{ form.RSI_handle(class="error")}}
+                <div class="invalid-feedback">
+                    {% for error in form.RSI_handle.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %} {{ form.RSI_handle()}} {%
+                endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">{{ form.submit()}}</div>
+    </form>
+</div>
+
 <div class="list-title">
     <h1>Users list :</h1>
 </div>
@@ -83,36 +105,43 @@
     <div class="user-item">
         <img style=" height: 50px; width: 50px;" src="{{ user.image_file }}">
         <a href="">{{ user.RSI_handle }}</a>
-        <a href="javascript:void(0);" onclick="show_user_dropdown('{{ user.RSI_handle }}')">
+        <a href="javascript:void(0);" onclick="show_user_dropdown('{{ user.RSI_handle }}')" style="width: 50px; margin-left: auto;">
             <div class="mobile-button">
                 <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
             </div>
         </a>
         <div id="{{ user.RSI_handle }}" class="user-dropdown">
+            <div class="title">Remove</div>
+            <div class="title">Add</div>
             <div class="roles">
                 {% for role in user.roles() %}
-                <div style=" border-color: {{ role.color }}; ">
-                    <p class="circle" style="background-color: {{ role.color }};"></p>
+                <div style=" border-color: {{ role.role_color() }}; ">
+
+                        <a href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }};">x</a>
+
                     {{ role.title }}
                 </div>
                 {% endfor %}
             </div>
 
-            <ul class="new-role-list" role="menu">
+            <div class=" roles">
                 {% for role in roles %}
                 {% if not user.has_role(role) %}
-                <li><a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}">{{role.title }}</a>
-                </li>
+                <div style=" border-color: {{ role.role_color() }}; ">
+
+                    <a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }}; ">+</a>
+
+                    {{ role.title }}
+                </div>
                 {% endif %}
                 {% endfor %}
-
-            </ul>
+            </div>
         </div>
     </div>
 
 
     {% else %}
-    <p>No role found</p>
+    <p>No member found</p>
     {% endfor %}
 
 </div>

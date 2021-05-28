@@ -13,11 +13,31 @@
             x.style.display = "flex";
         }
     }
+
+    $(document).ready(function () {
+        var users = [];
+
+        function loadUsers() {
+            $.getJSON('/data/users', function (data, status, xhr) {
+                for (var i = 0; i < data.length; i++) {
+                    users.push(data[i].name);
+                }
+            });
+        };
+
+        loadUsers();
+
+        $('#RSI_handle').autocomplete({
+            source: users,
+        });
+    });
 </script>
 {% endblock style %}
 
 
 {% block content %}
+
+{% if current_user.is_manager("admin") %}
 <div class="structure-menu">
     {% if request.path=="/department_manager" %}
     <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager" type="radio" name="tools"  checked>
@@ -43,6 +63,7 @@
     <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio" name="tools" >
     {% endif %}
 </div>
+{% endif %}
 
 {% block page %}
 {% endblock page %}

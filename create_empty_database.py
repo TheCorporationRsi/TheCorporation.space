@@ -11,7 +11,7 @@ if answer == "yes":
         db.create_all()
         role = Role.query.filter_by(title="Corporateer").first()
         if not role:
-            corporateer = Role(title="Corporateer", created_by="Cyber-Dreamer", discord_id= None)
+            corporateer = Role(title="Corporateer", created_by="Cyber-Dreamer", discord_id= None, color= "blue")
             db.session.add(corporateer)
             db.session.commit()
 
