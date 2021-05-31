@@ -909,6 +909,94 @@ main .list .item {
   font-size: 1.6em;
   padding: 20px;
   border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  vertical-align: middle;
+}
+main .list .item form {
+  width: 50vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+main .list .item .invalid-feedback {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+main .list .item input[type=text],
+main .list .item input[type=password],
+main .list .item textarea,
+main .list .item select {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 15%;
+  font-size: 1em;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  font-family: "Orbitron";
+  Font-weight: bold;
+  border: none;
+  background-color: transparent;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+main .list .item input[type=text].error,
+main .list .item input[type=password].error,
+main .list .item textarea.error,
+main .list .item select.error {
+  border: 2px solid red;
+}
+main .list .item #update_color-rule {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-decoration: none;
+  list-style-type: none;
+  font-size: 0.5em;
+}
+main .list .item #update_color-rule input[type=radio]:checked {
+  background-image: linear-gradient(125deg, #0083ff, #7ac3ff);
+  color: black;
+  -webkit-box-shadow: 0 1px 1px #0000002e;
+          box-shadow: 0 1px 1px #0000002e;
+  text-shadow: 0 1px 0px #79485f7a;
+}
+main .list .item #update_color-rule input[type=radio]:before {
+  content: attr(label);
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+main .list .item input[type=submit] {
+  width: 15%;
+  height: 50px;
+  min-width: 100px;
+  background-color: #0083ff;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.6em;
+  font-family: "Orbitron";
+  font-weight: bold;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+main .list .item input[type=submit]:hover {
+  background-color: #fcff00;
+  color: black;
+  -webkit-transform: scale(1.01);
+          transform: scale(1.01);
 }
 main .list .user-item {
   background-color: #444444;

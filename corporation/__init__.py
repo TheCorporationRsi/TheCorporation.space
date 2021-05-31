@@ -43,7 +43,6 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 scheduler = APScheduler()
 
-
 with open('/etc/config.json') as config_file:
     config_info = json.load(config_file)
 
@@ -57,6 +56,7 @@ except:
     print("This application is not set properly. Multiple feature will not work properly")
 
 
+
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -67,12 +67,12 @@ def create_app(config_class=Config):
     scheduler.init_app(app)
 
     with app.app_context():
-        
+
         if is_debug_mode() and not is_werkzeug_reloader_process():
             pass
         else:
             from corporation.influence import tasks  # noqa: F401
-            
+
             scheduler.start()
         from corporation import events
 
@@ -109,7 +109,8 @@ def create_app(config_class=Config):
         app.register_blueprint(influence)
         app.register_blueprint(data)
 
-        discord_command.set_route("/interactions")
-        # discord_command.update_slash_commands(guild_id= 831248117571649566)
 
-        return app
+    discord_command.set_route("/interactions")
+    # discord_command.update_slash_commands(guild_id= 831248117571649566)
+
+    return app

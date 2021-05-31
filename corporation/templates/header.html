@@ -156,13 +156,17 @@
             <li id="nav-dropdown" class="dropdown">
                 <a href="#">Department</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">Exploration</a></li>
-                    <li class="dropdown_item-2"><a href="#">Security</a></li>
-                    <li class="dropdown_item-3"><a href="#">Ressources</a></li>
-                    <li class="dropdown_item-4"><a href="#">Business</a></li>
-                    <li class="dropdown_item-5"><a href="#">Support</a></li>
-                    <li class="dropdown_item-6"><a href="#">Social</a></li>
-                    <li class="dropdown_item-7 last-item"><a href="#"></a>Content</li>
+                    {% for department in department_list %}
+
+                    {% if department == department_list[0] %}
+                    <li class="dropdown_item-{{department.id}} first-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    {% elif department == department_list[-1]%}
+                    <li class="dropdown_item-{{department.id}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    {% else %}
+                    <li class="dropdown_item-{{department.id}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    {% endif %}
+
+                    {% endfor %}
                 </ul>
             </li>
             <li id="nav-dropdown" class="dropdown">

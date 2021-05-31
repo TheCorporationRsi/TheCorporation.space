@@ -211,7 +211,10 @@ class User(db.Model, UserMixin):
         db.session.commit()
             
     def as_dict(self):
-        return {'name': self.RSI_handle}
+        return {
+            'name': self.RSI_handle,
+            'moniker': self.RSI_moniker
+            }
 
     def __repr__(self):
         return f"User('{self.RSI_handle}', '{self.email}', '{self.discord_username}', '{self.image_file}')"
@@ -243,16 +246,18 @@ class Role(db.Model):
     date_added = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     created_by = db.Column(db.String(32), nullable=False)
-
+    color = db.Column(db.String(32), unique=False, nullable=True)
+    rule = db.Column( db.Integer, nullable=True, default= 0)
+    
     division_id = db.Column(
         db.Integer, db.ForeignKey('division.id'), nullable=True)
     dep_head = db.Column(db.Boolean, nullable=False, default=False)
     dep_proxy = db.Column(db.Boolean, nullable=False, default=False)
-    department_id = db.Column(
-        db.Integer, db.ForeignKey('department.id'), nullable=True)
+    department_id = db.Column( db.Integer, db.ForeignKey('department.id'), nullable=True)
     div_head = db.Column(db.Boolean, nullable=False, default=False)
     div_proxy = db.Column(db.Boolean, nullable=False, default=False)
-    color = db.Column(db.String(32), unique=False, nullable=True)
+    div_member = db.Column(db.Boolean, nullable=False, default=False)
+    
     discord_id = db.Column(db.Integer, unique=True, nullable=True)
     guilded_id = db.Column(db.Integer, unique=True, nullable=True)
 
@@ -304,6 +309,13 @@ class Division(db.Model):
         department = Department.query.filter_by(id = self.department_id).first()
         return department.color
     
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title, 
+            'color': self.color()
+            }
+    
     def __repr__(self):
         return f"Division('{self.title}', '{self.date_added}')"
 
@@ -329,6 +341,13 @@ class Department(db.Model):
                 if user not in users:
                     users.append(user)
         return len(users)
+    
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title, 
+            'color': self.color
+            }
 
     def __repr__(self):
         return f"Department('{self.title}', '{self.date_added}')"

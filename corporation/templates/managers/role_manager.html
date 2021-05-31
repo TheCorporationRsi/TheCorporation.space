@@ -102,12 +102,88 @@
 <div class="list">
     {% for role in roles %}
 
-
+    {% if not role.division_id and not role.department_id %}
     <div class="item">
-        <a href="">{{ role.title }}</a>
-        <small class="" style="color: rgb(231, 231, 231) !important">
-            User count: {{ role.member_count() }}</small>
+        <form method="POST" action="">
+            {{ update_color_form.csrf_token }}
+            {{ update_color_form.role_id(value= role.id|string )}}
+
+            {% if update_color_form.title.errors %}
+            {{ update_color_form.title(class="error", value=role.title, style="color:"+role.role_color() )}}
+            <div class="invalid-feedback">
+                {% for error in update_color_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ update_color_form.title(value=role.title, style="color:"+role.role_color() )}}
+            {% endif %}
+
+
+            {% if update_color_form.color.errors %}
+            {{ update_color_form.color(class="error", value=role.role_color(), style="color:"+role.role_color() )}}
+            <div class="invalid-feedback">
+                {% for error in update_color_form.color.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ update_color_form.color(value=role.role_color(), style="color:"+role.role_color() )}}
+            {% endif %}
+
+
+            <div class="radio-menu">
+                {% for option in update_color_form.rule %}
+                    {% if option.vale == role.rule %}
+                    lol
+                    {{option(label= option.label.text, active=True) }}
+                    {% else %}
+                    {{option(label= option.label.text) }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if update_color_form.rule.errors %}
+            <div class="invalid-feedback">
+                {% for error in update_color_form.rule.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+
+            {{ update_color_form.update(style="margin-left: auto; margin-right: none;")}}
+        </form>
+        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+            User count : {{ role.member_count() }}</small>
     </div>
+    {% else %}
+    <div class="item">
+        <form method="POST" action="">
+            {{ update_form.csrf_token }}
+            {{ update_form.role_id(value= role.id|string )}}
+
+            {% if update_form.title.errors %}
+
+            {{ update_form.title(class="error", value=role.title, style="color:"+role.role_color() )}}
+            <div class="invalid-feedback">
+                {% for error in update_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {% else %}
+
+            {{ update_form.title(value=role.title, style="color:"+role.role_color() )}}
+
+            {% endif %}
+
+            {{ update_form.update(style="margin-left: auto; margin-right: none;")}}
+        </form>
+        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+            User count : {{ role.member_count() }}</small>
+    </div>
+    {% endif %}
 
     {% else %}
     <p>No role found</p>

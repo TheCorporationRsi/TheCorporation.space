@@ -21,16 +21,28 @@ main {
         box-shadow: inset 0 300px 100px -7px rgba(0, 0, 0, 0.4);
         //box-shadow: inset 0 -300px 100px -7px rgba(0,0,0,0.4);
 
-        &:before {
-            content: "";
-            background-image: url("/static/landing_page/cool_logo.svg");
+        .dep-logo {
             background-size: cover;
+            width:100vw;
+            height: 100vh;
             z-index: 5;
-            width: 80vw;
-            height: 30vw;
+            padding: auto;
             position: absolute;
-            top: calc(50vh - 15vw);
-            left: calc(50vw - 40vw);
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            font-family: "Orbitron";
+            font-weight: bold;
+            top: 0;
+            left: 0;
+            font-size: 5em;
+
+            svg {
+                align-items: center;
+                height: 30vw;
+                width: 30vw;
+            }
         }
 
         .pic-wrapper {

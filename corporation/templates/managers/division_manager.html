@@ -56,9 +56,29 @@
 
 
     <div class="item">
-        <a href="">{{ division.title }}</a>
-        <small class="" style="color: rgb(231, 231, 231) !important">
-            User count: {{ division.member_count() }}</small>
+        <form method="POST" action="">
+            {{ update_form.csrf_token }}
+            {{ update_form.division_id(value= division.id|string )}}
+
+            {% if update_form.title.errors %}
+
+            {{ update_form.title(class="error", value=division.title, style="color:"+division.color() )}}
+            <div class="invalid-feedback">
+                {% for error in update_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {% else %}
+
+            {{ update_form.title(value=division.title, style="color:"+division.color() )}}
+
+            {% endif %}
+
+            {{ update_form.update(style="margin-left: auto; margin-right: none;")}}
+        </form>
+        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+            User count : {{ division.member_count() }}</small>
     </div>
 
     {% else %}

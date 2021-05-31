@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from corporation import db, discord
 from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
-from corporation.managers.forms import Department_Form, Division_Form, Role_Form, Search_Form, Dep_Form
+from corporation.managers.forms import Department_Form, Division_Form, Role_Form, Search_Form, Dep_Form, Div_Form, Role_edit_Form, Role_edit_color_Form
 
 managers = Blueprint('managers', __name__)
     
@@ -140,8 +140,8 @@ def role_manager(department, division):
         if not current_user.is_manager(department = department, division = division):
             return redirect(url_for('main.home'))
     
-    form = Role_Form()
-    if form.validate_on_submit():
+    form = Role_Form(prefix="new")
+    if form.submit.data and form.validate_on_submit():
         if department > 0 and division > 0:
             division = Division.query.filter_by(id = division ).first()
             role = Role(title= form.title.data, division= division, department= department ,created_by= current_user.RSI_handle)
@@ -154,6 +154,23 @@ def role_manager(department, division):
         flash('Role has been created!', 'success')
         return redirect(url_for('managers.role_manager'))
     
+    update_form = Role_edit_Form(prefix="update")
+    if update_form.update.data and update_form.validate_on_submit():
+        role = Role.query.filter_by(id = update_form.role_id.data).first()
+        role.title = update_form.title.data
+        
+        db.session.commit()
+        flash('The Role has been updated!', 'success')
+    
+    update_color_form = Role_edit_color_Form(prefix="update_color")
+    if update_color_form.update.data and update_color_form.validate_on_submit():
+        role = Role.query.filter_by(id = update_color_form.role_id.data).first()
+        role.title = update_color_form.title.data
+        role.color = update_color_form.color.data
+        
+        db.session.commit()
+        flash('The Role has been updated!', 'success')
+    
     if department == 0 and division == 0:
         roles = Role.query.order_by(Role.title).all()
     elif division > 0:
@@ -165,7 +182,7 @@ def role_manager(department, division):
     divisions = Division.query.order_by(Division.title).all()
     departments = Department.query.order_by(Department.title).all()
     
-    return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, divisions = divisions, departments = departments, currentdiv = division, currentdep = department)
+    return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, update_form=update_form, update_color_form=update_color_form)
 
 
 #================================================= Division =========================================================
@@ -177,8 +194,8 @@ def division_manager(department):
     if not current_user.is_manager(department = department):
         return redirect(url_for('main.home'))
     
-    form = Division_Form()
-    if form.validate_on_submit():
+    form = Division_Form(prefix="new")
+    if form.submit.data and form.validate_on_submit():
         if department == 0:
             flash('You have to selct a department!', 'warning')
             return redirect(url_for('managers.division_manager', department = department))
@@ -190,14 +207,30 @@ def division_manager(department):
         division_id = division.id
         department_id = division.department.id
         div_head = Role(title= form.title.data + " Head", div_head = True , created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id)
-        div_proxy = Role(title= form.title.data + " Proxy", div_head = True , created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id )
-        member = Role(title= form.title.data + " Member", created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id )
+        div_proxy = Role(title= form.title.data + " Proxy", div_proxy = True , created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id )
+        member = Role(title= form.title.data + " Member", div_member = True, created_by = current_user.RSI_handle , department_id = department_id, division_id = division_id )
         db.session.add(div_head)
         db.session.add(div_proxy)
         db.session.add(member)
         db.session.commit()
         flash('Division has been created!', 'success')
         return redirect(url_for('managers.division_manager', department = department))
+    
+    update_form = Div_Form(prefix="update")
+    if update_form.update.data and update_form.update.data and update_form.validate_on_submit():
+        division = Division.query.filter_by(id = update_form.division_id.data).first()
+        division.title = update_form.title.data
+        
+        head = Role.query.filter_by(division_id = division.id, div_head= True).first()
+        proxy = Role.query.filter_by(division_id = division.id, div_proxy= True).first()
+        member = Role.query.filter_by(division_id = division.id, div_member= True ).first()
+        
+        head.title = division.title +" Head"
+        proxy.title = division.title +" Proxy"
+        member.title = division.title+" Member"
+        
+        db.session.commit()
+        flash('The Division has been updated!', 'success')
     
     if department == 0:
         divisions = Division.query.order_by(Division.department_id).all()
@@ -207,7 +240,7 @@ def division_manager(department):
     
     departments = Department.query.order_by(Department.title).all()
     
-    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, departments = departments, currentdep = department)
+    return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, departments = departments, currentdep = department, update_form=update_form)
 
 
 """ 
@@ -243,7 +276,7 @@ def department_manager():
         
         department_id = department.id
         dp_head = Role(title= form.title.data + " Head", dep_head = True , created_by = current_user.RSI_handle , department_id = department_id )
-        dp_proxy = Role(title= form.title.data + " Proxy", dep_head = True, created_by = current_user.RSI_handle , department_id = department_id )
+        dp_proxy = Role(title= form.title.data + " Proxy", dep_proxy = True, created_by = current_user.RSI_handle , department_id = department_id )
         db.session.add(dp_head)
         db.session.add(dp_proxy)
         db.session.commit()
@@ -255,6 +288,12 @@ def department_manager():
         department = Department.query.filter_by(id = update_form.department_id.data).first()
         department.title = update_form.title.data
         department.color = update_form.color.data
+        
+        head = Role.query.filter_by(department_id = department.id, dep_head= True).first()
+        proxy = Role.query.filter_by(department_id = department.id, dep_proxy= True).first()
+        
+        head.title = department.title +" Head"
+        proxy.title = department.title +" Proxy"
         
         db.session.commit()
         flash('The Department has been updated!', 'success')

@@ -39,7 +39,7 @@
 
             {% if update_form.title.errors %}
 
-            {{ update_form.title(class="error", value=department.title)}}
+            {{ update_form.title(class="error", value=department.title, style="color:"+department.color )}}
             <div class="invalid-feedback">
                 {% for error in update_form.title.errors %}
                 <span>{{ error }}</span>
@@ -48,14 +48,14 @@
 
             {% else %}
 
-            {{ update_form.title(value=department.title)}}
+            {{ update_form.title(value=department.title, style="color:"+department.color )}}
 
             {% endif %}
 
 
             {% if update_form.color.errors %}
 
-            {{ update_form.color(class="error", value=department.color)}}
+            {{ update_form.color(class="error", value=department.color, style="color:"+department.color )}}
             <div class="invalid-feedback">
                 {% for error in update_form.color.errors %}
                 <span>{{ error }}</span>
@@ -64,13 +64,13 @@
 
             {% else %}
 
-            {{ update_form.color(value=department.color)}}
+            {{ update_form.color(value=department.color, style="color:"+department.color )}}
 
             {% endif %}
 
-            {{ update_form.update()}}
+            {{ update_form.update(style="margin-left: auto; margin-right: none;")}}
         </form>
-        <small class="" style="color: rgb(231, 231, 231) !important">
+        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
             User count : {{ department.member_count() }}</small>
     </div>
 
