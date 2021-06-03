@@ -1,82 +1,113 @@
-{% extends "main.html"%}
+{% extends "header.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/connection.css') }}">
+{% endblock style %}
+
+
+
 {% block content %}
-<main role="main" class="container">
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
-                <div class= "form-control-label mb-4">
-                    Please write your email in the biography of your<a class="text-light font-weight-bold" href="https://robertsspaceindustries.com/account/profile" > RSI account </a>and fillup the following field.
-                </div>
-                <div class= "form-group">
-                    {{ form.RSI_handle.label(class="form-control-label")}}
+<div class="connection">
+    <div class="connection-zone">
 
-                    {% if form.RSI_handle.errors %}
-                        {{ form.RSI_handle(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.RSI_handle.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{ form.RSI_handle(class="form-control form-control-lg")}}
-                    {% endif %}
-                </div>
-                <div class= "form-group">
-                    {{ form.email.label(class="form-control-label")}}
+        <div class="register-form">
+            <div class="title">Register</div>
+            <div class="info">
+                <div class="tooltip top-right">
+                    <p class="tooltip-text">The procedure is simple, add your email in your <a
+                            style="color: rgb(115, 115, 255);"
+                            href="https://robertsspaceindustries.com/account/profile">Star Citizen
+                            account</a> biography and fill out the following form.
 
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{ form.email(class="form-control form-control-lg")}}
-                    {% endif %}
+                        <br>
+                        <br>
+                        This method bring multiple benefit. It make it way easier to indentify user on our
+                        discord
+                        server and we can identify the known griefer to prevent them to join the CORP.
+                        <br>
+                        <br>
+                        The corporation verify that you are the real owner of your RSI account by
+                        confirming the content of your Star Citizen account description.
+                        <br>
+                        <br>
+                        The email in needed to reset your password is case your forget it.
+                    </p>
                 </div>
-                <div class= "form-group">
-                    {{ form.password.label(class="form-control-label")}}
-
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{ form.password(class="form-control form-control-lg")}}
-                    {% endif %}
-                </div>
-                <div class= "form-group">
-                    {{ form.confirm_password.label(class="form-control-label")}}
-
-                    {% if form.confirm_password.errors %}
-                        {{ form.confirm_password(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            {% for error in form.confirm_password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                    {{ form.confirm_password(class="form-control form-control-lg")}}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-primary")}}
             </div>
-        </form>
+
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    <div>
+
+                        {{ form.RSI_handle.label()}}
+    
+                        {% if form.RSI_handle.errors %}
+                            {{ form.RSI_handle(class="error", spellcheck="false")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.RSI_handle.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.RSI_handle( spellcheck="false")}}
+                        {% endif %}
+
+                    </div>
+                    <div>
+
+                        {{ form.email.label()}}
+    
+                        {% if form.email.errors %}
+                            {{ form.email(class="error", spellcheck="false")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.email(spellcheck="false")}}
+                        {% endif %}
+
+                    </div>
+                    <div>
+
+                        {{ form.password.label()}}
+    
+                        {% if form.password.errors %}
+                            {{ form.password(class="error")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.password()}}
+                        {% endif %}
+
+                    </div>
+                    <div>
+                        {{ form.confirm_password.label()}}
+    
+                        {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="error")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.confirm_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                        {{ form.confirm_password()}}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div>
+                    {{ form.submit()}}
+                </div>
+            </form>
+
+        </div>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-light">
-            Already have an account? <a class=" text-success ml-2" href="{{ url_for('users.login') }}">
-                Sign In
-            </a>
-        </small>
-    </div>
-</main>
+</div>
+
 {% endblock content %}

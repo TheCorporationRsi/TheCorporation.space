@@ -14,6 +14,15 @@ class Config:
     'social_db': 'sqlite:///social.db',
     'logs_db':  'sqlite:///logs.db'
     }
+
+    SCHEDULER_API_ENABLED = True
+    SCHEDULER_JOBSTORES = {
+        'apscheduler.jobstores.default': {
+            'type': 'sqlalchemy',
+            'url': SQLALCHEMY_DATABASE_URI
+        }
+    }
+    
     try:
         MAIL_SERVER = 'smtp.gmail.com'
         MAIL_PORT = 587
@@ -32,3 +41,5 @@ class Config:
         TESTING_GUILD = 831248117571649566
     except:
         print("This application Multiple feature will not work properly")
+        
+    

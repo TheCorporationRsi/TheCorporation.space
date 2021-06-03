@@ -1,124 +1,148 @@
-{% extends "main.html" %}
-{% block content %}
-<main role="main" class="container" style="bottom: 0px">
-    <div class="btn-group">
-
-        {% if current_user.is_manager("admin") %}
-        {% if currentdep == 0 %}
-        <a href="{{ url_for('managers.user_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
-        {% else %}
-        <a href="{{ url_for('managers.user_manager') }}" class="btn btn-primary" aria-current="page">All</a>
-        {% endif %}
-        {% endif %}
-
-        {% for department in departments %}
-        {% if current_user.is_manager(department = department.id) %}
-            {% if currentdep == department.id %}
-                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
-            {% else %}
-                <a href="{{ url_for('managers.user_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
-            {% endif %}
-        {% endif %}
-        {% endfor %}
-
-    </div>
-    <br>
-    <br>
-    <div class="btn-group">
-
-        {% if current_user.is_manager("admin") or current_user.is_manager(department = currentdep) %}
-        {% if currentdiv == 0 %}
-        <a href="{{ url_for('managers.user_manager', department = currentdep ) }}" class="btn btn-primary active"
-            aria-current="page">All</a>
-        {% else %}
-        <a href="{{ url_for('managers.user_manager', department = currentdep ) }}" class="btn btn-primary"
-            aria-current="page">All</a>
-        {% endif %}
-        {% endif %}
-
-        {% for division in divisions %}
-        {% if currentdep == 0 or currentdep == division.department_id %}
-        {% if current_user.is_manager(division = division.id) %}
-            {% if currentdiv == division.id %}
-                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary active">{{ division.title }}</a>
-            {% else %}
-                <a href="{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}" class="btn btn-primary">{{ division.title }}</a>
-            {% endif %}
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-
-    </div>
-    <br>
-    <br>
-    <div class="dropdown" >
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Roles
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow: auto">
-            {% for role in roles %}
-            {% if currentdep == 0 or (currentdep == role.department_id and ( currentdiv == 0 or currentdiv == role.division_id )) %}
-            <a class="dropdown-item" href="#">{{ role.title }}</a>
-            {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-
-    <h1 class="mb-3 text-white">User list</h1>
-    {% for user in users %}
-    <article class="media content-section">
-        <img class="rounded-circle article-img"
-            src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}">
-        <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2 postuser" href="">{{
-                    user.RSI_handle }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;">{{ user.discord_username }}</small>
-            </div>
+{% extends "managers/structure_manager.html" %}
 
 
 
-            <div class="row">
-                <div class="col">
+{% block page %}
+<div class="radio-menu">
 
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Remove Role
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height:100px;">
-                            {% for link in user.roles %}
-                            <a class="dropdown-item"
-                                href="{{ url_for('managers.remove_role', user = link.user.id, role = link.role.id,  next=request.url) }}">{{ link.role.title }}</a>
-                            {% endfor %}
-                        </div>
+    {% if current_user.is_manager("admin") %}
+    {% if currentdep == 0 %}
+    <input onclick="window.location='{{ url_for('managers.user_manager') }}'" label="All" type="radio" name="department"
+        checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.user_manager') }}'" label="All" type="radio"
+        name="department">
+    {% endif %}
+    {% endif %}
 
-                    </div>
-                </div>
-                <div class="col">
-
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Add Role
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="overflow-y:scroll; height:200px;">
-                            {% for role in roles %}
-                            {% if not user.has_role(role) %}
-                            <a class="dropdown-item" href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}">{{ role.title }}</a>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </article>
+    {% for department in department_list %}
+    {% if current_user.is_manager(department = department.id) %}
+    {% if currentdep == department.id %}
+    <input onclick="window.location='{{ url_for('managers.user_manager', department= department.id) }}';"
+        label="{{ department.title }}" type="radio" name="department" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.user_manager', department= department.id) }}';"
+        label="{{ department.title }}" type="radio" name="department">
+    {% endif %}
+    {% else %}
+    {% for division in department.divisions %}
+    {% if current_user.is_manager(division = division.id) %}
+    {% if currentdep == department.id %}
+    <input
+        onclick="window.location='{{ url_for('managers.user_manager', department= department.id, division= division.id) }}';"
+        label="{{ department.title }}" type="radio" name="department" checked>
+    {% else %}
+    <input
+        onclick="window.location='{{ url_for('managers.user_manager', department= department.id, division= division.id) }}';"
+        label="{{ department.title }}" type="radio" name="department">
+    {% endif %}
+    {% endif %}
     {% endfor %}
 
+    {% endif %}
+    {% endfor %}
+</div>
 
-</main>
-{% endblock content %}
+<div class="radio-menu">
+
+    {% if current_user.is_manager("admin") or current_user.is_manager(department = currentdep) %}
+    {% if currentdiv == 0 %}
+    <input onclick="window.location='{{ url_for('managers.user_manager', department = currentdep) }}'" label="All"
+        type="radio" name="division" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.user_manager', department = currentdep) }}'" label="All"
+        type="radio" name="division">
+    {% endif %}
+    {% endif %}
+
+    {% for division in division_list %}
+    {% if currentdep == 0 or currentdep == division.department.id %}
+    {% if current_user.is_manager(division = division.id) %}
+    {% if currentdiv == division.id %}
+    <input
+        onclick="window.location='{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}';"
+        label="{{ division.title }}" type="radio" name="division" checked>
+    {% else %}
+    <input
+        onclick="window.location='{{ url_for('managers.user_manager', department = division.department.id , division = division.id) }}';"
+        label="{{ division.title }}" type="radio" name="division">
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="add-form">
+
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <div class="form-group">
+                {{ form.RSI_handle.label(class="title")}}
+                {% if form.RSI_handle.errors %}
+                {{ form.RSI_handle(class="error")}}
+                <div class="invalid-feedback">
+                    {% for error in form.RSI_handle.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %} {{ form.RSI_handle()}} {%
+                endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">{{ form.submit()}}</div>
+    </form>
+</div>
+
+<div class="list-title">
+    <h1>Users list :</h1>
+</div>
+
+<div class="list">
+    {% for user in users %}
+    {% set user_roles = user.roles() %}
+
+    <div class="user-item">
+        <img style=" height: 50px; width: 50px;" src="{{ user.image_file }}">
+        <a href="">{{ user.RSI_handle }}</a>
+        <a href="javascript:void(0);" onclick="show_user_dropdown('{{ user.RSI_handle }}')" style="width: 50px; margin-left: auto;">
+            <div class="mobile-button">
+                <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
+            </div>
+        </a>
+        <div id="{{ user.RSI_handle }}" class="user-dropdown">
+            <div class="title">Remove</div>
+            <div class="title">Add</div>
+            <div class="roles">
+                {% for role in user_roles %}
+                <div style=" border-color: {{ role.role_color() }}; ">
+
+                        <a href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }};">x</a>
+
+                    {{ role.title }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class=" roles">
+                {% for role in role_list %}
+                {% if not role in user_roles %}
+                <div style=" border-color: {{ role.role_color() }}; ">
+
+                    <a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }}; ">+</a>
+
+                    {{ role.title }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    {% else %}
+    <p>No member found</p>
+    {% endfor %}
+
+</div>
+{% endblock page %}

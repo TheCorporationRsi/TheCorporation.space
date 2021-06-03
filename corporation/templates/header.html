@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='main/corplogo2.ico') }}" />
+    {% if title %}
+    <title>The Corporation - {{ title }}</title>
+    {% else %}
+    <title>The Corporation</title>
+    {% endif %}
+
+
+    <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
+    <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
+    <meta property="og:image" content="{{ url_for('static', filename = 'main/corplogo_true_color.svg') }}" />
+    <meta property="og:url" content=”https://TheCorporation.space/” />
+    <meta property=”og:type” content=”website” />
+    <meta property="og:site_name" content="The Corporation inc.">
+
+    <!-- CSS sheets-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
+    <!--END CSS sheets-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            $('.loader_bg').fadeToggle();
+        });
+
+        function show_menu() {
+            var x = document.getElementsByTagName("NAV");
+            if (x[0].style.display === "grid") {
+                x[0].style.display = "none";
+            } else {
+                x[0].style.display = "grid";
+            }
+        }
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("logo").style.height = "50px";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "35px"
+                    }
+                }
+                document.getElementById("navbar").style.background = "#363636";
+            } else {
+                document.getElementById("navbar").style.background = "transparent";
+                document.getElementById("logo").style.height = "80%";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "64px"
+                    }
+                }
+            }
+        }
+    </script>
+
+
+    {% block style %}
+    {% endblock style%}
+
+
+</head>
+
+<body>
+
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    <div class="notifications">
+        {% for category, message in messages %}
+        <div class="alert {{ category }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
+    <div class="loader_bg">
+        <div class="test_loader"></div>
+    </div>
+
+
+    <header id="navbar">
+        <div class="banner">
+            <a href="/"><img id="logo" src="/static/main/corplogo_true_color.svg"></a>
+        </div>
+
+        <a href="javascript:void(0);" onclick="show_menu()">
+            <div class="mobile-button">
+                <img src="/static/main/ham.png">
+            </div>
+        </a>
+
+        <nav>
+            <a href="javascript:void(0);" onclick="show_menu()">
+                <div class="mobile-button">
+                    <img src="/static/main/up.png">
+                </div>
+            </a>
+            <div class="user-tab-mobile">
+                <!-- <li id="nav-dropdown" class="dropdown login">
+                    Login
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li class="dropdown_item-1 first-item">Account</li>
+                        <li class="dropdown_item-2">User manager</li>
+                        <li class="dropdown_item-3">Structure manager</li>
+                        <li class="dropdown_item-4">Discord manager</li>
+                        <li class="dropdown_item-5 last-item"> Website manager</li>
+                    </ul>
+                </li> -->
+                <li id="nav-dropdown" class="dropdown">
+                    <a href="#">Join</a>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li class="dropdown_item-1 first-item"><a href="#">Account</a></li>
+                        <li class="dropdown_item-2"><a href="#">User manager</a></li>
+                        <li class="dropdown_item-3"><a href="#">Structure manager</a></li>
+                        <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
+                        <li class="dropdown_item-5 last-item"> <a href="#">Website manager</a></li>
+                    </ul>
+                </li>
+            </div>
+            <li id="nav-dropdown" class="dropdown">
+                <a href="#">INFO</a>
+                <ul class="dropdown_menu dropdown_menu-4">
+                    <li class="dropdown_item-1 first-item"><a href="#">Presentation</a></li>
+                    <li class="dropdown_item-2"><a href="#">Influence system</a></li>
+                    <li class="dropdown_item-3"><a href="#">Certification</a></li>
+                    <li class="dropdown_item-4 last-item"><a href="#">History</a></li>
+                </ul>
+            </li>
+            <li id="nav-dropdown" class="dropdown">
+                <a href="#">Department</a>
+                <ul class="dropdown_menu dropdown_menu-4">
+                    {% for department in department_list %}
+
+                    {% if department == department_list[0] %}
+                    <li class="dropdown_item-{{department.id}} first-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    {% elif department == department_list[-1]%}
+                    <li class="dropdown_item-{{department.id}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    {% else %}
+                    <li class="dropdown_item-{{department.id}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    {% endif %}
+
+                    {% endfor %}
+                </ul>
+            </li>
+            <li id="nav-dropdown" class="dropdown">
+                <a href="#">News</a>
+                <ul class="dropdown_menu dropdown_menu-4">
+                    <li class="dropdown_item-1 first-item"><a href="#">SC news</a></li>
+                    <li class="dropdown_item-2"><a href="#">CORP news</a></li>
+                    <li class="dropdown_item-3"><a href="#">CORP content</a></li>
+                    <li class="dropdown_item-4 last-item"><a href="#">Item 5</a></li>
+                </ul>
+            </li>
+            <!-- <li id="nav-dropdown" class="dropdown">
+                <a href="#">Tools</a>
+                <ul class="dropdown_menu dropdown_menu-4">
+                    <li class="dropdown_item-1 first-item"><a href="#">Ship loadout</a></li>
+                    <li class="dropdown_item-2"><a href="#">Trading</a></li>
+                    <li class="dropdown_item-3"><a href="#">Inventory</a></li>
+                    <li class="dropdown_item-4 last-item"><a href="#">Fleet manager</a></li>
+                </ul>
+            </li> -->
+        </nav>
+        <div class="user-tab">
+            <!-- <li id="nav-dropdown" class="dropdown login">
+                Login
+                <ul class="dropdown_menu dropdown_menu-4">
+                    <li class="dropdown_item-1 first-item">Account</li>
+                    <li class="dropdown_item-2">User manager</li>
+                    <li class="dropdown_item-3">Structure manager</li>
+                    <li class="dropdown_item-4">Discord manager</li>
+                    <li class="dropdown_item-5 last-item"> Website manager</li>
+                </ul>
+            </li> -->
+
+            {% if current_user.is_authenticated %}
+
+            <li id="nav-dropdown" class="dropdown login">
+                {% if current_user.RSI_handle|length > 10 %}
+                <a href="{{ url_for('users.account') }}" style="font-size: {{ 7/(current_user.RSI_handle|length/4) }}vw ">{{ current_user.RSI_handle }}</a>
+                {% else %}
+                <a href="{{ url_for('users.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
+                {% endif %}
+                <ul class="dropdown_menu dropdown_menu-4">
+                    <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
+
+                    {% if current_user.is_manager("admin") %}
+                    <li class="dropdown_item-2"><a href="">User manager</a></li>
+                    <li class="dropdown_item-3"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
+                    <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
+                    <li class="dropdown_item-5"> <a href="#">Website manager</a></li>
+                    {% endif %}
+                    <li class="dropdown_item-5 last-item"> <a href="{{ url_for('users.logout') }}">Logout</a></li>
+                </ul>
+            </li>
+
+            {% else %}
+
+            {% if request.path=="/register" %}
+
+            <li id="nav-dropdown" class="dropdown login">
+                <a href="{{ url_for('users.login') }}">Login</a>
+            </li>
+
+            {% else %}
+
+            <li id="nav-dropdown" class="dropdown login">
+                <a href="{{ url_for('users.register') }}">Join</a>
+                <ul class="dropdown_menu dropdown_menu-4">
+                </ul>
+            </li>
+            {% endif %}
+
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- This is where the rest of the webpage will be -->
+    <main id="main">
+        {% block content %}
+        <!--content here-->
+        {% endblock %}
+    </main>
+
+
+
+</body>
+
+</html>

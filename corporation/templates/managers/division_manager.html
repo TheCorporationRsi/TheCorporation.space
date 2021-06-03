@@ -1,64 +1,90 @@
-{% extends "main.html" %}
-{% block content %}
-<main role="main" class="container">
-    <div class="btn-group">
+{% extends "managers/structure_manager.html" %} 
 
-        {% if current_user.is_manager("admin") %}
-        {% if currentdep == 0 %}
-        <a href="{{ url_for('managers.division_manager') }}" class="btn btn-primary active" aria-current="page">All</a>
+
+
+{% block page %}
+
+<div class="radio-menu">
+
+    {% if current_user.is_manager("admin") %}
+    {% if currentdep == 0 %}
+    <input onclick="window.location='{{ url_for('managers.division_manager') }}'" label="All" type="radio" name="department" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.division_manager') }}'" label="All" type="radio" name="department">
+    {% endif %}
+    {% endif %}
+
+    {% for department in department_list %}
+        {% if current_user.is_manager(department = department.id) %}
+        {% if currentdep == department.id %}
+        <input onclick="window.location='{{ url_for('managers.division_manager', department= department.id) }}';" label="{{ department.title }}" type="radio" name="department" checked>
         {% else %}
-        <a href="{{ url_for('managers.division_manager') }}" class="btn btn-primary" aria-current="page">All</a>
+        <input onclick="window.location='{{ url_for('managers.division_manager', department= department.id) }}';" label="{{ department.title }}" type="radio" name="department" >
         {% endif %}
         {% endif %}
+    {% endfor %}
+</div>
 
-        {% for department in departments %}
-            {% if current_user.is_manager(department = department.id) %}
-            {% if currentdep == department.id %}
-                <a href="{{ url_for('managers.division_manager', department= department.id) }}" class="btn btn-primary active">{{ department.title }}</a>
-            {% else %}
-                <a href="{{ url_for('managers.division_manager', department= department.id) }}" class="btn btn-primary">{{ department.title }}</a>
-            {% endif %}
-            {% endif %}
-        {% endfor %}
-
-    </div>
-    <br>
+<div class="add-form">
 
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">{{ legend }}</legend>
             <div class="form-group">
-                {{ form.title.label(class="form-control-label")}}
-
+                {{ form.title.label(class="title")}}
                 {% if form.title.errors %}
-                {{ form.title(class="form-control form-control-lg is-invalid")}}
+                {{ form.title(class="error")}}
                 <div class="invalid-feedback">
                     {% for error in form.title.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
-                {% else %}
-                {{ form.title(class="form-control form-control-lg")}}
-                {% endif %}
+                {% else %} {{ form.title()}} {%
+                endif %}
             </div>
         </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-primary")}}
-        </div>
+        <div class="form-group">{{ form.submit()}}</div>
     </form>
-    <h1 class="mb-3 text-white">Division list</h1>
+</div>
+
+<div class="list-title">
+    <h1>Department list :</h1>
+</div>
+
+<div class="list">
     {% for division in divisions %}
-    <article class="media content-section">
-        <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2 postuser" href="">{{ division.title }}</a>
-                <small class="" style=" color:rgb(231, 231, 231)!important;"> User count: {{ division.member_count() }}</small>
+
+
+    <div class="item">
+        <form method="POST" action="">
+            {{ update_form.csrf_token }}
+            {{ update_form.division_id(value= division.id|string )}}
+
+            {% if update_form.title.errors %}
+
+            {{ update_form.title(class="error", value=division.title, style="color:"+division.color() )}}
+            <div class="invalid-feedback">
+                {% for error in update_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
             </div>
-        </div>
-    </article>
+
+            {% else %}
+
+            {{ update_form.title(value=division.title, style="color:"+division.color() )}}
+
+            {% endif %}
+
+            {{ update_form.update(style="margin-left: auto; margin-right: none;")}}
+        </form>
+        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+            User count : {{ division.member_count() }}</small>
+    </div>
+
     {% else %}
-    <p> No division found </p>
+    <p>No division found</p>
     {% endfor %}
-</main>
-{% endblock content %}
+
+</div>
+
+{% endblock page %}

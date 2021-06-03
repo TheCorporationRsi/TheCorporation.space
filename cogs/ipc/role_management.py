@@ -16,8 +16,10 @@ class role_manager(commands.Cog):
     async def get_roles(self, data):
         server = self.client.get_guild(self.server_id)
         
-        
-        return server.roles
+        roles = []
+        for role in server.roles:
+            roles.append(role)
+        return roles
 
 
 

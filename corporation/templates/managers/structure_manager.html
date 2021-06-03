@@ -1,0 +1,70 @@
+{% extends "header.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/structure_manager.css') }}">
+
+<script>
+
+    function show_user_dropdown(handle) {
+        var x = document.getElementById(handle);
+        if (x.style.display === "flex") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "flex";
+        }
+    }
+
+    $(document).ready(function () {
+        var users = [];
+
+        function loadUsers() {
+            $.getJSON('/data/users', function (data, status, xhr) {
+                for (var i = 0; i < data.length; i++) {
+                    users.push(data[i].name);
+                }
+            });
+        };
+
+        loadUsers();
+
+        $('#RSI_handle').autocomplete({
+            source: users,
+        });
+    });
+</script>
+{% endblock style %}
+
+
+{% block content %}
+
+{% if current_user.is_manager("admin") %}
+<div class="structure-menu">
+    {% if request.path=="/department_manager" %}
+    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager" type="radio" name="tools"  checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager" type="radio" name="tools"  >
+    {% endif %}
+
+    {% if request.path=="/division_manager" %}
+    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio" name="tools" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio" name="tools" >
+    {% endif %}
+
+    {% if request.path=="/role_manager" %}
+    <input onclick="window.location='{{ url_for('managers.role_manager')}}'" label="Role manager" type="radio" name="tools" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.role_manager')}}'" label="Role manager" type="radio" name="tools" >
+    {% endif %}
+
+    {% if request.path=="/user_manager" %}
+    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio" name="tools"  checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio" name="tools" >
+    {% endif %}
+</div>
+{% endif %}
+
+{% block page %}
+{% endblock page %}
+{% endblock content %}
