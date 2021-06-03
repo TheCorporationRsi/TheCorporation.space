@@ -30,7 +30,7 @@ def calendar():
 
 @main.app_context_processor
 def structure_info():
-    roles = Role.query.order_by(Role.division_id, Role.department_id, Role.title).all()
+    roles = Role.query.order_by(Role.department_id, Role.division_id, Role.title).all()
     divisions = Division.query.order_by(Division.department_id, Division.title).all()
     departments = Department.query.order_by(Department.title).all()
     return dict(division_list=divisions, department_list=departments, role_list = roles)

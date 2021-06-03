@@ -115,9 +115,13 @@
             <div class="title">Add</div>
             <div class="roles">
                 {% for role in user_roles %}
-                <div style=" border-color: {{ role.role_color() }}; ">
+                {% if not dep_id == role.department_id %}
+                    {% set color = role.role_color() %}
+                    {% set dep_id = role.department_id %}
+                {% endif %}
+                <div style=" border-color: {{ color }}; ">
 
-                        <a href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }};">x</a>
+                        <a href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ color }}; color: {{ color }};">x</a>
 
                     {{ role.title }}
                 </div>
@@ -127,9 +131,13 @@
             <div class=" roles">
                 {% for role in role_list %}
                 {% if not role in user_roles %}
-                <div style=" border-color: {{ role.role_color() }}; ">
+                {% if not dep_id == role.department_id %}
+                    {% set color = role.role_color() %}
+                    {% set dep_id = role.department_id %}
+                {% endif %}
+                <div style=" border-color: {{ color }}; ">
 
-                    <a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }}; ">+</a>
+                    <a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ color }}; color: {{ color }}; ">+</a>
 
                     {{ role.title }}
                 </div>

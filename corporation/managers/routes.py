@@ -78,12 +78,8 @@ def remove_role(user, role):
 @managers.route("/user_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
 def user_manager(department, division):
-    if division > 0:
-        if not current_user.is_manager(division = division):
-            return redirect(url_for('main.home'))
-    else:
-        if not current_user.is_manager(department = department, division = division):
-            return redirect(url_for('main.home'))
+    if not current_user.is_manager('admin'):
+        return redirect(url_for('main.home'))
     
     
     form = Search_Form()
@@ -94,31 +90,15 @@ def user_manager(department, division):
     else:
         users = User.query
         
-    
-    
     if department == 0 and division == 0:
         users = users.order_by(User.RSI_handle).all()
     elif division > 0:
-        roles = Role.query.filter_by(division_id = division)
-        users = []
-        for role in roles:
-            links = Rolevsuser.query.filter_by(role_id = role.id).all()
-            for link in links:
-                user = User.query.filter_by(RSI_handle = link.RSI_handle).first()
-                if user not in users:
-                    users.append(user)
+        division_item = Division.query.filter_by(id = division).first()
+        users = division_item.members()
             
     elif department > 0:
-        roles = Role.query.filter_by(department_id = department).all()
-        users = []
-        for role in roles:
-            links = Rolevsuser.query.filter_by(role_id = role.id).all()
-            for link in links:
-                user = User.query.filter_by(RSI_handle = link.RSI_handle).first()
-                if user not in users:
-                    users.append(user)
-        
-        #User.query.join(User.roles).filter(User.roles.any(Role.department_id == department)).options(contains_eager(User.roles)).all()
+        department_item = Division.query.filter_by(id = department).first()
+        users = department_item.members()
     
     return render_template("managers/user_manager.html", title = "User manager", users = users, currentdiv = division, currentdep = department, form = form)
 
@@ -129,12 +109,8 @@ def user_manager(department, division):
 @managers.route("/role_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
 @login_required
 def role_manager(department, division):
-    if division > 0:
-        if not current_user.is_manager(division = division):
-            return redirect(url_for('main.home'))
-    else:
-        if not current_user.is_manager(department = department, division = division):
-            return redirect(url_for('main.home'))
+    if not current_user.is_manager('admin'):
+        return redirect(url_for('main.home'))
     
     form = Role_Form(prefix="new")
     if form.submit.data and form.validate_on_submit():
@@ -184,7 +160,7 @@ def role_manager(department, division):
 @managers.route("/division_manager/<int:department>", methods=['GET', 'POST'])
 @login_required
 def division_manager(department):
-    if not current_user.is_manager(department = department):
+    if not current_user.is_manager('admin'):
         return redirect(url_for('main.home'))
     
     form = Division_Form(prefix="new")

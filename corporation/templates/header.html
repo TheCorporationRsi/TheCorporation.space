@@ -24,7 +24,7 @@
     <meta property="og:site_name" content="The Corporation inc.">
 
     <!-- CSS sheets-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
+
     <!--END CSS sheets-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -159,11 +159,11 @@
                     {% for department in department_list %}
 
                     {% if department == department_list[0] %}
-                    <li class="dropdown_item-{{department.id}} first-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li class="dropdown_item-{{loop.index}} first-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
                     {% elif department == department_list[-1]%}
-                    <li class="dropdown_item-{{department.id}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li class="dropdown_item-{{loop.index}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
                     {% else %}
-                    <li class="dropdown_item-{{department.id}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li class="dropdown_item-{{loop.index}}"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
                     {% endif %}
 
                     {% endfor %}
@@ -174,8 +174,7 @@
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li class="dropdown_item-1 first-item"><a href="#">SC news</a></li>
                     <li class="dropdown_item-2"><a href="#">CORP news</a></li>
-                    <li class="dropdown_item-3"><a href="#">CORP content</a></li>
-                    <li class="dropdown_item-4 last-item"><a href="#">Item 5</a></li>
+                    <li class="dropdown_item-3 last-item"><a href="#">CORP content</a></li>
                 </ul>
             </li>
             <!-- <li id="nav-dropdown" class="dropdown">

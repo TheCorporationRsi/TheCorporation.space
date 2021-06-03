@@ -58,12 +58,11 @@ class User(db.Model, UserMixin):
         return User.query.get(user_id)
 
     def roles(self):
-        links = Rolevsuser.query.filter_by(RSI_handle=self.RSI_handle).all()
+        roles_list = Role.query.order_by( Role.department_id, Role.division_id, Role.title).all()
         roles = []
-        for link in links:
-            role = Role.query.filter_by(id=link.role_id).first()
-            roles.append(role)
-        roles.sort(key=lambda x: x.department_id)
+        for role in roles_list:
+            if self.has_role(role):
+                roles.append(role)
         return roles
 
     def has_role(self, role):
@@ -364,16 +363,22 @@ class Division(db.Model):
         'department.id'), nullable=False)
     logo = db.Column(db.String(20), nullable=False, default='default.jpg')
     moto = db.Column(db.String(200), nullable=False, default= 'Empty')
+    
     def member_count(self):
+        users = self.members()
+        return len(users)
+    
+    def members(self):
         users = []
         for role in self.roles:
-            members = Rolevsuser.query.filter_by(role_id=role.id).all()
-            for member in members:
-                user = User.query.filter_by(
-                    RSI_handle=member.RSI_handle).first()
-                if user not in users:
-                    users.append(user)
-        return len(users)
+            if role.div_member:
+                members = Rolevsuser.query.filter_by(role_id=role.id).all()
+                for member in members:
+                    user = User.query.filter_by(
+                        RSI_handle=member.RSI_handle).first()
+                    if user not in users:
+                        users.append(user)
+        return users
 
     def has_member(self, member):
         for role in self.roles:
@@ -408,15 +413,20 @@ class Department(db.Model):
         'Division', backref='department', lazy='dynamic')
 
     def member_count(self):
+        users = self.members()
+        return len(users)
+    
+    def members(self):
         users = []
         for role in self.roles:
-            members = Rolevsuser.query.filter_by(role_id=role.id).all()
-            for member in members:
-                user = User.query.filter_by(
-                    RSI_handle=member.RSI_handle).first()
-                if user not in users:
-                    users.append(user)
-        return len(users)
+            if role.div_member:
+                members = Rolevsuser.query.filter_by(role_id=role.id).all()
+                for member in members:
+                    user = User.query.filter_by(
+                        RSI_handle=member.RSI_handle).first()
+                    if user not in users:
+                        users.append(user)
+        return users
     
     def as_dict(self):
         return {
