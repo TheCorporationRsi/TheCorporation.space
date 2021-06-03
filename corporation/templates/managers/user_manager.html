@@ -15,7 +15,7 @@
     {% endif %}
     {% endif %}
 
-    {% for department in departments %}
+    {% for department in department_list %}
     {% if current_user.is_manager(department = department.id) %}
     {% if currentdep == department.id %}
     <input onclick="window.location='{{ url_for('managers.user_manager', department= department.id) }}';"
@@ -55,7 +55,7 @@
     {% endif %}
     {% endif %}
 
-    {% for division in divisions %}
+    {% for division in division_list %}
     {% if currentdep == 0 or currentdep == division.department.id %}
     {% if current_user.is_manager(division = division.id) %}
     {% if currentdiv == division.id %}
@@ -100,7 +100,7 @@
 
 <div class="list">
     {% for user in users %}
-
+    {% set user_roles = user.roles() %}
 
     <div class="user-item">
         <img style=" height: 50px; width: 50px;" src="{{ user.image_file }}">
@@ -114,7 +114,7 @@
             <div class="title">Remove</div>
             <div class="title">Add</div>
             <div class="roles">
-                {% for role in user.roles() %}
+                {% for role in user_roles %}
                 <div style=" border-color: {{ role.role_color() }}; ">
 
                         <a href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }};">x</a>
@@ -125,8 +125,8 @@
             </div>
 
             <div class=" roles">
-                {% for role in roles %}
-                {% if not user.has_role(role) %}
+                {% for role in role_list %}
+                {% if not role in user_roles %}
                 <div style=" border-color: {{ role.role_color() }}; ">
 
                     <a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ role.role_color() }}; color: {{ role.role_color() }}; ">+</a>

@@ -1,11 +1,12 @@
 @import 'main';
 
 main {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-gap: 30px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
     width: 100vw;
     background-image: url("/static/texture.svg");
+    background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
@@ -13,19 +14,16 @@ main {
 
 
     .user-info {
-        min-height: 40vh;
-        display: grid;
-        grid-gap: 30px;
-        padding-left: 5vw;
-        padding-right: 5vw;
         margin-top: 120px;
-
-        @media (min-width: 800px) {
-            grid-template-columns: 40% 60%;
-        }
-
-        @media (max-width: 800px) {
-            grid-template-rows: 40% 55%;
+        min-height: 40vh;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 30px;
+        padding-right: 5vw;
+        padding-left: 5vw;
+        
+        @media (max-width: 1400px) {
+            flex-flow: column nowrap;
         }
 
         .user-tab {
@@ -33,38 +31,57 @@ main {
             border-radius: 10px;
         }
 
+
         .summary {
             display: grid;
-            grid-template-rows: 1fr 1fr;
-            grid-gap: 20px;
-
+            grid-template-rows: 40% 60%;
+            min-width: 30vw;
+            min-height: 40vh;
 
             .top-section {
-                display: grid;
-                grid-template-columns: 40% 55%;
-                grid-gap: 5%;
+                display: flex;
+                flex-flow: row nowrap;
+                min-height: 300px;
 
                 img {
                     border-right: 5px solid $dark-grey;
                     border-bottom: 5px solid $dark-grey;
                     height: auto;
-                    width: 100%;
+                    width: 200px;
+                    height: 200px;
                     border-top-left-radius: 10px;
                 }
 
                 .handle {
-                    margin-top: auto;
                     margin-bottom: auto;
-                    vertical-align: text-top;
                     text-align: left;
                     text-justify: top;
-                    display: grid;
-                    grid-gap: 10px;
-                    grid-template-rows: 1fr 1fr;
+                    display: flex;
+                    flex-flow: column nowrap;
+                    width: 100%;
+                    padding: 30px;
 
                     .title {
                         color: rgb(155, 155, 155);
-                        font-size: 1.3vw;
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .influence-info {
+                display: flex;
+                flex-flow: column nowrap;
+                padding: 30px;
+
+                .item {
+                    display: flex;
+                    text-align: left;
+                    text-justify: center;
+                    width: 100%;
+                    margin: auto;
+
+                    .title {
+                        width: 50%;
                     }
                 }
             }
@@ -74,33 +91,38 @@ main {
         }
 
         .user-link {
-            display: grid;
-            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+            display: flex;
+            flex-flow: column nowrap;
             padding: 30px;
+            min-width: 45vw;
+            max-width: 90vw;
+            min-height: 40vh;
+
+            @media (min-width: 1400px) {
+                width: 100%;
+            }
 
             .link-item {
-                display: grid;
-                grid-template-columns: 20% 75%;
-                grid-gap: 2%;
-                background-color: $dark-grey;
-                border-radius: 10px;
-                margin: 5px;
-                padding: 10px;
+                display: flex;
+                display: row nowrap;
+                margin-top: auto;
+                margin-bottom: auto;
+                align-items: left;
+                justify-content: left;
+                width: 100%;
 
-
-                div {
-                    display: block;
-                    text-align: left;
-                    padding: auto;
-                    vertical-align: middle;
-                    justify-content: center;
-                    align-content: center;
-                    margin-top: auto;
-                    margin-bottom: auto;
-                    margin-right: auto;
-
-                    font-size: 1vw;
+                .title {
+                    width: 30%;
                 }
+
+                .value {
+                    width: 100%;
+
+                    &.link {
+                        //font-size: 12px;
+                    }
+                }
+
             }
         }
 
@@ -108,48 +130,127 @@ main {
 
     .tools {
         min-height: 40vh;
-        display: grid;
-        grid-gap: 30px;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 30px;
         padding-left: 5vw;
         padding-right: 5vw;
 
-        @media (min-width: 800px) {
-            grid-template-columns: 40% 29% 29%;
-        }
-
-        @media (max-width: 800px) {
-            grid-template-rows: 100vh 100vh;
+        @media (max-width: 1400px) {
+            flex-flow: column nowrap;
         }
 
         .tools-tab {
             background-color: $background;
             border-radius: 10px;
+            padding: 30px;
+
+            @media (min-width: 1400px) {
+                width: 100%;
+            }
+
+            &.influence-weight {
+
+
+                .weight {
+                    display: flex;
+                    flex-flow: row nowrap;
+                    align-items: center;
+                    justify-content: right;
+                    width: 100%;
+
+                    label{
+                        font-size: 20px;
+                    }
+
+                    .w-title {
+                        align-items: center;
+                        justify-content: right;
+                        margin-left: auto;
+                        margin-right: 10px;
+                    }
+                }
+
+                fieldset {
+                    border: 0;
+                }
+
+                .invalid-feedback {
+                    color: red;
+                    font-size: 0.8em;
+                    margin-bottom: 5px;
+                }
+
+                input[type=text],
+                input[type=password],
+                textarea,
+                select {
+                    align-items: right;
+                    width: 100px;
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                    margin-left: auto;
+                    padding: 12px 20px;
+                    display: inline-block;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+
+                    &.error {
+                        border: 2px solid red;
+                    }
+                }
+
+                textarea {
+                    min-height: 200px;
+                }
+
+                input[type=submit] {
+                    width: 100%;
+                    background-color: $blue;
+                    color: white;
+                    padding: 14px 20px;
+                    margin: 8px 0;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 2em;
+                    font-family: $main-font;
+                    font-weight: bold;
+                    transition: all ease-in-out .3s;
+
+                }
+
+                input[type=submit]:hover {
+                    background-color: $yellow;
+                    color: black;
+                    transform: scale(1.03);
+                }
+            }
         }
 
         .role-section {
-            display: grid;
-            grid-template-rows: 5% 90%;
-            grid-gap: 5%;
-            padding-left: 20px;
-            padding-right: 20px;
-            height: 100%;
-            margin-top: 30px;
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 20px;
+            min-width: 35vw;
 
             .roles {
                 align-content: flex-start;
                 flex-wrap: wrap;
                 display: flex;
+                width: 100%;
+                text-align: center;
 
                 div {
-                    display: grid;
-                    grid-template-columns: 10% 90%;
+                    display: flex;
                     grid-gap: 3px;
                     align-self: flex-start;
                     text-decoration: none;
                     font-weight: normal;
                     border: 2px solid rgb(255, 0, 0);
                     border-radius: 15px;
-                    height: 20px;
+                    //height: 20px;
                     padding-top: 2.5px;
                     padding-bottom: 2.5px;
                     padding-left: 5px;
@@ -158,7 +259,6 @@ main {
                     margin-right: 5px;
                     margin-top: 4px;
                     text-align: center;
-                    vertical-align: center;
 
                     p {
                         display: block;
@@ -173,128 +273,101 @@ main {
 
         }
 
-        .influence-info {
+        .influence-transfer {
 
-            display: grid;
-            grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-            padding: 30px;
+            .title {
+                width: 100%;
+                font-family: "Orbitron";
+                font-size: 6em;
+                margin-top: -120px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 15px;
+                text-align: center;
+                color: $yellow;
+                text-shadow: #000000;
+            }
 
-            .item {
-                display: grid;
-                grid-template-columns: 45% 50%;
-                grid-gap: 1%;
+            fieldset {
+                border: 0;
+            }
 
+            .invalid-feedback {
+                color: red;
+                font-size: 0.8em;
+                margin-bottom: 5px;
+            }
 
-                div {
-                    display: block;
-                    text-align: left;
-                    padding: auto;
-                    vertical-align: middle;
-                    justify-content: center;
-                    align-content: center;
-                    margin-top: auto;
-                    margin-bottom: auto;
-                    margin-right: auto;
+            input[type=text],
+            input[type=password],
+            textarea,
+            select {
+                width: 100%;
+                min-width: 100%;
+                max-width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
 
-                    font-size: 1vw;
+                &.error {
+                    border: 2px solid red;
                 }
             }
-        
-    }
 
-    .influence-transfer {
-        padding: 30px;
+            textarea {
+                min-height: 200px;
+            }
 
-        .title {
-            width: 100%;
-            font-family: "Orbitron";
-            font-size: 6em;
-            margin-top: -120px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 15px;
-            text-align: center;
-            color: $yellow;
-            text-shadow: #000000;
-        }
+            input[type=submit] {
+                width: 100%;
+                background-color: $blue;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 2em;
+                font-family: $main-font;
+                font-weight: bold;
+                transition: all ease-in-out .3s;
 
-        fieldset {
-            border: 0;
-        }
+            }
 
-        .invalid-feedback {
-            color: red;
-            font-size: 0.8em;
-            margin-bottom: 5px;
-        }
-
-        input[type=text],
-        input[type=password],
-        textarea,
-        select {
-            width: 100%;
-            min-width: 100%;
-            max-width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-
-            &.error {
-                border: 2px solid red;
+            input[type=submit]:hover {
+                background-color: $yellow;
+                color: black;
+                transform: scale(1.03);
             }
         }
+    }
 
-        textarea {
-            min-height: 200px;
+    .system {
+        min-height: 40vh;
+        display: grid;
+        grid-gap: 30px;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        margin-bottom: 30px;
+
+        @media (min-width: 800px) {
+            grid-template-columns: 50% 50%;
         }
 
-        input[type=submit] {
-            width: 100%;
-            background-color: $blue;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 2em;
-            font-family: $main-font;
-            font-weight: bold;
-            transition: all ease-in-out .3s;
-
+        @media (max-width: 800px) {
+            grid-template-rows: 100vh 100vh;
         }
 
-        input[type=submit]:hover {
-            background-color: $yellow;
-            color: black;
-            transform: scale(1.03);
+        .system-tab {
+            background-color: $background;
+            border-radius: 10px;
+            padding: 30px;
+
+           
         }
     }
-}
-
-.system {
-    min-height: 40vh;
-    display: grid;
-    grid-gap: 30px;
-    padding-left: 5vw;
-    padding-right: 5vw;
-    margin-bottom: 30px;
-
-    @media (min-width: 800px) {
-        grid-template-columns: 50% 50%;
-    }
-
-    @media (max-width: 800px) {
-        grid-template-rows: 100vh 100vh;
-    }
-
-    .system-tab {
-        background-color: $background;
-        border-radius: 10px;
-    }
-}
 
 }

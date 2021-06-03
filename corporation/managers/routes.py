@@ -120,11 +120,7 @@ def user_manager(department, division):
         
         #User.query.join(User.roles).filter(User.roles.any(Role.department_id == department)).options(contains_eager(User.roles)).all()
     
-    
-    divisions = Division.query.order_by(Division.title).all()
-    departments = Department.query.order_by(Department.title).all()
-    roles = Role.query.order_by(Role.title).all()
-    return render_template("managers/user_manager.html", title = "User manager", users = users, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, roles = roles, form = form)
+    return render_template("managers/user_manager.html", title = "User manager", users = users, currentdiv = division, currentdep = department, form = form)
 
 
 #================================================= Role =========================================================
@@ -179,10 +175,7 @@ def role_manager(department, division):
         roles = Role.query.filter_by(department_id = department).order_by(Role.title).all()
         
     
-    divisions = Division.query.order_by(Division.title).all()
-    departments = Department.query.order_by(Department.title).all()
-    
-    return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, divisions = divisions, departments = departments, currentdiv = division, currentdep = department, update_form=update_form, update_color_form=update_color_form)
+    return render_template("managers/role_manager.html", title = "Role manager", roles = roles, Role = Role,  form=form, currentdiv = division, currentdep = department, update_form=update_form, update_color_form=update_color_form)
 
 
 #================================================= Division =========================================================

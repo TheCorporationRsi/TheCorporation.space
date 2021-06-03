@@ -1,8 +1,8 @@
-from flask_wtf import FlaskForm, RecaptchaField
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, HiddenField
+from flask_wtf import FlaskForm, RecaptchaField, Form
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, HiddenField, FieldList, FormField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from flask_login import current_user
-from corporation.models import User, Influence, Tribute, Division, Weight
+from corporation.models import User, Influence, Tribute, Division
 from flask_wtf.file import FileField, FileAllowed
 from corporation.data.scraping import RSI_account
 from sqlalchemy import func
@@ -109,24 +109,18 @@ class inf_Form(FlaskForm):
             raise ValidationError('Not enough tribue in your influence account.')
 
 
+class Division_weight(Form):
+    division = HiddenField("Division", validators=[DataRequired()])
+    weight = IntegerField('Weight', validators=[DataRequired()])
 
-class weight_Form(FlaskForm):
+class Divisions_weight(FlaskForm):
+    weights = FieldList(FormField(Division_weight), min_entries=0,  max_entries= 30)
+    set = SubmitField('Set')
     
-    def __init__(self, member):
-        self.member = member
-    
-    division = HiddenField("Field 1", validators=[DataRequired()])
-    weight = IntegerField('Weight', validators=[DataRequired(), NumberRange( min=1, max=100, message='Not a valid amount!')], render_kw={"placeholder": "Weight"})
-    
-    send = SubmitField('Set')
-    
-    def validate_weight(self, weight):
-        divisions = Division.query.all()
-        total = 0
-        for division in divisions:
-            if division.had_member(self.member):
-                percent = Weight.query.filter_by(RSI_handle= self.member.RSI_handle, division_id = division.id).first()
-                total += percent.weight
-                
-        if total > 100:
+    def validate_weights(self, weights):
+        count = 0
+        for form in weights:
+            count += form.weight.data
+            
+        if not count == 100:
             raise ValidationError('The total must be 100')

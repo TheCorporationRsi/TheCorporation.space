@@ -14,7 +14,7 @@
     {% endif %}
     {% endif %}
 
-    {% for department in departments %}
+    {% for department in department_list %}
         {% if current_user.is_manager(department = department.id) %}
         {% if currentdep == department.id %}
         <input onclick="window.location='{{ url_for('managers.division_manager', department= department.id) }}';" label="{{ department.title }}" type="radio" name="department" checked>

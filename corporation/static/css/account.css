@@ -2,6 +2,10 @@
 @import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@font-face {
+  font-family: "Phage";
+  src: url("/static/main/font/Phage_Regular.otf") format("opentype");
+}
 :root {
   --clip-width: 14px;
   --margin-info-default: -7px;
@@ -659,32 +663,42 @@ body {
   }
 }
 main {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  gap: 30px;
   width: 100vw;
   background-image: url("/static/texture.svg");
+  background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   min-height: 100vh;
 }
 main .user-info {
-  min-height: 40vh;
-  display: grid;
-  grid-gap: 30px;
-  padding-left: 5vw;
-  padding-right: 5vw;
   margin-top: 120px;
+  min-height: 40vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  gap: 30px;
+  padding-right: 5vw;
+  padding-left: 5vw;
 }
-@media (min-width: 800px) {
+@media (max-width: 1400px) {
   main .user-info {
-    grid-template-columns: 40% 60%;
-  }
-}
-@media (max-width: 800px) {
-  main .user-info {
-    grid-template-rows: 40% 55%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
   }
 }
 main .user-info .user-tab {
@@ -693,93 +707,233 @@ main .user-info .user-tab {
 }
 main .user-info .summary {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 20px;
+  grid-template-rows: 40% 60%;
+  min-width: 30vw;
+  min-height: 40vh;
 }
 main .user-info .summary .top-section {
-  display: grid;
-  grid-template-columns: 40% 55%;
-  grid-gap: 5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  min-height: 300px;
 }
 main .user-info .summary .top-section img {
   border-right: 5px solid #444444;
   border-bottom: 5px solid #444444;
   height: auto;
-  width: 100%;
+  width: 200px;
+  height: 200px;
   border-top-left-radius: 10px;
 }
 main .user-info .summary .top-section .handle {
-  margin-top: auto;
   margin-bottom: auto;
-  vertical-align: text-top;
   text-align: left;
   text-justify: top;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-rows: 1fr 1fr;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  width: 100%;
+  padding: 30px;
 }
 main .user-info .summary .top-section .handle .title {
   color: #9b9b9b;
-  font-size: 1.3vw;
+  font-size: 20px;
 }
-main .user-info .user-link {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+main .user-info .summary .influence-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
   padding: 30px;
 }
-main .user-info .user-link .link-item {
-  display: grid;
-  grid-template-columns: 20% 75%;
-  grid-gap: 2%;
-  background-color: #444444;
-  border-radius: 10px;
-  margin: 5px;
-  padding: 10px;
-}
-main .user-info .user-link .link-item div {
-  display: block;
+main .user-info .summary .influence-info .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   text-align: left;
-  padding: auto;
-  vertical-align: middle;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  text-justify: center;
+  width: 100%;
+  margin: auto;
+}
+main .user-info .summary .influence-info .item .title {
+  width: 50%;
+}
+main .user-info .user-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  padding: 30px;
+  min-width: 45vw;
+  max-width: 90vw;
+  min-height: 40vh;
+}
+@media (min-width: 1400px) {
+  main .user-info .user-link {
+    width: 100%;
+  }
+}
+main .user-info .user-link .link-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  display: row nowrap;
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: auto;
-  font-size: 1vw;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
+  width: 100%;
+}
+main .user-info .user-link .link-item .title {
+  width: 30%;
+}
+main .user-info .user-link .link-item .value {
+  width: 100%;
 }
 main .tools {
   min-height: 40vh;
-  display: grid;
-  grid-gap: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  gap: 30px;
   padding-left: 5vw;
   padding-right: 5vw;
 }
-@media (min-width: 800px) {
+@media (max-width: 1400px) {
   main .tools {
-    grid-template-columns: 40% 29% 29%;
-  }
-}
-@media (max-width: 800px) {
-  main .tools {
-    grid-template-rows: 100vh 100vh;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
   }
 }
 main .tools .tools-tab {
   background-color: #363636;
   border-radius: 10px;
+  padding: 30px;
+}
+@media (min-width: 1400px) {
+  main .tools .tools-tab {
+    width: 100%;
+  }
+}
+main .tools .tools-tab.influence-weight .weight {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  width: 100%;
+}
+main .tools .tools-tab.influence-weight .weight label {
+  font-size: 20px;
+}
+main .tools .tools-tab.influence-weight .weight .w-title {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  margin-left: auto;
+  margin-right: 10px;
+}
+main .tools .tools-tab.influence-weight fieldset {
+  border: 0;
+}
+main .tools .tools-tab.influence-weight .invalid-feedback {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+}
+main .tools .tools-tab.influence-weight input[type=text],
+main .tools .tools-tab.influence-weight input[type=password],
+main .tools .tools-tab.influence-weight textarea,
+main .tools .tools-tab.influence-weight select {
+  -webkit-box-align: right;
+      -ms-flex-align: right;
+          align-items: right;
+  width: 100px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: auto;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+main .tools .tools-tab.influence-weight input[type=text].error,
+main .tools .tools-tab.influence-weight input[type=password].error,
+main .tools .tools-tab.influence-weight textarea.error,
+main .tools .tools-tab.influence-weight select.error {
+  border: 2px solid red;
+}
+main .tools .tools-tab.influence-weight textarea {
+  min-height: 200px;
+}
+main .tools .tools-tab.influence-weight input[type=submit] {
+  width: 100%;
+  background-color: #0083ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: "Orbitron";
+  font-weight: bold;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+main .tools .tools-tab.influence-weight input[type=submit]:hover {
+  background-color: #fcff00;
+  color: black;
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
 }
 main .tools .role-section {
-  display: grid;
-  grid-template-rows: 5% 90%;
-  grid-gap: 5%;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 100%;
-  margin-top: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  gap: 20px;
+  min-width: 35vw;
 }
 main .tools .role-section .roles {
   -ms-flex-line-pack: start;
@@ -789,17 +943,19 @@ main .tools .role-section .roles {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
+  text-align: center;
 }
 main .tools .role-section .roles div {
-  display: grid;
-  grid-template-columns: 10% 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   grid-gap: 3px;
   align-self: flex-start;
   text-decoration: none;
   font-weight: normal;
   border: 2px solid red;
   border-radius: 15px;
-  height: 20px;
   padding-top: 2.5px;
   padding-bottom: 2.5px;
   padding-left: 5px;
@@ -808,7 +964,6 @@ main .tools .role-section .roles div {
   margin-right: 5px;
   margin-top: 4px;
   text-align: center;
-  vertical-align: center;
 }
 main .tools .role-section .roles div p {
   display: block;
@@ -817,34 +972,6 @@ main .tools .role-section .roles div p {
   height: 15px;
   text-align: center;
   margin: auto;
-}
-main .tools .influence-info {
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-  padding: 30px;
-}
-main .tools .influence-info .item {
-  display: grid;
-  grid-template-columns: 45% 50%;
-  grid-gap: 1%;
-}
-main .tools .influence-info .item div {
-  display: block;
-  text-align: left;
-  padding: auto;
-  vertical-align: middle;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: auto;
-  font-size: 1vw;
-}
-main .tools .influence-transfer {
-  padding: 30px;
 }
 main .tools .influence-transfer .title {
   width: 100%;
@@ -932,4 +1059,5 @@ main .system {
 main .system .system-tab {
   background-color: #363636;
   border-radius: 10px;
+  padding: 30px;
 }/*# sourceMappingURL=account.css.map */

@@ -28,6 +28,8 @@
 
 
 {% block content %}
+
+
 <div class="user-info">
     <div class="user-tab summary">
         <div class="top-section">
@@ -36,42 +38,49 @@
 
 
             <div class="handle">
-                <p class="title">RSI moniker:</p>
-                <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_moniker }}</p>
-                <p class="title">RSI handle:</p>
-                <p style="font-size: {{ 21/current_user.RSI_handle|length }}vw ">{{ current_user.RSI_handle }}</p>
+
+                <p class="title">RSI moniker :</p>
+                <p style="font-size: {{ 400/current_user.RSI_handle|length }}px ">{{ current_user.RSI_moniker }}</p>
+
+                <p class="title">RSI handle :</p>
+                <p style="font-size: {{ 400/current_user.RSI_handle|length }}px ">{{ current_user.RSI_handle }}</p>
 
             </div>
 
         </div>
 
 
-        <div class="update-section">
-            <form method="POST" action="" enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
-                <fieldset>
-                    <legend class="">Account Info</legend>
-                    <div>
-                        {{ form.picture.label() }}
-                        {{ form.picture() }}
-                        {% if form.picture.errors %}
-                        {% for error in form.picture.errors %}
-                        <span>{{ error }}</span>
-                        {% endfor %}
-                        {% endif %}
-                    </div>
-                </fieldset>
-                <div>
-                    {{ form.submit()}}
+        <div class="influence-info">
+
+            <div class="item">
+                <div class="title">Rank:</div>
+                <div class="data">{{current_user.influence_rank().title}}</div>
+            </div>
+            <div class="item">
+                <div class="title">Lifetime influence:</div>
+                <div class="data">{{current_user.lifetime_influence_count()}}</div>
+            </div>
+            <div class="item">
+                <div class="title">Total influence:</div>
+                <div class="data">{{current_user.influence_count()}}</div>
+            </div>
+            <div class="item">
+                <div class="title">Weekly tribute:</h6>
                 </div>
-            </form>
+                <div class="data">{{ current_user.influence_rank().weekly_amount }}</div>
+            </div>
+            <div class="item">
+                <div class="title">Tribute left:</h6>
+                </div>
+                <div class="data">{{ current_user.tribute().amount }}</div>
+            </div>
         </div>
     </div>
     <div class="user-tab user-link">
 
         <div class="link-item">
             <div class="title">Star Citizen link:</div>
-            <div class="value">https://robertsspaceindustries.com/citizens/{{ current_user.RSI_handle }}</div>
+            <div class="value link">https://robertsspaceindustries.com/citizens/{{ current_user.RSI_handle }}</div>
         </div>
         <div class="link-item">
             <div class="title">Email:</div>
@@ -98,34 +107,87 @@
 
     <div class="tools-tab roles">
         <div class="role-section">
+
+            {% if current_user.is_manager() %}
             <div class="title">
-                Roles:
+                Manager roles :
             </div>
             <div class="roles">
                 {% for role in current_user.roles() %}
+                {% if role.div_head or role.dep_head or role.div_proxy or role.dep_proxy %}
                 <div style=" border-color: {{ role.role_color() }}; ">
                     <p class="circle" style="background-color: {{ role.role_color() }};"></p>
                     {{ role.title }}
                 </div>
+                {% endif %}
                 {% endfor %}
-
             </div>
+            {% endif %}
+
+            <div class="title">
+                Member role :
+            </div>
+            <div class="roles">
+                {% for role in current_user.roles() %}
+                {% if role.div_member %}
+                <div style=" border-color: {{ role.role_color() }}; ">
+                    <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+                    {{ role.title }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="title">
+                Other roles :
+            </div>
+            <div class="roles">
+                {% for role in current_user.roles() %}
+                {% if not (role.div_head or role.dep_head or role.div_proxy or role.dep_proxy or role.div_member) %}
+                <div style=" border-color: {{ role.role_color() }}; ">
+                    <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+                    {{ role.title }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+
         </div>
     </div>
 
-    <div class="tools-tab influence-info">
-        <div class="item">
-            <div class="title">Rank:</div>
-            <div class="data">Drone</div>
+    <div id="weight-tab" class="tools-tab influence-weight">
+        <div class="weight">
+            <div>Division</div>
+            <div class="w-title">Weight (%)</div>
         </div>
-        <div class="item">
-            <div class="title">Lifetime influence:</div>
-            <div class="data">69420</div>
-        </div>
-        <div class="item">
-            <div class="title">Weekly tribute:</h6></div>
-            <div class="data">300</div>
-        </div>
+        <form method="POST" action="">
+            {{ weight_form.hidden_tag() }}
+            {% for division in division_list %}
+            {% if division.has_member(member = current_user) %}
+            <div class="weight">
+
+                <label style="color: {{division.color()}}">{{division.title}}</label>
+                {% set w_form = weight_form.weights.append_entry()%}
+                {{ w_form.csrf_token() }}
+                {{ w_form.division(value= division.id|string ) }}
+                {{ w_form.weight(value= current_user.div_weight(division = division) ) }}
+
+            </div>
+            {% endif %}
+
+            {% endfor %}
+
+            {% if weight_form.weights.errors %}
+            <div class="invalid-feedback">
+                {% for error in weight_form.weights.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {{ weight_form.set() }}
+        </form>
     </div>
 
     <div class="tools-tab influence-transfer">
@@ -178,15 +240,28 @@
 </div>
 <div class="system">
     <div class="system-tab settings">
-
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend class="">Account Info</legend>
+                <div>
+                    {{ form.picture.label() }}
+                    {{ form.picture() }}
+                    {% if form.picture.errors %}
+                    {% for error in form.picture.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit()}}
+            </div>
+        </form>
     </div>
 
-    <div class="system-tab influence">
-        {% for division in divisions %}
-            {% if division.has_member(member = current_user) %}
-                <p>{{division.title}}</p>
-            {% endif %}
-        {% endfor %}
+    <div class="system-tab influence-info">
+
     </div>
 </div>
 {% endblock content %}

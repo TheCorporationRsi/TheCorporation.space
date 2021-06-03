@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint
-from corporation.models import Post, Division, Department
+from corporation.models import Post, Division, Department, Role
 
 from flask import Blueprint
 
@@ -30,6 +30,7 @@ def calendar():
 
 @main.app_context_processor
 def structure_info():
-    divisions = Division.query.all()
-    departments = Department.query.all()
-    return dict(division_list=divisions, department_list=departments)
+    roles = Role.query.order_by(Role.division_id, Role.department_id, Role.title).all()
+    divisions = Division.query.order_by(Division.department_id, Division.title).all()
+    departments = Department.query.order_by(Department.title).all()
+    return dict(division_list=divisions, department_list=departments, role_list = roles)

@@ -16,7 +16,7 @@
     {% endif %}
     {% endif %}
 
-    {% for department in departments %}
+    {% for department in department_list %}
     {% if current_user.is_manager(department = department.id) %}
     {% if currentdep == department.id %}
     <input onclick="window.location='{{ url_for('managers.role_manager', department= department.id) }}';"
@@ -56,7 +56,7 @@
     {% endif %}
     {% endif %}
 
-    {% for division in divisions %}
+    {% for division in division_list %}
     {% if currentdep == 0 or currentdep == division.department.id %}
     {% if current_user.is_manager(division = division.id) %}
     {% if currentdiv == division.id %}

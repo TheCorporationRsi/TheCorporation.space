@@ -4,6 +4,8 @@ from corporation import db, login_manager
 from flask_login import UserMixin
 from flask import current_app
 
+from sqlalchemy import or_
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -61,15 +63,36 @@ class User(db.Model, UserMixin):
         for link in links:
             role = Role.query.filter_by(id=link.role_id).first()
             roles.append(role)
+        roles.sort(key=lambda x: x.department_id)
         return roles
 
     def has_role(self, role):
+        link = Rolevsuser.query.filter_by(RSI_handle=self.RSI_handle, role_id = role.id).first()
+        if link:
+            return True
+        return False
+    
+    def his_member(self, division):
         links = Rolevsuser.query.filter_by(RSI_handle=self.RSI_handle).all()
         for link in links:
-            if link.role_id == role.id:
+            role = Role.query.filter_by(id=link.role_id).first()
+            if role.div_member and role.division_id == division.id:
+                return True
+        return False
+    
+    def his_member_dep(self, department):
+        links = Rolevsuser.query.filter_by(RSI_handle=self.RSI_handle).all()
+        for link in links:
+            role = Role.query.filter_by(id=link.role_id).first()
+            if role.div_member and role.department_id == department.id:
                 return True
         return False
 
+    def div_weight(self, division):
+        role = Role.query.filter_by(division_id=division.id, div_member= True).first()
+        link = Rolevsuser.query.filter_by(RSI_handle=self.RSI_handle, role_id = role.id).first()
+        return link.weight
+    
     def add_role(self, role):
         link = Rolevsuser( RSI_handle = self.RSI_handle, role_id = role.id)
         db.session.add(link)
@@ -134,21 +157,77 @@ class User(db.Model, UserMixin):
         
         return tribute
     
-    def send_tribute(self, receiver, amount):
+    def send_tribute(self, receiver, amount, message= "none"):
         tribute = self.tribute()
-        receiver_tribute = receiver.tribute()
+        receiver_links = Rolevsuser.query.filter_by(RSI_handle= receiver.RSI_handle).all()
         
-        if not receiver.tribute():
-            receiver.upgrade()
-            
-        if receiver is self.RSI_handle or tribute.amount < amount:
+        count = 0
+        for link in receiver_links:
+            count += link.weight
+        
+        if count == 0:
+            test = 0
+            for link in receiver_links:
+                role = Role.query.filter_by(id = link.role_id).first()
+                if role.div_member:
+                    test += 1
+                    
+            if test == 0:
+                transaction = Influence_transaction(user_from = self.RSI_handle, user_to = receiver.RSI_handle, amount= amount, message = message)
+                db.session.add(transaction)
+                tribute.amount -= amount
+                influence = Influence(RSI_handle = receiver.RSI_handle, amount = amount, department = 0, division = 0)
+                influence2 = Influence(RSI_handle = self.RSI_handle, amount = amount, department = 0, division = 0)
+                db.session.add(influence)
+                db.session.add(influence2)
+                db.session.commit()
+                return 0
+            else:
+                for link in receiver_links:
+                    role = Role.query.filter_by(id = link.role_id).first()
+                    if role.div_member:
+                        link.weight = 100/test
+        
+        if count > 100 or tribute.amount < amount:
+            print("error in "+ receiver.RSI_handle+" influence")
             return -1
-        
-        tribute.amount -= amount
-        receiver_tribute.amount += amount
+        else:
+            common_weight = 0
+            for link in receiver_links:
+                role = Role.query.filter_by(id = link.role_id).first()
+                if role.div_member and link.weight > 0:
+                    department = Department.query.filter_by(id = role.department_id).first()
+                    if self.has_role(role) or self.his_member_dep(department) :
+                        common_weight += link.weight
+                        
+            if common_weight == 0:
+                transaction = Influence_transaction(user_from = self.RSI_handle, user_to = receiver.RSI_handle, amount= amount, message = message)
+                db.session.add(transaction)
+                tribute.amount -= amount
+                influence = Influence(RSI_handle = receiver.RSI_handle, amount = amount, department = 0, division = 0)
+                influence2 = Influence(RSI_handle = self.RSI_handle, amount = amount, department = 0, division = 0)
+                db.session.add(influence)
+                db.session.add(influence2)
+                db.session.commit()
+                return 0
+            
+            transaction = Influence_transaction(user_from = self.RSI_handle, user_to = receiver.RSI_handle, amount= amount, message = message)
+            db.session.add(transaction)
+            tribute.amount -= amount
+            for link in receiver_links:
+                role = Role.query.filter_by(id = link.role_id).first()
+                if role.div_member and link.weight > 0:
+                    department = Department.query.filter_by(id = role.department_id).first()
+                    if self.has_role(role):
+                        influence = Influence(RSI_handle = receiver.RSI_handle, amount = amount*link.weight/common_weight, department = role.department_id, division = role.division_id)
+                        influence2 = Influence(RSI_handle = self.RSI_handle, amount = amount*link.weight/common_weight, department = role.department_id, division = role.division_id)
+                    elif self.his_member_dep(department):
+                        influence = Influence(RSI_handle = receiver.RSI_handle, amount = amount*link.weight/common_weight, department = role.department_id, division = 0)
+                        influence2 = Influence(RSI_handle = self.RSI_handle, amount = amount*link.weight/common_weight, department = role.department_id, division = 0)
+                    db.session.add(influence)
+                    db.session.add(influence2)
         db.session.commit()
-        
-        #to be completed
+        return 0
     
     def upgrade(self):
         tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
@@ -177,17 +256,17 @@ class User(db.Model, UserMixin):
     def lifetime_influence_count(self, type = None, department=None, division=None):
         
         if type == "general":
-            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle, department = department, division = division).all()
+            influences = Influence_transaction.query.filter(or_( Influence_transaction.user_to == self.RSI_handle, Influence_transaction.user_from == self.RSI_handle,)).filter_by( department = department, division = division).all()
         elif department is None and division is None:
-            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle).all()
+            influences = Influence_transaction.query.filter(or_( Influence_transaction.user_to == self.RSI_handle, Influence_transaction.user_from == self.RSI_handle,)).all()
         elif division is None:
-            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle, department = department).all()
+            influences = Influence_transaction.query.filter(or_( Influence_transaction.user_to == self.RSI_handle, Influence_transaction.user_from == self.RSI_handle,)).filter_by( department = department).all()
         else:
-            influences = Influence_history.query.filter_by(RSI_handle=self.RSI_handle, department = department, division = division).all()
+            influences = Influence_transaction.query.filter(or_( Influence_transaction.user_to == self.RSI_handle, Influence_transaction.user_from == self.RSI_handle,)).filter_by( department = department, division = division).all()
             
         count = 0
         for influence in influences:
-            count += influence.lifetime_amount
+            count += influence.amount
 
         return count
 
@@ -226,18 +305,15 @@ class User(db.Model, UserMixin):
 # ========================================================================
 
 
-class Weight(db.Model):
-    __bind_key__ = 'role_db'
-    id = db.Column(db.Integer, primary_key=True)
-    RSI_handle = db.Column(db.String(32), nullable=False)
-    weight = db.Column(db.Integer, nullable=True, default= 0)
-    division_id = db.Column(db.Integer, db.ForeignKey('division.id'), nullable=True)
+
     
 class Rolevsuser(db.Model):
     __bind_key__ = 'role_db'
     id = db.Column(db.Integer, primary_key=True)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
     RSI_handle = db.Column(db.String(32), nullable=False)
+    weight = db.Column(db.Integer, nullable=True, default= 0)
+
 
 class Role(db.Model):
     __bind_key__ = 'role_db'
@@ -286,7 +362,8 @@ class Division(db.Model):
     roles = db.relationship('Role', backref='division', lazy='dynamic')
     department_id = db.Column(db.Integer, db.ForeignKey(
         'department.id'), nullable=False)
-
+    logo = db.Column(db.String(20), nullable=False, default='default.jpg')
+    moto = db.Column(db.String(200), nullable=False, default= 'Empty')
     def member_count(self):
         users = []
         for role in self.roles:
@@ -299,7 +376,6 @@ class Division(db.Model):
         return len(users)
 
     def has_member(self, member):
-        
         for role in self.roles:
             if member.has_role(role):
                 return True
@@ -352,6 +428,20 @@ class Department(db.Model):
     def __repr__(self):
         return f"Department('{self.title}', '{self.date_added}')"
 
+class Webpage_template(db.Model):
+    __bind_key__ = 'role_db'
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column( db.Integer, nullable=True, default= 0)
+    title = db.Column(db.String(100), nullable=False, default='empty')
+    title2 = db.Column(db.String(100), nullable=False, default='empty')
+    text = db.Column(db.String(200), nullable=False, default= 'Empty')
+    background_image = db.Column(db.String(20), nullable=False, default='default.jpg')
+    
+    division_id = db.Column( db.Integer, db.ForeignKey('division.id'), nullable=True)
+    department_id = db.Column( db.Integer, db.ForeignKey('department.id'), nullable=True)
+    def __repr__(self):
+        return f"Department('{self.title}', '{self.background_image}')"
+    
 # ========================================================================
 # Role Database
 # ========================================================================
@@ -440,18 +530,6 @@ class Influence_rank(db.Model):
         return f"Rank('{self.title}', '{self.date_added}')"
 
 
-class Influence_history(db.Model):
-    __bind_key__ = 'influence_db'
-    id = db.Column(db.Integer, primary_key=True)
-    RSI_handle = db.Column(db.String(32), nullable=False)
-    lifetime_amount = db.Column(db.Integer, nullable=False, default=0)
-    
-    department = db.Column(db.Integer, nullable= True)
-    division = db.Column(db.Integer, nullable= True)
-
-    def __repr__(self):
-        return f"Influence_history('{self.title}', '{self.date_added}')"
-    
 class Influence(db.Model):
     __bind_key__ = 'influence_db'
     id = db.Column(db.Integer, primary_key=True)
@@ -459,8 +537,8 @@ class Influence(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
-    department = db.Column(db.Integer, nullable= True)
-    division = db.Column(db.Integer, nullable= True)
+    department = db.Column(db.Integer, nullable= True, default = 0)
+    division = db.Column(db.Integer, nullable= True, default = 0)
 
     def __repr__(self):
         return f"Influence_history('{self.title}', '{self.date_added}')"
@@ -475,9 +553,6 @@ class Influence_transaction(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     message = db.Column(db.Text, nullable=True)
-    
-    department = db.Column(db.Integer, nullable= True)
-    division = db.Column(db.Integer, nullable= True)
 
     def __repr__(self):
         return f"Transaction('{self.title}', '{self.date_added}')"

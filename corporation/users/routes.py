@@ -1,8 +1,9 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
+from sqlalchemy.orm import query
 from corporation import db, bcrypt, discord
 from corporation.models import User, Post, Role, Rolevsuser, Tribute, Division
-from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form
+from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form, Divisions_weight
 from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 from corporation.data.scraping import RSI_account
@@ -173,14 +174,26 @@ def account():
         receiver = User.query.filter(func.lower(
             User.RSI_handle) == func.lower(inf_form.RSI_handle.data)).first()
 
-        current_user.send_tribute(receiver, inf_form.amount.data)
+        sent = current_user.send_tribute(receiver=receiver, amount=inf_form.amount.data, message = inf_form.message.data )
+        if sent == 0:
+            flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
+        else: 
+            flash(f'error', 'danger')
+    
+    weight_form = Divisions_weight(prefix = "weight")
+    if weight_form.set.data and weight_form.validate_on_submit():
+        for weight in weight_form.weights:
+            role = Role.query.filter_by(division_id= weight.division.data, div_member= True).first()
+            link = Rolevsuser.query.filter_by(RSI_handle=current_user.RSI_handle , role_id = role.id).first()
+            link.weight = weight.weight.data
+            db.session.commit()
 
-        flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
+        flash(f'Sucessful set the weight!', 'success')
 
     # elif request.method == 'GET':
     #     form.email.data = current_user.email
     divisions = Division.query.all()
-    return render_template("user/account.html", title="Account", form=form, divisions = divisions, inf_form=inf_form)
+    return render_template("user/account.html", title="Account", form=form, divisions = divisions, inf_form=inf_form, weight_form=weight_form)
 
 
 @users.route("/user/<string:username>")
