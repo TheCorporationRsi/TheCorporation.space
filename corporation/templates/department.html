@@ -43,9 +43,11 @@
     {% if division.department_id == department.id  %}
     <div class="link-item">
         <div class="logo"><a href=""><img
-                    src="{{ url_for('static', filename = 'logos/'+division.logo) }}"></a></div>
+                    src="{{ url_for('static', filename = 'logos/'+ division.logo) }}"></a></div>
         <div class="title">{{ division.title }}</div>
+        {% if not division.moto == "Empty"   %}
         <div class="description">{{ division.moto }}</div>
+        {% endif  %}
     </div>
     {% endif %}
     {% endfor %}

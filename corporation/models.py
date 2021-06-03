@@ -361,7 +361,7 @@ class Division(db.Model):
     roles = db.relationship('Role', backref='division', lazy='dynamic')
     department_id = db.Column(db.Integer, db.ForeignKey(
         'department.id'), nullable=False)
-    logo = db.Column(db.String(20), nullable=False, default='default.jpg')
+    logo = db.Column(db.String(20), nullable=False, default='default.png')
     moto = db.Column(db.String(200), nullable=False, default= 'Empty')
     
     def member_count(self):
