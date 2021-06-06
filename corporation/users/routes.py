@@ -55,22 +55,12 @@ def register():
         RSI_info = RSI_account(RSI_handle=form.RSI_handle.data)
         user = User(RSI_handle=RSI_info.RSI_handle, RSI_moniker=RSI_info.Moniker, image_file=RSI_info.image_link,
                     RSI_number=RSI_info.citizen, email=form.email.data, password=hashed_password)
-
-        test = Tribute.query.filter_by(RSI_handle=form.RSI_handle.data).first()
-        if not test:
-            inf_account = Tribute(RSI_handle=RSI_info.RSI_handle)
-            db.session.add(inf_account)
-
         db.session.add(user)
         db.session.commit()
         send_confirmation_email(user)
 
         role = Role.query.filter_by(title="Corporateer").first()
-        if RSI_info.main_org == "CORP" and not user.has_role(role):
-            user.corp_confirmed = True
-            link = Rolevsuser(role_id=role.id, RSI_handle=RSI_info.RSI_handle)
-            db.session.add(link)
-            db.session.commit()
+        user.update_info()
 
         flash(f'Your account has been created! Please look for a confirmation email.', 'success')
         return redirect(url_for('users.login'))
@@ -88,6 +78,7 @@ def discord_login(type):
 
 @users.route("/discord_callback")
 def callback():
+    
     if current_user.is_authenticated:
         discord.callback()
         user = discord.fetch_user()
@@ -115,13 +106,12 @@ def callback():
         db.session.commit()
         discord.revoke()
         login_user(user_account, remember=False)
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.account'))
 
     else:
         discord.revoke()
         return redirect(url_for('users.register'))
 
-    return redirect(url_for("main.home"))
 
 
 @users.route("/login", methods=['GET', 'POST'])
@@ -136,7 +126,8 @@ def login():
         
 
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            user.upgrade()
+            user.update_info()
+            
             if user.email_confirmed == False:
                 send_confirmation_email(user)
                 flash(

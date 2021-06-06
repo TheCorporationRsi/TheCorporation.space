@@ -211,7 +211,6 @@
                     <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
 
                     {% if current_user.is_manager("admin") %}
-                    <li class="dropdown_item-2"><a href="">User manager</a></li>
                     <li class="dropdown_item-3"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
                     <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
                     <li class="dropdown_item-5"> <a href="#">Website manager</a></li>

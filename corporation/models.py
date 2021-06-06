@@ -3,8 +3,8 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from corporation import db, login_manager
 from flask_login import UserMixin
 from flask import current_app
-
 from sqlalchemy import or_
+from corporation.data.scraping import RSI_account
 
 
 @login_manager.user_loader
@@ -91,12 +91,14 @@ class User(db.Model, UserMixin):
         role = Role.query.filter_by(division_id=division.id, div_member= True).first()
         link = Rolevsuser.query.filter_by(RSI_handle=self.RSI_handle, role_id = role.id).first()
         return link.weight
-    
+
     def add_role(self, role):
-        link = Rolevsuser( RSI_handle = self.RSI_handle, role_id = role.id)
-        db.session.add(link)
+        link = Rolevsuser.query.filter_by(RSI_handle= self.RSI_handle, role_id = role.id).first()
+        if not link:
+            link = Rolevsuser( RSI_handle = self.RSI_handle, role_id = role.id)
+            db.session.add(link)
         db.session.commit()
-        
+
     def is_manager(self, manager_type=None, division=-1, department=-1):
         if self.security == 5:
             return True
@@ -155,7 +157,7 @@ class User(db.Model, UserMixin):
         tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
         
         return tribute
-    
+
     def send_tribute(self, receiver, amount, message= "none"):
         tribute = self.tribute()
         receiver_links = Rolevsuser.query.filter_by(RSI_handle= receiver.RSI_handle).all()
@@ -227,7 +229,7 @@ class User(db.Model, UserMixin):
                     db.session.add(influence2)
         db.session.commit()
         return 0
-    
+
     def upgrade(self):
         tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
         
@@ -235,7 +237,20 @@ class User(db.Model, UserMixin):
             tribute = Tribute(RSI_handle=self.RSI_handle)
             db.session.add(tribute)
             db.session.commit()
-    
+
+    def update_info(self):
+        RSI_info = RSI_account(RSI_handle= self.RSI_handle)
+        corp_role = Role.query.filter_by(title = 'Corporateer').first()
+        
+        if not self.corp_confirmed and RSI_info.corp_member():
+            self.corp_confirmed = True;
+            self.add_role(corp_role)
+        
+        if not self.RSI_moniker == RSI_info.moniker:
+            self.RSI_moniker = RSI_info.Moniker
+        
+        db.session.commit()
+
     def influence_count(self, type=None, department=None, division=None):
         
         if type == "general":
@@ -287,7 +302,7 @@ class User(db.Model, UserMixin):
             tribute.amount = 1.5*rank.weekly_amount
             
         db.session.commit()
-            
+
     def as_dict(self):
         return {
             'name': self.RSI_handle,
@@ -361,7 +376,7 @@ class Division(db.Model):
     roles = db.relationship('Role', backref='division', lazy='dynamic')
     department_id = db.Column(db.Integer, db.ForeignKey(
         'department.id'), nullable=False)
-    logo = db.Column(db.String(20), nullable=False, default='default.jpg')
+    logo = db.Column(db.String(20), nullable=False, default='default.png')
     moto = db.Column(db.String(200), nullable=False, default= 'Empty')
     
     def member_count(self):

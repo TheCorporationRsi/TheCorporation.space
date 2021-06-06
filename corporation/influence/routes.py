@@ -3,6 +3,7 @@ from corporation.models import Post, User
 from corporation.influence.forms import MyForm
 from flask_login import current_user, login_required
 from corporation import db, scheduler
+from corporation.influence import events
 
 influence = Blueprint('influence', __name__)
 
