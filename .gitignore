@@ -37,3 +37,6 @@ env/*
 corporation/influence/__pycache__/*
 corporation/data/__pycache__/*
 corporation/discord_bot_routes/__pycache__/*
+front test
+migrations
+__pycache__/*
