@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.orm import query
-from corporation import db, bcrypt, discord
+from corporation import db, bcrypt, discord, scheduler
 from corporation.models import User, Post, Role, Rolevsuser, Tribute, Division
 from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form, Divisions_weight
 from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
@@ -125,7 +125,7 @@ def login():
             User.RSI_handle) == func.lower(form.RSI_handle.data)).first()
         
 
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
+        if user and user.test_password(password=form.password.data):
             user.update_info()
             
             if user.email_confirmed == False:
@@ -247,3 +247,11 @@ def confirm_email(token):
         flash('Email confirm, please login!', 'success')
 
     return redirect(url_for('users.login'))
+
+
+@scheduler.task("interval", id="password attempt", minutes = 30)
+def reset_login_timer():
+    users = User.query.filter(User.login_attempt >= 1).all()
+    for user in users:
+        user.login_attempt = 0
+    print("Reset login attempt timer!")

@@ -1,8 +1,8 @@
 from datetime import datetime, timedelta
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from corporation import db, login_manager
+from corporation import db, login_manager, bcrypt
 from flask_login import UserMixin
-from flask import current_app
+from flask import current_app, flash
 from sqlalchemy import or_
 from corporation.data.scraping import RSI_account
 
@@ -36,9 +36,29 @@ class User(db.Model, UserMixin):
     guilded_id = db.Column(db.String(32), unique=True, nullable=True)
 
     # Security level
+    login_attempt = db.Column(db.Integer, unique=False, nullable=True, default= 0)
     security = db.Column(db.Integer, unique=False, nullable=True)
     email_confirmed = db.Column(db.Boolean, nullable=False, default=False)
     corp_confirmed = db.Column(db.Boolean, nullable=False, default=False)
+    
+    def test_password(self, password):
+        test = bcrypt.check_password_hash(self.password, password)
+        if self.login_attempt is None:
+            self.login_attempt = 0
+            db.session.commit()
+        if test and self.login_attempt >= 3:
+            self.login_attempt += 1
+            flash('Too much attempt please try again later or ask moderator', 'danger')
+            if self.login_attempt > 5:
+                self.email_confirmed = False
+                db.session.commit()
+            return False
+        elif test:
+            return True
+        else:
+            self.login_attempt += 1
+            db.session.commit()
+            return False
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -246,7 +266,7 @@ class User(db.Model, UserMixin):
             self.corp_confirmed = True;
             self.add_role(corp_role)
         
-        if not self.RSI_moniker == RSI_info.moniker:
+        if not self.RSI_moniker == RSI_info.Moniker:
             self.RSI_moniker = RSI_info.Moniker
         
         db.session.commit()
