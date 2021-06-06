@@ -1,6 +1,7 @@
 import discord
 import os
 from discord.ext import commands, ipc
+import socketio
 
 import json
 with open('/etc/config.json') as config_file:
@@ -30,7 +31,32 @@ class Bot(commands.Bot):
 
 
 client = Bot(command_prefix = '$', intents = discord.Intents.default())
+client.sio = socketio.AsyncClient()
 
+@client.sio.on('connect', namespace='/discord_bot')
+async def connect():
+    print('Website Connected!')
+
+@client.sio.on('infuence_error', namespace='/discord_bot')
+async def influence_error(data):
+    sender = data['sender']
+    amount = data['amount']
+    receiver = data['receiver']
+    message_id = data['message_id']
+    print(str(sender))
+    try:
+        sender = await client.fetch_user(sender)
+        await sender.send("Unable to send influence to this user.")
+    except:
+        print("Sender doesn't exist")
+    
+    try:
+        receiver = await client.fetch_user(receiver)
+        await receiver.send("Unable to send influence to this user.")
+    except:
+        print("Receiver doesn't exist")
+        
+    print('Error during the transfer')
 
 @client.command()
 @commands.is_owner()
@@ -68,6 +94,8 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
-
+    
 client.ipc.start()
 client.run(config.get('DISCORD_BOT_TOKEN'))
+
+

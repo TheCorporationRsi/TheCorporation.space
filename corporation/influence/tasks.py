@@ -7,5 +7,6 @@ from corporation import db, scheduler
 def send_weekly_tribute():
     users = User.query.all()
     for user in users:
-        user.receive_weekly_tribute()
-    print("lol")
+        if user.corp_confirmed:
+            user.receive_weekly_tribute()
+    print("Weekly tribute have been distibuted!")

@@ -8,7 +8,7 @@ main = Blueprint('main', __name__)
 
 @main.route("/")
 @main.route("/home")
-def home():
+async def home():
     return render_template("landing_page.html")
 
 @main.route("/department/<int:id>")
