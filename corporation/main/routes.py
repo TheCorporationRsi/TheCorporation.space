@@ -1,5 +1,5 @@
 from flask import render_template, request, Blueprint
-from corporation.models import Post, Division, Department, Role
+from corporation.models import Post, Division, Department, Role, Webpage_template
 
 from flask import Blueprint
 
@@ -34,3 +34,8 @@ def structure_info():
     divisions = Division.query.order_by(Division.department_id, Division.title).all()
     departments = Department.query.order_by(Department.title).all()
     return dict(division_list=divisions, department_list=departments, role_list = roles)
+
+@main.context_processor
+def dep_style_info():
+    templates = Webpage_template.query.all()
+    return dict(tempates_info = templates)

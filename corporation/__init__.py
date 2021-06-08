@@ -46,8 +46,6 @@ login_manager.login_message_category = 'info'
 scheduler = APScheduler()
 socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:3000', 'https://localhost:3000'], async_mode = 'eventlet') #logger=True, engineio_logger=True,
 
-
-#cors_allowed_origins=['http://localhost:3000', 'https://localhost:3000'],
 with open('/etc/config.json') as config_file:
     config_info = json.load(config_file)
 
@@ -59,10 +57,6 @@ try:
     mail = Mail()
 except:
     print("This application is not set properly. Multiple feature will not work properly")
-
-@socketio.event
-def my_event(message):
-    emit('my response', {'data': 'got it!'})
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -119,5 +113,5 @@ def create_app(config_class=Config):
 
 
     discord_command.set_route("/interactions")
-    discord_command.update_slash_commands(guild_id= 831248117571649566)
+    #discord_command.update_slash_commands(guild_id= 831248117571649566)
     return app

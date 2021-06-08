@@ -275,7 +275,7 @@ main {
         padding-bottom: 60px;
         margin-top: 20px;
 
-        .item {
+        /* .item {
             background-color: $dark-grey;
             font-size: 1.6em;
             padding: 20px;
@@ -370,9 +370,9 @@ main {
                 color: black;
                 transform: scale(1.01);
             }
-        }
+        } */
 
-        .user-item {
+        .item {
             background-color: $dark-grey;
             font-size: 1.6em;
             padding: 20px;
@@ -390,7 +390,94 @@ main {
                 vertical-align: middle;
             }
 
-            .user-dropdown {
+            form {
+                width: 50vw;
+                display: flex;
+            }
+
+
+            .invalid-feedback {
+                color: red;
+                font-size: 0.8em;
+                margin-bottom: 5px;
+            }
+
+            input[type=text],
+            input[type=password],
+            textarea,
+            select {
+                display: flex;
+                min-width: 15%;
+                font-size: 1em;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                font-family: "Orbitron";
+                Font-weight: bold;
+                border: none;
+                background-color: transparent;
+                border-radius: 4px;
+                box-sizing: border-box;
+
+                &.error {
+                    border: 2px solid red;
+                }
+            }
+
+            #update_color-rule {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                text-decoration: none;
+                list-style-type: none;
+                font-size: 0.5em;
+
+                input[type=radio] {
+                   
+                    &:checked {
+                        background-image: linear-gradient(125deg, $blue, rgb(122, 195, 255));
+                        color: black;
+                        box-shadow: 0 1px 1px #0000002e;
+                        text-shadow: 0 1px 0px #79485f7a;
+                    }
+
+
+                    &:before {
+                        content: attr(label);
+                        display: inline-block;
+                        text-align: center;
+                        width: 100%;
+                    }
+                }
+            }
+
+            input[type=submit] {
+                width: 15%;
+                height: 50px;
+                min-width: 100px;
+                background-color: $blue;
+                color: white;
+                padding: 10px 10px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.6em;
+                font-family: $main-font;
+                font-weight: bold;
+                transition: all ease-in-out .3s;
+                margin-left: auto;
+                margin-top: auto;
+                margin-bottom: auto;
+
+
+            }
+
+            input[type=submit]:hover {
+                background-color: $yellow;
+                color: black;
+                transform: scale(1.01);
+            }
+
+            .item-dropdown {
                 width: 100%;
                 display: none;
                 background-color: $dark-grey;
@@ -400,6 +487,70 @@ main {
                 min-height: 5vh;
                 transition: ease-in-out;
                 flex-wrap: wrap;
+
+                fieldset {
+                    border: 0;
+
+                    .invalid-feedback {
+                        color: red;
+                        font-size: 1em;
+                        margin-bottom: 5px;
+                    }
+                }
+
+                input[type=text],
+                input[type=password],
+                select {
+                    width: 100%;
+                    padding: 12px 20px;
+                    margin: 8px 0;
+                    display: inline-block;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-sizing: border-box;
+                    font-weight: bold;
+                    font-family: "Orbitron";
+                    letter-spacing: 1.5px;
+
+                    &.error {
+                        border: 2px solid red;
+                    }
+
+                }
+
+                input[type=submit] {
+                    width: 100%;
+                    background-color: $blue;
+                    color: white;
+                    padding: 14px 20px;
+                    margin: 8px 0;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 2em;
+                    font-family: $main-font;
+                    font-weight: bold;
+                    transition: all ease-in-out .3s;
+
+                }
+
+                input[type=submit]:hover {
+                    background-color: $yellow;
+                    color: black;
+                    transform: scale(1.03);
+                }
+
+                .webpage_form {
+                    width: 100%;
+                    display: flex;
+                    flex-flow: column nowrap;
+
+                    form {
+                        width: 100%;
+                        display: flex;
+                        flex-flow: column nowrap;
+                    }
+                }
 
                 a {
                     text-decoration: none;
@@ -464,7 +615,6 @@ main {
                 }
             }
         }
-
 
     }
 

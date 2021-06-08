@@ -102,7 +102,7 @@
     {% for user in users %}
     {% set user_roles = user.roles() %}
 
-    <div class="user-item">
+    <div class="item">
         <img style=" height: 50px; width: 50px;" src="{{ user.image_file }}">
         <a href="">{{ user.RSI_handle }}</a>
         <a href="javascript:void(0);" onclick="show_user_dropdown('{{ user.RSI_handle }}')" style="width: 50px; margin-left: auto;">
@@ -110,7 +110,7 @@
                 <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
             </div>
         </a>
-        <div id="{{ user.RSI_handle }}" class="user-dropdown">
+        <div id="{{ user.RSI_handle }}" class="item-dropdown">
             <div class="title">Remove</div>
             <div class="title">Add</div>
             <div class="roles">

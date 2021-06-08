@@ -1,5 +1,6 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, SelectField, HiddenField, RadioField
+from flask_wtf import FlaskForm, Form
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, HiddenField, RadioField, FileField, FieldList, FormField, IntegerField
+from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from corporation.models import Post, User, Role, Division, Department
@@ -162,6 +163,7 @@ class Role_edit_Form(FlaskForm):
 
 class Role_edit_color_Form(FlaskForm):
     
+    
     role_id = HiddenField('Field', validators= [DataRequired()] )
     
     title = StringField('Title', validators= [DataRequired()] )
@@ -190,3 +192,25 @@ class Role_edit_color_Form(FlaskForm):
         test2 = Role.query.filter_by(id = self.role_id.data, title = title.data).first()
         if test and not test2:
             raise ValidationError('Cannot be the same as a role that exist!')
+
+
+
+class Detail_sections_form(Form):
+    template_id = HiddenField("image", validators=[DataRequired()])
+    title1 = StringField('Title', validators= [DataRequired()] )
+    title2 = StringField('Title', validators= [DataRequired()] )
+    text = TextAreaField('Message', validators=[DataRequired(), Length(max=100)])
+    background_image = FileField('Division list background', validators=[FileAllowed(['jpg','jpeg', 'png'])])
+
+class Header_images(Form):
+    image_id = HiddenField("image", validators=[DataRequired()])
+    background_image = FileField('Division list background', validators=[FileAllowed(['jpg','jpeg', 'png'])])
+
+class Department_webpage_form(FlaskForm):
+    department_id = HiddenField("Division", validators=[DataRequired()])
+    div_background = FileField('Division list background', validators=[FileAllowed(['jpg','jpeg', 'png'])])
+    
+    header_images = FieldList(FormField(Header_images), min_entries=0)
+    detail_sections = FieldList(FormField(Detail_sections_form), min_entries=0)
+
+    update_dep = SubmitField('Update')

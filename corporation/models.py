@@ -213,13 +213,25 @@ class User(db.Model, UserMixin):
             print("error in "+ receiver.RSI_handle+" influence")
             return -1
         else:
+            transfer_weight_json = {}
+            transfer_weight_json[self.RSI_handle] = []
+            transfer_weight_json[receiver.RSI_handle] = []
             common_weight = 0
             for link in receiver_links:
                 role = Role.query.filter_by(id = link.role_id).first()
                 if role.div_member and link.weight > 0:
                     department = Department.query.filter_by(id = role.department_id).first()
+                    division = Division.query.filter_by(id = role.division_id).first()
                     if self.has_role(role) or self.his_member_dep(department) :
                         common_weight += link.weight
+                        transfer_weight_json[self.RSI_handle].append({
+                            'division': division.id,
+                            'weight': self.div_weight(division = division)
+                        })
+                        transfer_weight_json[receiver.RSI_handle].append({
+                            'division': division.id,
+                            'weight': link.weight
+                        })
                         
             if common_weight == 0:
                 transaction = Influence_transaction(user_from = self.RSI_handle, user_to = receiver.RSI_handle, amount= amount, message = message)
@@ -232,7 +244,7 @@ class User(db.Model, UserMixin):
                 db.session.commit()
                 return 0
             
-            transaction = Influence_transaction(user_from = self.RSI_handle, user_to = receiver.RSI_handle, amount= amount, message = message)
+            transaction = Influence_transaction(user_from = self.RSI_handle, user_to = receiver.RSI_handle, amount= amount, message = message, div_list = transfer_weight_json)
             db.session.add(transaction)
             tribute.amount -= amount
             for link in receiver_links:
@@ -250,6 +262,14 @@ class User(db.Model, UserMixin):
         db.session.commit()
         return 0
 
+    def inf_transfer_history(self, type = 'sent'):
+        if type == 'sent': 
+            transactions = Influence_transaction.query.filter_by(user_from = self.RSI_handle).all()
+            return transactions
+        elif type == 'received': 
+            transactions = Influence_transaction.query.filter_by(user_to = self.RSI_handle).all()
+            return transactions
+    
     def upgrade(self):
         tribute = Tribute.query.filter_by(RSI_handle=self.RSI_handle).first()
         
@@ -262,12 +282,17 @@ class User(db.Model, UserMixin):
         RSI_info = RSI_account(RSI_handle= self.RSI_handle)
         corp_role = Role.query.filter_by(title = 'Corporateer').first()
         
-        if not self.corp_confirmed and RSI_info.corp_member():
+        if RSI_info.corp_member():
             self.corp_confirmed = True;
             self.add_role(corp_role)
         
-        if not self.RSI_moniker == RSI_info.Moniker:
-            self.RSI_moniker = RSI_info.Moniker
+        tribute = Tribute.query.filter_by(RSI_handle= self.RSI_handle).first()
+        if not tribute:
+            tribute = Tribute(RSI_handle= self.RSI_handle)
+            db.session.add(tribute)
+        
+        self.RSI_moniker = RSI_info.Moniker
+        self.image_file = RSI_info.image_link
         
         db.session.commit()
 
@@ -347,7 +372,6 @@ class Rolevsuser(db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
     RSI_handle = db.Column(db.String(32), nullable=False)
     weight = db.Column(db.Integer, nullable=True, default= 0)
-
 
 class Role(db.Model):
     __bind_key__ = 'role_db'
@@ -446,6 +470,13 @@ class Department(db.Model):
     roles = db.relationship('Role', backref='department', lazy='dynamic')
     divisions = db.relationship(
         'Division', backref='department', lazy='dynamic')
+    
+    image_file_1 = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file_2 = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file_3 = db.Column(db.String(20), nullable=False, default='default.jpg')
+    image_file_4 = db.Column(db.String(20), nullable=False, default='default.jpg')
+    
+    image_div_presentation = db.Column(db.String(20), nullable=False, default='default.jpg')
 
     def member_count(self):
         users = self.members()
@@ -463,6 +494,9 @@ class Department(db.Model):
                         users.append(user)
         return users
     
+    def webpage_details(self):
+        templates = Webpage_template.query.filter_by(division_id = None, department_id= self.id)
+        return templates
     def as_dict(self):
         return {
             'id': self.id,
@@ -535,25 +569,6 @@ class Tribute(db.Model):
     RSI_handle = db.Column(db.String(32), unique=True, nullable=False)
     amount = db.Column(db.Integer, nullable=False, default=0)
 
-    def update(self):
-        now = datetime.now()
-        delta = now - self.last_payment
-        days = delta.days
-
-        last_friday = now + \
-            timedelta(days=(4 - now.weekday())) - timedelta(days=7)
-        last_friday.replace(minute=0, hour=0, second=0, microsecond=0)
-        while days > 7:
-            self.amount += 50
-
-            self.last_payment += timedelta(days=7)
-            delta = now - self.last_payment
-            days = delta.days
-
-        self.last_payment = last_friday
-
-        return delta
-
     def __repr__(self):
         return f"Account('{self.RSI_handle}', '{self.last_payment}')"
 
@@ -584,7 +599,7 @@ class Influence(db.Model):
     
     department = db.Column(db.Integer, nullable= True, default = 0)
     division = db.Column(db.Integer, nullable= True, default = 0)
-
+    
     def __repr__(self):
         return f"Influence_history('{self.title}', '{self.date_added}')"
 
@@ -598,7 +613,10 @@ class Influence_transaction(db.Model):
     amount = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     message = db.Column(db.Text, nullable=True)
+    div_list = db.Column(db.JSON, nullable=True)
 
+    
+    
     def __repr__(self):
         return f"Transaction('{self.title}', '{self.date_added}')"
 

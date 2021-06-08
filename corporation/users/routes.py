@@ -18,26 +18,8 @@ users = Blueprint('users', __name__)
 @users.route("/user/update", methods=['GET', 'POST'])
 @login_required
 def update_RSI_info():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
 
-    RSI_info = RSI_account(RSI_handle=current_user.RSI_handle)
-    current_user.RSI_moniker = RSI_info.Moniker
-    current_user.image_file = RSI_info.image_link
-
-    tribute = Tribute.query.filter_by(RSI_handle= current_user.RSI_handle).first()
-
-    if not tribute:
-        tribute = Tribute(RSI_handle= current_user.RSI_handle)
-        db.session.add(tribute)
-
-    role = Role.query.filter_by(title="Corporateer").first()
-    if RSI_info.main_org == "CORP" and not current_user.has_role(role):
-        current_user.corp_confirmed = True
-        link = Rolevsuser(role_id=role.id, RSI_handle=RSI_info.RSI_handle)
-        db.session.add(link)
-
-    db.session.commit()
+    current_user.update_info()
 
     return redirect(url_for('users.account'))
 
@@ -152,13 +134,6 @@ def logout():
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-    form = UpdateAccountForm(prefix="info")
-    if form.submit.data and form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
 
     inf_form = inf_Form(prefix="influence")
     if inf_form.send.data and inf_form.validate_on_submit():
@@ -170,6 +145,8 @@ def account():
             flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
         else: 
             flash(f'error', 'danger')
+        
+        return redirect(url_for('users.account'))
     
     weight_form = Divisions_weight(prefix = "weight")
     if weight_form.set.data and weight_form.validate_on_submit():
@@ -180,11 +157,10 @@ def account():
             db.session.commit()
 
         flash(f'Sucessful set the weight!', 'success')
-
-    # elif request.method == 'GET':
-    #     form.email.data = current_user.email
-    divisions = Division.query.all()
-    return render_template("user/account.html", title="Account", form=form, divisions = divisions, inf_form=inf_form, weight_form=weight_form)
+        
+        return redirect(url_for('users.account'))
+    
+    return render_template("user/account.html", title="Account", inf_form=inf_form, weight_form=weight_form)
 
 
 @users.route("/user/<string:username>")

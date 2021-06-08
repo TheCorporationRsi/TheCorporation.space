@@ -77,8 +77,16 @@
 
             {{ update_form.update(style="margin-left: auto; margin-right: none;")}}
         </form>
-        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
-            User count : {{ division.member_count() }}</small>
+        <a href="javascript:void(0);" onclick="show_user_dropdown('{{ division.id }}')" style="width: 50px; margin-left: auto;">
+            <div class="mobile-button">
+                <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
+            </div>
+        </a>
+
+        <div id="{{ division.id }}" class="item-dropdown">
+            <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+                User count : {{ division.member_count() }}</small>
+        </div>
     </div>
 
     {% else %}

@@ -134,9 +134,8 @@
 
             <div class="radio-menu">
                 {% for option in update_color_form.rule %}
-                    {% if option.vale == role.rule %}
-                    lol
-                    {{option(label= option.label.text, active=True) }}
+                    {% if option.value == role.rule %}
+                    {{option(label= option.label.text, default= role.rule) }}
                     {% else %}
                     {{option(label= option.label.text) }}
                     {% endif %}
