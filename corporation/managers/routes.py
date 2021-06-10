@@ -9,15 +9,15 @@ from corporation.managers.utils import save_background, save_logo
 managers = Blueprint('managers', __name__)
     
 
-@managers.route("/add_role/<int:user>/<int:role>", methods=['GET', 'POST'])
+@managers.route("/add_role/<string:user_handle>/<int:role>", methods=['GET', 'POST'])
 @login_required
-def add_role(user, role, admin = 0):
+def add_role(user_handle, role, admin = 0):
     if not current_user.is_manager():
         return redirect(url_for('main.home'))
     
     next_page = request.args.get('next')
     role = Role.query.filter_by(id = role).first()
-    user = User.query.filter_by(id = user).first()
+    user = User.query.filter_by(RSI_handle = user_handle).first()
     
     if role.dep_head and not current_user.is_manager("admin"):
         flash('You dont have the proper permission!', 'danger')
@@ -42,14 +42,14 @@ def add_role(user, role, admin = 0):
     
     return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
 
-@managers.route("/remove_role/<int:user>/<int:role>", methods=['GET', 'POST'])
+@managers.route("/remove_role/<string:user>/<int:role>", methods=['GET', 'POST'])
 @login_required
 def remove_role(user, role):
     if not current_user.is_manager():
         return redirect(url_for('main.home'))
     
     role = Role.query.filter_by(id = role).first()
-    user = User.query.filter_by(id = user).first()
+    user = User.query.filter_by(RSI_handle = user).first()
     next_page = request.args.get('next')
     
     if role.dep_head and not current_user.is_manager("admin"):
@@ -104,6 +104,21 @@ def user_manager(department, division):
     return render_template("managers/user_manager.html", title = "User manager", users = users, currentdiv = division, currentdep = department, form = form)
 
 
+
+@managers.route("/managers/admin/members/<string:user_handle>", methods=['GET', 'POST'])
+@login_required
+def user_item(user_handle):
+    if not current_user.is_manager('admin'):
+        return redirect(url_for('main.home'))
+    
+    user = User.query.filter_by(RSI_handle=user_handle).first()
+    
+    
+    return render_template("managers/user_template.html", user = user)
+
+
+
+#===================================================================================================
 #================================================= Role =========================================================
 @managers.route("/role_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
 @managers.route("/role_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])

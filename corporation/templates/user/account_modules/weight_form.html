@@ -1,0 +1,48 @@
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+<div class="notifications">
+    {% for category, message in messages %}
+    <div class="alert {{ category }}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endwith %}
+
+
+<div class="weight">
+    <div>Division</div>
+    <div class="w-title">Weight (%)</div>
+</div>
+<form id="weight_form" method="POST" action="" onsubmit="return false" >
+    {{ weight_form.hidden_tag() }}
+    {% for division in division_list %}
+    {% if division.has_member(member = current_user) %}
+    <div class="weight">
+
+        <label style="color: {{division.color()}}">{{division.title}}</label>
+        {% set w_form = weight_form.weights.append_entry()%}
+        {{ w_form.csrf_token() }}
+        {{ w_form.division(value= division.id|string ) }}
+        {{ w_form.weight(value= current_user.div_weight(division = division) ) }}
+
+    </div>
+    {% endif %}
+
+    {% endfor %}
+
+    {% if weight_form.weights.errors %}
+    <div class="invalid-feedback">
+        {% for error in weight_form.weights.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <button class="submit_button" onclick="submit_weight()" >{{ weight_form.set.label.text }}</button>
+</form>

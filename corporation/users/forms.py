@@ -22,7 +22,7 @@ class RegistrationForm(FlaskForm):
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         RSI_info = RSI_account(RSI_handle= self.RSI_handle.data)
-        if user:
+        if user and user.registered:
             raise ValidationError('That email is already taken')
         
         elif RSI_info.email is None:

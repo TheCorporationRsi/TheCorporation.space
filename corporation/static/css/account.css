@@ -903,7 +903,7 @@ main .tools .tools-tab.influence-weight select.error {
 main .tools .tools-tab.influence-weight textarea {
   min-height: 200px;
 }
-main .tools .tools-tab.influence-weight input[type=submit] {
+main .tools .tools-tab.influence-weight .submit_button {
   width: 100%;
   background-color: #0083ff;
   color: white;
@@ -918,7 +918,7 @@ main .tools .tools-tab.influence-weight input[type=submit] {
   -webkit-transition: all ease-in-out 0.3s;
   transition: all ease-in-out 0.3s;
 }
-main .tools .tools-tab.influence-weight input[type=submit]:hover {
+main .tools .tools-tab.influence-weight .submit_button:hover {
   background-color: #fcff00;
   color: black;
   -webkit-transform: scale(1.03);
@@ -1017,7 +1017,7 @@ main .tools .influence-transfer select.error {
 main .tools .influence-transfer textarea {
   min-height: 200px;
 }
-main .tools .influence-transfer input[type=submit] {
+main .tools .influence-transfer .submit_button {
   width: 100%;
   background-color: #0083ff;
   color: white;
@@ -1032,13 +1032,13 @@ main .tools .influence-transfer input[type=submit] {
   -webkit-transition: all ease-in-out 0.3s;
   transition: all ease-in-out 0.3s;
 }
-main .tools .influence-transfer input[type=submit]:hover {
+main .tools .influence-transfer .submit_button:hover {
   background-color: #fcff00;
   color: black;
   -webkit-transform: scale(1.03);
           transform: scale(1.03);
 }
-main .system {
+main .transaction {
   min-height: 40vh;
   display: grid;
   grid-gap: 30px;
@@ -1047,17 +1047,44 @@ main .system {
   margin-bottom: 30px;
 }
 @media (min-width: 800px) {
-  main .system {
+  main .transaction {
     grid-template-columns: 50% 50%;
   }
 }
 @media (max-width: 800px) {
-  main .system {
+  main .transaction {
     grid-template-rows: 100vh 100vh;
   }
 }
-main .system .system-tab {
+main .transaction .transaction-tab {
   background-color: #363636;
   border-radius: 10px;
   padding: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+main .transaction .transaction-tab .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  border: 2px solid black;
+  padding: 10px;
+}
+main .transaction .transaction-tab .item .user {
+  width: 40%;
+}
+main .transaction .transaction-tab .item .amount {
+  width: 10%;
+}
+main .transaction .transaction-tab .item .message {
+  width: 50%;
 }/*# sourceMappingURL=account.css.map */

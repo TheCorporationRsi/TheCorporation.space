@@ -100,7 +100,6 @@
 
 <div class="list">
     {% for user in users %}
-    {% set user_roles = user.roles() %}
 
     <div class="item">
         <img style=" height: 50px; width: 50px;" src="{{ user.image_file }}">
@@ -111,39 +110,7 @@
             </div>
         </a>
         <div id="{{ user.RSI_handle }}" class="item-dropdown">
-            <div class="title">Remove</div>
-            <div class="title">Add</div>
-            <div class="roles">
-                {% for role in user_roles %}
-                {% if not dep_id == role.department_id %}
-                    {% set color = role.role_color() %}
-                    {% set dep_id = role.department_id %}
-                {% endif %}
-                <div style=" border-color: {{ color }}; ">
-
-                        <a href="{{ url_for('managers.remove_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ color }}; color: {{ color }};">x</a>
-
-                    {{ role.title }}
-                </div>
-                {% endfor %}
-            </div>
-
-            <div class=" roles">
-                {% for role in role_list %}
-                {% if not role in user_roles %}
-                {% if not dep_id == role.department_id %}
-                    {% set color = role.role_color() %}
-                    {% set dep_id = role.department_id %}
-                {% endif %}
-                <div style=" border-color: {{ color }}; ">
-
-                    <a href="{{ url_for('managers.add_role', user = user.id, role = role.id,  next=request.url) }}" style="background-color: {{ color }}; color: {{ color }}; ">+</a>
-
-                    {{ role.title }}
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
+            
         </div>
     </div>
 

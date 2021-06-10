@@ -205,7 +205,7 @@ main {
                     min-height: 200px;
                 }
 
-                input[type=submit] {
+                .submit_button {
                     width: 100%;
                     background-color: $blue;
                     color: white;
@@ -221,7 +221,7 @@ main {
 
                 }
 
-                input[type=submit]:hover {
+                .submit_button:hover {
                     background-color: $yellow;
                     color: black;
                     transform: scale(1.03);
@@ -321,7 +321,7 @@ main {
                 min-height: 200px;
             }
 
-            input[type=submit] {
+            .submit_button {
                 width: 100%;
                 background-color: $blue;
                 color: white;
@@ -337,7 +337,7 @@ main {
 
             }
 
-            input[type=submit]:hover {
+            .submit_button:hover {
                 background-color: $yellow;
                 color: black;
                 transform: scale(1.03);
@@ -345,7 +345,7 @@ main {
         }
     }
 
-    .system {
+    .transaction {
         min-height: 40vh;
         display: grid;
         grid-gap: 30px;
@@ -361,11 +361,31 @@ main {
             grid-template-rows: 100vh 100vh;
         }
 
-        .system-tab {
+        .transaction-tab {
             background-color: $background;
             border-radius: 10px;
             padding: 30px;
+            display: flex;
+            flex-flow: column nowrap;
 
+            .item {
+                display: flex;
+                flex-flow: row nowrap;
+                border: 2px solid black;
+                padding: 10px;
+
+                .user {
+                    width: 40%;
+                }
+
+                .amount {
+                    width: 10%;
+                }
+
+                .message {
+                    width: 50%;
+                }
+            }
            
         }
     }
