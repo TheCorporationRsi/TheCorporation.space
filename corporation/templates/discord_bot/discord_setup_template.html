@@ -1,0 +1,75 @@
+{% extends "header.html" %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/discord_bot_manager.css') }}">
+
+<script>
+    function update_user_weight() {
+        var x = document.getElementById("weight-tab");
+        $.ajax({
+            url: "/account/update_weight",
+            type: "get",
+            data: { jsdata: 0 },
+            success: function (response) {
+                $("#weight-tab").html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    function submit_weight(e) {
+        var frm = $('#weight_form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/account/update_weight",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#weight-tab").html(response);
+
+
+            }
+        });
+
+    };
+
+</script>
+{% endblock style %}
+
+
+{% block content %}
+
+{% if current_user.is_manager("admin") %}
+<div class="structure-menu">
+    {% if request.path=="/discord_role_manager" %}
+    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager"
+        type="radio" name="tools" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager"
+        type="radio" name="tools">
+    {% endif %}
+
+    {% if request.path=="/discord_channel_manager" %}
+    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio"
+        name="tools" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio"
+        name="tools">
+    {% endif %}
+
+    {% if request.path=="/emotes" %}
+    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio"
+        name="tools" checked>
+    {% else %}
+    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio"
+        name="tools">
+    {% endif %}
+</div>
+{% endif %}
+
+{% block page %}
+
+
+{% endblock page %}
+{% endblock content %}
