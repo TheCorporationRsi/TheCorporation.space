@@ -13,7 +13,7 @@ class Role_edit_Form(FlaskForm):
     
     role_id = HiddenField('Field', validators= [DataRequired()] )
     
-    discord_id = IntegerField('Discord id', validators= [DataRequired()] )
+    discord_id = IntegerField('Discord id')
     
 
     update = SubmitField('Update')

@@ -7,35 +7,20 @@ from corporation.managers.forms import Department_Form, Division_Form, Role_Form
 from corporation.managers.utils import save_background, save_logo
 
 managers = Blueprint('managers', __name__)
-    
+
+#========================================== admin tool ===============================
 
 @managers.route("/add_role/<string:user_handle>/<int:role>", methods=['GET', 'POST'])
 @login_required
 def add_role(user_handle, role, admin = 0):
+    role = Role.query.filter_by(id = role).first()
+
     if not current_user.is_manager():
         return redirect(url_for('main.home'))
     
     next_page = request.args.get('next')
-    role = Role.query.filter_by(id = role).first()
     user = User.query.filter_by(RSI_handle = user_handle).first()
     
-    if role.dep_head and not current_user.is_manager("admin"):
-        flash('You dont have the proper permission!', 'danger')
-        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
-    
-    elif role.div_head and not current_user.is_manager(department = role.department_id):
-        flash('You dont have the proper permission!', 'danger')
-        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
-    
-    elif not current_user.is_manager():
-        flash('You dont have the proper permission!', 'danger')
-        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
-    
-    if user.has_role(role):
-        flash('User allready have the role!', 'danger')
-        return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
-            
-                
     if user and role:
         user.add_role(role)
         flash(role.title +' has been added to '+ user.RSI_handle+'!', 'success')
@@ -65,8 +50,7 @@ def remove_role(user, role):
         return redirect(next_page) if next_page else redirect(url_for('managers.user_manager'))
     
     
-    Rolevsuser.query.filter_by(RSI_handle = user.RSI_handle, role_id = role.id).delete()
-    db.session.commit()
+    user.remove_role(role)
     flash('Role has been removed!', 'success')
     
     next_page = request.args.get('next')
@@ -114,7 +98,7 @@ def user_item(user_handle):
     user = User.query.filter_by(RSI_handle=user_handle).first()
     
     
-    return render_template("managers/user_template.html", user = user)
+    return render_template("managers/modules/user_template.html", user = user)
 
 
 
@@ -227,21 +211,6 @@ def division_manager(department):
     
     return render_template("managers/division_manager.html", title = "Division manager", divisions = divisions,  form=form, departments = departments, currentdep = department, update_form=update_form)
 
-
-""" 
-@managers.route("/division_manager/<int:division_id>/delete", methods=['GET', 'POST'])
-@login_required
-def delete_division(division_id):
-    if current_user.RSI_handle != 'Cyber-Dreamer':
-        return redirect(url_for('main.home'))
-    
-    division = Division.query.get_or_404(division_id)
-    db.session.delete(division)
-    db.session.commit()
-    flash('Division has been deleted!', 'success')
-    return redirect(url_for('managers.division_manager'))
-"""
-
 #================================================= Department =========================================================
 
 @managers.route("/department_manager/add_template/<int:department_id>", methods=['GET', 'POST'])
@@ -330,47 +299,27 @@ def department_manager():
     return render_template("managers/department_manager.html", title = "Department manager", Role = Role,  form=form, update_form=update_form, dep_form=dep_form)
 
 
-""" 
-@managers.route("/department_manager/<int:department_id>/delete", methods=['GET', 'POST'])
+#================================================= managers tool ===================================================
+
+@managers.route("/managers/department/<int:department>", methods=['GET', 'POST'])
 @login_required
-def delete_department(department_id):
-    if current_user.RSI_handle != 'Cyber-Dreamer':
+def department_managers_tool(department):
+    if not current_user.is_manager(department= department):
         return redirect(url_for('main.home'))
     
-    department = Department.query.get_or_404(department_id)
-    db.session.delete(department)
-    db.session.commit()
-    flash('Departemnt has been deleted!', 'success')
-    return redirect(url_for('managers.department_manager'))
+    department = Department.query.filter_by(id = department).first()
+    return render_template("managers/department_tool.html", title = "Department manager", department = department)
 
-"""
-
-""" def security_test(user = 0, handle = None, division = 0, department = 0):
-    if user > 0: 
-        user = User.query.filter_by(id = user).first()
-    else:
-        user = User.query.filter_by(RSI_handle = handle).first()
+@managers.route("/managers/managers/<int:department>/members/<string:user_handle>", methods=['GET', 'POST'])
+@login_required
+def user_info(department, user_handle):
+    if not current_user.is_manager(department= department):
+        return redirect(url_for('main.home'))
     
-    if user.RSI_handle == "Cyber-Dreamer" or user.security == 5:
-        return True
+    user = User.query.filter_by(RSI_handle=user_handle).first()
+    department = Department.query.filter_by(id = department).first()
     
-    
-    if division > 0:
-        division = Division.query.filter_by(id = division).first()
-        for role in division.roles:
-            for link in role.members:
-                if link.user == user and link.role.division_id == division.id and link.role.div_head :
-                    return True
-                
-    elif department > 0:
-        department = Department.query.filter_by(id = department).first()
-        for role in department.roles:
-            for link in role.members:
-                if link.user == user and link.role.department_id == department.id and link.role.dep_head :
-                    return True
-    
-    return False """
-
+    return render_template("managers/modules/user_info.html", user = user, department = department)
 #================================================= Other =========================================================
 
 @managers.route("/erkul")

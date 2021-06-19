@@ -29,8 +29,8 @@ class Bot(commands.Bot):
     async def on_ipc_error(self, endpoint, error):
             print(endpoint, "raised", error)
 
-
-client = Bot(command_prefix = '$', intents = discord.Intents.default())
+intents = discord.Intents().all()
+client = Bot(command_prefix = '$', intents = intents)
 client.sio = socketio.AsyncClient()
 
 @client.sio.on('connect', namespace='/discord_bot')
@@ -58,6 +58,45 @@ async def influence_error(data):
         
     print('Error during the transfer')
 
+
+@client.sio.on('delete_role', namespace='/discord_bot')
+async def remove_role(data):
+    print("remove")
+    user_id = data['user']
+    role_id = data['role_id']
+    
+    guild = client.get_guild(831248117571649566)
+    role = guild.get_role(role_id)
+    user = await guild.fetch_member(user_id)
+    
+    await user.remove_roles(role)
+    
+
+@client.sio.on('add_role', namespace='/discord_bot')
+async def add_role(data):
+    print("add")
+    user_id = data['user']
+    role_id = data['role_id']
+    
+    guild = client.get_guild(831248117571649566)
+    role = guild.get_role(role_id)
+    user = await guild.fetch_member(user_id)
+    
+    await user.add_roles(role)
+
+
+@client.event
+async def on_member_update(before, after):
+    if len(before.roles) > len(after.roles):
+        for role in before.roles:
+            if role not in after.roles:
+                await client.sio.emit('role_removed', { 'user': before.id, 'role_id': role.id}, namespace='/discord_bot')
+    elif len(before.roles) < len(after.roles):
+        for role in after.roles:
+            if role not in before.roles:
+                await client.sio.emit('role_added', { 'user': before.id, 'role_id': role.id}, namespace='/discord_bot')
+    
+    
 @client.command()
 @commands.is_owner()
 @commands.dm_only()
