@@ -72,6 +72,4 @@ For debugging, use VSCode Debugger (the config is already set).
 
 
 ## License
-This is the property of thecorporation (CORP), a Star citizen community.
-
-You must ask CyberDreamer#9412 on discord before reusing the code on another project.
+The Corporation (CORP), a Star Citizen community can use this project for their own need. Any other community related to Start Citizen are not allowed to reuse any part of this project without asking the permission to the owner of this project.
