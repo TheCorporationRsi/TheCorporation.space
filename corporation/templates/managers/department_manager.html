@@ -70,8 +70,132 @@
 
             {{ update_form.update(style="margin-left: auto; margin-right: none;")}}
         </form>
-        <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
-            User count : {{ department.member_count() }}</small>
+        <a href="javascript:void(0);" onclick="show_department_dropdown('{{ department.id }}')"
+            style="width: 50px; margin-left: auto;">
+            <div class="mobile-button">
+                <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
+            </div>
+        </a>
+
+        <div id="{{ department.id }}" class="item-dropdown">
+            <div class="webpage_form">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ dep_form.csrf_token }}
+                    {{ dep_form.department_id(value= department.id|string )}}
+
+                    <div class="top_images_form">
+                        <div class="image_form">
+                            {{ dep_form.div_background.label()}}
+                            {% if dep_form.div_background.errors %}
+                            {{ dep_form.div_background(class="error" )}}
+                            <div class="invalid-feedback">
+                                {% for error in dep_form.div_background.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ dep_form.div_background()}}
+                            {% endif %}
+                        </div>
+                        <div class="image_result">
+                            <img src="{{url_for('static', filename='department_background/'+ department.image_div_presentation )}}"
+                                height="200" width="200">
+                        </div>
+                    </div>
+
+                    <div class="top_images_form">
+                        <div class="image_form">
+                            <label>Top image 1 :</label>
+                            {% set d_form = dep_form.header_images.append_entry()%}
+                            {{ d_form.csrf_token }}
+                            {{ d_form.image_id(value= '1' )}}
+                            {{ d_form.background_image() }}
+                        </div>
+                        <div class="image_result">
+                            <img src="{{url_for('static', filename='department_background/'+ department.image_file_1 )}}"
+                                height="200" width="200">
+                        </div>
+                    </div>
+
+                    <div class="top_images_form">
+                        <div class="image_form">
+                            <label>Top image 2 :</label>
+                            {% set d_form = dep_form.header_images.append_entry()%}
+                            {{ d_form.csrf_token }}
+                            {{ d_form.image_id(value= '2' )}}
+                            {{ d_form.background_image() }}
+                        </div>
+                        <div class="image_result">
+                            <img src="{{url_for('static', filename='department_background/'+ department.image_file_2 )}}"
+                                height="200" width="200">
+                        </div>
+                    </div>
+
+                    <div class="top_images_form">
+                        <div class="image_form">
+                            <label>Top image 3 :</label>
+                            {% set d_form = dep_form.header_images.append_entry()%}
+                            {{ d_form.csrf_token }}
+                            {{ d_form.image_id(value= '3' )}}
+                            {{ d_form.background_image() }}
+                        </div>
+                        <div class="image_result">
+                            <img src="{{url_for('static', filename='department_background/'+ department.image_file_3 )}}"
+                                height="200" width="200">
+                        </div>
+                    </div>
+
+                    <div class="top_images_form">
+                        <div class="image_form">
+                            <label>Top image 4 :</label>
+                            {% set d_form = dep_form.header_images.append_entry()%}
+                            {{ d_form.csrf_token }}
+                            {{ d_form.image_id(value= '4' )}}
+                            {{ d_form.background_image() }}
+                        </div>
+                        <div class="image_result">
+                            <img src="{{url_for('static', filename='department_background/'+ department.image_file_4 )}}"
+                                height="200" width="200">
+                        </div>
+                    </div>
+
+                    {% if dep_form.header_images.errors %}
+                    <div class="invalid-feedback">
+                        {% for error in dep_form.header_images.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <a href="{{ url_for('managers.department_new_template', department_id = department.id)}}">Add new details section</a>
+
+                    {% for template in department.webpage_details() %}
+                    <div class="details_zone_form">
+                        <div class="image_form">
+                            <label>Details section {{loop.index}} :</label>
+                            {% set d_form = dep_form.detail_sections.append_entry()%}
+                            {{ d_form.csrf_token }}
+                            {{ d_form.template_id(value = template.id|string)}}
+                            {{ d_form.title1( value = template.title) }}
+                            {{ d_form.title2(value = template.title2) }}
+                            <textarea id="{{d_form.text.id}}" name="{{d_form.text.name}}">{{ template.text}}</textarea>
+                            {{ d_form.background_image() }}
+                        </div>
+                        <div class="image_result">
+                            <img src="{{url_for('static', filename='department_background/'+ template.background_image )}}"
+                                height="200" width="200">
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                    {{ dep_form.update_dep() }}
+                </form>
+            </div>
+
+            <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+                User count : {{ department.member_count() }}</small>
+        </div>
     </div>
 
     {% else %}

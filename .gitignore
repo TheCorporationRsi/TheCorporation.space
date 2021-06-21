@@ -40,3 +40,4 @@ corporation/discord_bot_routes/__pycache__/*
 front test
 migrations
 __pycache__/*
+corporation/static/department_background/*

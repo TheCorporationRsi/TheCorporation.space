@@ -5,14 +5,69 @@
 
 <script>
 
+    function add_user_role(handle, role_id) {
+        $.ajax({
+            url: "/add_role/"+ handle +"/"+ role_id,
+            type: "get",
+            data: { jsdata: 0 },
+            success: function () {
+                update_user_dropdown(handle)
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    function remove_user_role(handle, role_id) {
+        $.ajax({
+            url: "/remove_role/"+ handle +"/"+ role_id,
+            type: "get",
+            data: { jsdata: 0 },
+            success: function () {
+                update_user_dropdown(handle)
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+    
+    function update_user_dropdown(handle) {
+        var x = document.getElementById(handle);
+
+        $.ajax({
+            url: "/managers/admin/members/" + handle,
+            type: "get",
+            data: { jsdata: 0 },
+            success: function (response) {
+                $("#" + handle).html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
     function show_user_dropdown(handle) {
         var x = document.getElementById(handle);
+        if (x.style.display === "flex") {
+            x.style.display = "none";
+        } else {
+            update_user_dropdown(handle)
+            x.style.display = "flex";
+        }
+    }
+
+    function show_department_dropdown(id) {
+        var x = document.getElementById(id);
         if (x.style.display === "flex") {
             x.style.display = "none";
         } else {
             x.style.display = "flex";
         }
     }
+    
 
     $(document).ready(function () {
         var users = [];
@@ -40,27 +95,35 @@
 {% if current_user.is_manager("admin") %}
 <div class="structure-menu">
     {% if request.path=="/department_manager" %}
-    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager" type="radio" name="tools"  checked>
+    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager"
+        type="radio" name="tools" checked>
     {% else %}
-    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager" type="radio" name="tools"  >
+    <input onclick="window.location='{{ url_for('managers.department_manager')}}'" label="Department manager"
+        type="radio" name="tools">
     {% endif %}
 
     {% if request.path=="/division_manager" %}
-    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio" name="tools" checked>
+    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio"
+        name="tools" checked>
     {% else %}
-    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio" name="tools" >
+    <input onclick="window.location='{{ url_for('managers.division_manager')}}'" label="Division manager" type="radio"
+        name="tools">
     {% endif %}
 
     {% if request.path=="/role_manager" %}
-    <input onclick="window.location='{{ url_for('managers.role_manager')}}'" label="Role manager" type="radio" name="tools" checked>
+    <input onclick="window.location='{{ url_for('managers.role_manager')}}'" label="Role manager" type="radio"
+        name="tools" checked>
     {% else %}
-    <input onclick="window.location='{{ url_for('managers.role_manager')}}'" label="Role manager" type="radio" name="tools" >
+    <input onclick="window.location='{{ url_for('managers.role_manager')}}'" label="Role manager" type="radio"
+        name="tools">
     {% endif %}
 
     {% if request.path=="/user_manager" %}
-    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio" name="tools"  checked>
+    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio"
+        name="tools" checked>
     {% else %}
-    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio" name="tools" >
+    <input onclick="window.location='{{ url_for('managers.user_manager')}}'" label="User manager" type="radio"
+        name="tools">
     {% endif %}
 </div>
 {% endif %}

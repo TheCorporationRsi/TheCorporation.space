@@ -4,22 +4,101 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/account.css') }}">
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        var users = [];
 
-        function loadUsers() {
-            $.getJSON('/data/users', function (data, status, xhr) {
-                for (var i = 0; i < data.length; i++) {
-                    users.push(data[i].name);
-                }
-            });
-        };
-
-        loadUsers();
-
-        $('#influence-RSI_handle').autocomplete({
-            source: users,
+    function update_user_weight() {
+        var x = document.getElementById("weight-tab");
+        $.ajax({
+            url: "/account/update_weight",
+            type: "get",
+            data: { jsdata: 0 },
+            success: function (response) {
+                $("#weight-tab").html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
         });
+    }
+
+    function update_influence_transfer() {
+        var x = document.getElementById("influence-tab");
+        $.ajax({
+            url: "/account/update_influence_form",
+            type: "get",
+            data: { jsdata: 0 },
+            success: function (response) {
+                $("#influence-tab").html(response);
+
+                var users = [];
+
+                function loadUsers() {
+                    $.getJSON('/data/users', function (data, status, xhr) {
+                        for (var i = 0; i < data.length; i++) {
+                            users.push(data[i].name);
+                        }
+                    });
+                };
+
+                loadUsers();
+
+                $('#influence-RSI_handle').autocomplete({
+                    source: users,
+                });
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+        });
+    }
+
+    function submit_weight(e) {
+        var frm = $('#weight_form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/account/update_weight",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#weight-tab").html(response);
+
+
+            }
+        });
+
+    };
+
+    function submit_influence(e) {
+        var frm = $('#influence-form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/account/update_influence_form",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#influence-tab").html(response);
+
+                var users = [];
+
+                function loadUsers() {
+                    $.getJSON('/data/users', function (data, status, xhr) {
+                        for (var i = 0; i < data.length; i++) {
+                            users.push(data[i].name);
+                        }
+                    });
+                };
+
+                loadUsers();
+
+                $('#influence-RSI_handle').autocomplete({
+                    source: users,
+                });
+            }
+        });
+
+
+    };
+
+    $(document).ready(function () {
+        update_influence_transfer()
+        update_user_weight()
     });
 </script>
 
@@ -89,16 +168,24 @@
             <div class="value">{{ current_user.email }}</div>
         </div>
         <div class="link-item">
-            <div class="title">Discord username</div>
+            <div class="title">Discord username:</div>
+            {% if current_user.discord_username == None %}
+            <div class="value"><a href="{{ url_for('users.discord_login', type = 0) }}">Link</a></div>
+            {% else %}
             <div class="value">{{ current_user.discord_username }}</div>
+            {% endif %}
         </div>
-        <div class="link-item">
-            <div class="title">Guilded username</div>
+        <!-- <div class="link-item">
+            <div class="title">Guilded username:</div>
+            {% if current_user.discord_username == None %}
+            <div class="value"><a href="{{ url_for('users.discord_login', type = 0) }}">Link</a></div>
+            {% else %}
             <div class="value">{{ current_user.guilded_username }}</div>
-        </div>
+            {% endif %}
+        </div> -->
         <div class="link-item">
-            <div class="title">Other stuff</div>
-            <div class="value">blablabla</div>
+            <div class="title">Update info:</div>
+            <div class="value"><a href="{{ url_for('users.update_RSI_info') }}">Update</a></div>
         </div>
 
     </div>
@@ -159,112 +246,41 @@
     </div>
 
     <div id="weight-tab" class="tools-tab influence-weight">
-        <div class="weight">
-            <div>Division</div>
-            <div class="w-title">Weight (%)</div>
-        </div>
-        <form method="POST" action="">
-            {{ weight_form.hidden_tag() }}
-            {% for division in division_list %}
-            {% if division.has_member(member = current_user) %}
-            <div class="weight">
 
-                <label style="color: {{division.color()}}">{{division.title}}</label>
-                {% set w_form = weight_form.weights.append_entry()%}
-                {{ w_form.csrf_token() }}
-                {{ w_form.division(value= division.id|string ) }}
-                {{ w_form.weight(value= current_user.div_weight(division = division) ) }}
-
-            </div>
-            {% endif %}
-
-            {% endfor %}
-
-            {% if weight_form.weights.errors %}
-            <div class="invalid-feedback">
-                {% for error in weight_form.weights.errors %}
-                <span>{{ error }}</span>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            {{ weight_form.set() }}
-        </form>
     </div>
 
-    <div class="tools-tab influence-transfer">
-        <form method="POST" action="">
-            {{ inf_form.csrf_token }}
-            <div>
-                {{ inf_form.RSI_handle.label()}}
-                {% if inf_form.RSI_handle.errors %}
-                {{ inf_form.RSI_handle(class="error")}}
-                <div class="invalid-feedback">
-                    {% for error in inf_form.RSI_handle.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ inf_form.RSI_handle()}}
-                {% endif %}
-            </div>
-            <div>
-                {{ inf_form.amount.label()}}
-                {% if inf_form.amount.errors %}
-                {{ inf_form.amount(class="error")}}
-                <div class="invalid-feedback">
-                    {% for error in inf_form.amount.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ inf_form.amount()}}
-                {% endif %}
-            </div>
-            <div>
-                {{ inf_form.message.label()}}
-                {% if inf_form.message.errors %}
-                {{ inf_form.message(class="error")}}
-                <div class="invalid-feedback">
-                    {% for error in inf_form.message.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ inf_form.message()}}
-                {% endif %}
-            </div>
-            <div>
-                {{ inf_form.send()}}
-            </div>
-        </form>
+    <div id="influence-tab" class="tools-tab influence-transfer">
+
     </div>
 </div>
 {% endif %}
-<div class="system">
-    <div class="system-tab settings">
-        <form method="POST" action="" enctype="multipart/form-data">
-            {{ form.hidden_tag() }}
-            <fieldset>
-                <legend class="">Account Info</legend>
-                <div>
-                    {{ form.picture.label() }}
-                    {{ form.picture() }}
-                    {% if form.picture.errors %}
-                    {% for error in form.picture.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div>
-                {{ form.submit()}}
+<div class="transaction">
+    <div class="transaction-tab">
+
+        <label>Received</label>
+        {% for transaction in current_user.inf_transfer_history(type = 'received') %}
+        <div class="item">
+            <div class="user">{{ transaction.user_from}}</h6>
             </div>
-        </form>
+            <div class="amount">{{ transaction.amount}}</div>
+            <div class="message">{{ transaction.message}}</div>
+        </div>
+        {% endfor %}
+
     </div>
 
-    <div class="system-tab influence-info">
+    <div class="transaction-tab">
 
+        <label>Sent</label>
+        {% for transaction in current_user.inf_transfer_history(type = 'sent') %}
+        <div class="item">
+            <div class="user">{{ transaction.user_to}}</h6>
+            </div>
+            <div class="amount">{{ transaction.amount}}</div>
+            <div class="message">{{ transaction.message}}</div>
+        </div>
+        {% endfor %}
+        
     </div>
 </div>
 {% endblock content %}

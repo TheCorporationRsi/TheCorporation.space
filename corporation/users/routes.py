@@ -18,26 +18,8 @@ users = Blueprint('users', __name__)
 @users.route("/user/update", methods=['GET', 'POST'])
 @login_required
 def update_RSI_info():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
 
-    RSI_info = RSI_account(RSI_handle=current_user.RSI_handle)
-    current_user.RSI_moniker = RSI_info.Moniker
-    current_user.image_file = RSI_info.image_link
-
-    tribute = Tribute.query.filter_by(RSI_handle= current_user.RSI_handle).first()
-
-    if not tribute:
-        tribute = Tribute(RSI_handle= current_user.RSI_handle)
-        db.session.add(tribute)
-
-    role = Role.query.filter_by(title="Corporateer").first()
-    if RSI_info.main_org == "CORP" and not current_user.has_role(role):
-        current_user.corp_confirmed = True
-        link = Rolevsuser(role_id=role.id, RSI_handle=RSI_info.RSI_handle)
-        db.session.add(link)
-
-    db.session.commit()
+    current_user.update_info()
 
     return redirect(url_for('users.account'))
 
@@ -51,11 +33,20 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(
             form.password.data).decode('utf-8')
-
         RSI_info = RSI_account(RSI_handle=form.RSI_handle.data)
-        user = User(RSI_handle=RSI_info.RSI_handle, RSI_moniker=RSI_info.Moniker, image_file=RSI_info.image_link,
-                    RSI_number=RSI_info.citizen, email=form.email.data, password=hashed_password)
-        db.session.add(user)
+        user = user = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_info.RSI_handle)).first()
+        if user:
+            user.RSI_moniker=RSI_info.Moniker
+            user.image_file=RSI_info.image_link
+            user.RSI_number=RSI_info.citizen
+            user.email=form.email.data
+            user.password=hashed_password
+            user.registered = True
+        else:
+            user = User(RSI_handle=RSI_info.RSI_handle, RSI_moniker=RSI_info.Moniker, image_file=RSI_info.image_link,
+                    RSI_number=RSI_info.citizen, email=form.email.data, password=hashed_password, registered=True)
+            db.session.add(user)
+            
         db.session.commit()
         send_confirmation_email(user)
 
@@ -82,8 +73,7 @@ def callback():
     if current_user.is_authenticated:
         discord.callback()
         user = discord.fetch_user()
-        user_account = User.query.filter_by(
-            RSI_handle=current_user.RSI_handle).first()
+        user_account = User.query.filter_by(RSI_handle=current_user.RSI_handle).first()
         user_account.discord_id = user.id
         user_account.discord_username = user.username+'#' + user.discriminator
 
@@ -121,8 +111,7 @@ def login():
     
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter(func.lower(
-            User.RSI_handle) == func.lower(form.RSI_handle.data)).first()
+        user = User.query.filter(func.lower( User.RSI_handle) == func.lower(form.RSI_handle.data)).first()
         
 
         if user and user.test_password(password=form.password.data):
@@ -148,22 +137,36 @@ def logout():
     logout_user()
     return redirect(url_for('main.home'))
 
-
+#=======================================================================================
 @users.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
-    form = UpdateAccountForm(prefix="info")
-    if form.submit.data and form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
+    
+    return render_template("user/account.html", title="Account")
 
+@users.route("/account/update_weight", methods=['GET', 'POST'])
+@login_required
+def weight_form_submition():
+    
+    weight_form = Divisions_weight(prefix = "weight")
+    if weight_form.validate_on_submit():
+        for weight in weight_form.weights:
+            role = Role.query.filter_by(division_id= weight.division.data, div_member= True).first()
+            link = Rolevsuser.query.filter_by(user_id = current_user.id , role_id = role.id).first()
+            link.weight = weight.weight.data
+            db.session.commit()
+
+        flash(f'Sucessful set the weight!', 'success')
+    
+    return render_template("user/account_modules/weight_form.html", weight_form=weight_form)
+
+@users.route("/account/update_influence_form", methods=['GET', 'POST'])
+@login_required
+def influence_form_submition():
+    
     inf_form = inf_Form(prefix="influence")
-    if inf_form.send.data and inf_form.validate_on_submit():
-        receiver = User.query.filter(func.lower(
-            User.RSI_handle) == func.lower(inf_form.RSI_handle.data)).first()
+    if inf_form.validate_on_submit():
+        receiver = User.query.filter(func.lower(User.RSI_handle) == func.lower(inf_form.RSI_handle.data)).first()
 
         sent = current_user.send_tribute(receiver=receiver, amount=inf_form.amount.data, message = inf_form.message.data )
         if sent == 0:
@@ -171,30 +174,16 @@ def account():
         else: 
             flash(f'error', 'danger')
     
-    weight_form = Divisions_weight(prefix = "weight")
-    if weight_form.set.data and weight_form.validate_on_submit():
-        for weight in weight_form.weights:
-            role = Role.query.filter_by(division_id= weight.division.data, div_member= True).first()
-            link = Rolevsuser.query.filter_by(RSI_handle=current_user.RSI_handle , role_id = role.id).first()
-            link.weight = weight.weight.data
-            db.session.commit()
-
-        flash(f'Sucessful set the weight!', 'success')
-
-    # elif request.method == 'GET':
-    #     form.email.data = current_user.email
-    divisions = Division.query.all()
-    return render_template("user/account.html", title="Account", form=form, divisions = divisions, inf_form=inf_form, weight_form=weight_form)
-
-
-@users.route("/user/<string:username>")
+    return render_template("user/account_modules/influence_form.html", inf_form=inf_form)
+#================================================================================
+''' @users.route("/user/<string:username>")
 def user_posts(username):
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(RSI_handle=username).first_or_404()
     posts = Post.query.filter_by(author=user)\
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=5)
-    return render_template('social/user_posts.html', posts=posts, user=user)
+    return render_template('social/user_posts.html', posts=posts, user=user) '''
 
 
 @users.route("/reset_password", methods=['GET', 'POST'])

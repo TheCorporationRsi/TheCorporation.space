@@ -1,0 +1,37 @@
+
+{% set user_roles = user.roles() %}
+<div class="title">Remove</div>
+<div class="title">Add</div>
+<div class="roles">
+    {% for role in user_roles %}
+    {% if not dep_id == role.department_id %}
+    {% set color = role.role_color() %}
+    {% set dep_id = role.department_id %}
+    {% endif %}
+    <div style=" border-color: {{ color }}; ">
+
+        <a href="javascript:void(0)" onclick="remove_user_role('{{ user.RSI_handle }}' , {{ role.id}})"
+            style="background-color: {{ color }}; color: {{ color }};">x</a>
+
+        {{ role.title }}
+    </div>
+    {% endfor %}
+</div>
+
+<div class=" roles">
+    {% for role in role_list %}
+    {% if not role in user_roles %}
+    {% if not dep_id == role.department_id %}
+    {% set color = role.role_color() %}
+    {% set dep_id = role.department_id %}
+    {% endif %}
+    <div style=" border-color: {{ color }}; ">
+
+        <a href="javascript:void(0)" onclick="add_user_role( '{{ user.RSI_handle }}' , {{ role.id }})"
+            style="background-color: {{ color }}; color: {{ color }}; ">+</a>
+
+        {{ role.title }}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>

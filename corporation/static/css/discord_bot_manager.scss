@@ -379,7 +379,7 @@ main {
             border-radius: 10px;
             min-height: 5vh;
             display: flex;
-            flex-wrap: wrap;
+            flex-flow: column nowrap;
             align-items: center;
 
             a {
@@ -391,7 +391,7 @@ main {
             }
 
             form {
-                width: 50vw;
+                width: 100%;
                 display: flex;
             }
 
@@ -400,6 +400,21 @@ main {
                 color: red;
                 font-size: 0.8em;
                 margin-bottom: 5px;
+            }
+
+            .title {
+                display: flex;
+                min-width: 30%;
+                font-size: 1em;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                font-family: "Orbitron";
+                Font-weight: bold;
+                border: none;
+                background-color: transparent;
+                border-radius: 4px;
+                box-sizing: border-box;
             }
 
             input[type=text],

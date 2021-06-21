@@ -211,11 +211,13 @@
                     <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
 
                     {% if current_user.is_manager("admin") %}
-                    <li class="dropdown_item-3"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
-                    <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
-                    <li class="dropdown_item-5"> <a href="#">Website manager</a></li>
+                    <li class="dropdown_item-2"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
+                    <li class="dropdown_item-3"><a href="{{ url_for('discord_bot_routes.discord_role_setup') }}">Discord manager</a></li>
+                    <li class="dropdown_item-4"> <a href="{{ url_for('managers.department_managers_tool', department = 1) }}">Department manager</a></li>
+                    <li class="dropdown_item-5"> <a href="#">Influence settings</a></li>
+                    <li class="dropdown_item-6"> <a href="#">Website manager</a></li>
                     {% endif %}
-                    <li class="dropdown_item-5 last-item"> <a href="{{ url_for('users.logout') }}">Logout</a></li>
+                    <li class="dropdown_item-7 last-item"> <a href="{{ url_for('users.logout') }}">Logout</a></li>
                 </ul>
             </li>
 

@@ -908,17 +908,123 @@ main .list {
   padding-right: 60px;
   padding-bottom: 60px;
   margin-top: 20px;
+  /* .item {
+      background-color: $dark-grey;
+      font-size: 1.6em;
+      padding: 20px;
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      vertical-align: middle;
+
+      form {
+          width: 50vw;
+          display: flex;
+      }
+
+
+      .invalid-feedback {
+          color: red;
+          font-size: 0.8em;
+          margin-bottom: 5px;
+      }
+
+      input[type=text],
+      input[type=password],
+      textarea,
+      select {
+          display: flex;
+          min-width: 15%;
+          font-size: 1em;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          font-family: "Orbitron";
+          Font-weight: bold;
+          border: none;
+          background-color: transparent;
+          border-radius: 4px;
+          box-sizing: border-box;
+
+          &.error {
+              border: 2px solid red;
+          }
+      }
+
+      #update_color-rule {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          text-decoration: none;
+          list-style-type: none;
+          font-size: 0.5em;
+
+          input[type=radio] {
+
+              &:checked {
+                  background-image: linear-gradient(125deg, $blue, rgb(122, 195, 255));
+                  color: black;
+                  box-shadow: 0 1px 1px #0000002e;
+                  text-shadow: 0 1px 0px #79485f7a;
+              }
+
+
+              &:before {
+                  content: attr(label);
+                  display: inline-block;
+                  text-align: center;
+                  width: 100%;
+              }
+          }
+      }
+
+      input[type=submit] {
+          width: 15%;
+          height: 50px;
+          min-width: 100px;
+          background-color: $blue;
+          color: white;
+          padding: 10px 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 0.6em;
+          font-family: $main-font;
+          font-weight: bold;
+          transition: all ease-in-out .3s;
+          margin-left: auto;
+          margin-top: auto;
+          margin-bottom: auto;
+
+
+      }
+
+      input[type=submit]:hover {
+          background-color: $yellow;
+          color: black;
+          transform: scale(1.01);
+      }
+  } */
 }
 main .list .item {
   background-color: #444444;
   font-size: 1.6em;
   padding: 20px;
   border-radius: 10px;
+  min-height: 5vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+main .list .item a {
+  text-decoration: none;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
   vertical-align: middle;
 }
 main .list .item form {
@@ -1003,29 +1109,7 @@ main .list .item input[type=submit]:hover {
   -webkit-transform: scale(1.01);
           transform: scale(1.01);
 }
-main .list .user-item {
-  background-color: #444444;
-  font-size: 1.6em;
-  padding: 20px;
-  border-radius: 10px;
-  min-height: 5vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-main .list .user-item a {
-  text-decoration: none;
-  color: white;
-  margin-left: 20px;
-  margin-right: 20px;
-  vertical-align: middle;
-}
-main .list .user-item .user-dropdown {
+main .list .item .item-dropdown {
   width: 100%;
   display: none;
   background-color: #444444;
@@ -1038,12 +1122,81 @@ main .list .user-item .user-dropdown {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
-main .list .user-item .user-dropdown a {
+main .list .item .item-dropdown fieldset {
+  border: 0;
+}
+main .list .item .item-dropdown fieldset .invalid-feedback {
+  color: red;
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+main .list .item .item-dropdown input[type=text],
+main .list .item .item-dropdown input[type=password],
+main .list .item .item-dropdown select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-weight: bold;
+  font-family: "Orbitron";
+  letter-spacing: 1.5px;
+}
+main .list .item .item-dropdown input[type=text].error,
+main .list .item .item-dropdown input[type=password].error,
+main .list .item .item-dropdown select.error {
+  border: 2px solid red;
+}
+main .list .item .item-dropdown input[type=submit] {
+  width: 100%;
+  background-color: #0083ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: "Orbitron";
+  font-weight: bold;
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+main .list .item .item-dropdown input[type=submit]:hover {
+  background-color: #fcff00;
+  color: black;
+  -webkit-transform: scale(1.03);
+          transform: scale(1.03);
+}
+main .list .item .item-dropdown .webpage_form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+main .list .item .item-dropdown .webpage_form form {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+main .list .item .item-dropdown a {
   text-decoration: none;
   color: white;
   margin: auto;
 }
-main .list .user-item .user-dropdown .title {
+main .list .item .item-dropdown .title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1054,7 +1207,7 @@ main .list .user-item .user-dropdown .title {
       -ms-flex-align: center;
           align-items: center;
 }
-main .list .user-item .user-dropdown .roles {
+main .list .item .item-dropdown .roles {
   -ms-flex-line-pack: start;
       align-content: flex-start;
   -ms-flex-wrap: wrap;
@@ -1065,7 +1218,7 @@ main .list .user-item .user-dropdown .roles {
   width: 50%;
   text-align: center;
 }
-main .list .user-item .user-dropdown .roles div {
+main .list .item .item-dropdown .roles div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1084,7 +1237,7 @@ main .list .user-item .user-dropdown .roles div {
   margin-top: 4px;
   text-align: center;
 }
-main .list .user-item .user-dropdown .roles div a {
+main .list .item .item-dropdown .roles div a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1106,6 +1259,6 @@ main .list .user-item .user-dropdown .roles div a {
       -ms-flex-pack: center;
           justify-content: center;
 }
-main .list .user-item .user-dropdown .roles div a:hover {
+main .list .item .item-dropdown .roles div a:hover {
   color: black !important;
 }/*# sourceMappingURL=structure_manager.css.map */
