@@ -69,8 +69,3 @@ Please follow this tutorial to understand the code structure:
 https://www.youtube.com/playlist?list=PL-osiE80TeTs4UjLw5MM6OjgkjFeUxCYH
 
 For debugging, use VSCode Debugger (the config is already set).
-
-
-## License
-
-The Corporation (CORP), a Star Citizen community can use this project for their own need. Any other community related to Start Citizen are not allowed to reuse any part of this project without asking the permission to the owner of this project.
