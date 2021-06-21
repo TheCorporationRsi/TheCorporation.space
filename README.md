@@ -72,6 +72,6 @@ For debugging, use VSCode Debugger (the config is already set).
 
 
 ## License
-This is the property of thecorporation (CORP), a Star citizen community.
+Permission is granted to The Corporation (CORP), a Star Citizen community, to use and edit the following project as needed. The project can be copy onto another repository as long as it is for the use of The Corporation only and that the previous participants are clearly stated onto the new repository.
 
-You must ask CyberDreamer#9412 on discord before reusing the code on another project.
+Before reusing the code for another project, you must ask the permission of the owner, CyberDreamer. Please contact: gata23laroche@gmail.com.
