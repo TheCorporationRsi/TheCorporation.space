@@ -49,6 +49,7 @@ notepad.exe /etc/config.json
 - DISCORD_SECRET : Discord API secret key
 - DISCORD_BOT_TOKEN : Discord BOT token
 - DISCORD_REDIRECT_URI : keep the same thing, but the fact that it need https will prevent it to work
+- The 2 next are preset with test key. Do not use them on production interface:
 - RECAP_PRVKEY : private key, you have to create your own application on https://cloud.google.com
 - RECAP_PUBKEY : public key
 <br />
