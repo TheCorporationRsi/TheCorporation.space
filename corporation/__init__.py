@@ -85,12 +85,12 @@ def create_app(config_class=Config):
         except:
             print("This application Multiple feature will not work properly")
 
-        from corporation.users.routes import users
+        from corporation.users import users
         from corporation.posts.routes import posts
         from corporation.main.routes import main
         from corporation.errors.handlers import errors
         from corporation.news.routes import news
-        from corporation.managers.routes import managers
+        from corporation.managers import managers
         from corporation.departments.routes import departments
         from corporation.discord_bot_routes.routes import discord_bot_routes
         from corporation.discord_bot_routes.routes import discord_actions
