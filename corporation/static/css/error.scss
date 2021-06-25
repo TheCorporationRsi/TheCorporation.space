@@ -1,0 +1,13 @@
+@import 'main';
+
+main {
+    display: grid;
+    grid-gap: 0px;
+    width: 100%;
+    
+    .content-section {
+        margin: auto;
+        vertical-align: middle;
+        margin-top: 40vh;
+    }
+}
