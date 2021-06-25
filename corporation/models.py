@@ -771,32 +771,3 @@ class Logs(db.Model):
     def __repr__(self):
         return f"Logs('{self.title}', '{self.user_id}', '{self.date_added}')"
 
-
-''' 
-class News_post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    content = db.Column(db.Text, nullable=False)
-    videos = db.relationship('Videos', backref='news', lazy=True)
-    image = db.relationship('Image', backref='news', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Post('{self.title}', '{self.date_posted}')"
-
-class Video(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    video = db.Column(db.String(60), nullable=False)
-    news_id = db.Column(db.Integer, db.ForeignKey('news_post.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Post('{self.video}', '{self.date_posted}')"
-    
-class Image(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    image = db.Column(db.String(60), nullable=False)
-    news_id = db.Column(db.Integer, db.ForeignKey('news_post.id'), nullable=False)
-
-    def __repr__(self):
-        return f"Post('{self.video}', '{self.date_posted}')" '''
