@@ -111,10 +111,10 @@ class inf_Form(FlaskForm):
 
 class Division_weight(Form):
     division = HiddenField("Division", validators=[DataRequired()])
-    weight = IntegerField('Weight', validators=[DataRequired()])
+    weight = IntegerField('Weight', validators=[NumberRange(min=0, max=100)], default=0)
 
 class Divisions_weight(FlaskForm):
-    weights = FieldList(FormField(Division_weight), min_entries=0,  max_entries= 30)
+    weights = FieldList(FormField(Division_weight), min_entries=0,  max_entries= 300)
     set = SubmitField('Set')
     
     def validate_weights(self, weights):

@@ -11,6 +11,14 @@ def send_weekly_tribute():
         if user.corp_confirmed:
             user.receive_weekly_tribute()
     print("Weekly tribute have been distibuted!")
+    
+@scheduler.task("interval",id="send_tribute",days = 1, max_instances=1)
+def send_weekly_tribute_test():
+    users = User.query.all()
+    for user in users:
+        if user.corp_confirmed:
+            user.receive_weekly_tribute()
+    print("Weekly tribute have been distibuted!")
 
 @scheduler.task("interval",id="downgrade_influence", days = 1 , max_instances=1)
 def downgrade_inlfuence():
