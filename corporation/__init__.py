@@ -11,6 +11,7 @@ from flask_discord_interactions import DiscordInteractions
 from flask_apscheduler import APScheduler
 from sqlalchemy import MetaData
 from flask_socketio import SocketIO, emit
+from pathlib import Path
 import eventlet
 
 import discord
@@ -46,7 +47,7 @@ login_manager.login_message_category = 'info'
 scheduler = APScheduler()
 socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:3000', 'https://localhost:3000'], async_mode = 'eventlet') #logger=True, engineio_logger=True,
 
-with open('/etc/config.json') as config_file:
+with open(Path(__file__).parent.parent.parent.absolute().as_posix() +'/config.json') as config_file:
     config_info = json.load(config_file)
 
 

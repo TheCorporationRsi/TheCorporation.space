@@ -17,6 +17,7 @@ class RSI_account ():
         org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")
         info = soup.find_all("div", {"class": "left-col"})[1].find("div", {"class": "inner"}).find_all("p")
         
+        self.email = None
         try:
             bio = soup.find("div", {"class": "bio"}).find("div")
             self.bio = bio.text

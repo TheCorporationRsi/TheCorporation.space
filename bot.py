@@ -4,7 +4,7 @@ from discord.ext import commands, ipc
 import socketio
 
 import json
-with open('/etc/config.json') as config_file:
+with open('../../config.json') as config_file:
     config = json.load(config_file)
     
 class Bot(commands.Bot):

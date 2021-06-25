@@ -41,3 +41,5 @@ front test
 migrations
 __pycache__/*
 corporation/static/department_background/*
+user.db
+FILE

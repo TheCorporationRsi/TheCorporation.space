@@ -1,7 +1,9 @@
 
 import os
 import json
-with open('/etc/config.json') as config_file:
+from pathlib import Path
+
+with open(Path(__file__).parent.parent.parent.absolute().as_posix() +'/config.json') as config_file:
     config = json.load(config_file)
 
 class Config: 
