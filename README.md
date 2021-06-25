@@ -10,20 +10,8 @@ This program need python3.9
 pip install -r requirements.txt
 ```
 
-- Create a json file at this path called config.json
+- Create a json file called config.json in the parent folder of the application folder.
 
-
-```bash
-#linux
-sudo touch /etc/config.json
-sudo nano /etc/config.json
-
-#windows
-New-Item -Path '/etc' -ItemType Directory
-New-Item -Path '/etc/config.json' -ItemType File
-notepad.exe /etc/config.json
-
-```
 
 ```json
 {
