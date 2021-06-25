@@ -37,16 +37,12 @@ def callback():
         discord.revoke()
         return redirect(url_for('users.account'))
 
-    # try:
-    #     discord.callback()
-    #     user = discord.fetch_user()
-    #     user_account = User.query.filter_by(discord_id=user.id).first()
-    # except:
-    #     return redirect(url_for("users.login"))
-    
-    discord.callback()
-    user = discord.fetch_user()
-    user_account = User.query.filter_by(discord_id=user.id).first()
+    try:
+        discord.callback()
+        user = discord.fetch_user()
+        user_account = User.query.filter_by(discord_id=user.id).first()
+    except:
+        return redirect(url_for("users.login"))
     
 
     if user_account:
