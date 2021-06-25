@@ -2,9 +2,10 @@ import discord
 import os
 from discord.ext import commands, ipc
 import socketio
+from pathlib import Path
 
 import json
-with open('../../config.json') as config_file:
+with open(Path(__file__).parent.parent.absolute().as_posix() +'/config.json') as config_file:
     config = json.load(config_file)
     
 class Bot(commands.Bot):

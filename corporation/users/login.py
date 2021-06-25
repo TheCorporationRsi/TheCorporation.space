@@ -30,19 +30,24 @@ def callback():
         user_account.discord_id = user.id
         user_account.discord_username = user.username+'#' + user.discriminator
 
-        if user.is_owner():
+        if user.id == 217337301364244480:
             user_account.security = 5
 
         db.session.commit()
         discord.revoke()
         return redirect(url_for('users.account'))
 
-    try:
-        discord.callback()
-        user = discord.fetch_user()
-        user_account = User.query.filter_by(discord_id=user.id).first()
-    except:
-        return redirect(url_for("users.login"))
+    # try:
+    #     discord.callback()
+    #     user = discord.fetch_user()
+    #     user_account = User.query.filter_by(discord_id=user.id).first()
+    # except:
+    #     return redirect(url_for("users.login"))
+    
+    discord.callback()
+    user = discord.fetch_user()
+    user_account = User.query.filter_by(discord_id=user.id).first()
+    
 
     if user_account:
         user_account.discord_username = user.username+'#' + user.discriminator

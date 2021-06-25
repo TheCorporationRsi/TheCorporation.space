@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
-from corporation import db, discord_bot
+from corporation import db
 from corporation.models import Post, User, Role, Division, Department, Rolevsuser
 from flask_discord import requires_authorization
 from corporation.setup.forms import Role_Form

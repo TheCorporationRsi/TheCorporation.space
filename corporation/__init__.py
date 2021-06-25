@@ -45,17 +45,15 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 scheduler = APScheduler()
-socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:3000', 'https://localhost:3000'], async_mode = 'eventlet') #logger=True, engineio_logger=True,
+socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000'], async_mode = 'gevent', logger=True, engineio_logger=True) #logger=True, engineio_logger=True,
 
 with open(Path(__file__).parent.parent.parent.absolute().as_posix() +'/config.json') as config_file:
     config_info = json.load(config_file)
 
 
 try:
-    discord_bot = ipc.Client(
-        secret_key=config_info.get('DISCORD_BOT_IPC_SECRET'))
-    discord = DiscordOAuth2Session()
     mail = Mail()
+    discord = DiscordOAuth2Session()
 except:
     print("This application is not set properly. Multiple feature will not work properly")
 
@@ -114,5 +112,5 @@ def create_app(config_class=Config):
 
 
     discord_command.set_route("/interactions")
-    #discord_command.update_slash_commands(guild_id= 831248117571649566)
+    discord_command.update_slash_commands(guild_id= 831248117571649566)
     return app
