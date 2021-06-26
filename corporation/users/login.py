@@ -35,6 +35,8 @@ def callback():
 
         db.session.commit()
         discord.revoke()
+        
+        current_user.update_discord_roles()
         return redirect(url_for('users.account'))
 
     try:
