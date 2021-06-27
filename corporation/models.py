@@ -209,13 +209,14 @@ class User(db.Model, UserMixin):
 
     def send_tribute(self, receiver, amount, message="none"):
         tribute = self.tribute()
-        receiver_links = Rolevsuser.query.filter_by(user_id=self.id).all()
-
+        receiver_links = Rolevsuser.query.filter_by(user_id=receiver.id).all()
+        print("start")
         count = 0
         for link in receiver_links:
             count += link.weight
 
         if count == 0:
+            print("count = 0")
             test = 0
             for link in receiver_links:
                 role = Role.query.filter_by(id=link.role_id).first()
@@ -223,6 +224,7 @@ class User(db.Model, UserMixin):
                     test += 1
 
             if test == 0:
+                print("no division")
                 transaction = Influence_transaction(
                     user_from=self.id, user_to=receiver.id, amount=amount, message=message)
                 db.session.add(transaction)
@@ -247,15 +249,23 @@ class User(db.Model, UserMixin):
                 db.session.commit()
                 return 0
             else:
+                print("division but 0")
                 for link in receiver_links:
                     role = Role.query.filter_by(id=link.role_id).first()
                     if role.div_member:
-                        link.weight = 100/test
-
+                        link.weight = 99/test
+        db.session.commit()
         if count > 100 or tribute.amount < amount:
+            print("too much")
+            print(str(count))
+            print(str(tribute.amount))
             print("error in " + receiver.RSI_handle+" influence")
+            for link in receiver_links:
+                link.weight = 0
+            db.session.commit()
             return -1
         else:
+            print("start transfer")
             transfer_weight_json = {}
             transfer_weight_json[self.RSI_handle] = []
             transfer_weight_json[receiver.RSI_handle] = []
@@ -308,52 +318,56 @@ class User(db.Model, UserMixin):
             db.session.add(transaction)
             tribute.amount -= amount
             for link in receiver_links:
+                print("transfer")
                 role = Role.query.filter_by(id=link.role_id).first()
                 if role.div_member and link.weight > 0:
                     department = Department.query.filter_by(
                         id=role.department_id).first()
                     if self.has_role(role):
-
+                        print("same division")
                         influence = Influence.query.filter_by(
-                            user_id=receiver.id, department=role.department_id, division=role.division_id)
+                            user_id=receiver.id, department=role.department_id, division=role.division_id).first()
                         if not influence:
                             influence = Influence(user_id=receiver.id, RSI_handle=receiver.RSI_handle,
                                                   department=role.department_id, division=role.division_id)
                             db.session.add(influence)
+                            db.session.commit()
 
                         influence2 = Influence.query.filter_by(
-                            user_id=self.id, department=role.department_id, division=role.division_id)
+                            user_id=self.id, department=role.department_id, division=role.division_id).first()
                         if not influence2:
                             influence2 = Influence(
                                 user_id=self.id, RSI_handle=self.RSI_handle, department=role.department_id, division=role.division_id)
                             db.session.add(influence2)
+                            db.session.commit()
 
                     elif self.his_member_dep(department):
-
+                        print("same department")
                         influence = Influence.query.filter_by(
-                            user_id=receiver.id, department=role.department_id, division=0)
-                        if not influence:
-                            influence = Influence(
-                                user_id=receiver.id, RSI_handle=receiver.RSI_handle, department=role.department_id, division=0)
+                            user_id=receiver.id, department=role.department_id, division=0).first()
+                        if influence is None:
+                            influence = Influence( user_id=receiver.id, RSI_handle=receiver.RSI_handle, department=role.department_id, division=0)
                             db.session.add(influence)
+                            db.session.commit()
 
-                        influence2 = Influence.query.filter_by(
-                            user_id=self.id, department=role.department_id, division=0)
-                        if not influence2:
+                        influence2 = Influence.query.filter_by( user_id=self.id, department=role.department_id, division=0).first()
+                        if influence2 is None:
                             influence2 = Influence(
                                 user_id=self.id, RSI_handle=self.RSI_handle, department=role.department_id, division=0)
                             db.session.add(influence2)
-
+                            db.session.commit()
+                            
                     influence.amount += amount*(link.weight/common_weight)
                     influence2.amount += amount*(link.weight/common_weight)
-
+                    print("transfer done")
+        print("finalize")
         tribute = self.tribute()
         receiver_tribute = receiver.tribute()
 
         tribute.lifetime_influence += amount
         receiver_tribute.lifetime_influence += amount
         db.session.commit()
-
+        print("done")
         return 0
 
     def inf_transfer_history(self, type='sent'):

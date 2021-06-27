@@ -135,11 +135,11 @@
             </div>
             <div class="item">
                 <div class="title">Lifetime influence:</div>
-                <div class="data">{{current_user.lifetime_influence_count()}}</div>
+                <div class="data">{{ current_user.lifetime_influence_count()|round}}</div>
             </div>
             <div class="item">
                 <div class="title">Total influence:</div>
-                <div class="data">{{current_user.influence_count()}}</div>
+                <div class="data">{{current_user.influence_count()|round}}</div>
             </div>
             <div class="item">
                 <div class="title">Weekly tribute:</h6>
@@ -270,7 +270,7 @@
     <div class="transaction-tab">
 
         <label>Sent</label>
-        {% for transaction in current_user.inf_transfer_history(type = 'sent') %}
+        {% for transaction in current_user.inf_transfer_history(type ='sent') %}
         <div class="item">
             <div class="user">{{ transaction.user_to}}</h6>
             </div>

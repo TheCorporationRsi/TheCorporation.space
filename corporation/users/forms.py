@@ -99,6 +99,8 @@ class inf_Form(FlaskForm):
             raise ValidationError('That this user doesn\'t have an account.')
         elif user.RSI_handle == current_user.RSI_handle:
             raise ValidationError('You cannot send influence to yourself')
+        elif not user.corp_confirmed:
+            raise ValidationError('This member is not a coorporateer!')
 
 
     def validate_amount(self, amount):
