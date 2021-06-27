@@ -256,9 +256,15 @@
     <div class="transaction-tab">
 
         <label>Received</label>
+        <div class="item">
+            <div class="user">From</h6>
+            </div>
+            <div class="amount">Amount</div>
+            <div class="message">Message</div>
+        </div>
         {% for transaction in current_user.inf_transfer_history(type = 'received') %}
         <div class="item">
-            <div class="user">{{ transaction.user_from}}</h6>
+            <div class="user">{{ transaction.user_from_handle}}</h6>
             </div>
             <div class="amount">{{ transaction.amount}}</div>
             <div class="message">{{ transaction.message}}</div>
@@ -270,9 +276,15 @@
     <div class="transaction-tab">
 
         <label>Sent</label>
+        <div class="item">
+            <div class="user">To</h6>
+            </div>
+            <div class="amount">Amount</div>
+            <div class="message">Message</div>
+        </div>
         {% for transaction in current_user.inf_transfer_history(type ='sent') %}
         <div class="item">
-            <div class="user">{{ transaction.user_to}}</h6>
+            <div class="user">{{ transaction.user_to_handle}}</h6>
             </div>
             <div class="amount">{{ transaction.amount}}</div>
             <div class="message">{{ transaction.message}}</div>

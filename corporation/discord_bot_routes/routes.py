@@ -65,6 +65,7 @@ def give_role(ctx, member: Member, role: discord_role):
     user = User.query.filter_by(discord_id = ctx.author.id).first()
     role = Role.query.filter_by(discord_id = role.id).first()
     member = User.query.filter_by(discord_id = member.id).first()
+    
     if not user:
         return f"{ctx.author.display_name}, you are not subscribed on the website!"
     elif not user.is_manager():
@@ -74,4 +75,6 @@ def give_role(ctx, member: Member, role: discord_role):
     elif role.dep_head or role.div_head or role.dep_proxy or role.div_proxy:
         return f"{ctx.author.display_name}, those role cannot be assign by this command!"
     else:
+        member.add_role(role)
         return f"{ctx.author.display_name} added {role.title} to {member.RSI_handle} !"
+    

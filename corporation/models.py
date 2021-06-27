@@ -225,7 +225,7 @@ class User(db.Model, UserMixin):
 
             if test == 0:
                 print("no division")
-                transaction = Influence_transaction(
+                transaction = Influence_transaction( user_from_handle = self.RSI_handle, user_to_handle = receiver.RSI_handle,
                     user_from=self.id, user_to=receiver.id, amount=amount, message=message)
                 db.session.add(transaction)
                 tribute.amount -= amount
@@ -289,7 +289,7 @@ class User(db.Model, UserMixin):
                         })
 
             if common_weight == 0:
-                transaction = Influence_transaction(
+                transaction = Influence_transaction(user_from_handle = self.RSI_handle, user_to_handle = receiver.RSI_handle,
                     user_from=self.id, user_to=receiver.id, amount=amount, message=message)
                 db.session.add(transaction)
                 tribute.amount -= amount
@@ -313,8 +313,8 @@ class User(db.Model, UserMixin):
                 db.session.commit()
                 return 0
 
-            transaction = Influence_transaction(
-                user_from=receiver.id, user_to=receiver.id, amount=amount, message=message, div_list=transfer_weight_json)
+            transaction = Influence_transaction(user_from_handle = self.RSI_handle, user_to_handle = receiver.RSI_handle,
+                user_from=self.id, user_to=receiver.id, amount=amount, message=message, div_list=transfer_weight_json)
             db.session.add(transaction)
             tribute.amount -= amount
             for link in receiver_links:
@@ -410,10 +410,10 @@ class User(db.Model, UserMixin):
 
         self.RSI_moniker = RSI_info.Moniker
         self.image_file = RSI_info.image_link
-
         db.session.commit()
 
         self.update_discord_roles()
+        self.tribute()
 
     def influence_count(self, type=None, department=None, division=None):
 
@@ -755,7 +755,9 @@ class Influence_transaction(db.Model):
     __bind_key__ = 'influence_db'
     id = db.Column(db.Integer, primary_key=True)
     user_from = db.Column(db.Integer, nullable=False)
+    user_from_handle = db.Column(db.String(32), nullable=False)
     user_to = db.Column(db.Integer, nullable=False)
+    user_to_handle = db.Column(db.String(32), nullable=False)
     method = db.Column(db.String(32), nullable=False, default='unkown')
     amount = db.Column(db.Integer, nullable=False, default=0)
     date_added = db.Column(db.DateTime, nullable=False,
