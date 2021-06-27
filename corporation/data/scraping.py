@@ -9,9 +9,22 @@ class RSI_account ():
     
     def __init__(self, RSI_handle):
         self.link =  DEFAULT_RSI_URL+'/citizens/'+ RSI_handle
+        print(self.link)
         page = requests.get(self.link)
         soup = BS(page.content, 'html.parser')
         name = soup.find("div", {"class": "info"}).find_all("p")
+        
+        try: 
+            self.RSI_handle = name[1].find("strong").string
+            if self.RSI_handle.lower() != RSI_handle.lower():
+                self.error = True
+                return None
+        except:
+            print("Wrong page!")
+            self.error = True
+            return None
+            
+        print(name)
         image = soup.find("div", {"class": "thumb"}).find("img")["src"]
         citizen = soup.find("p", {"class": "citizen-record"}).find("strong").string
         org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")

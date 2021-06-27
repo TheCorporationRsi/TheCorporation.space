@@ -116,6 +116,8 @@ class User(db.Model, UserMixin):
             division_id=division.id, div_member=True).first()
         link = Rolevsuser.query.filter_by(
             user_id=self.id, role_id=role.id).first()
+        if link.weight is None:
+            return 0
         return link.weight
 
     def dep_weight(self, department):
@@ -176,7 +178,7 @@ class User(db.Model, UserMixin):
 
         elif department > -1:
             for link in links:
-                role = Role.query.filter_by(role_id=link.role_id).first()
+                role = Role.query.filter_by(id=link.role_id).first()
                 if (role.dep_head and role.department_id == department):
                     return True
 

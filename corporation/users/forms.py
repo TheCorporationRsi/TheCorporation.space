@@ -18,26 +18,39 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[ DataRequired(), EqualTo('password')])
 
     submit = SubmitField('Sign Up')
+    
+    def validate_RSI_handle(self, RSI_handle):
+        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle.data)).first()
+        RSI_info = RSI_account(RSI_handle= RSI_handle.data)
+        if not RSI_info or RSI_info == None :
+            raise ValidationError('Error in the RSI handle')
+        elif user:
+            raise ValidationError(
+                'That RSI_handle already have an account, pls contact moderator')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         RSI_info = RSI_account(RSI_handle= self.RSI_handle.data)
-        if user and user.registered:
+        print(RSI_info)
+        
+        try:
+            test = RSI_info.email
+        except:
+            raise ValidationError('Please add your email in your RSI bio')
+        
+        if not RSI_info or RSI_info == None:
+            raise ValidationError('Error in the RSI handle')
+        
+        elif user and user.registered:
             raise ValidationError('That email is already taken')
         
-        elif RSI_info.email is None:
+        elif not RSI_info.email:
             raise ValidationError('Please add your email in your RSI bio')
         
         elif not RSI_info.confirm_email(email = email.data):
             print(email.data.lower())
             raise ValidationError('Email in the bio is not the same')
 
-    def validate_RSI_handle(self, RSI_handle):
-        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle.data)).first()
-        RSI_info = RSI_account(RSI_handle= RSI_handle.data)
-        if user:
-            raise ValidationError(
-                'That RSI_handle already have an account, pls contact moderator')
 
 
 class LoginForm(FlaskForm):
