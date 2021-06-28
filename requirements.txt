@@ -1,5 +1,5 @@
 aiofiles==0.7.0
-aiohttp==3.7.4.post0
+aiohttp>=3.7.4
 alembic==1.6.5
 amqp==5.0.6
 APScheduler==3.7.0
