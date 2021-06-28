@@ -2,10 +2,12 @@ from flask import render_template, request, Blueprint, redirect, flash, url_for
 from flask_login import current_user, login_required
 from flask import Blueprint
 from flask_discord_interactions import DiscordInteractions, DiscordInteractionsBlueprint, Member, Channel, Response
+from flask_discord_interactions import ActionRow, Button, ButtonStyles
 from flask_discord_interactions import Role as discord_role
 from corporation.models import Post, User, Division, Department, Rolevsuser, Role
 from corporation.discord_bot_routes.forms import Role_edit_Form
 from corporation import db
+from corporation import socketio
 import discord
 import enum
 from corporation.discord_bot_routes import events
@@ -78,3 +80,72 @@ def give_role(ctx, member: Member, role: discord_role):
         member.add_role(role)
         return f"{ctx.author.display_name} added {role.title} to {member.RSI_handle} !"
     
+
+@discord_actions.command(name="send_tribute",annotations={"member": "Select a member", "amount": "Give an amount"})
+def send_influence(ctx, member: Member, amount: int):
+    "Sending your tribute to another member"
+    
+    sender_id = ctx.author.id
+    sender = User.query.filter_by(discord_id = sender_id).first()
+    receiver = User.query.filter_by(discord_id = member.id).first()
+    
+    if not sender:
+        print('Sender not registered!')
+        socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "Unable to find your corporation account. Please make sure you are linked on the website"
+            
+            }, namespace='/discord_bot')
+        
+    elif not receiver:
+        print('Receiver not registered!')
+        socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "Unable to find this member corporation account. Please make sure he link his account on the website"
+            
+            }, namespace='/discord_bot')
+    elif receiver is sender:
+        socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "You cannot send tribute to yourself!"
+            
+            }, namespace='/discord_bot')
+    elif amount > 0 and sender.tribute().amount >= amount:
+        status = sender.send_tribute( receiver, amount, message= "Sent by emote")
+        if status == 0:
+            socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "Transfer sucessful of "+ str(amount) +" tribute to "+ receiver.RSI_handle +"!"
+            
+            }, namespace='/discord_bot')
+        return "Transfer sucessful of "+ str(amount) +" tribute to "+ receiver.RSI_handle +"!"
+
+@discord_actions.command(name="update_member",annotations={"member": "Select a member"})
+def update_member(ctx, member: Member):
+    "Updating info and role of a user"
+    member = User.query.filter_by(discord_id = member.id).first()
+    
+    if member:
+        member.update_info()
+        return "Member info updated!"
+    else:
+        return "Member not linked to the website"
+    
+    
+    
+@discord_actions.command(name="green_button")
+def green_button(ctx):
+    "Green button"
+    
+    return Response(
+        content="search engine",
+        components=[
+            ActionRow(components=[
+                Button(
+                    style=ButtonStyles.LINK,
+                    url="https://www.google.com/",
+                    label="Go to google"
+                )
+            ])
+        ]
+    )

@@ -59,6 +59,27 @@ async def influence_error(data):
         
     print('Error during the transfer')
 
+@client.sio.on('send_dm', namespace='/discord_bot')
+async def send_dm(data):
+    user_id = data['member_id']
+    message = data['message']
+    
+    try:
+        user = await client.fetch_user(user_id)
+        await user.send(message)
+    except:
+        print("Sender doesn't exist")
+        
+@client.sio.on('change_nickname', namespace='/discord_bot')
+async def send_dm(data):
+    user_id = data['member_id']
+    nickname = data['nickname']
+    
+    guild = client.get_guild(831248117571649566)
+    member = await guild.fetch_member(user_id)
+    
+    await member.edit(nick=nickname)
+    
 
 @client.sio.on('delete_role', namespace='/discord_bot')
 async def remove_role(data):

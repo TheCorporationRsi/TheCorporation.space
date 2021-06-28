@@ -116,8 +116,10 @@ class User(db.Model, UserMixin):
             division_id=division.id, div_member=True).first()
         link = Rolevsuser.query.filter_by(
             user_id=self.id, role_id=role.id).first()
-        if link.weight is None:
+        
+        if not link:
             return 0
+        
         return link.weight
 
     def dep_weight(self, department):
@@ -463,6 +465,8 @@ class User(db.Model, UserMixin):
     def update_discord_roles(self):
         all_roles = Role.query.all()
         if self.discord_id is not None:
+            socketio.emit('change_nickname', {'member_id': self.discord_id, 'nickname': self.RSI_handle}, namespace='/discord_bot')
+                  
             for role in all_roles:
                 if not role.discord_id == 0 and not role.discord_id == None:
                     if self.has_role(role):

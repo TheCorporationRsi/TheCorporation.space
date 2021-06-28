@@ -25,28 +25,36 @@ def influence_emote(data):
 
     print('From: '+ str(sender_id))
     print('Amount: '+ str(amount))
-    print('To: '+ str(receiver))
+    print('To: '+ str(receiver_id))
     
     sender = User.query.filter_by(discord_id = str(sender_id)).first()
     receiver = User.query.filter_by(discord_id = str(receiver_id)).first()
     if not sender:
         print('Sender not registered!')
-        socketio.emit('infuence_error', {
-            'sender': sender_id,
-            'amount': 1,
-            'receiver': receiver_id,
-            'message_id': message_id
+        socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "Unable to find your corporation account. Please make sure you are linked on the website"
             
             }, namespace='/discord_bot')
         
     elif not receiver:
         print('Receiver not registered!')
-        socketio.emit('inlfuence_error', {
-            'sender': sender_id,
-            'amount': 1,
-            'receiver': receiver_id,
-            'message_id': message_id
+        socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "Unable to find this member corporation account. Please make sure he link his account on the website"
             
             }, namespace='/discord_bot')
-    elif receiver and sender and amount > 0:
-        sender.send_tribute( receiver, amount, message= "Sent by emote")
+    elif receiver is sender:
+        socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "You cannot send tribute to yourself!"
+            
+            }, namespace='/discord_bot')
+    elif amount > 0 and sender.tribute().amount  >= amount:
+        status = sender.send_tribute( receiver, amount, message= "Sent by emote")
+        if status == 0:
+            socketio.emit('send_dm', {
+            'member_id': sender_id,
+            'message': "Transfer sucessful of "+ str(amount) +" tribute to "+ receiver.RSI_handle +"!"
+            
+            }, namespace='/discord_bot')

@@ -33,10 +33,26 @@ class influence(commands.Cog):
         message_sender = message.author
         
         sio = self.client.sio
-        if str(reaction.emoji) == '<:upvote:797379928378179594>':
+        if str(reaction.emoji) == '<:1INF:423754395944222721>':
             await sio.emit('influence_emote', {
             'sender': userid,
             'amount': 1,
+            'receiver': message_sender.id,
+            'message_id': messageid
+            
+            }, namespace='/discord_bot')
+        elif str(reaction.emoji) == '<:5INF:423754398431313920>':
+            await sio.emit('influence_emote', {
+            'sender': userid,
+            'amount': 5,
+            'receiver': message_sender.id,
+            'message_id': messageid
+            
+            }, namespace='/discord_bot')
+        elif str(reaction.emoji) == '<:10INF:423754400297648131>':
+            await sio.emit('influence_emote', {
+            'sender': userid,
+            'amount': 10,
             'receiver': message_sender.id,
             'message_id': messageid
             
