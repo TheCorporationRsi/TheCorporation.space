@@ -12,8 +12,8 @@ def send_weekly_tribute():
             user.receive_weekly_tribute()
     print("Weekly tribute have been distibuted!")
     
-@scheduler.task("interval",id="send_tribute",days = 1, max_instances=1)
-def send_weekly_tribute_test():
+@scheduler.task("cron",id="send_tribute2",day= "*", max_instances=1)
+def send_weekly_tribute2():
     users = User.query.all()
     for user in users:
         if user.corp_confirmed:

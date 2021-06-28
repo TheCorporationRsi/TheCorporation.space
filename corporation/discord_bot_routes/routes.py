@@ -59,26 +59,28 @@ def bananana(ctx):
 class Animal(enum.Enum):
     Dog = "dog"
     Cat = "cat" '''
-
-@discord_actions.command(name="add_role",annotations={"member": "Select a member", "role": "Select a role"})
-def give_role(ctx, member: Member, role: discord_role):
-    "Adding role to a user ***admin only***"
+role_enum = enum.Enum('DynamicEnum', {role.title:role.id for role in Role.query.filter_by(div_member=True).all()})
+@discord_actions.command(name="assign_division",annotations={"member": "Select a member", "role": "Select a role"})
+def give_role(ctx, member: Member, role: role_enum):
+    "Adding division to a user ***admin only***"
     
     user = User.query.filter_by(discord_id = ctx.author.id).first()
-    role = Role.query.filter_by(discord_id = role.id).first()
+    role = Role.query.filter_by(id = role).first()
     member = User.query.filter_by(discord_id = member.id).first()
     
     if not user:
         return f"{ctx.author.display_name}, you are not subscribed on the website!"
-    elif not user.is_manager():
-        return f"{ctx.author.display_name}, you are not a manager!"
+    elif not user.is_manager(division = role.division_id):
+        return f"{ctx.author.display_name}, you are not a manager of that division!"
     elif not role:
-        return f"Role not sync with the website!"
-    elif role.dep_head or role.div_head or role.dep_proxy or role.div_proxy:
-        return f"{ctx.author.display_name}, those role cannot be assign by this command!"
+        return f"Role not found!"
+    elif role.dep_head or role.div_head or role.dep_proxy or role.div_proxy or role.title == "Corporateer":
+        return f"{ctx.author.display_name}, this role cannot be assign by this command!"
     else:
         member.add_role(role)
         return f"{ctx.author.display_name} added {role.title} to {member.RSI_handle} !"
+    
+
     
 
 @discord_actions.command(name="send_tribute",annotations={"member": "Select a member", "amount": "Give an amount"})
@@ -131,9 +133,26 @@ def update_member(ctx, member: Member):
     else:
         return "Member not linked to the website"
     
+
+division_enum = enum.Enum('DynamicEnum', {division.title:division.title for division in Division.query.all()})
+
+
+@discord_actions.command(name="request_division",annotations={"division": "Select a division"})
+def req_div(ctx, division:division_enum ):
+    "Asking to join a division"
+    member = User.query.filter_by(discord_id = ctx.author.id).first()
+    if member:
+        member.update_info()
+        socketio.emit('send_message', {
+            'channel_id': 859079316155793449,
+            'message': "<@"+ str(ctx.author.id) +"> want to join "+ division + "."
+            
+            }, namespace='/discord_bot')
+        return "Division requested!"
+    else:
+        return "Member not linked to the website"
     
-    
-@discord_actions.command(name="green_button")
+''' @discord_actions.command(name="green_button")
 def green_button(ctx):
     "Green button"
     
@@ -148,4 +167,4 @@ def green_button(ctx):
                 )
             ])
         ]
-    )
+    ) '''

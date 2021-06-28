@@ -69,6 +69,17 @@ async def send_dm(data):
         await user.send(message)
     except:
         print("Sender doesn't exist")
+
+@client.sio.on('send_message', namespace='/discord_bot')
+async def send_message(data):
+    channel_id = data['channel_id']
+    message = data['message']
+    
+    try:
+        channel = await client.fetch_channel(channel_id)
+        await channel.send(message)
+    except:
+        print("Unable to send message")
         
 @client.sio.on('change_nickname', namespace='/discord_bot')
 async def send_dm(data):

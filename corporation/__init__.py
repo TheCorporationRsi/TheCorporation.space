@@ -45,7 +45,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 scheduler = APScheduler()
-socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000'], async_mode = 'gevent', logger=True, engineio_logger=True) #logger=True, engineio_logger=True,
+socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000'], async_mode = 'gevent') # ,logger=True, engineio_logger=True
 
 with open(Path(__file__).parent.parent.parent.absolute().as_posix() +'/config.json') as config_file:
     config_info = json.load(config_file)
