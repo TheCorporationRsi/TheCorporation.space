@@ -17,6 +17,13 @@ class initialization(commands.Cog):
         self.client.AppInfo = await self.client.application_info()
         user = self.client.AppInfo.owner
         await user.send("I\'m online!")
+        
+        guild = self.client.get_guild(831248117571649566)
+        users = guild.members
+
+        for user in users:
+            for role in user.roles:
+                await self.sio.emit('role_added', { 'user': user.id, 'role_id': role.id}, namespace='/discord_bot')
 
 
 

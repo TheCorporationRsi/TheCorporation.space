@@ -116,19 +116,16 @@ async def add_role(data):
     user = await guild.fetch_member(user_id)
     
     await user.add_roles(role)
-
-
-@client.event
-async def on_member_update(before, after):
-    if len(before.roles) > len(after.roles):
-        for role in before.roles:
-            if role not in after.roles:
-                await client.sio.emit('role_removed', { 'user': before.id, 'role_id': role.id}, namespace='/discord_bot')
-    elif len(before.roles) < len(after.roles):
-        for role in after.roles:
-            if role not in before.roles:
-                await client.sio.emit('role_added', { 'user': before.id, 'role_id': role.id}, namespace='/discord_bot')
     
+@client.sio.on('upload_roles', namespace='/discord_bot')
+async def upload_role(data):
+    print("Uploading role!")
+    user_id = data['user']
+    guild = client.get_guild(831248117571649566)
+    user = await guild.fetch_member(user_id)
+    
+    for role in user.roles:
+        await client.sio.emit('role_added', { 'user': user_id, 'role_id': role.id}, namespace='/discord_bot')
     
 @client.command()
 @commands.is_owner()

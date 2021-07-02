@@ -35,7 +35,7 @@ def callback():
 
         db.session.commit()
         discord.revoke()
-        
+        current_user.upload_discord_roles()
         current_user.update_discord_roles()
         return redirect(url_for('users.account'))
 
