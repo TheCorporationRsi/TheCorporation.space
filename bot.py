@@ -88,9 +88,9 @@ async def send_dm(data):
     
     guild = client.get_guild(831248117571649566)
     member = await guild.fetch_member(user_id)
-    
+    old_nickname = member.nick
     await member.edit(nick=nickname)
-    
+     
 
 @client.sio.on('delete_role', namespace='/discord_bot')
 async def remove_role(data):
@@ -102,8 +102,8 @@ async def remove_role(data):
     role = guild.get_role(role_id)
     user = await guild.fetch_member(user_id)
     
-    await user.remove_roles(role)
-    
+    if role in user.roles:
+        await user.remove_roles(role)
 
 @client.sio.on('add_role', namespace='/discord_bot')
 async def add_role(data):
@@ -115,7 +115,8 @@ async def add_role(data):
     role = guild.get_role(role_id)
     user = await guild.fetch_member(user_id)
     
-    await user.add_roles(role)
+    if role not in user.roles:
+        await user.add_roles(role)
     
 @client.sio.on('upload_roles', namespace='/discord_bot')
 async def upload_role(data):
