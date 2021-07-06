@@ -57,6 +57,19 @@ body {
   overflow: overlay;
 }
 
+.fadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp.is-visible {
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -235,7 +248,7 @@ body {
     display: none;
     color: white;
     text-align: center;
-    background-color: #646464;
+    background-color: #444444;
     padding: 10px 10px;
     font-size: 0.6em;
     opacity: 0;
@@ -249,7 +262,7 @@ body {
     width: 100%;
   }
   header .dropdown_menu li:hover {
-    background-color: #444444;
+    background-color: #646464;
     -webkit-transition: border-width 0.2s ease-in-out;
     transition: border-width 0.2s ease-in-out;
     border-left: 4px solid #fcff00;

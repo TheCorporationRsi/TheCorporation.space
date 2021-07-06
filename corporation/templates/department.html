@@ -38,10 +38,10 @@
     </div>
 </div>
 
-<div class="link-info" style="background-image: url('/static/department_background/{{ department.image_div_presentation }}');">
+<div class="link-info " style="background-image: url('/static/department_background/{{ department.image_div_presentation }}');">
     {% for division in division_list  %}
     {% if division.department_id == department.id  %}
-    <div class="link-item">
+    <div class="link-item fadeInUp">
         <div class="logo"><a href=""><img
                     src="{{ url_for('static', filename = 'logos/'+ division.logo) }}"></a></div>
         <div class="title">{{ division.title }}</div>

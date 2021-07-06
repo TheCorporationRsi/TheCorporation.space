@@ -57,6 +57,19 @@ body {
   overflow: overlay;
 }
 
+.fadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp.is-visible {
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -235,7 +248,7 @@ body {
     display: none;
     color: white;
     text-align: center;
-    background-color: #363636;
+    background-color: #444444;
     padding: 10px 10px;
     font-size: 0.6em;
     opacity: 0;
@@ -249,7 +262,7 @@ body {
     width: 100%;
   }
   header .dropdown_menu li:hover {
-    background-color: #444444;
+    background-color: #646464;
     -webkit-transition: border-width 0.2s ease-in-out;
     transition: border-width 0.2s ease-in-out;
     border-left: 4px solid #fcff00;
@@ -709,355 +722,135 @@ body {
   }
 }
 
-main {
-  display: -ms-grid;
-  display: grid;
-  grid-gap: 0px;
-  width: 100%;
-}
-
-main .connection {
-  min-height: 100%;
-  width: 100vw;
-  -ms-grid-column: 1;
-  grid-column: 1fr;
-  background-image: url("/static/user/line.jpg");
+.content-panel {
+  height: 70vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 40px;
+  background-position-y: center;
+  background-position-x: center;
+  background-repeat: no-repeat;
   background-size: cover;
-  padding: auto;
 }
 
-main .connection .connection-zone {
-  height: 100vh;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20vh;
+.content-panel.top {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+          clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+  margin-bottom: -6%;
+  padding-bottom: calc(40px + 6%);
 }
 
-main .connection .connection-zone .login-section {
-  border-radius: 20px;
-  background-color: #414141be;
-  margin: 10%;
-  padding: 50px;
-  padding-bottom: auto;
-  -webkit-box-shadow: 0px 0px 10px #000000;
-          box-shadow: 0px 0px 10px #000000;
-  text-shadow: 0px 0px 5px #000000;
-  height: auto;
-  position: relative;
-  margin-top: 30vh;
+.content-panel.middle {
+  -webkit-clip-path: polygon(0 0, 35% 0, 40% 6%, 60% 6%, 65% 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+          clip-path: polygon(0 0, 35% 0, 40% 6%, 60% 6%, 65% 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+  margin-bottom: -6%;
+  padding-top: 6%;
+  padding-bottom: calc(40px + 6%);
 }
 
-main .connection .connection-zone .login-section .discord {
-  display: -ms-grid;
-  display: grid;
-  position: relative;
-  width: 120px;
-  height: auto;
-  background-color: #000000;
-  border-radius: 10px;
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 0px;
-  margin-bottom: 20px;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
-  text-align: center;
-  color: white;
-  text-decoration: none;
-  padding: auto;
+.content-panel.bottom {
+  -webkit-clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
+          clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
+  padding-top: 6%;
 }
 
-main .connection .connection-zone .login-section .discord img {
-  width: 100%;
-  height: auto;
+@media (max-width: 1000px) {
+  .content-panel {
+    -webkit-box-shadow: inset 0 100vh 40vw -20vw rgba(0, 0, 0, 0.747);
+            box-shadow: inset 0 100vh 40vw -20vw rgba(0, 0, 0, 0.747);
+  }
 }
 
-main .connection .connection-zone .login-section .discord:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+@media (min-width: 1000px) {
+  .content-panel .right-panel {
+    margin-left: 30vw;
+    -webkit-clip-path: polygon(0 0, 40% 0, 45% 5%, 100% 5%, 100% 100%, 75% 100%, 70% 95%, 0 96%);
+            clip-path: polygon(0 0, 40% 0, 45% 5%, 100% 5%, 100% 100%, 75% 100%, 70% 95%, 0 96%);
+  }
+  .content-panel .left-panel {
+    margin-right: 30vw;
+    -webkit-clip-path: polygon(0 5%, 55% 5%, 60% 0, 100% 0, 100% 95%, 35% 95%, 30% 100%, 0 100%);
+            clip-path: polygon(0 5%, 55% 5%, 60% 0, 100% 0, 100% 95%, 35% 95%, 30% 100%, 0 100%);
+  }
+  .content-panel.right {
+    -webkit-box-shadow: inset -100vw 0 40vw -30vw rgba(0, 0, 0, 0.651);
+            box-shadow: inset -100vw 0 40vw -30vw rgba(0, 0, 0, 0.651);
+    padding-left: 30vw;
+  }
+  .content-panel.left {
+    -webkit-box-shadow: inset 100vw 0 40vw -30vw rgba(0, 0, 0, 0.637);
+            box-shadow: inset 100vw 0 40vw -30vw rgba(0, 0, 0, 0.637);
+    padding-right: 30vw;
+  }
 }
 
-main .connection .connection-zone .login-section .title {
-  width: 100%;
-  font-family: "Orbitron";
-  font-size: 6em;
-  margin-top: -120px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 15px;
-  text-align: center;
-  color: #fcff00;
-  text-shadow: #000000;
-}
-
-main .connection .connection-zone .login-section fieldset {
-  border: 0;
-}
-
-main .connection .connection-zone .login-section input[type=text],
-main .connection .connection-zone .login-section input[type=password],
-main .connection .connection-zone .login-section select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-main .connection .connection-zone .login-section input[type=submit] {
-  width: 100%;
-  background-color: #0083ff;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 2em;
-  font-family: "Montserrat";
-  font-weight: bold;
-  -webkit-transition: all ease-in-out .3s;
-  transition: all ease-in-out .3s;
-}
-
-main .connection .connection-zone .login-section input[type=submit]:hover {
-  background-color: #fcff00;
-  color: black;
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
-}
-
-main .connection .connection-zone .register-form {
-  border-radius: 20px;
-  background-color: #414141be;
-  padding: 50px;
-  -webkit-box-shadow: 0px 0px 10px #000000;
-          box-shadow: 0px 0px 10px #000000;
-  text-shadow: 0px 0px 5px #000000;
-  position: relative;
-  margin: 10%;
-}
-
-main .connection .connection-zone .register-form .title {
-  width: 100%;
-  font-family: "Orbitron";
-  font-size: 5em;
-  margin-top: -100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 15px;
-  text-align: center;
-  color: #fcff00;
-  text-shadow: #000000;
-}
-
-main .connection .connection-zone .register-form fieldset {
-  border: 0;
-}
-
-main .connection .connection-zone .register-form fieldset .invalid-feedback {
-  color: red;
-  font-size: 1em;
-  margin-bottom: 5px;
-}
-
-main .connection .connection-zone .register-form input[type=text],
-main .connection .connection-zone .register-form input[type=password],
-main .connection .connection-zone .register-form select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  font-weight: bold;
-  font-family: "Orbitron";
-  letter-spacing: 1.5px;
-}
-
-main .connection .connection-zone .register-form input[type=text].error,
-main .connection .connection-zone .register-form input[type=password].error,
-main .connection .connection-zone .register-form select.error {
-  border: 2px solid red;
-}
-
-main .connection .connection-zone .register-form input[type=submit] {
-  width: 100%;
-  background-color: #0083ff;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 2em;
-  font-family: "Montserrat";
-  font-weight: bold;
-  -webkit-transition: all ease-in-out .3s;
-  transition: all ease-in-out .3s;
-}
-
-main .connection .connection-zone .register-form input[type=submit]:hover {
-  background-color: #fcff00;
-  color: black;
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
-}
-
-main .connection .connection-zone .register-form .info {
-  height: 50px;
-  width: 102%;
-  text-align: center;
-  padding-top: 10px;
-  margin-left: -10px;
-  margin-top: -10px;
-  position: relative;
-}
-
-main .connection .connection-zone .register-form .info:after {
-  content: "Please put your email inside your RSI bio";
-  position: absolute;
-  top: 15px;
-  left: 55px;
-  font-size: 1.3em;
-}
-
-main .connection .connection-zone .register-form .info .tooltip {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #000000;
-  color: white;
-  padding: 1rem;
-  border-radius: 10px;
-  max-width: 100%;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
-  cursor: pointer;
-  position: relative;
-  z-index: 1;
+.content-panel .text-zone {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  text-align: justify;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  margin: auto;
+  background-color: #222222ad;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  -webkit-box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+          box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+  padding-top: calc(10px + 5%);
+  padding-bottom: calc(10px + 5%);
 }
 
-main .connection .connection-zone .register-form .info .tooltip.top-right {
-  -webkit-clip-path: circle(var(--clip-width) at 20px 20px);
-          clip-path: circle(var(--clip-width) at 20px 20px);
-  left: 6px;
-}
-
-main .connection .connection-zone .register-form .info .tooltip:hover {
-  -webkit-clip-path: circle(100%);
-          clip-path: circle(100%);
-  z-index: 2;
-}
-
-main .connection .connection-zone .register-form .info .tooltip:hover::before,
-main .connection .connection-zone .register-form .info .tooltip:hover::after {
-  background-color: white;
-  color: #000000;
-  border: none;
-}
-
-main .connection .connection-zone .register-form .info .tooltip::before,
-main .connection .connection-zone .register-form .info .tooltip::after {
-  margin: 5px;
-}
-
-main .connection .connection-zone .register-form .info .tooltip.top-left::before,
-main .connection .connection-zone .register-form .info .tooltip.top-right::before,
-main .connection .connection-zone .register-form .info .tooltip.bottom-left::after,
-main .connection .connection-zone .register-form .info .tooltip.bottom-right::after {
-  content: 'i';
+.content-panel .text-zone .title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  font-size: 1rem;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  padding: 1px;
-  -webkit-transition: all .1s ease-in-out;
-  transition: all .1s ease-in-out;
-  shape-outside: circle(50%);
+  gap: 10px;
+  padding: 30px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: auto;
+  font-size: 2.6vw;
+  font-weight: bold;
+  text-justify: center;
+  text-align: center;
+  color: #0083ff;
+  text-shadow: 0px 0px 8px black;
 }
 
-main .connection .connection-zone .register-form .info .tooltip.top-right::before {
-  margin-left: var(--margin-info-default);
-  margin-top: var(--margin-info-default);
-}
-
-main .connection .connection-zone .register-form .info .tooltip-text {
-  line-height: 1.3;
-}
-
-@-webkit-keyframes scaleZ {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  80% {
-    -webkit-transform: scale(1.07);
-            transform: scale(1.07);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+@media (max-width: 1000px) {
+  .content-panel .text-zone .title {
+    font-size: 1.8em;
   }
 }
 
-@keyframes scaleZ {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  80% {
-    -webkit-transform: scale(1.07);
-            transform: scale(1.07);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+.content-panel .text-zone .title span {
+  color: #fcff00;
+  text-shadow: 0px 0px 8px black;
 }
 
-@-webkit-keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.content-panel .text-zone .description {
+  -ms-grid-row: 1;
+  grid-row: 1fr;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px;
+  font-weight: bold;
+  text-justify: center;
+  text-align: justify;
+  font-size: 1.7vw;
+  line-height: 1.6em;
+  color: white;
+  text-shadow: 0px 0px 8px black;
 }
 
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+@media (max-width: 1000px) {
+  .content-panel .text-zone .description {
+    font-size: 1.3em;
   }
 }
-/*# sourceMappingURL=connection.css.map */
+/*# sourceMappingURL=description_section.css.map */

@@ -85,6 +85,16 @@ body {
     overflow: overlay;
 }
 
+.fadeInUp {
+    opacity: 0;
+
+    &.is-visible {
+        animation-name: fadeInUp;
+        animation-duration: 3s;
+        animation-fill-mode: both;
+    }
+}
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -266,7 +276,7 @@ body {
                 display: none;
                 color: $menu-font-color;
                 text-align: center;
-                background-color: $light-grey;
+                background-color: $dark-grey;
                 padding: 10px 10px;
                 font-size: 0.6em;
                 opacity: 0;
@@ -282,7 +292,7 @@ body {
                 }
 
                 &:hover {
-                    background-color: $dark-grey;
+                    background-color: $light-grey;
                     transition: border-width 0.2s ease-in-out;
                     border-left: 4px solid $yellow;
                     border-right: 4px solid $yellow;

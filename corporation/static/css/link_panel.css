@@ -57,6 +57,19 @@ body {
   overflow: overlay;
 }
 
+.fadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp.is-visible {
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -235,7 +248,7 @@ body {
     display: none;
     color: white;
     text-align: center;
-    background-color: #646464;
+    background-color: #444444;
     padding: 10px 10px;
     font-size: 0.6em;
     opacity: 0;
@@ -249,7 +262,7 @@ body {
     width: 100%;
   }
   header .dropdown_menu li:hover {
-    background-color: #444444;
+    background-color: #646464;
     -webkit-transition: border-width 0.2s ease-in-out;
     transition: border-width 0.2s ease-in-out;
     border-left: 4px solid #fcff00;
@@ -735,6 +748,10 @@ body {
   background-position-y: 40%;
   -webkit-box-shadow: inset 1px 100px 100px -100px black;
           box-shadow: inset 1px 100px 100px -100px black;
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+          clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+  margin-bottom: -6%;
+  padding-bottom: calc(40px + 6%);
 }
 
 @media (max-width: 1000px) {
@@ -764,18 +781,8 @@ body {
   padding: 20px;
   border-radius: 10px;
   max-width: 300px;
-  opacity: 0;
   -webkit-box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
           box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
-}
-
-.link-info .link-item.is-visible {
-  -webkit-animation-name: fadeInUp;
-          animation-name: fadeInUp;
-  -webkit-animation-duration: 3s;
-          animation-duration: 3s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
 }
 
 .link-info .link-item .logo {
@@ -800,7 +807,7 @@ body {
 }
 
 .link-info .link-item .title {
-  font-size: 1.5em;
+  font-size: 1.8em;
   color: #fcff00;
   text-shadow: 0px 0px 8px black;
   text-decoration: none !important;
