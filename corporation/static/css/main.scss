@@ -36,11 +36,11 @@ $yellow: #fcff00;
 $light-grey:#646464;
 $dark-grey: #444444;
 $dark-grey-tr: #414141be;
-$background-tr: #363636d5;
+$background-tr: #222222ad;
 $background: #363636;
 $menu-font-color: rgb(255, 255, 255);
 $menu-svg: url('/static/main/bottom-left.svg');
-$main-font: 'Orbitron';
+$main-font: 'Montserrat';
 
 a {
     color: $yellow;
@@ -73,7 +73,7 @@ body {
     background-position: center;
     background-size:cover; */
     color: $menu-font-color;
-    font-family: 'Orbitron';
+    font-family: 'Montserrat';
     font-weight: bold;
     font-stretch: bold;
     margin: 0;
@@ -610,6 +610,17 @@ body {
     }
 }
 
+@include keyframes(fadeInUp) {
+    from {
+        transform: translate3d(0,100px,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
+}
+
 // =================== preloader =====================
 
 .loader_bg {
@@ -664,3 +675,4 @@ body {
         opacity: 0;
     }
 }
+

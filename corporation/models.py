@@ -406,7 +406,7 @@ class User(db.Model, UserMixin):
             db.session.add(tribute)
 
         influences = Influence_transaction.query.filter(or_(
-            Influence_transaction.user_to == self.RSI_handle, Influence_transaction.user_from == self.RSI_handle,)).all()
+            Influence_transaction.user_to == self.id, Influence_transaction.user_from == self.id,)).all()
         count = 0
         for influence in influences:
             count += influence.amount

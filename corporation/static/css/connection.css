@@ -3,9 +3,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @font-face {
-  font-family: "Phage";
+  font-family: 'Phage';
   src: url("/static/main/font/Phage_Regular.otf") format("opentype");
 }
+
 :root {
   --clip-width: 14px;
   --margin-info-default: -7px;
@@ -36,11 +37,11 @@ body {
 body {
   background: #363636;
   /* background-image: url("CentauriSaiseiFujin.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size:cover; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover; */
   color: white;
-  font-family: "Orbitron";
+  font-family: 'Montserrat';
   font-weight: bold;
   font-stretch: bold;
   margin: 0;
@@ -69,8 +70,8 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #004d9650;
   border-radius: 5px;
-  -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
 /* Handle on hover */
@@ -89,8 +90,8 @@ body {
             justify-content: center;
     position: fixed;
     z-index: 1000;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
   }
   header a {
     text-decoration: none;
@@ -116,8 +117,8 @@ body {
     height: 100%;
     max-height: 100px;
     text-align: center;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
   }
   header .banner img:hover {
     -webkit-transform: scale(1.05);
@@ -151,8 +152,8 @@ body {
     text-align: center;
     width: 25%;
     height: 100%;
-    -webkit-transition: all ease-in-out 0.2s;
-    transition: all ease-in-out 0.2s;
+    -webkit-transition: all ease-in-out .2s;
+    transition: all ease-in-out .2s;
   }
   header .login {
     font-size: 2.4em !important;
@@ -188,8 +189,8 @@ body {
             perspective: 1000px;
     z-index: 100;
     text-shadow: 0px 0px 5px #000000;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
   }
   header .dropdown a {
     width: 100%;
@@ -205,15 +206,15 @@ body {
     display: block;
   }
   header .dropdown::after {
-    content: "";
+    content: '';
     position: absolute;
     width: 0px;
     height: 5px;
     left: 50%;
     bottom: 0;
     background-color: #0083ff;
-    -webkit-transition: all ease-in-out 0.2s;
-    transition: all ease-in-out 0.2s;
+    -webkit-transition: all ease-in-out .2s;
+    transition: all ease-in-out .2s;
   }
   header .dropdown:hover::after {
     width: 100%;
@@ -255,29 +256,29 @@ body {
     border-right: 4px solid #fcff00;
     text-shadow: 0px 0px 3px #0083ff;
     /* &:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 15%;
-        bottom: 15%;
-        left: 5px;
-        width: 3px;
-        height: 70%;
-        margin-right: 5px;
-        background-color: $yellow;
-    } */
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 15%;
+                    bottom: 15%;
+                    left: 5px;
+                    width: 3px;
+                    height: 70%;
+                    margin-right: 5px;
+                    background-color: $yellow;
+                } */
     /* &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 15%;
-        bottom: 15%;
-        right: 5px;
-        width: 3px;
-        height: 70%;
-        margin-left: 5px;
-        background-color: $yellow;
-    } */
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 15%;
+                    bottom: 15%;
+                    right: 5px;
+                    width: 3px;
+                    height: 70%;
+                    margin-left: 5px;
+                    background-color: $yellow;
+                } */
   }
   header .dropdown_menu li:hover .dropdown_menu--animated {
     display: block;
@@ -295,7 +296,7 @@ body {
     position: relative;
   }
   header .last-item:after {
-    content: "";
+    content: '';
     width: 40%;
     height: 1.7px;
     right: 0px;
@@ -306,7 +307,7 @@ body {
     border-left: 3px solid #0083ff;
   }
   header .last-item:before {
-    content: "";
+    content: '';
     background-image: url("/static/main/bottom-left.svg");
     background-repeat: no-repeat;
     position: absolute;
@@ -375,12 +376,14 @@ body {
             animation: scaleZ 300ms 540ms ease-in-out forwards;
   }
 }
+
 .notifications {
   position: fixed;
   z-index: 100000;
   top: 0px;
   left: 0px;
 }
+
 .notifications .alert {
   padding: 20px;
   background-color: #f44336;
@@ -388,18 +391,22 @@ body {
   text-align: center;
   width: calc(100vw - 40px);
 }
+
 .notifications .alert.danger {
   background-color: red;
   color: black;
 }
+
 .notifications .alert.success {
   background-color: green;
   color: white;
 }
+
 .notifications .alert.warning {
   background-color: yellow;
   color: black;
 }
+
 .notifications .alert .closebtn {
   margin-left: 15px;
   color: white;
@@ -411,6 +418,7 @@ body {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
+
 .notifications .alert .closebtn:hover {
   color: black;
 }
@@ -426,8 +434,8 @@ body {
             justify-content: center;
     position: fixed;
     z-index: 1000;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
   }
   header a {
     text-decoration: none;
@@ -462,8 +470,8 @@ body {
     height: 100%;
     max-height: 100px;
     float: left;
-    -webkit-transition: all 0.2s ease-in-out;
-    transition: all 0.2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
   }
   header .banner img:hover {
     -webkit-transform: scale(1.05);
@@ -498,7 +506,9 @@ body {
     height: 40px;
   }
   header nav .dropdown {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-row: 1;
     grid-row: 1fr;
     color: white;
     text-decoration: none;
@@ -512,10 +522,12 @@ body {
     margin-bottom: 1px;
   }
   header nav .dropdown:hover {
+    -ms-grid-row: 10;
     grid-row: 10fr;
     background-color: #363636;
   }
   header nav .dropdown:hover .dropdown_menu {
+    display: -ms-grid;
     display: grid;
   }
   header nav .dropdown .dropdown_menu {
@@ -551,6 +563,7 @@ body {
     margin-right: 5%;
   }
 }
+
 @-webkit-keyframes scaleZ {
   0% {
     opacity: 0;
@@ -567,6 +580,7 @@ body {
             transform: scale(1);
   }
 }
+
 @keyframes scaleZ {
   0% {
     opacity: 0;
@@ -583,6 +597,7 @@ body {
             transform: scale(1);
   }
 }
+
 @-webkit-keyframes fadeInAnimation {
   0% {
     opacity: 0;
@@ -591,6 +606,7 @@ body {
     opacity: 1;
   }
 }
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
@@ -599,6 +615,7 @@ body {
     opacity: 1;
   }
 }
+
 .loader_bg {
   position: fixed;
   z-index: 999999999;
@@ -606,6 +623,7 @@ body {
   width: 100%;
   height: 100%;
 }
+
 .loader_bg .test_loader {
   border: 0 solid transparent;
   border-radius: 50%;
@@ -615,10 +633,12 @@ body {
   top: calc(50vh - 75px);
   left: calc(50vw - 75px);
 }
+
 .loader_bg .test_loader:before {
-  -webkit-animation-delay: 0.5s;
-          animation-delay: 0.5s;
+  -webkit-animation-delay: .5s;
+          animation-delay: .5s;
 }
+
 .loader_bg .test_loader:before, .loader_bg .test_loader:after {
   content: "";
   border: 1em solid #0083ff;
@@ -632,6 +652,7 @@ body {
           animation: loader 2s linear infinite;
   opacity: 0;
 }
+
 @-webkit-keyframes loader {
   0% {
     -webkit-transform: scale(0);
@@ -647,6 +668,7 @@ body {
     opacity: 0;
   }
 }
+
 @keyframes loader {
   0% {
     -webkit-transform: scale(0);
@@ -662,19 +684,24 @@ body {
     opacity: 0;
   }
 }
+
 main {
+  display: -ms-grid;
   display: grid;
   grid-gap: 0px;
   width: 100%;
 }
+
 main .connection {
   min-height: 100%;
   width: 100vw;
+  -ms-grid-column: 1;
   grid-column: 1fr;
   background-image: url("/static/user/line.jpg");
   background-size: cover;
   padding: auto;
 }
+
 main .connection .connection-zone {
   height: 100vh;
   max-width: 1000px;
@@ -682,6 +709,7 @@ main .connection .connection-zone {
   margin-right: auto;
   margin-top: 20vh;
 }
+
 main .connection .connection-zone .login-section {
   border-radius: 20px;
   background-color: #414141be;
@@ -695,7 +723,9 @@ main .connection .connection-zone .login-section {
   position: relative;
   margin-top: 30vh;
 }
+
 main .connection .connection-zone .login-section .discord {
+  display: -ms-grid;
   display: grid;
   position: relative;
   width: 120px;
@@ -707,21 +737,24 @@ main .connection .connection-zone .login-section .discord {
   padding-right: 10px;
   padding-bottom: 0px;
   margin-bottom: 20px;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
   text-align: center;
   color: white;
   text-decoration: none;
   padding: auto;
 }
+
 main .connection .connection-zone .login-section .discord img {
   width: 100%;
   height: auto;
 }
+
 main .connection .connection-zone .login-section .discord:hover {
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
 }
+
 main .connection .connection-zone .login-section .title {
   width: 100%;
   font-family: "Orbitron";
@@ -734,9 +767,11 @@ main .connection .connection-zone .login-section .title {
   color: #fcff00;
   text-shadow: #000000;
 }
+
 main .connection .connection-zone .login-section fieldset {
   border: 0;
 }
+
 main .connection .connection-zone .login-section input[type=text],
 main .connection .connection-zone .login-section input[type=password],
 main .connection .connection-zone .login-section select {
@@ -749,6 +784,7 @@ main .connection .connection-zone .login-section select {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
+
 main .connection .connection-zone .login-section input[type=submit] {
   width: 100%;
   background-color: #0083ff;
@@ -759,17 +795,19 @@ main .connection .connection-zone .login-section input[type=submit] {
   border-radius: 4px;
   cursor: pointer;
   font-size: 2em;
-  font-family: "Orbitron";
+  font-family: "Montserrat";
   font-weight: bold;
-  -webkit-transition: all ease-in-out 0.3s;
-  transition: all ease-in-out 0.3s;
+  -webkit-transition: all ease-in-out .3s;
+  transition: all ease-in-out .3s;
 }
+
 main .connection .connection-zone .login-section input[type=submit]:hover {
   background-color: #fcff00;
   color: black;
   -webkit-transform: scale(1.03);
           transform: scale(1.03);
 }
+
 main .connection .connection-zone .register-form {
   border-radius: 20px;
   background-color: #414141be;
@@ -780,6 +818,7 @@ main .connection .connection-zone .register-form {
   position: relative;
   margin: 10%;
 }
+
 main .connection .connection-zone .register-form .title {
   width: 100%;
   font-family: "Orbitron";
@@ -792,14 +831,17 @@ main .connection .connection-zone .register-form .title {
   color: #fcff00;
   text-shadow: #000000;
 }
+
 main .connection .connection-zone .register-form fieldset {
   border: 0;
 }
+
 main .connection .connection-zone .register-form fieldset .invalid-feedback {
   color: red;
   font-size: 1em;
   margin-bottom: 5px;
 }
+
 main .connection .connection-zone .register-form input[type=text],
 main .connection .connection-zone .register-form input[type=password],
 main .connection .connection-zone .register-form select {
@@ -815,11 +857,13 @@ main .connection .connection-zone .register-form select {
   font-family: "Orbitron";
   letter-spacing: 1.5px;
 }
+
 main .connection .connection-zone .register-form input[type=text].error,
 main .connection .connection-zone .register-form input[type=password].error,
 main .connection .connection-zone .register-form select.error {
   border: 2px solid red;
 }
+
 main .connection .connection-zone .register-form input[type=submit] {
   width: 100%;
   background-color: #0083ff;
@@ -830,17 +874,19 @@ main .connection .connection-zone .register-form input[type=submit] {
   border-radius: 4px;
   cursor: pointer;
   font-size: 2em;
-  font-family: "Orbitron";
+  font-family: "Montserrat";
   font-weight: bold;
-  -webkit-transition: all ease-in-out 0.3s;
-  transition: all ease-in-out 0.3s;
+  -webkit-transition: all ease-in-out .3s;
+  transition: all ease-in-out .3s;
 }
+
 main .connection .connection-zone .register-form input[type=submit]:hover {
   background-color: #fcff00;
   color: black;
   -webkit-transform: scale(1.03);
           transform: scale(1.03);
 }
+
 main .connection .connection-zone .register-form .info {
   height: 50px;
   width: 102%;
@@ -850,6 +896,7 @@ main .connection .connection-zone .register-form .info {
   margin-top: -10px;
   position: relative;
 }
+
 main .connection .connection-zone .register-form .info:after {
   content: "Please put your email inside your RSI bio";
   position: absolute;
@@ -857,6 +904,7 @@ main .connection .connection-zone .register-form .info:after {
   left: 55px;
   font-size: 1.3em;
 }
+
 main .connection .connection-zone .register-form .info .tooltip {
   font-family: Arial, Helvetica, sans-serif;
   background: #000000;
@@ -864,8 +912,8 @@ main .connection .connection-zone .register-form .info .tooltip {
   padding: 1rem;
   border-radius: 10px;
   max-width: 100%;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
   cursor: pointer;
   position: relative;
   z-index: 1;
@@ -878,31 +926,36 @@ main .connection .connection-zone .register-form .info .tooltip {
           flex-direction: column;
   text-align: justify;
 }
+
 main .connection .connection-zone .register-form .info .tooltip.top-right {
   -webkit-clip-path: circle(var(--clip-width) at 20px 20px);
           clip-path: circle(var(--clip-width) at 20px 20px);
   left: 6px;
 }
+
 main .connection .connection-zone .register-form .info .tooltip:hover {
   -webkit-clip-path: circle(100%);
           clip-path: circle(100%);
   z-index: 2;
 }
+
 main .connection .connection-zone .register-form .info .tooltip:hover::before,
 main .connection .connection-zone .register-form .info .tooltip:hover::after {
   background-color: white;
   color: #000000;
   border: none;
 }
+
 main .connection .connection-zone .register-form .info .tooltip::before,
 main .connection .connection-zone .register-form .info .tooltip::after {
   margin: 5px;
 }
+
 main .connection .connection-zone .register-form .info .tooltip.top-left::before,
 main .connection .connection-zone .register-form .info .tooltip.top-right::before,
 main .connection .connection-zone .register-form .info .tooltip.bottom-left::after,
 main .connection .connection-zone .register-form .info .tooltip.bottom-right::after {
-  content: "i";
+  content: 'i';
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -918,17 +971,20 @@ main .connection .connection-zone .register-form .info .tooltip.bottom-right::af
   width: 16px;
   height: 16px;
   padding: 1px;
-  -webkit-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+  -webkit-transition: all .1s ease-in-out;
+  transition: all .1s ease-in-out;
   shape-outside: circle(50%);
 }
+
 main .connection .connection-zone .register-form .info .tooltip.top-right::before {
   margin-left: var(--margin-info-default);
   margin-top: var(--margin-info-default);
 }
+
 main .connection .connection-zone .register-form .info .tooltip-text {
   line-height: 1.3;
 }
+
 @-webkit-keyframes scaleZ {
   0% {
     opacity: 0;
@@ -945,6 +1001,7 @@ main .connection .connection-zone .register-form .info .tooltip-text {
             transform: scale(1);
   }
 }
+
 @keyframes scaleZ {
   0% {
     opacity: 0;
@@ -961,6 +1018,7 @@ main .connection .connection-zone .register-form .info .tooltip-text {
             transform: scale(1);
   }
 }
+
 @-webkit-keyframes fadeInAnimation {
   0% {
     opacity: 0;
@@ -969,6 +1027,7 @@ main .connection .connection-zone .register-form .info .tooltip-text {
     opacity: 1;
   }
 }
+
 @keyframes fadeInAnimation {
   0% {
     opacity: 0;
@@ -976,4 +1035,5 @@ main .connection .connection-zone .register-form .info .tooltip-text {
   100% {
     opacity: 1;
   }
-}/*# sourceMappingURL=connection.css.map */
+}
+/*# sourceMappingURL=connection.css.map */

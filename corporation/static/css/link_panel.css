@@ -616,6 +616,30 @@ body {
   }
 }
 
+@-webkit-keyframes fadeInUp {
+  from {
+    -webkit-transform: translate3d(0, 100px, 0);
+            transform: translate3d(0, 100px, 0);
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    -webkit-transform: translate3d(0, 100px, 0);
+            transform: translate3d(0, 100px, 0);
+  }
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
 .loader_bg {
   position: fixed;
   z-index: 999999999;
@@ -685,7 +709,45 @@ body {
   }
 }
 
-main {
+.link-info {
+  min-height: 50vh;
+  padding: auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  gap: 200px;
+  padding: 10vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background-image: url("/static/landing_page/steel.jpg");
+  background-size: cover;
+  background-position-y: 40%;
+  -webkit-box-shadow: inset 1px 100px 100px -100px black;
+          box-shadow: inset 1px 100px 100px -100px black;
+}
+
+@media (max-width: 1000px) {
+  .link-info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column nowrap;
+            flex-flow: column nowrap;
+    gap: 60px;
+  }
+}
+
+.link-info .link-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -693,478 +755,72 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-  gap: 30px;
-  width: 100vw;
-  background-image: url("/static/texture.svg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  min-height: 100vh;
-}
-
-main .user-info {
-  margin-top: 120px;
-  min-height: 40vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  gap: 30px;
-  padding-right: 5vw;
-  padding-left: 5vw;
-}
-
-@media (max-width: 1400px) {
-  main .user-info {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
-  }
-}
-
-main .user-info .user-tab {
-  background-color: #363636;
+  -ms-grid-rows: 30% 10% 60%;
+      grid-template-rows: 30% 10% 60%;
+  grid-gap: 20px;
+  background-color: #222222ad;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  padding: 20px;
   border-radius: 10px;
+  max-width: 300px;
+  opacity: 0;
+  -webkit-box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+          box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
 }
 
-main .user-info .summary {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 40% 60%;
-      grid-template-rows: 40% 60%;
-  min-width: 30vw;
-  min-height: 40vh;
+.link-info .link-item.is-visible {
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
 }
 
-main .user-info .summary .top-section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  min-height: 300px;
-}
-
-main .user-info .summary .top-section img {
-  border-right: 5px solid #444444;
-  border-bottom: 5px solid #444444;
-  height: auto;
+.link-info .link-item .logo {
   width: 200px;
   height: 200px;
-  border-top-left-radius: 10px;
-}
-
-main .user-info .summary .top-section .handle {
-  margin-bottom: auto;
-  text-align: left;
-  text-justify: top;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  width: 100%;
-  padding: 30px;
-}
-
-main .user-info .summary .top-section .handle .title {
-  color: #9b9b9b;
-  font-size: 20px;
-}
-
-main .user-info .summary .influence-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  padding: 30px;
-}
-
-main .user-info .summary .influence-info .item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  text-align: left;
-  text-justify: center;
-  width: 100%;
-  margin: auto;
-}
-
-main .user-info .summary .influence-info .item .title {
-  width: 50%;
-}
-
-main .user-info .user-link {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  padding: 30px;
-  min-width: 45vw;
-  max-width: 90vw;
-  min-height: 40vh;
-}
-
-@media (min-width: 1400px) {
-  main .user-info .user-link {
-    width: 100%;
-  }
-}
-
-main .user-info .user-link .link-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  display: row nowrap;
-  margin-top: auto;
-  margin-bottom: auto;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-  width: 100%;
-}
-
-main .user-info .user-link .link-item .title {
-  width: 30%;
-}
-
-main .user-info .user-link .link-item .value {
-  width: 100%;
-}
-
-main .tools {
-  min-height: 40vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  gap: 30px;
-  padding-left: 5vw;
-  padding-right: 5vw;
-}
-
-@media (max-width: 1400px) {
-  main .tools {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-flow: column nowrap;
-            flex-flow: column nowrap;
-  }
-}
-
-main .tools .tools-tab {
-  background-color: #363636;
-  border-radius: 10px;
-  padding: 30px;
-}
-
-@media (min-width: 1400px) {
-  main .tools .tools-tab {
-    width: 100%;
-  }
-}
-
-main .tools .tools-tab.influence-weight .weight {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: right;
-      -ms-flex-pack: right;
-          justify-content: right;
-  width: 100%;
-}
-
-main .tools .tools-tab.influence-weight .weight label {
-  font-size: 20px;
-}
-
-main .tools .tools-tab.influence-weight .weight .w-title {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: right;
-      -ms-flex-pack: right;
-          justify-content: right;
-  margin-left: auto;
-  margin-right: 10px;
-}
-
-main .tools .tools-tab.influence-weight fieldset {
-  border: 0;
-}
-
-main .tools .tools-tab.influence-weight .invalid-feedback {
-  color: red;
-  font-size: 0.8em;
-  margin-bottom: 5px;
-}
-
-main .tools .tools-tab.influence-weight input[type=text],
-main .tools .tools-tab.influence-weight input[type=password],
-main .tools .tools-tab.influence-weight textarea,
-main .tools .tools-tab.influence-weight select {
-  -webkit-box-align: right;
-      -ms-flex-align: right;
-          align-items: right;
-  width: 100px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-left: auto;
-  padding: 12px 20px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-main .tools .tools-tab.influence-weight input[type=text].error,
-main .tools .tools-tab.influence-weight input[type=password].error,
-main .tools .tools-tab.influence-weight textarea.error,
-main .tools .tools-tab.influence-weight select.error {
-  border: 2px solid red;
-}
-
-main .tools .tools-tab.influence-weight textarea {
-  min-height: 200px;
-}
-
-main .tools .tools-tab.influence-weight .submit_button {
-  width: 100%;
-  background-color: #0083ff;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 2em;
-  font-family: "Montserrat";
-  font-weight: bold;
-  -webkit-transition: all ease-in-out .3s;
-  transition: all ease-in-out .3s;
-}
-
-main .tools .tools-tab.influence-weight .submit_button:hover {
-  background-color: #fcff00;
-  color: black;
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
-}
-
-main .tools .role-section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-  gap: 20px;
-  min-width: 35vw;
-}
-
-main .tools .role-section .roles {
-  -ms-flex-line-pack: start;
-      align-content: flex-start;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  text-align: center;
-}
-
-main .tools .role-section .roles div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  grid-gap: 3px;
-  -ms-flex-item-align: start;
-      align-self: flex-start;
-  text-decoration: none;
-  font-weight: normal;
-  border: 2px solid red;
-  border-radius: 15px;
-  padding-top: 2.5px;
-  padding-bottom: 2.5px;
-  padding-left: 5px;
-  padding-right: 10px;
-  font-size: 15px;
-  margin-right: 5px;
-  margin-top: 4px;
-  text-align: center;
-}
-
-main .tools .role-section .roles div p {
-  display: block;
-  border-radius: 15px;
-  width: 15px;
-  height: 15px;
-  text-align: center;
-  margin: auto;
-}
-
-main .tools .influence-transfer .title {
-  width: 100%;
-  font-family: "Orbitron";
-  font-size: 6em;
-  margin-top: -120px;
+  -ms-grid-row: 1;
+  grid-row: 1fr;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 15px;
-  text-align: center;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+.link-info .link-item .logo:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+}
+
+.link-info .link-item .logo img {
+  width: 100%;
+  height: auto;
+}
+
+.link-info .link-item .title {
+  font-size: 1.5em;
   color: #fcff00;
-  text-shadow: #000000;
+  text-shadow: 0px 0px 8px black;
+  text-decoration: none !important;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
-main .tools .influence-transfer fieldset {
-  border: 0;
+.link-info .link-item .title:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
 }
 
-main .tools .influence-transfer .invalid-feedback {
-  color: red;
-  font-size: 0.8em;
-  margin-bottom: 5px;
+.link-info .link-item .description {
+  max-width: 60vw;
+  -ms-grid-row: 1;
+  grid-row: 1fr;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0px 0px 8px black;
 }
-
-main .tools .influence-transfer input[type=text],
-main .tools .influence-transfer input[type=password],
-main .tools .influence-transfer textarea,
-main .tools .influence-transfer select {
-  width: 100%;
-  min-width: 100%;
-  max-width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-main .tools .influence-transfer input[type=text].error,
-main .tools .influence-transfer input[type=password].error,
-main .tools .influence-transfer textarea.error,
-main .tools .influence-transfer select.error {
-  border: 2px solid red;
-}
-
-main .tools .influence-transfer textarea {
-  min-height: 200px;
-}
-
-main .tools .influence-transfer .submit_button {
-  width: 100%;
-  background-color: #0083ff;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 2em;
-  font-family: "Montserrat";
-  font-weight: bold;
-  -webkit-transition: all ease-in-out .3s;
-  transition: all ease-in-out .3s;
-}
-
-main .tools .influence-transfer .submit_button:hover {
-  background-color: #fcff00;
-  color: black;
-  -webkit-transform: scale(1.03);
-          transform: scale(1.03);
-}
-
-main .transaction {
-  min-height: 40vh;
-  display: -ms-grid;
-  display: grid;
-  grid-gap: 30px;
-  padding-left: 5vw;
-  padding-right: 5vw;
-  margin-bottom: 30px;
-}
-
-@media (min-width: 800px) {
-  main .transaction {
-    -ms-grid-columns: 50% 50%;
-        grid-template-columns: 50% 50%;
-  }
-}
-
-@media (max-width: 800px) {
-  main .transaction {
-    -ms-grid-rows: 100vh 100vh;
-        grid-template-rows: 100vh 100vh;
-  }
-}
-
-main .transaction .transaction-tab {
-  background-color: #363636;
-  border-radius: 10px;
-  padding: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
-}
-
-main .transaction .transaction-tab .item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  border: 2px solid black;
-  padding: 10px;
-}
-
-main .transaction .transaction-tab .item .user {
-  width: 40%;
-}
-
-main .transaction .transaction-tab .item .amount {
-  width: 10%;
-}
-
-main .transaction .transaction-tab .item .message {
-  width: 50%;
-}
-/*# sourceMappingURL=account.css.map */
+/*# sourceMappingURL=link_panel.css.map */

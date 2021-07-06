@@ -1,0 +1,86 @@
+@import 'main';
+
+.link-info {
+    min-height: 50vh;
+    padding: auto;
+    text-align: center;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 200px;
+    padding: 10vh;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-image: url("/static/landing_page/steel.jpg");
+    background-size: cover;
+    background-position-y: 40%;
+    box-shadow: inset 1px 100px 100px -100px rgb(0, 0, 0);
+
+    @media (max-width: 1000px) {
+        flex-flow: column nowrap;
+        gap: 60px;
+    }
+
+    .link-item {
+        display: flex;
+        flex-flow: column nowrap;
+        grid-template-rows: 30% 10% 60%;
+        //border-radius: 20px;
+        grid-gap: 20px;
+        background-color: $background-tr ;
+        backdrop-filter: blur(6px);
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 300px;
+        opacity: 0;
+        box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+
+        &.is-visible {
+            animation-name: fadeInUp;
+            animation-duration: 3s;
+            animation-fill-mode: both;
+        }
+        
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            grid-row: 1fr;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.15);
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .title {
+            font-size: 1.5em;
+            color: $yellow;
+            text-shadow: 0px 0px 8px black;
+            text-decoration: none!important;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.15);
+            }
+        }
+
+        .description {
+            max-width: 60vw;
+            grid-row: 1fr;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0px 0px 8px black;
+        }
+    }
+}

@@ -15,6 +15,7 @@
     <title>The Corporation</title>
     {% endif %}
 
+    <link rel="prefetch" href="/static" />
 
     <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
     <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
@@ -31,6 +32,7 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
 
 
@@ -72,6 +74,41 @@
                     }
                 }
             }
+
+            $('.link-item').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+
+            $('.title').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+
+            $('.description').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+
+            
         }
     </script>
 
