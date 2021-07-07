@@ -124,7 +124,7 @@ class User(db.Model, UserMixin):
 
     def div_influence(self, division):
         
-        influence = Influence.query.filter_by(division = division.id).first()
+        influence = Influence.query.filter_by(user_id = self.id, division = division.id).first()
         
         if not influence:
             return 0
