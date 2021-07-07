@@ -1,7 +1,7 @@
 @import 'main';
 
 .content-panel {
-    height: 70vh;
+    min-height: 70vh;
     display: flex;
     padding: 40px;
     
@@ -9,25 +9,25 @@
     background-position-x: center;
     background-repeat: no-repeat;
     background-size: cover;
+    clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
     
     
 
     &.top {
-        clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+        //clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
         margin-bottom: -6%;
         padding-bottom: calc(40px + 6%);
         
     }
     &.middle {
-        clip-path: polygon(0 0, 35% 0, 40% 6%, 60% 6%, 65% 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
-        margin-bottom: -6%;
-        padding-top: 6%;
-        padding-bottom: calc(40px + 6%);
+        //clip-path: polygon(0 0, 35% 0, 40% 6%, 60% 6%, 65% 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+        margin-bottom: -7%;
+        padding-top: calc(40px + 6%);
+        padding-bottom: calc(40px + 9%);
     }
     &.bottom {
-        clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
-        padding-top: 6%;
-        
+        //clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
+        padding-top: calc(40px + 6%);
     }
 
     @media (max-width: 1000px) {
@@ -62,10 +62,10 @@
         flex-flow: column nowrap;
         margin: auto;
         background-color: $background-tr ;
+        -webkit-backdrop-filter: blur(6px);
         backdrop-filter: blur(6px);
         box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
-
-
+        //border-radius: 10px;
         padding-top: calc(10px + 5%);
         padding-bottom: calc(10px + 5%);
 

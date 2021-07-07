@@ -57,6 +57,19 @@ body {
   overflow: overlay;
 }
 
+.fadeInUp {
+  opacity: 0;
+}
+
+.fadeInUp.is-visible {
+  -webkit-animation-name: fadeInUp;
+          animation-name: fadeInUp;
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+  -webkit-animation-fill-mode: both;
+          animation-fill-mode: both;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -235,7 +248,7 @@ body {
     display: none;
     color: white;
     text-align: center;
-    background-color: #363636;
+    background-color: #444444;
     padding: 10px 10px;
     font-size: 0.6em;
     opacity: 0;
@@ -249,7 +262,7 @@ body {
     width: 100%;
   }
   header .dropdown_menu li:hover {
-    background-color: #444444;
+    background-color: #646464;
     -webkit-transition: border-width 0.2s ease-in-out;
     transition: border-width 0.2s ease-in-out;
     border-left: 4px solid #fcff00;
@@ -1190,5 +1203,35 @@ main .transaction .transaction-tab .item .amount {
 
 main .transaction .transaction-tab .item .message {
   width: 50%;
+}
+
+main .graph {
+  min-height: 40vh;
+  display: -ms-grid;
+  display: grid;
+  grid-gap: 30px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  margin-bottom: 30px;
+}
+
+main .graph div {
+  background-color: #363636;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+@media (min-width: 800px) {
+  main .graph {
+    -ms-grid-columns: 50% 50%;
+        grid-template-columns: 50% 50%;
+  }
+}
+
+@media (max-width: 800px) {
+  main .graph {
+    -ms-grid-rows: 100vh 100vh;
+        grid-template-rows: 100vh 100vh;
+  }
 }
 /*# sourceMappingURL=account.css.map */

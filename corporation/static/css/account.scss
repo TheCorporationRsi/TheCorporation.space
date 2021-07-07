@@ -390,4 +390,29 @@ main {
         }
     }
 
+    .graph {
+        min-height: 40vh;
+        display: grid;
+        grid-gap: 30px;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        margin-bottom: 30px;
+
+        div {
+            background-color: $background;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        @media (min-width: 800px) {
+            grid-template-columns: 50% 50%;
+        }
+
+        @media (max-width: 800px) {
+            grid-template-rows: 100vh 100vh;
+        }
+
+
+    }
+
 }

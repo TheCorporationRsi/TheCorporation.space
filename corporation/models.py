@@ -122,6 +122,15 @@ class User(db.Model, UserMixin):
         
         return link.weight
 
+    def div_influence(self, division):
+        
+        influence = Influence.query.filter_by(division = division.id).first()
+        
+        if not influence:
+            return 0
+        
+        return influence.amount
+
     def dep_weight(self, department):
         weight = 0
         for division in department.divisions:

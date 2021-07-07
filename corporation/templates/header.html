@@ -15,8 +15,6 @@
     <title>The Corporation</title>
     {% endif %}
 
-    <link rel="prefetch" href="/static" />
-
     <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
     <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
     <meta property="og:image" content="/static/main/corplogo.png" />
@@ -85,8 +83,13 @@
                     $(this).addClass('is-visible');
                 }
             });
+        }
 
-            
+        function upgradeImage(object) {
+            var id = object.id;
+            var target = "div_" + id.substring(4);
+        
+            document.getElementById(target).style.backgroundImage = "url(" + object.src + ")";
         }
     </script>
 

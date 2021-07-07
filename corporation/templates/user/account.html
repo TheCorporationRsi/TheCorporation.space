@@ -2,7 +2,6 @@
 
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/account.css') }}">
-
 <script type="text/javascript">
 
     function update_user_weight() {
@@ -98,6 +97,7 @@
         update_influence_transfer()
         update_user_weight()
     });
+
 </script>
 
 {% endblock style %}
@@ -251,6 +251,7 @@
 
     </div>
 </div>
+
 <div class="transaction">
     <div class="transaction-tab">
 
@@ -289,8 +290,68 @@
             <div class="message">{{ transaction.message}}</div>
         </div>
         {% endfor %}
-        
+
     </div>
+</div>
+
+<div class="graph">
+    <div>
+        <h1 style="text-align: center; padding-bottom: 20px;">Influence / Weight chart</h1>
+        <canvas id="weightgraph" height="400" width="400"></canvas>
+    </div>
+    <script>
+        Chart.defaults.color = "#fff";
+        var ctx = document.getElementById('weightgraph');
+        var myChart = new Chart(ctx, {
+
+            type: 'doughnut',
+            data: {
+                labels: [
+                    {% for division in division_list %}
+                    '{{division.title}}',
+                    {% endfor %}
+                ],
+        datasets: [{
+
+            label: 'Division influence',
+            data: [
+                {% for division in division_list %}
+                {{ current_user.div_influence(division)|round }},
+        {% endfor %}
+        ],
+            backgroundColor: [
+                {% for division in division_list %}
+        '{{ division.color() }}',
+            {% endfor %}
+        ],
+        hoverOffset: 10,
+            borderColor: '#363636'
+
+    }, {
+
+            label: 'Division Weight',
+                data: [
+                    {% for division in division_list %}
+        {{ current_user.div_weight(division) }},
+        {% endfor %}
+                ],
+        backgroundColor: [
+            {% for division in division_list %}
+        '{{ division.color() }}',
+            {% endfor %}
+            ],
+        hoverOffset: 10,
+            borderColor: '#363636'
+
+        }
+        
+        ]
+        }
+
+        });
+
+    </script>
+
 </div>
 {% endif %}
 {% endblock content %}
