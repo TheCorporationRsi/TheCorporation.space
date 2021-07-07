@@ -1168,6 +1168,55 @@ main .transaction {
   }
 }
 
+main .transaction .tbl {
+  position: relative;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 30px;
+  page-break-inside: auto;
+  color: black;
+}
+
+main .transaction .tbl thead {
+  display: table-header-group;
+  background-color: #474747;
+}
+
+main .transaction .tbl tfoot {
+  display: table-row-group;
+}
+
+main .transaction .tbl tr {
+  page-break-inside: avoid;
+  page-break-after: auto;
+}
+
+main .transaction .tbl tbody tr:nth-of-type(odd) {
+  background-color: #f0f0f0;
+}
+
+main .transaction .tbl tbody tr:nth-of-type(even) {
+  background-color: #949494;
+}
+
+main .transaction .tbl th, main .transaction .tbl td {
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 18px;
+  border: 1px solid #dddddd;
+}
+
+main .transaction .tbl th {
+  color: #969696;
+  font-weight: 200;
+}
+
+main .transaction .tbl tfoot td {
+  color: #969696;
+  font-weight: 200;
+}
+
 main .transaction .transaction-tab {
   background-color: #363636;
   border-radius: 10px;

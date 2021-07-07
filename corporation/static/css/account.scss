@@ -361,6 +361,56 @@ main {
             grid-template-rows: 100vh 100vh;
         }
 
+        .tbl
+			{
+				position: relative;
+				border-collapse: collapse;
+				width: 100%;
+				margin-bottom: 30px;
+				page-break-inside: auto;
+                color: black;
+
+                thead {
+					display: table-header-group;
+                    background-color: #474747;
+				}
+                
+                tfoot {
+					display: table-row-group;
+				}
+                tr {
+					page-break-inside: avoid; 
+					page-break-after: auto;
+				}
+                
+                tbody tr:nth-of-type(odd) {
+					background-color: #f0f0f0;
+				}
+                tbody tr:nth-of-type(even) {
+					background-color: #949494;
+				}
+                
+                th, td {
+					text-align: left;
+					padding: 10px;
+					font-size: 14px;
+					line-height: 18px;
+					border: 1px solid #dddddd;
+				}
+
+                th
+				{
+					color: rgba(150,150,150,1);
+					font-weight: 200;
+				}
+
+                tfoot td {
+					color: rgba(150,150,150,1);
+					font-weight: 200;
+				}
+			}
+            
+
         .transaction-tab {
             background-color: $background;
             border-radius: 10px;

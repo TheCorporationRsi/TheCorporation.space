@@ -254,42 +254,50 @@
 
 <div class="transaction">
     <div class="transaction-tab">
-
         <label>Received</label>
-        <div class="item">
-            <div class="user">From</h6>
-            </div>
-            <div class="amount">Amount</div>
-            <div class="message">Message</div>
-        </div>
-        {% for transaction in current_user.inf_transfer_history(type = 'received') %}
-        <div class="item">
-            <div class="user">{{ transaction.user_from_handle}}</h6>
-            </div>
-            <div class="amount">{{ transaction.amount}}</div>
-            <div class="message">{{ transaction.message}}</div>
-        </div>
-        {% endfor %}
+        <table class="tbl">
+			<thead>
+				<tr>
+					<th>Sender</th>
+					<th>Amount</th>
+                    <th>Message</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for transaction in current_user.inf_transfer_history(type ='received') %}
+				<tr>
+					<td>{{ transaction.user_from_handle}}</td>
+					<td>{{ transaction.amount}}</td>
+                    <td>{{ transaction.message}}</td>
+				</tr>
+                {% endfor %}
+			</tbody>
+		</table>
 
     </div>
 
     <div class="transaction-tab">
 
         <label>Sent</label>
-        <div class="item">
-            <div class="user">To</h6>
-            </div>
-            <div class="amount">Amount</div>
-            <div class="message">Message</div>
-        </div>
-        {% for transaction in current_user.inf_transfer_history(type ='sent') %}
-        <div class="item">
-            <div class="user">{{ transaction.user_to_handle}}</h6>
-            </div>
-            <div class="amount">{{ transaction.amount}}</div>
-            <div class="message">{{ transaction.message}}</div>
-        </div>
-        {% endfor %}
+
+        <table class="tbl">
+			<thead>
+				<tr>
+					<th>Receiver</th>
+					<th>Amount</th>
+                    <th>Message</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for transaction in current_user.inf_transfer_history(type ='sent') %}
+				<tr>
+					<td>{{ transaction.user_to_handle}}</td>
+					<td>{{ transaction.amount}}</td>
+                    <td>{{ transaction.message}}</td>
+				</tr>
+                {% endfor %}
+			</tbody>
+		</table>
 
     </div>
 </div>
