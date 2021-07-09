@@ -133,6 +133,6 @@
     }
     
     100% { 
-        transform: translateX(calc(-100vw + -250px*8));  
+        transform: translateX(calc(-100vw + -250px*#{$departments_count}));  
     }
   }

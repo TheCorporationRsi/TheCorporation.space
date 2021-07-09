@@ -970,7 +970,7 @@ input[type="submit"] {
   margin-bottom: -6%; }
   .link-info.middle {
     clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
-    padding-top: calc(60px + 6%); }
+    padding-top: calc(60px + 5%); }
     @media (max-width: 1000px) {
       .link-info.middle {
         clip-path: polygon(40% 2%, 60% 2%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0); } }
@@ -1024,7 +1024,7 @@ input[type="submit"] {
 .hero {
   height: 100vh;
   width: 100vw;
-  background-image: url("/static/landing_page/1_low.png");
+  background-color: #363636;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 40% bottom;
@@ -1156,7 +1156,7 @@ input[type="submit"] {
 
 .side_slide_presentation {
   position: relative;
-  min-height: 50vh;
+  min-height: 60vh;
   padding: auto;
   text-align: center;
   display: flex;
@@ -1173,6 +1173,15 @@ input[type="submit"] {
   box-shadow: inset 1px 100px 100px -100px black;
   margin-bottom: -6%;
   overflow: hidden; }
+  .side_slide_presentation h1 {
+    position: absolute;
+    left: 25vw;
+    top: 30px;
+    width: 50vw;
+    font-size: 6em;
+    color: #363636;
+    font-family: "Orbitron";
+    text-align: center; }
   .side_slide_presentation .slide-item {
     position: absolute;
     display: flex;
@@ -1186,7 +1195,8 @@ input[type="submit"] {
     max-width: 300px;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
     transition: 0.2s ease-out;
-    min-height: 30vh; }
+    min-height: 30vh;
+    top: 28%; }
     .side_slide_presentation .slide-item.item-1 {
       animation: side-infinite-move 24s linear infinite;
       animation-delay: 0s;
@@ -1222,6 +1232,46 @@ input[type="submit"] {
     .side_slide_presentation .slide-item.item-9 {
       animation: side-infinite-move 24s linear infinite;
       animation-delay: 24s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-10 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 27s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-11 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 30s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-12 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 33s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-13 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 36s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-14 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 39s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-15 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 42s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-16 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 45s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-17 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 48s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-18 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 51s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-19 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 54s;
       right: -300px; }
     .side_slide_presentation .slide-item:hover {
       box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.534); }

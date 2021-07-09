@@ -1,6 +1,6 @@
 .side_slide_presentation {
     position: relative;
-    min-height: 50vh;
+    min-height: 60vh;
     padding: auto;
     text-align: center;
     display: flex;
@@ -19,6 +19,17 @@
     margin-bottom: -6%;
     overflow: hidden;
 
+    h1 {
+        position: absolute;
+        left: 25vw;
+        top: 30px;
+        width: 50vw;
+        font-size: 6em;
+        color: $background;
+        font-family: "Orbitron";
+        text-align: center;
+    }
+
     .slide-item {
         position: absolute;
         display: flex;
@@ -34,12 +45,13 @@
         box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
         transition: 0.2s ease-out;
         min-height: 30vh;
+        top: 28%;
         
 
-        @for $i from 1 to 10 {
+        @for $i from 1 to 20 {
 
             &.item-#{$i} {
-                animation: side-infinite-move 24s linear infinite;
+                animation: side-infinite-move (3s*$departments_count) linear infinite;
                 animation-delay: (-3s+3*$i); 
                 right: -300px;
             }

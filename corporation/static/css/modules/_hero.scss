@@ -4,7 +4,8 @@
 .hero {
     height: 100vh;
     width: 100vw;
-    background-image: url("/static/landing_page/1_low.png");
+    background-color: $background;
+    //background-image: url("/static/landing_page/1_low.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 40% bottom;

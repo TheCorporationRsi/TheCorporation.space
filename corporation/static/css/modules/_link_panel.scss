@@ -19,7 +19,7 @@
 
     &.middle {
         clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
-        padding-top: calc(60px + 6%);
+        padding-top: calc(60px + 5%);
 
         @media (max-width: 1000px) {
             clip-path: polygon(40% 2%, 60% 2%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
