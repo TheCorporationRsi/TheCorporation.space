@@ -1,0 +1,83 @@
+
+
+.link-info {
+    min-height: 50vh;
+    padding: auto;
+    text-align: center;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 200px;
+    padding: 10vh;
+    align-items: center;
+    justify-content: center;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    background-image: url("/static/landing_page/steel.jpg");
+    background-size: cover;
+    background-position-y: 40%;
+    box-shadow: inset 1px 100px 100px -100px rgb(0, 0, 0);
+    //clip-path: polygon(0 0, 100% 0, 100% 94%, 65% 94%, 60% 100%, 40% 100%, 35% 94%, 0 94%);
+    margin-bottom: -6%;
+    //padding-top: calc(40px + 6%);
+    padding-bottom: calc(40px + 6%);
+
+    @media (max-width: 1000px) {
+        flex-flow: column nowrap;
+        gap: 60px;
+    }
+
+    .link-item {
+        display: flex;
+        flex-flow: column nowrap;
+        grid-template-rows: 30% 10% 60%;
+        //border-radius: 20px;
+        grid-gap: 20px;
+        background-color: $background-tr ;
+        backdrop-filter: blur(6px);
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 300px;
+        box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+        
+
+        .logo {
+            width: 200px;
+            height: 200px;
+            grid-row: 1fr;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.15);
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .title {
+            font-size: 1.8em;
+            color: $yellow;
+            text-shadow: 0px 0px 8px black;
+            text-decoration: none!important;
+            transition: all .3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.15);
+            }
+        }
+
+        .description {
+            max-width: 60vw;
+            grid-row: 1fr;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0px 0px 8px black;
+        }
+    }
+}
