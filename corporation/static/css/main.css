@@ -959,7 +959,7 @@ input[type="submit"] {
   flex-flow: row nowrap;
   gap: 10vw;
   padding: 10vh;
-  padding-top: calc(60px+ 8%);
+  padding-top: 60px;
   align-items: center;
   justify-content: center;
   padding-bottom: calc(60px + 6%);
@@ -967,8 +967,13 @@ input[type="submit"] {
   background-size: cover;
   background-position-y: 40%;
   box-shadow: inset 1px 100px 100px -100px black;
-  clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
   margin-bottom: -6%; }
+  .link-info.middle {
+    clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
+    padding-top: calc(60px + 6%); }
+    @media (max-width: 1000px) {
+      .link-info.middle {
+        clip-path: polygon(40% 2%, 60% 2%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0); } }
   @media (max-width: 1000px) {
     .link-info {
       flex-flow: column nowrap;
@@ -984,7 +989,7 @@ input[type="submit"] {
     border-radius: 10px;
     max-width: 300px;
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
-    transition: .2s ease-out; }
+    transition: 0.2s ease-out; }
     .link-info .link-item:hover {
       box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.534); }
     .link-info .link-item .logo {
@@ -993,7 +998,7 @@ input[type="submit"] {
       grid-row: 1fr;
       margin-left: auto;
       margin-right: auto;
-      transition: all .3s ease-in-out; }
+      transition: all 0.3s ease-in-out; }
       .link-info .link-item .logo:hover {
         transform: scale(1.15); }
       .link-info .link-item .logo img {
@@ -1004,7 +1009,7 @@ input[type="submit"] {
       color: #fcff00;
       text-shadow: 0px 0px 8px black;
       text-decoration: none !important;
-      transition: all .3s ease-in-out; }
+      transition: all 0.3s ease-in-out; }
       .link-info .link-item .title:hover {
         transform: scale(1.15); }
     .link-info .link-item .description {
