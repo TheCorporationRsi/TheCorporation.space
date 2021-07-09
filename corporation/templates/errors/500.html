@@ -1,11 +1,10 @@
 {% extends "header.html" %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/error.css') }}">
 {% endblock style %}
 
 {% block content %}
-    <div class="content-section">
+    <div class="error-section">
         <h1>Something went wrong(500)</h1>
         <p>We're experiencing problem, please try again later</p>
     </div>

@@ -996,7 +996,7 @@ input[type="submit"] {
   grid-template-columns: 1fr 1fr;
   grid-gap: 5%;
   box-shadow: inset 0 300px 100px -7px rgba(0, 0, 0, 0.4); }
-  .hero:before {
+  .hero.landing::before {
     content: "";
     background-image: url("/static/landing_page/cool_logo.svg");
     background-size: cover;
@@ -1011,6 +1011,30 @@ input[type="submit"] {
     animation-fill-mode: both;
     animation-delay: 1s;
     opacity: 0; }
+  .hero .dep-logo {
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    padding: auto;
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    font-family: "Orbitron";
+    font-weight: bold;
+    top: 0;
+    left: 0;
+    font-size: 5em;
+    animation-name: fadeInUp;
+    animation-duration: 3s;
+    animation-fill-mode: both;
+    opacity: 0; }
+    .hero .dep-logo svg {
+      align-items: center;
+      height: 30vw;
+      width: 30vw; }
   .hero .pic-wrapper {
     position: absolute;
     width: 100vw;
@@ -1071,3 +1095,8 @@ input[type="submit"] {
     background-size: cover; }
   .hero .pic-1 {
     opacity: 1; }
+
+.error-section {
+  margin: auto;
+  vertical-align: middle;
+  margin-top: 40vh; }
