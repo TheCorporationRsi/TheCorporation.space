@@ -249,6 +249,30 @@
     opacity: 0;
     transform: scale(1); } }
 
+@-o-keyframes side-infinite-move {
+  0% {
+    transform: translateX(0); }
+  100% {
+    transform: translateX(calc(-100vw + -250px*8)); } }
+
+@-moz-keyframes side-infinite-move {
+  0% {
+    transform: translateX(0); }
+  100% {
+    transform: translateX(calc(-100vw + -250px*8)); } }
+
+@-webkit-keyframes side-infinite-move {
+  0% {
+    transform: translateX(0); }
+  100% {
+    transform: translateX(calc(-100vw + -250px*8)); } }
+
+@keyframes side-infinite-move {
+  0% {
+    transform: translateX(0); }
+  100% {
+    transform: translateX(calc(-100vw + -250px*8)); } }
+
 a {
   color: #fcff00; }
 
@@ -267,10 +291,11 @@ body {
 
 body {
   background: #363636;
-  /* background-image: url("CentauriSaiseiFujin.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size:cover; */
+  background-image: url("/static/texture.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
   color: white;
   font-family: 'Montserrat';
   font-weight: bold;
@@ -883,8 +908,14 @@ input[type="submit"] {
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
-    padding-top: calc(10px + 5%);
-    padding-bottom: calc(10px + 5%); }
+    padding: 20px; }
+    @media (min-width: 1000px) {
+      .content-panel .text-zone {
+        padding-top: calc(20px + 5%);
+        padding-bottom: calc(20px + 5%); } }
+    @media (max-width: 1000px) {
+      .content-panel .text-zone {
+        border-radius: 20px; } }
     .content-panel .text-zone .title {
       display: flex;
       gap: 10px;
@@ -926,18 +957,18 @@ input[type="submit"] {
   text-align: center;
   display: flex;
   flex-flow: row nowrap;
-  gap: 200px;
+  gap: 10vw;
   padding: 10vh;
+  padding-top: calc(60px+ 8%);
   align-items: center;
   justify-content: center;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-bottom: calc(60px + 6%);
   background-image: url("/static/landing_page/steel.jpg");
   background-size: cover;
   background-position-y: 40%;
   box-shadow: inset 1px 100px 100px -100px black;
-  margin-bottom: -6%;
-  padding-bottom: calc(40px + 6%); }
+  clip-path: polygon(40% 6%, 60% 6%, 65% 0, 100% 0, 100% 100%, 0 100%, 0 0, 35% 0);
+  margin-bottom: -6%; }
   @media (max-width: 1000px) {
     .link-info {
       flex-flow: column nowrap;
@@ -949,10 +980,13 @@ input[type="submit"] {
     grid-gap: 20px;
     background-color: #1b1b1bc2;
     backdrop-filter: blur(6px);
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
     max-width: 300px;
-    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534); }
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+    transition: .2s ease-out; }
+    .link-info .link-item:hover {
+      box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.534); }
     .link-info .link-item .logo {
       width: 200px;
       height: 200px;
@@ -1097,6 +1131,112 @@ input[type="submit"] {
     opacity: 1; }
 
 .error-section {
-  margin: auto;
-  vertical-align: middle;
-  margin-top: 40vh; }
+  position: absolute;
+  top: calc(15vh + 60px);
+  left: 15vw;
+  height: 70vh;
+  width: 70vw;
+  padding: auto;
+  text-align: center; }
+  .error-section h1 {
+    color: #0083ff;
+    font-size: 2.8em; }
+    .error-section h1 span {
+      color: #fcff00; }
+  .error-section p {
+    font-size: 1.3em; }
+  .error-section img {
+    height: 50vh;
+    width: auto; }
+
+.side_slide_presentation {
+  position: relative;
+  min-height: 50vh;
+  padding: auto;
+  text-align: center;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10vw;
+  padding: 10vh;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+  padding-bottom: calc(60px + 6%);
+  background-image: url("/static/landing_page/crusader_low.jpg");
+  background-size: cover;
+  background-position-y: 40%;
+  box-shadow: inset 1px 100px 100px -100px black;
+  margin-bottom: -6%;
+  overflow: hidden; }
+  .side_slide_presentation .slide-item {
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    grid-template-rows: 30% 10% 60%;
+    grid-gap: 20px;
+    background-color: #1b1b1bc2;
+    backdrop-filter: blur(6px);
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 300px;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+    transition: 0.2s ease-out;
+    min-height: 30vh; }
+    .side_slide_presentation .slide-item.item-1 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 0s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-2 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 3s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-3 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 6s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-4 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 9s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-5 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 12s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-6 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 15s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-7 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 18s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-8 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 21s;
+      right: -300px; }
+    .side_slide_presentation .slide-item.item-9 {
+      animation: side-infinite-move 24s linear infinite;
+      animation-delay: 24s;
+      right: -300px; }
+    .side_slide_presentation .slide-item:hover {
+      box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.534); }
+    .side_slide_presentation .slide-item .logo {
+      width: 200px;
+      height: 200px;
+      grid-row: 1fr;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.3s ease-in-out; }
+      .side_slide_presentation .slide-item .logo:hover {
+        transform: scale(1.15); }
+      .side_slide_presentation .slide-item .logo svg {
+        width: 100%;
+        height: auto; }
+    .side_slide_presentation .slide-item .title {
+      font-size: 1.6em;
+      color: #fcff00;
+      text-shadow: 0px 0px 8px black;
+      text-decoration: none !important;
+      transition: all 0.3s ease-in-out; }
+      .side_slide_presentation .slide-item .title:hover {
+        transform: scale(1.15); }

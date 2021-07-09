@@ -125,3 +125,14 @@
         transform: scale(1);
     }
 }
+
+
+@include keyframes(side-infinite-move) {
+    0% {
+        transform: translateX(0); 
+    }
+    
+    100% { 
+        transform: translateX(calc(-100vw + -250px*8));  
+    }
+  }

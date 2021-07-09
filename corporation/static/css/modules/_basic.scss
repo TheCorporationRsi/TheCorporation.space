@@ -23,10 +23,11 @@ body {
 
 body {
     background: $background;
-    /* background-image: url("CentauriSaiseiFujin.jpg");
+    background-image: url("/static/texture.svg");
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-position: center;
-    background-size:cover; */
+    background-size: cover;
     color: $menu-font-color;
     font-family: 'Montserrat';
     font-weight: bold;
