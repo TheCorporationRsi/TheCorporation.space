@@ -24,10 +24,16 @@
         left: 25vw;
         top: 30px;
         width: 50vw;
-        font-size: 6em;
+        font-size: 5vw;
         color: $background;
         font-family: "Orbitron";
         text-align: center;
+
+        @media (max-width: 1000px) {
+            font-size: 10vw;
+            left: 10vw;
+            width: 80vw;
+        }
     }
 
     .slide-item {

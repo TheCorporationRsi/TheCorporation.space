@@ -1178,10 +1178,15 @@ input[type="submit"] {
     left: 25vw;
     top: 30px;
     width: 50vw;
-    font-size: 6em;
+    font-size: 5vw;
     color: #363636;
     font-family: "Orbitron";
     text-align: center; }
+    @media (max-width: 1000px) {
+      .side_slide_presentation h1 {
+        font-size: 10vw;
+        left: 10vw;
+        width: 80vw; } }
   .side_slide_presentation .slide-item {
     position: absolute;
     display: flex;
