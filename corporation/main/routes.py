@@ -1,4 +1,4 @@
-from flask import render_template, request, Blueprint
+from flask import render_template, request, Blueprint, redirect
 from corporation.models import Post, Division, Department, Role, Webpage_template
 
 from flask import Blueprint
@@ -10,6 +10,11 @@ main = Blueprint('main', __name__)
 @main.route("/home")
 async def home():
     return render_template("landing_page.html")
+
+
+@main.route("/discord")
+async def discord_link():
+    return redirect("https://discord.gg/ApEe8VK")
 
 @main.route("/department/<int:id>")
 def department(id=1):

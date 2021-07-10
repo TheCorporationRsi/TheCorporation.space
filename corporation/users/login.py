@@ -11,7 +11,7 @@ from sqlalchemy import func
 from corporation.users import users
 
 
-@users.route("/discord/<int:type>")
+@users.route("/discord/auth/<int:type>")
 def discord_login(type):
     if current_user.is_authenticated and type == 1:
         logout_user()

@@ -648,7 +648,7 @@ main {
       position: absolute;
       top: 0;
       left: 0;
-      animation: loader 2s linear infinite;
+      animation: loader 3s linear infinite;
       opacity: 0; }
 
 .notifications {
@@ -1293,5 +1293,8 @@ input[type="submit"] {
       text-shadow: 0px 0px 8px black;
       text-decoration: none !important;
       transition: all 0.3s ease-in-out; }
+      .side_slide_presentation .slide-item .title a {
+        text-decoration: none;
+        color: none; }
       .side_slide_presentation .slide-item .title:hover {
         transform: scale(1.15); }
