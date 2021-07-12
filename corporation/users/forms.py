@@ -10,7 +10,7 @@ from sqlalchemy import func
 
 class RegistrationForm(FlaskForm):
 
-    RSI_handle = StringField('RSI_handle', validators=[DataRequired(), Length(min=2, max=32)])
+    RSI_handle = StringField('RSI handle', validators=[DataRequired(), Length(min=2, max=32)])
 
     email = StringField('Email', validators=[DataRequired(), Email()])
 
@@ -23,7 +23,7 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle.data)).first()
         RSI_info = RSI_account(RSI_handle= RSI_handle.data)
         if not RSI_info or RSI_info == None :
-            raise ValidationError('Error in the RSI handle')
+            raise ValidationError('Error in the RSI handle')  
         elif user:
             raise ValidationError(
                 'That RSI_handle already have an account, pls contact moderator')

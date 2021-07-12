@@ -23,11 +23,18 @@ class RSI_account ():
             print("Wrong page!")
             self.error = True
             return None
+        
+        try: 
+            org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")
+        except:
+            print("no ORG!")
+            org = None;
+            return None
             
         print(name)
         image = soup.find("div", {"class": "thumb"}).find("img")["src"]
         citizen = soup.find("p", {"class": "citizen-record"}).find("strong").string
-        org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")
+        
         info = soup.find_all("div", {"class": "left-col"})[1].find("div", {"class": "inner"}).find_all("p")
         
         self.email = None
