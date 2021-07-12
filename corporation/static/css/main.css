@@ -625,31 +625,36 @@ main {
 
 .loader_bg {
   position: fixed;
-  z-index: 999999999;
+  z-index: 99999999999;
   background: #363636;
   width: 100%;
-  height: 100%; }
-  .loader_bg .test_loader {
-    border: 0 solid transparent;
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    top: calc(50vh - 75px);
-    left: calc(50vw - 75px); }
-    .loader_bg .test_loader:before {
-      animation-delay: .5s; }
-    .loader_bg .test_loader:before, .loader_bg .test_loader:after {
-      content: "";
-      border: 1em solid #0083ff;
+  height: 100%;
+  padding: auto;
+  padding-top: calc(50vh - 100px);
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  vertical-align: middle; }
+  .loader_bg .lds-dual-ring {
+    display: inline-block;
+    width: 200px;
+    height: 200px; }
+    .loader_bg .lds-dual-ring:after {
+      content: " ";
+      display: block;
+      width: 160px;
+      height: 160px;
+      margin: 20px;
       border-radius: 50%;
-      width: inherit;
-      height: inherit;
-      position: absolute;
-      top: 0;
-      left: 0;
-      animation: loader 3s linear infinite;
-      opacity: 0; }
+      border: 15px solid #0083ff;
+      border-color: #0083ff transparent #fcff00 transparent;
+      animation: lds-dual-ring 1.2s linear infinite; }
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(360deg); } }
 
 .notifications {
   position: fixed;
