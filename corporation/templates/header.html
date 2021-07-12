@@ -154,21 +154,21 @@
                 <li id="nav-dropdown" class="dropdown">
                     <a href="#">Join</a>
                     <ul class="dropdown_menu dropdown_menu-4">
-                        <li class="dropdown_item-1 first-item"><a href="#">Account</a></li>
-                        <li class="dropdown_item-2"><a href="#">User manager</a></li>
-                        <li class="dropdown_item-3"><a href="#">Structure manager</a></li>
-                        <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
-                        <li class="dropdown_item-5 last-item"> <a href="#">Website manager</a></li>
+                        <li onclick="location.href=''" class="dropdown_item-1 first-item">Account</li>
+                        <li onclick="location.href=''" class="dropdown_item-2">User manager</li>
+                        <li onclick="location.href=''" class="dropdown_item-3">Structure manager</li>
+                        <li onclick="location.href=''" class="dropdown_item-4">Discord manager</li>
+                        <li onclick="location.href=''" class="dropdown_item-5 last-item">Website manager</li>
                     </ul>
                 </li>
             </div>
             <li id="nav-dropdown" class="dropdown">
                 <a href="#">INFO</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">Presentation</a></li>
-                    <li class="dropdown_item-2"><a href="#">Influence system</a></li>
-                    <li class="dropdown_item-3"><a href="#">Certification</a></li>
-                    <li class="dropdown_item-4 last-item"><a href="#">History</a></li>
+                    <li onclick="location.href=''" class="dropdown_item-1 first-item">Presentation</li>
+                    <li onclick="location.href=''" class="dropdown_item-2">Influence system</li>
+                    <li onclick="location.href=''" class="dropdown_item-3">Certification</li>
+                    <li onclick="location.href=''" class="dropdown_item-4 last-item">History</li>
                 </ul>
             </li>
             <li id="nav-dropdown" class="dropdown">
@@ -177,11 +177,11 @@
                     {% for department in department_list %}
 
                     {% if department == department_list[0] %}
-                    <li class="dropdown_item-{{loop.index}} first-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li onclick="location.href='{{ url_for('main.department', id = department.id) }}'" class="dropdown_item-{{loop.index}} first-item">{{department.title}}</li>
                     {% elif department == department_list[-1]%}
-                    <li class="dropdown_item-{{loop.index}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li onclick="location.href='{{ url_for('main.department', id = department.id) }}'" class="dropdown_item-{{loop.index}} last-item">{{department.title}}</li>
                     {% else %}
-                    <li class="dropdown_item-{{loop.index}}"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li onclick="location.href='{{ url_for('main.department', id = department.id) }}'" class="dropdown_item-{{loop.index}}">{{department.title}}</li>
                     {% endif %}
 
                     {% endfor %}
@@ -190,9 +190,9 @@
             <li id="nav-dropdown" class="dropdown">
                 <a href="#">News</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">SC news</a></li>
-                    <li class="dropdown_item-2"><a href="#">CORP news</a></li>
-                    <li class="dropdown_item-3 last-item"><a href="#">CORP content</a></li>
+                    <li onclick="location.href=''" class="dropdown_item-1 first-item">SC news</li>
+                    <li onclick="location.href=''" class="dropdown_item-2">CORP news</li>
+                    <li onclick="location.href=''" class="dropdown_item-3 last-item">CORP content</li>
                 </ul>
             </li>
             <!-- <li id="nav-dropdown" class="dropdown">
@@ -226,16 +226,16 @@
                 <a href="{{ url_for('users.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
                 {% endif %}
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
+                    <li onclick="location.href='{{ url_for('users.account') }}'" class="dropdown_item-1 first-item">Account</li>
 
                     {% if current_user.is_manager("admin") %}
-                    <li class="dropdown_item-2"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
-                    <li class="dropdown_item-3"><a href="{{ url_for('discord_bot_routes.discord_role_setup') }}">Discord manager</a></li>
-                    <li class="dropdown_item-4"> <a href="{{ url_for('managers.department_managers_tool', department = 1) }}">Department manager</a></li>
-                    <li class="dropdown_item-5"> <a href="#">Influence settings</a></li>
-                    <li class="dropdown_item-6"> <a href="#">Website manager</a></li>
+                    <li onclick="location.href='{{ url_for('managers.department_manager') }}'" class="dropdown_item-2">Structure manager</li>
+                    <li onclick="location.href='{{ url_for('discord_bot_routes.discord_role_setup') }}'" class="dropdown_item-3">Discord manager</li>
+                    <li onclick="location.href='{{ url_for('managers.department_managers_tool', department = 1) }}'" class="dropdown_item-4">Department manager</li>
+                    <li onclick="location.href=''" class="dropdown_item-5"> <a href="#">Influence settings</a></li>
+                    <li onclick="location.href=''" class="dropdown_item-6"> <a href="#">Website manager</a></li>
                     {% endif %}
-                    <li class="dropdown_item-7 last-item"> <a href="{{ url_for('users.logout') }}">Logout</a></li>
+                    <li onclick="location.href='{{ url_for('users.logout') }}'" class="dropdown_item-7 last-item">Logout</li>
                 </ul>
             </li>
 
@@ -252,6 +252,7 @@
             <li id="nav-dropdown" class="dropdown login">
                 <a href="{{ url_for('users.register') }}">Join</a>
                 <ul class="dropdown_menu dropdown_menu-4">
+                    <li onclick="location.href='{{ url_for('users.login') }}'" class="dropdown_item-1">Login</li>
                 </ul>
             </li>
             {% endif %}

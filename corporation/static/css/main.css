@@ -1070,7 +1070,7 @@ input[type="submit"] {
     font-weight: bold;
     top: 0;
     left: 0;
-    font-size: 5em;
+    font-size: 6vw;
     animation-name: fadeInUp;
     animation-duration: 3s;
     animation-fill-mode: both;
