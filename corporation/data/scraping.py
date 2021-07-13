@@ -5,38 +5,60 @@ import re
 
 DEFAULT_RSI_URL = 'https://robertsspaceindustries.com'
 
+
 class RSI_account ():
-    
+
     def __init__(self, RSI_handle):
-        self.link =  DEFAULT_RSI_URL+'/citizens/'+ RSI_handle
-        print(self.link)
+        self.link = DEFAULT_RSI_URL+'/citizens/' + RSI_handle
+        org_link = self.link + '/organizations'
         page = requests.get(self.link)
+        org_page = requests.get(org_link)
         soup = BS(page.content, 'html.parser')
-        name = soup.find("div", {"class": "info"}).find_all("p")
-        
-        try: 
+        org_soup = BS(org_page.content, 'html.parser')
+
+        try:
+            name = soup.find("div", {"class": "profile"}).find("div", {"class": "info"}).find_all("p")
             self.RSI_handle = name[1].find("strong").string
+            self.Moniker = name[0].find("strong").string
+            print("RSI_handle = " + self.RSI_handle)
+            print("Moniker = " + self.Moniker)
             if self.RSI_handle.lower() != RSI_handle.lower():
-                self.error = True
                 return None
         except:
             print("Wrong page!")
-            self.error = True
             return None
-        
-        try: 
-            org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")
+
+        try:
+            self.ORGS = []
+            orgs_list = org_soup.find_all("div", {"class": "org"})
+            for org in orgs_list:
+                self.ORGS.append(org.find("div", {"class": "info"}).find_all( "p", {"class": "entry"})[1].find("strong", {"class": "value"}).string)
+            print("ORGS = " + str(self.ORGS))
         except:
-            print("no ORG!")
-            org = None;
+            print("No ORGS!")
+            org = None
             return None
-            
-        print(name)
+
+        try:
+            main_org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")
+            self.main_org = main_org[1].find("strong").string
+            self.org_rank = main_org[2].find("strong").string
+            print("Main ORG = " + self.main_org)
+        except:
+            print("No ORG!")
+            self.main_org = None
+
+        self.Rank = name[2].find("span", {"class": "value"}).string
+
         image = soup.find("div", {"class": "thumb"}).find("img")["src"]
+        self.image_link = DEFAULT_RSI_URL+image
+
         citizen = soup.find("p", {"class": "citizen-record"}).find("strong").string
-        
+        self.citizen = re.sub("[^0-9]", "", citizen)
+        print("Citizen No. = " + self.citizen)
+
         info = soup.find_all("div", {"class": "left-col"})[1].find("div", {"class": "inner"}).find_all("p")
-        
+
         self.email = None
         try:
             bio = soup.find("div", {"class": "bio"}).find("div")
@@ -44,30 +66,33 @@ class RSI_account ():
             self.email = re.search(r'[\w\.-]+@[\w\.-]+', bio.text).group(0)
         except:
             self.bio = None
-        
-        self.citizen = re.sub("[^0-9]", "", citizen)
-        self.image_link = DEFAULT_RSI_URL+image
-        self.Moniker = name[0].find("strong").string
-        self.RSI_handle = name[1].find("strong").string
-        self.Rank = name[2].find("span", {"class": "value"}).string
-        self.main_org = org[1].find("strong").string
-        self.org_rank = org[2].find("strong").string
+
         self.join_date = info[0].find("strong").string
-        
+
         if len(info) == 3:
-            self.location = info[1].find("strong").string.replace(',',' ').split()
-            self.language = info[2].find("strong").string.replace(',',' ').split()
+            self.location = info[1].find(
+                "strong").string.replace(',', ' ').split()
+            self.language = info[2].find(
+                "strong").string.replace(',', ' ').split()
         elif len(info) == 2:
-            self.language = info[1].find("strong").string.replace(',',' ').split()
+            self.language = info[1].find(
+                "strong").string.replace(',', ' ').split()
 
     def corp_member(self):
         if self.main_org == "CORP":
             return True
+        elif 'CORP' in self.ORGS:
+            return True
         else:
             return False
-    
+
     def confirm_email(self, email):
         if self.email.lower() == email.lower():
             return True
         else:
             return False
+
+
+RSI_account(RSI_handle="Cyber-Dreamer")
+
+print(str(RSI_account(RSI_handle="ShiNo0By").corp_member()))
