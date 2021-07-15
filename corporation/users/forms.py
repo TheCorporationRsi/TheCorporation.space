@@ -10,7 +10,7 @@ from sqlalchemy import func
 
 class RegistrationForm(FlaskForm):
 
-    RSI_handle = StringField('RSI handle', validators=[DataRequired(), Length(min=2, max=32)])
+    RSI_handle = StringField('RSI handle (Unique Start Citizen username)', validators=[DataRequired(), Length(min=2, max=32)])
 
     email = StringField('Email', validators=[DataRequired(), Email()])
 

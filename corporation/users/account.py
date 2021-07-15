@@ -57,5 +57,6 @@ def influence_form_submition():
             flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
         else: 
             flash(f'error', 'danger')
+        return redirect(url_for('users.influence_form_submition'))
     
     return render_template("user/account_modules/influence_form.html", inf_form=inf_form)

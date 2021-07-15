@@ -11,6 +11,8 @@ from corporation import socketio
 import discord
 import enum
 from corporation.discord_bot_routes import events
+import time
+from threading import Event
 discord_bot_routes = Blueprint('discord_bot_routes', __name__)
 discord_actions = DiscordInteractionsBlueprint()
 
@@ -168,3 +170,53 @@ def green_button(ctx):
             ])
         ]
     ) '''
+    
+@discord_actions.command(name="list_link",annotations={"channel": "Select a channel"})
+def list_link(ctx, channel: Channel):
+    "Get RSI link of all the users in a voice channel"
+    result = None
+    ev = Event()
+    def callback(data):
+        nonlocal result
+        nonlocal ev
+        
+        print ("The data is: \n" + str(data))
+        list = 'RSI link list:\n'
+        
+        if data['user_list']:
+            for user in data['user_list']:
+                member_account = User.query.filter_by(discord_id = user['id']).first()
+                if member_account is None:
+                    list += '<@'+ str(user['id']) + "> : Not linked\n"
+                else:
+                    list += '<@'+ str(user['id']) + "> : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
+            print(list)
+            result = list
+            ev.set()
+            return list
+        else:
+            result = data
+            ev.set()
+            return data
+            
+    member = User.query.filter_by(discord_id = ctx.author.id).first()
+    
+    if not member or not member.corp_confirmed:
+        return 'You need to be a corp member to use this function!'
+    
+    if channel is None or channel.type != 2:
+        socketio.emit('list_link', {
+            'member_id': ctx.author.id
+            
+        }, namespace='/discord_bot', callback = callback )
+        
+        ev.wait()
+        return result
+    else:
+        socketio.emit('list_link', {
+            'channel_id': channel.id,
+            'member_id': ctx.author.id
+            
+        }, namespace='/discord_bot', callback = callback )  
+        ev.wait()
+        return result
