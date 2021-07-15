@@ -171,8 +171,15 @@ def green_button(ctx):
         ]
     ) '''
     
-@discord_actions.command(name="list_link",annotations={"channel": "Select a channel"})
-def list_link(ctx, channel: Channel):
+class name_type(enum.Enum):
+    Discord_and_link = "Discord + link"
+    Discord_and_handle = "Discord + RSI_handle"
+    RSI_handle_and_link = "RSI handle + link"
+    RSI_handle_and_Moniker = "RSI handle + Moniker"
+    RSI_handle_only = "RSI handle"
+    
+@discord_actions.command(name="list_link",annotations={"channel": "Select a channel", 'type':"Select  the format you want"})
+def list_link(ctx, type: name_type = None, channel: Channel = None):
     "Get RSI link of all the users in a voice channel"
     result = None
     ev = Event()
@@ -188,8 +195,18 @@ def list_link(ctx, channel: Channel):
                 member_account = User.query.filter_by(discord_id = user['id']).first()
                 if member_account is None:
                     list += '<@'+ str(user['id']) + "> : Not linked\n"
-                else:
+                elif type == "Discord + link" or None:
                     list += '<@'+ str(user['id']) + "> : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
+                elif type == "RSI handle + link":
+                    list += member_account.RSI_handle + " : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
+                elif type == "Discord + RSI_handle":
+                    list += '<@'+ str(user['id']) + "> : "+ str(member_account.RSI_handle) + "\n"
+                elif type == "RSI handle + Moniker":
+                    list += member_account.RSI_handle + " : "+ str(member_account.RSI_moniker) + "\n"
+                elif type == "RSI handle":
+                    list += member_account.RSI_handle + "\n"
+                
+                
             print(list)
             result = list
             ev.set()
@@ -205,7 +222,7 @@ def list_link(ctx, channel: Channel):
         return 'You need to be a corp member to use this function!'
     
     if channel is None or channel.type != 2:
-        socketio.emit('list_link', {
+        socketio.emit('voice_member_list', {
             'member_id': ctx.author.id
             
         }, namespace='/discord_bot', callback = callback )
@@ -213,7 +230,7 @@ def list_link(ctx, channel: Channel):
         ev.wait()
         return result
     else:
-        socketio.emit('list_link', {
+        socketio.emit('voice_member_list', {
             'channel_id': channel.id,
             'member_id': ctx.author.id
             

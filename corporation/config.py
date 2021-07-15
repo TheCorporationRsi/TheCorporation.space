@@ -8,6 +8,7 @@ with open(Path(__file__).parent.parent.parent.absolute().as_posix() +'/config.js
 
 class Config: 
     SECRET_KEY = config.get('SECRET_KEY')
+    JSONIFY_PRETTYPRINT_REGULAR = True
     SQLALCHEMY_DATABASE_URI = config.get('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False

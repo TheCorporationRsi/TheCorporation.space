@@ -91,6 +91,26 @@ class RSI_account ():
             return True
         else:
             return False
+    
+    def has_json(self):
+        
+        json = {
+            'Link': self.link,
+            'RSI_handle': self.RSI_handle, 
+            'Moniker': self.Moniker,
+            'citizen_code': self.citizen,
+            'Email': self.email,
+            'Join_date': self.join_date,
+            'Main_Org': self.main_org,
+            'Orgs': [],
+            'image': self.image_link
+            
+        }
+        for org in self.ORGS:
+            json['Orgs'].append({
+                'title': org
+            })
+        return json
 
 
 RSI_account(RSI_handle="Cyber-Dreamer")

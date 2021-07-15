@@ -128,7 +128,7 @@ async def upload_role(data):
     for role in user.roles:
         await client.sio.emit('role_added', { 'user': user_id, 'role_id': role.id}, namespace='/discord_bot')
         
-@client.sio.on('list_link', namespace='/discord_bot')
+@client.sio.on('voice_member_list', namespace='/discord_bot')
 async def list_link(data):
     print("add")
     user_id = data['member_id']
