@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: 'Phage';
-    src: url("/static/main/font/Phage_Regular.otf") format("opentype") ;
+    src: url("/static/main/fonts/Phage_Regular.otf") format("opentype") ;
 }
 
 $blue: #0083ff;
@@ -17,7 +17,7 @@ $background-tr: #1b1b1bc2;
 $background: #363636;
 $menu-font-color: rgb(255, 255, 255);
 
-$menu-svg: url('/static/main/bottom-left.svg');
+$menu-svg: url('/static/presentation/main/bottom-left.svg');
 
 $main-font: 'Montserrat';
 

@@ -30,19 +30,19 @@
     </div>
     
     <div class="pic-wrapper">
-        <figure class="pic-1" style=" background: url('/static/department_background/{{ department.image_file_1}}') no-repeat center center; background-size: cover;"></figure>
-        <figure class="pic-2" style=" background: url('/static/department_background/{{ department.image_file_2}}') no-repeat center center; background-size: cover;"></figure>
-        <figure class="pic-3" style=" background: url('/static/department_background/{{ department.image_file_3}}') no-repeat center center; background-size: cover;"></figure>
-        <figure class="pic-4" style=" background: url('/static/department_background/{{ department.image_file_4}}') no-repeat center center; background-size: cover;"></figure>
+        <figure class="pic-1" style=" background: url('/static/structure/department_background/{{ department.image_file_1}}') no-repeat center center; background-size: cover;"></figure>
+        <figure class="pic-2" style=" background: url('/static/structure/department_background/{{ department.image_file_2}}') no-repeat center center; background-size: cover;"></figure>
+        <figure class="pic-3" style=" background: url('/static/structure/department_background/{{ department.image_file_3}}') no-repeat center center; background-size: cover;"></figure>
+        <figure class="pic-4" style=" background: url('/static/structure/department_background/{{ department.image_file_4}}') no-repeat center center; background-size: cover;"></figure>
     </div>
 </div>
 
-<div class="link-info " style="background-image: url('/static/department_background/{{ department.image_div_presentation }}');">
+<div class="link-info " style="background-image: url('/static/structure/department_background/{{ department.image_div_presentation }}');">
     {% for division in division_list  %}
     {% if division.department_id == department.id  %}
     <div class="link-item fadeInUp">
         <div class="logo"><a href=""><img
-                    src="{{ url_for('static', filename = 'logos/'+ division.logo) }}"></a></div>
+                    src="{{ url_for('static', filename = 'structure/logos/'+ division.logo) }}"></a></div>
         <div class="title">{{ division.title }}</div>
         {% if not division.moto == "Empty"   %}
         <div class="description">{{ division.moto }}</div>
@@ -54,10 +54,10 @@
 {% for template in tempates_info %}
 {% if template.department_id == department.id  %}
     {% if loop.index%2 == 1  %}
-    <div class="content-panel right" style="background-image: url('/static/department_background/{{ template.background_image }}');">
+    <div class="content-panel right" style="background-image: url('/static/structure/department_background/{{ template.background_image }}');">
     <div class="text-zone right-panel">
     {% else %}
-    <div class="content-panel left" style="background-image: url('/static/department_background/{{ template.background_image }}');">
+    <div class="content-panel left" style="background-image: url('/static/structure/department_background/{{ template.background_image }}');">
     <div class="text-zone left-panel">
     {% endif %}
         <div class="title">{{ template.title }} <span>{{ template.title2 }}</span></div>

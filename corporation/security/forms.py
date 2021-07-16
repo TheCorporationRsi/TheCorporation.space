@@ -27,6 +27,13 @@ class RegistrationForm(FlaskForm):
         elif user:
             raise ValidationError(
                 'That RSI_handle already have an account, pls contact moderator')
+            
+    def validate_password(self, password):
+        if len(password) < 8 :
+            raise ValidationError('password too weak')  
+        elif user:
+            raise ValidationError(
+                'That RSI_handle already have an account, pls contact moderator')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()

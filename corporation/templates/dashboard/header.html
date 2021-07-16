@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='main/corplogo.ico') }}" />
+    {% if title %}
+    <title>The Corporation - {{ title }}</title>
+    {% else %}
+    <title>The Corporation</title>
+    {% endif %}
+
+    <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
+    <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
+    <meta property="og:image" content="/static/main/corplogo.png" />
+    <meta property="og:url" content="https://TheCorporation.space/" />
+    <meta property=”og:type” content="website"/>
+    <meta property="og:site_name" content="The Corporation inc.">
+
+    <!-- CSS sheets-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/dashboard.css') }}">
+    <!--END CSS sheets-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+
+
+        $(window).on("load", function () {
+            $('.loader_bg').fadeToggle();
+        });
+
+        function show_menu() {
+            var x = document.getElementsByTagName("NAV");
+            if (x[0].style.display === "grid") {
+                x[0].style.display = "none";
+            } else {
+                x[0].style.display = "grid";
+            }
+        }
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("logo").style.height = "50px";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "35px"
+                    }
+                }
+                document.getElementById("navbar").style.background = "#363636";
+            } else {
+                document.getElementById("navbar").style.background = "transparent";
+                document.getElementById("logo").style.height = "80%";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "64px"
+                    }
+                }
+            }
+
+            $('.fadeInUp').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+        }
+
+        function upgradeImage(object) {
+            var id = object.id;
+            var target = "div_" + id.substring(4);
+        
+            document.getElementById(target).style.backgroundImage = "url(" + object.src + ")";
+        }
+    </script>
+
+
+    {% block style %}
+    {% endblock style%}
+
+
+</head>
+
+<body>
+
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    <div class="notifications">
+        {% for category, message in messages %}
+        <div class="alert {{ category }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+
+    {% endif %}
+    {% endwith %}
+
+    <div class="loader_bg">
+        <div class="lds-dual-ring"></div>
+    </div>
+
+
+    <header id="navbar">
+        <div class="banner">
+            <a href="/"><img id="logo" src="/static/main/corplogo.svg"></a>
+        </div>
+
+    </header>
+
+    <!-- This is where the rest of the webpage will be -->
+    <main id="main">
+        {% block content %}
+        <!--content here-->
+        {% endblock %}
+    </main>
+
+
+
+</body>
+
+</html>
