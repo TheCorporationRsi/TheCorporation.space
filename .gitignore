@@ -49,3 +49,9 @@ cogs/__pycache__/init.cpython-39.pyc
 cogs/__pycache__/init.cpython-39.pyc
 models/*
 node_modules/*
+corporation/dashboard/__pycache__/*
+
+corporation/dashboard/account/__pycache__/*
+
+corporation/security/__pycache__/*
+corporation/security/errors/__pycache__/*
