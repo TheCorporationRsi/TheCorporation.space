@@ -1,7 +1,6 @@
 {% extends "header.html" %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/account.css') }}">
 <script type="text/javascript">
 
     function update_user_weight() {
@@ -106,74 +105,76 @@
 
 {% block content %}
 
-
-<div class="user-info">
-    <div class="user-tab summary">
-        <div class="top-section">
-            <img src="{{ current_user.image_file }}">
+<div class="account">
 
 
+    <div class="user-info">
+        <div class="user-tab summary">
+            <div class="top-section">
+                <img src="{{ current_user.image_file }}">
 
-            <div class="handle">
 
-                <p class="title">RSI moniker :</p>
-                <p style="font-size: {{ 400/current_user.RSI_handle|length }}px ">{{ current_user.RSI_moniker }}</p>
 
-                <p class="title">RSI handle :</p>
-                <p style="font-size: {{ 400/current_user.RSI_handle|length }}px ">{{ current_user.RSI_handle }}</p>
+                <div class="handle">
 
-            </div>
+                    <p class="title">RSI moniker :</p>
+                    <p style="font-size: {{ 400/current_user.RSI_handle|length }}px ">{{ current_user.RSI_moniker }}</p>
 
-        </div>
+                    <p class="title">RSI handle :</p>
+                    <p style="font-size: {{ 400/current_user.RSI_handle|length }}px ">{{ current_user.RSI_handle }}</p>
 
-        {% if current_user.corp_confirmed %}
-        <div class="influence-info">
-
-            <div class="item">
-                <div class="title">Rank:</div>
-                <div class="data">{{current_user.influence_rank().title}}</div>
-            </div>
-            <div class="item">
-                <div class="title">Lifetime influence:</div>
-                <div class="data">{{ current_user.lifetime_influence_count()|round}}</div>
-            </div>
-            <div class="item">
-                <div class="title">Total influence:</div>
-                <div class="data">{{current_user.influence_count()|round}}</div>
-            </div>
-            <div class="item">
-                <div class="title">Weekly tribute:</h6>
                 </div>
-                <div class="data">{{ current_user.influence_rank().weekly_amount }}</div>
+
             </div>
-            <div class="item">
-                <div class="title">Tribute left:</h6>
+
+            {% if current_user.corp_confirmed %}
+            <div class="influence-info">
+
+                <div class="item">
+                    <div class="title">Rank:</div>
+                    <div class="data">{{current_user.influence_rank().title}}</div>
                 </div>
-                <div class="data">{{ current_user.tribute().amount }}</div>
+                <div class="item">
+                    <div class="title">Lifetime influence:</div>
+                    <div class="data">{{ current_user.lifetime_influence_count()|round}}</div>
+                </div>
+                <div class="item">
+                    <div class="title">Total influence:</div>
+                    <div class="data">{{current_user.influence_count()|round}}</div>
+                </div>
+                <div class="item">
+                    <div class="title">Weekly tribute:</h6>
+                    </div>
+                    <div class="data">{{ current_user.influence_rank().weekly_amount }}</div>
+                </div>
+                <div class="item">
+                    <div class="title">Tribute left:</h6>
+                    </div>
+                    <div class="data">{{ current_user.tribute().amount }}</div>
+                </div>
             </div>
-        </div>
-        {% endif %}
-    </div>
-
-    <div class="user-tab user-link">
-
-        <div class="link-item">
-            <div class="title">Star Citizen link:</div>
-            <div class="value link">https://robertsspaceindustries.com/citizens/{{ current_user.RSI_handle }}</div>
-        </div>
-        <div class="link-item">
-            <div class="title">Email:</div>
-            <div class="value">{{ current_user.email }}</div>
-        </div>
-        <div class="link-item">
-            <div class="title">Discord username:</div>
-            {% if current_user.discord_username == None %}
-            <div class="value"><a href="{{ url_for('users.discord_login', type = 0) }}">Link</a></div>
-            {% else %}
-            <div class="value">{{ current_user.discord_username }}</div>
             {% endif %}
         </div>
-        <!-- <div class="link-item">
+
+        <div class="user-tab user-link">
+
+            <div class="link-item">
+                <div class="title">Star Citizen link:</div>
+                <div class="value link">https://robertsspaceindustries.com/citizens/{{ current_user.RSI_handle }}</div>
+            </div>
+            <div class="link-item">
+                <div class="title">Email:</div>
+                <div class="value">{{ current_user.email }}</div>
+            </div>
+            <div class="link-item">
+                <div class="title">Discord username:</div>
+                {% if current_user.discord_username == None %}
+                <div class="value"><a href="{{ url_for('users.discord_login', type = 0) }}">Link</a></div>
+                {% else %}
+                <div class="value">{{ current_user.discord_username }}</div>
+                {% endif %}
+            </div>
+            <!-- <div class="link-item">
             <div class="title">Guilded username:</div>
             {% if current_user.discord_username == None %}
             <div class="value"><a href="{{ url_for('users.discord_login', type = 0) }}">Link</a></div>
@@ -181,175 +182,178 @@
             <div class="value">{{ current_user.guilded_username }}</div>
             {% endif %}
         </div> -->
-        <div class="link-item">
-            <div class="title">Update info:</div>
-            <div class="value"><a href="{{ url_for('users.update_RSI_info') }}">Update</a></div>
-        </div>
-
-    </div>
-</div>
-
-{% if current_user.corp_confirmed %}
-<div class="tools">
-
-    <div class="tools-tab roles">
-        <div class="role-section">
-
-            {% if current_user.is_manager() %}
-            <div class="title">
-                Manager roles :
+            <div class="link-item">
+                <div class="title">Update info:</div>
+                <div class="value"><a href="{{ url_for('users.update_RSI_info') }}">Update</a></div>
             </div>
-            <div class="roles">
-                {% for role in current_user.roles() %}
-                {% if role.div_head or role.dep_head or role.div_proxy or role.dep_proxy %}
-                <div style=" border-color: {{ role.role_color() }}; ">
-                    <p class="circle" style="background-color: {{ role.role_color() }};"></p>
-                    {{ role.title }}
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <div class="title">
-                Member role :
-            </div>
-            <div class="roles">
-                {% for role in current_user.roles() %}
-                {% if role.div_member %}
-                <div style=" border-color: {{ role.role_color() }}; ">
-                    <p class="circle" style="background-color: {{ role.role_color() }};"></p>
-                    {{ role.title }}
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="title">
-                Other roles :
-            </div>
-            <div class="roles">
-                {% for role in current_user.roles() %}
-                {% if not (role.div_head or role.dep_head or role.div_proxy or role.dep_proxy or role.div_member) %}
-                <div style=" border-color: {{ role.role_color() }}; ">
-                    <p class="circle" style="background-color: {{ role.role_color() }};"></p>
-                    {{ role.title }}
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-
 
         </div>
     </div>
 
-    <div id="weight-tab" class="tools-tab influence-weight">
+    {% if current_user.corp_confirmed %}
+    <div class="tools">
 
+        <div class="tools-tab roles">
+            <div class="role-section">
+
+                {% if current_user.is_manager() %}
+                <div class="title">
+                    Manager roles :
+                </div>
+                <div class="roles">
+                    {% for role in current_user.roles() %}
+                    {% if role.div_head or role.dep_head or role.div_proxy or role.dep_proxy %}
+                    <div style=" border-color: {{ role.role_color() }}; ">
+                        <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+                        {{ role.title }}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="title">
+                    Member role :
+                </div>
+                <div class="roles">
+                    {% for role in current_user.roles() %}
+                    {% if role.div_member %}
+                    <div style=" border-color: {{ role.role_color() }}; ">
+                        <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+                        {{ role.title }}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="title">
+                    Other roles :
+                </div>
+                <div class="roles">
+                    {% for role in current_user.roles() %}
+                    {% if not (role.div_head or role.dep_head or role.div_proxy or role.dep_proxy or role.div_member) %}
+                    <div style=" border-color: {{ role.role_color() }}; ">
+                        <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+                        {{ role.title }}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+
+            </div>
+        </div>
+
+        <div id="weight-tab" class="tools-tab influence-weight">
+
+        </div>
+
+        <div id="influence-tab" class="tools-tab influence-transfer">
+
+        </div>
     </div>
 
-    <div id="influence-tab" class="tools-tab influence-transfer">
+    <div class="transaction">
+        <div class="transaction-tab">
+            <label>Received</label>
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>Sender</th>
+                        <th>Amount</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in current_user.inf_transfer_history(type ='received') %}
+                    <tr>
+                        <td>{{ transaction.user_from_handle}}</td>
+                        <td>{{ transaction.amount}}</td>
+                        <td>{{ transaction.message}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
+        </div>
+
+        <div class="transaction-tab">
+
+            <label>Sent</label>
+
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>Receiver</th>
+                        <th>Amount</th>
+                        <th>Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in current_user.inf_transfer_history(type ='sent') %}
+                    <tr>
+                        <td>{{ transaction.user_to_handle}}</td>
+                        <td>{{ transaction.amount}}</td>
+                        <td>{{ transaction.message}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
     </div>
-</div>
 
-<div class="transaction">
-    <div class="transaction-tab">
-        <label>Received</label>
-        <table class="tbl">
-			<thead>
-				<tr>
-					<th>Sender</th>
-					<th>Amount</th>
-                    <th>Message</th>
-				</tr>
-			</thead>
-			<tbody>
-                {% for transaction in current_user.inf_transfer_history(type ='received') %}
-				<tr>
-					<td>{{ transaction.user_from_handle}}</td>
-					<td>{{ transaction.amount}}</td>
-                    <td>{{ transaction.message}}</td>
-				</tr>
-                {% endfor %}
-			</tbody>
-		</table>
+    <div class="graph">
+        <div>
+            <h1 style="text-align: center; padding-bottom: 20px;">Influence / Weight chart</h1>
+            <canvas id="weightgraph" height="400" width="400"></canvas>
+        </div>
+        <script>
+            Chart.defaults.color = "#fff";
+            var ctx = document.getElementById('weightgraph');
+            var myChart = new Chart(ctx, {
 
-    </div>
+                type: 'doughnut',
+                data: {
+                    labels: [
 
-    <div class="transaction-tab">
-
-        <label>Sent</label>
-
-        <table class="tbl">
-			<thead>
-				<tr>
-					<th>Receiver</th>
-					<th>Amount</th>
-                    <th>Message</th>
-				</tr>
-			</thead>
-			<tbody>
-                {% for transaction in current_user.inf_transfer_history(type ='sent') %}
-				<tr>
-					<td>{{ transaction.user_to_handle}}</td>
-					<td>{{ transaction.amount}}</td>
-                    <td>{{ transaction.message}}</td>
-				</tr>
-                {% endfor %}
-			</tbody>
-		</table>
-
-    </div>
-</div>
-
-<div class="graph">
-    <div>
-        <h1 style="text-align: center; padding-bottom: 20px;">Influence / Weight chart</h1>
-        <canvas id="weightgraph" height="400" width="400"></canvas>
-    </div>
-    <script>
-        Chart.defaults.color = "#fff";
-        var ctx = document.getElementById('weightgraph');
-        var myChart = new Chart(ctx, {
-
-            type: 'doughnut',
-            data: {
-                labels: [
                     {% for division in division_list %}
+
                     '{{division.title}}',
+                    
                     {% endfor %}
                 ],
-        datasets: [{
+            datasets: [{
 
-            label: 'Division influence',
-            data: [
-                {% for division in division_list %}
-                {{ current_user.div_influence(division)|round }},
-        {% endfor %}
-        ],
-            backgroundColor: [
-                {% for division in division_list %}
-        '{{ division.color() }}',
+                label: 'Division influence',
+                data: [
+                    {% for division in division_list %}
+                {{ current_user.div_influence(division) | round }},
             {% endfor %}
+            ],
+                backgroundColor: [
+                    {% for division in division_list %}
+            '{{ division.color() }}',
+                {% endfor %}
         ],
-        hoverOffset: 10,
-            borderColor: '#363636'
+            hoverOffset: 10,
+                borderColor: '#363636'
 
     }, {
 
-            label: 'Division Weight',
-                data: [
-                    {% for division in division_list %}
-        {{ current_user.div_weight(division) }},
-        {% endfor %}
-                ],
-        backgroundColor: [
-            {% for division in division_list %}
-        '{{ division.color() }}',
+                label: 'Division Weight',
+                    data: [
+                        {% for division in division_list %}
+            {{ current_user.div_weight(division) }},
             {% endfor %}
+                ],
+            backgroundColor: [
+                {% for division in division_list %}
+            '{{ division.color() }}',
+                {% endfor %}
             ],
-        hoverOffset: 10,
-            borderColor: '#363636'
+            hoverOffset: 10,
+                borderColor: '#363636'
 
         }
         
@@ -358,7 +362,9 @@
 
         });
 
-    </script>
+        </script>
+
+    </div>
 
 </div>
 {% endif %}

@@ -1308,3 +1308,330 @@ input[type="submit"] {
         color: none; }
       .side_slide_presentation .slide-item .title:hover {
         transform: scale(1.15); }
+
+.account {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 30px;
+  width: 100vw;
+  background-image: url("/static/texture.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh; }
+  .account .user-info {
+    margin-top: 120px;
+    min-height: 40vh;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+    padding-right: 5vw;
+    padding-left: 5vw; }
+    @media (max-width: 1400px) {
+      .account .user-info {
+        flex-flow: column nowrap; } }
+    .account .user-info .user-tab {
+      background-color: #363636;
+      border-radius: 10px; }
+    .account .user-info .summary {
+      display: grid;
+      grid-template-rows: 40% 60%;
+      min-width: 30vw;
+      min-height: 40vh; }
+      .account .user-info .summary .top-section {
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 300px; }
+        .account .user-info .summary .top-section img {
+          border-right: 5px solid #444444;
+          border-bottom: 5px solid #444444;
+          height: auto;
+          width: 200px;
+          height: 200px;
+          border-top-left-radius: 10px; }
+        .account .user-info .summary .top-section .handle {
+          margin-bottom: auto;
+          text-align: left;
+          text-justify: top;
+          display: flex;
+          flex-flow: column nowrap;
+          width: 100%;
+          padding: 30px; }
+          .account .user-info .summary .top-section .handle .title {
+            color: #9b9b9b;
+            font-size: 20px; }
+      .account .user-info .summary .influence-info {
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 30px; }
+        .account .user-info .summary .influence-info .item {
+          display: flex;
+          text-align: left;
+          text-justify: center;
+          width: 100%;
+          margin: auto; }
+          .account .user-info .summary .influence-info .item .title {
+            width: 50%; }
+    .account .user-info .user-link {
+      display: flex;
+      flex-flow: column nowrap;
+      padding: 30px;
+      min-width: 45vw;
+      max-width: 90vw;
+      min-height: 40vh; }
+      @media (min-width: 1400px) {
+        .account .user-info .user-link {
+          width: 100%; } }
+      .account .user-info .user-link .link-item {
+        display: flex;
+        display: row nowrap;
+        margin-top: auto;
+        margin-bottom: auto;
+        align-items: left;
+        justify-content: left;
+        width: 100%; }
+        .account .user-info .user-link .link-item .title {
+          width: 30%; }
+        .account .user-info .user-link .link-item .value {
+          width: 100%; }
+  .account .tools {
+    min-height: 40vh;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 30px;
+    padding-left: 5vw;
+    padding-right: 5vw; }
+    @media (max-width: 1400px) {
+      .account .tools {
+        flex-flow: column nowrap; } }
+    .account .tools .tools-tab {
+      background-color: #363636;
+      border-radius: 10px;
+      padding: 30px; }
+      @media (min-width: 1400px) {
+        .account .tools .tools-tab {
+          width: 100%; } }
+      .account .tools .tools-tab.influence-weight .weight {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: right;
+        width: 100%; }
+        .account .tools .tools-tab.influence-weight .weight label {
+          font-size: 20px; }
+        .account .tools .tools-tab.influence-weight .weight .w-title {
+          align-items: center;
+          justify-content: right;
+          margin-left: auto;
+          margin-right: 10px; }
+      .account .tools .tools-tab.influence-weight fieldset {
+        border: 0; }
+      .account .tools .tools-tab.influence-weight .invalid-feedback {
+        color: red;
+        font-size: 0.8em;
+        margin-bottom: 5px; }
+      .account .tools .tools-tab.influence-weight input[type=text],
+      .account .tools .tools-tab.influence-weight input[type=password],
+      .account .tools .tools-tab.influence-weight textarea,
+      .account .tools .tools-tab.influence-weight select {
+        align-items: right;
+        width: 100px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-left: auto;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; }
+        .account .tools .tools-tab.influence-weight input[type=text].error,
+        .account .tools .tools-tab.influence-weight input[type=password].error,
+        .account .tools .tools-tab.influence-weight textarea.error,
+        .account .tools .tools-tab.influence-weight select.error {
+          border: 2px solid red; }
+      .account .tools .tools-tab.influence-weight textarea {
+        min-height: 200px; }
+      .account .tools .tools-tab.influence-weight .submit_button {
+        width: 100%;
+        background-color: #0083ff;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 2em;
+        font-family: "Montserrat";
+        font-weight: bold;
+        transition: all ease-in-out .3s; }
+      .account .tools .tools-tab.influence-weight .submit_button:hover {
+        background-color: #fcff00;
+        color: black;
+        transform: scale(1.03); }
+    .account .tools .role-section {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 20px;
+      min-width: 35vw; }
+      .account .tools .role-section .roles {
+        align-content: flex-start;
+        flex-wrap: wrap;
+        display: flex;
+        width: 100%;
+        text-align: center; }
+        .account .tools .role-section .roles div {
+          display: flex;
+          grid-gap: 3px;
+          align-self: flex-start;
+          text-decoration: none;
+          font-weight: normal;
+          border: 2px solid red;
+          border-radius: 15px;
+          padding-top: 2.5px;
+          padding-bottom: 2.5px;
+          padding-left: 5px;
+          padding-right: 10px;
+          font-size: 15px;
+          margin-right: 5px;
+          margin-top: 4px;
+          text-align: center; }
+          .account .tools .role-section .roles div p {
+            display: block;
+            border-radius: 15px;
+            width: 15px;
+            height: 15px;
+            text-align: center;
+            margin: auto; }
+    .account .tools .influence-transfer .title {
+      width: 100%;
+      font-family: "Orbitron";
+      font-size: 6em;
+      margin-top: -120px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 15px;
+      text-align: center;
+      color: #fcff00;
+      text-shadow: #000000; }
+    .account .tools .influence-transfer fieldset {
+      border: 0; }
+    .account .tools .influence-transfer .invalid-feedback {
+      color: red;
+      font-size: 0.8em;
+      margin-bottom: 5px; }
+    .account .tools .influence-transfer input[type=text],
+    .account .tools .influence-transfer input[type=password],
+    .account .tools .influence-transfer textarea,
+    .account .tools .influence-transfer select {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box; }
+      .account .tools .influence-transfer input[type=text].error,
+      .account .tools .influence-transfer input[type=password].error,
+      .account .tools .influence-transfer textarea.error,
+      .account .tools .influence-transfer select.error {
+        border: 2px solid red; }
+    .account .tools .influence-transfer textarea {
+      min-height: 200px; }
+    .account .tools .influence-transfer .submit_button {
+      width: 100%;
+      background-color: #0083ff;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 2em;
+      font-family: "Montserrat";
+      font-weight: bold;
+      transition: all ease-in-out .3s; }
+    .account .tools .influence-transfer .submit_button:hover {
+      background-color: #fcff00;
+      color: black;
+      transform: scale(1.03); }
+  .account .transaction {
+    min-height: 40vh;
+    display: grid;
+    grid-gap: 30px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    margin-bottom: 30px; }
+    @media (min-width: 800px) {
+      .account .transaction {
+        grid-template-columns: 50% 50%; } }
+    @media (max-width: 800px) {
+      .account .transaction {
+        grid-template-rows: 100vh 100vh; } }
+    .account .transaction .tbl {
+      position: relative;
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 30px;
+      page-break-inside: auto;
+      color: black; }
+      .account .transaction .tbl thead {
+        display: table-header-group;
+        background-color: #474747; }
+      .account .transaction .tbl tfoot {
+        display: table-row-group; }
+      .account .transaction .tbl tr {
+        page-break-inside: avoid;
+        page-break-after: auto; }
+      .account .transaction .tbl tbody tr:nth-of-type(odd) {
+        background-color: #f0f0f0; }
+      .account .transaction .tbl tbody tr:nth-of-type(even) {
+        background-color: #949494; }
+      .account .transaction .tbl th, .account .transaction .tbl td {
+        text-align: left;
+        padding: 10px;
+        font-size: 14px;
+        line-height: 18px;
+        border: 1px solid #dddddd; }
+      .account .transaction .tbl th {
+        color: #969696;
+        font-weight: 200; }
+      .account .transaction .tbl tfoot td {
+        color: #969696;
+        font-weight: 200; }
+    .account .transaction .transaction-tab {
+      background-color: #363636;
+      border-radius: 10px;
+      padding: 30px;
+      display: flex;
+      flex-flow: column nowrap; }
+      .account .transaction .transaction-tab .item {
+        display: flex;
+        flex-flow: row nowrap;
+        border: 2px solid black;
+        padding: 10px; }
+        .account .transaction .transaction-tab .item .user {
+          width: 40%; }
+        .account .transaction .transaction-tab .item .amount {
+          width: 10%; }
+        .account .transaction .transaction-tab .item .message {
+          width: 50%; }
+  .account .graph {
+    min-height: 40vh;
+    display: grid;
+    grid-gap: 30px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    margin-bottom: 30px; }
+    .account .graph div {
+      background-color: #363636;
+      padding: 30px;
+      border-radius: 10px; }
+    @media (min-width: 800px) {
+      .account .graph {
+        grid-template-columns: 50% 50%; } }
+    @media (max-width: 800px) {
+      .account .graph {
+        grid-template-rows: 100vh 100vh; } }
