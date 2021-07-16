@@ -221,12 +221,12 @@
 
             <li id="nav-dropdown" class="dropdown login">
                 {% if current_user.RSI_handle|length > 10 %}
-                <a href="{{ url_for('users.account') }}" style="font-size: {{ 7/(current_user.RSI_handle|length/4) }}vw ">{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('dashboard.account') }}" style="font-size: {{ 7/(current_user.RSI_handle|length/4) }}vw ">{{ current_user.RSI_handle }}</a>
                 {% else %}
-                <a href="{{ url_for('users.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('dashboard.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
                 {% endif %}
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li onclick="location.href='{{ url_for('users.account') }}'" class="dropdown_item-1 first-item">Account</li>
+                    <li onclick="location.href='{{ url_for('dashboard.account') }}'" class="dropdown_item-1 first-item">Account</li>
 
                     {% if current_user.is_manager("admin") %}
                     <li onclick="location.href='{{ url_for('managers.department_manager') }}'" class="dropdown_item-2">Structure manager</li>
@@ -235,7 +235,7 @@
                     <li onclick="location.href=''" class="dropdown_item-5"> <a href="#">Influence settings</a></li>
                     <li onclick="location.href=''" class="dropdown_item-6"> <a href="#">Website manager</a></li>
                     {% endif %}
-                    <li onclick="location.href='{{ url_for('users.logout') }}'" class="dropdown_item-7 last-item">Logout</li>
+                    <li onclick="location.href='{{ url_for('security.logout') }}'" class="dropdown_item-7 last-item">Logout</li>
                 </ul>
             </li>
 
@@ -244,15 +244,15 @@
             {% if request.path=="/register" %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="{{ url_for('users.login') }}">Login</a>
+                <a href="{{ url_for('security.login') }}">Login</a>
             </li>
 
             {% else %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="{{ url_for('users.register') }}">Join</a>
+                <a href="{{ url_for('security.register') }}">Join</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li onclick="location.href='{{ url_for('users.login') }}'" class="dropdown_item-1">Login</li>
+                    <li onclick="location.href='{{ url_for('security.login') }}'" class="dropdown_item-1">Login</li>
                 </ul>
             </li>
             {% endif %}

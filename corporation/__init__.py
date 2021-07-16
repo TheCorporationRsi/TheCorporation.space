@@ -84,26 +84,22 @@ def create_app(config_class=Config):
         except:
             print("This application Multiple feature will not work properly")
 
-        from corporation.users import users
-        from corporation.posts.routes import posts
+        from corporation.dashboard import dashboard
+        from corporation.security import security
         from corporation.main.routes import main
-        from corporation.errors.handlers import errors
-        from corporation.news.routes import news
+        from corporation.security.errors.handlers import errors
         from corporation.managers import managers
-        from corporation.departments.routes import departments
         from corporation.discord_bot_routes.routes import discord_bot_routes
         from corporation.discord_bot_routes.routes import discord_actions
         from corporation.setup.routes import setup
         from corporation.influence.routes import influence
         from corporation.data.routes import data
 
-        app.register_blueprint(users)
-        app.register_blueprint(posts)
+        app.register_blueprint(dashboard)
+        app.register_blueprint(security)
         app.register_blueprint(main)
         app.register_blueprint(errors)
-        app.register_blueprint(news)
         app.register_blueprint(managers)
-        app.register_blueprint(departments)
         app.register_blueprint(discord_bot_routes)
         discord_command.register_blueprint(discord_actions)
         app.register_blueprint(setup)

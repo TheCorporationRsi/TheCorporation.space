@@ -3,17 +3,17 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.orm import query
 from corporation import db, bcrypt, discord, scheduler
 from corporation.models import User, Post, Role, Rolevsuser, Tribute, Division
-from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form, Divisions_weight
-from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
+from corporation.security.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
+from corporation.security.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 from corporation.data.scraping import RSI_account
 from sqlalchemy import func
-from corporation.users import users
+from corporation.security import security
 
 
 
 
-@users.route("/register", methods=['GET', 'POST'])
+@security.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -43,5 +43,5 @@ def register():
         user.update_info()
 
         flash(f'Your account has been created! Please look for a confirmation email.', 'success')
-        return redirect(url_for('users.login'))
+        return redirect(url_for('security.login'))
     return render_template("user/register.html", title="Register", form=form)

@@ -169,7 +169,7 @@
             <div class="link-item">
                 <div class="title">Discord username:</div>
                 {% if current_user.discord_username == None %}
-                <div class="value"><a href="{{ url_for('users.discord_login', type = 0) }}">Link</a></div>
+                <div class="value"><a href="{{ url_for('security.discord_login', type = 0) }}">Link</a></div>
                 {% else %}
                 <div class="value">{{ current_user.discord_username }}</div>
                 {% endif %}
@@ -184,7 +184,7 @@
         </div> -->
             <div class="link-item">
                 <div class="title">Update info:</div>
-                <div class="value"><a href="{{ url_for('users.update_RSI_info') }}">Update</a></div>
+                <div class="value"><a href="{{ url_for('dashboard.update_RSI_info') }}">Update</a></div>
             </div>
 
         </div>

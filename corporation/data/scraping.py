@@ -113,6 +113,6 @@ class RSI_account ():
         return json
 
 
-RSI_account(RSI_handle="Cyber-Dreamer")
+#RSI_account(RSI_handle="Cyber-Dreamer")
 
-print(str(RSI_account(RSI_handle="ShiNo0By").corp_member()))
+#print(str(RSI_account(RSI_handle="ShiNo0By").corp_member()))

@@ -3,32 +3,32 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.orm import query
 from corporation import db, bcrypt, discord, scheduler
 from corporation.models import User, Post, Role, Rolevsuser, Tribute, Division
-from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form, Divisions_weight
-from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
+from corporation.dashboard.account.forms import UpdateAccountForm, inf_Form, Divisions_weight
+from corporation.dashboard.utils import save_picture
 from flask_discord import requires_authorization
 from corporation.data.scraping import RSI_account
 from sqlalchemy import func
-from corporation.users import users
+from corporation.dashboard import dashboard
 
 
 
-@users.route("/user/update", methods=['GET', 'POST'])
+@dashboard.route("/user/update", methods=['GET', 'POST'])
 @login_required
 def update_RSI_info():
 
     current_user.update_info()
 
-    return redirect(url_for('users.account'))
+    return redirect(url_for('dashboard.account'))
 
 
 #=======================================================================================
-@users.route("/account", methods=['GET', 'POST'])
+@dashboard.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
     
     return render_template("user/account.html", title="Account")
 
-@users.route("/account/update_weight", methods=['GET', 'POST'])
+@dashboard.route("/account/update_weight", methods=['GET', 'POST'])
 @login_required
 def weight_form_submition():
     
@@ -44,7 +44,7 @@ def weight_form_submition():
     
     return render_template("user/account_modules/weight_form.html", weight_form=weight_form)
 
-@users.route("/account/update_influence_form", methods=['GET', 'POST'])
+@dashboard.route("/account/update_influence_form", methods=['GET', 'POST'])
 @login_required
 def influence_form_submition():
     
@@ -57,6 +57,6 @@ def influence_form_submition():
             flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
         else: 
             flash(f'error', 'danger')
-        return redirect(url_for('users.influence_form_submition'))
+        return redirect(url_for('dashboard.influence_form_submition'))
     
     return render_template("user/account_modules/influence_form.html", inf_form=inf_form)

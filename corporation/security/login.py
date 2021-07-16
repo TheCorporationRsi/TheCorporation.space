@@ -3,15 +3,15 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.orm import query
 from corporation import db, bcrypt, discord, scheduler
 from corporation.models import User, Post, Role, Rolevsuser, Tribute, Division
-from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form, Divisions_weight
-from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
+from corporation.security.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
+from corporation.security.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 from corporation.data.scraping import RSI_account
 from sqlalchemy import func
-from corporation.users import users
+from corporation.security import security
 
 
-@users.route("/discord/auth/<int:type>")
+@security.route("/discord/auth/<int:type>")
 def discord_login(type):
     if current_user.is_authenticated and type == 1:
         logout_user()
@@ -20,7 +20,7 @@ def discord_login(type):
     return discord.create_session()
 
 
-@users.route("/discord_callback")
+@security.route("/discord_callback")
 def callback():
     
     if current_user.is_authenticated:
@@ -37,14 +37,14 @@ def callback():
         discord.revoke()
         current_user.upload_discord_roles()
         current_user.update_discord_roles()
-        return redirect(url_for('users.account'))
+        return redirect(url_for('dashboard.account'))
 
     try:
         discord.callback()
         user = discord.fetch_user()
         user_account = User.query.filter_by(discord_id=user.id).first()
     except:
-        return redirect(url_for("users.login"))
+        return redirect(url_for("security.login"))
     
 
     if user_account:
@@ -52,15 +52,15 @@ def callback():
         db.session.commit()
         discord.revoke()
         login_user(user_account, remember=False)
-        return redirect(url_for('users.account'))
+        return redirect(url_for('dashboard.account'))
 
     else:
         discord.revoke()
-        return redirect(url_for('users.register'))
+        return redirect(url_for('security.register'))
 
 
 
-@users.route("/login", methods=['GET', 'POST'])
+@security.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
@@ -77,17 +77,17 @@ def login():
                 send_confirmation_email(user)
                 flash(
                     'Login Unsuccessful. Please check your email for verification', 'danger')
-                return redirect(url_for('users.login'))
+                return redirect(url_for('security.login'))
 
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('users.account'))
+            return redirect(next_page) if next_page else redirect(url_for('dashboard.account'))
         else:
             flash('Login Unsuccessful. Please check RSI handle and password', 'danger')
     return render_template("user/login.html", title="Login", form=form)
 
 
-@users.route("/logout")
+@security.route("/logout")
 @login_required
 def logout():
     logout_user()

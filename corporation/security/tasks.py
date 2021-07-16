@@ -3,12 +3,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.orm import query
 from corporation import db, bcrypt, discord, scheduler
 from corporation.models import User, Post, Role, Rolevsuser, Tribute, Division
-from corporation.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, inf_Form, Divisions_weight
-from corporation.users.utils import save_picture, send_reset_email, send_confirmation_email
+from corporation.security.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
+from corporation.security.utils import save_picture, send_reset_email, send_confirmation_email
 from flask_discord import requires_authorization
 from corporation.data.scraping import RSI_account
 from sqlalchemy import func
-from corporation.users import users
+from corporation.security import security
 
 
 @scheduler.task("interval", id="password attempt", minutes = 30)
