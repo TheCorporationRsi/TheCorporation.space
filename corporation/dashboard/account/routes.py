@@ -20,6 +20,12 @@ def update_RSI_info():
 
     return redirect(url_for('dashboard.account'))
 
+@dashboard.route("/dashboard", methods=['GET', 'POST'])
+@login_required
+def dashboard_link():
+    
+    return render_template("dashboard/dashboard.html", title="Account")
+
 
 #=======================================================================================
 @dashboard.route("/account", methods=['GET', 'POST'])

@@ -17,4 +17,4 @@ def error500(error):
 
 @errors.app_errorhandler(Unauthorized)
 def redirect_unauthorized(e):
-    return redirect(url_for("login"))
+    return redirect(url_for("security.login"))

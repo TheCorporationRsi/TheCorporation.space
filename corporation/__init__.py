@@ -42,7 +42,7 @@ naming_convention = {
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 bcrypt = Bcrypt()
 login_manager = LoginManager()
-login_manager.login_view = 'users.login'
+login_manager.login_view = 'security.login'
 login_manager.login_message_category = 'info'
 scheduler = APScheduler()
 socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000'], async_mode = 'gevent') # ,logger=True, engineio_logger=True
@@ -95,7 +95,7 @@ def create_app(config_class=Config):
         from corporation.influence.routes import influence
         from corporation.data.routes import data
 
-        app.register_blueprint(dashboard)
+        
         app.register_blueprint(security)
         app.register_blueprint(main)
         app.register_blueprint(errors)
@@ -105,7 +105,7 @@ def create_app(config_class=Config):
         app.register_blueprint(setup)
         app.register_blueprint(influence)
         app.register_blueprint(data)
-
+        app.register_blueprint(dashboard)
 
     discord_command.set_route("/interactions")
     #discord_command.update_slash_commands(guild_id= 831248117571649566)

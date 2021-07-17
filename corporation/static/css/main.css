@@ -4,7 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @font-face {
   font-family: 'Phage';
-  src: url("/static/main/font/Phage_Regular.otf") format("opentype"); }
+  src: url("/static/main/fonts/Phage_Regular.otf") format("opentype"); }
 
 @-o-keyframes loader {
   0% {
@@ -291,7 +291,7 @@ body {
 
 body {
   background: #363636;
-  background-image: url("/static/texture.svg");
+  background-image: url("/static/textures/texture.svg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -483,7 +483,7 @@ main {
         border-left: 3px solid #0083ff; }
       header .last-item:before {
         content: '';
-        background-image: url("/static/main/bottom-left.svg");
+        background-image: url("/static/presentation/main/bottom-left.svg");
         background-repeat: no-repeat;
         position: absolute;
         width: 60%;
@@ -756,7 +756,7 @@ input[type="submit"] {
   min-height: 100%;
   width: 100vw;
   grid-column: 1fr;
-  background-image: url("/static/user/line_low.jpg");
+  background-image: url("/static/presentation/main/line_low.jpg");
   background-size: cover;
   padding: auto; }
   .connection .connection-zone {
@@ -968,7 +968,7 @@ input[type="submit"] {
   align-items: center;
   justify-content: center;
   padding-bottom: calc(60px + 6%);
-  background-image: url("/static/landing_page/steel.jpg");
+  background-image: url("/static/presentation/landing_page/steel.jpg");
   background-size: cover;
   background-position-y: 40%;
   box-shadow: inset 1px 100px 100px -100px black;
@@ -1042,7 +1042,7 @@ input[type="submit"] {
   box-shadow: inset 0 300px 100px -7px rgba(0, 0, 0, 0.4); }
   .hero.landing::before {
     content: "";
-    background-image: url("/static/landing_page/cool_logo.svg");
+    background-image: url("/static/presentation/landing_page/cool_logo.svg");
     background-size: cover;
     z-index: 5;
     width: 80vw;
@@ -1172,7 +1172,7 @@ input[type="submit"] {
   justify-content: center;
   padding-top: 60px;
   padding-bottom: calc(60px + 6%);
-  background-image: url("/static/landing_page/crusader_low.jpg");
+  background-image: url("/static/presentation/landing_page/crusader_low.jpg");
   background-size: cover;
   background-position-y: 40%;
   box-shadow: inset 1px 100px 100px -100px black;
