@@ -55,3 +55,4 @@ corporation/dashboard/account/__pycache__/*
 
 corporation/security/__pycache__/*
 corporation/security/errors/__pycache__/*
+corporation/models/__pycache__/*

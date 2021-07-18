@@ -1,0 +1,118 @@
+header {
+    background-color: $background;
+    padding: 10px;
+    padding-left: 20px;
+    display: flex;
+    z-index: 999;
+
+    .left-side {
+        height: 40px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        width: calc(50vw - 10px);
+
+        img {
+            display: block;
+            height: 40px;
+            width: auto;
+            transition: all .2s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .right-side {
+        height: 40px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+        width: calc(50vw - 10px);
+        flex-direction: row-reverse;
+
+        .account {
+            user-select: none;
+            display: flex;
+            flex-flow: row nowrap;
+            height: 40px;
+            transition: all .2s ease-in-out;
+            cursor: pointer;
+            padding-left: 15px;
+            padding-right: 15px;
+
+            img {
+                margin: auto;
+                vertical-align: middle;
+                width: 28px;
+                height: 28px;
+                border: solid 1px $blue;
+                justify-content: center;
+
+                &#blue_arrow {
+                    border: none;
+                    width: 30px;
+                    height: 30px;
+                }
+
+                &:hover {
+                    transform: none;
+                }
+            }
+
+            .username {
+                margin: auto;
+                justify-content: center;
+                font-size: 25px;
+                color: $blue;
+                font-family: 'Orbitron';
+                font-weight: bold;
+                margin-left: 10px;
+                margin-right: 10px;
+                
+
+                
+            }
+
+            &:hover {
+                transform: scale(1.03);
+            }
+        }
+
+        #search_bar {
+            display: flex;
+            flex-flow: row nowrap;
+            height: 30px;
+            margin: 5px;
+            width: 200px;
+            border: 1px solid $blue;
+
+            input {
+                width: 100%;
+                border: none;
+                background-color: $dark-grey;
+                padding: 5px;
+                color: white;
+
+                &:focus {
+                    border: none!important;
+                }
+            }
+        }
+
+        img {
+            margin: 5px;
+            display: block;
+            height: 30px;
+            width: auto;
+            transition: all .2s ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+
+    }
+}

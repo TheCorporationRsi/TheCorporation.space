@@ -19,7 +19,7 @@
     <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
     <meta property="og:image" content="/static/main/corplogo.png" />
     <meta property="og:url" content="https://TheCorporation.space/" />
-    <meta property=”og:type” content="website"/>
+    <meta property=”og:type” content="website" />
     <meta property="og:site_name" content="The Corporation inc.">
 
     <!-- CSS sheets-->
@@ -37,6 +37,17 @@
 
         $(window).on("load", function () {
             $('.loader_bg').fadeToggle();
+
+            $('#nav-button').toggleClass('onclick');
+            $('#nav-button').on('click', function () {
+                $(this).toggleClass('onclick');
+                $('#nav').toggleClass('hide');
+            });
+
+            $('#notification-button').on('click', function () {
+                $(this).toggleClass('onclick');
+                $('#notification-tab').toggleClass('show');
+            });
         });
 
         function show_menu() {
@@ -73,12 +84,12 @@
                 }
             }
 
-            $('.fadeInUp').each(function() {
+            $('.fadeInUp').each(function () {
                 var top_of_element = $(this).offset().top;
                 var bottom_of_element = $(this).offset().top + $(this).outerHeight();
                 var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
                 var top_of_screen = $(window).scrollTop();
-        
+
                 if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
                     $(this).addClass('is-visible');
                 }
@@ -88,7 +99,7 @@
         function upgradeImage(object) {
             var id = object.id;
             var target = "div_" + id.substring(4);
-        
+
             document.getElementById(target).style.backgroundImage = "url(" + object.src + ")";
         }
     </script>
@@ -102,7 +113,7 @@
 
 <body>
 
-    
+
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
 
@@ -123,17 +134,141 @@
     </div>
 
 
-    <header id="navbar">
-        <div class="banner">
+    <header>
+
+        <div class="left-side">
+
             <a href="/"><img id="logo" src="/static/dashboard/corner_title.svg"></a>
+
         </div>
+        <div class="right-side">
+
+            <div id="notification-button" class="notification">
+                <img id="logo" src="/static/dashboard/bell.png">
+            </div>
+
+            <div class="account">
+                <img id="account_image" src="{{ current_user.image_file }}">
+                <div class="username">{{ current_user.RSI_handle }}</div>
+                <img id="blue_arrow" src="/static/dashboard/blue_arrow.svg">
+            </div>
+
+
+
+            <div id="search_bar">
+                <input type="search" placeholder="Search...">
+            </div>
+        </div>
+
+        <div id="account-tab"></div>
+
+
 
     </header>
 
+
     <!-- This is where the rest of the webpage will be -->
     <main id="main">
-        
+
+        <div id="nav-button">
+            <span></span>
+        </div>
+
+        <nav id="nav">
+            <div id="user_tab">
+                <img id="account_image" src="{{ current_user.image_file }}">
+                <h1>{{ current_user.RSI_moniker }}</h1>
+                <h2>{{ current_user.RSI_handle }}</h2>
+            </div>
+
+            <div id="nav_stats">
+                <div class="stats-item">
+                    <div class="data">26</div>
+                    <div class="title">Level</div>
+                </div>
+                <div class="stats-item">
+                    <div class="data">Corporateer</div>
+                    <div class="title">Rank</div>
+                </div>
+            </div>
+
+            <div id="nav-link">
+                <h1>Menu</h1>
+
+                <div class="nav-item link">
+                    <img src="{{url_for('static', filename='dashboard/dashboard.png')}}">
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="nav-item link">
+                    <img src="{{url_for('static', filename='dashboard/influence.png')}}">
+                    <h2>Influence</h2>
+                </div>
+
+                <div class="nav-item link">
+                    <img src="{{url_for('static', filename='dashboard/roles.png')}}">
+                    <h2>Roles</h2>
+                </div>
+
+                <div class="nav-item link">
+                    <img src="{{url_for('static', filename='dashboard/gear.png')}}">
+                    <h2>Settings</h2>
+                </div>
+
+                <div class="nav-item dropdown">
+                    <div class="button" onclick="this.parentElement.classList.toggle('on'); ">
+                        <img src="{{url_for('static', filename='dashboard/suit.png')}}">
+                        <h2>Managers</h2>
+                        <div class="arrow"></div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-item">
+                            <div class="dot"></div>
+                            <div class="title">General</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dot"></div>
+                            <div class="title">Depratments</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="nav-item dropdown">
+                    <div class="button" onclick="this.parentElement.classList.toggle('on'); ">
+                        <img src="{{url_for('static', filename='dashboard/database.png')}}">
+                        <h2>Data</h2>
+                        <div class="arrow"></div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-item">
+                            <div class="dot"></div>
+                            <div class="title">RSI stats</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dot"></div>
+                            <div class="title">In game</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dot"></div>
+                            <div class="title">Influence</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div id="page-container"></div>
+        <div id="notification-tab">
+            <h1>Notifications</h1>
+        </div>
     </main>
+
 
 
 
