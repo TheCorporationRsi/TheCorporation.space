@@ -195,8 +195,6 @@ def list_link(ctx, type: name_type = None, channel: Channel = None):
                 member_account = User.query.filter_by(discord_id = user['id']).first()
                 if member_account is None:
                     list += '<@'+ str(user['id']) + "> : Not linked\n"
-                elif type == "Discord + link" or None:
-                    list += '<@'+ str(user['id']) + "> : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
                 elif type == "RSI handle + link":
                     list += member_account.RSI_handle + " : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
                 elif type == "Discord + RSI_handle":
@@ -205,6 +203,8 @@ def list_link(ctx, type: name_type = None, channel: Channel = None):
                     list += member_account.RSI_handle + " : "+ str(member_account.RSI_moniker) + "\n"
                 elif type == "RSI handle":
                     list += member_account.RSI_handle + "\n"
+                else :
+                    list += '<@'+ str(user['id']) + "> : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
                 
                 
             print(list)
@@ -221,7 +221,7 @@ def list_link(ctx, type: name_type = None, channel: Channel = None):
     if not member or not member.corp_confirmed:
         return 'You need to be a corp member to use this function!'
     
-    if channel is None or channel.type != 2:
+    if not channel or channel.type != 2:
         socketio.emit('voice_member_list', {
             'member_id': ctx.author.id
             

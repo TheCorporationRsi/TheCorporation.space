@@ -12,5 +12,8 @@ def get_funding_stats():
     stats = RSI_funding()
     element = Funding( fund = stats.fund, citizens = stats.citizens )
     db.session.add(element)
+    
+    
+    
     db.session.commit()
     print("Got the SC stats")

@@ -10,7 +10,7 @@ from corporation.data.scraping import RSI_account
 class Funding(db.Model):
     __bind_key__ = 'rsi_stats_db'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date = db.Column(db.DateTime, nullable=False, unique=True, default=datetime.utcnow)
     date_added = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
     fund = db.Column(db.Integer, nullable=False )
