@@ -16,7 +16,8 @@ class Config:
     'influence_db': 'sqlite:///influence.db',
     'role_db': 'sqlite:///role.db',
     'social_db': 'sqlite:///social.db',
-    'logs_db':  'sqlite:///logs.db'
+    'logs_db':  'sqlite:///logs.db',
+    'rsi_stats_db': 'sqlite:///rsi_stats.db'
     }
 
     SCHEDULER_API_ENABLED = True

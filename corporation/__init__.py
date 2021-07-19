@@ -73,7 +73,8 @@ def create_app(config_class=Config):
             pass
         else:
             from corporation.influence import tasks  # noqa: F401
-
+            from corporation.data import tasks
+            
             scheduler.start()
         from corporation import events
 
