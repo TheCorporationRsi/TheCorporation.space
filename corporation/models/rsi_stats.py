@@ -16,3 +16,14 @@ class Funding(db.Model):
     fund = db.Column(db.Integer, nullable=False )
     citizens = db.Column(db.Integer, nullable=False)
     
+    
+    def as_dict(self):
+        return {
+            'Date': self.date,
+            'Fund': self.fund,
+            'Citizens': self.citizens
+        }
+
+    def __repr__(self):
+        return f"Funding('{self.date}', '{self.fund}', '{self.citizen}')"
+    
