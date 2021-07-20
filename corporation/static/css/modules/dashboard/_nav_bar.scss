@@ -55,7 +55,7 @@ nav {
     min-width: 310px;
     width: 310px;
     margin-left: 0px;
-    background-color: $nav_color;
+    background-color: $mid-grey;
     z-index: 555;
     transition: all .3s ease-in-out;
     overflow-x: hidden;
@@ -107,7 +107,7 @@ nav {
         .stats-item {
             display: flex;
             flex-flow: column nowrap;
-            background-color: $nav_color;
+            background-color: $mid-grey;
             align-items: center;
             justify-content: center;
             gap: 3px;
@@ -194,7 +194,7 @@ nav {
                 }
 
                 .dropdown {
-                    color: $nav_color;
+                    color: $mid-grey;
                     display: flex;
                     flex-flow: column nowrap;
                     transition: all 0.2s ease-in-out;

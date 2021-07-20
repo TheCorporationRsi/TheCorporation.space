@@ -1,5 +1,5 @@
 header {
-    background-color: $background;
+    background-color: $dark-grey;
     padding: 10px;
     padding-left: 20px;
     display: flex;
@@ -91,7 +91,7 @@ header {
             input {
                 width: 100%;
                 border: none;
-                background-color: $dark-grey;
+                background-color: $light-grey;
                 padding: 5px;
                 color: white;
 

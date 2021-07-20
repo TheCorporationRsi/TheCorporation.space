@@ -1,0 +1,21 @@
+
+
+
+
+
+#page-container {
+    display: flex;
+    gap: 60px;
+    padding: 60px;
+
+    .module {
+        background-color: $light-grey;
+        box-shadow: 0px 0px 13px 5px #292929;
+        min-height: 300px;
+        min-width: 300px;
+        max-height: 100%;
+        max-width: 100%;
+        border-radius: 10px;
+        padding: 30px;
+    }
+}
