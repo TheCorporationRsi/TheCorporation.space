@@ -1,11 +1,12 @@
 import os
 import secrets
 from PIL import Image
-from flask import url_for, current_app
+from flask import url_for, current_app, render_template
 from flask_mail import Message
 from corporation import mail
 import requests
 from bs4 import BeautifulSoup as bs
+from corporation.models import User
 
 
 def save_picture(form_picture):
@@ -48,5 +49,7 @@ def send_confirmation_email(user):
     
     This email is good for 48h, after that, you may request a new email.
     '''
+    
+    msg.html = render_template("confirm_email_template.html", token = token)
+    
     mail.send(msg)
-

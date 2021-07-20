@@ -1,5 +1,6 @@
 from flask import render_template, request, Blueprint, redirect
-from corporation.models import Post, Division, Department, Role, Webpage_template
+from corporation.models import Post, Division, Department, Role, Webpage_template, User
+from corporation.security.utils import send_confirmation_email
 
 import json
 import datetime
@@ -13,8 +14,16 @@ main = Blueprint('main', __name__)
 
 @main.route("/")
 @main.route("/home")
-async def home():
+def home():
     return render_template("landing_page.html")
+
+@main.route("/email")
+def email_page():
+    
+    user = User.query.filter_by(RSI_handle="Cyber-Dreamer").first()
+    send_confirmation_email(user) 
+    
+    return render_template("confirm_email_template.html", token="lol")
 
 ''' @main.route("/run_code")
 async def run_code():
@@ -38,7 +47,7 @@ async def run_code():
     return render_template("landing_page.html") '''
 
 @main.route("/discord")
-async def discord_link():
+def discord_link():
     return redirect("https://discord.gg/ApEe8VK")
 
 @main.route("/department/<int:id>")
