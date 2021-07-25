@@ -4,7 +4,6 @@ from corporation import db, login_manager, bcrypt, socketio
 from flask_login import UserMixin
 from flask import current_app, flash
 from sqlalchemy import or_
-from corporation.data.scraping import RSI_account
 
 
 class Funding(db.Model):
@@ -20,8 +19,8 @@ class Funding(db.Model):
     def as_dict(self):
         return {
             'Date': self.date,
-            'Fund': self.fund,
-            'Citizens': self.citizens
+            'Fund': self.fund if self.fund != 0 else None,
+            'Citizens': self.citizens if self.citizens != 0 else None
         }
 
     def __repr__(self):

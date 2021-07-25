@@ -53,19 +53,19 @@
 
         }
 
-        function get_data( url, mode) {
+        function get_data( url, callback) {
             
-            return $.ajax({
+            $.ajax({
                 url: url,
                 type: "get",
                 async: false,
                 data: { 
-                    mode: mode
+                    mode: 0
                 },
                 dataType: 'json',
                 done: function (data) {
                     JSON.parse(data)
-                    return data
+                    callback(data) 
                 },
                 error: function (xhr) {
                     //Do Something to handle error

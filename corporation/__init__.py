@@ -94,7 +94,7 @@ def create_app(config_class=Config):
         from corporation.discord_bot_routes.routes import discord_actions
         from corporation.setup.routes import setup
         from corporation.influence.routes import influence
-        from corporation.data.routes import data
+        from corporation.data.api import data
 
         
         app.register_blueprint(security)

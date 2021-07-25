@@ -58,3 +58,5 @@ corporation/security/errors/__pycache__/*
 corporation/models/__pycache__/*
 nohup.out
 corporation/dashboard/stats/__pycache__/*
+corporation/data/api/__pycache__/*
+

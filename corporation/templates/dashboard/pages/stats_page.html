@@ -1,105 +1,113 @@
 <div class="module" style="height:400px; width: 700px;">
 
-    <canvas id="funding_graph" ></canvas>
+  <canvas id="funding_graph"></canvas>
 
-    <script>
-        Chart.defaults.color = "#fff";
-        var ctx = document.getElementById('funding_graph');
+  <script>
+    Chart.defaults.color = "#fff";
+    var ctx = document.getElementById('funding_graph');
 
-        var funding_data = get_data('/data/fundings/graph_data/fund', 1);
-        var citizen_data = get_data('/data/fundings/graph_data/citizens', 1);
+    get_data('/data/fundings/chart_data', function (data) {
 
-        console.log('done!')
-        console.log(funding_data)
-        var fund = funding_data.map(function (e) {
-            var time = moment(e.Date,'---, DD MMM YYYY HH:mm:SS----').format('YYYY MM DD');
-            return { y:e.Fund, x: time}  
-        });
-        var time = funding_data.map(function (e) {
-            return moment(e.Date,'---, DD MMM YYYY HH:mm:SS----').format('YYYY MM DD');
-        });
+      var funding_data = data
 
-        var time_citizen = citizen_data.map(function (e) {
-            return moment(e.Date,'---, DD MMM YYYY HH:mm:SS----').format('YYYY MM DD');
-        });
+      console.log('done!')
+      console.log(funding_data)
 
-        var citizen = citizen_data.map(function (e) {
-            var time = moment(e.Date,'---, DD MMM YYYY HH:mm:SS----').format('YYYY MM DD');
-            return { y:e.Citizens, x: time}
-        });
+      var fund = funding_data.map(function (e) {
+        var time = moment(e.Date, '---, DD MMM YYYY HH:mm:SS----').format('YYYY MM DD');
+        return { y: e.Fund, x: time }
+      });
 
-        console.log(fund)
+      var citizen = funding_data.map(function (e) {
+        var time = moment(e.Date, '---, DD MMM YYYY HH:mm:SS----').format('YYYY MM DD');
+        return { y: e.Citizens, x: time }
+      });
 
-        var myChart = new Chart(ctx, {
+      console.log(fund)
 
-            type: 'line',
-            data: {
-                datasets: [{
+      var myChart = new Chart(ctx, {
 
-                    label: 'Funding',
-                    data: fund,
-                    yAxisID: 'A',
-                    fill: false,
-                    borderColor: 'rgb(252, 255, 0)',
-                    tension: 0.1
+        type: 'line',
+        data: {
+          datasets: [{
 
-                },{
-
-                    label: 'Citizens',
-                    data: citizen,
-                    yAxisID: 'B',
-                    fill: false,
-                    borderColor: 'rgb(0, 131, 255)',
-                    tension: 0.1
-
-                },
-                ]
+            label: 'Funding',
+            data: fund,
+            yAxisID: 'A',
+            borderColor: 'rgb(252, 255, 0)',
+            fill: {
+              target: 'origin',
+              below: 'rgb(252, 255, 0)'
             },
-            tooltips: {
-              enabled: true,
-              mode: 'label'
+            spanGaps: true,
+            lineTension: 0.4,
+            radius: 1
+
+          }, {
+
+            label: 'Citizens',
+            data: citizen,
+            yAxisID: 'B',
+            borderColor: 'rgb(0, 131, 255)',
+            fill: {
+              target: 'origin',
+              below: 'rgb(0, 131, 255)'
             },
-            options: {
-                responsive: true,
-                scales: {
-                  yAxes: [{
-                    display: true,
-                    position: 'right',
-                    id: 'A',
-                    type: 'linear'
-                  }, {
-                    display: true,
-                    id: 'B',
-                    type: 'linear',
-                    position: 'left'
-                  }],
-                  x: {
-                    type: 'time',
-                    time: {
-                        unit: 'year'
-                    }
-                }
-                }
-              },
-              animation: {
-                duration: 1,
-                onComplete: function() {
-                  var controller = this.chart.controller;
-                  var chart = controller.chart;
-                  var yAxis = controller.scales['y-axis-0'];
-                  yAxis.ticks.forEach(function(value, index) {
-                    var xOffset = chart.width - 40;
-                    var yOffset = ((chart.height - 60) / 2 * index) + 15;
-                    ctx.fillText(value + 'M', xOffset, yOffset);
-                  });
-                }
+            spanGaps: true,
+            lineTension: 0.4,
+            radius: 1
+
+          },
+          ]
+        },
+        tooltips: {
+          enabled: true,
+          mode: 'label'
+        },
+        options: {
+          responsive: true,
+          scales: {
+            yAxes: [{
+              display: true,
+              position: 'right',
+              id: 'A',
+              type: 'linear'
+            }, {
+              display: true,
+              id: 'B',
+              type: 'linear',
+            }],
+            x: {
+              type: 'time',
+              time: {
+                unit: 'year'
               }
+            }
+          }
+        },
+        animation: {
+          duration: 1,
+          onComplete: function () {
+            var controller = this.chart.controller;
+            var chart = controller.chart;
+            var yAxis = controller.scales['y-axis-0'];
+            yAxis.ticks.forEach(function (value, index) {
+              var xOffset = chart.width - 40;
+              var yOffset = ((chart.height - 60) / 2 * index) + 15;
+              ctx.fillText(value + 'M', xOffset, yOffset);
+            });
+          }
+        }
 
-        });
+      });
+
+    })
 
 
 
 
 
-    </script>
+
+
+  </script>
 </div>
