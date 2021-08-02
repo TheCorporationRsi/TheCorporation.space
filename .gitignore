@@ -60,3 +60,4 @@ nohup.out
 corporation/dashboard/stats/__pycache__/*
 corporation/data/api/__pycache__/*
 
+corporation/chart/__pycache__/*

@@ -8,7 +8,6 @@ from corporation import db
 data = Blueprint('data', __name__)
 
 from corporation.data.api.api import *
-from corporation.data.api.chart import *
 
 
 

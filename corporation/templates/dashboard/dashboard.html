@@ -33,14 +33,39 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/css-element-queries/1.2.3/ElementQueries.min.js"></script>
     <script>
 
-        function update_data(element, url, mode) {
-    
+        var current_page = null;
+        function update_data(element, page_name, url, mode) {
+
+            if (current_page == null || current_page != page_name) {
+                $.ajax({
+                    url: url,
+                    type: "get",
+                    data: {
+                        mode: mode
+                    },
+                    success: function (response) {
+                        element.html(response);
+                    },
+                    error: function (xhr) {
+                        //Do Something to handle error
+                    }
+                });
+                current_page = page_name;
+
+            }
+
+
+        }
+
+        function get_module(element, url, mode = 0) {
+
             $.ajax({
                 url: url,
                 type: "get",
-                data: { 
+                data: {
                     mode: mode
                 },
                 success: function (response) {
@@ -50,27 +75,6 @@
                     //Do Something to handle error
                 }
             });
-
-        }
-
-        function get_data( url, callback) {
-            
-            $.ajax({
-                url: url,
-                type: "get",
-                async: false,
-                data: { 
-                    mode: 0
-                },
-                dataType: 'json',
-                done: function (data) {
-                    JSON.parse(data)
-                    callback(data) 
-                },
-                error: function (xhr) {
-                    //Do Something to handle error
-                }
-            }).responseJSON;
         }
 
         $(window).on("load", function () {
@@ -87,7 +91,7 @@
                 $('#notification-tab').toggleClass('show');
             });
 
-            update_data($('#page-container'), '/dashboard/dashboard', 1)
+            update_data($('#page-container'), 'main', '/dashboard/main', 1)
         });
 
         function show_menu() {
@@ -100,6 +104,8 @@
         }
 
         window.onscroll = function () { scrollFunction() };
+
+
 
         function scrollFunction() {
             if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
@@ -235,7 +241,8 @@
             <div id="nav-link">
                 <h1>Menu</h1>
 
-                <div class="nav-item link" onclick="update_data($('#page-container'), '/dashboard/dashboard', 1)">
+                <div class="nav-item link"
+                    onclick="update_data($('#page-container'), 'main', '/dashboard/main', 1)">
                     <img src="{{url_for('static', filename='dashboard/dashboard.png')}}">
                     <h2>Dashboard</h2>
                 </div>
@@ -283,7 +290,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <div class="dropdown-item">
+                        <div class="dropdown-item" onclick="update_data($('#page-container'), 'rsi_stats', '/dashboard/rsi_stats', 1)">
                             <div class="dot"></div>
                             <div class="title">RSI stats</div>
                         </div>
@@ -304,6 +311,34 @@
         </nav>
 
         <div id="page-container"></div>
+        <script>
+            elem = $("#page-container")[0];
+    
+            let resizeObserver = new ResizeObserver(() => {
+                console.log("The element was resized");
+                w_w = $('#page-container').width();
+                console.log(w_w);
+                
+                if(w_w > 1300){
+                    $('#page-container').addClass('large');
+                    $('#page-container').removeClass('medium');
+                    $('#page-container').removeClass('small');
+                }
+                else if(w_w > 800){
+                    $('#page-container').addClass('medium');
+                    $('#page-container').removeClass('large');
+                    $('#page-container').removeClass('small');
+                }
+                else {
+                    $('#page-container').addClass('small');
+                    $('#page-container').removeClass('large');
+                    $('#page-container').removeClass('medium');
+                }
+            });
+    
+            resizeObserver.observe(elem);
+        </script>
+
         <div id="notification-tab">
             <h1>Notifications</h1>
         </div>

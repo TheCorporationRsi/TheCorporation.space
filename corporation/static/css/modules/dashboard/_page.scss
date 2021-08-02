@@ -1,21 +1,168 @@
-
-
-
-
-
 #page-container {
-    display: flex;
+    display: grid;
     gap: 60px;
+    grid-template-columns: 1fr;
+    grid-auto-rows: calc((100vh - 60px - 120px - 60px));
     padding: 60px;
+    width: 100%;
+    max-height: calc(100vh - 180px);
+    overflow-y: scroll;
+    grid-auto-flow: dense;
+
+    &.small {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: calc((100vh - 60px - 120px - 60px) / 2);
+
+        .module {
+            &.small {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            &.hlong {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+
+            &.vlong {
+                grid-column: span 1;
+                grid-row: span 2;
+            }
+
+            &.medium {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            &.large {
+                grid-row: span 2;
+                grid-column: span 2;
+            }
+        }
+    }
+
+    &.medium {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-auto-rows: calc((100vh - 60px - 120px - 60px) / 3);
+
+        .module {
+            &.small {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            &.hlong {
+                grid-column: span 3;
+                grid-row: span 2;
+            }
+
+            &.vlong {
+                grid-column: span 2;
+                grid-row: span 3;
+            }
+
+            &.medium {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+
+            &.large {
+                grid-row: span 3;
+                grid-column: span 3;
+            }
+        }
+    }
+
+    &.large {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-auto-rows: calc((100vh - 60px - 120px - 60px) / 4);
+
+        .module {
+            &.small {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+
+            &.hlong {
+                grid-column: span 4;
+                grid-row: span 2;
+            }
+
+            &.vlong {
+                grid-column: span 2;
+                grid-row: span 4;
+            }
+
+            &.medium {
+                grid-column: span 3;
+                grid-row: span 3;
+            }
+
+            &.large {
+                grid-row: span 4;
+                grid-column: span 4;
+            }
+        }
+    }
 
     .module {
         background-color: $light-grey;
-        box-shadow: 0px 0px 13px 5px #292929;
-        min-height: 300px;
-        min-width: 300px;
-        max-height: 100%;
-        max-width: 100%;
+        box-shadow: 0px 0px 10px 5px #292929;
         border-radius: 10px;
         padding: 30px;
+
+        button {
+            background-color: $light-grey;
+            border-radius: 5px;
+            padding: 5px;
+            color: white;
+            border-top-color: grey;
+            border-left-color: grey;
+            border-right-color: $dark-grey;
+            border-bottom-color: $dark-grey;
+
+            &:active {
+                border-top-color: $dark-grey;
+                border-left-color: $dark-grey;
+                border-right-color: grey;
+                border-bottom-color: grey;
+            }
+
+            &.active {
+                background-color: $blue;
+                color: $yellow;
+                text-shadow: black;
+
+                border-color: $yellow;
+            }
+        }
+
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+
+            td,
+            th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: $dark-grey;
+            }
+
+            tr:hover {
+                background-color: #ddd;
+            }
+
+            th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: $blue;
+                color: white;
+            }
+        }
     }
 }

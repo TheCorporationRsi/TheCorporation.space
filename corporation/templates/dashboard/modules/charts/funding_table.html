@@ -1,0 +1,81 @@
+{% if time == 5 %}
+<button class="active" onclick="get_module($('#funding_table_module'),'/chart/funding/table/5')">All time</button>
+{% else %}
+<button onclick="get_module($('#funding_table_module'),'/chart/funding/table/5')">All time</button>
+{% endif %}
+
+{% if time == 4 %}
+<button class="active" onclick="get_module($('#funding_table_module'),'/chart/funding/table/4')">Last year</button>
+{% else %}
+<button onclick="get_module($('#funding_table_module'),'/chart/funding/table/4')">Last year</button>
+{% endif %}
+
+{% if time == 3 %}
+<button class="active" onclick="get_module($('#funding_table_module'),'/chart/funding/table/3')">Last month</button>
+{% else %}
+<button onclick="get_module($('#funding_table_module'),'/chart/funding/table/3')">Last month</button>
+{% endif %}
+
+{% if time == 2 %}
+<button class="active" onclick="get_module($('#funding_table_module'),'/chart/funding/table/2')">Last week</button>
+{% else %}
+<button onclick="get_module($('#funding_table_module'),'/chart/funding/table/2')">Last week</button>
+{% endif %}
+
+{% if time == 1 %}
+<button class="active" onclick="get_module($('#funding_table_module'),'/chart/funding/table/1')">Today</button>
+{% else %}
+<button onclick="get_module($('#funding_table_module'),'/chart/funding/table/1')">Today</button>
+{% endif %}
+
+
+
+
+
+<div style="width:100%;height:95%; overflow-y:scroll;">
+    <table style="width:100%;">
+        <tr>
+            <th>Fund</th>
+            <th>Fund delta</th>
+
+            <th>Citizens</th>
+            <th>Citizens delta</th>
+
+            <th>Date</th>
+        </tr>
+
+        {% for entry in data %}
+
+        <tr>
+            {% if entry.fund == 0%}
+            <td></td>
+            <td></td>
+            {% else %}
+            <td>{{ entry.fund }}</td>
+
+            {% if entry.fund_delta == entry.fund or entry.fund_delta < 1 %} 
+            <td></td>
+            {% else %}
+            <td>{{ entry.fund_delta }}</td>
+            {% endif %}
+            {% endif %}
+
+            {% if entry.citizens == 0 %}
+            <td></td>
+            <td></td>
+            {% else %}
+            <td>{{ entry.citizens }}</td>
+
+            {% if entry.citizen_delta == entry.citizens or entry.citizen_delta < 1 %} 
+            <td></td>
+            {% else %}
+            <td>{{ entry.citizen_delta }}</td>
+            {% endif %}
+            {% endif %}
+
+            <td>{{ entry.date }}</td>
+        </tr>
+
+        {% endfor %}
+    </table>
+</div>

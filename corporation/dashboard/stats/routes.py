@@ -11,8 +11,14 @@ from sqlalchemy import func
 from corporation.dashboard import dashboard
 
 
-@dashboard.route("/dashboard/dashboard", methods=['GET'])
+@dashboard.route("/dashboard/rsi_stats", methods=['GET'])
+@login_required
+def rsi_stats():
+
+    return render_template('dashboard/pages/rsi_stats_page.html')
+
+@dashboard.route("/dashboard/main", methods=['GET'])
 @login_required
 def dashboard_stats():
 
-    return render_template('dashboard/pages/stats_page.html')
+    return render_template('dashboard/pages/main.html')
