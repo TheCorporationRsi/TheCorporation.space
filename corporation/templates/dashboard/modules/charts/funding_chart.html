@@ -100,17 +100,33 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                yAxes: [{
-                    id: 'A',
+                A: {
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Fundings'
+                    },
+                    ticks: {
+                        // Include a dollar sign in the ticks
+                        callback: function(value, index, values) {
+                            return value +' $' ;
+                        }
+                    },
                     display: true,
                     position: 'right',
                     type: 'linear'
-                }, {
-                    id: 'B',
+                },
+                B:{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Citizens'
+                    },
                     display: true,
                     position: 'left',
                     type: 'linear',
-                }],
+                    grid: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                      }
+                },
                 x: {
                     type: 'time',
                     time: {

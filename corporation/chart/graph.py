@@ -9,6 +9,12 @@ import json
 
 from corporation.chart import chart
 
+class funding_chart_data():
+    "This is a person class"
+    data = [[],[],[],[],[],[]]
+    
+    time = [0,0,0,0,0,0]
+
 @chart.route('/chart/funding/graph/<int:time>')
 def funding_chart(time = 1):
     ''' 
@@ -19,6 +25,19 @@ def funding_chart(time = 1):
     5: all time
     
     '''
+    def return_date(item):
+        return item.date
+    
+    one_hour = datetime.datetime.now() - datetime.timedelta(hours = 1)
+    global funding_chart_data
+    if not funding_chart_data.time[time] == 0 and funding_chart_data.time[time] > one_hour:
+        list_funding = funding_chart_data.data[time]
+        
+        return render_template('dashboard/modules/charts/funding_chart.html', data = json.dumps(list_funding), time = time)
+        
+        
+        
+    
     
     now = datetime.datetime.utcnow()
     day_ago = now - datetime.timedelta(days = 1)
@@ -60,6 +79,9 @@ def funding_chart(time = 1):
                     current_day = item.date.day
                     need_citizen = True
                     need_fund = True
+                    
+        
+        
     if time > 2:
         need_citizen = True
         need_fund = True
@@ -131,12 +153,14 @@ def funding_chart(time = 1):
                     need_citizen = True
                     need_fund = True
                 
-    def return_date(item):
-        return item.date
+    
     
     data.sort(key= return_date)
     
     
     list_funding=[r.as_dict() for r in data]
+    
+    funding_chart_data.data[time] = list_funding
+    funding_chart_data.time[time] = datetime.datetime.now()
     
     return render_template('dashboard/modules/charts/funding_chart.html', data = json.dumps(list_funding), time = time)

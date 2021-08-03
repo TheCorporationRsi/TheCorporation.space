@@ -9,6 +9,12 @@ import json
 
 from corporation.chart import chart
 
+class funding_table_data():
+    "This is a person class"
+    data = [[],[],[],[],[],[]]
+    
+    time = [0,0,0,0,0,0]
+
 @chart.route('/chart/funding/table/<int:time>')
 def funding_table(time = 1):
     ''' 
@@ -19,6 +25,16 @@ def funding_table(time = 1):
     5: all time
     
     '''
+    
+    def return_date(item):
+        return item.date
+    
+    one_hour = datetime.datetime.now() - datetime.timedelta(hours = 1)
+    global funding_table_data
+    if not funding_table_data.time[time] == 0 and funding_table_data.time[time] > one_hour:
+        data = funding_table_data.data[time]
+        
+        return render_template('dashboard/modules/charts/funding_table.html', data = data, time = time)
     
     now = datetime.datetime.utcnow()
     day_ago = now - datetime.timedelta(days = 1)
@@ -135,9 +151,6 @@ def funding_table(time = 1):
     else:
         
         data = day
-                
-    def return_date(item):
-        return item.date
     
         
     data.sort(key= return_date)
@@ -158,6 +171,9 @@ def funding_table(time = 1):
             element.fund_delta = 0
         if not hasattr(element, 'citizen_delta'):
             element.citizen_delta = 0
+            
+    funding_table_data.data[time] = data
+    funding_table_data.time[time] = datetime.datetime.now()
     
     
     return render_template('dashboard/modules/charts/funding_table.html', data = data, time = time)
