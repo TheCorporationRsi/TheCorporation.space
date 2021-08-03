@@ -95,7 +95,7 @@ def create_app(config_class=Config):
         from corporation.setup.routes import setup
         from corporation.influence.routes import influence
         from corporation.data.api import data
-        from corporation.chart import chart
+        from corporation.dashboard.modules import modules
 
         
         app.register_blueprint(security)
@@ -108,7 +108,7 @@ def create_app(config_class=Config):
         app.register_blueprint(influence)
         app.register_blueprint(data)
         app.register_blueprint(dashboard)
-        app.register_blueprint(chart)
+        app.register_blueprint(modules)
 
     discord_command.set_route("/interactions")
     #discord_command.update_slash_commands(guild_id= 831248117571649566)
