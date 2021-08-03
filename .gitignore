@@ -12,12 +12,7 @@ node_modules/*
 migrations/*
 discordbot/*
 database_save/*
-corporation/user.db
-corporation/role.db
-corporation/social.db
-corporation/influence.db
 corporation/static/profile_pics/*
-corporation/logs.db
 env/*
 front test
 migrations
