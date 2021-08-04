@@ -22,5 +22,5 @@ FILE
 
 models/*
 node_modules/*
-corporation/databases/*
+corporation/data/databases/*
 !corporation/databases/rsi_stats.db

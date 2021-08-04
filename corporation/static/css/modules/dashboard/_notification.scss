@@ -22,3 +22,50 @@
         margin-right: 0px;
     }
 }
+
+
+.notifications {
+    position: fixed;
+    z-index: 100000;
+    top: 60px;
+    left: 0px;
+
+    .alert {
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        text-align: center;
+        width: calc(100vw - 40px);
+
+        &.danger {
+            background-color: red;
+            color: black;
+        }
+
+        &.success {
+            background-color: green;
+            color: white;
+        }
+
+        &.warning {
+            background-color: yellow;
+            color: black;
+        }
+
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+
+            &:hover {
+                color: black;
+            }
+        }
+    }
+}

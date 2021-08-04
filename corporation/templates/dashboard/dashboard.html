@@ -227,7 +227,7 @@
                 <h2>{{ current_user.RSI_handle }}</h2>
             </div>
 
-            <div id="nav_stats">
+            <!-- <div id="nav_stats">
                 <div class="stats-item">
                     <div class="data">26</div>
                     <div class="title">Level</div>
@@ -236,7 +236,7 @@
                     <div class="data">Corporateer</div>
                     <div class="title">Rank</div>
                 </div>
-            </div>
+            </div> -->
 
             <div id="nav-link">
                 <h1>Menu</h1>
@@ -247,7 +247,7 @@
                     <h2>Dashboard</h2>
                 </div>
 
-                <div class="nav-item link">
+                <div class="nav-item link" onclick="update_data($('#page-container'), 'influence', '/dashboard/influence', 1)">
                     <img src="{{url_for('static', filename='dashboard/influence.png')}}">
                     <h2>Influence</h2>
                 </div>

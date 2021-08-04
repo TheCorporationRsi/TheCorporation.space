@@ -27,6 +27,7 @@
             &.vlong {
                 grid-column: span 1;
                 grid-row: span 2;
+                overflow-y: scroll;
             }
 
             &.medium {
@@ -53,12 +54,13 @@
 
             &.hlong {
                 grid-column: span 3;
-                grid-row: span 2;
+                grid-row: span 1;
             }
 
             &.vlong {
-                grid-column: span 2;
+                grid-column: span 1;
                 grid-row: span 3;
+                overflow-y: scroll;
             }
 
             &.medium {
@@ -85,12 +87,13 @@
 
             &.hlong {
                 grid-column: span 4;
-                grid-row: span 2;
+                grid-row: span 1;
             }
 
             &.vlong {
-                grid-column: span 2;
+                grid-column: span 1;
                 grid-row: span 4;
+                overflow-y: scroll;
             }
 
             &.medium {
@@ -111,7 +114,7 @@
         border-radius: 10px;
         padding: 30px;
 
-        button {
+        .button {
             background-color: $light-grey;
             border-radius: 5px;
             padding: 5px;
@@ -144,7 +147,7 @@
 
             td,
             th {
-                border: 1px solid #ddd;
+                border: 1px solid $dark-grey;
                 padding: 8px;
             }
 
@@ -153,7 +156,7 @@
             }
 
             tr:hover {
-                background-color: #ddd;
+                background-color: $background;
             }
 
             th {

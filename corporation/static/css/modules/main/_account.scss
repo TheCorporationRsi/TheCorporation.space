@@ -149,32 +149,6 @@
                 width: 100%;
             }
 
-            &.influence-weight {
-
-
-                .weight {
-                    display: flex;
-                    flex-flow: row nowrap;
-                    align-items: center;
-                    justify-content: right;
-                    width: 100%;
-
-                    label{
-                        font-size: 20px;
-                    }
-
-                    .w-title {
-                        align-items: center;
-                        justify-content: right;
-                        margin-left: auto;
-                        margin-right: 10px;
-                    }
-                }
-
-                fieldset {
-                    border: 0;
-                }
-
                 .invalid-feedback {
                     color: red;
                     font-size: 0.8em;

@@ -657,6 +657,38 @@ nav {
   #notification-tab.show {
     margin-right: 0px; }
 
+.notifications {
+  position: fixed;
+  z-index: 100000;
+  top: 60px;
+  left: 0px; }
+  .notifications .alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    text-align: center;
+    width: calc(100vw - 40px); }
+    .notifications .alert.danger {
+      background-color: red;
+      color: black; }
+    .notifications .alert.success {
+      background-color: green;
+      color: white; }
+    .notifications .alert.warning {
+      background-color: yellow;
+      color: black; }
+    .notifications .alert .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s; }
+      .notifications .alert .closebtn:hover {
+        color: black; }
+
 #page-container {
   display: grid;
   gap: 60px;
@@ -678,7 +710,8 @@ nav {
       grid-row: span 1; }
     #page-container.small .module.vlong {
       grid-column: span 1;
-      grid-row: span 2; }
+      grid-row: span 2;
+      overflow-y: scroll; }
     #page-container.small .module.medium {
       grid-column: span 2;
       grid-row: span 2; }
@@ -693,10 +726,11 @@ nav {
       grid-row: span 1; }
     #page-container.medium .module.hlong {
       grid-column: span 3;
-      grid-row: span 2; }
+      grid-row: span 1; }
     #page-container.medium .module.vlong {
-      grid-column: span 2;
-      grid-row: span 3; }
+      grid-column: span 1;
+      grid-row: span 3;
+      overflow-y: scroll; }
     #page-container.medium .module.medium {
       grid-column: span 2;
       grid-row: span 2; }
@@ -711,10 +745,11 @@ nav {
       grid-row: span 1; }
     #page-container.large .module.hlong {
       grid-column: span 4;
-      grid-row: span 2; }
+      grid-row: span 1; }
     #page-container.large .module.vlong {
-      grid-column: span 2;
-      grid-row: span 4; }
+      grid-column: span 1;
+      grid-row: span 4;
+      overflow-y: scroll; }
     #page-container.large .module.medium {
       grid-column: span 3;
       grid-row: span 3; }
@@ -726,7 +761,7 @@ nav {
     box-shadow: 0px 0px 10px 5px #292929;
     border-radius: 10px;
     padding: 30px; }
-    #page-container .module button {
+    #page-container .module .button {
       background-color: #323232;
       border-radius: 5px;
       padding: 5px;
@@ -735,12 +770,12 @@ nav {
       border-left-color: grey;
       border-right-color: #222222;
       border-bottom-color: #222222; }
-      #page-container .module button:active {
+      #page-container .module .button:active {
         border-top-color: #222222;
         border-left-color: #222222;
         border-right-color: grey;
         border-bottom-color: grey; }
-      #page-container .module button.active {
+      #page-container .module .button.active {
         background-color: #0083ff;
         color: #fcff00;
         text-shadow: black;
@@ -751,15 +786,140 @@ nav {
       width: 100%; }
       #page-container .module table td,
       #page-container .module table th {
-        border: 1px solid #ddd;
+        border: 1px solid #222222;
         padding: 8px; }
       #page-container .module table tr:nth-child(even) {
         background-color: #222222; }
       #page-container .module table tr:hover {
-        background-color: #ddd; }
+        background-color: #181818; }
       #page-container .module table th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
         background-color: #0083ff;
         color: white; }
+
+#influence_weight .weight {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: right;
+  width: 100%; }
+  #influence_weight .weight label {
+    font-size: 20px; }
+  #influence_weight .weight .w-title {
+    align-items: center;
+    justify-content: right;
+    margin-left: auto;
+    margin-right: 10px; }
+
+#influence_weight fieldset {
+  border: 0; }
+
+#influence_weight .invalid-feedback {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px; }
+
+#influence_weight input[type=text],
+#influence_weight input[type=password],
+#influence_weight textarea,
+#influence_weight select {
+  align-items: right;
+  width: 50px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: auto;
+  padding: 5px 10px;
+  display: inline-block;
+  border: 1px solid #0083ff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #222222;
+  color: white; }
+  #influence_weight input[type=text].error,
+  #influence_weight input[type=password].error,
+  #influence_weight textarea.error,
+  #influence_weight select.error {
+    border: 2px solid red; }
+
+#influence_weight textarea {
+  min-height: 200px; }
+
+#influence_weight .submit_button {
+  width: 100%;
+  background-color: #0083ff !important;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: "Montserrat";
+  font-weight: bold;
+  transition: all ease-in-out .3s; }
+
+#influence_weight .submit_button:hover {
+  background-color: #fcff00;
+  color: black;
+  transform: scale(1.03); }
+
+#influence_transfer .top {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap; }
+
+#influence_transfer .invalid-feedback {
+  color: red;
+  font-size: 0.8em;
+  margin-bottom: 5px; }
+
+#influence_transfer label {
+  width: 25%;
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: auto; }
+
+#influence_transfer input[type=text],
+#influence_transfer input[type=password],
+#influence_transfer textarea,
+#influence_transfer select {
+  align-items: right;
+  width: 25%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  margin-left: auto;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; }
+  #influence_transfer input[type=text].error,
+  #influence_transfer input[type=password].error,
+  #influence_transfer textarea.error,
+  #influence_transfer select.error {
+    border: 2px solid red; }
+
+#influence_transfer textarea {
+  height: 150px;
+  width: 100%; }
+
+#influence_transfer .submit_button {
+  width: 100%;
+  background-color: #0083ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 2em;
+  font-family: "Montserrat";
+  font-weight: bold;
+  transition: all ease-in-out .3s; }
+
+#influence_transfer .submit_button:hover {
+  background-color: #fcff00;
+  color: black;
+  transform: scale(1.03); }

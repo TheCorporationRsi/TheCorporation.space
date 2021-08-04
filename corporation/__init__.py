@@ -72,7 +72,7 @@ def create_app(config_class=Config):
         if is_debug_mode() and not is_werkzeug_reloader_process():
             pass
         else:
-            from corporation.influence import tasks  # noqa: F401
+            from corporation.dashboard.pages.influence import tasks  # noqa: F401
             from corporation.data import tasks
             
             scheduler.start()
@@ -93,7 +93,6 @@ def create_app(config_class=Config):
         from corporation.discord_bot_routes.routes import discord_bot_routes
         from corporation.discord_bot_routes.routes import discord_actions
         from corporation.setup.routes import setup
-        from corporation.influence.routes import influence
         from corporation.data.api import data
         from corporation.dashboard.modules import modules
 
@@ -105,7 +104,6 @@ def create_app(config_class=Config):
         app.register_blueprint(discord_bot_routes)
         discord_command.register_blueprint(discord_actions)
         app.register_blueprint(setup)
-        app.register_blueprint(influence)
         app.register_blueprint(data)
         app.register_blueprint(dashboard)
         app.register_blueprint(modules)

@@ -1,0 +1,211 @@
+
+<div class="module hlong" >
+
+</div>
+
+<script>
+    function submit_weight(e) {
+        var frm = $('#weight_form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/influence/update_weight",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#influence_weight").html(response);
+            }
+        });
+
+    };
+
+    function submit_influence(e) {
+        var frm = $('#influence-form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/influence/update_influence_form",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#influence_transfer").html(response);
+
+                var users = [];
+
+                function loadUsers() {
+                    $.getJSON('/data/users', function (data, status, xhr) {
+                        for (var i = 0; i < data.length; i++) {
+                            users.push(data[i].name);
+                        }
+                    });
+                };
+
+                loadUsers();
+
+                $('#influence-RSI_handle').autocomplete({
+                    source: users,
+                });
+            }
+        });
+
+    }
+
+        function update_influence_transfer() {
+            var x = document.getElementById("influence_transfer");
+            $.ajax({
+                url: "/dashboard/influence/update_influence_form",
+                type: "get",
+                data: { jsdata: 0 },
+                success: function (response) {
+                    $("#influence_transfer").html(response);
+    
+                    var users = [];
+    
+                    function loadUsers() {
+                        $.getJSON('/data/users', function (data, status, xhr) {
+                            for (var i = 0; i < data.length; i++) {
+                                users.push(data[i].name);
+                            }
+                        });
+                    };
+    
+                    loadUsers();
+    
+                    $('#influence-RSI_handle').autocomplete({
+                        source: users,
+                    });
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                }
+            });
+        }
+</script>
+
+
+
+<div id="influence_transfer" class="module medium" >
+    <script type="text/javascript">
+        update_influence_transfer()
+    </script>
+
+</div>
+
+<div id="influence_weight" class="module vlong" style="height: auto;" >
+    <script type="text/javascript">
+        get_module($('#influence_weight'),'/dashboard/influence/update_weight')
+    </script>
+</div>
+
+<div class="module medium" >
+    <div>
+        <h1 style="text-align: center; padding-bottom: 20px;">Influence / Weight chart</h1>
+        <div style=" height: 100%; width: 100%;"><canvas id="weightgraph"></canvas></div>
+        
+    </div>
+    <script>
+        Chart.defaults.color = "#fff";
+        var ctx = document.getElementById('weightgraph');
+        var myChart = new Chart(ctx, {
+
+            type: 'doughnut',
+            data: {
+                labels: [
+
+                {% for division in division_list %}
+
+                '{{division.title}}',
+                
+                {% endfor %}
+            ],
+        datasets: [{
+
+            label: 'Division influence',
+            data: [
+                {% for division in division_list %}
+            {{ current_user.div_influence(division) | round }},
+        {% endfor %}
+        ],
+            backgroundColor: [
+                {% for division in division_list %}
+        '{{ division.color() }}',
+            {% endfor %}
+    ],
+        hoverOffset: 10,
+            borderColor: '#363636'
+
+}, {
+
+            label: 'Division Weight',
+                data: [
+                    {% for division in division_list %}
+        {{ current_user.div_weight(division) }},
+        {% endfor %}
+            ],
+        backgroundColor: [
+            {% for division in division_list %}
+        '{{ division.color() }}',
+            {% endfor %}
+        ],
+        hoverOffset: 10,
+            borderColor: '#363636'
+
+    }
+    
+    ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                display: false,
+            }
+        }
+    }
+
+    });
+
+    </script>
+
+</div>
+
+
+<div class="module large" style="overflow-y:scroll" ><label>Received</label>
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>Sender</th>
+                <th>Amount</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in current_user.inf_transfer_history(type ='received') %}
+            <tr>
+                <td>{{ transaction.user_from_handle}}</td>
+                <td>{{ transaction.amount}}</td>
+                <td>{{ transaction.message}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="module large" style="overflow-y:scroll" ><label>Sent</label>
+
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in current_user.inf_transfer_history(type ='sent') %}
+            <tr>
+                <td>{{ transaction.user_to_handle}}</td>
+                <td>{{ transaction.amount}}</td>
+                <td>{{ transaction.message}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+

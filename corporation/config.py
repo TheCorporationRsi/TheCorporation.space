@@ -13,11 +13,11 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_BINDS = {
-    'influence_db': 'sqlite:///databases/influence.db',
-    'role_db': 'sqlite:///databases/role.db',
-    'social_db': 'sqlite:///databases/social.db',
-    'logs_db':  'sqlite:///databases/logs.db',
-    'rsi_stats_db': 'sqlite:///databases/rsi_stats.db'
+    'influence_db': 'sqlite:///data/databases/influence.db',
+    'role_db': 'sqlite:///data/databases/role.db',
+    'social_db': 'sqlite:///data/databases/social.db',
+    'logs_db':  'sqlite:///data/databases/logs.db',
+    'rsi_stats_db': 'sqlite:///data/databases/rsi_stats.db'
     }
 
     SCHEDULER_API_ENABLED = True
