@@ -40,6 +40,7 @@
         function update_data(element, page_name, url, mode) {
 
             if (current_page == null || current_page != page_name) {
+                element.fadeToggle('fast')
                 $.ajax({
                     url: url,
                     type: "get",
@@ -54,6 +55,8 @@
                     }
                 });
                 current_page = page_name;
+                element.scrollTop(0)
+                element.ready().fadeToggle()
 
             }
 
@@ -252,7 +255,7 @@
                     <h2>Influence</h2>
                 </div>
 
-                <div class="nav-item link">
+                <div class="nav-item link" onclick="update_data($('#page-container'), 'roles', '/dashboard/roles', 1)">
                     <img src="{{url_for('static', filename='dashboard/roles.png')}}">
                     <h2>Roles</h2>
                 </div>

@@ -159,12 +159,12 @@ def funding_table(time = 1):
         if idx > 0 :
             for i in range(1, 3 ):
                 if data[idx - i].fund > 10:
-                    element.fund_delta = element.fund - data[idx -1].fund
+                    element.fund_delta = element.fund - data[idx - i].fund
                     break
             
             for i in range( 1, 3 ):
                 if data[idx - i].citizens > 10:
-                    element.citizen_delta = element.citizens - data[idx -1].citizens
+                    element.citizen_delta = element.citizens - data[idx - i].citizens
                     break
         
         if not hasattr(element, 'fund_delta'):

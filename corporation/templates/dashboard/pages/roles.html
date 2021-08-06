@@ -1,0 +1,56 @@
+<div class="module role-section" style="min-width: 300px;" >
+
+    
+    {% if current_user.is_manager() %}
+    <div class="title">
+        Manager roles :
+    </div>
+    <div class="roles">
+        {% for role in current_user.roles() %}
+        {% if role.div_head or role.dep_head or role.div_proxy or role.dep_proxy %}
+        <div style=" border-color: {{ role.role_color() }}; ">
+            <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+            {{ role.title }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="title">
+        Member role :
+    </div>
+    <div class="roles">
+        {% for role in current_user.roles() %}
+        {% if role.div_member %}
+        <div style=" border-color: {{ role.role_color() }}; ">
+            <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+            {{ role.title }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="title">
+        Other roles :
+    </div>
+    <div class="roles">
+        {% for role in current_user.roles() %}
+        {% if not (role.div_head or role.dep_head or role.div_proxy or role.dep_proxy or role.div_member) %}
+        <div style=" border-color: {{ role.role_color() }}; ">
+            <p class="circle" style="background-color: {{ role.role_color() }};"></p>
+            {{ role.title }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+</div>
+
+<div class="module" >
+
+</div>
+
+<div class="module" >
+
+</div>
