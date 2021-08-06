@@ -1,15 +1,26 @@
+<div class="module info_table" style="width: 100%">
+  <div class="column">
+      <div class="row">Current Funding</div>
+      <div class="row2">$ {{current_fund.fund|currencyFormat}}</div>
+  </div>
+  <div class="column">
+      <div class="row">Funding/day</div>
+      <div class="row2">$ {{daily_fund|currencyFormat}}</div>
+  </div>
+  <div class="column">
+      <div class="row">Current citizens</div>
+      <div class="row2">{{current_fund.citizens|currencyFormat}}</div>
+  </div>
+  <div class="column">
+      <div class="row">Citizens/day</div>
+      <div class="row2">{{daily_citizen|currencyFormat}}</div>
+  </div>
+</div>
+
 <div id="funding_graph_module" class="module medium" >
   <script type="text/javascript">
       get_module($('#funding_graph_module'),'/chart/funding/graph/1')
   </script>
-
-</div>
-
-<div class="module" >
-
-</div>
-
-<div class="module" >
 
 </div>
 

@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from sqlalchemy.orm import query
 from corporation import db, login_manager, bcrypt, socketio
 from flask_login import UserMixin
 from flask import current_app, flash
