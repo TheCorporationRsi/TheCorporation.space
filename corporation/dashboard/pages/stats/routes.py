@@ -34,5 +34,4 @@ def rsi_stats():
 @dashboard.route("/dashboard/main", methods=['GET'])
 @login_required
 def dashboard_stats():
-    get_funding_stats()
     return render_template('dashboard/pages/main.html')
