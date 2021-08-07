@@ -73,7 +73,7 @@
             {% endif %}
             {% endif %}
 
-            <td>{{ entry['date'] }}</td>
+            <td>{{ entry['date']|epoch_to_date }}</td>
         </tr>
 
         {% endfor %}

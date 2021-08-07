@@ -9,6 +9,10 @@ import json
 
 from corporation.dashboard.modules import modules
 
+@modules.app_template_filter()
+def epoch_to_date(epoch):
+    return datetime.datetime.fromtimestamp(int(epoch)).strftime('%c')
+
 
 @modules.route('/chart/funding/table/<int:time>')
 def funding_table(time = 1):

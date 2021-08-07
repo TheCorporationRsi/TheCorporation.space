@@ -2,38 +2,10 @@
     "data": {
         "1": [
             {
-                "fund": 378338225,
-                "fund_delta": null,
-                "citizens": 3179983,
-                "citizens_delta": null,
-                "date": "1628280006"
-            },
-            {
-                "fund": 378343730,
-                "fund_delta": 5505,
-                "citizens": 3180024,
-                "citizens_delta": 41,
-                "date": "1628283606"
-            },
-            {
-                "fund": 378377462,
-                "fund_delta": 33732,
-                "citizens": 3180089,
-                "citizens_delta": 65,
-                "date": "1628287206"
-            },
-            {
-                "fund": 378426265,
-                "fund_delta": 48803,
-                "citizens": 3180158,
-                "citizens_delta": 69,
-                "date": "1628290806"
-            },
-            {
                 "fund": 378452343,
-                "fund_delta": 26078,
+                "fund_delta": null,
                 "citizens": 3180224,
-                "citizens_delta": 66,
+                "citizens_delta": null,
                 "date": "1628294405"
             },
             {
@@ -161,21 +133,35 @@
                 "citizens": 3181137,
                 "citizens_delta": 66,
                 "date": "1628359206"
+            },
+            {
+                "fund": 378743169,
+                "fund_delta": 40421,
+                "citizens": 3181358,
+                "citizens_delta": 221,
+                "date": "1628370005"
+            },
+            {
+                "fund": 378754202,
+                "fund_delta": 11033,
+                "citizens": 3181437,
+                "citizens_delta": 79,
+                "date": "1628373606"
+            },
+            {
+                "fund": 378766816,
+                "fund_delta": 12614,
+                "citizens": 3181522,
+                "citizens_delta": 85,
+                "date": "1628377207"
             }
         ],
         "2": [
             {
-                "fund": 377962891,
-                "fund_delta": null,
-                "citizens": 3176817,
-                "citizens_delta": null,
-                "date": "1627761606"
-            },
-            {
                 "fund": 377975390,
-                "fund_delta": 12499,
+                "fund_delta": null,
                 "citizens": 3176920,
-                "citizens_delta": 103,
+                "citizens_delta": null,
                 "date": "1627776005"
             },
             {
@@ -223,15 +209,15 @@
         ],
         "3": [
             {
-                "fund": 376544638,
+                "fund": 376567510,
                 "fund_delta": null,
                 "citizens": null,
                 "citizens_delta": null,
-                "date": "1625947200"
+                "date": "1625961600"
             },
             {
                 "fund": 376982514,
-                "fund_delta": 437876,
+                "fund_delta": 415004,
                 "citizens": 3169679,
                 "citizens_delta": -7241,
                 "date": "1626408000"
@@ -260,15 +246,15 @@
         ],
         "4": [
             {
-                "fund": 307825471,
+                "fund": 307858085,
                 "fund_delta": null,
                 "citizens": null,
                 "citizens_delta": null,
-                "date": "1596808800"
+                "date": "1596823200"
             },
             {
                 "fund": 313225201,
-                "fund_delta": 5399730,
+                "fund_delta": 5367116,
                 "citizens": 2791110,
                 "citizens_delta": -385810,
                 "date": "1599933600"
@@ -1762,10 +1748,10 @@
         ]
     },
     "current_stats": {
-        "fund": 378702748,
-        "daily_fund": 368636,
-        "citizens": 3181137,
-        "daily_citizens": 1194,
-        "current_time": "07/08/2021 19:00:24 "
+        "fund": 378766816,
+        "daily_fund": 389354,
+        "citizens": 3181522,
+        "daily_citizens": 1433,
+        "current_time": "07/08/2021 23:01:46 "
     }
 }

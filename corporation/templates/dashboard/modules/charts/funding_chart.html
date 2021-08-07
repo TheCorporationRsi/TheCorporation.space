@@ -144,17 +144,8 @@
             }
         },
         animation: {
-            duration: 1,
-            onComplete: function () {
-                var controller = this.chart.controller;
-                var chart = controller.chart;
-                var yAxis = controller.scales['y-axis-0'];
-                yAxis.ticks.forEach(function (value, index) {
-                    var xOffset = chart.width - 40;
-                    var yOffset = ((chart.height - 60) / 2 * index) + 15;
-                    ctx.fillText(value + 'M', xOffset, yOffset);
-                });
-            }
+            duration: 0,
+            
         }
 
     });
