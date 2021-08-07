@@ -405,6 +405,11 @@ a {
   padding: 0;
   box-sizing: border-box; }
 
+.ui-autocomplete {
+  background-color: #222222 !important;
+  color: white !important;
+  border-color: #0083ff !important; }
+
 html,
 body {
   margin: 0;
@@ -635,6 +640,8 @@ nav {
           border-color: white; }
       nav #nav-link .nav-item.link {
         flex-flow: row nowrap; }
+        nav #nav-link .nav-item.link.on {
+          color: #fcff00; }
       nav #nav-link .nav-item:hover {
         color: #fcff00; }
       nav #nav-link .nav-item.dropdown {
@@ -707,6 +714,10 @@ nav {
             nav #nav-link .nav-item.dropdown.on .dropdown .dropdown-item {
               height: auto;
               opacity: 1; }
+              nav #nav-link .nav-item.dropdown.on .dropdown .dropdown-item.on {
+                color: #fcff00; }
+                nav #nav-link .nav-item.dropdown.on .dropdown .dropdown-item.on .dot {
+                  background-color: #fcff00; }
 
 #notification-tab {
   display: flex;
@@ -831,7 +842,8 @@ nav {
 #influence_transfer .top {
   width: 100%;
   display: flex;
-  flex-flow: row nowrap; }
+  flex-flow: row nowrap;
+  gap: 20px; }
 
 #influence_transfer .invalid-feedback {
   color: red;
@@ -839,8 +851,8 @@ nav {
   margin-bottom: 5px; }
 
 #influence_transfer label {
-  width: 25%;
-  margin-left: 20px;
+  width: fit-content;
+  padding-right: 10px;
   margin-top: auto;
   margin-bottom: auto;
   color: #0083ff; }
@@ -850,7 +862,6 @@ nav {
 #influence_transfer textarea,
 #influence_transfer select {
   align-items: right;
-  width: 25%;
   margin-top: 8px;
   margin-bottom: 8px;
   margin-left: auto;

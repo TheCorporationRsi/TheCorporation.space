@@ -47,3 +47,16 @@ def influence_form_submition():
         return redirect(url_for('dashboard.influence_form_submition'))
     
     return render_template("dashboard/modules/influence/influence_form.html", inf_form=inf_form)
+
+
+@dashboard.route("/dashboard/influence/info", methods=['GET'])
+@login_required
+def influence_info():
+    
+    return render_template("dashboard/modules/influence/info_table.html")
+
+@dashboard.route("/dashboard/influence/weight_graph", methods=['GET'])
+@login_required
+def influence_graph():
+    
+    return render_template("dashboard/modules/influence/graph.html")

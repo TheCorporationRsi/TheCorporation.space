@@ -47,33 +47,33 @@
         {% for entry in data %}
 
         <tr>
-            {% if entry.fund == 0%}
+            {% if entry['fund'] == 0%}
             <td></td>
             <td></td>
             {% else %}
-            <td>{{ entry.fund }}</td>
+            <td>{{ entry['fund']  }}</td>
 
-            {% if entry.fund_delta == entry.fund or entry.fund_delta < 1 %} 
+            {% if entry['fund_delta'] == entry['fund'] or not entry['fund_delta'] %} 
             <td></td>
             {% else %}
-            <td>{{ entry.fund_delta }}</td>
+            <td>{{ entry['fund_delta'] }}</td>
             {% endif %}
             {% endif %}
 
-            {% if entry.citizens == 0 %}
+            {% if entry['citizens'] == 0 %}
             <td></td>
             <td></td>
             {% else %}
-            <td>{{ entry.citizens }}</td>
+            <td>{{ entry['citizens'] }}</td>
 
-            {% if entry.citizen_delta == entry.citizens or entry.citizen_delta < 1 %} 
+            {% if entry['citizens_delta'] == entry['citizens'] or not entry['citizens_delta']%} 
             <td></td>
             {% else %}
-            <td>{{ entry.citizen_delta }}</td>
+            <td>{{ entry['citizens_delta'] }}</td>
             {% endif %}
             {% endif %}
 
-            <td>{{ entry.date }}</td>
+            <td>{{ entry['date'] }}</td>
         </tr>
 
         {% endfor %}

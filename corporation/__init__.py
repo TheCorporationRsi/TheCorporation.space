@@ -74,6 +74,7 @@ def create_app(config_class=Config):
         else:
             from corporation.dashboard.pages.influence import tasks  # noqa: F401
             from corporation.data import tasks
+            from corporation.dashboard.pages.stats import tasks
             
             scheduler.start()
         from corporation import events

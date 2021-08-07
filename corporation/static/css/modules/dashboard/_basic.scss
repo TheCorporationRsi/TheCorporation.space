@@ -16,6 +16,12 @@ a {
     box-sizing: border-box;
 }
 
+.ui-autocomplete {
+    background-color: $dark-grey!important;
+    color: white!important;
+    border-color: $blue!important;
+}
+
 html,
 body {
     margin: 0;

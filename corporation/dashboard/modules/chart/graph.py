@@ -9,11 +9,6 @@ import json
 
 from corporation.dashboard.modules import modules
 
-class funding_chart_data():
-    "This is a person class"
-    data = [[],[],[],[],[],[]]
-    
-    time = [0,0,0,0,0,0]
 
 @modules.route('/chart/funding/graph/<int:time>')
 def funding_chart(time = 1):
@@ -25,142 +20,23 @@ def funding_chart(time = 1):
     5: all time
     
     '''
-    def return_date(item):
-        return item.date
-    
-    one_hour = datetime.datetime.now() - datetime.timedelta(hours = 1)
-    global funding_chart_data
-    if not funding_chart_data.time[time] == 0 and funding_chart_data.time[time] > one_hour:
-        list_funding = funding_chart_data.data[time]
+    with open('/home/cyberdreamer/website/corp/corporation/dashboard/pages/stats/temp_data.json') as json_file:
+        data = json.load(json_file)
         
-        return render_template('dashboard/modules/charts/funding_chart.html', data = json.dumps(list_funding), time = time)
+        list_funding = data['data']['1']
         
-        
-        
-    
-    
-    now = datetime.datetime.utcnow()
-    day_ago = now - datetime.timedelta(days = 1)
-    week_ago = now - datetime.timedelta(weeks = 1)
-    month_ago = now - datetime.timedelta(weeks = 4)
-    year_ago = now - datetime.timedelta(days = 365.25)
-    
-    fundings = Funding.query.order_by(Funding.date)
-    year =  fundings.filter(Funding.date >= year_ago)
-    month =  year.filter( Funding.date >= month_ago)
-    week =  month.filter( Funding.date >= week_ago)
-    day = week.filter( Funding.date >= day_ago).all()
-    
-    week = week.all()
-    month = month.all()
-    year = year.all()
-    
-    data = day
-    
-    if time > 1:
-        need_citizen = True
-        need_fund = True
-        current_day = 0
-        for item in week:
-            if item not in data and current_day != item.date.day:
-                if need_fund and item.fund != 0 and item.fund != None:
-                    data.append(item)
-                    need_fund = False
-                    
-                    if need_citizen and item.citizens != 0 and item.citizens != None:
-                        need_citizen = False
-                    
-                if need_citizen and item.citizens != 0 and item.citizens != None:
-                    need_citizen = False
-                    if item not in data:
-                        data.append(item)
-                        
-                if not need_citizen and not need_fund:
-                    current_day = item.date.day
-                    need_citizen = True
-                    need_fund = True
-                    
-        
-        
-    if time > 2:
-        need_citizen = True
-        need_fund = True
-        current_week = 0
-        for item in month:
-            if item not in data and current_week != item.date.strftime('%U'):
-                if need_fund and item.fund != 0 and item.fund != None:
-                    data.append(item)
-                    need_fund = False
-                    
-                    if need_citizen and item.citizens != 0 and item.citizens != None:
-                        need_citizen = False
-                    
-                if need_citizen and item.citizens != 0 and item.citizens != None:
-                    need_citizen = False
-                    if item not in data:
-                        data.append(item)
-                        
-                if not need_citizen and not need_fund:
-                    current_week = item.date.strftime('%U')
-                    need_citizen = True
-                    need_fund = True
-        
-    if time > 4:
-        
-        need_citizen = True
-        need_fund = True          
-        current_month = 0
-        for item in fundings:
-            if item not in data and current_month != item.date.month:
-                if need_fund and item.fund != 0 and item.fund != None:
-                    data.append(item)
-                    need_fund = False
-                    
-                    if need_citizen and item.citizens != 0 and item.citizens != None:
-                        need_citizen = False
-                    
-                if need_citizen and item.citizens != 0 and item.citizens != None:
-                    need_citizen = False
-                    if item not in data:
-                        data.append(item)
-                        
-                if not need_citizen and not need_fund:
-                    current_month = item.date.month
-                    need_citizen = True
-                    need_fund = True
-                    
-    elif time > 3:
-        
-        need_citizen = True
-        need_fund = True          
-        current_month = 0
-        for item in year:
-            if item not in data and current_month != item.date.month:
-                if need_fund and item.fund != 0 and item.fund != None:
-                    data.append(item)
-                    need_fund = False
-                    
-                    if need_citizen and item.citizens != 0 and item.citizens != None:
-                        need_citizen = False
-                    
-                if need_citizen and item.citizens != 0 and item.citizens != None:
-                    need_citizen = False
-                    if item not in data:
-                        data.append(item)
-                        
-                if not need_citizen and not need_fund:
-                    current_month = item.date.month
-                    need_citizen = True
-                    need_fund = True
-                
-    
-    
-    data.sort(key= return_date)
-    
-    
-    list_funding=[r.as_dict() for r in data]
-    
-    funding_chart_data.data[time] = list_funding
-    funding_chart_data.time[time] = datetime.datetime.now()
+        if time > 1:
+            list_funding += data['data']['2']
+        if time > 2:
+            list_funding += data['data']['3']
+        if time > 3:
+            list_funding += data['data']['4']
+        if time > 4:
+            list_funding += data['data']['5']
+            
+        def return_date(item):
+            return item['date']
+            
+        list_funding.sort(key= return_date)
     
     return render_template('dashboard/modules/charts/funding_chart.html', data = json.dumps(list_funding), time = time)

@@ -37,7 +37,7 @@
     <script>
 
         var current_page = null;
-        function update_data(element, page_name, url, mode) {
+        function update_data(element, page_name, url, link, mode=0) {
 
             if (current_page == null || current_page != page_name) {
                 element.fadeToggle('fast')
@@ -57,6 +57,10 @@
                 current_page = page_name;
                 element.scrollTop(0)
                 element.ready().fadeToggle()
+                $(".link").removeClass("on")
+                $(".dropdown-item").removeClass("on")
+
+                $(link).addClass('on')
 
             }
 
@@ -245,17 +249,17 @@
                 <h1>Menu</h1>
 
                 <div class="nav-item link"
-                    onclick="update_data($('#page-container'), 'main', '/dashboard/main', 1)">
+                    onclick="update_data($('#page-container'), 'main', '/dashboard/main', this)">
                     <img src="{{url_for('static', filename='dashboard/dashboard.png')}}">
                     <h2>Dashboard</h2>
                 </div>
 
-                <div class="nav-item link" onclick="update_data($('#page-container'), 'influence', '/dashboard/influence', 1)">
+                <div class="nav-item link" onclick="update_data($('#page-container'), 'influence', '/dashboard/influence', this)">
                     <img src="{{url_for('static', filename='dashboard/influence.png')}}">
                     <h2>Influence</h2>
                 </div>
 
-                <div class="nav-item link" onclick="update_data($('#page-container'), 'roles', '/dashboard/roles', 1)">
+                <div class="nav-item link" onclick="update_data($('#page-container'), 'roles', '/dashboard/roles', this)">
                     <img src="{{url_for('static', filename='dashboard/roles.png')}}">
                     <h2>Roles</h2>
                 </div>
@@ -293,7 +297,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <div class="dropdown-item" onclick="update_data($('#page-container'), 'rsi_stats', '/dashboard/rsi_stats', 1)">
+                        <div class="dropdown-item" onclick="update_data($('#page-container'), 'rsi_stats', '/dashboard/rsi_stats', this)">
                             <div class="dot"></div>
                             <div class="title">RSI stats</div>
                         </div>

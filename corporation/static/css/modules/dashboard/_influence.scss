@@ -87,6 +87,7 @@
         width: 100%;
         display: flex;
         flex-flow: row nowrap;
+        gap: 20px;
     }
 
 
@@ -97,8 +98,8 @@
     }
 
     label {
-        width: 25%;
-        margin-left: 20px;
+        width: fit-content;
+        padding-right: 10px;
         margin-top: auto;
         margin-bottom: auto;
         color: $blue;
@@ -109,7 +110,6 @@
     textarea,
     select {
         align-items: right;
-        width: 25%;
         margin-top: 8px;
         margin-bottom: 8px;
         margin-left: auto;

@@ -159,6 +159,10 @@ nav {
 
             &.link {
                 flex-flow: row nowrap;
+
+                &.on {
+                    color: $yellow;
+                }
             }
 
             &:hover {
@@ -263,6 +267,14 @@ nav {
                         .dropdown-item {
                             height: auto;
                             opacity: 1;
+
+                            &.on {
+                                color: $yellow;
+
+                                .dot {
+                                    background-color: $yellow;
+                                }
+                            }
                         }
                     }
                 }
