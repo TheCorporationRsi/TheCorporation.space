@@ -20,10 +20,8 @@ class Funding(db.Model):
     def as_dict(self):
         return {
             'Date': self.date.strftime('%d/%m/%Y %H:%M:%S %Z'),
-            'Fund': self.fund if self.fund != 0 else None,
-            'Citizens': self.citizens if self.citizens != 0 else None
+            
         }
 
     def __repr__(self):
         return f"Funding('{self.date}', '{self.fund}', '{self.citizen}')"
-    
