@@ -2,6 +2,7 @@ from corporation import db, bcrypt, discord
 from corporation.models import Funding
 from corporation import db, scheduler
 import datetime
+from corporation.dashboard.pages.stats.tasks import get_funding_stats
 
 from corporation.data.scraping import RSI_funding
 
@@ -16,4 +17,5 @@ def get_funding_stats():
     
     
     db.session.commit()
+    get_funding_stats()
     print("Got the SC stats")
