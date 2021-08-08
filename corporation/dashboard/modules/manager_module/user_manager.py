@@ -1,11 +1,12 @@
-from flask import render_template, request, Blueprint, jsonify
-from corporation.models import Post, User, Department, Division, Funding
+from flask import render_template, request, Blueprint, jsonify, redirect, flash, url_for
+from corporation.models import Post, User, Department, Division, Funding, Role
 from flask_login import current_user, login_required
 from corporation.data.scraping import RSI_account
 from sqlalchemy import func, extract, and_
 import datetime
 from corporation import db
 import json
+from corporation.dashboard.modules.manager_module.forms import Search_Form
 
 from corporation.dashboard.modules import modules
 
@@ -58,14 +59,14 @@ def remove_role(user, role):
 
 
 
-@modules.route("/user_manager", defaults={"department": 0, "division": 0}, methods=['GET', 'POST'])
-@modules.route("/user_manager/<int:department>", defaults={"division": 0}, methods=['GET', 'POST'])
-@modules.route("/user_manager/<int:department>/<int:division>", methods=['GET', 'POST'])
+@modules.route("/dashboard/user_manager/user_table", methods=['GET', 'POST'])
 @login_required
-def user_manager(department, division):
+def user_table():
     if not current_user.is_manager('admin'):
         return redirect(url_for('main.home'))
     
+    department = 0
+    division = 0
     
     form = Search_Form()
     if form.validate_on_submit():
@@ -85,4 +86,4 @@ def user_manager(department, division):
         department_item = Division.query.filter_by(id = department).first()
         users = department_item.members()
     
-    return render_template("managers/user_manager.html", title = "User manager", users = users, currentdiv = division, currentdep = department, form = form)
+    return render_template("dashboard/modules/managers/user_list.html", users = users)
