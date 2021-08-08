@@ -90,7 +90,6 @@ def create_app(config_class=Config):
         from corporation.security import security
         from corporation.main.routes import main
         from corporation.security.errors.handlers import errors
-        from corporation.managers import managers
         from corporation.discord_bot_routes.routes import discord_bot_routes
         from corporation.discord_bot_routes.routes import discord_actions
         from corporation.setup.routes import setup
@@ -101,7 +100,6 @@ def create_app(config_class=Config):
         app.register_blueprint(security)
         app.register_blueprint(main)
         app.register_blueprint(errors)
-        app.register_blueprint(managers)
         app.register_blueprint(discord_bot_routes)
         discord_command.register_blueprint(discord_actions)
         app.register_blueprint(setup)

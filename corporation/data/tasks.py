@@ -17,5 +17,4 @@ def get_funding_stats():
     
     
     db.session.commit()
-    get_funding_stats()
     print("Got the SC stats")

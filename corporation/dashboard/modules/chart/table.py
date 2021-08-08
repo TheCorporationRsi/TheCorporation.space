@@ -11,7 +11,7 @@ from corporation.dashboard.modules import modules
 
 @modules.app_template_filter()
 def epoch_to_date(epoch):
-    return datetime.datetime.fromtimestamp(int(epoch)).strftime('%c')
+    return datetime.datetime.fromtimestamp(int(epoch)).strftime('%Y-%m-%d %H:%M:%S')
 
 
 @modules.route('/chart/funding/table/<int:time>')

@@ -227,14 +227,7 @@
                 {% endif %}
                 <ul class="dropdown_menu dropdown_menu-4">
                     <li onclick="location.href='{{ url_for('dashboard.account') }}'" class="dropdown_item-1 first-item">Account</li>
-
-                    {% if current_user.is_manager("admin") %}
-                    <li onclick="location.href='{{ url_for('managers.department_manager') }}'" class="dropdown_item-2">Structure manager</li>
-                    <li onclick="location.href='{{ url_for('discord_bot_routes.discord_role_setup') }}'" class="dropdown_item-3">Discord manager</li>
-                    <li onclick="location.href='{{ url_for('managers.department_managers_tool', department = 1) }}'" class="dropdown_item-4">Department manager</li>
-                    <li onclick="location.href=''" class="dropdown_item-5"> <a href="#">Influence settings</a></li>
-                    <li onclick="location.href=''" class="dropdown_item-6"> <a href="#">Website manager</a></li>
-                    {% endif %}
+                    <li onclick="location.href='{{ url_for('dashboard.dashboard_link') }}'" class="dropdown_item-1 ">Dashboard</li>
                     <li onclick="location.href='{{ url_for('security.logout') }}'" class="dropdown_item-7 last-item">Logout</li>
                 </ul>
             </li>

@@ -8,7 +8,7 @@ import json
 
 
 
-#@scheduler.task("interval",id="parse_fund", minutes=  , max_instances=1)
+@scheduler.task("interval",id="parse_fund", minutes=20 , max_instances=1)
 def get_funding_stats():
     
     def return_date(item):
