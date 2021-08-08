@@ -663,7 +663,7 @@ nav {
             width: 15px;
             height: 15px;
             border-width: 0px 2px 2px 0px;
-            transform: rotate(-135deg);
+            transform: rotate(-45deg);
             border-style: solid;
             border-color: #0083ff;
             transition: all 0.2s ease-in-out; }
@@ -940,3 +940,22 @@ nav {
         height: 15px;
         text-align: center;
         margin: auto; }
+
+.dropdown {
+  position: relative;
+  display: inline-block; }
+  .dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1; }
+    .dropdown .dropdown-content.show {
+      display: block; }
+    .dropdown .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block; }

@@ -112,6 +112,10 @@
             }
         }
 
+        function show_dropdown(element) {
+            element.toggleClass("show");
+        }
+
         window.onscroll = function () { scrollFunction() };
 
 
@@ -310,6 +314,26 @@
                         <div class="dropdown-item">
                             <div class="dot"></div>
                             <div class="title">Influence</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="nav-item dropdown">
+                    <div class="button" onclick="this.parentElement.classList.toggle('on'); ">
+                        <img src="{{url_for('static', filename='dashboard/database.png')}}">
+                        <h2>Setup</h2>
+                        <div class="arrow"></div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-item" onclick="update_data($('#page-container'), 'user_manager', '/dashboard/setup/user_manager', this)">
+                            <div class="dot"></div>
+                            <div class="title">User manager</div>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dot"></div>
+                            <div class="title">Structure manager</div>
                         </div>
                     </div>
 

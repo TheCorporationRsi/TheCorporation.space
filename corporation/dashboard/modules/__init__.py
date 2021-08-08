@@ -9,6 +9,7 @@ modules = Blueprint('modules', __name__)
 
 from corporation.dashboard.modules.chart.graph import *
 from corporation.dashboard.modules.chart.table import *
+from corporation.dashboard.modules.manager_module.user_manager import *
 
 
 
