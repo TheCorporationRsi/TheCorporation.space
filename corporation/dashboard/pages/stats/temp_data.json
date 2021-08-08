@@ -2,115 +2,10 @@
     "data": {
         "1": [
             {
-                "fund": 378452343,
-                "fund_delta": null,
-                "citizens": 3180224,
-                "citizens_delta": null,
-                "date": "1628294405"
-            },
-            {
-                "fund": 378473687,
-                "fund_delta": 21344,
-                "citizens": 3180284,
-                "citizens_delta": 60,
-                "date": "1628298006"
-            },
-            {
-                "fund": 378492146,
-                "fund_delta": 18459,
-                "citizens": 3180334,
-                "citizens_delta": 50,
-                "date": "1628301606"
-            },
-            {
-                "fund": 378510474,
-                "fund_delta": 18328,
-                "citizens": 3180389,
-                "citizens_delta": 55,
-                "date": "1628305206"
-            },
-            {
-                "fund": 378521649,
-                "fund_delta": 11175,
-                "citizens": 3180439,
-                "citizens_delta": 50,
-                "date": "1628308806"
-            },
-            {
-                "fund": 378535194,
-                "fund_delta": 13545,
-                "citizens": 3180480,
-                "citizens_delta": 41,
-                "date": "1628312406"
-            },
-            {
-                "fund": 378547330,
-                "fund_delta": 12136,
-                "citizens": 3180540,
-                "citizens_delta": 60,
-                "date": "1628316006"
-            },
-            {
-                "fund": 378559205,
-                "fund_delta": 11875,
-                "citizens": 3180572,
-                "citizens_delta": 32,
-                "date": "1628319606"
-            },
-            {
-                "fund": 378572234,
-                "fund_delta": 13029,
-                "citizens": 3180596,
-                "citizens_delta": 24,
-                "date": "1628323206"
-            },
-            {
-                "fund": 378585121,
-                "fund_delta": 12887,
-                "citizens": 3180639,
-                "citizens_delta": 43,
-                "date": "1628326806"
-            },
-            {
-                "fund": 378596675,
-                "fund_delta": 11554,
-                "citizens": 3180679,
-                "citizens_delta": 40,
-                "date": "1628330407"
-            },
-            {
-                "fund": 378609009,
-                "fund_delta": 12334,
-                "citizens": 3180725,
-                "citizens_delta": 46,
-                "date": "1628334006"
-            },
-            {
-                "fund": 378620331,
-                "fund_delta": 11322,
-                "citizens": 3180776,
-                "citizens_delta": 51,
-                "date": "1628337606"
-            },
-            {
-                "fund": 378631573,
-                "fund_delta": 11242,
-                "citizens": 3180825,
-                "citizens_delta": 49,
-                "date": "1628341206"
-            },
-            {
-                "fund": 378644979,
-                "fund_delta": 13406,
-                "citizens": 3180873,
-                "citizens_delta": 48,
-                "date": "1628344806"
-            },
-            {
                 "fund": 378658143,
-                "fund_delta": 13164,
+                "fund_delta": null,
                 "citizens": 3180935,
-                "citizens_delta": 62,
+                "citizens_delta": null,
                 "date": "1628348406"
             },
             {
@@ -154,21 +49,126 @@
                 "citizens": 3181522,
                 "citizens_delta": 85,
                 "date": "1628377207"
+            },
+            {
+                "fund": 378774728,
+                "fund_delta": 7912,
+                "citizens": 3181577,
+                "citizens_delta": 55,
+                "date": "1628380805"
+            },
+            {
+                "fund": 378782400,
+                "fund_delta": 7672,
+                "citizens": 3181639,
+                "citizens_delta": 62,
+                "date": "1628384406"
+            },
+            {
+                "fund": 378790653,
+                "fund_delta": 8253,
+                "citizens": 3181697,
+                "citizens_delta": 58,
+                "date": "1628388006"
+            },
+            {
+                "fund": 378801794,
+                "fund_delta": 11141,
+                "citizens": 3181742,
+                "citizens_delta": 45,
+                "date": "1628391606"
+            },
+            {
+                "fund": 378809912,
+                "fund_delta": 8118,
+                "citizens": 3181802,
+                "citizens_delta": 60,
+                "date": "1628395206"
+            },
+            {
+                "fund": 378817579,
+                "fund_delta": 7667,
+                "citizens": 3181847,
+                "citizens_delta": 45,
+                "date": "1628398806"
+            },
+            {
+                "fund": 378824356,
+                "fund_delta": 6777,
+                "citizens": 3181899,
+                "citizens_delta": 52,
+                "date": "1628402406"
+            },
+            {
+                "fund": 378830745,
+                "fund_delta": 6389,
+                "citizens": 3181932,
+                "citizens_delta": 33,
+                "date": "1628406006"
+            },
+            {
+                "fund": 378839386,
+                "fund_delta": 8641,
+                "citizens": 3181970,
+                "citizens_delta": 38,
+                "date": "1628409606"
+            },
+            {
+                "fund": 378847011,
+                "fund_delta": 7625,
+                "citizens": 3182010,
+                "citizens_delta": 40,
+                "date": "1628413206"
+            },
+            {
+                "fund": 378851902,
+                "fund_delta": 4891,
+                "citizens": 3182055,
+                "citizens_delta": 45,
+                "date": "1628416806"
+            },
+            {
+                "fund": 378858802,
+                "fund_delta": 6900,
+                "citizens": 3182087,
+                "citizens_delta": 32,
+                "date": "1628420406"
+            },
+            {
+                "fund": 378869228,
+                "fund_delta": 10426,
+                "citizens": 3182136,
+                "citizens_delta": 49,
+                "date": "1628424006"
+            },
+            {
+                "fund": 378876407,
+                "fund_delta": 7179,
+                "citizens": 3182175,
+                "citizens_delta": 39,
+                "date": "1628427606"
+            },
+            {
+                "fund": 378883351,
+                "fund_delta": 6944,
+                "citizens": 3182221,
+                "citizens_delta": 46,
+                "date": "1628431206"
             }
         ],
         "2": [
             {
-                "fund": 377975390,
+                "fund": 378014098,
                 "fund_delta": null,
-                "citizens": 3176920,
+                "citizens": 3177349,
                 "citizens_delta": null,
-                "date": "1627776005"
+                "date": "1627830006"
             },
             {
                 "fund": 378049674,
-                "fund_delta": 74284,
+                "fund_delta": 35576,
                 "citizens": 3177585,
-                "citizens_delta": 665,
+                "citizens_delta": 236,
                 "date": "1627862407"
             },
             {
@@ -205,21 +205,28 @@
                 "citizens": 3180224,
                 "citizens_delta": 754,
                 "date": "1628294405"
+            },
+            {
+                "fund": 378774728,
+                "fund_delta": 322385,
+                "citizens": 3181577,
+                "citizens_delta": 1353,
+                "date": "1628380805"
             }
         ],
         "3": [
             {
-                "fund": 376567510,
+                "fund": 376621530,
                 "fund_delta": null,
                 "citizens": null,
                 "citizens_delta": null,
-                "date": "1625961600"
+                "date": "1626015600"
             },
             {
                 "fund": 376982514,
-                "fund_delta": 415004,
+                "fund_delta": 360984,
                 "citizens": 3169679,
-                "citizens_delta": -7241,
+                "citizens_delta": -11898,
                 "date": "1626408000"
             },
             {
@@ -242,19 +249,26 @@
                 "citizens": 3176920,
                 "citizens_delta": 3319,
                 "date": "1627776005"
+            },
+            {
+                "fund": 378774728,
+                "fund_delta": 799338,
+                "citizens": 3181577,
+                "citizens_delta": 4657,
+                "date": "1628380805"
             }
         ],
         "4": [
             {
-                "fund": 307858085,
+                "fund": 307953993,
                 "fund_delta": null,
                 "citizens": null,
                 "citizens_delta": null,
-                "date": "1596823200"
+                "date": "1596877200"
             },
             {
                 "fund": 313225201,
-                "fund_delta": 5367116,
+                "fund_delta": 5271208,
                 "citizens": 2791110,
                 "citizens_delta": -385810,
                 "date": "1599933600"
@@ -1748,10 +1762,10 @@
         ]
     },
     "current_stats": {
-        "fund": 378766816,
-        "daily_fund": 389354,
-        "citizens": 3181522,
-        "daily_citizens": 1433,
-        "current_time": "07/08/2021 23:01:46 "
+        "fund": 378883351,
+        "daily_fund": 251778,
+        "citizens": 3182221,
+        "daily_citizens": 1396,
+        "current_time": "08/08/2021 14:41:46 "
     }
 }
