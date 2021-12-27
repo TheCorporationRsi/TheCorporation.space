@@ -5,10 +5,8 @@ bs4
 cachetools
 celery
 certifi
-cloud-init
 cogs
 colorama
-command-not-found
 configobj
 constantly
 cryptography
@@ -17,7 +15,6 @@ discord-ext-ipc
 discord-interactions
 discord-py-slash-command
 distro
-distro-info
 email-validator
 eventlet
 flask-apscheduler
@@ -33,15 +30,12 @@ flask-whooshalchemy3
 flask-wtf
 gevent
 gunicorn
-gyp
 hyperlink
 importlib-metadata
 incremental
-iotop
 jsonpatch
 jsonpointer
 jsonschema
-language-selector
 launchpadlib
 more-itertools
 netifaces
@@ -67,11 +61,7 @@ simplejson
 sos
 ssh-import-id
 supervisor
-systemd-python
 twisted
-ubuntu-advantage-tools
-ufw
-unattended-upgrades
 urllib3
 websockets
 wtforms-ext
