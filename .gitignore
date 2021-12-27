@@ -1,4 +1,7 @@
 .vscode/**
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 manage.py
 site.db
 venv/lib64
@@ -9,41 +12,15 @@ node_modules/*
 migrations/*
 discordbot/*
 database_save/*
-__pycache__/*
-corporation/__pycache__/*
-corporation/managers/__pycache__/*
-corporation/main/__pycache__/*
-corporation/errors/__pycache__/*
-corporation/departments/__pycache__/*
-corporation/news/__pycache__/*
-corporation/posts/__pycache__/*
-corporation/users/__pycache__/*
-corporation/user.db
-corporation/role.db
-corporation/social.db
-corporation/influence.db
 corporation/static/profile_pics/*
-corporation/logs.db
-cogs/__pycache__/*
-cogs/ipc/__pycache__/*
-corporation/discord_bot_routes/__pycache__/*
-corporation/setup/__pycache__/*
-cogs/__pycache__/*
-corporation/discord_bot_routes/__pycache__/*
-cogs/__pycache__/init.cpython-39.pyc
-cogs/__pycache__/*
-corporation/discord_bot_routes/__pycache__/*
 env/*
-corporation/influence/__pycache__/*
-corporation/data/__pycache__/*
-corporation/discord_bot_routes/__pycache__/*
 front test
 migrations
-__pycache__/*
 corporation/static/department_background/*
 user.db
 FILE
 
-cogs/__pycache__/init.cpython-39.pyc
-cogs/__pycache__/init.cpython-39.pyc
-cogs/__pycache__/init.cpython-39.pyc
+models/*
+node_modules/*
+*.db
+!corporation/rsi_stats.db

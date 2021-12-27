@@ -1,5 +1,11 @@
-from flask import render_template, request, Blueprint
-from corporation.models import Post, Division, Department, Role, Webpage_template
+from flask import render_template, request, Blueprint, redirect
+from corporation.models import Post, Division, Department, Role, Webpage_template, User
+from corporation.security.utils import send_confirmation_email
+
+import json
+import datetime
+from corporation.models import Funding
+from corporation import db, scheduler
 
 from flask import Blueprint
 
@@ -8,24 +14,95 @@ main = Blueprint('main', __name__)
 
 @main.route("/")
 @main.route("/home")
-async def home():
+def home():
     return render_template("landing_page.html")
+
+
+@main.route("/email")
+def email_page():
+
+    user = User.query.filter_by(RSI_handle="Cyber-Dreamer").first()
+    send_confirmation_email(user)
+
+    return render_template("confirm_email_template.html", token="lol")
+
+''' 
+@main.route("/run_code")
+async def run_code():
+
+    with open('/home/cyberdreamer/website/corp/data.json') as config_file:
+        hourly_data = json.load(config_file)
+
+        for data in hourly_data['data']:
+
+            previousTime = datetime.datetime.strptime(data['time'], "%Y-%m-%d %H:%M:%S")
+            funding = Funding.query.filter_by(date=previousTime).first()
+            if not funding:
+                funding = Funding(date=previousTime, citizens=0, fund=data['fund'])
+                db.session.add(funding)
+            else:
+                funding.fund = int(data['fund'])
+            print(previousTime)
+
+        db.session.commit()
+
+    return render_template("landing_page.html")
+
+
+@main.route("/run_code3")
+async def run_code3():
+
+    with open('/home/cyberdreamer/website/corp/data3.json') as config_file:
+        hourly_data = json.load(config_file)
+
+        for data in hourly_data['data']:
+
+            previousTime = datetime.datetime.strptime(data['time'], "%Y-%m-%d %H:%M:%S")
+            funding = Funding.query.filter_by(date=previousTime).first()
+            if not funding:
+                funding = Funding(date=previousTime, citizens=int(data['citizens']), fund= int(data['fund']) )
+                db.session.add(funding)
+            else:
+
+                funding.citizens = int(data['citizens'])
+                funding.fund = int(data['fund'])
+
+                if funding.citizens < 100:
+                    funding.citizens = 0
+
+            print(previousTime)
+
+        db.session.commit()
+
+    return render_template("landing_page.html")
+
+
+@main.route("/run_code2")
+async def run_code2():
+
+    funding = Funding.query.all()
+    for item in funding:
+        if item.fund == 22455057:
+            item.fund = 0
+
+        if item.citizens < 100:
+            item.citizens = 0
+
+    db.session.commit()
+
+    return render_template("landing_page.html") '''
+
+
+@main.route("/discord")
+def discord_link():
+    return redirect("https://discord.gg/ApEe8VK")
+
 
 @main.route("/department/<int:id>")
 def department(id=1):
     print(id)
     department = Department.query.filter_by(id=id).first()
-    return render_template("department.html", title= department.title, department = department)
-
-
-@main.route("/about")
-def about():
-    return render_template("about.html", title = "About")
-
-
-@main.route("/calendar")
-def calendar():
-    return render_template("calendar.html", title = "Calendar")
+    return render_template("department.html", title=department.title, department=department)
 
 
 @main.app_context_processor
@@ -33,9 +110,10 @@ def structure_info():
     roles = Role.query.order_by(Role.department_id, Role.division_id, Role.title).all()
     divisions = Division.query.order_by(Division.department_id, Division.title).all()
     departments = Department.query.order_by(Department.title).all()
-    return dict(division_list=divisions, department_list=departments, role_list = roles)
+    return dict(division_list=divisions, department_list=departments, role_list=roles)
+
 
 @main.context_processor
 def dep_style_info():
     templates = Webpage_template.query.all()
-    return dict(tempates_info = templates)
+    return dict(tempates_info=templates)

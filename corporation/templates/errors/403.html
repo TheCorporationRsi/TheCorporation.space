@@ -1,11 +1,10 @@
 {% extends "header.html" %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/error.css') }}">
 {% endblock style %}
 
 {% block content %}
-    <div class="content-section">
+    <div class="error-section">
         <h1>You don't have permission to do that(403)</h1>
         <p>Please check your account and try again</p>
     </div>

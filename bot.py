@@ -127,6 +127,35 @@ async def upload_role(data):
     
     for role in user.roles:
         await client.sio.emit('role_added', { 'user': user_id, 'role_id': role.id}, namespace='/discord_bot')
+        
+@client.sio.on('voice_member_list', namespace='/discord_bot')
+async def list_link(data):
+    print("add")
+    user_id = data['member_id']
+    guild = client.get_guild(831248117571649566)
+    
+    if not 'channel_id' in data:
+        user = await guild.fetch_member(int(user_id))
+        channel_id = user.voice.channel.id
+        channel = guild.get_channel(channel_id)
+    else:
+        channel_id = data['channel_id']
+        channel = guild.get_channel(int(channel_id))
+    
+    if channel is None:
+        return "You must be inside a voice channel!"
+    
+    else:
+        list = {
+            'user_list': []
+        }
+        members = channel.members
+        for member in members:
+            list['user_list'].append({
+                'username': member.nick,
+                'id': member.id,
+            })
+        return list
     
 @client.command()
 @commands.is_owner()

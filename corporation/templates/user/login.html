@@ -1,7 +1,7 @@
 {% extends "header.html" %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/connection.css') }}">
+
 {% endblock style %}
 
 
@@ -10,11 +10,11 @@
 
         <div class="connection">
             <div class="connection-zone">
-                <div class="login-section">
+                <div class="connection-form">
                     <div class="title">Login</div>
-                    <a href="/discord/1">
+                    <a href="/discord/auth/1">
                         <div class="discord">
-                            <img src="/static/user/discord.svg">
+                            <img src="/static/main/discord.svg">
                         </div>
                         
                     </a>
@@ -71,7 +71,7 @@
                             {{ form.submit()}}
                         </div>
                         <small class="text-muted ml-2">
-                            <a href="{{url_for('users.reset_request')}}">Forgot Password?</a>
+                            <a href="{{url_for('security.reset_request')}}">Forgot Password?</a>
                         </small>
                     </form>
                 </div>

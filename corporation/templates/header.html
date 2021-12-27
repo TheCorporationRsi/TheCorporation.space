@@ -8,13 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
 
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='main/corplogo2.ico') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='main/corplogo.ico') }}" />
     {% if title %}
     <title>The Corporation - {{ title }}</title>
     {% else %}
     <title>The Corporation</title>
     {% endif %}
-
 
     <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
     <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
@@ -24,18 +23,19 @@
     <meta property="og:site_name" content="The Corporation inc.">
 
     <!-- CSS sheets-->
-
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
     <!--END CSS sheets-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
 
 
 
-        $(document).ready(function () {
+        $(window).on("load", function () {
             $('.loader_bg').fadeToggle();
         });
 
@@ -72,6 +72,24 @@
                     }
                 }
             }
+
+            $('.fadeInUp').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+        }
+
+        function upgradeImage(object) {
+            var id = object.id;
+            var target = "div_" + id.substring(4);
+        
+            document.getElementById(target).style.backgroundImage = "url(" + object.src + ")";
         }
     </script>
 
@@ -101,13 +119,13 @@
     {% endwith %}
 
     <div class="loader_bg">
-        <div class="test_loader"></div>
+        <div class="lds-dual-ring"></div>
     </div>
 
 
     <header id="navbar">
         <div class="banner">
-            <a href="/"><img id="logo" src="/static/main/corplogo_true_color.svg"></a>
+            <a href="/"><img id="logo" src="/static/main/corplogo.svg"></a>
         </div>
 
         <a href="javascript:void(0);" onclick="show_menu()">
@@ -136,21 +154,21 @@
                 <li id="nav-dropdown" class="dropdown">
                     <a href="#">Join</a>
                     <ul class="dropdown_menu dropdown_menu-4">
-                        <li class="dropdown_item-1 first-item"><a href="#">Account</a></li>
-                        <li class="dropdown_item-2"><a href="#">User manager</a></li>
-                        <li class="dropdown_item-3"><a href="#">Structure manager</a></li>
-                        <li class="dropdown_item-4"><a href="#">Discord manager</a></li>
-                        <li class="dropdown_item-5 last-item"> <a href="#">Website manager</a></li>
+                        <li onclick="location.href=''" class="dropdown_item-1 first-item">Account</li>
+                        <li onclick="location.href=''" class="dropdown_item-2">User manager</li>
+                        <li onclick="location.href=''" class="dropdown_item-3">Structure manager</li>
+                        <li onclick="location.href=''" class="dropdown_item-4">Discord manager</li>
+                        <li onclick="location.href=''" class="dropdown_item-5 last-item">Website manager</li>
                     </ul>
                 </li>
             </div>
             <li id="nav-dropdown" class="dropdown">
                 <a href="#">INFO</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">Presentation</a></li>
-                    <li class="dropdown_item-2"><a href="#">Influence system</a></li>
-                    <li class="dropdown_item-3"><a href="#">Certification</a></li>
-                    <li class="dropdown_item-4 last-item"><a href="#">History</a></li>
+                    <li onclick="location.href=''" class="dropdown_item-1 first-item">Presentation</li>
+                    <li onclick="location.href=''" class="dropdown_item-2">Influence system</li>
+                    <li onclick="location.href=''" class="dropdown_item-3">Certification</li>
+                    <li onclick="location.href=''" class="dropdown_item-4 last-item">History</li>
                 </ul>
             </li>
             <li id="nav-dropdown" class="dropdown">
@@ -159,11 +177,11 @@
                     {% for department in department_list %}
 
                     {% if department == department_list[0] %}
-                    <li class="dropdown_item-{{loop.index}} first-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li onclick="location.href='{{ url_for('main.department', id = department.id) }}'" class="dropdown_item-{{loop.index}} first-item">{{department.title}}</li>
                     {% elif department == department_list[-1]%}
-                    <li class="dropdown_item-{{loop.index}} last-item"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li onclick="location.href='{{ url_for('main.department', id = department.id) }}'" class="dropdown_item-{{loop.index}} last-item">{{department.title}}</li>
                     {% else %}
-                    <li class="dropdown_item-{{loop.index}}"><a href="{{ url_for('main.department', id = department.id) }}">{{department.title}}</a></li>
+                    <li onclick="location.href='{{ url_for('main.department', id = department.id) }}'" class="dropdown_item-{{loop.index}}">{{department.title}}</li>
                     {% endif %}
 
                     {% endfor %}
@@ -172,9 +190,9 @@
             <li id="nav-dropdown" class="dropdown">
                 <a href="#">News</a>
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="#">SC news</a></li>
-                    <li class="dropdown_item-2"><a href="#">CORP news</a></li>
-                    <li class="dropdown_item-3 last-item"><a href="#">CORP content</a></li>
+                    <li onclick="location.href=''" class="dropdown_item-1 first-item">SC news</li>
+                    <li onclick="location.href=''" class="dropdown_item-2">CORP news</li>
+                    <li onclick="location.href=''" class="dropdown_item-3 last-item">CORP content</li>
                 </ul>
             </li>
             <!-- <li id="nav-dropdown" class="dropdown">
@@ -203,21 +221,21 @@
 
             <li id="nav-dropdown" class="dropdown login">
                 {% if current_user.RSI_handle|length > 10 %}
-                <a href="{{ url_for('users.account') }}" style="font-size: {{ 7/(current_user.RSI_handle|length/4) }}vw ">{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('dashboard.account') }}" style="font-size: {{ 7/(current_user.RSI_handle|length/4) }}vw ">{{ current_user.RSI_handle }}</a>
                 {% else %}
-                <a href="{{ url_for('users.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
+                <a href="{{ url_for('dashboard.account') }}" style="font-size: 1.2em ">{{ current_user.RSI_handle }}</a>
                 {% endif %}
                 <ul class="dropdown_menu dropdown_menu-4">
-                    <li class="dropdown_item-1 first-item"><a href="{{ url_for('users.account') }}">Account</a></li>
+                    <li onclick="location.href='{{ url_for('dashboard.account') }}'" class="dropdown_item-1 first-item">Account</li>
 
                     {% if current_user.is_manager("admin") %}
-                    <li class="dropdown_item-2"><a href="{{ url_for('managers.department_manager') }}">Structure manager</a></li>
-                    <li class="dropdown_item-3"><a href="{{ url_for('discord_bot_routes.discord_role_setup') }}">Discord manager</a></li>
-                    <li class="dropdown_item-4"> <a href="{{ url_for('managers.department_managers_tool', department = 1) }}">Department manager</a></li>
-                    <li class="dropdown_item-5"> <a href="#">Influence settings</a></li>
-                    <li class="dropdown_item-6"> <a href="#">Website manager</a></li>
+                    <li onclick="location.href='{{ url_for('managers.department_manager') }}'" class="dropdown_item-2">Structure manager</li>
+                    <li onclick="location.href='{{ url_for('discord_bot_routes.discord_role_setup') }}'" class="dropdown_item-3">Discord manager</li>
+                    <li onclick="location.href='{{ url_for('managers.department_managers_tool', department = 1) }}'" class="dropdown_item-4">Department manager</li>
+                    <li onclick="location.href=''" class="dropdown_item-5"> <a href="#">Influence settings</a></li>
+                    <li onclick="location.href=''" class="dropdown_item-6"> <a href="#">Website manager</a></li>
                     {% endif %}
-                    <li class="dropdown_item-7 last-item"> <a href="{{ url_for('users.logout') }}">Logout</a></li>
+                    <li onclick="location.href='{{ url_for('security.logout') }}'" class="dropdown_item-7 last-item">Logout</li>
                 </ul>
             </li>
 
@@ -226,14 +244,15 @@
             {% if request.path=="/register" %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="{{ url_for('users.login') }}">Login</a>
+                <a href="{{ url_for('security.login') }}">Login</a>
             </li>
 
             {% else %}
 
             <li id="nav-dropdown" class="dropdown login">
-                <a href="{{ url_for('users.register') }}">Join</a>
+                <a href="{{ url_for('security.register') }}">Join</a>
                 <ul class="dropdown_menu dropdown_menu-4">
+                    <li onclick="location.href='{{ url_for('security.login') }}'" class="dropdown_item-1">Login</li>
                 </ul>
             </li>
             {% endif %}

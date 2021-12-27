@@ -11,6 +11,8 @@ from corporation import socketio
 import discord
 import enum
 from corporation.discord_bot_routes import events
+import time
+from threading import Event
 discord_bot_routes = Blueprint('discord_bot_routes', __name__)
 discord_actions = DiscordInteractionsBlueprint()
 
@@ -168,3 +170,70 @@ def green_button(ctx):
             ])
         ]
     ) '''
+    
+class name_type(enum.Enum):
+    Discord_and_link = "Discord + link"
+    Discord_and_handle = "Discord + RSI_handle"
+    RSI_handle_and_link = "RSI handle + link"
+    RSI_handle_and_Moniker = "RSI handle + Moniker"
+    RSI_handle_only = "RSI handle"
+    
+@discord_actions.command(name="list_link",annotations={"channel": "Select a channel", 'type':"Select  the format you want"})
+def list_link(ctx, type: name_type = None, channel: Channel = None):
+    "Get RSI link of all the users in a voice channel"
+    result = None
+    ev = Event()
+    def callback(data):
+        nonlocal result
+        nonlocal ev
+        
+        print ("The data is: \n" + str(data))
+        list = 'RSI link list:\n'
+        
+        if data['user_list']:
+            for user in data['user_list']:
+                member_account = User.query.filter_by(discord_id = user['id']).first()
+                if member_account is None:
+                    list += '<@'+ str(user['id']) + "> : Not linked\n"
+                elif type == "RSI handle + link":
+                    list += member_account.RSI_handle + " : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
+                elif type == "Discord + RSI_handle":
+                    list += '<@'+ str(user['id']) + "> : "+ str(member_account.RSI_handle) + "\n"
+                elif type == "RSI handle + Moniker":
+                    list += member_account.RSI_handle + " : "+ str(member_account.RSI_moniker) + "\n"
+                elif type == "RSI handle":
+                    list += member_account.RSI_handle + "\n"
+                else :
+                    list += '<@'+ str(user['id']) + "> : <https://robertsspaceindustries.com/citizens/"+ str(member_account.RSI_handle) + ">\n"
+                
+                
+            print(list)
+            result = list
+            ev.set()
+            return list
+        else:
+            result = data
+            ev.set()
+            return data
+            
+    member = User.query.filter_by(discord_id = ctx.author.id).first()
+    
+    if not member or not member.corp_confirmed:
+        return 'You need to be a corp member to use this function!'
+    
+    if not channel or channel.type != 2:
+        socketio.emit('voice_member_list', {
+            'member_id': ctx.author.id
+            
+        }, namespace='/discord_bot', callback = callback )
+        
+        ev.wait()
+        return result
+    else:
+        socketio.emit('voice_member_list', {
+            'channel_id': channel.id,
+            'member_id': ctx.author.id
+            
+        }, namespace='/discord_bot', callback = callback )  
+        ev.wait()
+        return result

@@ -42,7 +42,7 @@ naming_convention = {
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 bcrypt = Bcrypt()
 login_manager = LoginManager()
-login_manager.login_view = 'users.login'
+login_manager.login_view = 'security.login'
 login_manager.login_message_category = 'info'
 scheduler = APScheduler()
 socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000'], async_mode = 'gevent') # ,logger=True, engineio_logger=True
@@ -72,8 +72,10 @@ def create_app(config_class=Config):
         if is_debug_mode() and not is_werkzeug_reloader_process():
             pass
         else:
-            from corporation.influence import tasks  # noqa: F401
-
+            from corporation.dashboard.pages.influence import tasks  # noqa: F401
+            from corporation.data import tasks
+            from corporation.dashboard.pages.stats import tasks
+            
             scheduler.start()
         from corporation import events
 
@@ -84,32 +86,28 @@ def create_app(config_class=Config):
         except:
             print("This application Multiple feature will not work properly")
 
-        from corporation.users import users
-        from corporation.posts.routes import posts
+        from corporation.dashboard import dashboard
+        from corporation.security import security
         from corporation.main.routes import main
-        from corporation.errors.handlers import errors
-        from corporation.news.routes import news
+        from corporation.security.errors.handlers import errors
         from corporation.managers import managers
-        from corporation.departments.routes import departments
         from corporation.discord_bot_routes.routes import discord_bot_routes
         from corporation.discord_bot_routes.routes import discord_actions
         from corporation.setup.routes import setup
-        from corporation.influence.routes import influence
-        from corporation.data.routes import data
+        from corporation.data.api import data
+        from corporation.dashboard.modules import modules
 
-        app.register_blueprint(users)
-        app.register_blueprint(posts)
+        
+        app.register_blueprint(security)
         app.register_blueprint(main)
         app.register_blueprint(errors)
-        app.register_blueprint(news)
         app.register_blueprint(managers)
-        app.register_blueprint(departments)
         app.register_blueprint(discord_bot_routes)
         discord_command.register_blueprint(discord_actions)
         app.register_blueprint(setup)
-        app.register_blueprint(influence)
         app.register_blueprint(data)
-
+        app.register_blueprint(dashboard)
+        app.register_blueprint(modules)
 
     discord_command.set_route("/interactions")
     #discord_command.update_slash_commands(guild_id= 831248117571649566)

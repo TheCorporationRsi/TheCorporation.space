@@ -1,0 +1,20 @@
+<div class="column">
+    <div class="row">Influence rank</div>
+    <div class="row2">{{current_user.influence_rank().title}}</div>
+</div>
+<div class="column">
+    <div class="row">Lifetime influence</div>
+    <div class="row2">{{current_user.tribute().lifetime_influence|round}}</div>
+</div>
+<div class="column">
+    <div class="row">Total influence</div>
+    <div class="row2">{{current_user.influence_count()|round}}</div>
+</div>
+<div class="column">
+    <div class="row">Weekly influence</div>
+    <div class="row2">{{current_user.influence_rank().weekly_amount|round}}</div>
+</div>
+<div class="column">
+    <div class="row">Tribute left</div>
+    <div class="row2">{{current_user.tribute().amount|round}}</div>
+</div>
