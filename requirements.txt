@@ -133,7 +133,7 @@ ssh-import-id==5.11
 supervisor==4.2.1
 systemd-python==234
 toml==0.10.2
-Twisted==20.3.0
+Twisted==22.1.0
 typing-extensions==3.10.0.0
 tzlocal==2.1
 ubuntu-advantage-tools==24.4
