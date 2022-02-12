@@ -1,0 +1,8 @@
+# Byte-compiled / optimized / DLL files
+*.db
+quick_tool
+trash
+*.db
+*/__pychache__
+*/venv
+*/.vscode

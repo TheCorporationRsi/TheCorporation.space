@@ -1,26 +1,9 @@
-.vscode/**
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-manage.py
-site.db
-venv/lib64
-venv/*
-trash/*
-extra/*
-node_modules/*
-migrations/*
-discordbot/*
-database_save/*
-corporation/static/profile_pics/*
-env/*
-front test
-migrations
-corporation/static/department_background/*
-user.db
-FILE
-
-models/*
-node_modules/*
+.env
+quick_tool
+trash
 *.db
-!corporation/rsi_stats.db
+bot
+*/venv
+*/.vscode
+*/__pycache__
+*.pyc

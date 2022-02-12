@@ -1,0 +1,60 @@
+{% extends "header.html" %}
+
+{% block style %}
+
+<script type="text/javascript">
+    function copy_token() {
+       
+      
+      
+         /* Copy the text inside the text field */
+        navigator.clipboard.writeText("{{ current_user.verification_token }}");
+      
+        /* Alert the copied text */
+        /*alert("Copied the text: " + "{{ current_user.verification_token }}");*/
+      }
+</script>
+
+{% endblock style %}
+
+
+
+{% block content %}
+<div class="connection">
+    <div class="connection-zone">
+
+        <div class="connection-form">
+            <div class="title">Verification</div>
+            <div class="info">
+                <div class="tooltip top-right">
+                    <p class="tooltip-text">The procedure is simple, add your email in your <a
+                            style="color: rgb(115, 115, 255);"
+                            href="https://robertsspaceindustries.com/account/profile">Star Citizen
+                            account</a> biography and fill out the following form.
+
+                        <br>
+                        <br>
+                        This method bring multiple benefit. It make it way easier to indentify user on our
+                        discord
+                        server and we can identify the known griefer to prevent them to join the CORP.
+                        <br>
+                        <br>
+                        The corporation verify that you are the real owner of your RSI account by
+                        confirming the content of your Star Citizen account description.
+                        <br>
+                        <br>
+                        The email in needed to reset your password is case your forget it.
+                    </p>
+                </div>
+            </div>
+            <div class="token-field">
+                <div class="token">{{ current_user.verification_token }}</div>
+                <button onclick="copy_token()">Copy token</button>
+            </div>
+            <div class="button"><a href="{{ url_for('security.RSI_verification') }}">Verify token</a></div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

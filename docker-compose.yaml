@@ -1,0 +1,77 @@
+version: '3'
+
+
+
+
+volumes:
+  static: {}
+  db_storage: {}
+
+services:
+
+  
+
+  flask:
+    build: ./flask
+    container_name: flask
+    restart: always
+    volumes:
+      - type: volume
+        source: static
+        target: /home/thecorporation/website/project/static
+      - type: volume
+        source: db_storage
+        target: /home/thecorporation/website/project/databases
+    env_file:  .env
+    environment:
+      APP_NAME: ${APP_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      SQLALCHEMY_DATABASE_URI: sqlite:////home/thecorporation/website/project/databases/user.db
+      SQLALCHEMY_DATABASE_URI_FUNDING: sqlite:////home/thecorporation/website/project/databases/funding.db
+      SQLALCHEMY_DATABASE_TEST_URI: sqlite:////home/thecorporation/website/project/databases/test.db
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASS: ${EMAIL_PASS}
+      DISCORD_ID: ${DISCORD_ID}
+      DISCORD_SECRET: ${DISCORD_SECRET}
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+      DISCORD_PUBLIC_KEY: ${DISCORD_PUBLIC_KEY}
+      DISCORD_REDIRECT_URI=https: https://localhost/discord_callback
+      RECAP_PRVKEY: ${RECAP_PRVKEY}
+      RECAP_PUBKEY: ${RECAP_PUBKEY}
+      DISCORD_TEST_SERVER: ${DISCORD_TEST_SERVER}
+      FLASK_DEBUG: 0
+      FLASK_ENV: production   #production
+      FLASK_APP: app.py
+      CERT_EMAIL_ADDRESS: ${CERT_EMAIL_ADDRESS}
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_RUN_PORT: 80
+    ports:
+      - "8000:8000"
+    #8000
+    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -w 2 -b 0.0.0.0:8000 app:app " 
+    depends_on:
+      - static
+  
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    volumes:
+      - type: volume
+        target: /flask/static
+        source: static
+        read_only: true
+    ports:
+      - "80:80" #80:80
+    depends_on:
+      - flask
+
+
+  # db:
+  #   container_name: db
+  #   image: mysql
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   env_file:  .env
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

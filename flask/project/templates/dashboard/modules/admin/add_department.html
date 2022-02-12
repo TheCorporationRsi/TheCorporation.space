@@ -1,0 +1,48 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+<div class="notifications">
+    {% for category, message in messages %}
+    <div class="alert {{ category }}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endwith %}
+
+
+<form id="department_creation_form" method="POST" action="" onsubmit="return false">
+    {{ form.csrf_token }}
+
+    <div class="top">
+    {{ form.title.label()}}
+    {% if form.title.errors %}
+    {{ form.title(class="error")}}
+    <div class="invalid-feedback">
+        {% for error in form.title.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.title()}}
+    {% endif %}
+
+
+    {{ form.color.label()}}
+    {% if form.color.errors %}
+    {{ form.color(class="error")}}
+    <div class="invalid-feedback">
+        {% for error in form.color.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.color()}}
+    {% endif %}
+    </div>
+
+
+    <button class="submit_button" onclick="submit_department_form()">{{ form.submit.label.text }}</button>

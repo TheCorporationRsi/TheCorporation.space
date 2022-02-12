@@ -1,0 +1,136 @@
+{% extends "header.html" %}
+
+{% block style %}
+
+{% endblock style %}
+
+
+
+{% block content %}
+<div class="hero landing">
+    <div class="pic-wrapper">
+        <figure class="pic-1"
+            style=" background: url('/static/presentation/landing_page/1_low.png') no-repeat center center; background-size: cover;">
+        </figure>
+        <figure class="pic-2"
+            style=" background: url('/static/presentation/landing_page/2_low.png') no-repeat center center; background-size: cover;">
+        </figure>
+        <figure class="pic-3"
+            style=" background: url('/static/presentation/landing_page/3_low.png') no-repeat center center; background-size: cover;">
+        </figure>
+        <figure class="pic-4"
+            style=" background: url('/static/presentation/landing_page/4_low.png') no-repeat center center; background-size: cover;">
+        </figure>
+    </div>
+</div>
+
+<div class="side_slide_presentation">
+    <h1>Departments</h1>
+    {% for department in department_list %}
+    <div class="slide-item item-{{loop.index}}">
+        <div class="logo">
+            <a href="{{ url_for('main.department', title = department.title) }}">
+                <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                    style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                    <g>
+                        <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                            <path
+                                d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                style="fill:white;" />
+                        </g>
+                        <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                            <path
+                                d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                style="fill:{{department.color}}; filter: opacity(50%);" />
+                        </g>
+                        <g>
+                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                <path
+                                    d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                    style="fill:{{department.color}};" />
+                            </g>
+                            <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                <path
+                                    d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                    style="fill:{{department.color}};" />
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </a>
+        </div>
+        <div class="title">
+            <a style="color:{{department.color}}" href="{{ url_for('main.department', title = department.title) }}">
+                {{department.title }}
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="link-info middle">
+    <div class="link-item fadeInUp">
+        <div class="logo"><a href="https://robertsspaceindustries.com/orgs/corp"><img
+                    src="/static/presentation/landing_page/MadeByTheCommunity_White_low.png"></a></div>
+        <div class="title"><a style="text-decoration: none;" href="https://robertsspaceindustries.com/orgs/corp">Star
+                Citizen</a></div>
+        <div class="description">The Corporation is a Star Citizen community form by backers. We have been
+            playing, supporting and funding the game since the start.</div>
+    </div>
+    <div class="link-item fadeInUp">
+        <div class="logo"><a href="https://discord.gg/ApEe8VK"><img src="/static/main/discord_single.svg"></a></div>
+        <div class="title"><a style="text-decoration: none;" href="https://discord.gg/ApEe8VK">Discord</a></div>
+        <div class="description">Discord is our main platform of operation. It is where we communicate, play and
+            meme toguether.</div>
+    </div>
+    <div class="link-item fadeInUp">
+        <div class="logo"><a href="https://www.guilded.gg/Corporation?i=8d8apn0m"><img
+                    src="/static/main/guilded.svg"></a></div>
+        <div class="title"><a style="text-decoration: none;"
+                href="https://www.guilded.gg/Corporation?i=8d8apn0m">Guilded</a></div>
+        <div class="description">We are present on guilded too. While we are not active on the platform, we use
+            some of the functionnality and plan to transfer when the software get stable.</div>
+    </div>
+</div>
+
+<div class="content-panel right middle" style="background-image: url('/static/presentation/landing_page/cash.jpg');">
+
+    <div class="text-zone fadeInUp right-panel">
+        <div class="title">Money doesn't buy happiness. <span>But it helps.</span></div>
+        <div class="description">
+            The corporation plays the role of a massive Sci-fi company that is all about profit. Our main goal is to
+            have fun as a group. For this, we need to build our empire to gear our soldiers and maybe even gearing the
+            enemy if there's enough profit in it. There is no bad way to make money!!!
+        </div>
+
+    </div>
+
+</div>
+
+<div class="content-panel left middle" style="background-image: url('/static/presentation/landing_page/nature_low.png'); ">
+
+    <div class="text-zone fadeInUp left-panel">
+        <div class="title">Recycling is simple. <span>Give back to nature.</span></div>
+        <div class="description">
+            For the corporation, recycling is important. Everything from our enemy flesh to toxic waste needs to be
+            disposed of correctly. We use the most simple technique ever created: Giving back to nature. If the UEE asks
+            you why Hurston is a toxic desert, say it's the fault of the Nine Tails.
+        </div>
+    </div>
+
+</div>
+
+<div class="content-panel right bottom" style="background-image: url('/static/presentation/landing_page/prison_low.jpg');">
+
+    <div class="text-zone fadeInUp right-panel">
+        <div class="title">We respect the law. <span>Sometimes.</span></div>
+        <div class="description">
+            Respecting the law is important. We are working very closely with the UEE, but occasionally we can bend the
+            laws a little too much. Don't worry, our CORP legal team has got your back. We will get your ass out of the
+            gulag in no time if you take too much heat!
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

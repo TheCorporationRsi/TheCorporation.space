@@ -1,0 +1,154 @@
+
+<div id="influence-info" class="module info_table" style="width: 100%">
+    <script type="text/javascript">
+        get_module($('#influence-info'),'/dashboard/influence/info')
+    </script>
+</div>
+
+<script>
+    function submit_weight(e) {
+        var frm = $('#weight_form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/influence/update_weight",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#influence_weight").html(response);
+                get_module($('#influence-info'),'/dashboard/influence/info');
+                get_module($('#influence_graph'),'/dashboard/influence/weight_graph')
+            }
+        });
+
+    };
+
+    function submit_influence(e) {
+        var frm = $('#influence-form');
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/influence/update_influence_form",
+            data: frm.serialize(),
+            success: function (response) {
+                $("#influence_transfer").html(response);
+
+                var users = [];
+
+                function loadUsers() {
+                    $.getJSON('/api/users', function (data, status, xhr) {
+                        for (var i = 0; i < data.length; i++) {
+                            users.push(data[i].RSI_handle);
+                        }
+                    });
+                };
+
+                loadUsers();
+
+                $('#influence-RSI_handle').autocomplete({
+                    source: users,
+                });
+
+                get_module($('#influence-info'),'/dashboard/influence/info');
+                get_module($('#influence_graph'),'/dashboard/influence/weight_graph');
+            }
+        });
+
+    }
+
+        function update_influence_transfer() {
+            var x = document.getElementById("influence_transfer");
+            $.ajax({
+                url: "/dashboard/influence/update_influence_form",
+                type: "get",
+                data: { jsdata: 0 },
+                success: function (response) {
+                    $("#influence_transfer").html(response);
+    
+                    var users = [];
+    
+                    function loadUsers() {
+                        $.getJSON('/api/users', function (data, status, xhr) {
+                            for (var i = 0; i < data.length; i++) {
+                                users.push(data[i].RSI_handle);
+                            }
+                        });
+                    };
+    
+                    loadUsers();
+    
+                    $('#influence-RSI_handle').autocomplete({
+                        source: users,
+                    });
+                },
+                error: function (xhr) {
+                    //Do Something to handle error
+                }
+            });
+        }
+</script>
+
+
+
+<div id="influence_transfer" class="module">
+    <script type="text/javascript">
+        update_influence_transfer()
+    </script>
+
+</div>
+
+
+
+<div id="influence_weight" class="module">
+    <script type="text/javascript">
+        get_module($('#influence_weight'),'/dashboard/influence/update_weight')
+    </script>
+</div>
+
+<div id="influence_graph" class="module" style="max-width: 100%; max-height: 100%;" >
+    <script type="text/javascript">
+        get_module($('#influence_graph'),'/dashboard/influence/weight_graph')
+    </script>
+
+</div>
+
+
+<div class="module" style="overflow-y:scroll; width: 100%; max-height: calc(100vh - 180px);" ><label>Received</label>
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>Sender</th>
+                <th>Amount</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in current_user.receiver_transactions %}
+            <tr>
+                <td>{{ transaction.user_from.RSI_handle}}</td>
+                <td>{{ transaction.amount}}</td>
+                <td>{{ transaction.message}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="module" style="overflow-y:scroll; width: 100%; max-height: calc(100vh - 180px);" ><label>Sent</label>
+
+    <table class="tbl">
+        <thead>
+            <tr>
+                <th>Receiver</th>
+                <th>Amount</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for transaction in current_user.sender_transactions%}
+            <tr>
+                <td>{{ transaction.user_to}}</td>
+                <td>{{ transaction.amount}}</td>
+                <td>{{ transaction.message}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+

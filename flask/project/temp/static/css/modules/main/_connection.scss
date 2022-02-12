@@ -1,0 +1,155 @@
+
+
+.connection {
+    min-height: 100%;
+    width: 100vw;
+    grid-column: 1fr;
+    background-image: url("/static/presentation/main/line_low.jpg");
+    background-size: cover;
+    padding: auto;
+
+    .connection-zone {
+        height: 100vh;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20vh;
+
+        .connection-form {
+            border-radius: 20px;
+            background-color: $dark-grey-tr;
+            backdrop-filter: blur(6px);
+            padding: 50px;
+            box-shadow: 0px 0px 10px #000000;
+            text-shadow: 0px 0px 5px #000000;
+            position: relative;
+            margin: 10%;
+
+            .discord {
+                display: grid;
+                position: relative;
+                width: 120px;
+                height: auto;
+                background-color: #000000;
+                border-radius: 10px;
+                padding: 5px;
+                padding-left: 10px;
+                padding-right: 10px;
+                padding-bottom: 0px;
+                margin-bottom: 20px;
+                transition: all .3s ease-in-out;
+                text-align: center;
+                color: white;
+                text-decoration: none;
+                padding: auto;
+
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+
+
+            .title {
+                width: 100%;
+                font-family: "Orbitron";
+                font-size: 5em;
+                margin-top: -100px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 15px;
+                text-align: center;
+                color: $yellow;
+                text-shadow: #000000;
+            }
+
+            .info {
+                height: 50px;
+                width: 102%;
+                text-align: center;
+                padding-top: 10px;
+                margin-left: -10px;
+                margin-top: -10px;
+                position: relative;
+
+                &:after {
+                    content: "Please put your email inside your RSI bio";
+                    position: absolute;
+                    top: 15px;
+                    left: 55px;
+                    font-size: 1.3em;
+                }
+
+                .tooltip {
+                    font-family: Arial, Helvetica, sans-serif;
+                    background: #000000;
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    max-width: 100%;
+                    transition: all 0.3s ease-in-out;
+                    cursor: pointer;
+                    position: relative;
+                    z-index: 1;
+                    display: flex;
+                    flex-direction: column;
+                    text-align: justify;
+                }
+
+                .tooltip.top-right {
+                    clip-path: circle(var(--clip-width) at 20px 20px);
+                    left: 6px;
+                }
+
+                .tooltip:hover {
+                    clip-path: circle(100%);
+                    z-index: 2;
+                }
+
+                .tooltip:hover::before,
+                .tooltip:hover::after {
+                    background-color: white;
+                    color: #000000;
+                    border: none;
+                }
+
+                .tooltip::before,
+                .tooltip::after {
+                    margin: 5px;
+                }
+
+                .tooltip.top-left::before,
+                .tooltip.top-right::before,
+                .tooltip.bottom-left::after,
+                .tooltip.bottom-right::after {
+                    content: "i";
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1rem;
+                    border: 2px solid currentColor;
+                    border-radius: 50%;
+                    width: 16px;
+                    height: 16px;
+                    padding: 1px;
+                    transition: all 0.1s ease-in-out;
+                    shape-outside: circle(50%);
+                }
+
+                .tooltip.top-right::before {
+                    margin-left: var(--margin-info-default);
+                    margin-top: var(--margin-info-default);
+                }
+
+                .tooltip-text {
+                    line-height: 1.3;
+                }
+            }
+        }
+    }
+}
