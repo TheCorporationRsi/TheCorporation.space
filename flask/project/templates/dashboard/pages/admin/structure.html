@@ -1,0 +1,100 @@
+<script>
+
+function add_department() {
+    var x = document.getElementById("influence_transfer");
+
+    $.ajax({
+        url: '/api/departments?' + jQuery.param({ 
+            department_title: "Exploration", 
+            department_color : "green"
+        }),
+        type: 'POST',
+        success: function (response) {
+            alert("Exploration added")
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+        
+    }); 
+
+}
+
+function add_division(department_id) {
+    var x = document.getElementById("influence_transfer");
+
+    $.ajax({
+        url: '/api/divisions?' + jQuery.param({ 
+            division_title: "Prospecting", 
+            division_color : "green",
+            division_motto : "lol",
+            department_id : "bb939234-35ee-4513-8d17-477a0a357681"
+        }),
+        type: 'POST',
+        success: function (response) {
+            alert("Prospecting added")
+        },
+        error: function (xhr) {
+            //Do Something to handle error
+        }
+        
+    }); 
+
+}
+
+function submit_department_form(x) {
+    var frm = $(x);
+    $.ajax({
+        type: frm.attr('method'),
+        url: "/dashboard/modules/admin/departments",
+        data: frm.serialize(),
+        success: function (response) {
+            $('#departments').html(response);
+
+        }
+    });
+
+}
+
+function submit_division_form(x) {
+    var frm = $(x);
+    $.ajax({
+        type: frm.attr('method'),
+        url: "/dashboard/modules/admin/departments",
+        data: frm.serialize(),
+        success: function (response) {
+            $('#departments').html(response);
+        }
+    });
+
+}
+
+
+function show_department_dropdown(id) {
+    var x = document.getElementById(id);
+    if (x.style.display === "flex") {
+        x.style.display = "none";
+    } else {
+        x.style.display = "flex";
+    }
+}
+
+
+
+
+
+
+
+</script>
+
+
+<div id="departments" class="module" >
+    <script type="text/javascript">
+        get_module($('#departments'),'/dashboard/modules/admin/departments')
+    </script>
+</form>
+
+</div>
+
+
+

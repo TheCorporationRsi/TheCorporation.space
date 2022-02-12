@@ -1,0 +1,6 @@
+# Byte-compiled / optimized / DLL files
+.dockerignore
+Dockerfile
+venv
+.vscode
+

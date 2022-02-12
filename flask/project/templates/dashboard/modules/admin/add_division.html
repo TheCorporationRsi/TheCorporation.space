@@ -1,0 +1,61 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+<div class="notifications">
+    {% for category, message in messages %}
+    <div class="alert {{ category }}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endwith %}
+
+
+<form id="division_creation_form" method="POST" action="" onsubmit="return false">
+    {{ form.csrf_token }}
+
+
+    <div class="top">
+        {{ form.department_title.label()}}
+        {% if form.department_title.errors %}
+        {{ form.department_title(class="error")}}
+        <div class="invalid-feedback">
+            {% for error in form.department_title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.department_title()}}
+        {% endif %}
+
+    {{ form.title.label()}}
+    {% if form.title.errors %}
+    {{ form.title(class="error")}}
+    <div class="invalid-feedback">
+        {% for error in form.title.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.title()}}
+    {% endif %}
+
+
+    {{ form.motto.label()}}
+    {% if form.motto.errors %}
+    {{ form.motto(class="error")}}
+    <div class="invalid-feedback">
+        {% for error in form.motto.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% else %}
+    {{ form.motto()}}
+    {% endif %}
+    </div>
+
+
+    <button class="submit_button" onclick="submit_division_form()">{{ form.submit.label.text }}</button>
