@@ -45,8 +45,8 @@ services:
       CERT_EMAIL_ADDRESS: ${CERT_EMAIL_ADDRESS}
       FLASK_RUN_HOST: 0.0.0.0
       FLASK_RUN_PORT: 80
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     #8000
     command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -w 2 -b 0.0.0.0:8000 app:app " 
     depends_on:
