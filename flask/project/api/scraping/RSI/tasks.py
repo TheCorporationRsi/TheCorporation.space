@@ -9,13 +9,10 @@ from project.api.scraping.RSI.funding import RSI_funding
 
 
 @scheduler.task("cron", id="get_fund", hour='*' , max_instances=1)
-def get_funding_stats():
+def get_funding_stats_task():
     stats = RSI_funding()
-    element = Funding( fund = stats.fund, citizens = stats.citizens )
+    element = Funding(fund = stats.fund, citizens = stats.citizens)
     db.session.add(element)
-    
-    
-    
     db.session.commit()
     get_funding_stats()
     print("Got the SC stats")

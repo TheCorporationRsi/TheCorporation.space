@@ -39,7 +39,7 @@ def manager_only(f):
 def admin_only(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user is None or not current_user.is_manager("admin"):
+        if not current_user or not current_user.is_manager("admin"):
             return redirect(url_for('login', next=request.url))
         
         return f(*args, **kwargs)

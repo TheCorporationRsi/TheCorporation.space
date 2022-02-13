@@ -48,7 +48,7 @@ services:
     expose:
       - 8000
     #8000
-    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -w 2 -b 0.0.0.0:8000 app:app " 
+    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 3 -b 0.0.0.0:8000 app:app --preload" 
     depends_on:
       - static
   
@@ -62,7 +62,7 @@ services:
         source: static
         read_only: true
     ports:
-      - "5001:80" #80:80
+      - "80:80" #80:80
     depends_on:
       - flask
 

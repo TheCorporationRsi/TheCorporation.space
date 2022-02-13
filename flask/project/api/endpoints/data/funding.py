@@ -8,6 +8,10 @@ from flask_login import current_user, login_required
 from project import db
 
 from project.api.scraping.RSI.funding import RSI_funding
+import requests
+import datetime
+import json
+import pathlib
 
 @CORP_only
 @api.route('/current_funding')
@@ -18,7 +22,7 @@ def current_funding():
 @CORP_only
 @api.route('/data/fundings')
 def fund_dict():
-    fundings = Funding.query.filter(extract('hour', Funding.date) == 18).order_by(Funding.date).all()
+    fundings = Funding.query.order_by(Funding.date).all()
     list_funding = [r.as_dict() for r in fundings]
     return jsonify(list_funding)
 
@@ -60,5 +64,22 @@ def fund_dict_graph(type):
         fundings=Funding.query.filter(and_(Funding.fund != 0, Funding.fund != None)).order_by(Funding.date).all()
     list_funding=[r.as_dict() for r in fundings]
     return jsonify(list_funding)
+
+'''
+@api.route('/data/fundings/get_data_from_old_website')
+def fund_get_old_data():
+    with open('/home/thecorporation/website/project/temp/fundings.json') as json_file:
+        list = json.load(json_file)
     
-    
+        for element in list:
+            time = datetime.datetime.strptime(element['Date'], '%d/%m/%Y %H:%M:%S ')
+            current_data = Funding.query.filter_by(date = time).first()
+            if not current_data:
+                try:
+                    data = Funding(fund = element['Fund'], citizens = element['Citizen'], date= time)
+                    db.session.add(data)
+                    db.session.commit()
+                except:
+                    pass
+        return jsonify(list)
+'''

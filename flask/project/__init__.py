@@ -1,3 +1,7 @@
+import gevent
+gevent.monkey.patch_all(ssl=False)
+print("Gevent Patched!")
+
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -14,6 +18,8 @@ from flask_socketio import SocketIO, emit
 from pathlib import Path
 from flask_migrate import Migrate
 import eventlet
+
+
 
 import discord
 
@@ -72,6 +78,7 @@ def create_app(config_class=Config.ProductionConfig):
             from .sections.dashboard.pages.influence import tasks  # noqa: F401
             from .api.scraping.RSI import tasks
             from .sections.dashboard.pages.stats import tasks
+            from .api.scraping.RSI import tasks
             
             scheduler.start()
         from project import events
