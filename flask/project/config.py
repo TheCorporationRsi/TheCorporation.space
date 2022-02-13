@@ -19,7 +19,7 @@ class Config_Model(ABC):
     SCHEDULER_JOBSTORES = {
         'apscheduler.jobstores.default': {
             'type': 'sqlalchemy',
-            'url': SQLALCHEMY_DATABASE_URI
+            'url': 'sqlite:///scheduler.db'
         }
     }
     

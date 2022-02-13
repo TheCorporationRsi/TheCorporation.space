@@ -4,6 +4,7 @@ from project import db, scheduler
 import datetime
 import json
 
+import pathlib
 
 
 
@@ -181,5 +182,5 @@ def get_funding_stats():
             
             
         
-    with open('./temp_data.json', 'w') as outfile:
+    with open(str(pathlib.Path(__file__).parent.resolve())+'/temp_data.json', 'w') as outfile:
         json.dump(json_data, outfile , indent=4)

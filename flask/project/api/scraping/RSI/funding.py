@@ -65,4 +65,4 @@ class RSI_funding ():
 # RSI_account(RSI_handle="Cyber-Dreamer")
 
 # print(str(RSI_account(RSI_handle="ShiNo0By").corp_member()))
-print(RSI_funding().fund)
+#print(RSI_funding().fund)
