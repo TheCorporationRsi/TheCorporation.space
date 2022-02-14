@@ -52,6 +52,8 @@ services:
     depends_on:
       - static
   
+
+
   nginx:
     container_name: nginx
     restart: always
@@ -65,6 +67,25 @@ services:
       - "80:80" #80:80
     depends_on:
       - flask
+
+
+  # nginx:
+  #   image: nginx
+  #   container_name: nginx
+  #   restart: always
+  #   volumes:
+  #     - /etc/nginx/:/etc/nginx/
+  #     - /etc/letsencrypt/:/etc/letsencrypt/
+  #     - /var/www/certbot/:/var/www/certbot/
+  #     - type: volume
+  #       target: /flask/static
+  #       source: static
+  #       read_only: true
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   depends_on:
+  #     - flask
 
 
   # db:
