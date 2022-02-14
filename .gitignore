@@ -5,5 +5,7 @@ trash
 bot
 */venv
 */.vscode
+.vscode/*
 */__pycache__
 *.pyc
+.vscode

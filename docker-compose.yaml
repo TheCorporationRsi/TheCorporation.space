@@ -54,7 +54,7 @@ services:
 
   
   traefik:
-    image: traefik:v2.4
+    image: traefik:v2.6
     container_name: traefik
     hostname: traefik
     restart: always
@@ -70,7 +70,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=${CERT_EMAIL_ADDRESS}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
         # used during the challenge
-      - --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+      #- --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
       # Http redirect
       - --entrypoints.web.address=:80
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
@@ -84,15 +84,15 @@ services:
       - --entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN_NAME}
       # Enable dashboard
       - "--api.dashboard=true"
-    labels:
-        traefik.enable: true
-        traefik.http.services.traefik.loadbalancer.server.port: 888 # required by swarm but not used.
-        traefik.http.routers.traefik.rule: (Host(`${DOMAIN_NAME}`) && Path(`/trafic/dashboard`))
-        traefik.http.routers.traefik.entrypoints: websecure
-        traefik.http.routers.traefik.tls.certresolver: myresolver
-        traefik.http.routers.traefik.service: api@internal
-        traefik.http.routers.traefik.middlewares: traefik-auth
-        traefik.http.middlewares.traefik-auth.basicauth.users: admin:${DOMAIN_NAME} #password in httpass
+    # labels:
+    #     traefik.enable: true
+    #     traefik.http.services.traefik.loadbalancer.server.port: 888 # required by swarm but not used.
+    #     traefik.http.routers.traefik.rule: (Host(`${DOMAIN_NAME}`) && Path(`/trafic/dashboard`))
+    #     traefik.http.routers.traefik.entrypoints: websecure
+    #     traefik.http.routers.traefik.tls.certresolver: myresolver
+    #     traefik.http.routers.traefik.service: api@internal
+    #     traefik.http.routers.traefik.middlewares: traefik-auth
+    #     traefik.http.middlewares.traefik-auth.basicauth.users: admin:${DOMAIN_NAME} #password in httpass
     ports:
       - "80:80/tcp"
       - "443:443/tcp"
