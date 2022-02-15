@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy.orm import query
 from project import db, bcrypt, discord, scheduler
 from project.models import User, Role, Division
-from project.sections.dashboard.pages.account.forms import UpdateAccountForm, inf_Form, Divisions_weight
+from project.sections.dashboard.pages.account.forms import UpdateAccountForm
 from project.sections.dashboard.utils import save_picture
 from flask_discord import requires_authorization
 from project.api.scraping.RSI.account import RSI_account

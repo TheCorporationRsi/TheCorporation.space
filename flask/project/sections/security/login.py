@@ -78,6 +78,7 @@ def login():
                 return redirect(url_for('security.login'))
             else:
                 login_user(user, remember=form.remember.data)
+                user.update_info()
             
             if not user.RSI_confirmed:
                 return redirect(url_for('security.RSI_verification'))

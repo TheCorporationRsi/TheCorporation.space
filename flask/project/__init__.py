@@ -1,5 +1,5 @@
-import gevent
-gevent.monkey.patch_all(ssl=False)
+import gevent.monkey
+gevent.monkey.patch_all()
 print("Gevent Patched!")
 
 import os

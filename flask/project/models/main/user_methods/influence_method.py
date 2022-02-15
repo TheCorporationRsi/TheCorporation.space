@@ -126,7 +126,13 @@ class influence_methods:
     
     def send_tribute(self, receiver, amount, message="none", method="unknown"):
         if self.tribute < amount:
-            return None
+            return -1
+        
+        if receiver == self:
+            return
+        
+        if not self.corp_confirmed or not self.RSI_confirmed or not receiver.corp_confirmed or not receiver.RSI_confirmed:
+            return -1
 
         divisions = []
         departments_division = []
@@ -158,7 +164,7 @@ class influence_methods:
             transaction = Transaction(user_from = self, user_to = receiver, amount = amount, method= method , message= message, div_list = div_json)
             db.session.add(transaction)
             db.session.commit()
-            return
+            return 1
 
         div_json = {}
         div_json["divisions"] = []
@@ -192,5 +198,7 @@ class influence_methods:
         transaction = Transaction(user_from = self, user_to = receiver, amount = amount, method= method , message= message, div_list = div_json)
         db.session.add(transaction)
         db.session.commit()
+        
+        return 1
 
         

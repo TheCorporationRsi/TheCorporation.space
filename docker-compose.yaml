@@ -41,9 +41,10 @@ services:
       FLASK_APP: app.py
       FLASK_RUN_HOST: 0.0.0.0
       FLASK_RUN_PORT: 80
+      RECAPTCHA_ENABLED: True
     expose:
       - 8000
-    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 3 -b 0.0.0.0:8000 app:app --preload" 
+    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 3 -b 0.0.0.0:8000 --preload app:app" 
     labels:
       traefik.enable: true
       traefik.http.routers.flask.rule: Host(`${DOMAIN_NAME}`, `www.${DOMAIN_NAME}`)

@@ -12,7 +12,11 @@ from project.api.scraping.RSI.funding import RSI_funding
 def get_funding_stats_task():
     stats = RSI_funding()
     element = Funding(fund = stats.fund, citizens = stats.citizens)
-    db.session.add(element)
-    db.session.commit()
-    get_funding_stats()
-    print("Got the SC stats")
+    now = datetime.datetime.utcnow()
+    day_ago = now - datetime.timedelta(minutes= 30)
+    last_data = Funding.query.filter( Funding.date >= day_ago).first()
+    if not last_data:
+        db.session.add(element)
+        db.session.commit()
+        get_funding_stats()
+        print("Got the SC stats")

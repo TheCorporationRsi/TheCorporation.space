@@ -34,6 +34,7 @@ class Config_Model(ABC):
     DISCORD_BOT_TOKEN = os.environ['DISCORD_BOT_TOKEN']
     DISCORD_PUBLIC_KEY = os.environ['DISCORD_PUBLIC_KEY']
     RECAPTCHA_USE_SSL = False
+    RECAPTCHA_ENABLED = os.environ['RECAPTCHA_ENABLED']
     RECAPTCHA_PUBLIC_KEY = os.environ['RECAP_PUBKEY']
     RECAPTCHA_PRIVATE_KEY = os.environ['RECAP_PRVKEY']
     RECAPTCHA_DATA_ATTRS = {'theme': 'dark'}
