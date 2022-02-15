@@ -24,14 +24,28 @@ def get_funding_stats():
     json_data['data']['4'] = []
     json_data['data']['5'] = []
     
-    list = Funding.query.order_by(Funding.id.desc()).all()
+    now = datetime.datetime.utcnow()
+    current = Funding.query.order_by(Funding.date.desc()).first()
+    day_ago = now - datetime.timedelta(days = 1)
+    yesterday = Funding.query.filter(Funding.date >= day_ago).order_by(Funding.date.asc()).first()
     
-    json_data['current_stats'] = {}
-    json_data['current_stats']['fund'] = list[0].fund
-    json_data['current_stats']['daily_fund'] = list[0].fund - list[23].fund
-    json_data['current_stats']['citizens'] = list[0].citizens
-    json_data['current_stats']['daily_citizens'] = list[0].citizens - list[23].citizens
-    json_data['current_stats']['current_time'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S %Z')
+    if yesterday:
+    
+        json_data['current_stats'] = {}
+        json_data['current_stats']['fund'] = current.fund
+        json_data['current_stats']['daily_fund'] = current.fund - yesterday.fund
+        json_data['current_stats']['citizens'] = current.citizens
+        json_data['current_stats']['daily_citizens'] = current.citizens - yesterday.citizens
+        json_data['current_stats']['current_time'] = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S %Z')
+    
+    else:
+        
+        json_data['current_stats'] = {}
+        json_data['current_stats']['fund'] = 0
+        json_data['current_stats']['daily_fund'] = 0
+        json_data['current_stats']['citizens'] = 0
+        json_data['current_stats']['daily_citizens'] = 0
+        json_data['current_stats']['current_time'] = 0
     
     for time in range(1, 6):
     

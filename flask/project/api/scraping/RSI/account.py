@@ -110,7 +110,7 @@ class RSI_account ():
             return False
         
     def confirm_token(self, token):
-        if self.bio.find(token) != -1:
+        if self.bio and self.bio.find(token) != -1:
             return True
         else:
             return False

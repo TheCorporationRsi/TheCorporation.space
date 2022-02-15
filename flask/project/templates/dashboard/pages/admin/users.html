@@ -1,0 +1,94 @@
+<script>
+    
+    function submit_department_form(x) {
+        var frm = $(x);
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/modules/admin/departments",
+            data: frm.serialize(),
+            success: function (response) {
+                $('#departments').html(response);
+    
+            }
+        });
+    
+    }
+    
+    function submit_division_form(x) {
+        var frm = $(x);
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/modules/admin/departments",
+            data: frm.serialize(),
+            success: function (response) {
+                $('#departments').html(response);
+            }
+        });
+    
+    }
+    
+    
+    function show_department_dropdown(id) {
+        var x = document.getElementById(id);
+        if (x.style.display === "flex") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "flex";
+        }
+    }
+    
+    
+    function get_user_settings(id) {
+        $.ajax({
+            type: "get",
+            url: "/dashboard/modules/admin/user_info/" + id,
+            data: None,
+            success: function (response) {
+                $('#user-info').html(response);
+            }
+        });
+    
+    }
+
+    function get_users(handle = null, department= null, division= null, manager= null, corporateer= null) {
+        var x = document.getElementById("influence_transfer");
+    
+        $.ajax({
+            url: '/dashboard/modules/admin/users?' + jQuery.param({ 
+                RSI_handle: handle, 
+                department_id : department,
+                division_id: division, 
+                manager : manager,
+                corporateer : corporateer
+            }),
+            type: 'GET',
+            success: function (response) {
+                $('#users').html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+            
+        }); 
+    
+    }
+    
+    
+    
+    
+    </script>
+    
+    
+    <div id="users" class="module" >
+        <script type="text/javascript">
+            get_users()
+        </script>
+    </div>
+
+    <div id="user-info" class="module" >
+    
+    </div>
+    
+    
+    
+    

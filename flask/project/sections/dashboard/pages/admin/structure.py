@@ -51,4 +51,4 @@ def departments_form_submition():
         
         return redirect(url_for('dashboard.departments_form_submition'))
     
-    return render_template("dashboard/modules/admin/departments.html", department_form=department_form, division_form=division_form)
+    return render_template("dashboard/modules/admin/structure/departments.html", department_form=department_form, division_form=division_form)

@@ -31,7 +31,7 @@ def add_departments_form_submition():
         flash(f'Sucessfully created the department!', 'success')
         return redirect(url_for('dashboard.add_departments_form_submition'))
     
-    return render_template("dashboard/modules/admin/add_department.html", form=form)
+    return render_template("dashboard/modules/admin/structure/add_department.html", form=form)
 
 
 @admin_only
@@ -48,4 +48,4 @@ def add_divisions_form_submition():
             flash(f'Sucessfully created the division!', 'success')
             return redirect(url_for('dashboard.add_divisions_form_submition'))
     
-    return render_template("dashboard/modules/admin/add_division.html", form=form)
+    return render_template("dashboard/modules/admin/structure/add_division.html", form=form)
