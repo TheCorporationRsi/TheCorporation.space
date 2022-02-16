@@ -37,7 +37,7 @@ class RSI_account ():
                 return None
         except:
             print("Wrong page!")
-            return None
+            return -1
 
         try:
             self.ORGS = []
@@ -48,7 +48,7 @@ class RSI_account ():
         except:
             print("No ORGS!")
             org = None
-            return None
+            return -1
 
         try:
             main_org = soup.find("div", {"class": "main-org"}).find("div", {"class": "info"}).find_all("p")
@@ -136,7 +136,7 @@ class RSI_account ():
         return json
 
 
-# RSI_account(RSI_handle="Cyber-Dreamer")
+RSI_account(RSI_handle="Cyber-Dreamer")
 
 # print(str(RSI_account(RSI_handle="ShiNo0By").corp_member()))
 #print(RSI_funding())

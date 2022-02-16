@@ -130,26 +130,30 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
             corp_role = Role(title="Corporateer", color="blue", type='Corporateer')
             db.session.add(corp_role)
             db.session.commit()
+            
+        if RSI_info != -1:
 
-        self.orgs['orgs'] = RSI_info.as_json()['Orgs']
-        self.orgs['main_org']['title'] = RSI_info.main_org
+            self.orgs['orgs'] = RSI_info.as_json()['Orgs']
+            self.orgs['main_org']['title'] = RSI_info.main_org
 
-        if self.RSI_confirmed:
-            if RSI_info.corp_member():
-                self.add_role(corp_role)
-                self.corp_confirmed = True
-            else:
-                self.remove_role(corp_role)
+            if self.RSI_confirmed:
+                if RSI_info.corp_member():
+                    self.add_role(corp_role)
+                    self.corp_confirmed = True
+                else:
+                    self.remove_role(corp_role)
+                    self.corp_confirmed = False
+                if self.corp_confirmed:
+                    self.update_rank()
+                    self.update_tribute()
+                    
+            elif RSI_info.confirm_token(self.verification_token):
+                self.RSI_confirmed = True
                 self.corp_confirmed = False
-            if self.corp_confirmed:
-                self.update_rank()
-                self.update_tribute()
-                
-        elif RSI_info.confirm_token(self.verification_token):
-            self.RSI_confirmed = True
-            self.corp_confirmed = False
-            self.remove_role(corp_role)
-            self.update_info()
+                self.remove_role(corp_role)
+                self.update_info()
+        elif RSI_account(RSI_handle="Cyber-Dreamer") != -1:
+            self.RSI_confirmed = False
 
     def update_discord_roles(self):
         all_roles = Role.query.all()
