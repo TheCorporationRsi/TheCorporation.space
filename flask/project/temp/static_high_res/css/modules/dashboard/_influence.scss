@@ -1,0 +1,158 @@
+#influence_weight {
+
+
+    .weight {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: right;
+        width: 100%;
+        color: $blue;
+
+        label{
+            font-size: 20px;
+        }
+
+        .w-title {
+            align-items: center;
+            justify-content: right;
+            margin-left: auto;
+            margin-right: 10px;
+            color: $blue;
+        }
+    }
+
+    fieldset {
+        border: 0;
+    }
+
+    .invalid-feedback {
+        color: red;
+        font-size: 0.8em;
+        margin-bottom: 5px;
+    }
+
+    input[type=text],
+    input[type=password],
+    textarea,
+    select {
+        align-items: right;
+        width: 50px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-left: auto;
+        padding: 5px 10px;
+        display: inline-block;
+        border: 1px solid $blue;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: $dark-grey;
+        color: white;
+
+        &.error {
+            border: 2px solid red;
+        }
+    }
+
+    textarea {
+        min-height: 200px;
+    }
+
+    .submit_button {
+        width: 100%;
+        background-color: $blue!important;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 2em;
+        font-family: $main-font;
+        font-weight: bold;
+        transition: all ease-in-out .3s;
+
+    }
+
+    .submit_button:hover {
+        background-color: $yellow;
+        color: black;
+        transform: scale(1.03);
+    }
+}
+
+#influence_transfer {
+
+    .top {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 20px;
+    }
+
+
+    .invalid-feedback {
+        color: red;
+        font-size: 0.8em;
+        margin-bottom: 5px;
+    }
+
+    label {
+        width: fit-content;
+        padding-right: 10px;
+        margin-top: auto;
+        margin-bottom: auto;
+        color: $blue;
+    }
+
+    input[type=text],
+    input[type=password],
+    textarea,
+    select {
+        align-items: right;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        margin-left: auto;
+        padding: 12px 20px;
+        display: inline-block;
+        border: 1px solid $blue;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: $dark-grey;
+        color: white;
+
+        &.error {
+            border: 2px solid red;
+        }
+    }
+
+    textarea {
+        height: 150px;
+        width: 100%;
+        background-color: $dark-grey;
+        border-color: $blue;
+        color: white;
+    }
+
+    .submit_button {
+        width: 100%;
+        background-color: $blue;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 2em;
+        font-family: $main-font;
+        font-weight: bold;
+        transition: all ease-in-out .3s;
+
+    }
+
+    .submit_button:hover {
+        background-color: $yellow;
+        color: black;
+        transform: scale(1.03);
+    }
+}

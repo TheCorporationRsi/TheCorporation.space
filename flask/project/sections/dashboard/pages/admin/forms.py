@@ -78,6 +78,38 @@ class Dep_Form(FlaskForm):
             raise ValidationError('Cannot be the same color!')
         
     
+class User_Form(FlaskForm):
+    
+    
+    RSI_handle = StringField('Title', validators= [DataRequired()] )
+    
+    discord_id = IntegerField('Discord ID', validators= [Length(max=30)])
+    
+    guilded_id = IntegerField('Guilded ID', validators= [Length(max=30)])
+    
+    tribute = IntegerField('Guilded ID', validators= [Length(max=4)])
+    
+    lifetime_influence_total = IntegerField('Guilded ID', validators= [Length(max=120)])
+    
+    security = IntegerField('Security level', validators= [Length(max=1)])
+    
+    def validate_department_id(self, division_id):
+        test = Division.query.filter_by(id = division_id.data).first()
+        if not test:
+            raise ValidationError('Something went wrong!')
+    
+    def validate_title(self, title):
+        test = Department.query.filter_by(title = title.data).first()
+        if test:
+            raise ValidationError('Allready exist!')
+        
+        test1 = Division.query.filter_by(title = title.data).first()
+        test2 = Division.query.filter_by(id = self.division_id.data).first()
+        if test1 and test1 != test2:
+            raise ValidationError('Cannot be the same as a division that exist!')
+
+
+
 class Div_Form(FlaskForm):
     
     division_id = HiddenField('Field', validators= [DataRequired()] )
