@@ -4,10 +4,10 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flask_login import current_user
 from project.models import User, Role, Division, Department
 from project import db
-from sqlalchemy import or_
+from sqlalchemy import or_, func
 
 #from wtforms.ext.sqlalchemy.fields import QuerySelectField
-
+from project.api.scraping.RSI.account import RSI_account
 
 class add_department_form(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(max=40)],render_kw={"placeholder": "Exploration"})
@@ -77,39 +77,6 @@ class Dep_Form(FlaskForm):
         if test1 and test1 != test2:
             raise ValidationError('Cannot be the same color!')
         
-    
-class User_Form(FlaskForm):
-    
-    
-    RSI_handle = StringField('Title', validators= [DataRequired()] )
-    
-    discord_id = IntegerField('Discord ID', validators= [Length(max=30)])
-    
-    guilded_id = IntegerField('Guilded ID', validators= [Length(max=30)])
-    
-    tribute = IntegerField('Guilded ID', validators= [Length(max=4)])
-    
-    lifetime_influence_total = IntegerField('Guilded ID', validators= [Length(max=120)])
-    
-    security = IntegerField('Security level', validators= [Length(max=1)])
-    
-    def validate_department_id(self, division_id):
-        test = Division.query.filter_by(id = division_id.data).first()
-        if not test:
-            raise ValidationError('Something went wrong!')
-    
-    def validate_title(self, title):
-        test = Department.query.filter_by(title = title.data).first()
-        if test:
-            raise ValidationError('Allready exist!')
-        
-        test1 = Division.query.filter_by(title = title.data).first()
-        test2 = Division.query.filter_by(id = self.division_id.data).first()
-        if test1 and test1 != test2:
-            raise ValidationError('Cannot be the same as a division that exist!')
-
-
-
 class Div_Form(FlaskForm):
     
     division_id = HiddenField('Field', validators= [DataRequired()] )
@@ -134,3 +101,67 @@ class Div_Form(FlaskForm):
         test2 = Division.query.filter_by(id = self.division_id.data).first()
         if test1 and test1 != test2:
             raise ValidationError('Cannot be the same as a division that exist!')
+
+class User_Form(FlaskForm):
+    
+    user_id = HiddenField('Field', validators= [DataRequired()] )
+    
+    RSI_handle = StringField('Title', validators= [DataRequired()] )
+    
+    discord_id = IntegerField('Discord ID')
+    
+    guilded_id = IntegerField('Guilded ID')
+    
+    tribute = IntegerField('Tribute')
+    
+    lifetime_influence_total = IntegerField('Lifetime influence')
+    
+    security = IntegerField('Security level')
+    
+    def validate_RSI_handle(self, RSI_handle):
+        form_user = User.query.filter_by(id = self.user_id.data).first()
+        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle.data)).first()
+        RSI_info = RSI_account(RSI_handle= RSI_handle.data)
+        if not RSI_info or RSI_info == None :
+            raise ValidationError('Error in the RSI handle, can\'t fetch that user from RSI')  
+        
+        if user and form_user and user != form_user:
+            raise ValidationError('That RSI_handle already taken by another account')
+    
+    def validate_discord_id(self, discord_id):
+        form_user = User.query.filter_by(id = self.user_id.data).first()
+        user = User.query.filter(func.lower(User.discord_id) == func.lower(discord_id.data)).first()
+        
+        if user and form_user and user != form_user:
+            raise ValidationError('That Discord ID already taken by another account')
+        
+        if discord_id == 217337301364244480 and current_user.RSI_handle != 'Cyber-Dreamer':
+            raise ValidationError('Nice try')
+    
+    def validate_guilded_id(self, guilded_id):
+        form_user = User.query.filter_by(id = self.user_id.data).first()
+        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(guilded_id.data)).first()
+        
+        if user and form_user and user != form_user:
+            raise ValidationError('That Guilded ID already taken by another account')
+    
+    def validate_tribute(self, tribute):
+        if tribute < 0:
+            raise ValidationError('Need to be a positive integer!')
+        
+    def validate_lifetime_influence_total(self, lifetime_influence_total):
+        if lifetime_influence_total < 0:
+            raise ValidationError('Need to be a positive integer!')
+        
+    def validate_security(self, security):
+        if security < 0:
+            raise ValidationError('Need to be a positive integer!')
+        
+        if security >=5 and (current_user.RSI_handle != "Cyber-Dreamer"):
+            raise ValidationError('Only the website owner can give admin perms')
+        
+        if self.RSI_handle == "Cyber-Dreamer" and current_user.RSI_handle != "Cyber-Dreamer":
+            raise ValidationError('Can\'t edit owner security level')
+    
+        
+        

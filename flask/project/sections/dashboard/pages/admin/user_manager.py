@@ -11,7 +11,7 @@ from project.api.security_wraps import admin_only, manager_only, not_logged_in_o
 
 from project.api.controller.structure_controller import add_department, add_division
 
-from .forms import add_department_form, add_division_form, Dep_Form, Div_Form
+from .forms import add_department_form, add_division_form, Dep_Form, Div_Form, User_Form
 
 @admin_only
 @dashboard.route("/dashboard/admin/users", methods=['GET'])
@@ -66,5 +66,22 @@ def users_list():
 @dashboard.route("/dashboard/modules/admin/user_info/<string:id>", methods=['GET', 'POST'])
 def user_info_form(id):
     
+    user = User.query.filter_by(id = id).first()
     
-    return render_template("dashboard/modules/admin/users/user_info.html")
+    User_form = User_Form(prefix="user_form")
+    if User_form.validate_on_submit():
+        user == User.query.filter_by(id = User_form.user_id.data).first()
+        
+        user.RSI_handle = User_form.RSI_handle.data
+        user.discord_id = User_form.discord_id.data
+        user.guilded_id = User_form.guilded_id.data
+        user.tribute = User_form.tribute.data
+        user.lifetime_influence_total = User_form.lifetime_influence_total.data
+        user.security = User_form.security.data
+        
+        user.update_info()
+        
+        return redirect(url_for('dashboard.user_info_form'))
+    
+    
+    return render_template("dashboard/modules/admin/users/user_info.html", user = user, form= User_form)
