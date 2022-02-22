@@ -37,6 +37,7 @@
     </div>
 </div>
 
+{% if department.divisions %}
 <div class="link-info " style="background-image: url('/static/structure/department_background/{{ department.image_div_presentation }}');">
     {% for division in division_list  %}
     {% if division.department_id == department.id  %}
@@ -51,6 +52,8 @@
     {% endif %}
     {% endfor %}
 </div>
+{% endif %}
+
 {% for template in tempates_info %}
 {% if template.department_id == department.id  %}
     {% if loop.index%2 == 1  %}

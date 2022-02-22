@@ -50,6 +50,7 @@ def RSI_verification():
     
     current_user.update_info()
     if current_user.RSI_confirmed:
+        current_user.update_info()
         return redirect(url_for('dashboard.dashboard_link'))
     else:
         flash(f'Please verify you RSI account with the following token', 'warning')

@@ -5,12 +5,13 @@
     <div>Discord: {{ user.discord_username }}</div>
     <div>Guilded: {{ user.guilded_username }}</div>
     <div>General influence {{ user.guilded_username }}</div>
-    <div>Email confirmed: {% if email_confirmed %} Yes {% else %} No {% endif %}</div>
-    <div>Handle confirmed: {% if RSI_confirmed %} Yes {% else %} No {% endif %}</div>
-    <div>CORP confirmed: {% if corp_confirmed %} Yes {% else %} No {% endif %}</div>
-    <div>Email confirmed: {% if email_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>Email confirmed: {% if user.email_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>Handle confirmed: {% if user.RSI_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>CORP confirmed: {% if user.corp_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>Email confirmed: {% if user.email_confirmed %} Yes {% else %} No {% endif %}</div>
 
     <form id="user_info_form" method="POST" action="" onsubmit="return false">
+        <fieldset>
         {{ form.csrf_token }}
         {{ form.user_id(value= user.id|string )}}
 
@@ -85,9 +86,10 @@
         {% else %}
         {{ form.security(value=user.security )}}
         {% endif %}
-
+    </fieldset>
 
 
         <button class="submit_button" onclick="submit_user_info_form('#user_info_form', '{{ user.id }}')">Update</button>
+        <button class="submit_button" onclick="update_user('{{ user.id }}')">Refresh info</button>
     </form>
 </div>

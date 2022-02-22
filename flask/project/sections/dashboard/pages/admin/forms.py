@@ -129,35 +129,39 @@ class User_Form(FlaskForm):
             raise ValidationError('That RSI_handle already taken by another account')
     
     def validate_discord_id(self, discord_id):
-        form_user = User.query.filter_by(id = self.user_id.data).first()
-        user = User.query.filter(func.lower(User.discord_id) == func.lower(discord_id.data)).first()
-        
-        if user and form_user and user != form_user:
-            raise ValidationError('That Discord ID already taken by another account')
-        
-        if discord_id == 217337301364244480 and current_user.RSI_handle != 'Cyber-Dreamer':
-            raise ValidationError('Nice try')
+
+        if discord_id.data == 217337301364244480 and current_user.RSI_handle != 'Cyber-Dreamer':
+                raise ValidationError('Nice try')
+
+        if discord_id.data:
+            form_user = User.query.filter_by(id = self.user_id.data).first()
+            user = User.query.filter(func.lower(User.discord_id) == func.lower(discord_id.data)).first()
+            if user and form_user and user != form_user:
+                raise ValidationError('That Discord ID already taken by another account')
+            
     
     def validate_guilded_id(self, guilded_id):
-        form_user = User.query.filter_by(id = self.user_id.data).first()
-        user = User.query.filter(func.lower(User.RSI_handle) == func.lower(guilded_id.data)).first()
-        
-        if user and form_user and user != form_user:
-            raise ValidationError('That Guilded ID already taken by another account')
+
+        if guilded_id.data:
+            form_user = User.query.filter_by(id = self.user_id.data).first()
+            user = User.query.filter(func.lower(User.RSI_handle) == func.lower(guilded_id.data)).first()
+            
+            if user and form_user and user != form_user:
+                raise ValidationError('That Guilded ID already taken by another account')
     
     def validate_tribute(self, tribute):
-        if tribute < 0:
+        if tribute.data < 0:
             raise ValidationError('Need to be a positive integer!')
         
     def validate_lifetime_influence_total(self, lifetime_influence_total):
-        if lifetime_influence_total < 0:
+        if lifetime_influence_total.data < 0:
             raise ValidationError('Need to be a positive integer!')
         
     def validate_security(self, security):
-        if security < 0:
+        if security.data < 0:
             raise ValidationError('Need to be a positive integer!')
         
-        if security >=5 and (current_user.RSI_handle != "Cyber-Dreamer"):
+        if security.data >=5 and (current_user.RSI_handle != "Cyber-Dreamer"):
             raise ValidationError('Only the website owner can give admin perms')
         
         if self.RSI_handle == "Cyber-Dreamer" and current_user.RSI_handle != "Cyber-Dreamer":

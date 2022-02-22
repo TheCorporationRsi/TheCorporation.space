@@ -47,6 +47,18 @@
         }); 
     
     }
+
+    function update_user(id) {
+        $.ajax({
+            type: 'GET',
+            url: "/api/update_user/"+ id,
+            data: null,
+            success: function (response) {
+                get_user_info(id);
+            }
+        });
+    
+    }
     
     
     

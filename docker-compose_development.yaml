@@ -1,15 +1,10 @@
-9version: '3'
-
-
-
+version: '3'
 
 volumes:
   static: {}
   db_storage: {}
 
 services:
-
-  
 
   flask:
     build: ./flask
@@ -39,24 +34,13 @@ services:
       RECAP_PRVKEY: ${RECAP_PRVKEY}
       RECAP_PUBKEY: ${RECAP_PUBKEY}
       DISCORD_TEST_SERVER: ${DISCORD_TEST_SERVER}
-      FLASK_DEBUG: 0
-      FLASK_ENV: production   #production
+      FLASK_DEBUG: 1
+      FLASK_ENV: development   #production
       FLASK_APP: app.py
       CERT_EMAIL_ADDRESS: ${CERT_EMAIL_ADDRESS}
       FLASK_RUN_HOST: 0.0.0.0
       FLASK_RUN_PORT: 80
       RECAPTCHA_ENABLED: False
     ports:
-      - "5002:8000" 
-    #8000
+      - "5002:8000"
     command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 3 -b 0.0.0.0:8000 --preload app:app" 
-
-
-  # db:
-  #   container_name: db
-  #   image: mysql
-  #   command: --default-authentication-plugin=mysql_native_password
-  #   restart: always
-  #   env_file:  .env
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

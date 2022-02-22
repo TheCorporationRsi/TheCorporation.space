@@ -20,6 +20,7 @@
     <div class="item">
         
         <form id="{{department.id}}" method="POST" action="" onsubmit="return false">
+            <fieldset>
             {{ department_form.csrf_token }}
             {{ department_form.department_id(value= department.id|string )}}
 
@@ -54,6 +55,8 @@
 
             {% endif %}
 
+        </fieldset>
+
             <button class="submit_button" onclick="submit_department_form('#{{department.id}}')">{{ department_form.update.label.text }}</button>
         </form>
         <a href="javascript:void(0);" onclick="show_department_dropdown('{{ department.id }}-dropdown')"
@@ -66,6 +69,7 @@
         <div id="{{ department.id }}-dropdown" class="item-dropdown">
             {% for division in department.divisions %}
             <form id="{{division.id}}" method="POST" action="" onsubmit="return false">
+                <fieldset>
                 {{ division_form.csrf_token }}
                 {{ division_form.division_id(value= division.id|string )}}
     
@@ -99,6 +103,7 @@
                 {{ division_form.motto(value=division.motto, style="color:"+division.color )}}
     
                 {% endif %}
+            </fieldset>
     
                 <button class="submit_button" onclick="submit_division_form('#{{division.id}}')">{{ division_form.update.label.text }}</button>
             </form>

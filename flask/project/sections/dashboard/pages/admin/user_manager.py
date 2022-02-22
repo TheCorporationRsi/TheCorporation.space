@@ -81,7 +81,7 @@ def user_info_form(id):
         
         user.update_info()
         
-        return redirect(url_for('dashboard.user_info_form'))
+        return redirect(url_for('dashboard.user_info_form'), id = id)
     
     
     return render_template("dashboard/modules/admin/users/user_info.html", user = user, form= User_form)
