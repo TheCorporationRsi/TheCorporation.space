@@ -137,6 +137,9 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
             self.orgs['main_org']['title'] = RSI_info.main_org
 
             if self.RSI_confirmed:
+                self.RSI_moniker = RSI_info.Moniker
+                self.RSI_number = RSI_info.citizen
+                self.RSI_handle = RSI_info.RSI_handle
                 if RSI_info.corp_member():
                     self.add_role(corp_role)
                     self.corp_confirmed = True
@@ -154,6 +157,8 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
                 self.update_info()
         elif RSI_account(RSI_handle="Cyber-Dreamer") != -1:
             self.RSI_confirmed = False
+            
+        db.session.commit()
 
     def update_discord_roles(self):
         all_roles = Role.query.all()

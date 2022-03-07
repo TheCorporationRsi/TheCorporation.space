@@ -108,9 +108,9 @@ class User_Form(FlaskForm):
     
     RSI_handle = StringField('Title', validators= [DataRequired()] )
     
-    discord_id = IntegerField('Discord ID')
+    discord_id = StringField('Discord ID')
     
-    guilded_id = IntegerField('Guilded ID')
+    guilded_id = StringField('Guilded ID')
     
     tribute = IntegerField('Tribute')
     

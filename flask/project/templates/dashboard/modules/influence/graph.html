@@ -11,7 +11,7 @@
         type: 'doughnut',
         data: {
             labels: [
-
+            'General',
             {% for division in division_list %}
 
             '{{division.title}}',
@@ -22,14 +22,16 @@
 
         label: 'Division influence',
         data: [
+            {{ current_user.general_influence | round }},
             {% for division in division_list %}
-        {{ current_user.influence(division) | round }},
-    {% endfor %}
+                {{ current_user.influence(division) | round }},
+            {% endfor %}
     ],
         backgroundColor: [
+            '#0083ff',
             {% for division in division_list %}
-    '{{ division.color }}',
-        {% endfor %}
+                '{{ division.color }}',
+            {% endfor %}
 ],
     hoverOffset: 10,
         borderColor: '#363636'

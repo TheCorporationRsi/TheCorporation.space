@@ -73,15 +73,15 @@ def user_info_form(id):
         user == User.query.filter_by(id = User_form.user_id.data).first()
         
         user.RSI_handle = User_form.RSI_handle.data
-        user.discord_id = User_form.discord_id.data
-        user.guilded_id = User_form.guilded_id.data
+        user.discord_id = int(User_form.discord_id.data)
+        user.guilded_id = int(User_form.guilded_id.data)
         user.tribute = User_form.tribute.data
         user.lifetime_influence_total = User_form.lifetime_influence_total.data
         user.security = User_form.security.data
         
         user.update_info()
         
-        return redirect(url_for('dashboard.user_info_form'), id = id)
+        return redirect(url_for('dashboard.user_info_form', id = id))
     
     
     return render_template("dashboard/modules/admin/users/user_info.html", user = user, form= User_form)

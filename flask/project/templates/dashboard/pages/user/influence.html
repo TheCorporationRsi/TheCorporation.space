@@ -143,7 +143,7 @@
         <tbody>
             {% for transaction in current_user.sender_transactions%}
             <tr>
-                <td>{{ transaction.user_to}}</td>
+                <td>{{ transaction.user_to.RSI_handle}}</td>
                 <td>{{ transaction.amount}}</td>
                 <td>{{ transaction.message}}</td>
             </tr>

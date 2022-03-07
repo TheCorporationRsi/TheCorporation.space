@@ -49,7 +49,7 @@ class influence_methods:
             return 0
 
     def update_rank(self):
-        self.rank = Influence_rank.query.order_by(Influence_rank.required_influence).filter(Influence_rank.required_influence >= self.lifetime_influence_total).first()
+        self.rank = Influence_rank.query.filter(Influence_rank.required_influence <= self.lifetime_influence_total).order_by(Influence_rank.required_influence.desc()).first()
 
 
     def update_tribute(self):
