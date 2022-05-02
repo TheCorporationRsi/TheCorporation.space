@@ -15,5 +15,5 @@ class Base(db.Model):
 
 from project.models.main.influence_model import *
 from project.models.main.roles_model import *
-from project.models.main.user_model import *
+from project.models.main.user_model import User
 from project.models.stats.sc_stats_model import *

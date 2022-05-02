@@ -1,0 +1,95 @@
+
+<div>
+
+    <div>Moniker: {{ user.RSI_moniker }}</div>
+    <div>Discord: {{ user.discord_username }}</div>
+    <div>Guilded: {{ user.guilded_username }}</div>
+    <div>General influence {{ user.guilded_username }}</div>
+    <div>Email confirmed: {% if user.email_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>Handle confirmed: {% if user.RSI_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>CORP confirmed: {% if user.corp_confirmed %} Yes {% else %} No {% endif %}</div>
+    <div>Email confirmed: {% if user.email_confirmed %} Yes {% else %} No {% endif %}</div>
+
+    <form id="user_info_form" method="POST" action="" onsubmit="return false">
+        <fieldset>
+        {{ form.csrf_token }}
+        {{ form.user_id(value= user.id|string )}}
+
+        {{ form.RSI_handle.label()}}
+        {% if form.RSI_handle.errors %}
+        {{ form.RSI_handle(class="error", value=user.RSI_handle )}}
+        <div class="invalid-feedback">
+            {% for error in form.RSI_handle.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.RSI_handle(value=user.RSI_handle )}}
+        {% endif %}
+
+        {{ form.discord_id.label()}}
+        {% if form.discord_id.errors %}
+        {{ form.discord_id(class="error", value=user.discord_id )}}
+        <div class="invalid-feedback">
+            {% for error in form.discord_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.discord_id(value=user.discord_id )}}
+        {% endif %}
+
+        {{ form.guilded_id.label()}}
+        {% if form.guilded_id.errors %}
+        {{ form.guilded_id(class="error", value=user.guilded_id )}}
+        <div class="invalid-feedback">
+            {% for error in form.guilded_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.guilded_id(value=user.guilded_id )}}
+        {% endif %}
+
+        {{ form.tribute.label()}}
+        {% if form.tribute.errors %}
+        {{ form.tribute(class="error", value=user.tribute )}}
+        <div class="invalid-feedback">
+            {% for error in form.tribute.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.tribute(value=user.tribute )}}
+        {% endif %}
+
+        {{ form.lifetime_influence_total.label()}}
+        {% if form.lifetime_influence_total.errors %}
+        {{ form.lifetime_influence_total(class="error", value=user.lifetime_influence_total )}}
+        <div class="invalid-feedback">
+            {% for error in form.lifetime_influence_total.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.lifetime_influence_total(value=user.lifetime_influence_total )}}
+        {% endif %}
+
+        {{ form.security.label()}}
+        {% if form.security.errors %}
+        {{ form.security(class="error", value=user.security )}}
+        <div class="invalid-feedback">
+            {% for error in form.security.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% else %}
+        {{ form.security(value=user.security )}}
+        {% endif %}
+    </fieldset>
+
+
+        <button class="submit_button" onclick="submit_user_info_form('#user_info_form', '{{ user.id }}')">Update</button>
+        <button class="submit_button" onclick="update_user('{{ user.id }}')">Refresh info</button>
+    </form>
+</div>

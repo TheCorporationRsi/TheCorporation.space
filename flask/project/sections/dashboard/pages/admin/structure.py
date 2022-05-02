@@ -1,9 +1,8 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
-from project.sections.dashboard.pages.influence.forms import MyForm
+
 from flask_login import current_user, login_required
 from project import db, scheduler
 from project.sections.dashboard.pages.influence.events import *
-from project.sections.dashboard.pages.account.forms import UpdateAccountForm, inf_Form, Divisions_weight
 from project.models import User, Role, Division, Department
 from sqlalchemy import func
 from project.sections.dashboard import dashboard
@@ -52,4 +51,4 @@ def departments_form_submition():
         
         return redirect(url_for('dashboard.departments_form_submition'))
     
-    return render_template("dashboard/modules/admin/departments.html", department_form=department_form, division_form=division_form)
+    return render_template("dashboard/modules/admin/structure/departments.html", department_form=department_form, division_form=division_form)

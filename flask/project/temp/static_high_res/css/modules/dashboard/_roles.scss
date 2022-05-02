@@ -1,0 +1,47 @@
+
+
+.role-section {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 20px;
+    min-width: 300px;
+    color: $blue;
+
+    .roles {
+        align-content: flex-start;
+        flex-wrap: wrap;
+        display: flex;
+        width: 100%;
+        text-align: center;
+
+        div {
+            color: white;
+            display: flex;
+            grid-gap: 3px;
+            align-self: flex-start;
+            text-decoration: none;
+            font-weight: normal;
+            border: 2px solid rgb(255, 0, 0);
+            border-radius: 15px;
+            //height: 20px;
+            padding-top: 2.5px;
+            padding-bottom: 2.5px;
+            padding-left: 5px;
+            padding-right: 10px;
+            font-size: 15px;
+            margin-right: 5px;
+            margin-top: 4px;
+            text-align: center;
+
+            p {
+                display: block;
+                border-radius: 15px;
+                width: 15px;
+                height: 15px;
+                text-align: center;
+                margin: auto;
+            }
+        }
+    }
+
+}

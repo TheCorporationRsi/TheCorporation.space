@@ -1,6 +1,8 @@
 from project import db
 from project.models import Base
 
+import project.api.bots.controller as bot_controller
+
 class UserRole(Base):
     __tablename__ = "user_role"
     
@@ -47,11 +49,14 @@ class role_methods:
         if not self.has_role(role):
             self.roles.append(role)
             db.session.commit()
+            bot_controller.add_role(self, role)
+            
 
     def remove_role(self, role):
         if self.has_role(role):
             self.roles.remove(role)
             db.session.commit()
+            bot_controller.remove_role(self, role)
 
     def is_member(self, entity):
         for role in entity.roles:

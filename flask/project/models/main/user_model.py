@@ -13,6 +13,8 @@ from project.models.main.user_methods.influence_method import influence_methods
 
 import secrets
 
+import project.api.bots.controller as bot_controller
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -110,11 +112,13 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         self._password = hashed_password
         db.session.commit()
-
     
     '''
     Methods
     '''
+    
+    def send_dm(self, message):
+        bot_controller.send_dm(self, message)
 
     def update_info(self):
         from project.api.scraping.RSI.account import RSI_account
@@ -130,26 +134,36 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
             corp_role = Role(title="Corporateer", color="blue", type='Corporateer')
             db.session.add(corp_role)
             db.session.commit()
+            
+        if RSI_info != -1:
 
-        self.orgs['orgs'] = RSI_info.as_json()['Orgs']
-        self.orgs['main_org']['title'] = RSI_info.main_org
+            self.orgs['orgs'] = RSI_info.as_json()['Orgs']
+            self.orgs['main_org']['title'] = RSI_info.main_org
 
-        if self.RSI_confirmed:
-            if RSI_info.corp_member():
-                self.add_role(corp_role)
-                self.corp_confirmed = True
-            else:
-                self.remove_role(corp_role)
+            if self.RSI_confirmed:
+                self.RSI_moniker = RSI_info.Moniker
+                self.RSI_number = RSI_info.citizen
+                self.RSI_handle = RSI_info.RSI_handle
+                if RSI_info.corp_member():
+                    self.add_role(corp_role)
+                    self.corp_confirmed = True
+                else:
+                    self.remove_role(corp_role)
+                    self.corp_confirmed = False
+                if self.corp_confirmed:
+                    self.update_rank()
+                    self.update_tribute()
+                bot_controller.change_nickname(self, self.RSI_handle)
+                    
+            elif RSI_info.confirm_token(self.verification_token):
+                self.RSI_confirmed = True
                 self.corp_confirmed = False
-            if self.corp_confirmed:
-                self.update_rank()
-                self.update_tribute()
-                
-        elif RSI_info.confirm_token(self.verification_token):
-            self.RSI_confirmed = True
-            self.corp_confirmed = False
-            self.remove_role(corp_role)
-            self.update_info()
+                self.remove_role(corp_role)
+                self.update_info()
+        elif RSI_account(RSI_handle="Cyber-Dreamer") != -1:
+            self.RSI_confirmed = False
+            
+        db.session.commit()
 
     def update_discord_roles(self):
         all_roles = Role.query.all()
@@ -190,7 +204,8 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
             'Guilded': {
                 "id": self.guilded_id,
                 "username": self.guilded_username
-            }
+            },
+            'roles': [role.as_dict() for role in self.roles]
         }
         
     def as_dict_public(self):
@@ -207,13 +222,13 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
         }
         
     def as_dict_private(self):
+        
         return {
             'id': self.id,
             'RSI_handle': self.RSI_handle,
             'RSI_moniker': self.RSI_moniker,
             'registered': self.registered,
             'email': self.email,
-            'api_key': self.api_token,
             'Discord': {
                 "id": self.discord_id,
                 "username": self.discord_username
@@ -223,10 +238,6 @@ class User(Base, UserMixin, influence_methods, role_methods, security_methods):
                 "username": self.guilded_username
             }, 
             'corp_confirmed': self.corp_confirmed,
-            'Guilded': {
-                "id": self.guilded_id,
-                "username": self.guilded_username
-            },
             'Guilded': {
                 "id": self.guilded_id,
                 "username": self.guilded_username

@@ -1,0 +1,8 @@
+{% for user in users %}
+<a href="javascript:void(0);" onclick="get_user_info( '{{user.id}}' )">
+<div class="user-item">
+    {{ user.RSI_handle }}
+</div>
+</a>
+
+{% endfor %}

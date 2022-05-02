@@ -1,15 +1,22 @@
 version: '3'
 
-
-
-
 volumes:
   static: {}
   db_storage: {}
+  certs: {}
 
 services:
 
-  
+  bots:
+    build: ./bots
+    container_name: bots
+    restart: always
+    env_file:  .env
+    environment:
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+    expose:
+      - 8000
+    command: bash -c "python3 discord_shell_bot.py" 
 
   flask:
     build: ./flask
@@ -35,36 +42,97 @@ services:
       DISCORD_SECRET: ${DISCORD_SECRET}
       DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
       DISCORD_PUBLIC_KEY: ${DISCORD_PUBLIC_KEY}
-      DISCORD_REDIRECT_URI=https: https://localhost/discord_callback
+      DISCORD_REDIRECT_URI: ${DISCORD_REDIRECT_URI}
       RECAP_PRVKEY: ${RECAP_PRVKEY}
       RECAP_PUBKEY: ${RECAP_PUBKEY}
       DISCORD_TEST_SERVER: ${DISCORD_TEST_SERVER}
       FLASK_DEBUG: 0
       FLASK_ENV: production   #production
       FLASK_APP: app.py
-      CERT_EMAIL_ADDRESS: ${CERT_EMAIL_ADDRESS}
       FLASK_RUN_HOST: 0.0.0.0
       FLASK_RUN_PORT: 80
+      RECAPTCHA_ENABLED: True
     expose:
       - 8000
-    #8000
-    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 3 -b 0.0.0.0:8000 app:app --preload" 
-    depends_on:
-      - static
+    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 1 -b 0.0.0.0:8000 --preload app:app" 
+    labels:
+      traefik.enable: true
+      traefik.http.routers.flask.rule: Host(`${DOMAIN_NAME}`, `www.${DOMAIN_NAME}`)
+      traefik.http.routers.flask.entrypoints: websecure
+      traefik.http.routers.flask.tls: true
+      traefik.http.routers.flask.tls.certresolver: myresolver
+      traefik.http.services.flask.loadbalancer.server.port: 8000
+
   
+  traefik:
+    image: traefik:v2.6
+    container_name: traefik
+    hostname: traefik
+    restart: always
+    env_file:  .env
+    environment:
+      LINODE_TOKEN: ${LINODE_TOKEN}
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      # DNS challenge
+      - "--certificatesresolvers.myresolver.acme.dnschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.dnschallenge.provider=linode"
+      - "--certificatesresolvers.myresolver.acme.email=${CERT_EMAIL_ADDRESS}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+        # used during the challenge
+      #- --certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web
+      # Http redirect
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      # Https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.forwardedHeaders.insecure=true   
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certResolver=myresolver
+      - --entrypoints.websecure.http.tls.domains[0].main=${DOMAIN_NAME}
+      - --entrypoints.websecure.http.tls.domains[0].sans=*.${DOMAIN_NAME}
+      # Enable dashboard
+      - "--api.dashboard=true"
+    # labels:
+    #     traefik.enable: true
+    #     traefik.http.services.traefik.loadbalancer.server.port: 888 # required by swarm but not used.
+    #     traefik.http.routers.traefik.rule: (Host(`${DOMAIN_NAME}`) && Path(`/trafic/dashboard`))
+    #     traefik.http.routers.traefik.entrypoints: websecure
+    #     traefik.http.routers.traefik.tls.certresolver: myresolver
+    #     traefik.http.routers.traefik.service: api@internal
+    #     traefik.http.routers.traefik.middlewares: traefik-auth
+    #     traefik.http.middlewares.traefik-auth.basicauth.users: admin:${DOMAIN_NAME} #password in httpass
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/letsencrypt
+
   nginx:
+    image: nginx
     container_name: nginx
     restart: always
-    build: ./nginx
     volumes:
       - type: volume
-        target: /flask/static
+        target: /usr/share/nginx/html
         source: static
         read_only: true
-    ports:
-      - "80:80" #80:80
-    depends_on:
-      - flask
+    expose: 
+      - 80
+    labels:
+      traefik.http.routers.nginx.rule: (Host(`${DOMAIN_NAME}`) && Path(`/static`))
+      traefik.http.routers.nginx.tls: true
+      traefik.http.routers.nginx.tls.certresolver: myresolver
+      traefik.http.services.nginx.loadbalancer.server.port: 80
+      # Define a new middleware to strip the URL prefix before sending it to nginx
+      traefik.http.middlewares.nginx-stripprefix.stripprefix.prefixes: /static
+      # tell Traefik which middlewares we want to use on this container
+      traefik.http.routers.nginx.middlewares: gzip@docker,nginx-stripprefix@docker
+
 
 
   # db:

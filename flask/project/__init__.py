@@ -1,5 +1,5 @@
-import gevent
-gevent.monkey.patch_all(ssl=False)
+import gevent.monkey
+gevent.monkey.patch_all()
 print("Gevent Patched!")
 
 import os
@@ -18,8 +18,6 @@ from flask_socketio import SocketIO, emit
 from pathlib import Path
 from flask_migrate import Migrate
 import eventlet
-
-
 
 import discord
 
@@ -51,7 +49,7 @@ login_manager = LoginManager()
 login_manager.login_view = 'security.login'
 login_manager.login_message_category = 'info'
 scheduler = APScheduler()
-socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000'], async_mode = 'gevent') # ,logger=True, engineio_logger=True
+socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://bots:8000', 'https://bots:8000'] ,async_mode = 'gevent', logger=True, engineio_logger=True) # ,logger=True, engineio_logger=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000']
 
 
 try:
@@ -59,6 +57,9 @@ try:
     discord = DiscordOAuth2Session()
 except:
     print("This application is not set properly. Multiple feature will not work properly")
+
+
+
 
 def create_app(config_class=Config.ProductionConfig):
     app = Flask(__name__)
@@ -90,6 +91,7 @@ def create_app(config_class=Config.ProductionConfig):
         except:
             print("This application Multiple feature will not work properly")
 
+        import project.api.bots.controller as bot_controller
         from .api import api
         from .sections.dashboard import dashboard
         from .sections.security import security

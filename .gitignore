@@ -2,8 +2,9 @@
 quick_tool
 trash
 *.db
-bot
 */venv
 */.vscode
+.vscode/*
 */__pycache__
 *.pyc
+.vscode

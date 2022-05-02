@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Sen&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+@font-face {
+    font-family: 'Phage';
+    src: url("/static/main/fonts/Phage_Regular.otf") format("opentype") ;
+}
+
+$blue: #0083ff;
+$yellow: #fcff00;
+
+$light-grey:#323232;
+$mid-grey: #303030;
+$dark-grey: #222222;
+$dark-grey-tr: #222222cb;
+$background-tr: #181818c2;
+$background: #181818;
+$header_color: #444444;
+$text-color : #fff;
+
+
+@media (prefers-color-scheme: light) {
+    $light-grey:#353535;
+    $dark-grey: #282828;
+    $dark-grey-tr: #363636cb;
+    $background-tr: #1b1b1bc2;
+    $background: #151515;
+    $nav_color: #3d3d3d;
+}
+
+$menu-font-color: rgb(255, 255, 255);
+
+$menu-svg: url('/static/presentation/main/bottom-left.svg');
+
+$main-font: 'Montserrat';
+
+$departments_count: 8;

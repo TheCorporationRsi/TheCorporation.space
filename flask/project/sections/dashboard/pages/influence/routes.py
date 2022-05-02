@@ -1,9 +1,8 @@
 from flask import render_template, request, Blueprint, flash, url_for, redirect
-from project.sections.dashboard.pages.influence.forms import MyForm
 from flask_login import current_user, login_required
 from project import db, scheduler
 from project.sections.dashboard.pages.influence.events import *
-from project.sections.dashboard.pages.account.forms import UpdateAccountForm, inf_Form, Divisions_weight
+from .forms import Influence_form, Divisions_weight
 from project.models import User, Role, Division
 from sqlalchemy import func
 from project.sections.dashboard import dashboard
@@ -23,12 +22,9 @@ def weight_form_submition():
     weight_form = Divisions_weight(prefix = "weight")
     if weight_form.validate_on_submit():
         for weight in weight_form.weights:
-            role = Role.query.filter_by(division_id= weight.division.data, div_member= True).first()
-            link = Rolevsuser.query.filter_by(user_id = current_user.id , role_id = role.id).first()
-            link.weight = weight.weight.data
-            db.session.commit()
+            pass
 
-        flash(f'Sucessful set the weight!', 'success')
+        flash(f'Successful set the weight!', 'success')
     
     return render_template("dashboard/modules/influence/weight_form.html", weight_form=weight_form)
 
@@ -36,16 +32,16 @@ def weight_form_submition():
 @dashboard.route("/dashboard/influence/update_influence_form", methods=['GET', 'POST'])
 def influence_form_submition():
     
-    inf_form = inf_Form(prefix="influence")
+    inf_form = Influence_form(prefix="influence")
     if inf_form.validate_on_submit():
         receiver = User.query.filter(func.lower(User.RSI_handle) == func.lower(inf_form.RSI_handle.data)).first()
 
         sent = current_user.send_tribute(receiver=receiver, amount=inf_form.amount.data, message = inf_form.message.data )
-        if sent == 0:
-            flash(f'Sucessful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
+        if sent == 1:
+            flash(f'Successful transfer of ' + str(inf_form.amount.data) + ' influence to ' + receiver.RSI_handle, 'success')
+            return redirect(url_for('dashboard.influence_form_submition'))
         else: 
-            flash(f'error', 'danger')
-        return redirect(url_for('dashboard.influence_form_submition'))
+            flash(f'Transaction error', 'danger')
     
     return render_template("dashboard/modules/influence/influence_form.html", inf_form=inf_form)
 

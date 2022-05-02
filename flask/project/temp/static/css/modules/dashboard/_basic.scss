@@ -1,6 +1,4 @@
 
-
-
 a {
     color: $yellow;
 }
@@ -52,7 +50,7 @@ main {
     display: flex;
     width: 100vw;
     flex-flow: row nowrap;
-    height: calc(100vh -60px);
+    height: calc(100vh - 60px);
     overflow-x: hidden;
 
 }

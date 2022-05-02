@@ -27,32 +27,35 @@
             <div class="title">Verification</div>
             <div class="info">
                 <div class="tooltip top-right">
-                    <p class="tooltip-text">The procedure is simple, add your email in your <a
+                    <p class="tooltip-text">The procedure is simple, this token inside your <a
                             style="color: rgb(115, 115, 255);"
                             href="https://robertsspaceindustries.com/account/profile">Star Citizen
-                            account</a> biography and fill out the following form.
-
+                            account</a> biography.
                         <br>
                         <br>
                         This method bring multiple benefit. It make it way easier to indentify user on our
-                        discord
-                        server and we can identify the known griefer to prevent them to join the CORP.
+                        discord server and we can identify the known griefer to prevent them to join the CORP.
                         <br>
                         <br>
                         The corporation verify that you are the real owner of your RSI account by
                         confirming the content of your Star Citizen account description.
                         <br>
                         <br>
-                        The email in needed to reset your password is case your forget it.
+                        If you need any help, head over to our <a
+                        style="color: rgb(115, 115, 255);"
+                        href="https://thecorporation.space/discord">Discord</a>
                     </p>
                 </div>
             </div>
-            <div class="token-field">
-                <div class="token">{{ current_user.verification_token }}</div>
-                <button onclick="copy_token()">Copy token</button>
-            </div>
-            <div class="button"><a href="{{ url_for('security.RSI_verification') }}">Verify token</a></div>
-
+            <form method="POST" action="" onsubmit="return false">
+                <fieldset>
+                    <div class="token-field">
+                        <div class="token">{{ current_user.verification_token }}</div>
+                        <button onclick="copy_token()">Copy token</button>
+                    </div>
+                </fieldset>
+                <div><a style=" color: $yellow !important; text-decoration: none !important;" href="{{ url_for('security.RSI_verification') }}"><div class="submit">Verify token</div></a></div>
+            </form>
         </div>
     </div>
 </div>

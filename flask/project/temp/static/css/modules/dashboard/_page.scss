@@ -8,6 +8,7 @@
     height: calc(100vh - 60px);
     overflow-y: scroll;
     align-items: stretch;
+    opacity: 1;
 
     .module {
         background-color: $light-grey;

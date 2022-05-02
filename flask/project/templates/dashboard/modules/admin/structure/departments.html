@@ -1,0 +1,121 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+<div class="notifications">
+    {% for category, message in messages %}
+    <div class="alert {{ category }}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+
+{% endif %}
+{% endwith %}
+
+
+{% for department in department_list %}
+
+
+    <div class="item">
+        
+        <form id="{{department.id}}" method="POST" action="" onsubmit="return false">
+            <fieldset>
+            {{ department_form.csrf_token }}
+            {{ department_form.department_id(value= department.id|string )}}
+
+            {% if department_form.title.errors %}
+
+            {{ department_form.title(class="error", value=department.title, style="color:"+department.color )}}
+            <div class="invalid-feedback">
+                {% for error in department_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {% else %}
+
+            {{ department_form.title(value=department.title, style="color:"+department.color )}}
+
+            {% endif %}
+
+
+            {% if department_form.color.errors %}
+
+            {{ department_form.color(class="error", value=department.color, style="color:"+department.color )}}
+            <div class="invalid-feedback">
+                {% for error in department_form.color.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            {% else %}
+
+            {{ department_form.color(value=department.color, style="color:"+department.color )}}
+
+            {% endif %}
+
+        </fieldset>
+
+            <button class="submit_button" onclick="submit_department_form('#{{department.id}}')">{{ department_form.update.label.text }}</button>
+        </form>
+        <a href="javascript:void(0);" onclick="show_department_dropdown('{{ department.id }}-dropdown')"
+            style="width: 50px; margin-left: auto;">
+            <div class="mobile-button">
+                <img style=" height: 35px; width: 35px;" src="/static/main/ham.png">
+            </div>
+        </a>
+
+        <div id="{{ department.id }}-dropdown" class="item-dropdown">
+            {% for division in department.divisions %}
+            <form id="{{division.id}}" method="POST" action="" onsubmit="return false">
+                <fieldset>
+                {{ division_form.csrf_token }}
+                {{ division_form.division_id(value= division.id|string )}}
+    
+                {% if division_form.title.errors %}
+    
+                {{ division_form.title(class="error", value=division.title, style="color:"+division.color )}}
+                <div class="invalid-feedback">
+                    {% for error in division_form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+    
+                {% else %}
+    
+                {{ division_form.title(value=division.title, style="color:"+division.color )}}
+    
+                {% endif %}
+    
+    
+                {% if division_form.motto.errors %}
+    
+                {{ division_form.motto(class="error", value=division.motto, style="color:"+division.color )}}
+                <div class="invalid-feedback">
+                    {% for error in division_form.motto.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+    
+                {% else %}
+    
+                {{ division_form.motto(value=division.motto, style="color:"+division.color )}}
+    
+                {% endif %}
+            </fieldset>
+    
+                <button class="submit_button" onclick="submit_division_form('#{{division.id}}')">{{ division_form.update.label.text }}</button>
+            </form>
+            {% else %}
+            <p>No division found</p>
+            {% endfor %}
+
+            <small class="" style="color: rgb(231, 231, 231) !important; margin: auto; font-size: 1em;">
+                User count : {{ department.members | length }}</small>
+        </div>
+    </div>
+
+    {% else %}
+    <p>No department found</p>
+    {% endfor %}

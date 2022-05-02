@@ -8,17 +8,17 @@ import datetime
 def send_weekly_tribute():
     users = User.query.all()
     for user in users:
-        if user.corp_confirmed:
-            user.receive_weekly_tribute()
-    print("Weekly tribute have been distibuted!")
+        user.update_info()
+    print("Weekly tribute have been distributed!")
     
 @scheduler.task("cron",id="send_tribute2",day= "*", max_instances=1)
 def send_weekly_tribute2():
     users = User.query.all()
     for user in users:
-        if user.corp_confirmed:
-            user.receive_weekly_tribute()
-    print("Weekly tribute have been distibuted!")
+        user.update_info()
+    print("Weekly tribute have been distributed!")
+
+'''
 
 @scheduler.task("interval",id="downgrade_influence", days = 1 , max_instances=1)
 def downgrade_inlfuence():
@@ -33,3 +33,4 @@ def downgrade_inlfuence():
     
     db.session.commit()
     print("Inlfuence has been downgraded!")
+'''

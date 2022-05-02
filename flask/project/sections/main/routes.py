@@ -1,6 +1,8 @@
-from flask import render_template, request, Blueprint, redirect
+from flask import render_template, request, Blueprint, redirect, jsonify
 from project.models import Division, Department, Role, User
 from project.sections.security.utils import send_confirmation_email
+
+from project.sections.dashboard.pages.stats.tasks import get_funding_stats
 
 import json
 import datetime
@@ -17,6 +19,11 @@ main = Blueprint('main', __name__)
 def home():
     return render_template("landing_page.html")
 
+
+@main.route("/update_funding")
+def test_some_shit_up():
+    get_funding_stats()
+    return jsonify("lol")
 
 
 @main.route("/discord")

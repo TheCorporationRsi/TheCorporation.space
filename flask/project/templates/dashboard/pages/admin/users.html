@@ -1,0 +1,81 @@
+<script>
+    
+    function submit_user_info_form(x, id) {
+        var frm = $(x);
+        $.ajax({
+            type: frm.attr('method'),
+            url: "/dashboard/modules/admin/user_info/"+ id,
+            data: frm.serialize(),
+            success: function (response) {
+                $('#user-info').html(response);
+            }
+        });
+    
+    }
+
+    function get_user_info(id) {
+        $.ajax({
+            type: 'GET',
+            url: "/dashboard/modules/admin/user_info/"+ id,
+            data: null,
+            success: function (response) {
+                $('#user-info').html(response);
+            }
+        });
+    
+    }
+
+    function get_users(handle = null, department= null, division= null, manager= null, corporateer= null) {
+        var x = document.getElementById("influence_transfer");
+    
+        $.ajax({
+            url: '/dashboard/modules/admin/users?' + jQuery.param({ 
+                RSI_handle: handle, 
+                department_id : department,
+                division_id: division, 
+                manager : manager,
+                corporateer : corporateer
+            }),
+            type: 'GET',
+            success: function (response) {
+                $('#users').html(response);
+            },
+            error: function (xhr) {
+                //Do Something to handle error
+            }
+            
+        }); 
+    
+    }
+
+    function update_user(id) {
+        $.ajax({
+            type: 'GET',
+            url: "/api/update_user/"+ id,
+            data: null,
+            success: function (response) {
+                get_user_info(id);
+            }
+        });
+    
+    }
+    
+    
+    
+    
+    </script>
+    
+    
+    <div id="users" class="module" >
+        <script type="text/javascript">
+            get_users()
+        </script>
+    </div>
+
+    <div id="user-info" class="module" >
+    
+    </div>
+    
+    
+    
+    

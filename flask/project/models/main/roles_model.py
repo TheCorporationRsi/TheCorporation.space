@@ -161,7 +161,9 @@ class Role(Base):
         return {
             'id': self.id,
             'title': self.title,
-            'type': self.type
+            'type': self.type,
+            "discord_id": self.discord_id,
+            "guilded_id": self.guilded_id
         }
 
     def __repr__(self):
