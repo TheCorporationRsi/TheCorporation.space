@@ -1,0 +1,288 @@
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="\static\css\compiled\security.css">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='main/corplogo.ico') }}" />
+
+    <title>The Corporation</title>
+    <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
+    <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
+    <meta property="og:image" content="/static/main/corplogo.png" />
+    <meta property="og:url" content="https://TheCorporation.space/" />
+    <meta property=”og:type” content="website"/>
+    <meta property="og:site_name" content="The Corporation inc.">
+
+    <!-- CSS sheets-->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/main.css') }}">
+    <!--END CSS sheets-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+
+
+        $(window).on("load", function () {
+            $('.loader_bg').fadeToggle();
+
+            $('#nav-button').toggleClass('onclick');
+            $('#nav-button').on('click', function () {
+                $(this).toggleClass('onclick');
+                $('#nav').toggleClass('hide');
+            });
+
+            $('.dropdown').on('click', function () {
+                $(this).toggleClass('onclick');
+                var x = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < x.length; i++) {
+                    if (x[i] !== this) {
+                        x[i].classList.toggle('hidden');
+                    }
+                }
+            });
+        });
+
+        function show_menu() {
+            var x = document.getElementsByTagName("NAV");
+            
+            x[0].classList.toggle('hidden')
+            x[0].classList.toggle('show');
+
+            var y = document.getElementsByClassName("user-tab");
+            if (y[0].style.display === "grid") {
+                y[0].style.display = "none";
+            } else {
+                y[0].style.display = "grid";
+            }
+        }
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("logo").style.height = "50px";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "35px"
+                    }
+                }
+                document.getElementById("navbar").style.background = "#363636";
+            } else {
+                document.getElementById("navbar").style.background = "transparent";
+                document.getElementById("logo").style.height = "80%";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "64px"
+                    }
+                }
+            }
+
+            $('.fadeInUp').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+        }
+
+        function upgradeImage(object) {
+            var id = object.id;
+            var target = "div_" + id.substring(4);
+        
+            document.getElementById(target).style.backgroundImage = "url(" + object.src + ")";
+        }
+    </script>
+    </head>
+    <body>
+        <header id="navbar">
+            <div class="banner">
+                <a href="/"><img id="logo" src="/static/main/corplogo.svg"></a>
+            </div>
+            
+            <a href="javascript:void(0);" onclick="show_menu()">
+                <div id="nav-button" class="onclick">
+                    <span></span>
+                </div>
+            </a>
+            
+            <nav class="hidden">
+                <li id="nav-dropdown" class="dropdown">
+                    <p>INFO</p>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li onclick="location.href=''" class="dropdown_item-1 first-item last-item">Presentation</li>
+                        
+                    </ul>
+                </li>
+                <li id="nav-dropdown" class="dropdown">
+                    <p>Department</p>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        
+                        <li onclick="location.href='/department/Business'" class="dropdown_item-1 first-item">Business</li>
+                        
+                        <li onclick="location.href='/department/Exploration'" class="dropdown_item-2">Exploration</li>
+                        
+                        <li onclick="location.href='/department/Human%20Ressources'" class="dropdown_item-3">Human Ressources</li>
+                        
+                        <li onclick="location.href='/department/Ressources'" class="dropdown_item-4 last-item">Ressources</li>
+                        
+                    </ul>
+                </li>
+            </nav>
+            <div class="user-tab">
+                
+                
+                <li id="nav-dropdown" class="dropdown login">
+                    <a href="/register">Join</a>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li onclick="location.href='/login'" class="dropdown_item-1 first-item">Login</li>
+                        <li onclick="location.href='/register'" class="dropdown_item-2 last-item">Register</li>
+                    </ul>
+                </li>
+                
+                
+                
+            </div>
+            
+        </header>
+        <main id="main">
+            <div class="connection-form">
+                <div class="title">Login</div>
+                <div class="info">
+                    <div class="tooltip top-right">
+                        <p class="tooltip-text">
+                            Please put you Star Citizen handle on the top. It is your unique identifier in the game.
+                            <br>
+                            You can find it in your profile:
+                            <br>
+                            <a href="https://robertsspaceindustries.com/account/profile">Star Citizen account</a>
+                            <br>
+                            <br>
+                            The corporation verify that you are the real owner of your RSI account by
+                            confirming the content of your Star Citizen account description. (Will be done in a following step)
+                            <br>
+                            <br>
+                            The email is needed to reset your password in case your forget it.
+                            <br>
+                            <br>
+                            If you need any help, head over to our <a href="https://thecorporation.space/discord">Discord</a>
+                        </p>
+                    </div>
+                </div>
+                <a href="/discord/auth/1">
+                    <div class="discord">
+                        <img src="/static/main/discord.svg">
+                    </div>
+                    
+                </a>
+                <form method="POST" action="">
+                    <input id="csrf_token" name="csrf_token" type="hidden" value="ImU4MWY5ZjA5OTQ5MjMwYmVjMmMxZWU5NzQ4M2RiMjFlNTZmYTBkOWEi.YnMWNg.HxaLpBadpkKtxIWLpIVLUfqZqM8">
+                    <fieldset class="form-group">
+                        <div>
+                            <label for="RSI_handle">RSI handle</label>
+        
+                            
+                            <input id="RSI_handle" name="RSI_handle" required="" type="text" value="">
+                            
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+        
+                            
+                            <input id="password" name="password" required="" type="password" value="">
+                            
+                        </div>
+                        <div>
+                            <input id="remember" name="remember" type="checkbox" value="y">
+                            <label for="remember">Remember Me</label>
+                        </div>
+        
+                    </fieldset>
+                    <div>
+                        <input id="submit" name="submit" type="submit" value="Sign In">
+                    </div>
+                    <small class="text-muted ml-2">
+                        <a href="/reset_password">Forgot Password?</a>
+                    </small>
+                </form>
+            </div>
+
+            <div class="connection-form">
+                <div class="title">Login</div>
+                <div class="info">
+                    <div class="tooltip top-right">
+                        <p class="tooltip-text">
+                            Please put you Star Citizen handle on the top. It is your unique identifier in the game.
+                            <br>
+                            You can find it in your profile:
+                            <br>
+                            <a href="https://robertsspaceindustries.com/account/profile">Star Citizen account</a>
+                            <br>
+                            <br>
+                            The corporation verify that you are the real owner of your RSI account by
+                            confirming the content of your Star Citizen account description. (Will be done in a following step)
+                            <br>
+                            <br>
+                            The email is needed to reset your password in case your forget it.
+                            <br>
+                            <br>
+                            If you need any help, head over to our <a href="https://thecorporation.space/discord">Discord</a>
+                        </p>
+                    </div>
+                </div>
+                <a href="/discord/auth/1">
+                    <div class="discord">
+                        <img src="/static/main/discord.svg">
+                    </div>
+                    
+                </a>
+                <form method="POST" action="">
+                    <input id="csrf_token" name="csrf_token" type="hidden" value="ImU4MWY5ZjA5OTQ5MjMwYmVjMmMxZWU5NzQ4M2RiMjFlNTZmYTBkOWEi.YnMWNg.HxaLpBadpkKtxIWLpIVLUfqZqM8">
+                    <fieldset class="form-group">
+                        <div>
+                            <label for="RSI_handle">RSI handle</label>
+        
+                            
+                            <input id="RSI_handle" name="RSI_handle" required="" type="text" value="">
+                            
+                        </div>
+                        <div>
+                            <label for="password">Password</label>
+        
+                            
+                            <input id="password" name="password" required="" type="password" value="">
+                            
+                        </div>
+                        <div>
+                            <input id="remember" name="remember" type="checkbox" value="y">
+                            <label for="remember">Remember Me</label>
+                        </div>
+        
+                    </fieldset>
+                    <div>
+                        <input id="submit" name="submit" type="submit" value="Sign In">
+                    </div>
+                    <small class="text-muted ml-2">
+                        <a href="/reset_password">Forgot Password?</a>
+                    </small>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

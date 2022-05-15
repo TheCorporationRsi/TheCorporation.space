@@ -15,10 +15,9 @@ def confirmed_RSI_only(f):
         if ctx.user == -1 or ctx.user == None:
             ctx.send("You are not linked to CORP website")
             return
-            
         elif not ctx.user.RSI_confirmed:
             ctx.send("You need to verify you RSI account first to use this function")
-            return 
+            return
         
         return f(*args, **kwargs)
     return decorated_function

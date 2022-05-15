@@ -1,0 +1,362 @@
+<html>
+    <head>
+    <link rel="stylesheet" type="text/css" href="\static\css\compiled\landing.css">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
+
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/main/corplogo.ico" />
+
+    <title>The Corporation</title>
+    <meta property="og:title" content=" The Corporation - Building a better tomorrow" />
+    <meta property="og:description" content=" A Star Citizen community base on friendship and profit" />
+    <meta property="og:image" content="/static/main/corplogo.png" />
+    <meta property="og:url" content="https://TheCorporation.space/" />
+    <meta property=”og:type” content="website"/>
+    <meta property="og:site_name" content="The Corporation inc.">
+
+    <!-- CSS sheets-->
+    <link rel="stylesheet" type="text/css" href="/static/css/compiled/landing.css">
+    <!--END CSS sheets-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+
+
+        $(window).on("load", function () {
+            $('.loader_bg').fadeToggle();
+
+            $('#nav-button').toggleClass('onclick');
+            $('#nav-button').on('click', function () {
+                $(this).toggleClass('onclick');
+                $('#nav').toggleClass('hide');
+            });
+
+            $('.dropdown').on('click', function () {
+                $(this).toggleClass('onclick');
+                var x = document.getElementsByClassName("dropdown");
+                for (var i = 0; i < x.length; i++) {
+                    if (x[i] !== this) {
+                        x[i].classList.toggle('hidden');
+                    }
+                }
+            });
+        });
+
+        function show_menu() {
+            var x = document.getElementsByTagName("NAV");
+            
+            x[0].classList.toggle('hidden')
+            x[0].classList.toggle('show');
+
+            var y = document.getElementsByClassName("user-tab");
+            if (y[0].style.display === "grid") {
+                y[0].style.display = "none";
+            } else {
+                y[0].style.display = "grid";
+            }
+        }
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                document.getElementById("logo").style.height = "50px";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "35px"
+                    }
+                }
+                document.getElementById("navbar").style.background = "#363636";
+            } else {
+                document.getElementById("navbar").style.background = "transparent";
+                document.getElementById("logo").style.height = "80%";
+
+                if (screen.width > 1000) {
+                    var elems = document.getElementsByClassName("dropdown");
+                    for (var i = 0; i < elems.length; i++) {
+                        elems[i].style.height = "64px"
+                    }
+                }
+            }
+
+            $('.fadeInUp').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+        }
+
+        function upgradeImage(object) {
+            var id = object.id;
+            var target = "div_" + id.substring(4);
+        
+            document.getElementById(target).style.backgroundImage = "url(" + object.src + ")";
+        }
+    </script>
+    </head>
+    <body>
+        <header id="navbar">
+            <div class="banner">
+                <a href="/"><img id="logo" src="/static/main/corplogo.svg"></a>
+            </div>
+            
+            <a href="javascript:void(0);" onclick="show_menu()">
+                <div id="nav-button" class="onclick">
+                    <span></span>
+                </div>
+            </a>
+            
+            <nav class="hidden">
+                <li id="nav-dropdown" class="dropdown">
+                    <p>INFO</p>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li onclick="location.href=''" class="dropdown_item-1 first-item last-item">Presentation</li>
+                        
+                    </ul>
+                </li>
+                <li id="nav-dropdown" class="dropdown">
+                    <p>Department</p>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        
+                        <li onclick="location.href='/department/Business'" class="dropdown_item-1 first-item">Business</li>
+                        
+                        <li onclick="location.href='/department/Exploration'" class="dropdown_item-2">Exploration</li>
+                        
+                        <li onclick="location.href='/department/Human%20Ressources'" class="dropdown_item-3">Human Ressources</li>
+                        
+                        <li onclick="location.href='/department/Ressources'" class="dropdown_item-4 last-item">Ressources</li>
+                        
+                    </ul>
+                </li>
+                <li id="nav-dropdown" class="dropdown login user_tab">
+                    <p>Join</p>
+                    <ul class="dropdown_menu dropdown_menu-4">
+                        <li onclick="location.href='/login'" class="dropdown_item-1 first-item">Login</li>
+                        <li onclick="location.href='/register'" class="dropdown_item-2 last-item">Register</li>
+                    </ul>
+                </li>
+            </nav>
+            
+            
+        </header>
+        <main id="main">
+        
+            <div class="hero landing">
+                <div class="pic-wrapper">
+                    <figure class="pic-1" style=" background: url('/static/presentation/landing_page/1.webp') no-repeat center center; background-size: cover;">
+                    </figure>
+                    <figure class="pic-2" style=" background: url('/static/presentation/landing_page/2.webp') no-repeat center center; background-size: cover;">
+                    </figure>
+                    <figure class="pic-3" style=" background: url('/static/presentation/landing_page/3.webp') no-repeat center center; background-size: cover;">
+                    </figure>
+                    <figure class="pic-4" style=" background: url('/static/presentation/landing_page/4.webp') no-repeat center center; background-size: cover;">
+                    </figure>
+                </div>
+            </div>
+            
+            <div class="side_slide_presentation" style="--dep_count: 4;">
+                <h1>Departments</h1>
+                
+                <div class="slide-item item-1">
+                    <div class="logo">
+                        <a href="/department/Business">
+                            <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                <g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:white;"></path>
+                                    </g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:#3498DB; filter: opacity(50%);"></path>
+                                    </g>
+                                    <g>
+                                        <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                            <path d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z" style="fill:#3498DB;"></path>
+                                        </g>
+                                        <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                            <path d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z" style="fill:#3498DB;"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <a style="color:#3498DB" href="/department/Business">
+                            Business
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="slide-item item-2">
+                    <div class="logo">
+                        <a href="/department/Exploration">
+                            <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                <g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:white;"></path>
+                                    </g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:#00953D; filter: opacity(50%);"></path>
+                                    </g>
+                                    <g>
+                                        <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                            <path d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z" style="fill:#00953D;"></path>
+                                        </g>
+                                        <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                            <path d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z" style="fill:#00953D;"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <a style="color:#00953D" href="/department/Exploration">
+                            Exploration
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="slide-item item-3">
+                    <div class="logo">
+                        <a href="/department/Human%20Ressources">
+                            <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                <g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:white;"></path>
+                                    </g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:#990033; filter: opacity(50%);"></path>
+                                    </g>
+                                    <g>
+                                        <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                            <path d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z" style="fill:#990033;"></path>
+                                        </g>
+                                        <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                            <path d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z" style="fill:#990033;"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <a style="color:#990033" href="/department/Human%20Ressources">
+                            Human Ressources
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="slide-item item-4">
+                    <div class="logo">
+                        <a href="/department/Ressources">
+                            <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                <g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:white;"></path>
+                                    </g>
+                                    <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                        <path d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z" style="fill:#FCD22A; filter: opacity(50%);"></path>
+                                    </g>
+                                    <g>
+                                        <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                            <path d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z" style="fill:#FCD22A;"></path>
+                                        </g>
+                                        <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                            <path d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z" style="fill:#FCD22A;"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="title">
+                        <a style="color:#FCD22A" href="/department/Ressources">
+                            Ressources
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="link-info middle">
+                <div class="link-item fadeInUp">
+                    <div class="logo"><a href="https://robertsspaceindustries.com/orgs/corp"><img src="/static/presentation/landing_page/MadeByTheCommunity_White.webp"></a></div>
+                    <div class="title"><a style="text-decoration: none;" href="https://robertsspaceindustries.com/orgs/corp">Star
+                            Citizen</a></div>
+                    <div class="description">The Corporation is a Star Citizen community form by backers. We have been
+                        playing, supporting and funding the game since the start.</div>
+                </div>
+                <div class="link-item fadeInUp">
+                    <div class="logo"><a href="https://discord.gg/ApEe8VK"><img src="/static/main/discord_single.svg"></a></div>
+                    <div class="title"><a style="text-decoration: none;" href="https://discord.gg/ApEe8VK">Discord</a></div>
+                    <div class="description">Discord is our main platform of operation. It is where we communicate, play and
+                        meme toguether.</div>
+                </div>
+                <div class="link-item fadeInUp">
+                    <div class="logo"><a href="https://www.guilded.gg/Corporation?i=8d8apn0m"><img src="/static/main/guilded.svg"></a></div>
+                    <div class="title"><a style="text-decoration: none;" href="https://www.guilded.gg/Corporation?i=8d8apn0m">Guilded</a></div>
+                    <div class="description">We are present on guilded too. While we are not active on the platform, we use
+                        some of the functionnality and plan to transfer when the software get stable.</div>
+                </div>
+            </div>
+            
+            <div class="content-panel right middle" style="background-image: url('/static/presentation/landing_page/cash.webp');">
+            
+                <div class="text-zone fadeInUp right-panel">
+                    <div class="title">Money doesn't buy happiness. <span>But it helps.</span></div>
+                    <div class="description">
+                        The corporation plays the role of a massive Sci-fi company that is all about profit. Our main goal is to
+                        have fun as a group. For this, we need to build our empire to gear our soldiers and maybe even gearing the
+                        enemy if there's enough profit in it. There is no bad way to make money!!!
+                    </div>
+            
+                </div>
+            
+            </div>
+            
+            <div class="content-panel left middle" style="background-image: url('/static/presentation/landing_page/nature.webp'); ">
+            
+                <div class="text-zone fadeInUp left-panel">
+                    <div class="title">Recycling is simple. <span>Give back to nature.</span></div>
+                    <div class="description">
+                        For the corporation, recycling is important. Everything from our enemy flesh to toxic waste needs to be
+                        disposed of correctly. We use the most simple technique ever created: Giving back to nature. If the UEE asks
+                        you why Hurston is a toxic desert, say it's the fault of the Nine Tails.
+                    </div>
+                </div>
+            
+            </div>
+            
+            <div class="content-panel right bottom" style="background-image: url('/static/presentation/landing_page/prison.webp');">
+            
+                <div class="text-zone fadeInUp right-panel">
+                    <div class="title">We respect the law. <span>Sometimes.</span></div>
+                    <div class="description">
+                        Respecting the law is important. We are working very closely with the UEE, but occasionally we can bend the
+                        laws a little too much. Don't worry, our CORP legal team has got your back. We will get your ass out of the
+                        gulag in no time if you take too much heat!
+                    </div>
+                </div>
+            
+            </div>
+            
+                </main>
+    </body>
+</html>
