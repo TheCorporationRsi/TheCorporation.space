@@ -1,0 +1,60 @@
+//main CORP color
+$blue: #0083ff;
+$yellow: #fcff00;
+
+//contrast CORP color
+$blue_contrast: #0066FF;
+$yellow_contrast: #FFDD00;
+
+//Page_color
+$light-grey:#323232;
+$mid-grey: #3a3a3a;
+$dark-grey: #222222;
+$dark-grey-tr: #222222cb;
+$background-tr: #181818c2;
+$background: #181818;
+$header_color: #444444;
+$text-color : white;
+
+$disabled-grey: #8d8d8d;
+$disabled-background: #636363;
+
+//padding
+$default-padding: 40px;
+
+// function color
+// Variables
+$delete_color: #c0392b;
+$delete_dark_color: #a53125;
+
+$add_color: #27ae60;
+$add_dark_color: #1d8a4b;
+
+$edit_color: #adadad;
+$edit_dark_color: #747474;
+
+$send_color: #0083cf;
+$send_dark_color: #0066a0;
+
+
+
+
+@media (prefers-color-scheme: light) {
+    $light-grey:#353535;
+    $dark-grey: #282828;
+    $dark-grey-tr: #363636cb;
+    $background-tr: #1b1b1bc2;
+    $background: #151515;
+    $nav_color: #3d3d3d;
+
+    $text-color : black;
+}
+
+$menu-font-color: rgb(255, 255, 255);
+
+$menu-svg: url('/static/css/svg_element/bottom-left.svg');
+
+$main-font: 'Montserrat';
+
+
+$departments_count: var(--dep_count);

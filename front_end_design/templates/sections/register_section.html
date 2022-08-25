@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <!-- CSS sheets-->
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <!--END CSS sheets-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Javascript-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--Javascript-->
+
+    </head>
+    <body style="display: flex; flex-direction: column; gap: 20px;">
+        <main>
+            <div class="container v_center full_viewport">
+                <div class="container row connection_section">
+                    <div class="container left">
+                        <img src="/static/css/svg_element/corplogo.svg" alt="logo">
+                    </div>
+                    <div class="container column padding right">
+                        <div class="connection_title" style="padding-bottom: 5px;">Register</div>
+                        <div class="info_icon">
+                            <div class="tooltip top-right">
+                                <p class="tooltip-text">
+                                    Please put you Star Citizen handle on the top. It is your unique identifier in the game.
+                                    <br>
+                                    You can find it in your profile:
+                                    <br>
+                                    <a style="color: rgb(115, 115, 255);" href="https://robertsspaceindustries.com/account/profile">Star Citizen account</a>
+                                    <br>
+                                    <br>
+                                    The corporation verify that you are the real owner of your RSI account by
+                                    confirming the content of your Star Citizen account description. (Will be done in a following step)
+                                    <br>
+                                    <br>
+                                    The email is needed to reset your password in case your forget it.
+                                    <br>
+                                    <br>
+                                    If you need any help, head over to our <a style="color: rgb(115, 115, 255);" href="https://thecorporation.space/discord">Discord</a>
+                                </p>
+                            </div>
+                        </div>
+                        <form method="POST" action="">
+                           
+    
+                            <label for="RSI_handle">RSI handle (Unique Start Citizen username)</label>
+                            <input id="RSI_handle" maxlength="32" minlength="2" name="RSI_handle" required="" spellcheck="false" type="text" value="">
+                            
+                            <label for="email">Email</label>
+                            <input id="email" name="email" required="" spellcheck="false" type="text" value="" >
+                            
+                            <label for="password">Password</label>
+                            <input id="password" name="password" required="" type="password" value="">
+                            
+                            <label for="confirm_password">Confirm Password</label>
+                            <input id="confirm_password" name="confirm_password" required="" type="password" value="" >
+        
+                            <a class="modify_btn send_btn" href="#" role="button" style="width: 100%;">
+                                <span>register</span>
+                                <div class="icon">
+                                    <i class="fa fa-send"></i>
+                                </div>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
+
+

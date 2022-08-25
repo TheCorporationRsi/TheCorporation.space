@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="side_slide_presentation">
+<div class="side_slide_presentation" style="--dep_count: {{ department_list|length }}">
     <h1>Departments</h1>
     {% for department in department_list %}
     <div class="slide-item item-{{loop.index}}">

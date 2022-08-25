@@ -1,0 +1,115 @@
+.container {
+    display: flex;
+    flex: 0 1 auto;
+    width: inherit;
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    background-size: cover;
+    text-align: center;
+
+    $future_thing: calc($default-padding * 1.5);
+    $future_mobile: calc($default-padding);
+    &.top_future {
+        padding-bottom: calc($default-padding + $future_thing) !important;
+    }
+
+    &.middle_future {
+        margin-top: -$future_thing;
+        clip-path: polygon(40vw $future_thing, 60vw $future_thing, 65vw 0, 100vw 0, 100vw 100%, 0 100%, 0 0, 35vw 0);
+        padding-top: calc($default-padding + $future_thing) !important;
+        padding-bottom: calc($default-padding + $future_thing) !important;
+
+        @media (max-width: $medium_screen) {
+            clip-path: polygon(40vw $future_mobile, 60vw $future_mobile, 65vw 0, 100vw 0, 100vw 100%, 0 100%, 0 0, 35vw 0);
+            padding-top: calc($default-padding + $future_mobile) !important;
+            padding-bottom: calc($default-padding + $future_mobile) !important;
+        }
+    }
+    
+    &.bottom_future {
+        margin-top: -$future_thing;
+        clip-path: polygon(40vw $future_thing, 60vw $future_thing, 65vw 0, 100vw 0, 100vw 100%, 0 100%, 0 0, 35vw 0);
+        padding-top: calc($default-padding*2 + $future_thing) !important;
+
+        @media (max-width: $medium_screen) {
+            clip-path: polygon(40vw $future_mobile, 60vw $future_mobile, 65vw 0, 100vw 0, 100vw 100%, 0 100%, 0 0, 35vw 0);
+            padding-top: calc($default-padding + $future_mobile) !important;
+        }
+    }
+
+    &.dark-grey {
+        background-color: $dark_grey;
+    }
+
+    &.mid-grey {
+        background-color: $mid_grey;
+    }
+
+    &.light-grey {
+        background-color: $light_grey;
+    }
+
+    &.border_radius {
+        border-radius: 20px;
+    }
+
+    &.row {
+        flex-direction: row;
+    }
+
+    &.column {
+        flex-direction: column;
+    }
+    
+    &.h_center {
+        align-items: center;
+        padding: auto;
+    }
+
+    &.v_center {
+        vertical-align: auto;
+        padding: auto;
+    }
+
+    &.full_viewport {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    &.padding {
+        padding: $default-padding;
+    }
+
+    &.gap {
+        gap: $default-padding;
+    }
+
+    &.flow_right{
+        flex-direction: row-reverse;
+
+        @media screen and (max-width: $small_screen) { 
+            div {
+                width: 100%!important;
+            }
+        }
+    }
+
+    &.flow_left{
+        flex-direction: row;
+
+        @media screen and (max-width: $small_screen) { 
+            div {
+                width: 100%!important;
+            }
+        }
+    }
+
+
+    @media screen and (max-width: $small_screen) {
+        
+        &.mobile_vertical {
+            flex-direction: column;
+        }
+    }
+}

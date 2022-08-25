@@ -17,6 +17,8 @@ services:
     expose:
       - 8000
     command: bash -c "python3 discord_shell_bot.py" 
+    depends_on:
+      - flask
 
   flask:
     build: ./flask
@@ -43,6 +45,7 @@ services:
       DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
       DISCORD_PUBLIC_KEY: ${DISCORD_PUBLIC_KEY}
       DISCORD_REDIRECT_URI: ${DISCORD_REDIRECT_URI}
+      OAUTHLIB_INSECURE_TRANSPORT: ${OAUTHLIB_INSECURE_TRANSPORT}
       RECAP_PRVKEY: ${RECAP_PRVKEY}
       RECAP_PUBKEY: ${RECAP_PUBKEY}
       DISCORD_TEST_SERVER: ${DISCORD_TEST_SERVER}

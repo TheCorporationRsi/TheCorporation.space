@@ -31,7 +31,7 @@ def reset_token(token):
     if current_user.is_authenticated:
         return redirect(url_for('main.home'))
 
-    user = User.verify_reset_token(token)
+    user = User.verify_security_token(token)
     if user is None:
         flash('That is an invalid or expired token', 'warning')
 
@@ -42,7 +42,7 @@ def reset_token(token):
         flash(f'Your password has been updated! You can now login.', 'success')
         return redirect(url_for('security.login'))
 
-    return render_template('user/reset_token.html', title="Reset Password", form=form)
+    return render_template('security/reset_token.html', title="Reset Password", form=form)
 
 
 

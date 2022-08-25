@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <!-- CSS sheets-->
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <!--END CSS sheets-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Javascript-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--Javascript-->
+
+        <script>
+
+            $(document).ready(function () {
+                
+                setInterval(function(){
+                    //animate only the first slide on the left, all the slides after will just follow
+                    $('.horizontal_slider').children().first().animate({
+                        marginLeft: -$('.horizontal_slider').children().first().width() - 40
+                    }, 3000, function () {
+                    //once completely hidden, move this slide next to the last slide
+                    //and reset the margin-left to 0
+                        $(this).appendTo($(this).parent()).css({marginLeft: 0});
+                    });
+                }, 3000);   
+            });
+
+        </script>
+
+    </head>
+    <body style="display: flex; flex-direction: column; gap: 20px;">
+        <main>
+
+            <div class="container row overflow v_center padding horizontal_slider">
+                <div class="container">1</div>
+                <div class="container">2</div>
+                <div class="container">3</div>
+                <div class="container">4</div>
+                <div class="container">5</div>
+                <div class="container">6</div>
+                <div class="container">7</div>
+                <div class="container">8</div>
+                <div class="container">9</div>
+                <div class="container">10</div>
+            </div>
+        </main>
+    </body>
+</html>
+
+

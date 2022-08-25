@@ -1,1 +1,1 @@
-from . import account, admin, influence, managers, roles, stats, settings
+from . import account, admin, influence, managers, roles, stats, settings, dashboard

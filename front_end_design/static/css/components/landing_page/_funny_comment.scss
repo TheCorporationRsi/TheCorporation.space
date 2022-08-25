@@ -1,0 +1,53 @@
+.funny_comment {
+    display: flex;
+    flex-flow: column nowrap;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.534);
+    //border-radius: 10px;
+    background-color: $background; 
+    min-height: 50vh; 
+    width: 60vw !important;
+
+    h1 {
+        display: flex;
+        gap: 10px;
+        padding: $default-padding;
+        align-content: center;
+        flex-wrap: wrap;
+        font-size: 2.3vw;
+        font-weight: bold;
+        text-justify: left;
+        text-align: left;
+        color: $blue;
+        text-shadow: 0px 0px 8px black;
+
+        @media (max-width: 1000px) {
+            font-size: 1.8em;
+        }
+
+        span {
+            color: $yellow;
+            text-shadow: 0px 0px 8px black;
+        }
+    }
+
+    p {
+        grid-row: 1fr;
+        margin-left: auto;
+        margin-right: auto;
+        padding: $default-padding;
+        // font-family: 'Roboto';
+        font-weight: bold;
+        //padding-top: 0;
+        text-justify: center;
+        text-align: justify;
+        font-size: 1.7vw;
+        line-height: 1.6em;
+
+        @media (max-width: 1000px) {
+            font-size: 1.3em;
+        }
+
+        color: white;
+        text-shadow: 0px 0px 8px black;
+    }
+}

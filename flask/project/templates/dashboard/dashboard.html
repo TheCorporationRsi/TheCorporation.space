@@ -23,7 +23,7 @@
     <meta property="og:site_name" content="The Corporation inc.">
 
     <!-- CSS sheets-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/dashboard.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/compiled/dashboard.css') }}">
     <!--END CSS sheets-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -93,6 +93,18 @@
             $('#nav-button').on('click', function () {
                 $(this).toggleClass('onclick');
                 $('#nav').toggleClass('hide');
+            });
+
+            $('#account_bar').on('click', function () {
+                $(this).toggleClass('onclick');
+                $('#account_dropdown').toggleClass('hide');
+                /* $(document).on("click", function(event){
+                    if(!$(event.target) != $("#account_dropdown")){
+                        $(".dropdown-menu").addClass("hide");
+                        console.log("clicked outside");
+                    }
+                });
+                */
             });
 
             $('#notification-button').on('click', function () {
@@ -194,7 +206,11 @@
 
         <div class="left-side">
 
-            <a href="/"><img id="logo" src="/static/dashboard/corner_title.svg"></a>
+            <a href="/">
+                <img id="logo1" src="/static/dashboard/corner_title.svg">
+                <img id="logo2" src="/static/main/corplogo.svg">
+            </a>
+            
 
         </div>
         <div class="right-side">
@@ -203,10 +219,15 @@
                 <img id="logo" src="/static/dashboard/bell.png">
             </div>
 
-            <div class="account">
+            <div id="account_bar" class="account">
                 <img id="account_image" src="{{ current_user.image_file }}">
                 <div class="username">{{ current_user.RSI_handle }}</div>
                 <img id="blue_arrow" src="/static/dashboard/blue_arrow.svg">
+                <div id="account_dropdown" class="hide">
+                    <a href="/dashboard/profile" class="dropdown-item">Profile</a>
+                    <a href="/dashboard/settings" class="dropdown-item">Settings</a>
+                    <a href="/logout" class="dropdown-item">Logout</a>
+                </div>
             </div>
 
 

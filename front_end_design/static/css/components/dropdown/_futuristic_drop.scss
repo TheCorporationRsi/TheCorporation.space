@@ -1,0 +1,192 @@
+@media screen and (min-width: $small_screen) {
+    .nav-menu {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .future_dropdown {
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 64px;
+            color: $menu-font-color;
+            background: transparent;
+            position: relative;
+            font-size: 1.6em;
+            perspective: 1000px;
+            z-index: 100;
+            text-shadow: 0px 0px 5px #000000;
+            transition: all .2s ease-in-out;
+
+            a {
+                width: 100%;
+                text-align: center;
+            }
+
+
+            &:hover {
+                // background: $dark-grey;
+                cursor: pointer;
+                text-shadow: 0px 0px 5px $blue;
+                transform: scale(1.05);
+
+
+                .dropdown_menu li {
+                    display: block;
+                    //opacity: 1; // Done via animation
+                }
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 0px;
+                height: 5px;
+                left: 50%;
+                bottom: 0;
+                background-color: $blue;
+                transition: all ease-in-out .2s;
+            }
+
+            &:hover::after {
+                width: 100%;
+                left: 0;
+            }
+
+            .dropdown_menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100%;
+                perspective: 1000px;
+                z-index: -1;
+                padding-top: 10px;
+
+
+                li {
+                    display: none;
+                    color: $menu-font-color;
+                    text-align: center;
+                    background-color: $header_color;
+                    padding: 10px 10px;
+                    font-size: 0.6em;
+                    opacity: 0;
+                    margin-top: -1px;
+                    border-left: 3px solid $blue;
+                    border-right: 3px solid $blue;
+                    text-shadow: 0px 0px 5px black;
+                    cursor: pointer;
+
+                    a {
+                        color: white !important;
+                        width: 100%;
+
+                    }
+
+                    &:nth-child(2) {
+                        border-top-left-radius: 5px;
+                        border-top-right-radius: 5px;
+                        border-top: 3px solid $blue;
+                    }
+
+                    &:last-child {
+                        border-bottom-left-radius: 1px;
+                        border-bottom-right-radius: 4px;
+                        position: relative;
+
+                        &:after {
+                            content: '';
+                            width: calc(100% - min(60%, 200px));
+                            height: 3px;
+                            right: 0px;
+                            background: $blue;
+                            position: absolute;
+                            bottom: 0px;
+                            border-bottom-right-radius: 10px;
+                            border-left: 3px solid $blue;
+                        }
+
+                        &:before {
+                            content: '';
+                            background-image: $menu-svg;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            width: min(60%, 200px);
+                            height: 100px;
+                            bottom: -99px;
+                            left: -2px;
+                        }
+                    }
+
+                    &:hover {
+                        background-color: $light-grey;
+                        transition: border-width 0.2s ease-in-out;
+                        border-left: 4px solid $yellow;
+                        border-right: 4px solid $yellow;
+                        text-shadow: 0px 0px 3px $blue;
+
+                        /* &:before {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 15%;
+                    bottom: 15%;
+                    left: 5px;
+                    width: 3px;
+                    height: 70%;
+                    margin-right: 5px;
+                    background-color: $yellow;
+                } */
+
+                        /* &:after {
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    top: 15%;
+                    bottom: 15%;
+                    right: 5px;
+                    width: 3px;
+                    height: 70%;
+                    margin-left: 5px;
+                    background-color: $yellow;
+                } */
+
+                        .dropdown_menu--animated {
+                            display: block;
+                        }
+                    }
+
+                    @for $i from 1 to 10 {
+
+                        &:nth-child(#{$i}) {
+                            transform-origin: top center;
+                            animation: scaleZ 300ms $i*60ms ease-in-out forwards;
+
+                        }
+
+                    }
+                }
+
+                &--animated {
+                    display: none;
+
+                    li {
+                        display: block;
+                        opacity: 1;
+                    }
+                }
+
+
+
+
+            }
+
+
+        }
+
+    }
+
+}

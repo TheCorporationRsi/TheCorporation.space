@@ -1,0 +1,27 @@
+table, td, th {
+    border: 1px solid $dark-grey;
+    text-align: center;
+}
+
+table {
+    color: $text-color;
+    border: 5px solid $dark-grey;
+    background: $light-grey;
+    border-collapse: collapse;
+    font-family: 'Montserrat';
+    thead {
+        background-color: $blue;
+        color: $yellow;
+        text-transform: uppercase; 
+    }
+
+    th {
+        padding: 10px;
+    }
+
+    tr:nth-child(even) {
+        background-color: $mid-grey;
+    }
+    
+}
+

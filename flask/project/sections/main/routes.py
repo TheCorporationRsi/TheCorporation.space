@@ -9,6 +9,10 @@ import datetime
 from project.models import Funding
 from project import db, scheduler
 
+from project import mail
+from flask_mail import Message
+import pathlib
+
 from flask import Blueprint
 
 main = Blueprint('main', __name__)
@@ -18,7 +22,6 @@ main = Blueprint('main', __name__)
 @main.route("/home")
 def home():
     return render_template("landing_page.html")
-
 
 @main.route("/update_funding")
 def test_some_shit_up():

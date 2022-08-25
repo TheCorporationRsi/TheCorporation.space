@@ -133,6 +133,6 @@
     }
     
     100% { 
-        transform: translateX(calc(-100vw + -250px*#{$departments_count}));  
+        transform: translateX(calc(-100vw + -350px*#{$departments_count}));  
     }
-  }
+}

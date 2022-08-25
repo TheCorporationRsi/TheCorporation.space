@@ -49,8 +49,8 @@ services:
       RECAP_PRVKEY: ${RECAP_PRVKEY}
       RECAP_PUBKEY: ${RECAP_PUBKEY}
       DISCORD_TEST_SERVER: ${DISCORD_TEST_SERVER}
-      FLASK_DEBUG: 1
-      FLASK_ENV: development   #production
+      FLASK_DEBUG: 0 #1
+      FLASK_ENV: production   #production or development
       FLASK_APP: app.py
       CERT_EMAIL_ADDRESS: ${CERT_EMAIL_ADDRESS}
       FLASK_RUN_HOST: 0.0.0.0
@@ -60,4 +60,4 @@ services:
       - "5002:8000"
     expose: 
       - "8000"
-    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 -b 0.0.0.0:8000 --preload app:app" 
+    command: bash -c "cp -R /home/thecorporation/website/project/temp/static/* /home/thecorporation/website/project/static && gunicorn -k gevent -w 1 -b 0.0.0.0:8000 --preload app:app" 

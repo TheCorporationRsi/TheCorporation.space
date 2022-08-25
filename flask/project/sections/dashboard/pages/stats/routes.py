@@ -32,8 +32,3 @@ def rsi_stats():
         daily_citizen = data['current_stats']['daily_citizens']
 
     return render_template('dashboard/pages/stats/rsi_stats_page.html', current_citizens = current_citizens, current_fund=current_fund, daily_fund=daily_fund , daily_citizen = daily_citizen )
-
-@login_required
-@dashboard.route("/dashboard/main", methods=['GET'])
-def dashboard_stats():
-    return render_template('dashboard/pages/main.html')

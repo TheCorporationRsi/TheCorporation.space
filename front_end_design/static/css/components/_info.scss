@@ -1,0 +1,90 @@
+.info_icon {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    margin-left: -10px;
+    margin-top: -10px;
+    position: relative;
+
+    a {
+        color: $yellow;
+        text-decoration: underline;
+
+        &:hover {
+            color: $blue;
+            text-decoration: underline;
+        }
+    }
+
+    .tooltip {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #000000;
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        max-width: 100%;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        text-align: justify;
+
+        &.top-right {
+            clip-path: circle(var(--clip-width) at 20px 20px);
+            left: 6px;
+            margin-right: -6px;
+
+            &:before {
+                margin-left: var(--margin-info-default);
+                margin-top: var(--margin-info-default);
+            }
+        }
+
+        &:hover {
+            clip-path: circle(100%);
+            z-index: 2;
+
+            &:before,
+            &:after {
+                background-color: white;
+                color: #000000;
+                border: none;
+            }
+
+            &:before {
+                margin-left: var(--margin-info-default);
+                margin-top: var(--margin-info-default);
+            }
+        }
+
+        &:before,
+        &:after {
+        margin: 5px;
+        }
+
+        &.top-left::before,
+        &.top-right::before,
+        &.bottom-left::after,
+        &.bottom-right::after {
+            content: "i";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            padding: 1px;
+            transition: all 0.1s ease-in-out;
+            shape-outside: circle(50%);
+        }
+    }
+
+    .tooltip-text {
+        line-height: 1.3;
+    }
+}

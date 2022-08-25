@@ -1,6 +1,6 @@
 from .... import api
 from flask import jsonify
-from .....models import User
+import project.models as models
 from ....security_wraps import admin_only, manager_only
 
 from flask_login import current_user, login_required

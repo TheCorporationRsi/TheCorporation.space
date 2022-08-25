@@ -51,7 +51,6 @@ login_manager.login_message_category = 'info'
 scheduler = APScheduler()
 socketio = SocketIO( async_handlers=True, cors_allowed_origins=['http://bots:8000', 'https://bots:8000'] ,async_mode = 'gevent', logger=True, engineio_logger=True) # ,logger=True, engineio_logger=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000']
 
-
 try:
     mail = Mail()
     discord = DiscordOAuth2Session()
@@ -63,6 +62,7 @@ except:
 
 def create_app(config_class=Config.ProductionConfig):
     app = Flask(__name__)
+    app_ctx = app.app_context()
     app.config.from_object(config_class)
     db.init_app(app)
     db.app = app
@@ -71,6 +71,7 @@ def create_app(config_class=Config.ProductionConfig):
     login_manager.init_app(app)
     scheduler.init_app(app)
     socketio.init_app(app)
+    mail.init_app(app)
     
     with app.app_context():
         if is_debug_mode() and not is_werkzeug_reloader_process():

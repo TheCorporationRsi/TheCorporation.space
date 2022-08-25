@@ -1,0 +1,54 @@
+.nav-button {
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    padding: 10px 0;
+    //top: 60px;
+    //left: 0;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 999;
+
+
+    &.hide {
+        display: none;
+    }
+
+    span,
+    span:before,
+    span:after {
+        width: 30px;
+        height: 2px;
+        background: $blue;
+        position: absolute;
+        transition: width 0.3s ease-in-out, transform 0.3s ease-in-out, background 0.3s ease-in-out;
+    }
+
+    span {
+        top: 50%;
+
+        &:before {
+            content: "";
+            top: -10px;
+        }
+
+        &:after {
+            content: "";
+            top: 10px;
+        }
+    }
+
+    &.onclick span {
+        background: none;
+
+        &:before {
+            transform: translateY(10px) rotate(45deg);
+        }
+
+        &:after {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+    }
+
+}

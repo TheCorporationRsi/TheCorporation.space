@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <!-- CSS sheets-->
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <!--END CSS sheets-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Javascript-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--Javascript-->
+
+    </head>
+    <body style="display: flex; flex-direction: column; gap: 20px;">
+        <a id="nav-button" class="nav-button">
+            <span></span>
+            <script>
+                $('#nav-button').on('click', function () {
+                    $(this).toggleClass('onclick');
+                    //$('#nav').toggleClass('hide');
+                });
+            </script>
+        </a>
+    </body>
+</html>

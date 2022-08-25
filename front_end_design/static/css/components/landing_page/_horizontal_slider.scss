@@ -1,0 +1,42 @@
+.horizontal_slider {
+    overflow-x: hidden;
+    scroll-behavior:smooth;
+    color: white;
+
+    
+    
+    .slide {
+        display: none;
+        box-sizing: border-box;
+        height: fit-content;
+        transition: transform 0.2s ease-in-out;
+        align-items: center;
+
+        
+        
+
+
+        &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+            display: flex;
+            min-width: calc( (100vw - 5 * $default-padding) / 4) !important;
+        }
+
+        @media screen and (max-width: $medium_screen) {
+            &:nth-child(1), &:nth-child(2), &:nth-child(3), &:nth-child(4) {
+                display: flex;
+                min-width: calc( (100vw - 4 * $default-padding) / 3) !important;
+                
+            }
+        }
+
+        @media screen and (max-width: $small_screen) {
+            &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+                display: flex;
+                min-width: calc( (100vw - 3 * $default-padding) / 2) !important;
+                
+            }
+        }
+        
+    }
+
+}

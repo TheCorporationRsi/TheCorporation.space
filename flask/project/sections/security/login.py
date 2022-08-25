@@ -10,6 +10,7 @@ from project.api.scraping.RSI.account import RSI_account
 from sqlalchemy import func
 from project.sections.security import security
 from project.api.security_wraps import admin_only, manager_only, not_logged_in_only, CORP_only
+import project.api.bots.controller as bot_controller
 
 
 @security.route("/discord/auth/<int:type>")
@@ -27,18 +28,16 @@ def callback():
     if current_user.is_authenticated:
         discord.callback()
         user = discord.fetch_user()
-        user_account = User.query.filter_by(RSI_handle=current_user.RSI_handle).first()
-        user_account.discord_id = user.id
-        user_account.discord_username = user.username+'#' + user.discriminator
+        current_user.discord_id = user.id
+        current_user.discord_username = user.username+'#' + user.discriminator
 
         if user.id == 217337301364244480:
-            user_account.security = 5
+            current_user.security = 5
 
         db.session.commit()
         discord.revoke()
-        current_user.upload_discord_roles()
-        current_user.update_discord_roles()
-        return redirect(url_for('dashboard.account'))
+        bot_controller.send_dm(f"Your DISCORD account ({current_user.discord_username}) has been linked to the CORP website.", current_user)
+        return redirect(url_for('dashboard.dashboard_link'))
 
     try:
         discord.callback()
@@ -53,7 +52,7 @@ def callback():
         db.session.commit()
         discord.revoke()
         login_user(user_account, remember=False)
-        return redirect(url_for('dashboard.account'))
+        return redirect(url_for('dashboard.dashboard_link'))
 
     else:
         discord.revoke()

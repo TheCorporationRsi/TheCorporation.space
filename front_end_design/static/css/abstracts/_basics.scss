@@ -1,0 +1,54 @@
+
+$small_screen: 800px;
+$medium_screen: 1000px;
+$large_screen: 1200px;
+
+
+
+body {
+    background-color: $background;
+    font-family: 'montserrat';
+    font-weight: bold;
+    overflow: overlay;
+    width: 100vw;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    
+
+    header {
+        width: 100vw;
+    }
+
+    main {
+        width: 100%;
+        height: 100%;
+
+        &.presentation {
+            min-height: calc(100vh - 120px);
+        }
+    
+        &.dashboard {
+            min-height: calc(100vh - 60px);
+        }
+
+    }
+
+    
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+:root {
+    --clip-width: 14px;
+    --margin-info-default: -7px;
+}

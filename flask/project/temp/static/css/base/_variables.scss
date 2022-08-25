@@ -36,4 +36,5 @@ $menu-svg: url('/static/presentation/main/bottom-left.svg');
 
 $main-font: 'Montserrat';
 
-$departments_count: 4;
+
+$departments_count: var(--dep_count);

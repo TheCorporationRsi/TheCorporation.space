@@ -1,0 +1,13 @@
+.slider_title {
+    font-size: 100px; 
+    padding-top: $default-padding;
+    text-shadow: 0 0 50px #000000;
+    font-weight: bold; 
+    color: $mid-grey;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: $small_screen) {
+        font-size: 70px;
+    }
+}

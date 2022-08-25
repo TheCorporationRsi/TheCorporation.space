@@ -172,7 +172,11 @@
                     {% for department in department_list %}
 
                     {% if department == department_list[0] %}
-                    <li onclick="location.href='{{ url_for('main.department', title = department.title) }}'" class="dropdown_item-{{loop.index}} first-item">{{department.title}}</li>
+                        {% if department == department_list[-1]%}
+                        <li onclick="location.href='{{ url_for('main.department', title = department.title) }}'" class="dropdown_item-{{loop.index}} first-item last-item">{{department.title}}</li>
+                        {% else %}
+                        <li onclick="location.href='{{ url_for('main.department', title = department.title) }}'" class="dropdown_item-{{loop.index}} first-item">{{department.title}}</li>
+                        {% endif %}
                     {% elif department == department_list[-1]%}
                     <li onclick="location.href='{{ url_for('main.department', title = department.title) }}'" class="dropdown_item-{{loop.index}} last-item">{{department.title}}</li>
                     {% else %}

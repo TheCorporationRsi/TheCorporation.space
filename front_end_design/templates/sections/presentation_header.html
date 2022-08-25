@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <!-- CSS sheets-->
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <!--END CSS sheets-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Javascript-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--Javascript-->
+
+        <script>
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                $("#presentation_nav").addClass("low_mode");
+            } else {
+                $("#presentation_nav").removeClass("low_mode");
+            }
+
+            $('.fadeInUp').each(function() {
+                var top_of_element = $(this).offset().top;
+                var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                var top_of_screen = $(window).scrollTop();
+        
+                if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                    $(this).addClass('is-visible');
+                }
+            });
+        }
+
+
+        /*Script functionality*/
+        $(document).ready(function () {
+            //GLOBALS
+            var nav_menu = $(".nav-menu");
+            //main menu toggle
+            $("#nav-button").on("click", function () {
+                nav_menu.toggleClass("active");
+
+                calculate_main_menu_height();
+            });
+
+            //sub menu toggle
+            $(".sub-menu-toggle").on("click", function () {
+                var sub_menu = $(this).siblings(".sub-menu");
+                sub_menu.toggleClass("active");
+                set_sub_menu_toggles();
+                set_sub_menu_height();
+            });
+            //calculates the overall height of the nav menu
+            function calculate_main_menu_height() {
+                var menu_height = 0;
+                scrollFunction();
+                if (nav_menu.hasClass("active")) {
+                    $("#presentation_nav").addClass("low_mode");
+                    
+                    var menu_items = nav_menu.children("li");
+                    $.each(menu_items, function () {
+                        menu_height += $(this).outerHeight();
+                    });
+                }
+                nav_menu.css("height", menu_height);
+            }
+            //sets all sub-menus to be as long as the main nav menu
+            function set_sub_menu_height() {
+                var menu_height = nav_menu.outerHeight();
+                var sub_menus = $(".sub-menu");
+                $.each(sub_menus, function () {
+                    $(this).outerHeight(menu_height);
+                });
+            }
+            //close sub menu
+            $(".close").on("click", function () {
+                $(this).parent(".sub-menu").toggleClass("active");
+            });
+
+            //SUB MENU TOGGLE HEIGHT
+            //set the height of the sub-menu toggle perfectly
+            function set_sub_menu_toggles() {
+                var sub_menu_toggles = $(".sub-menu-toggle");
+                $.each(sub_menu_toggles, function () {
+                    //$(this).outerHeight($(this).siblings("a").outerHeight());
+                    $(this).css(
+                    "line-height",
+                    $(this).siblings("a").outerHeight() + "px"
+                    );
+                    //change the class of the toggle (if menu is active or not)
+                    if ($(this).siblings(".sub-menu").hasClass("active")) {
+                    // $(this).removeClass('fa-angle-down').addClass('fa-angle-up');
+                    $(this).addClass("flip");
+                    } else {
+                        // $(this).removeClass('fa-angle-up').addClass('fa-angle-down');
+                        $(this).removeClass("flip");
+                    }
+                });
+            }
+            set_sub_menu_toggles();
+        });
+
+        </script>
+
+    </head>
+    <body style="display: flex; flex-direction: column; background-color: white;">
+        <nav id="presentation_nav">
+            <div id="banner" class="container banner">
+                <a href="/"><div id="logo" class="logo" ></div></a>
+            </div>
+
+            <a id="nav-button" class="nav-button" style="position: absolute; top: 4px; right: 20px; ">
+                <span></span>
+                <script>
+                    $('#nav-button').on('click', function () {
+                        $(this).toggleClass('onclick');
+                        //$('#nav').toggleClass('hide');
+                    });
+                </script>
+            </a>
+            <ul class="nav-menu">
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+            </ul>  
+            
+        </nav>
+        <main class="presentation" style="height: 2000px;">
+            
+        </main>
+    </body>
+</html>
+
+

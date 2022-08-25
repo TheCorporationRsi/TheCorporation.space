@@ -1,0 +1,32 @@
+.basic_icon {
+    background-color: none;
+    color: white;
+    text-decoration: none;
+    padding: 10px 10px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+    height: 50px;
+    width: 50px;
+
+    img {
+        width: 50px;
+        height: 50px;
+
+        &:hover {
+            transform: scale(1.2);
+            filter: invert(20%);
+        }
+    }
+
+    .badge {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background: red;
+        color: white;
+    }
+}
+

@@ -1,0 +1,614 @@
+<html>
+    <head>
+        <!-- CSS sheets-->
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <!--END CSS sheets-->
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--Javascript-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--Javascript-->
+
+        <script>
+
+            $(document).ready(function () {
+                
+                setInterval(function(){
+                    //animate only the first slide on the left, all the slides after will just follow
+                    $('.horizontal_slider').children().first().animate({
+                        marginLeft: -$('.horizontal_slider').children().first().outerWidth() - 40
+                    }, 2000, function () {
+                    //once completely hidden, move this slide next to the last slide
+                    //and reset the margin-left to 0
+                        $(this).appendTo($(this).parent()).css({marginLeft: 0});
+                    });
+                }, 3000);   
+            });
+
+        </script>
+
+        <script>
+
+            window.onscroll = function () { scrollFunction() };
+    
+            function scrollFunction() {
+                if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                    $("#presentation_nav").addClass("low_mode");
+                } else {
+                    $("#presentation_nav").removeClass("low_mode");
+                }
+    
+                $('.fadeInUp').each(function() {
+                    var top_of_element = $(this).offset().top;
+                    var bottom_of_element = $(this).offset().top + $(this).outerHeight();
+                    var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+                    var top_of_screen = $(window).scrollTop();
+            
+                    if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element) && !$(this).hasClass('is-visible')) {
+                        $(this).addClass('is-visible');
+                    }
+                });
+            }
+    
+    
+            /*Script functionality*/
+            $(document).ready(function () {
+                //GLOBALS
+                var nav_menu = $(".nav-menu");
+                //main menu toggle
+                $("#nav-button").on("click", function () {
+                    nav_menu.toggleClass("active");
+    
+                    calculate_main_menu_height();
+                });
+    
+                //sub menu toggle
+                $(".sub-menu-toggle").on("click", function () {
+                    var sub_menu = $(this).siblings(".sub-menu");
+                    sub_menu.toggleClass("active");
+                    set_sub_menu_toggles();
+                    set_sub_menu_height();
+                });
+                //calculates the overall height of the nav menu
+                function calculate_main_menu_height() {
+                    var menu_height = 0;
+                    scrollFunction();
+                    if (nav_menu.hasClass("active")) {
+                        $("#presentation_nav").addClass("low_mode");
+                        
+                        var menu_items = nav_menu.children("li");
+                        $.each(menu_items, function () {
+                            menu_height += $(this).outerHeight();
+                        });
+                    }
+                    nav_menu.css("height", menu_height);
+                }
+                //sets all sub-menus to be as long as the main nav menu
+                function set_sub_menu_height() {
+                    var menu_height = nav_menu.outerHeight();
+                    var sub_menus = $(".sub-menu");
+                    $.each(sub_menus, function () {
+                        $(this).outerHeight(menu_height);
+                    });
+                }
+                //close sub menu
+                $(".close").on("click", function () {
+                    $(this).parent(".sub-menu").toggleClass("active");
+                });
+    
+                //SUB MENU TOGGLE HEIGHT
+                //set the height of the sub-menu toggle perfectly
+                function set_sub_menu_toggles() {
+                    var sub_menu_toggles = $(".sub-menu-toggle");
+                    $.each(sub_menu_toggles, function () {
+                        //$(this).outerHeight($(this).siblings("a").outerHeight());
+                        $(this).css(
+                        "line-height",
+                        $(this).siblings("a").outerHeight() + "px"
+                        );
+                        //change the class of the toggle (if menu is active or not)
+                        if ($(this).siblings(".sub-menu").hasClass("active")) {
+                        // $(this).removeClass('fa-angle-down').addClass('fa-angle-up');
+                        $(this).addClass("flip");
+                        } else {
+                            // $(this).removeClass('fa-angle-up').addClass('fa-angle-down');
+                            $(this).removeClass("flip");
+                        }
+                    });
+                }
+                set_sub_menu_toggles();
+            });
+    
+        </script>
+
+    </head>
+    <body style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <nav id="presentation_nav">
+            <div id="banner" class="container banner">
+                <a href="/"><div id="logo" class="logo" ></div></a>
+            </div>
+
+            <a id="nav-button" class="nav-button" style="position: absolute; top: 4px; right: 20px; ">
+                <span></span>
+                <script>
+                    $('#nav-button').on('click', function () {
+                        $(this).toggleClass('onclick');
+                        //$('#nav').toggleClass('hide');
+                    });
+                </script>
+            </a>
+            <ul class="nav-menu">
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+                <li class="future_dropdown">
+                    <a>INFO</a>
+                    <i class="sub-menu-toggle"><img src="/static/css/svg_element/yellow_arrow.svg"></i>
+                    <ul class="dropdown_menu sub-menu">
+                        <li class="close">
+                            <div>
+                                Close Menu
+                                <i class="fa icon fa-angle-left"></i>
+                            </div>
+                        </li>
+                        <li onclick="location.href=''" ><a>Presentation</a></li>
+                        <li onclick="location.href=''" ><a>Influence system</a></li>
+                        <li onclick="location.href=''" ><a>Certification</a></li>
+                        <li onclick="location.href=''" ><a>History</a></li>
+                    </ul>
+                </li>
+            </ul>  
+            
+        </nav>
+        <main class="presentation">
+            <div class="hero landing">
+                <div class="pic-wrapper">
+                    <figure class="pic-1" style=" background: url('/static/images/line_low.jpg') no-repeat center center; background-size: cover;">
+                    </figure>
+                    <figure class="pic-2" style=" background: url('/static/images/line_low.jpg') no-repeat center center; background-size: cover;">
+                    </figure>
+                    <figure class="pic-3" style=" background: url('/static/images/line_low.jpg') no-repeat center center; background-size: cover;">
+                    </figure>
+                    <figure class="pic-4" style=" background: url('/static/images/line_low.jpg') no-repeat center center; background-size: cover;">
+                    </figure>
+                </div>
+            </div>
+            <div class="container top_future column v_center" style="background-image: url('/static/images/line_low.jpg');">
+                <div class="container v_center slider_title">Departments</div>
+                <div class="container row v_center padding gap horizontal_slider">
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">This is a title</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">Security</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">Human Ressoures</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">Exploration</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">This is a title</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">This is a title</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">This is a title</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">This is a title</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="slide container border_radius padding logo_and_title"> 
+                        <a href="">
+                            <div class="container column  gap">
+                                <div class="container">
+                                    <svg viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/"
+                                        style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                        <g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:white;" />
+                                            </g>
+                                            <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                <path
+                                                    d="M760.615,1500L1125.82,2132.55L1838.05,2132.55L1995.74,2405.68L968.127,2405.68L445.234,1500L760.615,1500ZM443.254,1500L968.127,590.893L2005.22,590.893L1847.53,864.02L1125.82,864.02L758.635,1500L443.254,1500Z"
+                                                    style="fill:red; filter: opacity(50%);" />
+                                            </g>
+                                            <g>
+                                                <g transform="matrix(0.982566,0,0,0.981273,29.9252,29.7732)">
+                                                    <path
+                                                        d="M2031.73,2394.34L1874.04,2121.21L2233.68,1498.29L2549.07,1498.29L2031.73,2394.34ZM1851.9,2082.88L1694.21,1809.75L1875.03,1496.57L2190.41,1496.57L1851.9,2082.88ZM1672.99,1772.99L1515.38,1500L1516.87,1497.43L1832.08,1497.43L1672.99,1772.99ZM2031.73,605.661L2547.08,1498.29L2231.7,1498.29L1874.04,878.789L2031.73,605.661ZM1830.1,1497.43L1516.87,1497.43L1673.48,1226.16L1830.1,1497.43ZM1852.89,915.409L2188.43,1496.57L1873.05,1496.57L1695.2,1188.54L1852.89,915.409Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                                <g transform="matrix(5.48865,0,0,5.48865,-2923.62,-4026.87)">
+                                                    <path
+                                                        d="M537.671,1006.97L671.815,774.621L940.103,774.621L1074.25,1006.97L940.103,1239.31L671.815,1239.31L537.671,1006.97ZM983.588,1043.49L905.316,1179.06L706.603,1179.06L628.331,1043.49L983.588,1043.49ZM983.588,970.445L628.331,970.445L706.603,834.874L905.316,834.874L983.588,970.445Z"
+                                                        style="fill:red;" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </div>
+                                <div class="container text" style="color: red;">This is a title</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="container middle_future padding gap row v_center mobile_vertical" style="background-image: url('/static/images/line_low.jpg'); ">
+                
+                <div class="container border_radius padding logo_and_title fadeInUp"> 
+                    <a href="">
+                        <div class="container column  gap">
+                            <div class="container">
+                                <img src="/static/css/svg_element/MadeByTheCommunity_White.webp">
+                            </div>
+                            <div class="container text" style="">RSI page</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="container border_radius padding logo_and_title fadeInUp"> 
+                    <a href="">
+                        <div class="container column  gap">
+                            <div class="container logo">
+                                <img src="/static/css/svg_element/YouTube.svg">
+                            </div>
+                            <div class="container text" style="">CORP Youtube</div>
+                        </div>
+                    </a>
+                </div>
+                <div class="container border_radius padding logo_and_title fadeInUp"> 
+                    <a href="">
+                        <div class="container column  gap">
+                            <div class="container">
+                                <img src="/static/css/svg_element/discord_single.svg">
+                            </div>
+                            <div class="container text" style="">Discord</div>
+                        </div>
+                    </a>
+                </div>
+                
+
+            </div>
+            <div class="container middle_future flow_right padding gap row v_center " style="background-image: url('/static/images/line_low.jpg'); overflow: hidden;">
+                <div class="container funny_comment fadeInUp padding border_radius fadeInUp" style="">
+                    <h1><span>Money doesn't buy happiness.</span>But it helps.</h1>
+                    <p>The corporation plays the role of a massive Sci-fi company that is all about profit. Our main goal is to have fun as a group. For this, we need to build our empire to gear our soldiers and maybe even gearing the enemy if there's enough profit in it. There is no bad way to make money!!!</p>
+                </div>
+            </div>
+            <div class="container bottom_future padding gap row v_center  flow_left" style="background-image: url('/static/images/line_low.jpg'); overflow: hidden;">
+                <div class="container funny_comment fadeInUp padding border_radius fadeInUp" style="">
+                    <h1><span>Money doesn't buy happiness.</span>But it helps.</h1>
+                    <p>The corporation plays the role of a massive Sci-fi company that is all about profit. Our main goal is to have fun as a group. For this, we need to build our empire to gear our soldiers and maybe even gearing the enemy if there's enough profit in it. There is no bad way to make money!!!</p>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

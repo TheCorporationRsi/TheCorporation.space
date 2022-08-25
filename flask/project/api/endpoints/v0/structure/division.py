@@ -1,6 +1,6 @@
 from .... import api
 from flask import jsonify, request
-from .....models import User, Department, Division
+import project.models as models
 import jwt
 from ....security_wraps import admin_only, manager_only
 from ..... import db
@@ -14,7 +14,7 @@ from ....controller.structure_controller import add_division
 @admin_only
 @api.route('/divisions', methods=["GET"])
 def divisions():
-    divisions = Division.query.all()
+    divisions = models.Division.query.all()
     
     list_div = [r.as_dict() for r in divisions]
     
