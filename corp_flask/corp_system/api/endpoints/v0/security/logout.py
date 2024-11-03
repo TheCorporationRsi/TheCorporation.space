@@ -15,6 +15,8 @@ def logout():
     ---
     tags:
         - Security
+    security: 
+      - csrf : []
     responses:
       200:
         description: Transfer was successfull

@@ -12,6 +12,8 @@ def refresh_token():
     ---
     tags:
         - Security
+    security:
+      - csrf_refresh: []
     responses:
       200:
         description: Transfer was successfull

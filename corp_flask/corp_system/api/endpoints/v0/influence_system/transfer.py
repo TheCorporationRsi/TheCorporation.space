@@ -20,7 +20,7 @@ def transfer():
     tags:
         - Influence System
     security: 
-      - basicAuth : []
+      - csrf : []
     requestBody:
         description: transfer information
         content:

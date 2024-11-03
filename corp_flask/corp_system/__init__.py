@@ -61,28 +61,21 @@ swagger = Swagger(
             {
                 "url": os.environ["CORS_SETTING"],
                 "description": "current_server"
-            },
-            {
-                "url": "https://thecorporation.space",
-                "description": "Production server"
-            },
-            {
-                "url": "http://localhost:5000",
-                "description": "local server"
-            },
-            {
-                "url": "https://dev.thecorporation.space",
-                "description": "test server"
             }
         ],
         "components": {
             "securitySchemes": {
                 "cookieAuth": { 
                     "type": 'apiKey',
-                    "in": 'header',
+                    "in": 'cookie',
                     "name": 'corp_access_pass',
                 },
-                "CSRF": { 
+                "csrf": { 
+                    "name": 'X-CSRF-TOKEN',
+                    "type": 'apiKey',
+                    "in": 'header',
+                },
+                "csrf_refresh": { 
                     "name": 'X-CSRF-TOKEN',
                     "type": 'apiKey',
                     "in": 'header',
@@ -95,8 +88,6 @@ swagger = Swagger(
             }
         },
         "security": {
-            "CSRF": [],
-            "ApiKeyAuth": [],
             "cookieAuth": []
         },
         "tags": [

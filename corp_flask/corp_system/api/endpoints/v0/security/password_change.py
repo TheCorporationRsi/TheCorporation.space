@@ -15,6 +15,8 @@ def pasword_change():
     ---
     tags:
         - Security
+    security: 
+      - csrf : []
     requestBody:
         description: registration information
         content:
