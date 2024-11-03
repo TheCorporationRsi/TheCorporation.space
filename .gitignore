@@ -45,7 +45,6 @@ instance/
 
 # Web application
 webapp.egg-info/
-*chromedriver*
 
 # Project-specific
 **/data/*
