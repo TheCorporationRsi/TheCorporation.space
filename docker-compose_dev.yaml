@@ -1,0 +1,68 @@
+name: corp_dev
+
+networks:
+  corp_secure:
+  corp_bot_net:
+volumes:
+  postgres_data:
+
+services:
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"  # Expose PostgreSQL port to other Docker containers
+    networks:
+      - corp_secure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  corp_system:
+    build: ./corp_flask
+    restart: always
+    ports:
+      - "5000:5000"
+    expose:
+      - "6000"
+    environment:
+      APP_NAME: TheCorporation.space
+      FLASK_ENV: development
+      SECRET_KEY: ${SECRET_KEY}
+      CORS_SETTING: http://localhost:5000
+      SQLALCHEMY_DATABASE_TEST_URI: ${SQLALCHEMY_DATABASE_TEST_URI}
+      SQLALCHEMY_DATABASE_URI_FUNDING: ${SQLALCHEMY_DATABASE_URI_FUNDING}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      FLASK_DEBUG: 1
+      SQLALCHEMY_DATABASE_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    volumes:
+      - ./corp_flask:/home/thecorporation/flask
+    depends_on:
+      - db
+    networks:
+      - corp_secure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    command: bash -c "flask run --host=0.0.0.0 --port=5000 --reload"
+  
+  discord_bot:
+    restart: always
+    build: ./discord_bot
+    environment:
+      FLASK_APP_URL: http://@corp_system:6000
+    networks:
+      - corp_bot_net
+    depends_on:
+      - corp_system
+    command: bash -c "python3 discord_shell_bot.py" 

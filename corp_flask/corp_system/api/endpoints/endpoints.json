@@ -1,0 +1,106 @@
+{
+    "versions": [],
+    "v0": {
+        "title": "v0",
+        "endpoints": [
+            {
+                "title": "Structure",
+                "description": "The underlying structure system of the CORP",
+                "endpoints": [
+                    {
+                        "name": "User",
+                        "url": "https://TheCorporation.space/api/v0/users",
+                        "description": "User endpoint",
+                        "default_return": "Return a list of all the users",
+                        "searchable_attributes": [
+                            {
+                                "name": "id",
+                                "type": "uuid4",
+                                "example": "ABCD-EFGH-IJKL-MNOP",
+                                "description": "The unique identifier for the user."
+                            },
+                            {
+                                "name": "RSI_handle",
+                                "type": "string",
+                                "example": "CyberDreamer",
+                                "description": "The unique Star Citizen handle of a player"
+                            },
+                            {
+                                "name": "discord_id",
+                                "type": "int",
+                                "example": "12345678910",
+                                "description": "The unique discord id of a user"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Role",
+                        "url": "https://TheCorporation.space/api/v0/roles",
+                        "description": "Role endpoint",
+                        "default_return": "Return a list of all the roles",
+                        "attributes": [
+                            {
+                                "name": "id",
+                                "type": "uuid4",
+                                "example": "ABCD-EFGH-IJKL-MNOP",
+                                "description": "The unique identifier for the role."
+                            },
+                            {
+                                "name": "title",
+                                "type": "string",
+                                "example": "Cartography head",
+                                "description": "The unique title of role"
+                            },
+                            {
+                                "name": "discord_id",
+                                "type": "int",
+                                "example": "12345678910",
+                                "description": "The unique discord id of the role in the CORP server"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Division",
+                        "url": "https://TheCorporation.space/api/v0/divisions",
+                        "description": "Division endpoint",
+                        "default_return": "Return a list of all the divisions",
+                        "attributes": [
+                            {
+                                "name": "id",
+                                "type": "uuid4",
+                                "example": "ABCD-EFGH-IJKL-MNOP",
+                                "description": "The unique identifier for the role."
+                            },
+                            {
+                                "name": "title",
+                                "type": "string",
+                                "example": "Cartography",
+                                "description": "The unique title of division"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Department",
+                        "url": "https://TheCorporation.space/api/v0/departments",
+                        "description": "Department endpoint",
+                        "default_return": "Return a list of all the departments",
+                        "attributes": [
+                            {
+                                "name": "id",
+                                "type": "uuid4",
+                                "example": "ABCD-EFGH-IJKL-MNOP",
+                                "description": "The unique identifier for the role."
+                            },
+                            {
+                                "name": "title",
+                                "type": "string",
+                                "example": "Cartography",
+                                "description": "The unique title of division"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

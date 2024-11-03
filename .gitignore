@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+**/*.py[cod]
+__pycache__/
+*.py[cod]
+
+# Caches
+**/.pytest_cache/
+**/.mypy_cache/
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Environment variables
+*.env
+
+# Logs
+*.log
+
+# Database files
+*.db*
+
+# Virtual environments
+venv/
+*.venv/
+
+# Docker
+.dockerignore
+Dockerfile
+
+# Miscellaneous
+todo.txt
+*report.json
+*.zip
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Instance folder
+instance/
+
+# Web application
+webapp.egg-info/
+*chromedriver*
+
+# Project-specific
+**/data/*
+**/Modern/
+**/react_starter/
