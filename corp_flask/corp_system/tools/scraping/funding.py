@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from bs4 import Tag
 import re
 import time
@@ -13,13 +14,6 @@ import pathlib
 
 
 DEFAULT_RSI_URL = 'https://robertsspaceindustries.com'
-
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--no-sandbox')
-chrome_options.add_argument('--disable-dev-shm-usage')
-chrome_options.add_argument('--disable-gpu')
-
 
 
     
@@ -31,37 +25,20 @@ class RSI_funding():
     """
 
     def __init__(self):
-        self.link = 'https://robertsspaceindustries.com/funding-goals'
-        driver = webdriver.Chrome(options=chrome_options)
-        driver.get(self.link)
-        find_element = threading.Event
-        
-        def find_fund():
-            x = 0
-            while(x == 0):
-                time.sleep(1)
-                page = driver.page_source
-                soup = BS(page, 'html.parser')
-                try:
-                    fund = int(soup.find("div", {"class": "funds-raised"}).find("div", {"class": "digits"}).string.replace(',', ''))
-                    
-                    if fund > 50:
-                        x = 1
-                        find_element.set()
-                except:
-                    pass
-        
-        thread = threading.Thread(target=find_element)
-        thread.start()   
-        find_fund()
-    
-        page = driver.page_source
-        soup = BS(page, 'html.parser')
-        self.fund = int(soup.find("div", {"class": "funds-raised"}).find("div", {"class": "digits"}).string.replace(',', ''))
-        self.citizens = int(soup.find("div", {"class": "fans"}).find("div", {"class": "digits"}).string.replace(',', ''))
-        print(self.fund)
+        self.link = 'https://robertsspaceindustries.com/api/stats/getCrowdfundStats'
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+            
+        }
+        payload = {'chart': "day", 'fans': True, 'funds': True, 'alpha_slots': True, 'fleet': True}
+      
+        page = requests.post(self.link, headers=headers, json=payload)
+        data = page.json()
+       
+        self.fund = data['data']['funds']
+        self.citizens = data['data']['fans']
         print(self.citizens)
-        driver.quit()
+        print(self.fund)
 
 # RSI_account(RSI_handle="Cyber-Dreamer")
 

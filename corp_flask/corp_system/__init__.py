@@ -99,13 +99,17 @@ swagger = Swagger(
             "name": "Security",
             "description": "Endpoints for authentification",
             },
-                        {
+            {
             "name": "Information",
             "description": "Endpoints of various CORP informations",
             },
             {
             "name": "Structure",
             "description": "Endpoints for the corporation structure",
+            },
+            {
+            "name": "RSI Stats",
+            "description": "Endpoints for store RSI stats",
             }
         ],
     }

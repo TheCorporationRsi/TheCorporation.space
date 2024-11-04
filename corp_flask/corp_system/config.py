@@ -17,7 +17,7 @@ class Config_Model(ABC):
     JWT_REFRESH_COOKIE_NAME = "corp_refresh_pass"
     JWT_REFRESH_CSRF_COOKIE_NAME = "corp_refresh_pass_xeno_defense"
     JWT_COOKIE_CSRF_PROTECT = True
-    JWT_COOKIE_SECURE = False
+    JWT_COOKIE_SECURE = True
     GEVENT_SUPPORT = True
 
     SWAGGER = {

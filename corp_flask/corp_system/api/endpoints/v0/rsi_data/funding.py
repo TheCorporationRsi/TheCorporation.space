@@ -4,14 +4,42 @@ import jwt
 from ....security_wraps import admin_only, manager_only, CORP_only
 from sqlalchemy import func, extract, and_
 
+from corp_system.tools.scraping.funding import RSI_funding
+
 from corp_system.models import Funding
 
 
 @api.route('/current_funding')
-@admin_only
+@CORP_only #TO BE CHANGED
 def current_funding():
-    fundings = Funding.query.order_by(Funding.date).first()
-    return jsonify(fundings.fund)
+    """List of all influence system ranks
+    
+    This is using docstrings for specifications.
+    ---
+    tags:
+        - RSI Stats
+    security: []
+    responses:
+      200:
+        description: Transfer was successfull
+        content:
+             application/json:
+                schema:
+                    type: object
+                    properties:
+                        fund:
+                            type: integer
+                            example: 0
+                        citizens:
+                            type: integer
+                            example: 0
+
+    """
+    fundings = RSI_funding()
+    return jsonify({
+        "fund": fundings.fund,
+        "citizens": fundings.citizens
+        })
 
 
 @api.route('/data/fundings')
