@@ -6,78 +6,8 @@ from flask import jsonify, request
 
 from corp_system.models import Inf_Rank, Division, Department
 
-from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 
-@api.route('/structure/departments', methods=['GET'])
-def departments():
-    """List of all departments
-    
-    This is using docstrings for specifications.
-    ---
-    tags:
-        - Structure
-    security: []
-    responses:
-      200:
-        description: List aquired
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Ressources
-                        color:
-                            type: string
-                            example: #0083ff
-                        motto:
-                            type: string
-                            example: We love building stuff
-                        logo:
-                            type: string
-                            example: logo.svg
-                        member_count:
-                            type: integer
-                            example: 50
-                        division:
-                            type: object
-                            example: [
-                                Development,
-                                Extraction,
-                                Transport
-                            ]
-                        heads:
-                            type: object
-                            example: [
-                                Cyber-Dreamer
-                            ]
-                        proxys:
-                            type: object
-                            example: [
-                                Stevote,
-                                Vizi
-                            ]
-
-    """
-    departments = Department.query.all()
-    departments_list = []
-    
-    for department in departments:
-        
-        departments_list.append({
-            "title": department.title,
-            "color": department.color,
-            "motto": department.motto,
-            "logo": department.logo,
-            "member_count": len(department.members),
-            "divisions": [division.title for division in department.divisions if division.hidden == False],
-            "heads": [head.RSI_handle for head in department.head_role.users],
-            "proxys": [proxy.RSI_handle for proxy in department.proxy_role.users],
-        })
-    
-    return jsonify(departments_list), 200
-
+from corp_system.controllers.structure_manager import StructureManager
 
 @api.route('/structure/divisions', methods=['GET'])
 def divisions():
@@ -146,3 +76,53 @@ def divisions():
     
     return jsonify(divisions_list), 200
 
+
+@api.route('/structure/divisions', methods=['POST'])
+@admin_only
+def create_division():
+    """Division creation endpoint
+    
+    This is using docstrings for specifications.
+    ---
+    tags:
+        - Admin
+    requestBody:
+        description: Division information
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                            example: Devlopment
+
+    responses:
+      200:
+        description: Login was successfull
+        schema:
+            type: object
+            properties:
+                msg:
+                    type: string
+                    example: Division created
+      400:
+        description: An error happen with the info that you submitted
+        schema:
+            type: object
+            properties:
+                msg:
+                    type: string
+                    example: You must be admin to access this endpoint
+
+    """
+    title = request.json.get("title")
+    derpartment_title = request.json.get("derpartment_title")
+    #print(username, password)
+    
+    try:
+        StructureManager.create_division(title=title, derpartment_title=derpartment_title)
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
+    
+    return jsonify({'msg': "Division created"}), 200

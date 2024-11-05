@@ -19,6 +19,10 @@ class SecurityManager:
 
     @staticmethod
     def get_logs(RSI_handle: str, amount: int = 10):
+        
+        if not re.match("^[a-zA-Z0-9_-]{1,32}$", RSI_handle):
+            raise ValueError("Handle doesn't follow format")
+        
         user: User = User.query.filter_by(RSI_handle=RSI_handle).first()
         
         logs = user.logs[-amount:]
@@ -28,6 +32,13 @@ class SecurityManager:
 
     @staticmethod
     def login_user(RSI_handle: str, password: str, otp=None, remember=False):
+        
+        if not re.match("^[a-zA-Z0-9_-]{1,32}$", RSI_handle):
+            raise ValueError("Handle doesn't follow format")
+        
+        if not User.verify_password_requirements(password):
+            raise ValueError("Issue with password requirements")
+        
         # Authenticate the user and log them in
         user: User = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle)).first()
         if user is None:
@@ -83,7 +94,7 @@ class SecurityManager:
         # Register a new user by checking that their RSI handle exists
 
         if not re.match("^[a-zA-Z0-9_-]{1,32}$", RSI_handle):
-            raise ValueError("Title contain unallowed character")
+            raise ValueError("Handle doesn't follow format")
         
         if not User.verify_password_requirements(password):
             raise ValueError("Issue with password requirements")
@@ -140,6 +151,10 @@ class SecurityManager:
     
     @staticmethod
     def rsi_token(RSI_handle: str):
+        
+        if not re.match("^[a-zA-Z0-9_-]{1,32}$", RSI_handle):
+            raise ValueError("Handle doesn't follow format")
+        
         # Authenticate the user and log them in
         user: User = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle)).first()
         if user is None:
@@ -149,6 +164,10 @@ class SecurityManager:
     
     @staticmethod
     def verify_rsi_token(RSI_handle: str):
+        
+        if not re.match("^[a-zA-Z0-9_-]{1,32}$", RSI_handle):
+            raise ValueError("Handle doesn't follow format")
+        
         # Authenticate the user and log them in
         user: User = User.query.filter(func.lower(User.RSI_handle) == func.lower(RSI_handle)).first()
         if user is None:

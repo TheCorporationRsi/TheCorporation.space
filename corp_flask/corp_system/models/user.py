@@ -259,15 +259,21 @@ class User(Base):
     def is_admin(self):
         return self.security_level == 10
     
-    def is_manager(self):
+    def is_manager(self, division=None, department=None):
         if self.is_admin():
             return True
+        elif division:
+            if division.leader_role in self.roles:
+                return True
+        elif department:
+            if department.head_role in self.roles:
+                return True
         else:
-            for division in self.divisions:
-                if division.leader_role in self.roles:
+            for current_division in self.divisions:
+                if current_department.leader_role in self.roles:
                     return True
-            for department in self.departments:
-                if department.leader_role in self.roles:
+            for current_department in self.departments:
+                if current_department.head_role in self.roles:
                     return True
                 
 

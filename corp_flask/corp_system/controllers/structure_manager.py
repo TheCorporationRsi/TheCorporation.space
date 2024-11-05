@@ -37,12 +37,12 @@ class StructureManager:
     def create_department(title):
         # Create a new department with the given name and leader
         
+        if not re.match("^[a-zA-Z0-9-_]{2,32}$", title):
+            raise ValueError("Title doesn't respect the format")
+        
         department= Department.query.filter(func.lower(Department.title) == func.lower(title)).first()
         if department:
             raise ValueError("Department title already exist")
-        
-        if not re.match("^[a-zA-Z0-9-_]*$", title):
-            raise ValueError("Title contain unallowed character")
         
         department = Department(title=title)
         db.session.add(department)
@@ -51,8 +51,13 @@ class StructureManager:
         return department
     
     @staticmethod
-    def create_division(title, department: Department):
+    def create_division(title, department_title):
         # Create a new division with the given name, department, and leader
+        
+        if not re.match("^[a-zA-Z0-9-_]{2,32}$", title):
+            raise ValueError("Title doesn't respect the format")
+        
+        department= Department.query.filter(func.lower(Department.title) == func.lower(department_title)).first()
         if department is None:
             raise ValueError("Department not found")
         
@@ -64,8 +69,7 @@ class StructureManager:
         if division_test:
             raise ValueError("Division title already exist")
         
-        if not re.match("^[a-zA-Z0-9-_]*$", title):
-            raise ValueError("Title contain unallowed character")
+        
         
         division = Division(title=title, department=department)
         db.session.add(division)

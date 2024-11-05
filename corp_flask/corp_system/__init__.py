@@ -110,6 +110,10 @@ swagger = Swagger(
             {
             "name": "RSI Stats",
             "description": "Endpoints for store RSI stats",
+            },
+             {
+            "name": "Admin",
+            "description": "Endpoints to administer the website",
             }
         ],
     }

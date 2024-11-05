@@ -11,6 +11,25 @@ from corp_system.controllers.influence_system_manager import InfluenceSystemMana
 @api.route('/structure/profile/departments', methods=['GET'])
 @CORP_only
 def user_departments():
+    """List of all your departments
+    
+    This is using docstrings for specifications.
+    ---
+    tags:
+        - Structure
+    responses:
+      200:
+        description: Departments
+        content:
+             application/json:
+                schema:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                            example: Ressources
+
+    """
     
     departments = current_user.departments
     departments_list = {}
@@ -31,6 +50,25 @@ def user_departments():
 @api.route('/structure/profile/divisions', methods=['GET'])
 @CORP_only
 def user_divisions():
+    """List of all your division
+    
+    This is using docstrings for specifications.
+    ---
+    tags:
+        - Structure
+    responses:
+      200:
+        description: Divisions
+        content:
+             application/json:
+                schema:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                            example: Devlopment
+
+    """
     
     divisions = current_user.divisions
     divisions_list = {}
@@ -50,6 +88,25 @@ def user_divisions():
 @api.route('/structure/profile/roles', methods=['GET'])
 @CORP_only
 def user_roles():
+    """List of all your roles
+    
+    This is using docstrings for specifications.
+    ---
+    tags:
+        - Structure
+    responses:
+      200:
+        description: Roles
+        content:
+             application/json:
+                schema:
+                    type: object
+                    properties:
+                        title:
+                            type: string
+                            example: Devlopment member
+
+    """
     
     roles = current_user.roles
     roles_list = {}

