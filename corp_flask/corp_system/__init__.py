@@ -16,6 +16,8 @@ from flask_socketio import SocketIO, emit
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_wtf.csrf import CSRFProtect
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_cors import CORS
 from flasgger import Swagger
 from .config import Config
@@ -36,7 +38,7 @@ def is_werkzeug_reloader_process():
     """Get werkzeug status."""
     return os.environ.get("WERKZEUG_RUN_MAIN") == "true"
 
-
+limiter = Limiter(key_func=get_remote_address, default_limits=["200 per minute"])
 jwt = JWTManager()
 db = SQLAlchemy()
 bcrypt = Bcrypt()

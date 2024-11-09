@@ -1,7 +1,7 @@
 from .. import api_v0 as api
 from flask import jsonify
 import jwt
-from ....security_wraps import admin_only, manager_only, CORP_only
+from ...security_wraps import admin_only, manager_only, CORP_only
 from sqlalchemy import func, extract, and_
 
 from corp_system.tools.scraping.funding import RSI_funding

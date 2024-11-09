@@ -1,4 +1,4 @@
-from ....security_wraps import admin_only, manager_only, not_logged_in_only, Confirmed_RSI_only
+from ...security_wraps import admin_only, manager_only, not_logged_in_only, Confirmed_RSI_only
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity, set_access_cookies, current_user, create_refresh_token, set_refresh_cookies, get_jwt
 from .. import api_v0 as api
 

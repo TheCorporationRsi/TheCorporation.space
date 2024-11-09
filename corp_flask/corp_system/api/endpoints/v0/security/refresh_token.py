@@ -1,8 +1,10 @@
-from ....security_wraps import admin_only, manager_only, not_logged_in_only, Confirmed_RSI_only
+from ...security_wraps import admin_only, manager_only, not_logged_in_only, Confirmed_RSI_only
 from flask_jwt_extended import jwt_required, current_user 
 from .. import api_v0 as api
 from corp_system.controllers.security_manager import SecurityManager
+from corp_system import limiter
 
+@limiter.limit("5 per minute")
 @api.route('/refresh_token', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh_token():

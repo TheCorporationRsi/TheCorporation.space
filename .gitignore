@@ -50,3 +50,6 @@ webapp.egg-info/
 **/data/*
 **/Modern/
 **/react_starter/
+
+trash/
+corp_flutter/
