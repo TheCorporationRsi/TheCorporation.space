@@ -27,6 +27,15 @@ class LoginScreen extends StatelessWidget {
               ? Container(
                   width: 800.0,
                   height: 400.0,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10.0,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
                   child: Row(
                     children: <Widget>[
                       Container(
@@ -38,13 +47,6 @@ class LoginScreen extends StatelessWidget {
                             topLeft: Radius.circular(16.0),
                             bottomLeft: Radius.circular(16.0),
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 10.0,
-                              offset: Offset(0, 5),
-                            ),
-                          ],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
