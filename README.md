@@ -1,18 +1,20 @@
 # TheCorporation.space
 
-The program goal of this program is to facilitate the management of current corporation features like departments, divisions, roles, and add the early pitched feature of the influence system based on the Dragon Kill Point system.
-
-Some more tool are/will be built on the website to take advantage of those system and encourage participation and progression in The Corporation community and our joint venture to be the biggest corporation in the game.
-
-Feel free to head to the website https://thecorporation.space and join the community
+This program need python 3.10 and docker
 
 ## Installation step
 
 -  Install docker desktop: https://www.docker.com/products/docker-desktop
--  Create a .env file following the example and replace the values
 -  Run: docker compose up
 
+## Deploy step
+
+-  Install docker: https://docs.docker.com/engine/install/
+-  Connect local docker to remote: docker context create <server_name> --docker host=ssh://<username>@<remote.ip/domain>
+-  Select context: docker context use corp_server   
+-  Deploy: docker compose up
+
 ## Info
-Made by Cyber-Dreamer for The Corporation. Free to use and improve, only request is to give me credit for my work and support our community.
+Made by Cyber-Dreamer for The Corporation. Completely free, only request is to give me credit for my work.
 
 
