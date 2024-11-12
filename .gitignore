@@ -27,9 +27,6 @@ build/
 venv/
 *.venv/
 
-# Docker
-.dockerignore
-Dockerfile
 
 # Miscellaneous
 todo.txt

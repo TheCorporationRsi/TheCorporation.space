@@ -1,0 +1,79 @@
+# Byte-compiled / optimized / DLL files
+**/*.py[cod]
+**/__pycache__/
+**/*.so
+**/*.pyd
+
+# Distribution / packaging
+**/.Python
+**/env/
+**/venv/
+**/ENV/
+**/env.bak/
+**/venv.bak/
+
+# Data files
+**/*.db
+**/*.db-*
+**/*.log
+**/*.csv
+**/*.sqlite3
+
+# Logs
+**/*.log
+
+# Unit test / coverage reports
+**/htmlcov/
+**/.tox/
+**/.nox/
+**/.coverage
+**/.coverage.*
+**/.cache
+**/nosetests.xml
+**/coverage.xml
+**/*.cover
+**/*.py,cover
+**/.hypothesis/
+
+# Jupyter Notebook
+**/.ipynb_checkpoints
+
+# pyenv
+**/.python-version
+
+# mypy
+**/.mypy_cache/
+**/.dmypy.json
+**/dmypy.json
+
+# Pyre
+**/.pyre/
+
+# Environments
+**/*.venv
+
+# IDEs and editors
+**/.idea/
+**/.vscode/
+**/*.swp
+**/*.swo
+
+# macOS
+**/.DS_Store
+
+# Windows
+**/Thumbs.db
+**/ehthumbs.db
+**/Desktop.ini
+
+# Project specific
+**/instance/
+**/webapp.egg-info/
+**/*.zip
+**/Modern/
+**/react_starter/
+**/todo.txt
+**/*report.json
+
+**/bot.lock
+
