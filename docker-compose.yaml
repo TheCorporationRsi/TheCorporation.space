@@ -1,0 +1,95 @@
+name: corp_prod
+
+networks:
+  corp_secure:
+  corp_bot_net:
+  corp_cloudflared:
+  default:
+
+volumes:
+  postgres_data:
+
+
+services:
+
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"  # Expose PostgreSQL port to other Docker containers
+    networks:
+      - corp_secure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  
+  corp_system:
+    build: ./corp_flask
+    restart: always
+    expose:
+      - "5000"
+    environment:
+      APP_NAME: TheCorporation.space
+      FLASK_ENV: production
+      SECRET_KEY: ${SECRET_KEY}
+      CORS_SETTING: https://thecorporation.space
+      SQLALCHEMY_DATABASE_TEST_URI: ${SQLALCHEMY_DATABASE_TEST_URI}
+      SQLALCHEMY_DATABASE_URI_FUNDING: ${SQLALCHEMY_DATABASE_URI_FUNDING}
+      DISCORD_FLASK_API_KEY: ${DISCORD_FLASK_API_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      SQLALCHEMY_DATABASE_URI: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    depends_on:
+      - db
+    networks:
+      - corp_secure
+      - corp_bot_net
+      - corp_cloudflared
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    command: bash -c "gunicorn -k gthread -w 1 --threads 4 -b 0.0.0.0:5000 --preload app:app"
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    volumes:
+      - ./cloudflared:/etc/cloudflared
+    networks:
+      - corp_cloudflared
+
+  dashboard:
+        build: ./flutter_dashboard
+        restart: always
+        ports:
+            - "<7042>:<FLUTTER RUNNING PORT>"
+        command: >
+            sh -c "flutter pub get && flutter run -d web-server --web-renderer=auto --web-port <FLUTTER RUNNING PORT> --web-hostname 0.0.0.0"
+        networks:
+          - corp_cloudflared
+
+  discord_bot:
+    restart: always
+    build: ./discord_bot
+    environment:
+      FLASK_APP_URL: http://@corp_system:5000
+      DISCORD_BOT_TOKEN: ${DISCORD_BOT_TOKEN}
+      DISCORD_FLASK_API_KEY: ${DISCORD_FLASK_API_KEY}
+      DISCORD_GUILD_ID: ${DISCORD_GUILD_ID}
+    networks:
+      - corp_bot_net
+    depends_on:
+      - corp_system
+    command: bash -c "python3 bot.py" 
