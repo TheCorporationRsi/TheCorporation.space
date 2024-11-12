@@ -1,1 +1,0 @@
-from .funding import Funding
