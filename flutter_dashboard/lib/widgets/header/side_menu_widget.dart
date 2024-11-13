@@ -21,7 +21,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      color: const Color(0xFF171821),
+      color: cardBackgroundColor,
       child: Column(
         children: [
           Image.asset(

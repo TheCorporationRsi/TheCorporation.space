@@ -4,8 +4,8 @@ import 'package:flutter_dashboard/const/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                             color: primaryColor, // Set the background color
                             child: Center( // Center the text
                               child: Text(
-                                'LOGIN',
+                                'REGISTER',
                                 style: GoogleFonts.orbitron(
                                   textStyle: TextStyle(
                                     color: secondaryColor,
@@ -85,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                                       const SizedBox(height: 50.0), // Added padding on top of the form
                                       TextField(
                                         decoration: const InputDecoration(
-                                          labelText: 'RSI handle', // Changed from 'Username' to 'RSI Handle'
+                                          labelText: 'RSI handle',
                                           labelStyle: TextStyle(color: Colors.white),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(color: Colors.white),
@@ -114,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                                       const SizedBox(height: 16.0),
                                       TextField(
                                         decoration: const InputDecoration(
-                                          labelText: 'OTP (optional)',
+                                          labelText: 'Confirm Password',
                                           labelStyle: TextStyle(color: Colors.white),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(color: Colors.white),
@@ -123,6 +123,7 @@ class LoginScreen extends StatelessWidget {
                                             borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
                                           ),
                                         ),
+                                        obscureText: true,
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       const SizedBox(height: 32.0), // Increased margin
@@ -130,7 +131,7 @@ class LoginScreen extends StatelessWidget {
                                         width: double.infinity,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            // Handle login logic here
+                                            // Handle registration logic here
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: backgroundColor , // Set background color to black
@@ -150,7 +151,7 @@ class LoginScreen extends StatelessWidget {
                                           child: const FittedBox(
                                             fit: BoxFit.scaleDown,
                                             child: Text(
-                                              'Login',
+                                              'Register',
                                               style: TextStyle(color: Colors.white), // ensure text color is white
                                             ),
                                           ),
@@ -163,7 +164,7 @@ class LoginScreen extends StatelessWidget {
                                           Expanded(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                Navigator.pushNamed(context, '/register'); // Navigate to registration page
+                                                Navigator.pushNamed(context, '/login'); // Navigate to login page
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: backgroundColor, // Set background color to black
@@ -183,7 +184,7 @@ class LoginScreen extends StatelessWidget {
                                                 overlayColor: Colors.grey, // Set color to grey on hover and click
                                               ),
                                               child: Text(
-                                                'Register',
+                                                'Login',
                                                 style: TextStyle(color: Colors.white), // ensure text color is white
                                               ),
                                             ),
@@ -212,7 +213,7 @@ class LoginScreen extends StatelessWidget {
                                                 overlayColor: Colors.grey, // Set color to grey on hover and click
                                               ),
                                               child: Text(
-                                                'Forgot Password?',
+                                                'Need help?',
                                                 style: TextStyle(color: Colors.white), // ensure text color is white
                                               ),
                                             ),
@@ -260,9 +261,9 @@ class LoginScreen extends StatelessWidget {
                             child: Align( // Align the text to the left
                               alignment: Alignment.centerLeft,
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 50.0), // Add padding to the left
+                                padding: const EdgeInsets.only(left: 20.0), // Add padding to the left
                                 child: Text(
-                                  'LOGIN',
+                                  'REGISTER',
                                   style: GoogleFonts.orbitron(
                                     textStyle: TextStyle(
                                       color: secondaryColor,
@@ -306,7 +307,7 @@ class LoginScreen extends StatelessWidget {
 
                                 TextField(
                                   decoration: const InputDecoration(
-                                    labelText: 'RSI handle', // Changed from 'Username' to 'RSI Handle'
+                                    labelText: 'RSI handle',
                                     labelStyle: TextStyle(color: Colors.white),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(color: Colors.white),
@@ -335,7 +336,7 @@ class LoginScreen extends StatelessWidget {
                                 const SizedBox(height: 16.0),
                                 TextField(
                                   decoration: const InputDecoration(
-                                    labelText: 'OTP (optional)',
+                                    labelText: 'Confirm Password',
                                     labelStyle: TextStyle(color: Colors.white),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(color: Colors.white),
@@ -344,6 +345,7 @@ class LoginScreen extends StatelessWidget {
                                       borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
                                     ),
                                   ),
+                                  obscureText: true,
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 const SizedBox(height: 32.0), // Increased margin
@@ -351,7 +353,7 @@ class LoginScreen extends StatelessWidget {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      // Handle login logic here
+                                      // Handle registration logic here
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: backgroundColor, // Set background color to black
@@ -371,7 +373,7 @@ class LoginScreen extends StatelessWidget {
                                     child: const FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        'Login',
+                                        'Register',
                                         style: TextStyle(color: Colors.white), // ensure text color is white
                                       ),
                                     ),
@@ -384,7 +386,7 @@ class LoginScreen extends StatelessWidget {
                                     Expanded(
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          Navigator.pushNamed(context, '/register'); // Navigate to registration page
+                                          Navigator.pushNamed(context, '/login'); // Navigate to login page
                                         },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: backgroundColor, // Set background color to black
@@ -404,7 +406,7 @@ class LoginScreen extends StatelessWidget {
                                           overlayColor: Colors.grey, // Set color to grey on hover and click
                                         ),
                                         child: Text(
-                                          'Register',
+                                          'Login',
                                           style: TextStyle(color: Colors.white), // ensure text color is white
                                         ),
                                       ),
@@ -433,7 +435,7 @@ class LoginScreen extends StatelessWidget {
                                           overlayColor: Colors.grey, // Set color to grey on hover and click
                                         ),
                                         child: Text(
-                                          'Reset Password?',
+                                          'Need help?',
                                           style: TextStyle(color: Colors.white), // ensure text color is white
                                         ),
                                       ),
