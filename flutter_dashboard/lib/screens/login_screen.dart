@@ -10,6 +10,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDesktop = Responsive.isDesktop(context);
+    final TextEditingController handleController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
       // Removed the AppBar
       body: Stack(
@@ -84,6 +87,7 @@ class LoginScreen extends StatelessWidget {
                                     children: <Widget>[
                                       const SizedBox(height: 50.0), // Added padding on top of the form
                                       TextField(
+                                        controller: handleController,
                                         decoration: const InputDecoration(
                                           labelText: 'RSI handle', // Changed from 'Username' to 'RSI Handle'
                                           labelStyle: TextStyle(color: Colors.white),
@@ -98,6 +102,7 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 16.0),
                                       TextField(
+                                        controller: passwordController,
                                         decoration: const InputDecoration(
                                           labelText: 'Password',
                                           labelStyle: TextStyle(color: Colors.white),
@@ -130,7 +135,11 @@ class LoginScreen extends StatelessWidget {
                                         width: double.infinity,
                                         child: ElevatedButton(
                                           onPressed: () {
-                                            // Handle login logic here
+                                            if (handleController.text == 'test' && passwordController.text == 'test') {
+                                              Navigator.pushNamed(context, '/dashboard');
+                                            } else {
+                                              // Show error message or handle invalid credentials
+                                            }
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: backgroundColor , // Set background color to black
@@ -305,6 +314,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
 
                                 TextField(
+                                  controller: handleController,
                                   decoration: const InputDecoration(
                                     labelText: 'RSI handle', // Changed from 'Username' to 'RSI Handle'
                                     labelStyle: TextStyle(color: Colors.white),
@@ -319,6 +329,7 @@ class LoginScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 16.0),
                                 TextField(
+                                  controller: passwordController,
                                   decoration: const InputDecoration(
                                     labelText: 'Password',
                                     labelStyle: TextStyle(color: Colors.white),
@@ -351,7 +362,11 @@ class LoginScreen extends StatelessWidget {
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      // Handle login logic here
+                                      if (handleController.text == 'test' && passwordController.text == 'test') {
+                                        Navigator.pushNamed(context, '/dashboard');
+                                      } else {
+                                        // Show error message or handle invalid credentials
+                                      }
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: backgroundColor, // Set background color to black
