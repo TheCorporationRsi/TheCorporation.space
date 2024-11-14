@@ -2,543 +2,72 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_dashboard/widgets/security/security_form_widget.dart'; // Ensure this path is correct
+import 'package:flutter_dashboard/widgets/security/security_module_widget.dart';
 import 'dart:ui';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final isDesktop = Responsive.isDesktop(context);
-    final TextEditingController handleController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+  _LoginScreenState createState() => _LoginScreenState();
+}
 
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+  final TextEditingController handleController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController OTPController = TextEditingController();
+
+  final GlobalKey<SecurityFormWidgetState> _securityFormKey = GlobalKey<SecurityFormWidgetState>();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      // Removed the AppBar
-      body: Stack(
+        body: Stack(
         children: [
           // Background image
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/login_background.jpg'), // Set your background image here
+                image: AssetImage(
+                    'assets/images/login_background.jpg'), // Set your background image here
                 fit: BoxFit.cover,
-                alignment: Alignment.centerRight, // Start the background image from the right
+                alignment: Alignment
+                    .centerRight, // Start the background image from the right
               ),
             ),
           ),
           // Foreground content
-          Center(
-            child: isDesktop
-                ? Stack(
-                    children: [
-                      // Title container under the ClipPath
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: ClipPath(
-                          clipper: TitleClipperDesktop(),
-                          child: Container(
-                            width: 385.0, // Half the length of the container
-                            height: 0.15* 420 -10, // 15% of the height of the container (420.0 * 0.15)
-                            color: primaryColor, // Set the background color
-                            child: Center( // Center the text
-                              child: Text(
-                                'LOGIN',
-                                style: GoogleFonts.orbitron(
-                                  textStyle: TextStyle(
-                                    color: secondaryColor,
-                                    fontSize: 28.0, // Make the text bigger
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ClipPath(
-                        clipper: FuturisticClipperDesktop(),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                          child: Container(
-                            width: 800.0,
-                            height: 420.0,
-                            decoration: BoxDecoration(
-                              color: cardBackgroundColor,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 20,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: <Widget>[
-                                Container(
-                                  width: 400.0,
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      const SizedBox(height: 50.0), // Added padding on top of the form
-                                      TextField(
-                                        controller: handleController,
-                                        decoration: const InputDecoration(
-                                          labelText: 'RSI handle', // Changed from 'Username' to 'RSI Handle'
-                                          labelStyle: TextStyle(color: Colors.white),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
-                                          ),
-                                        ),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      TextField(
-                                        controller: passwordController,
-                                        decoration: const InputDecoration(
-                                          labelText: 'Password',
-                                          labelStyle: TextStyle(color: Colors.white),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
-                                          ),
-                                        ),
-                                        obscureText: true,
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      const SizedBox(height: 16.0),
-                                      TextField(
-                                        decoration: const InputDecoration(
-                                          labelText: 'OTP (optional)',
-                                          labelStyle: TextStyle(color: Colors.white),
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.white),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
-                                          ),
-                                        ),
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      const SizedBox(height: 32.0), // Increased margin
-                                      SizedBox(
-                                        width: double.infinity,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            if (handleController.text == 'test' && passwordController.text == 'test') {
-                                              Navigator.pushNamed(context, '/dashboard');
-                                            } else {
-                                              // Show error message or handle invalid credentials
-                                            }
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: backgroundColor , // Set background color to black
-                                            textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 30.0,
-                                              fontWeight: FontWeight.bold, // make text bold
-                                            ), // text color and size
-                                            padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0), // button size
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.zero, // remove rounded corners
-                                            ),
-                                            elevation: 10.0, // Add elevation for 3D effect
-                                            shadowColor: Colors.black, // Set shadow color
-                                            overlayColor: Colors.grey, // Set color to grey on hover and click
-                                          ),
-                                          child: const FittedBox(
-                                            fit: BoxFit.scaleDown,
-                                            child: Text(
-                                              'Login',
-                                              style: TextStyle(color: Colors.white), // ensure text color is white
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16.0), // Add spacing between button and links
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.pushNamed(context, '/register'); // Navigate to registration page
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: backgroundColor, // Set background color to black
-                                                textStyle: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.bold, // make text bold
-                                                ), // text color and size
-                                                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), // button size
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomLeft: Radius.circular(10.0), // Add radius to bottom left corner
-                                                  ),
-                                                ),
-                                                elevation: 10.0, // Add elevation for 3D effect
-                                                shadowColor: Colors.black, // Set shadow color
-                                                overlayColor: Colors.grey, // Set color to grey on hover and click
-                                              ),
-                                              child: Text(
-                                                'Register',
-                                                style: TextStyle(color: Colors.white), // ensure text color is white
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 16.0), // Add spacing between buttons
-                                          Expanded(
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                // Navigate to reset password page
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: backgroundColor, // Set background color to black
-                                                textStyle: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.bold, // make text bold
-                                                ), // text color and size
-                                                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), // button size
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.only(
-                                                    bottomRight: Radius.circular(10.0), // Add radius to top right corner
-                                                  ),
-                                                ),
-                                                elevation: 10.0, // Add elevation for 3D effect
-                                                shadowColor: Colors.black, // Set shadow color
-                                                overlayColor: Colors.grey, // Set color to grey on hover and click
-                                              ),
-                                              child: Text(
-                                                'Forgot Password?',
-                                                style: TextStyle(color: Colors.white), // ensure text color is white
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(16.0),
-                                    bottomRight: Radius.circular(16.0),
-                                  ),
-                                  child: Container(
-                                      width: 400.0,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0), // Add padding around the logo
-                                        child: Image.asset(
-                                          'assets/logo/corp_logo.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                : Stack(
-                    children: [
-                      // Title container under the ClipPath
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        child: ClipPath(
-                          clipper: TitleClipperMobile(),
-                          child: Container(
-                            width: 0.7 * 300 - 10, // Adjust the width as needed
-                            height: 0.1 * 520.0 - 8, // Adjust the height as needed
-                            color: primaryColor, // Set the background color
-                            child: Align( // Align the text to the left
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 50.0), // Add padding to the left
-                                child: Text(
-                                  'LOGIN',
-                                  style: GoogleFonts.orbitron(
-                                    textStyle: TextStyle(
-                                      color: secondaryColor,
-                                      fontSize: 22.0, // Make the text bigger
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      ClipPath(
-                        clipper: FuturisticClipperMobile(),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16.0),
-                          child: Container(
-                            width: 300.0,
-                            height: 520.0, // Increased height to fit the login button
-                            padding: const EdgeInsets.all(16.0), // Reduced padding around the logo
-                            decoration: BoxDecoration(
-                              color: cardBackgroundColor,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 10.0,
-                                  offset: Offset(0, 5),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const SizedBox(height: 50.0), // Added padding on top of the form
-                                Image.asset(
-                                  'assets/logo/corp_logo.png',
-                                  fit: BoxFit.cover,
-                                  height: 120.0, // Adjust the height to make the logo bigger
-                                ),
-
-                                TextField(
-                                  controller: handleController,
-                                  decoration: const InputDecoration(
-                                    labelText: 'RSI handle', // Changed from 'Username' to 'RSI Handle'
-                                    labelStyle: TextStyle(color: Colors.white),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
-                                    ),
-                                  ),
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                const SizedBox(height: 16.0),
-                                TextField(
-                                  controller: passwordController,
-                                  decoration: const InputDecoration(
-                                    labelText: 'Password',
-                                    labelStyle: TextStyle(color: Colors.white),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
-                                    ),
-                                  ),
-                                  obscureText: true,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                const SizedBox(height: 16.0),
-                                TextField(
-                                  decoration: const InputDecoration(
-                                    labelText: 'OTP (optional)',
-                                    labelStyle: TextStyle(color: Colors.white),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.yellow), // Change border color to yellow on focus
-                                    ),
-                                  ),
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                const SizedBox(height: 32.0), // Increased margin
-                                SizedBox(
-                                  width: double.infinity,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      if (handleController.text == 'test' && passwordController.text == 'test') {
-                                        Navigator.pushNamed(context, '/dashboard');
-                                      } else {
-                                        // Show error message or handle invalid credentials
-                                      }
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: backgroundColor, // Set background color to black
-                                      textStyle: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 30.0,
-                                        fontWeight: FontWeight.bold, // make text bold
-                                      ), // text color and size
-                                      padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0), // button size
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero, // remove rounded corners
-                                      ),
-                                      elevation: 10.0, // Add elevation for 3D effect
-                                      shadowColor: Colors.black, // Set shadow color
-                                      overlayColor: Colors.grey, // Set color to grey on hover and click
-                                    ),
-                                    child: const FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        'Login',
-                                        style: TextStyle(color: Colors.white), // ensure text color is white
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 16.0), // Add spacing between button and links
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(context, '/register'); // Navigate to registration page
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: backgroundColor, // Set background color to black
-                                          textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.bold, // make text bold
-                                          ), // text color and size
-                                          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), // button size
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(10.0), // Add radius to bottom left corner
-                                            ),
-                                          ),
-                                          elevation: 10.0, // Add elevation for 3D effect
-                                          shadowColor: Colors.black, // Set shadow color
-                                          overlayColor: Colors.grey, // Set color to grey on hover and click
-                                        ),
-                                        child: Text(
-                                          'Register',
-                                          style: TextStyle(color: Colors.white), // ensure text color is white
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16.0), // Add spacing between buttons
-                                    Expanded(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          // Navigate to reset password page
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: backgroundColor, // Set background color to black
-                                          textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.bold, // make text bold
-                                          ), // text color and size
-                                          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0), // button size
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.only(
-                                              bottomRight: Radius.circular(10.0), // Add radius to top right corner
-                                            ),
-                                          ),
-                                          elevation: 10.0, // Add elevation for 3D effect
-                                          shadowColor: Colors.black, // Set shadow color
-                                          overlayColor: Colors.grey, // Set color to grey on hover and click
-                                        ),
-                                        child: Text(
-                                          'Reset Password?',
-                                          style: TextStyle(color: Colors.white), // ensure text color is white
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-          ),
-        ],
+        SecurityFormWidget(
+        key: _securityFormKey,
+        formTitle: 'LOGIN',
+        controller1: handleController,
+        controller2: passwordController,
+        controller3: OTPController,
+        textFieldTitle1: 'RSI handle',
+        textFieldTitle2: 'Password',
+        textFieldTitle3: 'OTP (optional)',
+        buttonTitle1: 'Login',
+        buttonTitle2: 'Register',
+        buttonTitle3: 'Forgot Password?',
+        buttonAction1: () {
+          if (handleController.text == 'test' && passwordController.text == 'test') {
+            // Proceed with login
+            _securityFormKey.currentState?.showError('This is an error message');
+          } else {
+            // Show error message
+            _securityFormKey.currentState?.showError('This is not an error message');
+      
+          }
+        },
+        buttonAction2: () {
+          Navigator.pushNamed(context, '/register');
+        },
+        buttonAction3: () {
+          // Handle forgot password action
+        },
       ),
-    );
+        ],
+    ));
   }
-}
-
-class FuturisticClipperDesktop extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.moveTo(0, size.height * 0.15);
-    path.lineTo(size.width * 0.5 - size.height * 0.15, size.height * 0.15);
-    path.lineTo(size.width * 0.5, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height *0.8);
-    path.lineTo(size.width - size.height * 0.2, size.height);
-     path.lineTo(0, size.height);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-class TitleClipperDesktop extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.moveTo(size.height * 0.10, 0);
-    path.quadraticBezierTo(0, 0, 0, size.height * 0.10); // Add a curve to the top left corner
-    path.lineTo(0, size.height);
-    path.lineTo(size.width - size.height, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-
-class FuturisticClipperMobile extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.moveTo(0, size.height * 0.1);
-    path.lineTo(size.width * 0.7 - size.height * 0.1, size.height * 0.1);
-    path.lineTo(size.width * 0.7, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
-
-
-
-class TitleClipperMobile extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.moveTo(size.height * 0.2, 0);
-    path.quadraticBezierTo(0, 0, 0, size.height * 0.2); // Add a curve to the top left corner
-    path.lineTo(0, size.height);
-    path.lineTo(size.width - size.height, size.height);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
