@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:ui';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class SecurityModuleWidget extends StatefulWidget {
   final Column DesktoColumn;
@@ -79,15 +79,17 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                           color: primaryColor, // Set the background color
                           child: Center(
                             // Center the text
-                            child: Text(
+                            child: AutoSizeText(
                               widget.formTitle,
                               style: GoogleFonts.orbitron(
                                 textStyle: TextStyle(
                                   color: secondaryColor,
-                                  fontSize: 28.0, // Make the text bigger
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
+                              maxLines: 1,
+                              minFontSize: 25,
+                              maxFontSize: 28,
                             ),
                           ),
                         ),
@@ -162,22 +164,27 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                         ),
                         child: Container(
                           width: 0.7 * 300 - 10, // Adjust the width as needed
-                          height: 0.1 * 520.0 - 8, // Adjust the height as needed
+                          height:
+                              0.1 * 520.0 - 8, // Adjust the height as needed
                           color: primaryColor, // Set the background color
                           child: Align(
-                            // Align the text to the left
-                            alignment: Alignment.centerLeft,
+                            alignment: Alignment.center,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 50.0), // Add padding to the left
-                              child: Text(
+                              padding: const EdgeInsets.only(
+                                right:  0.1 * 520.0 - 20,
+                              ),
+                              child: AutoSizeText(
                                 widget.formTitle,
                                 style: GoogleFonts.orbitron(
                                   textStyle: TextStyle(
                                     color: secondaryColor,
-                                    fontSize: 22.0, // Make the text bigger
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                                maxLines: 1,
+                                minFontSize: 18.0,
+                                maxFontSize: 28.0, // Increased maxFontSize to allow for larger text
+                                stepGranularity: 1.0, // Added stepGranularity for finer control over text size
                               ),
                             ),
                           ),
@@ -191,8 +198,10 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                       borderRadius: BorderRadius.circular(16.0),
                       child: Container(
                         width: 300.0,
-                        height: 520.0, // Increased height to fit the login button
-                        padding: const EdgeInsets.all(16.0), // Reduced padding around the logo
+                        height:
+                            520.0, // Increased height to fit the login button
+                        padding: const EdgeInsets.all(
+                            16.0), // Reduced padding around the logo
                         decoration: BoxDecoration(
                           color: cardBackgroundColor,
                           boxShadow: [

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/const/constant.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dashboard/widgets/security/security_form_widget.dart'; // Ensure this path is correct
-import 'package:flutter_dashboard/widgets/security/security_module_widget.dart';
-import 'dart:ui';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -53,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         buttonAction1: () {
           if (handleController.text == 'test' && passwordController.text == 'test') {
             // Proceed with login
-            _securityFormKey.currentState?.showError('This is an error message');
+            Navigator.pushNamed(context, '/verification');
           } else {
             // Show error message
             _securityFormKey.currentState?.showError('This is not an error message');

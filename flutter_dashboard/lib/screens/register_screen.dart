@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/const/constant.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dashboard/widgets/security/security_form_widget.dart'; // Ensure this path is correct
-import 'dart:ui';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -69,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen>
             Navigator.pushNamed(context, '/login');
           },
           buttonAction3: () {
-            // Handle forgot password action
+            launchUrl(Uri.parse('https://discord.gg/thecorporation'));
           },
         ),
       ],

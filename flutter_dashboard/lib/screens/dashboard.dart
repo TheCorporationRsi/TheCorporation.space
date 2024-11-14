@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/dashboard_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_widget.dart';
+import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
-import 'package:flutter_dashboard/widgets/header/summary_widget.dart';
-import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -12,13 +13,19 @@ class MainScreen extends StatefulWidget {
   _MainScreenState createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin {
+class _MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
   int? selectedSubIndex;
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _fadeAnimation;
   late Widget currentPage;
+
+  final GlobalKey<ScaffoldState> _headerScaffoldKey =
+      GlobalKey<ScaffoldState>();
+  final ValueNotifier<bool> _isSideMenuVisible = ValueNotifier<bool>(true);
+  final ValueNotifier<bool> _isRightSideMenuVisible = ValueNotifier<bool>(true);
 
   @override
   void initState() {
@@ -63,8 +70,9 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
   }
 
   Widget getSelectedPage() {
-    print('Selected Index: $selectedIndex, Selected SubIndex: $selectedSubIndex');
-    
+    print(
+        'Selected Index: $selectedIndex, Selected SubIndex: $selectedSubIndex');
+
     if (selectedSubIndex != null) {
       switch (selectedIndex) {
         case 0:
@@ -103,48 +111,173 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     return const DashboardWidget();
   }
 
+  void toggleSideMenu() {
+    _isSideMenuVisible.value = !_isSideMenuVisible.value;
+  }
+
+  void toggleRightSideMenu() {
+    _isRightSideMenuVisible.value = !_isRightSideMenuVisible.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDesktop = Responsive.isDesktop(context);
     return Scaffold(
+      key: _headerScaffoldKey,
       drawer: !isDesktop
-          ? SizedBox(
-              width: 250,
-              child: SideMenuWidget(onMenuItemSelected: onMenuItemSelected),
-            )
-          : null,
-      endDrawer: Responsive.isMobile(context)
-          ? SizedBox(
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: const SummaryWidget(),
+          ? Drawer(
+              child: Expanded(
+                flex: 2,
+                child: SideMenuWidget(onMenuItemSelected: onMenuItemSelected),
+              ),
             )
           : null,
       body: SafeArea(
         child: Row(
           children: [
             if (isDesktop)
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  child: SideMenuWidget(onMenuItemSelected: onMenuItemSelected),
-                ),
+              ValueListenableBuilder<bool>(
+                valueListenable: _isSideMenuVisible,
+                builder: (context, isVisible, child) {
+                  return isVisible
+                      ? Expanded(
+                          flex: 2,
+                          child: SideMenuWidget(
+                              onMenuItemSelected: onMenuItemSelected),
+                        )
+                      : SizedBox.shrink();
+                },
               ),
             Expanded(
               flex: 7,
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: SlideTransition(
-                  position: _offsetAnimation,
-                  child: currentPage,
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: backgroundColor,
+                  leadingWidth: 110,
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(children: [
+                      ValueListenableBuilder<bool>(
+                        valueListenable: _isSideMenuVisible,
+                        builder: (context, isVisible, child) {
+                          return isVisible
+                              ? SizedBox.shrink()
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: Image.asset(
+                                    'assets/logo/corp_logo.png', // Replace with your logo asset path
+                                    height: 40,
+                                    width: 40, // Add width to ensure the logo is not smaller
+                                    fit: BoxFit
+                                        .cover, // Ensure the logo fits within the given dimensions
+                                  ),
+                                );
+                        },
+                      ),
+                      if (!isDesktop)
+                        InkWell(
+                          onTap: () =>
+                              _headerScaffoldKey.currentState?.openDrawer(),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              bottom: 20
+                            ),
+                            child: Icon(
+                              Icons.menu,
+                              color: Colors.grey,
+                              size: 25,
+                            ),
+                          ),
+                        )
+                      else
+                        InkWell(
+                          onTap: toggleSideMenu,
+                          child: ValueListenableBuilder<bool>(
+                            valueListenable: _isSideMenuVisible,
+                            builder: (context, isVisible, child) {
+                              return Icon(
+                                isVisible ? Icons.arrow_back : Icons.menu,
+                                color: Colors.white,
+                                size: 25,
+                              );
+                            },
+                          ),
+                        ),
+                    ]),
+                  ),
+                  title: Padding(
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      bottom: 20
+                    ),
+                    child: const Text('Dashboard'),
+                  ),
+                  actions: [
+                    if (!isDesktop)
+                      Padding(
+                        padding: const EdgeInsets.all(
+                            20), // Adjust the padding as needed
+                        child: InkWell(
+                          onTap: () =>
+                              _headerScaffoldKey.currentState?.openEndDrawer(),
+                          child: Icon(
+                              Icons.account_circle,
+                              color: Colors.white,
+                              size: 25,
+                            ),
+                        ),
+                      )
+                    else
+                      Padding(
+                        padding: const EdgeInsets.all(
+                            20), // Adjust the padding as needed
+                        child: InkWell(
+                          onTap: toggleRightSideMenu,
+                          child: ValueListenableBuilder<bool>(
+                            valueListenable: _isRightSideMenuVisible,
+                            builder: (context, isVisible, child) {
+                              return Icon(
+                                isVisible
+                                    ? Icons.arrow_forward
+                                    : Icons.account_circle,
+                                color: Colors.white,
+                                size: 25,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                body: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SlideTransition(
+                    position: _offsetAnimation,
+                    child: currentPage,
+                  ),
                 ),
               ),
             ),
             if (isDesktop)
-              Expanded(
-                flex: 3,
-                child: const SummaryWidget(),
+              ValueListenableBuilder<bool>(
+                valueListenable: _isRightSideMenuVisible,
+                builder: (context, isVisible, child) {
+                  return isVisible
+                      ? Expanded(
+                          flex: 3,
+                          child: ProfileWidget(),
+                        )
+                      : SizedBox.shrink();
+                },
               ),
           ],
+        ),
+      ),
+      endDrawer: Drawer(
+        child: SizedBox(
+          width: 250,
+          child: ProfileWidget(),
         ),
       ),
     );

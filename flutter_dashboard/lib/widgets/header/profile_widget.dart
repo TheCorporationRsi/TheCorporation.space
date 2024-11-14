@@ -4,8 +4,8 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/components/scheduled_w
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/summary_details.dart';
 import 'package:flutter/material.dart';
 
-class SummaryWidget extends StatelessWidget {
-  const SummaryWidget({super.key});
+class ProfileWidget extends StatelessWidget {
+  const ProfileWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
