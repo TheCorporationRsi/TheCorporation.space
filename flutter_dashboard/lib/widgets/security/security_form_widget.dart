@@ -18,6 +18,8 @@ class SecurityFormWidget extends StatefulWidget {
   final VoidCallback buttonAction1;
   final VoidCallback buttonAction2;
   final VoidCallback buttonAction3;
+  final List<String>? autofillHints1;
+  final List<String>? autofillHints2;
 
   const SecurityFormWidget({
     super.key,
@@ -34,6 +36,8 @@ class SecurityFormWidget extends StatefulWidget {
     required this.buttonAction1,
     required this.buttonAction2,
     required this.buttonAction3,
+    this.autofillHints1,
+    this.autofillHints2,
   });
 
   @override
@@ -54,58 +58,63 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
   Widget build(BuildContext context) {
     final formfield = <Widget>[
       // Added padding on top of the form
-      TextFormField(
-        controller: widget.controller1,
-        decoration: InputDecoration(
-          labelText:
-              widget.textFieldTitle1, // Changed from 'Username' to 'RSI Handle'
-          labelStyle: TextStyle(color: Colors.white),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.yellow), // Change border color to yellow on focus
-          ),
+      AutofillGroup(
+        child: Column(
+          children: [
+            TextFormField(
+              controller: widget.controller1,
+              decoration: InputDecoration(
+                labelText: widget.textFieldTitle1,
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow),
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+              onFieldSubmitted: (value) => widget.buttonAction1(),
+              autofillHints: widget.autofillHints1,
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              controller: widget.controller2,
+              decoration: InputDecoration(
+                labelText: widget.textFieldTitle2,
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow),
+                ),
+              ),
+              obscureText: true,
+              style: TextStyle(color: Colors.white),
+              onFieldSubmitted: (value) => widget.buttonAction1(),
+              autofillHints: widget.autofillHints2,
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              controller: widget.controller3,
+              decoration: InputDecoration(
+                labelText: widget.textFieldTitle3,
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow),
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+              onFieldSubmitted: (value) => widget.buttonAction1(),
+            ),
+          ],
         ),
-        style: TextStyle(color: Colors.white),
-        onFieldSubmitted: (value) => widget.buttonAction1(),
       ),
-      const SizedBox(height: 16.0),
-      TextFormField(
-        controller: widget.controller2,
-        decoration: InputDecoration(
-          labelText: widget.textFieldTitle2,
-          labelStyle: TextStyle(color: Colors.white),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.yellow), // Change border color to yellow on focus
-          ),
-        ),
-        obscureText: true,
-        style: TextStyle(color: Colors.white),
-        onFieldSubmitted: (value) => widget.buttonAction1(),
-      ),
-      const SizedBox(height: 16.0),
-      TextFormField(
-        decoration: InputDecoration(
-          labelText: widget.textFieldTitle3,
-          labelStyle: TextStyle(color: Colors.white),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.white),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-                color: Colors.yellow), // Change border color to yellow on focus
-          ),
-        ),
-        style: TextStyle(color: Colors.white),
-        onFieldSubmitted: (value) => widget.buttonAction1(),
-      ),
-      const SizedBox(height: 32.0), // Increased margin
+      const SizedBox(height: 32.0),
       SizedBox(
         width: double.infinity,
         child: ElevatedButton(

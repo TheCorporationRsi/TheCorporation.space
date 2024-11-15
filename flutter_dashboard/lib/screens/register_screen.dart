@@ -46,6 +46,8 @@ class _RegisterScreenState extends State<RegisterScreen>
           textFieldTitle1: 'RSI handle',
           textFieldTitle2: 'Password',
           textFieldTitle3: 'Confirm Password',
+          autofillHints1: [AutofillHints.username],
+          autofillHints2: [AutofillHints.password],
           buttonTitle1: 'Register',
           buttonTitle2: 'Login',
           buttonTitle3: 'Need Help?',

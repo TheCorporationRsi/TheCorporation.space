@@ -20,32 +20,65 @@ class ActivityDetailsCard extends StatelessWidget {
         mainAxisSpacing: 12.0,
       ),
       itemBuilder: (context, index) => CustomCard(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: Stack(
           children: [
-            Image.asset(
-              healthDetails.healthData[index].icon,
-              width: 30,
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15, bottom: 4),
-              child: Text(
-                healthDetails.healthData[index].value,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  healthDetails.healthData[index].title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            Text(
-              healthDetails.healthData[index].title,
-              style: const TextStyle(
-                fontSize: 13,
-                color: Colors.grey,
-                fontWeight: FontWeight.normal,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
+                child: Text(
+                  healthDetails.healthData[index].value,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  healthDetails.healthData[index].icon,
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    overlayColor: Colors.grey
+                  ),
+                  onPressed: () {
+                    // Add your onPressed code here!
+                  },
+                  child: const Text(
+                    'Details',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

@@ -16,7 +16,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   int selectedIndex = 0;
-  int? selectedSubIndex;
+  int? selectedSubIndex = 0;
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _fadeAnimation;
@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen>
         case 0:
           switch (selectedSubIndex) {
             case 0:
-              return const DashboardWidget();
+              return const InfluenceWidget();
             case 1:
               return const InfluenceWidget();
           }
@@ -152,11 +152,25 @@ class _MainScreenState extends State<MainScreen>
               flex: 7,
               child: Scaffold(
                 appBar: AppBar(
+                  surfaceTintColor: cardBackgroundColor,
                   backgroundColor: backgroundColor,
-                  leadingWidth: 110,
+                  foregroundColor: Colors.white,
+                  leadingWidth: _isSideMenuVisible.value ? 110 : 20,
                   leading: Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Row(children: [
+                      if (!isDesktop)
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Image.asset(
+                            'assets/logo/corp_logo.png', // Replace with your logo asset path
+                            height: 40,
+                            width:
+                                40, // Add width to ensure the logo is not smaller
+                            fit: BoxFit
+                                .cover, // Ensure the logo fits within the given dimensions
+                          ),
+                        ),
                       ValueListenableBuilder<bool>(
                         valueListenable: _isSideMenuVisible,
                         builder: (context, isVisible, child) {
@@ -167,7 +181,8 @@ class _MainScreenState extends State<MainScreen>
                                   child: Image.asset(
                                     'assets/logo/corp_logo.png', // Replace with your logo asset path
                                     height: 40,
-                                    width: 40, // Add width to ensure the logo is not smaller
+                                    width:
+                                        40, // Add width to ensure the logo is not smaller
                                     fit: BoxFit
                                         .cover, // Ensure the logo fits within the given dimensions
                                   ),
@@ -179,10 +194,7 @@ class _MainScreenState extends State<MainScreen>
                           onTap: () =>
                               _headerScaffoldKey.currentState?.openDrawer(),
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                              top: 20,
-                              bottom: 20
-                            ),
+                            padding: const EdgeInsets.only(top: 20, bottom: 20),
                             child: Icon(
                               Icons.menu,
                               color: Colors.grey,
@@ -207,10 +219,7 @@ class _MainScreenState extends State<MainScreen>
                     ]),
                   ),
                   title: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 20,
-                      bottom: 20
-                    ),
+                    padding: const EdgeInsets.only(top: 20, bottom: 20),
                     child: const Text('Dashboard'),
                   ),
                   actions: [
@@ -222,10 +231,10 @@ class _MainScreenState extends State<MainScreen>
                           onTap: () =>
                               _headerScaffoldKey.currentState?.openEndDrawer(),
                           child: Icon(
-                              Icons.account_circle,
-                              color: Colors.white,
-                              size: 25,
-                            ),
+                            Icons.account_circle,
+                            color: Colors.white,
+                            size: 25,
+                          ),
                         ),
                       )
                     else
@@ -252,10 +261,7 @@ class _MainScreenState extends State<MainScreen>
                 ),
                 body: FadeTransition(
                   opacity: _fadeAnimation,
-                  child: SlideTransition(
-                    position: _offsetAnimation,
-                    child: currentPage,
-                  ),
+                  child: currentPage,
                 ),
               ),
             ),

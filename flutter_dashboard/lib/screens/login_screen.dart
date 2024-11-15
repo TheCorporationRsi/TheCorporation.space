@@ -43,6 +43,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         textFieldTitle1: 'RSI handle',
         textFieldTitle2: 'Password',
         textFieldTitle3: 'OTP (optional)',
+        autofillHints1: [AutofillHints.username],
+        autofillHints2: [AutofillHints.password],
         buttonTitle1: 'Login',
         buttonTitle2: 'Register',
         buttonTitle3: 'Forgot Password?',

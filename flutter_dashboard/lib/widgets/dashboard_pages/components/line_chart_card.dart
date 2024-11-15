@@ -69,15 +69,15 @@ class LineChartCard extends StatelessWidget {
                 borderData: FlBorderData(show: false),
                 lineBarsData: [
                   LineChartBarData(
-                    color: selectionColor,
+                    color: secondaryColor,
                     barWidth: 2.5,
                     belowBarData: BarAreaData(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          selectionColor.withOpacity(0.5),
-                          Colors.transparent
+                          primaryColor.withOpacity(0.5),
+                          primaryColor.withOpacity(0)
                         ],
                       ),
                       show: true,
