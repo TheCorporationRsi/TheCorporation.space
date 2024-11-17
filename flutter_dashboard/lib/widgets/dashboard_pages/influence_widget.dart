@@ -5,8 +5,14 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_
 import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter/material.dart';
 
+
+
+
+
 class InfluenceWidget extends StatelessWidget {
   const InfluenceWidget({super.key});
+  
+
 
   @override
   Widget build(BuildContext context) {

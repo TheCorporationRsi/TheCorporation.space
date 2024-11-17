@@ -15,6 +15,8 @@ def user_departments():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_user_departments
     tags:
         - Structure
     responses:
@@ -54,6 +56,8 @@ def user_divisions():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_user_divisions
     tags:
         - Structure
     responses:

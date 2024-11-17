@@ -3,39 +3,48 @@ import 'package:flutter_dashboard/const/constant.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_dashboard/widgets/security/security_module_widget.dart';
 import 'dart:ui';
-import 'package:flutter/services.dart';
 
-class VerificationWidget extends StatefulWidget {
+class SecurityFormWidget extends StatefulWidget {
   final String formTitle;
-  final String token;
-  final String description;
+  final TextEditingController controller1;
+  final TextEditingController controller2;
+  final TextEditingController controller3;
   final String textFieldTitle1;
+  final String textFieldTitle2;
+  final String textFieldTitle3;
   final String buttonTitle1;
   final String buttonTitle2;
   final String buttonTitle3;
   final VoidCallback buttonAction1;
   final VoidCallback buttonAction2;
   final VoidCallback buttonAction3;
+  final List<String>? autofillHints1;
+  final List<String>? autofillHints2;
 
-  const VerificationWidget({
+  const SecurityFormWidget({
     super.key,
     required this.formTitle,
-    required this.token,
-    required this.description,
+    required this.controller1,
+    required this.controller2,
+    required this.controller3,
     required this.textFieldTitle1,
+    required this.textFieldTitle2,
+    required this.textFieldTitle3,
     required this.buttonTitle1,
     required this.buttonTitle2,
     required this.buttonTitle3,
     required this.buttonAction1,
     required this.buttonAction2,
     required this.buttonAction3,
+    this.autofillHints1,
+    this.autofillHints2,
   });
 
   @override
-  State<VerificationWidget> createState() => VerificationWidgetState();
+  State<SecurityFormWidget> createState() => SecurityFormWidgetState();
 }
 
-class VerificationWidgetState extends State<VerificationWidget> {
+class SecurityFormWidgetState extends State<SecurityFormWidget> {
   final GlobalKey<SecurityModuleWidgetState> _moduleKey =
       GlobalKey<SecurityModuleWidgetState>();
 
@@ -45,54 +54,67 @@ class VerificationWidgetState extends State<VerificationWidget> {
     });
   }
 
-  void _copyToken() {
-    Clipboard.setData(ClipboardData(text: widget.token));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Token copied to clipboard', style: TextStyle(color: Colors.white),), backgroundColor: backgroundColor),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    
     final formfield = <Widget>[
-      const SizedBox(height: 16.0),
-      AutoSizeText(
-        widget.description,
-        style: TextStyle(color: Colors.white, fontSize: 16.0),
-        textAlign: TextAlign.center, // Center align the text
-        maxLines: 4,
-      ),
-      const SizedBox(height: 16.0),
-      SelectionArea(
-        child: AutoSizeText(
-          widget.token,
-          style: TextStyle(color: secondaryColor, fontSize: 20.0),
-          maxLines: 1,
+      // Added padding on top of the form
+      AutofillGroup(
+        child: Column(
+          children: [
+            TextFormField(
+              controller: widget.controller1,
+              decoration: InputDecoration(
+                labelText: widget.textFieldTitle1,
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow),
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+              onFieldSubmitted: (value) => widget.buttonAction1(),
+              autofillHints: widget.autofillHints1,
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              controller: widget.controller2,
+              decoration: InputDecoration(
+                labelText: widget.textFieldTitle2,
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow),
+                ),
+              ),
+              obscureText: true,
+              style: TextStyle(color: Colors.white),
+              onFieldSubmitted: (value) => widget.buttonAction1(),
+              autofillHints: widget.autofillHints2,
+            ),
+            const SizedBox(height: 16.0),
+            TextFormField(
+              controller: widget.controller3,
+              decoration: InputDecoration(
+                labelText: widget.textFieldTitle3,
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.yellow),
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+              onFieldSubmitted: (value) => widget.buttonAction1(),
+            ),
+          ],
         ),
       ),
-
-      const SizedBox(height: 16.0),
-      ElevatedButton(
-        onPressed: _copyToken,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          textStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
-          ),
-          elevation: 10.0,
-          shadowColor: Colors.black,
-          overlayColor: Colors.grey,
-        ),
-        child: Text('Copy Token', style: TextStyle(color: Colors.white)),
-      ),
-      const SizedBox(height: 24.0),
+      const SizedBox(height: 32.0),
       SizedBox(
         width: double.infinity,
         child: ElevatedButton(

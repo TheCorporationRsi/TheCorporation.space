@@ -10,6 +10,7 @@ services:
 
   db:
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -37,7 +38,7 @@ services:
       APP_NAME: TheCorporation.space
       FLASK_ENV: development
       SECRET_KEY: ${SECRET_KEY}
-      CORS_SETTING: http://localhost:5000
+      CORS_SETTING: '*'
       SQLALCHEMY_DATABASE_TEST_URI: ${SQLALCHEMY_DATABASE_TEST_URI}
       SQLALCHEMY_DATABASE_URI_FUNDING: ${SQLALCHEMY_DATABASE_URI_FUNDING}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}

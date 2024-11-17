@@ -17,6 +17,8 @@ def transfer():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: send_tribute
     tags:
         - Influence System
     security: 

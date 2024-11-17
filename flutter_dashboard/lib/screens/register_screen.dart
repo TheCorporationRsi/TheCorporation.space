@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dashboard/widgets/security/security_form_widget.dart'; // Ensure this path is correct
+import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:url_launcher/url_launcher.dart';
 
 class RegisterScreen extends StatefulWidget {

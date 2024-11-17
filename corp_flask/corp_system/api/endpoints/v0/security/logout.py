@@ -9,10 +9,12 @@ from corp_system.controllers.security_manager import SecurityManager
 @api.route('/logout', methods=['POST'])
 @jwt_required()
 def logout():
-    """ Logout current user
+    """Logout current user
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: logout
     tags:
         - Security
     security: 

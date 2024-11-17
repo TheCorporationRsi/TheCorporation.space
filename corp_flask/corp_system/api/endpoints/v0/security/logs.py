@@ -13,6 +13,8 @@ def get_logs():
     """Get your logs
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_logs
     tags:
         - Security
     responses:

@@ -9,12 +9,13 @@ from corp_system.models import Inf_Rank
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 
 @api.route('/influence_system/ranks', methods=['GET'])
-@jwt_required(optional=True)
 def ranks():
     """List of all influence system ranks
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_ranks
     tags:
         - Influence System
     security: []
@@ -24,17 +25,19 @@ def ranks():
         content:
              application/json:
                 schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Corporateer
-                        required_lifetime_influence:
-                            type: integer
-                            example: 0
-                        weekly_amount:
-                            type: integer
-                            example: 50
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: Corporateer
+                            required_lifetime_influence:
+                                type: integer
+                                example: 0
+                            weekly_amount:
+                                type: integer
+                                example: 50
 
     """
     

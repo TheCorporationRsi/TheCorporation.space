@@ -11,7 +11,8 @@ class SideMenuWidget extends StatefulWidget {
   State<SideMenuWidget> createState() => _SideMenuWidgetState();
 }
 
-class _SideMenuWidgetState extends State<SideMenuWidget> with TickerProviderStateMixin {
+class _SideMenuWidgetState extends State<SideMenuWidget>
+    with TickerProviderStateMixin {
   int selectedIndex = 0;
   int? selectedSubIndex;
   int? hoveredIndex;
@@ -73,17 +74,23 @@ class _SideMenuWidgetState extends State<SideMenuWidget> with TickerProviderStat
             child: Container(
               margin: const EdgeInsets.symmetric(vertical: 5),
               decoration: BoxDecoration(
-                color: isSelected ? primaryColor : isHovered ? Colors.grey[800] : Colors.transparent,
+                color: isSelected
+                    ? primaryColor
+                    : isHovered
+                        ? Colors.grey[800]
+                        : Colors.transparent,
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  Icon(menu.icon, color: isSelected ? secondaryColor : Colors.white),
+                  Icon(menu.icon,
+                      color: isSelected ? secondaryColor : Colors.white),
                   const SizedBox(width: 10),
                   Text(
                     menu.title,
-                    style: TextStyle(color: isSelected ? secondaryColor : Colors.white),
+                    style: TextStyle(
+                        color: isSelected ? secondaryColor : Colors.white),
                   ),
                 ],
               ),
@@ -104,31 +111,46 @@ class _SideMenuWidgetState extends State<SideMenuWidget> with TickerProviderStat
                         final isSubHovered = hoveredSubIndex == subIndex;
 
                         return MouseRegion(
-                          onEnter: (_) => setState(() => hoveredSubIndex = subIndex),
+                          onEnter: (_) =>
+                              setState(() => hoveredSubIndex = subIndex),
                           onExit: (_) => setState(() => hoveredSubIndex = null),
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
                                 selectedSubIndex = subIndex;
                               });
-                              widget.onMenuItemSelected(index, subIndex: subIndex);
+                              widget.onMenuItemSelected(index,
+                                  subIndex: subIndex);
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(vertical: 5),
                               decoration: BoxDecoration(
-                                color: isSubSelected ? primaryColor : isSubHovered ? Colors.grey[800] : Colors.transparent,
+                                color: isSubSelected
+                                    ? primaryColor
+                                    : isSubHovered
+                                        ? Colors.grey[800]
+                                        : Colors.transparent,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: const EdgeInsets.all(10),
                               child: Row(
                                 children: [
-                                  Icon(Icons.subdirectory_arrow_right, color: isSubSelected ? secondaryColor : Colors.white), // Prefix icon
+                                  Icon(Icons.subdirectory_arrow_right,
+                                      color: isSubSelected
+                                          ? secondaryColor
+                                          : Colors.white), // Prefix icon
                                   const SizedBox(width: 10),
-                                  Icon(subMenu.icon, color: isSubSelected ? secondaryColor : Colors.white),
+                                  Icon(subMenu.icon,
+                                      color: isSubSelected
+                                          ? secondaryColor
+                                          : Colors.white),
                                   const SizedBox(width: 10),
                                   Text(
                                     subMenu.title,
-                                    style: TextStyle(color: isSubSelected ? secondaryColor : Colors.white),
+                                    style: TextStyle(
+                                        color: isSubSelected
+                                            ? secondaryColor
+                                            : Colors.white),
                                   ),
                                 ],
                               ),

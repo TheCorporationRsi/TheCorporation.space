@@ -13,6 +13,7 @@ def rsi_token():
     """Get RSI token
     This is using docstrings for specifications.
     ---
+    operationId: get_RSI_token
     tags:
         - Security
     responses:
@@ -44,9 +45,11 @@ def rsi_token():
 @api.route('/test_RSI_token', methods=['GET'])
 @jwt_required()
 def rsi_token_test():
-    """verify RSI token
+    """Verify RSI token
     This is using docstrings for specifications.
     ---
+    
+    operationId: verify_RSI_token
     tags:
         - Security
     responses:

@@ -1,6 +1,6 @@
-#from gevent import monkey
-#monkey.patch_all()
-#import eventlet
+# from gevent import monkey
+# monkey.patch_all()
+# import eventlet
 
 import os
 import json
@@ -38,86 +38,93 @@ def is_werkzeug_reloader_process():
     """Get werkzeug status."""
     return os.environ.get("WERKZEUG_RUN_MAIN") == "true"
 
+
 limiter = Limiter(key_func=get_remote_address, default_limits=["200 per minute"])
 jwt = JWTManager()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 scheduler = APScheduler()
-socketio = SocketIO(async_handlers=True, async_mode="threading", logger=True, engineio_logger=True)  # , ,logger=True, engineio_logger=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000']
-cors = CORS(resources={r"/api/*": {"origins": [os.environ["CORS_SETTING"]]}}, supports_credentials=True)
+socketio = SocketIO(
+    async_handlers=True, async_mode="threading", logger=True, engineio_logger=True
+)  # , ,logger=True, engineio_logger=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000']
+cors = CORS(
+    resources={r"/api/*": {"origins": [os.environ["CORS_SETTING"]]}},
+    supports_credentials=True,
+)
 swagger = Swagger(
     template={
         "info": {
             "title": "The Corporation API",
             "description": "The underlying structural system of The Corporation and influence system",
-            "contact": {
-                "responsibleOrganization": "The Corporation",
-                "responsibleDeveloper": "Cyber-Dreamer",
+            "termsOfService": "http://swagger.io/terms/",
+            "contact": {"email": "apiteam@swagger.io"},
+            "license": {
+                "name": "AGPL 3.0",
+                "url": "https://www.gnu.org/licenses/agpl-3.0.html",
             },
-            "termsOfService": None,
             "version": "0.0.1",
         },
+        "externalDocs": {
+            "description": "Find out more about Swagger",
+            "url": "http://swagger.io",
+        },
         "servers": [
-            {
-                "url": os.environ["CORS_SETTING"],
-                "description": "current_server"
-            }
+            {"url": os.environ["CORS_SETTING"], "description": "current_server"}
         ],
         "components": {
             "securitySchemes": {
-                "cookieAuth": { 
-                    "type": 'apiKey',
-                    "in": 'cookie',
-                    "name": 'corp_access_pass',
+                "cookieAuth": {
+                    "type": "apiKey",
+                    "in": "cookie",
+                    "name": "corp_access_pass",
                 },
-                "csrf": { 
-                    "name": 'X-CSRF-TOKEN',
-                    "type": 'apiKey',
-                    "in": 'header',
+                "csrf": {
+                    "name": "X-CSRF-TOKEN",
+                    "type": "apiKey",
+                    "in": "header",
                 },
-                "csrf_refresh": { 
-                    "name": 'X-CSRF-TOKEN',
-                    "type": 'apiKey',
-                    "in": 'header',
+                "csrf_refresh": {
+                    "name": "X-CSRF-TOKEN",
+                    "type": "apiKey",
+                    "in": "header",
                 },
-                 "api_key": {
-                    "name": 'X-API-Key',
-                    "type": 'apiKey',
-                    "in": 'header',
-                }
+                "api_key": {
+                    "name": "X-API-Key",
+                    "type": "apiKey",
+                    "in": "header",
+                },
             }
         },
-        "security": {
-            "cookieAuth": []
-        },
+        "security": [],
         "tags": [
             {
-            "name": "Influence System",
-            "description": "Endpoints of the influence system",
+                "name": "Influence System",
+                "description": "Endpoints of the influence system",
             },
             {
-            "name": "Security",
-            "description": "Endpoints for authentification",
+                "name": "Security",
+                "description": "Endpoints for authentification",
             },
             {
-            "name": "Information",
-            "description": "Endpoints of various CORP informations",
+                "name": "Information",
+                "description": "Endpoints of various CORP informations",
             },
             {
-            "name": "Structure",
-            "description": "Endpoints for the corporation structure",
+                "name": "Structure",
+                "description": "Endpoints for the corporation structure",
             },
             {
-            "name": "RSI Stats",
-            "description": "Endpoints for store RSI stats",
+                "name": "RSI Stats",
+                "description": "Endpoints for store RSI stats",
             },
-             {
-            "name": "Admin",
-            "description": "Endpoints to administer the website",
-            }
+            {
+                "name": "Admin",
+                "description": "Endpoints to administer the website",
+            },
         ],
     }
 )
+
 
 def create_app(config_class=Config.ProductionConfig):
 
@@ -170,14 +177,13 @@ def create_app(config_class=Config.ProductionConfig):
         from . import models
         from . import tasks
         from . import bot
-        
+
         # Start the scheduler if not in debug mode
         if not is_debug_mode() or is_werkzeug_reloader_process():
             scheduler.start()
 
         # Import the events after starting the scheduler
         from . import events
-
 
         # Import the bot controller and API blueprint
         # import .api.bots.controller as bot_controller
@@ -213,7 +219,7 @@ def create_app(config_class=Config.ProductionConfig):
             jwt_required,
         )
         from datetime import datetime, timezone, timedelta
-        
+
         @app.before_request
         def log_request_info():
             app.logger.info("Request Headers: %s", request.headers)

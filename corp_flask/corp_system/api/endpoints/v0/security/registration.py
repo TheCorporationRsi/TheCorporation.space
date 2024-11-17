@@ -15,6 +15,8 @@ def register():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: register
     tags:
         - Security
     security: []
@@ -37,20 +39,24 @@ def register():
     responses:
       200:
         description: Login was successfull
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: registration successfull!
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        msg:
+                            type: string
+                            example: registration successfull!
       400:
         description: An error happen with the info that you submitted
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: User already exist
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        msg:
+                            type: string
+                            example: User already exist
 
     """
     username = request.json.get("username")

@@ -16,6 +16,8 @@ def current_funding():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_current_funding
     tags:
         - RSI Stats
     security: []

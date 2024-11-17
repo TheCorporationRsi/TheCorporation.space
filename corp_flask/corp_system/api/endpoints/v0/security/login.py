@@ -14,6 +14,8 @@ def login():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: login
     tags:
         - Security
     security: []
@@ -34,27 +36,31 @@ def login():
                             type: integer
                             example: 12342
     responses:
-      200:
-        description: Login was successfull
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: Login successfull!
-        headers:
-            Set-Cookie:
-              schema:
-                type: string
-                example: corp_access_pass=abcde12345; Path=/; HttpOnly
-      400:
-        description: An error happen with the info that you submitted
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: User not found
+        200:
+            description: Login was successfull
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Login successfull!
+            headers:
+                Set-Cookie:
+                    schema:
+                        type: string
+                        example: corp_access_pass=abcde12345; Path=/; HttpOnly
+        400:
+            description: An error happen with the info that you submitted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: User not found
 
     """
     username = request.json.get("username")

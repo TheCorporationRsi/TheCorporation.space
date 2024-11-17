@@ -15,6 +15,7 @@ services:
 
   db:
     image: postgres:13
+    restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}

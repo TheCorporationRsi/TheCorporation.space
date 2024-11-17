@@ -13,6 +13,8 @@ def pasword_change():
     """Change password
     This is using docstrings for specifications.
     ---
+    
+    operationId: change_password
     tags:
         - Security
     security: 

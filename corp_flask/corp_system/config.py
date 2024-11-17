@@ -21,7 +21,7 @@ class Config_Model(ABC):
     GEVENT_SUPPORT = True
 
     SWAGGER = {
-        "openapi": "3.0.0",
+        "openapi": "3.0.2",
         "specs": [
             {
                 "endpoint": "/api/specs",

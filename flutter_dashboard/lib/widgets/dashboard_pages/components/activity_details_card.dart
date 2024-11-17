@@ -65,9 +65,7 @@ class ActivityDetailsCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: TextButton(
-                  style: TextButton.styleFrom(
-                    overlayColor: Colors.grey
-                  ),
+                  style: TextButton.styleFrom(overlayColor: Colors.grey),
                   onPressed: () {
                     // Add your onPressed code here!
                   },

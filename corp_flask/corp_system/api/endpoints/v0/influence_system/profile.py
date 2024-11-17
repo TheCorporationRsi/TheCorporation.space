@@ -12,10 +12,11 @@ from corp_system.models import Department, Division, Inf_Tribute, Inf_Account, I
 @api.route('/influence_system/profile', methods=['GET'])
 @CORP_only
 def profile():
-    """ Get influence system profile
+    """Get influence system profile
     
     This is using docstrings for specifications.
     ---
+    operationId: get_profile
     tags:
         - Influence System
     responses:
@@ -40,10 +41,11 @@ def profile():
 @api.route('/influence_system/profile/<influence_type>/<type>/<title>', methods=['GET'])
 @CORP_only
 def current_influence(influence_type, type, title):
-    """ Get current influence
+    """Get current influence
     
     This is using docstrings for specifications.
     ---
+    operationId: get_influence
     tags:
         - Influence System
     parameters:
@@ -56,12 +58,14 @@ def current_influence(influence_type, type, title):
           description: type of influence
         - in: path
           name: type # Note the name is the same as in the path
+          required: true
           schema:
             type: string
             enum: [all, division, department, general]
           description: type of influence
         - in: path
           name: title # Note the name is the same as in the path
+          required: true
           schema:
             type: string
           description: Department/Division title
@@ -105,10 +109,12 @@ def current_influence(influence_type, type, title):
 @api.route('/influence_system/profile/tribute_history/<type>/<request>/<int:page>', methods=['GET'])
 @CORP_only
 def sent_tribute(type, request, page):
-    """ Get tribute sent history
+    """Get tribute sent history
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_tribute_history
     tags:
         - Influence System
     parameters:

@@ -75,7 +75,8 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                         ),
                         child: Container(
                           width: 385.0, // Half the length of the container
-                          height: 0.15 * 420 - 10, // 15% of the height of the container (420.0 * 0.15)
+                          height: 0.15 * 420 -
+                              10, // 15% of the height of the container (420.0 * 0.15)
                           color: primaryColor, // Set the background color
                           child: Center(
                             // Center the text
@@ -171,7 +172,7 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                             alignment: Alignment.center,
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                right:  0.1 * 520.0 - 20,
+                                right: 0.1 * 520.0 - 20,
                               ),
                               child: AutoSizeText(
                                 widget.formTitle,
@@ -183,8 +184,10 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                                 ),
                                 maxLines: 1,
                                 minFontSize: 18.0,
-                                maxFontSize: 28.0, // Increased maxFontSize to allow for larger text
-                                stepGranularity: 1.0, // Added stepGranularity for finer control over text size
+                                maxFontSize:
+                                    28.0, // Increased maxFontSize to allow for larger text
+                                stepGranularity:
+                                    1.0, // Added stepGranularity for finer control over text size
                               ),
                             ),
                           ),

@@ -16,6 +16,8 @@ def departments():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_departments
     tags:
         - Structure
     security: []
@@ -43,23 +45,28 @@ def departments():
                             type: integer
                             example: 50
                         division:
-                            type: object
-                            example: [
-                                Development,
-                                Extraction,
-                                Transport
-                            ]
+                            type: array
+                            items:
+                                type: string
+                                example: [
+                                    Development,
+                                    Ressources
+                                ]
                         heads:
-                            type: object
-                            example: [
-                                Cyber-Dreamer
-                            ]
+                            type: array
+                            items:
+                                type: string
+                                example: [
+                                    Cyber-Dreamer
+                                ]
                         proxys:
-                            type: object
-                            example: [
-                                Stevote,
-                                Vizi
-                            ]
+                            type: array
+                            items:
+                                type: string
+                                example: [
+                                    Stevote,
+                                    Vizi
+                                ]
 
     """
     departments = Department.query.all()
@@ -89,6 +96,8 @@ def create_department():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: create_department
     tags:
         - Admin
     requestBody:
@@ -105,20 +114,24 @@ def create_department():
     responses:
       200:
         description: Login was successfull
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: Department created
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        msg:
+                            type: string
+                            example: Department created
       400:
         description: An error happen with the info that you submitted
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: You must be admin to access this endpoint
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        msg:
+                            type: string
+                            example: You must be admin to access this endpoint
 
     """
     title = request.json.get("title")

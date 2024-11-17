@@ -8,10 +8,12 @@ from corp_system import limiter
 @api.route('/refresh_token', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh_token():
-    """ Path to refresh cookie that are soon to expire
+    """Path to refresh cookie that are soon to expire
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: refresh_token
     tags:
         - Security
     security:

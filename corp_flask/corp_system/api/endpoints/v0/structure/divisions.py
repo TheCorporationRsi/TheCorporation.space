@@ -15,6 +15,8 @@ def divisions():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_divisions
     tags:
         - Structure
     security: []
@@ -25,36 +27,42 @@ def divisions():
              application/json:
                 schema:
                     type: array
-                    properties:
-                        title:
-                            type: string
-                            example: Development
-                        color:
-                            type: string
-                            example: #0083ff
-                        department_title:
-                            type: string
-                            example: Ressources
-                        motto:
-                            type: string
-                            example: We love building stuff
-                        logo:
-                            type: string
-                            example: logo.svg
-                        member_count:
-                            type: integer
-                            example: 50
-                        leaders:
-                            type: object
-                            example: [
-                                Cyber-Dreamer
-                            ]
-                        proxys:
-                            type: object
-                            example: [
-                                Stevote,
-                                Vizi
-                            ]
+                    items:
+                        type: object
+                        properties:   
+                            title:
+                                type: string
+                                example: Development
+                            color:
+                                type: string
+                                example: #0083ff
+                            department_title:
+                                type: string
+                                example: Ressources
+                            motto:
+                                type: string
+                                example: We love building stuff
+                            logo:
+                                type: string
+                                example: logo.svg
+                            member_count:
+                                type: integer
+                                example: 50
+                            leaders:
+                                type: array
+                                items:
+                                    type: string
+                                    example: [
+                                    Cyber-Dreamer
+                                    ]
+                            proxys:
+                                type: array
+                                items:
+                                    type: string
+                                    example: [
+                                        Stevote,
+                                        Vizi
+                                    ]
 
     """
     
@@ -84,6 +92,8 @@ def create_division():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: create_division
     tags:
         - Admin
     requestBody:
@@ -100,20 +110,24 @@ def create_division():
     responses:
       200:
         description: Login was successfull
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: Division created
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        msg:
+                            type: string
+                            example: Division created
       400:
         description: An error happen with the info that you submitted
-        schema:
-            type: object
-            properties:
-                msg:
-                    type: string
-                    example: You must be admin to access this endpoint
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        msg:
+                            type: string
+                            example: You must be admin to access this endpoint
 
     """
     title = request.json.get("title")

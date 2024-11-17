@@ -13,6 +13,8 @@ def corporateers():
     
     This is using docstrings for specifications.
     ---
+    
+    operationId: get_corporateers
     tags:
         - Information
     responses:
@@ -22,13 +24,15 @@ def corporateers():
              application/json:
                 schema:
                     type: array
-                    example:
-                        [
-                        {
-                            "RSI_handle": "Cyber-Dreamer",
-                            "RSI_moniker": "CyberDreamer"
-                        }
-                        ]
+                    items:
+                        type: object
+                        properties:
+                            RSI_handle:
+                                example: Cyber-Dreamer
+                                type: string
+                            RSI_moniker:
+                                example: CyberDreamer
+                                type: string
       401:
         description: You do not have access to this endpoint
 
