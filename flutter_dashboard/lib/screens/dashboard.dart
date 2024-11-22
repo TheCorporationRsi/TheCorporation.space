@@ -6,6 +6,9 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/influence_widget.dart'
 import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
 
+import 'package:corp_api/corp_api.dart';
+
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -114,6 +117,16 @@ class _MainScreenState extends State<MainScreen>
   }
 
   void toggleSideMenu() {
+
+    final api = CorpApi().getInfluenceSystemApi();
+    
+    
+    try {
+      final response = api.getRanks();
+      print(response.toString());
+    } catch (e) {
+      print('Exception when calling InfluenceSystemApi->getRanks: $e\n');
+    }
 
     _isSideMenuVisible.value = !_isSideMenuVisible.value;
   }
