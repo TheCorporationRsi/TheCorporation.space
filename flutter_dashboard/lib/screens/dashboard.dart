@@ -122,8 +122,9 @@ class _MainScreenState extends State<MainScreen>
     
     
     try {
-      final response = api.getRanks();
-      print(response.toString());
+      api.getRanks().then((value) => {
+        print(value)
+      });
     } catch (e) {
       print('Exception when calling InfluenceSystemApi->getRanks: $e\n');
     }
