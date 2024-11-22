@@ -14,7 +14,7 @@ from corp_system.controllers.structure_manager import StructureManager
 def departments():
     """List of all departments
     
-    This is using docstrings for specifications.
+    Returns a list of all the departments in the system
     ---
     
     operationId: get_departments
@@ -22,50 +22,50 @@ def departments():
         - Structure
     security: []
     responses:
-      200:
-        description: List aquired
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Ressources
-                        color:
-                            type: string
-                            example: #0083ff
-                        motto:
-                            type: string
-                            example: We love building stuff
-                        logo:
-                            type: string
-                            example: logo.svg
-                        member_count:
-                            type: integer
-                            example: 50
-                        division:
-                            type: array
-                            items:
+        200:
+            description: List acquired
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            title:
                                 type: string
-                                example: [
-                                    Development,
-                                    Ressources
-                                ]
-                        heads:
-                            type: array
-                            items:
+                                example: Resources
+                            color:
                                 type: string
-                                example: [
-                                    Cyber-Dreamer
-                                ]
-                        proxys:
-                            type: array
-                            items:
+                                example: #0083ff
+                            motto:
                                 type: string
-                                example: [
-                                    Stevote,
-                                    Vizi
+                                example: We love building stuff
+                            logo:
+                                type: string
+                                example: logo.svg
+                            member_count:
+                                type: integer
+                                example: 50
+                            division:
+                                type: array
+                                items:
+                                    type: string
+                                    example: [
+                                        Development,
+                                        Ressources
+                                    ]
+                            heads:
+                                type: array
+                                items:
+                                    type: string
+                                    example: [
+                                        Cyber-Dreamer
+                                    ]
+                            proxys:
+                                type: array
+                                items:
+                                    type: string
+                                    example: [
+                                        Stevote,
+                                        Vizi
                                 ]
 
     """
@@ -94,10 +94,13 @@ def departments():
 def create_department():
     """Department creation endpoint
     
-    This is using docstrings for specifications.
+    This endpoint allow the creation of a new department
     ---
     
     operationId: create_department
+    security:
+        - cookieAuth: []
+        - csrf: []
     tags:
         - Admin
     requestBody:
@@ -106,32 +109,27 @@ def create_department():
             application/json:
                 schema:
                     type: object
+                    required: [title]
                     properties:
                         title:
                             type: string
                             example: Ressources
 
     responses:
-      200:
-        description: Login was successfull
-        content:
-            application/json:
-                schema:
-                    type: object
-                    properties:
-                        msg:
-                            type: string
-                            example: Department created
-      400:
-        description: An error happen with the info that you submitted
-        content:
-            application/json:
-                schema:
-                    type: object
-                    properties:
-                        msg:
-                            type: string
-                            example: You must be admin to access this endpoint
+        200:
+            description: Login was successfull
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Department created
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     title = request.json.get("title")

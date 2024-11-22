@@ -11,17 +11,20 @@ from corp_system.controllers.security_manager import SecurityManager
 @jwt_required()
 def get_logs():
     """Get your logs
-    This is using docstrings for specifications.
+    
+    This returns a list of all the logs that have been assigned to your account
     ---
     
     operationId: get_logs
     tags:
         - Security
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: List of your last 100 logs
-      401:
-        description: You do not have access to this endpoint
+        200:
+            description: List of your last 100 logs
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     

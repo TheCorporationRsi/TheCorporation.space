@@ -12,7 +12,7 @@ from corp_system import limiter
 def login():
     """Authetification endpoint
     
-    This is using docstrings for specifications.
+    This endpoint allow login with username:password
     ---
     
     operationId: login
@@ -25,6 +25,7 @@ def login():
             application/json:
                 schema:
                     type: object
+                    required: [username, password]
                     properties:
                         username:
                             type: string
@@ -52,15 +53,7 @@ def login():
                         type: string
                         example: corp_access_pass=abcde12345; Path=/; HttpOnly
         400:
-            description: An error happen with the info that you submitted
-            content:
-                application/json:
-                    schema:
-                        type: object
-                        properties:
-                            msg:
-                                type: string
-                                example: User not found
+            $ref: "#/components/responses/invalid"
 
     """
     username = request.json.get("username")

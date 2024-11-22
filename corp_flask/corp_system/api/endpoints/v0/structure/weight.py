@@ -11,6 +11,42 @@ from corp_system.controllers.influence_system_manager import InfluenceSystemMana
 @api.route('/structure/set_weight', methods=['POST'])
 @CORP_only
 def set_weight():
+    """Division weight assignment
+    
+    This endpoint goal is to set the weight of the member's divisions 
+    ---
+    
+    operationId: set_weight
+    tags:
+        - Influence System
+    security:
+        - cookieAuth: []
+        - csrf: []
+    requestBody:
+        description: Division information
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [division_title, amount]
+                    properties:
+                        division_title:
+                            type: string
+                            example: Development
+                        amount:
+                            type: integer
+                            example: 25
+
+    responses:
+        200:
+            description: Weight set successful
+
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+
+    """
     division_title = request.json.get("division_title")
     amount = request.json.get("amount")
     

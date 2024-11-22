@@ -11,19 +11,21 @@ from corp_system.controllers.security_manager import SecurityManager
 def logout():
     """Logout current user
     
-    This is using docstrings for specifications.
+    This allow a user to logout from the api
     ---
     
     operationId: logout
     tags:
         - Security
+    security:
+        - cookieAuth: []
     security: 
       - csrf : []
     responses:
       200:
-        description: Transfer was successfull
+        description: Transfer was successful
       401:
-        description: You do not have access to this endpoint
+        $ref: "#/components/responses/unauthorized"
 
     """
    

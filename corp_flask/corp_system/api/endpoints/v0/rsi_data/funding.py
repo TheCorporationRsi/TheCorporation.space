@@ -14,27 +14,30 @@ from corp_system.models import Funding
 def current_funding():
     """List of all influence system ranks
     
-    This is using docstrings for specifications.
+    This endpoint fetch the current funding from RSI website
     ---
     
     operationId: get_current_funding
     tags:
         - RSI Stats
-    security: []
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Transfer was successfull
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        fund:
-                            type: integer
-                            example: 0
-                        citizens:
-                            type: integer
-                            example: 0
+        200:
+            description: Transfer was successfull
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            fund:
+                                type: integer
+                                example: 0
+                            citizens:
+                                type: integer
+                                example: 0
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     fundings = RSI_funding()

@@ -13,7 +13,7 @@ from corp_system.controllers.structure_manager import StructureManager
 def divisions():
     """List of all divisions
     
-    This is using docstrings for specifications.
+    Returns a list of all the divisions in the system
     ---
     
     operationId: get_divisions
@@ -21,48 +21,48 @@ def divisions():
         - Structure
     security: []
     responses:
-      200:
-        description: List aquired
-        content:
-             application/json:
-                schema:
-                    type: array
-                    items:
-                        type: object
-                        properties:   
-                            title:
-                                type: string
-                                example: Development
-                            color:
-                                type: string
-                                example: #0083ff
-                            department_title:
-                                type: string
-                                example: Ressources
-                            motto:
-                                type: string
-                                example: We love building stuff
-                            logo:
-                                type: string
-                                example: logo.svg
-                            member_count:
-                                type: integer
-                                example: 50
-                            leaders:
-                                type: array
-                                items:
+        200:
+            description: List acquired
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            type: object
+                            properties:   
+                                title:
                                     type: string
-                                    example: [
-                                    Cyber-Dreamer
-                                    ]
-                            proxys:
-                                type: array
-                                items:
+                                    example: Development
+                                color:
                                     type: string
-                                    example: [
-                                        Stevote,
-                                        Vizi
-                                    ]
+                                    example: #0083ff
+                                department_title:
+                                    type: string
+                                    example: Ressources
+                                motto:
+                                    type: string
+                                    example: We love building stuff
+                                logo:
+                                    type: string
+                                    example: logo.svg
+                                member_count:
+                                    type: integer
+                                    example: 50
+                                leaders:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: [
+                                        Cyber-Dreamer
+                                        ]
+                                proxys:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: [
+                                            Stevote,
+                                            Vizi
+                                        ]
 
     """
     
@@ -90,44 +90,42 @@ def divisions():
 def create_division():
     """Division creation endpoint
     
-    This is using docstrings for specifications.
+    This is the admin endpoint to create new divisions
     ---
     
     operationId: create_division
     tags:
         - Admin
+    security:
+        - cookieAuth: []
+        - csrf: []
     requestBody:
         description: Division information
         content:
             application/json:
                 schema:
                     type: object
+                    required: [title]
                     properties:
                         title:
                             type: string
-                            example: Devlopment
+                            example: Development
 
     responses:
-      200:
-        description: Login was successfull
-        content:
-            application/json:
-                schema:
-                    type: object
-                    properties:
-                        msg:
-                            type: string
-                            example: Division created
-      400:
-        description: An error happen with the info that you submitted
-        content:
-            application/json:
-                schema:
-                    type: object
-                    properties:
-                        msg:
-                            type: string
-                            example: You must be admin to access this endpoint
+        200:
+            description: Login was successful
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Division created
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     title = request.json.get("title")

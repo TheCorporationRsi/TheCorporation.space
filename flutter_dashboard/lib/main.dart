@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-11-16T03:42:09.222103
+// Openapi Generator last run: : 2024-11-22T16:24:42.021337
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/screens/dashboard.dart';
 import 'package:flutter_dashboard/screens/login_screen.dart';
@@ -6,19 +6,8 @@ import 'package:flutter_dashboard/screens/register_screen.dart';
 import 'package:flutter_dashboard/screens/verification_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
 
- @Openapi(
-   additionalProperties:
-       DioProperties(pubName: 'corp_api', pubAuthor: 'Cyber-Dreamer'),
-   inputSpec:
-       RemoteSpec(path: 'http://localhost:5000/api/apispec.json'),
-   typeMappings: {'Pet': 'ExamplePet'},
-   generatorName: Generator.dio,
-   runSourceGenOnOutput: true,
-   outputDirectory: 'api/corp_api',
- )
 
 //@Openapi(
 //   additionalProperties:

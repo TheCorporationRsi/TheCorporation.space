@@ -10,19 +10,22 @@ from corp_system import limiter
 def refresh_token():
     """Path to refresh cookie that are soon to expire
     
-    This is using docstrings for specifications.
+    In order to gain a new token once expired, the frontend must submit the refresh token to get a new one.
     ---
     
     operationId: refresh_token
     tags:
         - Security
     security:
+      - cookieAuth: []
       - csrf_refresh: []
     responses:
       200:
         description: Transfer was successfull
+      400:
+        $ref: "#/components/responses/invalid"
       401:
-        description: You do not have access to this endpoint
+        $ref: "#/components/responses/unauthorized"
 
     """
     response = SecurityManager.refresh_token(current_user)

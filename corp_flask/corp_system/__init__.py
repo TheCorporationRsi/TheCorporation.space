@@ -48,7 +48,7 @@ socketio = SocketIO(
     async_handlers=True, async_mode="threading", logger=True, engineio_logger=True
 )  # , ,logger=True, engineio_logger=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000']
 cors = CORS(
-    resources={r"/api/*": {"origins": [os.environ["CORS_SETTING"]]}},
+    resources={r"/api/*": {"origins": [os.environ["CORS_SETTING"]] if os.environ["ALLOW_ALL_ORIGIN"] == "False" else "*"}},
     supports_credentials=True,
 )
 swagger = Swagger(
@@ -93,6 +93,39 @@ swagger = Swagger(
                     "type": "apiKey",
                     "in": "header",
                 },
+            },
+            "responses": {
+                "unauthorized": {
+                    "description": "Access denied",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "msg": {
+                                        "type": "string", 
+                                        "example": "Need to be a corp member"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "invalid": {
+                    "description": "An error happen with the info that you submitted",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "msg": {
+                                        "type": "string", 
+                                        "example": "Need to be a corp member"}
+                                }
+                            }
+                        }
+                    },
+                }
+                
             }
         },
         "security": [],

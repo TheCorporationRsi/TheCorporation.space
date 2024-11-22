@@ -15,32 +15,33 @@ from corp_system.models import User
 @jwt_required(optional=True)
 def get_status():
     """Get current authentification status
-    This is using docstrings for specifications.
+    
+    This endpoint provide information on what you currently have access
     ---
     
     operationId: get_status
     tags:
         - Security
     responses:
-      200:
-        description: Current authentification status
-        content:
-            application/json:
-              schema:
-                properties:
-                    authentificated:
-                        type: boolean
-                    RSI_verified:
-                        type: boolean
-                    CORP_member:
-                        type: boolean
-                    is_manager:
-                        type: boolean
-                    is_admin:
-                        type: boolean
-                type: object
-      401:
-        description: error happened
+        200:
+            description: Current authentification status
+            content:
+                application/json:
+                    schema:
+                        properties:
+                            authentificated:
+                                type: boolean
+                            RSI_verified:
+                                type: boolean
+                            CORP_member:
+                                type: boolean
+                            is_manager:
+                                type: boolean
+                            is_admin:
+                                type: boolean
+                        type: object
+        400:
+            description: error happened
 
     """
     

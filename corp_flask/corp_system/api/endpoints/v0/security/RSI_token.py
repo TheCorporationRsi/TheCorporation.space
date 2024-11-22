@@ -11,24 +11,27 @@ from corp_system import limiter
 @jwt_required()
 def rsi_token():
     """Get RSI token
-    This is using docstrings for specifications.
+    
+    Returns the user RSI token to be place in the bio for authentification
     ---
     operationId: get_RSI_token
     tags:
         - Security
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Get RSI_token
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        RSI_token:
-                            type: string
-                            example: fsgfdgdfgsdfgsgdrerdgrtyrty
-      401:
-        description: You do not have access to this endpoint
+        200:
+            description: Get RSI_token
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            RSI_token:
+                                type: string
+                                example: fsgfdgdfgsdfgsgdrerdgrtyrty
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     
@@ -46,25 +49,28 @@ def rsi_token():
 @jwt_required()
 def rsi_token_test():
     """Verify RSI token
-    This is using docstrings for specifications.
+    
+    When used, the current user profile will be verified on the RSI website to find the assigned token
     ---
     
     operationId: verify_RSI_token
     tags:
         - Security
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Get RSI_token
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        message:
-                            type: string
-                            example: Token confirmed
-      401:
-        description: You do not have access to this endpoint
+        200:
+            description: Get RSI_token
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            message:
+                                type: string
+                                example: Token confirmed
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     

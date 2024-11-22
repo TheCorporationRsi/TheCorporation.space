@@ -11,20 +11,23 @@ from corp_system.controllers.security_manager import SecurityManager
 @jwt_required()
 def pasword_change():
     """Change password
-    This is using docstrings for specifications.
+    
+    This endpoint allow for password change as long as you know the current password
     ---
     
     operationId: change_password
     tags:
         - Security
-    security: 
-      - csrf : []
+    security:
+        - cookieAuth: []
+        - csrf : []
     requestBody:
         description: registration information
         content:
             application/json:
                 schema:
                     type: object
+                    required: [current_password, new_password, confirmed_password]
                     properties:
                         current_password:
                             type: string
@@ -36,10 +39,12 @@ def pasword_change():
                             type: string
                             example: ILoveWeyland69!
     responses:
-      200:
-        description: Password changed
-      401:
-        description: You do not have access to this endpoint
+        200:
+            description: Password changed
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     

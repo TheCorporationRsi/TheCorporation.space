@@ -15,20 +15,22 @@ from corp_system.controllers.influence_system_manager import InfluenceSystemMana
 def transfer():
     """Endpoint to send tribute to another corporateer
     
-    This is using docstrings for specifications.
+    This is the main endpoint to effectuate tribute transfer to another corporateer
     ---
     
     operationId: send_tribute
     tags:
         - Influence System
     security: 
-      - csrf : []
+        - cookieAuth: []
+        - csrf : []
     requestBody:
         description: transfer information
         content:
             application/json:
                 schema:
                     type: object
+                    required: [receiver_handle, amount]
                     properties:
                         receiver_handle:
                             type: string
@@ -36,39 +38,31 @@ def transfer():
                         amount:
                             type: integer
                             example: 10
-                            description: Amout of tribute that you wish to send
+                            description: Amount of tribute that you wish to send
                         message:
                             type: string
                             example: Thanks for building this
     responses:
-      200:
-        description: Transfer was successfull
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Corporateer
-                        required_lifetime_influence:
-                            type: integer
-                            example: 0
-                        weekly_amount:
-                            type: integer
-                            example: 50
-      400:
-        description: An error happen with the info that you submitted
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        message:
-                            type: string
-                            example: Sender does not have enough tribute
-      401:
-        description: You do not have access to this endpoint
+        200:
+            description: Transfer was successful
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: Corporateer
+                            required_lifetime_influence:
+                                type: integer
+                                example: 0
+                            weekly_amount:
+                                type: integer
+                                example: 50
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     receiver_handle = request.json.get("receiver_handle")

@@ -13,7 +13,7 @@ from corp_system import limiter
 def register():
     """Registration endpoint
     
-    This is using docstrings for specifications.
+    This registers the current RSI handle in the system
     ---
     
     operationId: register
@@ -26,6 +26,7 @@ def register():
             application/json:
                 schema:
                     type: object
+                    required: [username, password, confirmed_password]
                     properties:
                         username:
                             type: string
@@ -37,26 +38,18 @@ def register():
                             type: string
                             example: 123CorpIsTheBest!
     responses:
-      200:
-        description: Login was successfull
-        content:
-            application/json:
-                schema:
-                    type: object
-                    properties:
-                        msg:
-                            type: string
-                            example: registration successfull!
-      400:
-        description: An error happen with the info that you submitted
-        content:
-            application/json:
-                schema:
-                    type: object
-                    properties:
-                        msg:
-                            type: string
-                            example: User already exist
+        200:
+            description: Login was successful
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: registration successfull!
+        400:
+            $ref: "#/components/responses/invalid"
 
     """
     username = request.json.get("username")
@@ -65,7 +58,7 @@ def register():
     #print(username, password)
     
     if password != confirmed_password:
-         return jsonify({'msg': "Password don't match"}), 400
+        return jsonify({'msg': "Password don't match"}), 400
     
     try:
         SecurityManager.register_user(RSI_handle=username, password=password)

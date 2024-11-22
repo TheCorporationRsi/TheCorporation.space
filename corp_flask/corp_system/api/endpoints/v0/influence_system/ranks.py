@@ -12,7 +12,7 @@ from corp_system.controllers.influence_system_manager import InfluenceSystemMana
 def ranks():
     """List of all influence system ranks
     
-    This is using docstrings for specifications.
+    Returns a list of all the ranks of the influence system
     ---
     
     operationId: get_ranks
@@ -20,24 +20,24 @@ def ranks():
         - Influence System
     security: []
     responses:
-      200:
-        description: Transfer was successfull
-        content:
-             application/json:
-                schema:
-                    type: array
-                    items:
-                        type: object
-                        properties:
-                            title:
-                                type: string
-                                example: Corporateer
-                            required_lifetime_influence:
-                                type: integer
-                                example: 0
-                            weekly_amount:
-                                type: integer
-                                example: 50
+        200:
+            description: Request was successful
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: Corporateer
+                                required_lifetime_influence:
+                                    type: integer
+                                    example: 0
+                                weekly_amount:
+                                    type: integer
+                                    example: 50
 
     """
     

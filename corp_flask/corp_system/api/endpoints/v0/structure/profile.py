@@ -13,23 +13,25 @@ from corp_system.controllers.influence_system_manager import InfluenceSystemMana
 def user_departments():
     """List of all your departments
     
-    This is using docstrings for specifications.
+    Returns a list of the current user's departments
     ---
     
     operationId: get_user_departments
     tags:
         - Structure
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Departments
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Ressources
+        200:
+            description: Departments
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: Resources
 
     """
     
@@ -54,23 +56,25 @@ def user_departments():
 def user_divisions():
     """List of all your division
     
-    This is using docstrings for specifications.
+    Return a list of the current user's division
     ---
     
     operationId: get_user_divisions
     tags:
         - Structure
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Divisions
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Devlopment
+        200:
+            description: Divisions
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: Development
 
     """
     
@@ -94,22 +98,25 @@ def user_divisions():
 def user_roles():
     """List of all your roles
     
-    This is using docstrings for specifications.
+    Returns a list of all the current user's roles
     ---
     tags:
         - Structure
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Roles
-        content:
-             application/json:
-                schema:
-                    type: object
-                    properties:
-                        title:
-                            type: string
-                            example: Devlopment member
-
+        200:
+            description: Roles
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: Development member
+        401:
+            $ref: "#/components/responses/unauthorized"
     """
     
     roles = current_user.roles

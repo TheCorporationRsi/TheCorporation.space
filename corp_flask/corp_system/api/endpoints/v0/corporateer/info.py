@@ -11,30 +11,32 @@ from corp_system.controllers.corporateer_manager import CorporateerManager
 def corporateers():
     """List of all corporateer
     
-    This is using docstrings for specifications.
+    Returns a list of all the corporateers registered on the website.
     ---
     
     operationId: get_corporateers
     tags:
         - Information
+    security:
+        - cookieAuth: []
     responses:
-      200:
-        description: Transfer was successfull
-        content:
-             application/json:
-                schema:
-                    type: array
-                    items:
-                        type: object
-                        properties:
-                            RSI_handle:
-                                example: Cyber-Dreamer
-                                type: string
-                            RSI_moniker:
-                                example: CyberDreamer
-                                type: string
-      401:
-        description: You do not have access to this endpoint
+        200:
+            description: Transfer was successful
+            content:
+                application/json:
+                    schema:
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                RSI_handle:
+                                    example: Cyber-Dreamer
+                                    type: string
+                                RSI_moniker:
+                                    example: CyberDreamer
+                                    type: string
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     
