@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
+import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/util/restrictions.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +18,16 @@ class _LoginScreenState extends State<LoginScreen>
 
   final GlobalKey<SecurityFormWidgetState> _securityFormKey =
       GlobalKey<SecurityFormWidgetState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Your initialization code here
+    Future.microtask(() {
+      checkSecurityLevel(context, 'NotLoggedIn');
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +63,9 @@ class _LoginScreenState extends State<LoginScreen>
           buttonTitle3: 'Forgot Password?',
           buttonAction1: () {
             if (handleController.text == 'test' &&
-                passwordController.text == 'test') {
+              passwordController.text == 'test') {
+              
+              
               // Proceed with login
               Navigator.pushNamed(context, '/verification');
             } else {

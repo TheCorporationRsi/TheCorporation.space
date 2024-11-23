@@ -28,6 +28,7 @@ def get_status():
             content:
                 application/json:
                     schema:
+                        required: [authentificated, RSI_verified, CORP_member, is_manager, is_admin]
                         properties:
                             authentificated:
                                 type: boolean
@@ -45,12 +46,12 @@ def get_status():
 
     """
     
-    current_user: User = current_user
+    current_user: User = current_user if get_jwt_identity() else None
     
     return jsonify({
         "authentificated": True if current_user is not None else False,
-        "RSI_verified": True if current_user.RSI_confirmed else False,
-        "CORP_member": True if current_user.CORP_confirmed else False,
-        "is_manager": True if current_user.is_manager() else False,
-        "is_admin": True if current_user.is_admin() else False
+        "RSI_verified": current_user.RSI_confirmed if current_user is not None else False,
+        "CORP_member": current_user.CORP_confirmed if current_user is not None else False,
+        "is_manager": current_user.is_manager() if current_user is not None else False,
+        "is_admin": current_user.is_admin() if current_user is not None else False
     }), 200

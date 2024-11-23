@@ -4,6 +4,8 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/components/scheduled_w
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/summary_details.dart';
 import 'package:flutter/material.dart';
 
+import 'package:corp_api/corp_api.dart';
+
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
 
