@@ -4,6 +4,7 @@ import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:dio/dio.dart';
 import 'dart:convert';
+import 'package:cookie_jar/cookie_jar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,13 +26,12 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
     // Your initialization code here
-    Future.microtask(() {
-      //checkSecurityLevel(context, 'NotLoggedIn');
-    });
+      checkSecurityLevel(context, 'NotLoggedIn');
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         body: Stack(
       children: [
@@ -69,6 +69,8 @@ class _LoginScreenState extends State<LoginScreen>
                 ? null
                 : int.parse(OTPController.text);
 
+            final cookieJar = CookieJar();
+
             final LoginRequest loginRequest = LoginRequest((b) => b
               ..username = handleController.text
               ..password = passwordController.text
@@ -84,17 +86,15 @@ class _LoginScreenState extends State<LoginScreen>
                       
                   if (response.data!.msg == 'logged_in')
                     {
-                      //  Navigator.pushNamed(context, '/dashboard')
-                      print('logged in!')
+                      
+                      checkSecurityLevel(context, 'rsiVerified'),
+                      Navigator.pushNamed(context, '/dashboard')
                     }
                 })
                 .catchError((error) => {
+                  
                   if ( error.response.statusCode == 400){
-                    
-                    print(jsonDecode(error.response.data)['msg']),
-
-                    _securityFormKey.currentState
-                    ?.showError(jsonDecode(error.response.data)['msg'])
+                    _securityFormKey.currentState?.showError(jsonDecode(error.response.toString())['msg'])
                   }
                   else {
                     print(error)

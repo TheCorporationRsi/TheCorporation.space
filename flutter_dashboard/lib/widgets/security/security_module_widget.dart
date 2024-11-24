@@ -141,11 +141,12 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                           height: 25,
                           color: Colors.red,
                           child: Center(
-                            child: Text(
-                              'Invalid credentials, please try again.',
+                            child: AutoSizeText(
+                              _errorMessage,
+                              maxLines: 1,
+                              textScaleFactor: 0.68,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 12,
                               ),
                             ),
                           ),

@@ -26,9 +26,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   void initState() {
     super.initState();
     // Your initialization code here
-    Future.microtask(() {
       checkSecurityLevel(context, 'NotLoggedIn');
-    });
   }
 
   @override

@@ -21,22 +21,28 @@ void checkSecurityLevel(BuildContext context, String requiredLevel) {
     isManager = response.data!.isManager,
     isAdmin = response.data!.isAdmin,
 
-    if ((requiredLevel == "notLoggedIn") & authentificated != false) {
+    if ((requiredLevel == "notLoggedIn") & (authentificated != false)) {
+      print('Already logged in'),
       Navigator.pushNamed(context, '/dashboard')
     }
-    else if ((requiredLevel == "authentificated") & authentificated != true){
+    else if ((requiredLevel == "authentificated") & (authentificated != true)){
+      print('Not logged in'),
       Navigator.pushNamed(context, '/login')
     }
-    else if ((requiredLevel == "rsiVerified") & rsi_verified != true){
+    else if ((requiredLevel == "rsiVerified") & (rsi_verified != true)){
+      print('Not verified'),
       Navigator.pushNamed(context, '/verification')
     }
-    else if ((requiredLevel == "corpMember") & corp_member != true){
+    else if ((requiredLevel == "corpMember") & (corp_member != true)){
+      print('Not corp member'),
       Navigator.pushNamed(context, '/dashboard')
     }
-    else if ((requiredLevel == "isManager") & isManager != true){
+    else if ((requiredLevel == "isManager") & (isManager != true)){
+      print('Not manager'),
       Navigator.pushNamed(context, '/dashboard')
     }
-    else if ((requiredLevel == "isAdmin") & isAdmin != true){
+    else if ((requiredLevel == "isAdmin") & (isAdmin != true)){
+      print('Not admin'),
       Navigator.pushNamed(context, '/dashboard')
     }
   

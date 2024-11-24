@@ -12,6 +12,7 @@ import 'package:flutter_dashboard/util/restrictions.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+  
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -35,11 +36,9 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   void initState() {
+    checkSecurityLevel(context, 'rsiVerified');
     super.initState();
-
-    Future.microtask(() {
-      checkSecurityLevel(context, 'rsiVerified');
-    });
+    
 
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
@@ -144,6 +143,7 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
+
     final isDesktop = Responsive.isDesktop(context);
     return Scaffold(
       key: _headerScaffoldKey,

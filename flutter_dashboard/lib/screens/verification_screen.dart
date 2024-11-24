@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/verification_widget.dart'; // Ensure this path is correct
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_dashboard/util/restrictions.dart';
 
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
@@ -16,6 +17,13 @@ class _VerificationScreenState extends State<VerificationScreen>
 
   final GlobalKey<VerificationWidgetState> _verificationKey =
       GlobalKey<VerificationWidgetState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Your initialization code here
+      checkSecurityLevel(context, 'authentificated');
+  }
 
   @override
   Widget build(BuildContext context) {
