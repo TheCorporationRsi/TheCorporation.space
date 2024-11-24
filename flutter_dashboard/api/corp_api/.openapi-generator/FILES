@@ -8,6 +8,7 @@ doc/CreateDepartment200Response.md
 doc/CreateDepartmentRequest.md
 doc/CreateDivision200Response.md
 doc/CreateDivisionRequest.md
+doc/GetCookieExpiration200Response.md
 doc/GetCorporateers200ResponseInner.md
 doc/GetCurrentFunding200Response.md
 doc/GetDepartments200Response.md
@@ -54,6 +55,7 @@ lib/src/model/create_department_request.dart
 lib/src/model/create_division200_response.dart
 lib/src/model/create_division_request.dart
 lib/src/model/date.dart
+lib/src/model/get_cookie_expiration200_response.dart
 lib/src/model/get_corporateers200_response_inner.dart
 lib/src/model/get_current_funding200_response.dart
 lib/src/model/get_departments200_response.dart
@@ -75,3 +77,4 @@ lib/src/model/set_weight_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/get_cookie_expiration200_response_test.dart

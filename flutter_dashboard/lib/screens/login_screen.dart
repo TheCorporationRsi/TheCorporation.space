@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
+import 'package:dio/dio.dart';
+import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,10 +26,9 @@ class _LoginScreenState extends State<LoginScreen>
     super.initState();
     // Your initialization code here
     Future.microtask(() {
-      checkSecurityLevel(context, 'NotLoggedIn');
+      //checkSecurityLevel(context, 'NotLoggedIn');
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +63,43 @@ class _LoginScreenState extends State<LoginScreen>
           buttonTitle2: 'Register',
           buttonTitle3: 'Forgot Password?',
           buttonAction1: () {
-            if (handleController.text == 'test' &&
-              passwordController.text == 'test') {
-              
-              
-              // Proceed with login
-              Navigator.pushNamed(context, '/verification');
-            } else {
-              // Show error message
-              _securityFormKey.currentState
-                  ?.showError('This is not an error message');
-            }
+            final api = CorpApi().getSecurityApi();
+
+            final otp = OTPController.text.isEmpty
+                ? null
+                : int.parse(OTPController.text);
+
+            final LoginRequest loginRequest = LoginRequest((b) => b
+              ..username = handleController.text
+              ..password = passwordController.text
+              ..otp = otp);
+
+            api
+                .login(loginRequest: loginRequest)
+                .then((response) => {
+                  
+                  
+                  print(response),
+                      
+                      
+                  if (response.data!.msg == 'logged_in')
+                    {
+                      //  Navigator.pushNamed(context, '/dashboard')
+                      print('logged in!')
+                    }
+                })
+                .catchError((error) => {
+                  if ( error.response.statusCode == 400){
+                    
+                    print(jsonDecode(error.response.data)['msg']),
+
+                    _securityFormKey.currentState
+                    ?.showError(jsonDecode(error.response.data)['msg'])
+                  }
+                  else {
+                    print(error)
+                  }
+                });
           },
           buttonAction2: () {
             Navigator.pushNamed(context, '/register');

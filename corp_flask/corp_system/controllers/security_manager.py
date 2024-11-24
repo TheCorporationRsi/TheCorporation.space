@@ -58,7 +58,7 @@ class SecurityManager:
             access_token = create_access_token(identity=user)
 
             # Create the response
-            response = jsonify({'login': True})
+            response = jsonify({'msg': "logged_in"})
 
             # Set the JWTs in cookies
             set_access_cookies(response, access_token)

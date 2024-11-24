@@ -10,6 +10,7 @@ All URIs are relative to *http://localhost:5000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**changePassword**](SecurityApi.md#changepassword) | **POST** /api/v0/change_password | Change password
+[**getCookieExpiration**](SecurityApi.md#getcookieexpiration) | **GET** /api/v0/cookie_expiration | Get the cookie expiration
 [**getLogs**](SecurityApi.md#getlogs) | **GET** /api/v0/logs | Get your logs
 [**getRSIToken**](SecurityApi.md#getrsitoken) | **GET** /api/v0/RSI_token | Get RSI token
 [**getStatus**](SecurityApi.md#getstatus) | **GET** /api/v0/status | Get current authentification status
@@ -17,6 +18,7 @@ Method | HTTP request | Description
 [**logout**](SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
 [**refreshToken**](SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [**register**](SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
+[**removeCookie**](SecurityApi.md#removecookie) | **GET** /api/v0/remove_cookie | Delete the cookie
 [**verifyRSIToken**](SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
 
 
@@ -66,6 +68,45 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getCookieExpiration**
+> GetCookieExpiration200Response getCookieExpiration()
+
+Get the cookie expiration
+
+<br/>This endpoint return the cookies expiration<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getSecurityApi();
+
+try {
+    final response = api.getCookieExpiration();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling SecurityApi->getCookieExpiration: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GetCookieExpiration200Response**](GetCookieExpiration200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -365,6 +406,44 @@ No authorization required
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **removeCookie**
+> removeCookie()
+
+Delete the cookie
+
+<br/>This endpoint delete all the 4 cookies set by the server<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getSecurityApi();
+
+try {
+    api.removeCookie();
+} catch on DioException (e) {
+    print('Exception when calling SecurityApi->removeCookie: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

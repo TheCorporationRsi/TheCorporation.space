@@ -8,27 +8,38 @@ part of 'get_status200_response.dart';
 
 class _$GetStatus200Response extends GetStatus200Response {
   @override
-  final bool? cORPMember;
+  final bool cORPMember;
   @override
-  final bool? rSIVerified;
+  final bool rSIVerified;
   @override
-  final bool? authentificated;
+  final bool authentificated;
   @override
-  final bool? isAdmin;
+  final bool isAdmin;
   @override
-  final bool? isManager;
+  final bool isManager;
 
   factory _$GetStatus200Response(
           [void Function(GetStatus200ResponseBuilder)? updates]) =>
       (new GetStatus200ResponseBuilder()..update(updates))._build();
 
   _$GetStatus200Response._(
-      {this.cORPMember,
-      this.rSIVerified,
-      this.authentificated,
-      this.isAdmin,
-      this.isManager})
-      : super._();
+      {required this.cORPMember,
+      required this.rSIVerified,
+      required this.authentificated,
+      required this.isAdmin,
+      required this.isManager})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        cORPMember, r'GetStatus200Response', 'cORPMember');
+    BuiltValueNullFieldError.checkNotNull(
+        rSIVerified, r'GetStatus200Response', 'rSIVerified');
+    BuiltValueNullFieldError.checkNotNull(
+        authentificated, r'GetStatus200Response', 'authentificated');
+    BuiltValueNullFieldError.checkNotNull(
+        isAdmin, r'GetStatus200Response', 'isAdmin');
+    BuiltValueNullFieldError.checkNotNull(
+        isManager, r'GetStatus200Response', 'isManager');
+  }
 
   @override
   GetStatus200Response rebuild(
@@ -133,11 +144,16 @@ class GetStatus200ResponseBuilder
   _$GetStatus200Response _build() {
     final _$result = _$v ??
         new _$GetStatus200Response._(
-            cORPMember: cORPMember,
-            rSIVerified: rSIVerified,
-            authentificated: authentificated,
-            isAdmin: isAdmin,
-            isManager: isManager);
+            cORPMember: BuiltValueNullFieldError.checkNotNull(
+                cORPMember, r'GetStatus200Response', 'cORPMember'),
+            rSIVerified: BuiltValueNullFieldError.checkNotNull(
+                rSIVerified, r'GetStatus200Response', 'rSIVerified'),
+            authentificated: BuiltValueNullFieldError.checkNotNull(
+                authentificated, r'GetStatus200Response', 'authentificated'),
+            isAdmin: BuiltValueNullFieldError.checkNotNull(
+                isAdmin, r'GetStatus200Response', 'isAdmin'),
+            isManager: BuiltValueNullFieldError.checkNotNull(
+                isManager, r'GetStatus200Response', 'isManager'));
     replace(_$result);
     return _$result;
   }

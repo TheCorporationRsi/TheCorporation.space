@@ -46,7 +46,7 @@ def login():
                         properties:
                             msg:
                                 type: string
-                                example: Login successfull!
+                                example: logged_in
             headers:
                 Set-Cookie:
                     schema:

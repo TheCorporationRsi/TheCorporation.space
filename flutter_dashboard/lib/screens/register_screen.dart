@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/util/restrictions.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -18,6 +21,15 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   final GlobalKey<SecurityFormWidgetState> _securityFormKey =
       GlobalKey<SecurityFormWidgetState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Your initialization code here
+    Future.microtask(() {
+      checkSecurityLevel(context, 'NotLoggedIn');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

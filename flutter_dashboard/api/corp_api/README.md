@@ -76,6 +76,7 @@ Class | Method | HTTP request | Description
 [*InformationApi*](doc/InformationApi.md) | [**getCorporateers**](doc/InformationApi.md#getcorporateers) | **GET** /api/v0/corporateers | List of all corporateer
 [*RSIStatsApi*](doc/RSIStatsApi.md) | [**getCurrentFunding**](doc/RSIStatsApi.md#getcurrentfunding) | **GET** /api/v0/current_funding | List of all influence system ranks
 [*SecurityApi*](doc/SecurityApi.md) | [**changePassword**](doc/SecurityApi.md#changepassword) | **POST** /api/v0/change_password | Change password
+[*SecurityApi*](doc/SecurityApi.md) | [**getCookieExpiration**](doc/SecurityApi.md#getcookieexpiration) | **GET** /api/v0/cookie_expiration | Get the cookie expiration
 [*SecurityApi*](doc/SecurityApi.md) | [**getLogs**](doc/SecurityApi.md#getlogs) | **GET** /api/v0/logs | Get your logs
 [*SecurityApi*](doc/SecurityApi.md) | [**getRSIToken**](doc/SecurityApi.md#getrsitoken) | **GET** /api/v0/RSI_token | Get RSI token
 [*SecurityApi*](doc/SecurityApi.md) | [**getStatus**](doc/SecurityApi.md#getstatus) | **GET** /api/v0/status | Get current authentification status
@@ -83,6 +84,7 @@ Class | Method | HTTP request | Description
 [*SecurityApi*](doc/SecurityApi.md) | [**logout**](doc/SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
 [*SecurityApi*](doc/SecurityApi.md) | [**refreshToken**](doc/SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [*SecurityApi*](doc/SecurityApi.md) | [**register**](doc/SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
+[*SecurityApi*](doc/SecurityApi.md) | [**removeCookie**](doc/SecurityApi.md#removecookie) | **GET** /api/v0/remove_cookie | Delete the cookie
 [*SecurityApi*](doc/SecurityApi.md) | [**verifyRSIToken**](doc/SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
 [*StructureApi*](doc/StructureApi.md) | [**apiV0StructureProfileRolesGet**](doc/StructureApi.md#apiv0structureprofilerolesget) | **GET** /api/v0/structure/profile/roles | List of all your roles
 [*StructureApi*](doc/StructureApi.md) | [**getDepartments**](doc/StructureApi.md#getdepartments) | **GET** /api/v0/structure/departments | List of all departments
@@ -99,6 +101,7 @@ Class | Method | HTTP request | Description
  - [CreateDepartmentRequest](doc/CreateDepartmentRequest.md)
  - [CreateDivision200Response](doc/CreateDivision200Response.md)
  - [CreateDivisionRequest](doc/CreateDivisionRequest.md)
+ - [GetCookieExpiration200Response](doc/GetCookieExpiration200Response.md)
  - [GetCorporateers200ResponseInner](doc/GetCorporateers200ResponseInner.md)
  - [GetCurrentFunding200Response](doc/GetCurrentFunding200Response.md)
  - [GetDepartments200Response](doc/GetDepartments200Response.md)

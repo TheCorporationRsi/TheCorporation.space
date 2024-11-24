@@ -7,6 +7,7 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
 
 import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/util/restrictions.dart';
 
 
 class MainScreen extends StatefulWidget {
@@ -35,6 +36,11 @@ class _MainScreenState extends State<MainScreen>
   @override
   void initState() {
     super.initState();
+
+    Future.microtask(() {
+      checkSecurityLevel(context, 'rsiVerified');
+    });
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,

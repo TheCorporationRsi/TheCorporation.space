@@ -46,7 +46,10 @@ def get_status():
 
     """
     
-    current_user: User = current_user if get_jwt_identity() else None
+    if get_jwt_identity() is not None:
+        current_user: User = User.query.get(get_jwt_identity())
+    else:
+        current_user = None
     
     return jsonify({
         "authentificated": True if current_user is not None else False,

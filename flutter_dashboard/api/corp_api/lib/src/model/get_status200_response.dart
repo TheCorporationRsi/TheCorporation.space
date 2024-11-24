@@ -20,19 +20,19 @@ part 'get_status200_response.g.dart';
 abstract class GetStatus200Response
     implements Built<GetStatus200Response, GetStatus200ResponseBuilder> {
   @BuiltValueField(wireName: r'CORP_member')
-  bool? get cORPMember;
+  bool get cORPMember;
 
   @BuiltValueField(wireName: r'RSI_verified')
-  bool? get rSIVerified;
+  bool get rSIVerified;
 
   @BuiltValueField(wireName: r'authentificated')
-  bool? get authentificated;
+  bool get authentificated;
 
   @BuiltValueField(wireName: r'is_admin')
-  bool? get isAdmin;
+  bool get isAdmin;
 
   @BuiltValueField(wireName: r'is_manager')
-  bool? get isManager;
+  bool get isManager;
 
   GetStatus200Response._();
 
@@ -63,41 +63,31 @@ class _$GetStatus200ResponseSerializer
     GetStatus200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.cORPMember != null) {
-      yield r'CORP_member';
-      yield serializers.serialize(
-        object.cORPMember,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.rSIVerified != null) {
-      yield r'RSI_verified';
-      yield serializers.serialize(
-        object.rSIVerified,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.authentificated != null) {
-      yield r'authentificated';
-      yield serializers.serialize(
-        object.authentificated,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.isAdmin != null) {
-      yield r'is_admin';
-      yield serializers.serialize(
-        object.isAdmin,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.isManager != null) {
-      yield r'is_manager';
-      yield serializers.serialize(
-        object.isManager,
-        specifiedType: const FullType(bool),
-      );
-    }
+    yield r'CORP_member';
+    yield serializers.serialize(
+      object.cORPMember,
+      specifiedType: const FullType(bool),
+    );
+    yield r'RSI_verified';
+    yield serializers.serialize(
+      object.rSIVerified,
+      specifiedType: const FullType(bool),
+    );
+    yield r'authentificated';
+    yield serializers.serialize(
+      object.authentificated,
+      specifiedType: const FullType(bool),
+    );
+    yield r'is_admin';
+    yield serializers.serialize(
+      object.isAdmin,
+      specifiedType: const FullType(bool),
+    );
+    yield r'is_manager';
+    yield serializers.serialize(
+      object.isManager,
+      specifiedType: const FullType(bool),
+    );
   }
 
   @override

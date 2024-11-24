@@ -23,6 +23,7 @@ export 'package:corp_api/src/model/create_department200_response.dart';
 export 'package:corp_api/src/model/create_department_request.dart';
 export 'package:corp_api/src/model/create_division200_response.dart';
 export 'package:corp_api/src/model/create_division_request.dart';
+export 'package:corp_api/src/model/get_cookie_expiration200_response.dart';
 export 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 export 'package:corp_api/src/model/get_current_funding200_response.dart';
 export 'package:corp_api/src/model/get_departments200_response.dart';

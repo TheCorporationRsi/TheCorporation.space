@@ -5,18 +5,40 @@ import 'package:dio/dio.dart';
 void checkSecurityLevel(BuildContext context, String requiredLevel) {
   
   final api = CorpApi().getSecurityApi();
+
+  bool authentificated = false;
+  bool rsi_verified = false;
+  bool corp_member = false;
+  bool isManager = false;
+  bool isAdmin = false;
   
-  api.getStatus().then((value) => {
+  
+  api.getStatus().then((response) =>  {
 
-    if ((requiredLevel == "notLoggedIn") & (value.data?.authentificated)) {
+    authentificated = response.data!.authentificated,
+    rsi_verified = response.data!.rSIVerified,
+    corp_member = response.data!.cORPMember,
+    isManager = response.data!.isManager,
+    isAdmin = response.data!.isAdmin,
 
+    if ((requiredLevel == "notLoggedIn") & authentificated != false) {
+      Navigator.pushNamed(context, '/dashboard')
     }
-
-    print("Authenticated: ${value.data.authentificated.toString()}" ),
-    print("RSI_verified: ${value.data.rSIVerified.toString()}" ),
-    print("Authenticated: ${value.data.cORPMember.toString()}" ),
-    print("Authenticated: ${value.data.isManager.toString()}" ),
-    print("Authenticated: ${value.data.isAdmin.toString()}" ),
+    else if ((requiredLevel == "authentificated") & authentificated != true){
+      Navigator.pushNamed(context, '/login')
+    }
+    else if ((requiredLevel == "rsiVerified") & rsi_verified != true){
+      Navigator.pushNamed(context, '/verification')
+    }
+    else if ((requiredLevel == "corpMember") & corp_member != true){
+      Navigator.pushNamed(context, '/dashboard')
+    }
+    else if ((requiredLevel == "isManager") & isManager != true){
+      Navigator.pushNamed(context, '/dashboard')
+    }
+    else if ((requiredLevel == "isAdmin") & isAdmin != true){
+      Navigator.pushNamed(context, '/dashboard')
+    }
   
   }).catchError((error) => {
     
