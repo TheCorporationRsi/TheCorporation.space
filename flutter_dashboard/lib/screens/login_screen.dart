@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
-import 'package:dio/dio.dart';
 import 'dart:convert';
-import 'package:cookie_jar/cookie_jar.dart';
+
+import 'package:universal_html/html.dart' as html;
+
+import 'package:dio/dio.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,43 +66,64 @@ class _LoginScreenState extends State<LoginScreen>
           buttonTitle2: 'Register',
           buttonTitle3: 'Forgot Password?',
           buttonAction1: () {
-            final api = CorpApi().getSecurityApi();
+
+            
 
             final otp = OTPController.text.isEmpty
                 ? null
                 : int.parse(OTPController.text);
 
-            final cookieJar = CookieJar();
+            
 
             final LoginRequest loginRequest = LoginRequest((b) => b
               ..username = handleController.text
               ..password = passwordController.text
               ..otp = otp);
 
-            api
-                .login(loginRequest: loginRequest)
-                .then((response) => {
-                  
-                  
-                  print(response),
-                      
-                      
-                  if (response.data!.msg == 'logged_in')
-                    {
-                      
-                      checkSecurityLevel(context, 'rsiVerified'),
-                      Navigator.pushNamed(context, '/dashboard')
+            var corpClient = CorpApi();
+
+            corpClient.dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
+              options.extra["withCredentials"] = true; 
+              return handler.next(options);
+            }));
+
+            var corpSecurityClient = corpClient.getSecurityApi();
+
+            
+
+            corpSecurityClient.login(loginRequest: loginRequest)
+              .then((response) {
+                
+                print(response);
+                
+                if (response.data!.msg == 'logged_in')
+                  {
+                    var cookies = response.headers['set-cookie'];
+                    print(response.headers);
+                    if (cookies != null) {
+                      cookies.forEach((cookie) {
+                        html.document.cookie = cookie;
+                      });
+                      print(cookies);
+                      checkSecurityLevel(context, 'rsiVerified');
+                      Navigator.pushNamed(context, '/dashboard');
+
                     }
-                })
-                .catchError((error) => {
-                  
-                  if ( error.response.statusCode == 400){
-                    _securityFormKey.currentState?.showError(jsonDecode(error.response.toString())['msg'])
+                    else {
+                      print("Cookies were not set");
+                    }
                   }
-                  else {
-                    print(error)
-                  }
-                });
+              })
+              .catchError((error) {
+                
+                if ( error.response.statusCode == 400){
+                  _securityFormKey.currentState?.showError(jsonDecode(error.response.toString())['msg']);
+                }
+                else {
+                  print(error);
+                }
+                
+              });
           },
           buttonAction2: () {
             Navigator.pushNamed(context, '/register');

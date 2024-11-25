@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 
 void checkSecurityLevel(BuildContext context, String requiredLevel) {
   
-  final api = CorpApi().getSecurityApi();
 
   bool authentificated = false;
   bool rsi_verified = false;
@@ -12,8 +11,8 @@ void checkSecurityLevel(BuildContext context, String requiredLevel) {
   bool isManager = false;
   bool isAdmin = false;
   
-  
-  api.getStatus().then((response) =>  {
+  var corpSecurityClient = CorpApi().getSecurityApi();
+  corpSecurityClient.getStatus().then((response) =>  {
 
     authentificated = response.data!.authentificated,
     rsi_verified = response.data!.rSIVerified,

@@ -41,11 +41,11 @@ dependencies:
   url_launcher: ^6.3.1
   openapi_generator_annotations: ^6.0.0
   build_runner: ^2.4.13
+  universal_html: ^2.2.4
 
   corp_api:
     path: ./api/corp_api
-  cookie_jar: ^4.0.8
-  dio_cookie_manager: ^3.1.1
+
 
 dev_dependencies:
   flutter_test:
