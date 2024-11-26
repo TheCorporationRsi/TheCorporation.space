@@ -79,8 +79,6 @@ class _LoginScreenState extends State<LoginScreen>
 
             var corpSecurityClient = CorpApi().getSecurityApi();
 
-            
-
             corpSecurityClient.login(loginRequest: loginRequest)
               .then((response) {
                 
