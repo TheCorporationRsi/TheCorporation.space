@@ -18,9 +18,7 @@ def logout():
     tags:
         - Security
     security:
-        - cookieAuth: []
-    security: 
-      - csrf : []
+        - corp_access_pass: []
     responses:
       200:
         description: Transfer was successful

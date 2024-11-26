@@ -21,7 +21,7 @@ def current_funding():
     tags:
         - RSI Stats
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Transfer was successfull

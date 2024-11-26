@@ -73,20 +73,13 @@ swagger = Swagger(
         ],
         "components": {
             "securitySchemes": {
-                "cookieAuth": {
-                    "type": "apiKey",
-                    "in": "cookie",
-                    "name": "corp_access_pass",
+                "corp_access_pass": {
+                    "type": "http",
+                    "scheme": "bearer",
                 },
-                "csrf": {
-                    "name": "X-CSRF-TOKEN",
-                    "type": "apiKey",
-                    "in": "header",
-                },
-                "csrf_refresh": {
-                    "name": "X-CSRF-TOKEN",
-                    "type": "apiKey",
-                    "in": "header",
+                "corp_refresh_pass": {
+                    "type": "http",
+                    "scheme": "bearer",
                 },
                 "api_key": {
                     "name": "X-API-Key",
@@ -241,37 +234,5 @@ def create_app(config_class=Config.ProductionConfig):
                 )
             )
             db.session.commit()
-
-        from flask_jwt_extended import (
-            set_access_cookies,
-            get_jwt,
-            create_access_token,
-            get_jwt_identity,
-            current_user,
-            unset_jwt_cookies,
-            jwt_required,
-        )
-        from datetime import datetime, timezone, timedelta
-
-        @app.before_request
-        def log_request_info():
-            app.logger.info("Request Headers: %s", request.headers)
-            app.logger.info("Request Cookies: %s", request.cookies)
-
-        @app.after_request
-        def refresh_expiring_jwts(response):
-            try:
-                if not get_jwt_identity().disabled:
-                    exp_timestamp = get_jwt()["exp"]
-                    now = datetime.now(timezone.utc)
-                    target_timestamp = datetime.timestamp(now + timedelta(hours=3))
-                    if target_timestamp > exp_timestamp:
-                        access_token = create_access_token(identity=get_jwt_identity())
-                        set_access_cookies(response, access_token)
-                else:
-                    unset_jwt_cookies(response)
-            except:
-                # Case where there is not a valid JWT. Just return the original response
-                return response
 
     return app

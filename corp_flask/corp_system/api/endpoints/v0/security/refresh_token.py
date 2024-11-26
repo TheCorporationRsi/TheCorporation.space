@@ -17,11 +17,24 @@ def refresh_token():
     tags:
         - Security
     security:
-      - cookieAuth: []
-      - csrf_refresh: []
+      - corp_refresh_pass: []
     responses:
       200:
-        description: Transfer was successfull
+        description: Token successfully refreshed
+        content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            refreshed:
+                                type: boolean
+                                example: true
+                            corp_access_pass:
+                                type: string
+                                example: eyJ0eXAiOi
+                            corp_refresh_pass:
+                                type: string
+                                example: eyJ0eXAiOi
       400:
         $ref: "#/components/responses/invalid"
       401:

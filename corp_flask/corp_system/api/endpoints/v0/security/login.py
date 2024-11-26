@@ -47,11 +47,13 @@ def login():
                             msg:
                                 type: string
                                 example: logged_in
-            headers:
-                Set-Cookie:
-                    schema:
-                        type: string
-                        example: corp_access_pass=abcde12345; Path=/; HttpOnly
+                            corp_access_pass:
+                                type: string
+                                example: eyJ0eXAiOi
+                            corp_refresh_pass:
+                                type: string
+                                example: eyJ0eXAiOi
+                                
         400:
             $ref: "#/components/responses/invalid"
 

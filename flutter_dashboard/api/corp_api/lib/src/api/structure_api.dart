@@ -54,10 +54,9 @@ class StructureApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -285,10 +284,9 @@ class StructureApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -366,10 +364,9 @@ class StructureApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,

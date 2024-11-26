@@ -18,7 +18,7 @@ def rsi_token():
     tags:
         - Security
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Get RSI_token
@@ -57,7 +57,7 @@ def rsi_token_test():
     tags:
         - Security
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Get RSI_token

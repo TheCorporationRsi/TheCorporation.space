@@ -6,50 +6,54 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'login200_response.g.dart';
+part 'refresh_token200_response.g.dart';
 
-/// Login200Response
+/// RefreshToken200Response
 ///
 /// Properties:
 /// * [corpAccessPass]
 /// * [corpRefreshPass]
-/// * [msg]
+/// * [refreshed]
 @BuiltValue()
-abstract class Login200Response
-    implements Built<Login200Response, Login200ResponseBuilder> {
+abstract class RefreshToken200Response
+    implements Built<RefreshToken200Response, RefreshToken200ResponseBuilder> {
   @BuiltValueField(wireName: r'corp_access_pass')
   String? get corpAccessPass;
 
   @BuiltValueField(wireName: r'corp_refresh_pass')
   String? get corpRefreshPass;
 
-  @BuiltValueField(wireName: r'msg')
-  String? get msg;
+  @BuiltValueField(wireName: r'refreshed')
+  bool? get refreshed;
 
-  Login200Response._();
+  RefreshToken200Response._();
 
-  factory Login200Response([void updates(Login200ResponseBuilder b)]) =
-      _$Login200Response;
+  factory RefreshToken200Response(
+          [void updates(RefreshToken200ResponseBuilder b)]) =
+      _$RefreshToken200Response;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(Login200ResponseBuilder b) => b;
+  static void _defaults(RefreshToken200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Login200Response> get serializer =>
-      _$Login200ResponseSerializer();
+  static Serializer<RefreshToken200Response> get serializer =>
+      _$RefreshToken200ResponseSerializer();
 }
 
-class _$Login200ResponseSerializer
-    implements PrimitiveSerializer<Login200Response> {
+class _$RefreshToken200ResponseSerializer
+    implements PrimitiveSerializer<RefreshToken200Response> {
   @override
-  final Iterable<Type> types = const [Login200Response, _$Login200Response];
+  final Iterable<Type> types = const [
+    RefreshToken200Response,
+    _$RefreshToken200Response
+  ];
 
   @override
-  final String wireName = r'Login200Response';
+  final String wireName = r'RefreshToken200Response';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Login200Response object, {
+    RefreshToken200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.corpAccessPass != null) {
@@ -66,11 +70,11 @@ class _$Login200ResponseSerializer
         specifiedType: const FullType(String),
       );
     }
-    if (object.msg != null) {
-      yield r'msg';
+    if (object.refreshed != null) {
+      yield r'refreshed';
       yield serializers.serialize(
-        object.msg,
-        specifiedType: const FullType(String),
+        object.refreshed,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -78,7 +82,7 @@ class _$Login200ResponseSerializer
   @override
   Object serialize(
     Serializers serializers,
-    Login200Response object, {
+    RefreshToken200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object,
@@ -91,7 +95,7 @@ class _$Login200ResponseSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required Login200ResponseBuilder result,
+    required RefreshToken200ResponseBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -112,12 +116,12 @@ class _$Login200ResponseSerializer
           ) as String;
           result.corpRefreshPass = valueDes;
           break;
-        case r'msg':
+        case r'refreshed':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.msg = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.refreshed = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -128,12 +132,12 @@ class _$Login200ResponseSerializer
   }
 
   @override
-  Login200Response deserialize(
+  RefreshToken200Response deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = Login200ResponseBuilder();
+    final result = RefreshToken200ResponseBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

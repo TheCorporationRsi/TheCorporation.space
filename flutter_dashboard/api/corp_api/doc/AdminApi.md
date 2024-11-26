@@ -23,14 +23,6 @@ Department creation endpoint
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: csrf
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getAdminApi();
 final CreateDepartmentRequest createDepartmentRequest = ; // CreateDepartmentRequest | Department information
@@ -55,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [csrf](../README.md#csrf)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -74,14 +66,6 @@ Division creation endpoint
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: csrf
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getAdminApi();
 final CreateDivisionRequest createDivisionRequest = ; // CreateDivisionRequest | Division information
@@ -106,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [csrf](../README.md#csrf)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 

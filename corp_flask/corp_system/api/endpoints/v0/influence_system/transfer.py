@@ -22,8 +22,7 @@ def transfer():
     tags:
         - Influence System
     security: 
-        - cookieAuth: []
-        - csrf : []
+        - corp_access_pass: []
     requestBody:
         description: transfer information
         content:

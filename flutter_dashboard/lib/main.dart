@@ -1,12 +1,16 @@
-// Openapi Generator last run: : 2024-11-23T22:43:14.267349
+// Openapi Generator last run: : 2024-11-25T23:33:21.290482
+import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/screens/dashboard.dart';
 import 'package:flutter_dashboard/screens/login_screen.dart';
 import 'package:flutter_dashboard/screens/register_screen.dart';
 import 'package:flutter_dashboard/screens/verification_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'
+    as secure_storage;
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
+import 'package:flutter_dashboard/util/corp_interceptor.dart';
+import 'package:dio/dio.dart';
 
 @Openapi(
   additionalProperties:
@@ -37,6 +41,19 @@ class Example {}
 void main() {
   runApp(const MyApp());
 }
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final secure_storage.FlutterSecureStorage secureStorage =
+    secure_storage.FlutterSecureStorage();
+
+final corp_interceptor = AuthInterceptor(
+    dio: Dio(),
+    secureStorage: secureStorage,
+    navigatorKey: navigatorKey,
+  );
+
+final CorpApi corpApi = CorpApi(interceptors: [corp_interceptor]);
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -46,6 +63,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CORP Dashboard',
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
         brightness: Brightness.dark,

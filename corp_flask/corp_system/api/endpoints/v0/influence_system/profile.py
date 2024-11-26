@@ -20,7 +20,7 @@ def profile():
 	tags:
 		- Influence System
 	security:
-		- cookieAuth: []
+		- corp_access_pass: []
 	responses:
 		200:
 			description: Transfer was successful
@@ -61,8 +61,8 @@ def current_influence(influence_type, type, title):
 	operationId: get_influence
 	tags:
 		- Influence System
-	security:
-		- cookieAuth: []
+	security: 
+        - corp_access_pass: []
 	parameters:
 		- 	in: path
 			name: influence_type # Note the name is the same as in the path
@@ -140,8 +140,8 @@ def sent_tribute(type, request, page):
 	operationId: get_tribute_history
 	tags:
 		- Influence System
-	security:
-		- cookieAuth: []
+	security: 
+        - corp_access_pass: []
 	parameters:
 		- 	in: path
 			name: type # Note the name is the same as in the path

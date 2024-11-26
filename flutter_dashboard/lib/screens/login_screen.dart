@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dashboard/main.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'dart:convert';
-
-import 'package:universal_html/html.dart' as html;
-
-import 'package:dio/dio.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -80,14 +77,7 @@ class _LoginScreenState extends State<LoginScreen>
               ..password = passwordController.text
               ..otp = otp);
 
-            var corpClient = CorpApi();
-
-            corpClient.dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
-              options.extra["withCredentials"] = true; 
-              return handler.next(options);
-            }));
-
-            var corpSecurityClient = corpClient.getSecurityApi();
+            var corpSecurityClient = CorpApi().getSecurityApi();
 
             
 
@@ -98,21 +88,28 @@ class _LoginScreenState extends State<LoginScreen>
                 
                 if (response.data!.msg == 'logged_in')
                   {
-                    var cookies = response.headers['set-cookie'];
-                    print(response.headers);
-                    if (cookies != null) {
-                      cookies.forEach((cookie) {
-                        html.document.cookie = cookie;
-                      });
-                      print(cookies);
-                      checkSecurityLevel(context, 'rsiVerified');
-                      Navigator.pushNamed(context, '/dashboard');
+                    final accessToken = response.data!.corpAccessPass;
+                    final refreshToken = response.data!.corpRefreshPass;
+
+                    secureStorage.write(
+                      key: 'accessToken',
+                      value: accessToken,
+                    );
+
+                    secureStorage.write(
+                      key: 'refreshToken',
+                      value: refreshToken,
+                    );
+
+                    checkSecurityLevel(context, 'rsiVerified');
+                    Navigator.pushNamed(context, '/dashboard');
 
                     }
                     else {
                       print("Cookies were not set");
                     }
-                  }
+                
+                  
               })
               .catchError((error) {
                 

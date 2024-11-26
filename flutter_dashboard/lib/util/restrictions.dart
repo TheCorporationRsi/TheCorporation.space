@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:corp_api/corp_api.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dashboard/main.dart';
 
 void checkSecurityLevel(BuildContext context, String requiredLevel) {
   
@@ -10,8 +10,10 @@ void checkSecurityLevel(BuildContext context, String requiredLevel) {
   bool corp_member = false;
   bool isManager = false;
   bool isAdmin = false;
+
   
-  var corpSecurityClient = CorpApi().getSecurityApi();
+  final corpSecurityClient = corpApi.getSecurityApi();
+
   corpSecurityClient.getStatus().then((response) =>  {
 
     authentificated = response.data!.authentificated,

@@ -75,10 +75,9 @@ class InfluenceSystemApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -151,10 +150,9 @@ class InfluenceSystemApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -328,10 +326,9 @@ class InfluenceSystemApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -412,16 +409,9 @@ class InfluenceSystemApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
-          },
-          {
-            'type': 'apiKey',
-            'name': 'csrf',
-            'keyName': 'X-CSRF-TOKEN',
-            'where': 'header',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -522,16 +512,9 @@ class InfluenceSystemApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
-          },
-          {
-            'type': 'apiKey',
-            'name': 'csrf',
-            'keyName': 'X-CSRF-TOKEN',
-            'where': 'header',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,

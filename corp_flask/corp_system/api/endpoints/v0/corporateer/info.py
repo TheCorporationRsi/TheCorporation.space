@@ -18,7 +18,7 @@ def corporateers():
     tags:
         - Information
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Transfer was successful

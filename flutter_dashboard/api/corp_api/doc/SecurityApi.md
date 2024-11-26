@@ -10,7 +10,6 @@ All URIs are relative to *http://localhost:5000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**changePassword**](SecurityApi.md#changepassword) | **POST** /api/v0/change_password | Change password
-[**getCookieExpiration**](SecurityApi.md#getcookieexpiration) | **GET** /api/v0/cookie_expiration | Get the cookie expiration
 [**getLogs**](SecurityApi.md#getlogs) | **GET** /api/v0/logs | Get your logs
 [**getRSIToken**](SecurityApi.md#getrsitoken) | **GET** /api/v0/RSI_token | Get RSI token
 [**getStatus**](SecurityApi.md#getstatus) | **GET** /api/v0/status | Get current authentification status
@@ -18,7 +17,6 @@ Method | HTTP request | Description
 [**logout**](SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
 [**refreshToken**](SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [**register**](SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
-[**removeCookie**](SecurityApi.md#removecookie) | **GET** /api/v0/remove_cookie | Delete the cookie
 [**verifyRSIToken**](SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
 
 
@@ -32,14 +30,6 @@ Change password
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: csrf
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getSecurityApi();
 final ChangePasswordRequest changePasswordRequest = ; // ChangePasswordRequest | registration information
@@ -63,50 +53,11 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [csrf](../README.md#csrf)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **getCookieExpiration**
-> GetCookieExpiration200Response getCookieExpiration()
-
-Get the cookie expiration
-
-<br/>This endpoint return the cookies expiration<br/>
-
-### Example
-```dart
-import 'package:corp_api/api.dart';
-
-final api = CorpApi().getSecurityApi();
-
-try {
-    final response = api.getCookieExpiration();
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling SecurityApi->getCookieExpiration: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**GetCookieExpiration200Response**](GetCookieExpiration200Response.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -121,10 +72,6 @@ Get your logs
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getSecurityApi();
 
@@ -144,7 +91,7 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -163,10 +110,6 @@ Get RSI token
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getSecurityApi();
 
@@ -187,7 +130,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -226,7 +169,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -288,10 +231,6 @@ Logout current user
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: csrf
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getSecurityApi();
 
@@ -311,7 +250,7 @@ void (empty response body)
 
 ### Authorization
 
-[csrf](../README.md#csrf)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -321,7 +260,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **refreshToken**
-> refreshToken()
+> RefreshToken200Response refreshToken()
 
 Path to refresh cookie that are soon to expire
 
@@ -330,19 +269,12 @@ Path to refresh cookie that are soon to expire
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: csrf_refresh
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf_refresh').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf_refresh').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getSecurityApi();
 
 try {
-    api.refreshToken();
+    final response = api.refreshToken();
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling SecurityApi->refreshToken: $e\n');
 }
@@ -353,11 +285,11 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-void (empty response body)
+[**RefreshToken200Response**](RefreshToken200Response.md)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [csrf_refresh](../README.md#csrf_refresh)
+[corp_refresh_pass](../README.md#corp_refresh_pass)
 
 ### HTTP request headers
 
@@ -409,44 +341,6 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **removeCookie**
-> removeCookie()
-
-Delete the cookie
-
-<br/>This endpoint delete all the 4 cookies set by the server<br/>
-
-### Example
-```dart
-import 'package:corp_api/api.dart';
-
-final api = CorpApi().getSecurityApi();
-
-try {
-    api.removeCookie();
-} catch on DioException (e) {
-    print('Exception when calling SecurityApi->removeCookie: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **verifyRSIToken**
 > VerifyRSIToken200Response verifyRSIToken()
 
@@ -457,10 +351,6 @@ Verify RSI token
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getSecurityApi();
 
@@ -481,7 +371,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 

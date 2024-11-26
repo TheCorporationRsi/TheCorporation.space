@@ -22,10 +22,6 @@ List of all corporateer
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getInformationApi();
 
@@ -46,7 +42,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 

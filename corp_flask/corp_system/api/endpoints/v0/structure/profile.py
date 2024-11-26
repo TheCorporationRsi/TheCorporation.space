@@ -20,7 +20,7 @@ def user_departments():
     tags:
         - Structure
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Departments
@@ -63,7 +63,7 @@ def user_divisions():
     tags:
         - Structure
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Divisions
@@ -103,7 +103,7 @@ def user_roles():
     tags:
         - Structure
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: Roles

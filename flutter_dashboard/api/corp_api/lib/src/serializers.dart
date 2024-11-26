@@ -20,7 +20,6 @@ import 'package:corp_api/src/model/create_department200_response.dart';
 import 'package:corp_api/src/model/create_department_request.dart';
 import 'package:corp_api/src/model/create_division200_response.dart';
 import 'package:corp_api/src/model/create_division_request.dart';
-import 'package:corp_api/src/model/get_cookie_expiration200_response.dart';
 import 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 import 'package:corp_api/src/model/get_current_funding200_response.dart';
 import 'package:corp_api/src/model/get_departments200_response.dart';
@@ -35,6 +34,7 @@ import 'package:corp_api/src/model/get_user_departments200_response.dart';
 import 'package:corp_api/src/model/get_user_divisions200_response.dart';
 import 'package:corp_api/src/model/login200_response.dart';
 import 'package:corp_api/src/model/login_request.dart';
+import 'package:corp_api/src/model/refresh_token200_response.dart';
 import 'package:corp_api/src/model/register200_response.dart';
 import 'package:corp_api/src/model/register_request.dart';
 import 'package:corp_api/src/model/send_tribute_request.dart';
@@ -50,7 +50,6 @@ part 'serializers.g.dart';
   CreateDepartmentRequest,
   CreateDivision200Response,
   CreateDivisionRequest,
-  GetCookieExpiration200Response,
   GetCorporateers200ResponseInner,
   GetCurrentFunding200Response,
   GetDepartments200Response,
@@ -65,6 +64,7 @@ part 'serializers.g.dart';
   GetUserDivisions200Response,
   Login200Response,
   LoginRequest,
+  RefreshToken200Response,
   Register200Response,
   RegisterRequest,
   SendTributeRequest,

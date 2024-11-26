@@ -99,8 +99,7 @@ def create_department():
     
     operationId: create_department
     security:
-        - cookieAuth: []
-        - csrf: []
+        - corp_access_pass: []
     tags:
         - Admin
     requestBody:

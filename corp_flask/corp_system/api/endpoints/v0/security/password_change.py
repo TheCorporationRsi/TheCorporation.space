@@ -19,8 +19,7 @@ def pasword_change():
     tags:
         - Security
     security:
-        - cookieAuth: []
-        - csrf : []
+        - corp_access_pass: []
     requestBody:
         description: registration information
         content:

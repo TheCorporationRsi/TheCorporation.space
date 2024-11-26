@@ -22,6 +22,8 @@ def get_status():
     operationId: get_status
     tags:
         - Security
+    security:
+        - corp_access_pass: []
     responses:
         200:
             description: Current authentification status

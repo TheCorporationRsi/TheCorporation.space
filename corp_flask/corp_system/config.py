@@ -11,12 +11,13 @@ class Config_Model(ABC):
     JWT_SESSION_COOKIE = False
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=10)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=2)
-    JWT_TOKEN_LOCATION = ["cookies"]
+    JWT_TOKEN_LOCATION = ["headers"]
+    
     JWT_ACCESS_COOKIE_NAME = "corp_access_pass"
     JWT_ACCESS_CSRF_COOKIE_NAME = "corp_access_pass_xeno_defense"
     JWT_REFRESH_COOKIE_NAME = "corp_refresh_pass"
     JWT_REFRESH_CSRF_COOKIE_NAME = "corp_refresh_pass_xeno_defense"
-    JWT_COOKIE_CSRF_PROTECT = True
+    JWT_COOKIE_CSRF_PROTECT = False # Disabled due to flutter implementation
     JWT_COOKIE_SECURE = True
     GEVENT_SUPPORT = True
 

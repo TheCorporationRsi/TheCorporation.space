@@ -54,18 +54,17 @@ class SecurityManager:
                 raise ValueError("2FA error")
         
         if user.check_password(password):
-            # Generate a JWT access token
-            access_token = create_access_token(identity=user)
-
-            # Create the response
-            response = jsonify({'msg': "logged_in"})
-
-            # Set the JWTs in cookies
-            set_access_cookies(response, access_token)
             
-            # Set the refresh token in cookies
+            access_token = create_access_token(identity=user)
             refresh_token = create_refresh_token(identity=user)
-            set_refresh_cookies(response, refresh_token)
+            
+            # Create the response
+            response = jsonify({
+                'msg': "logged_in",
+                'corp_access_pass': access_token,
+                'corp_refresh_pass': refresh_token
+            })
+        
             user.save_token(refresh_token)
         
             db.session.commit()
@@ -140,12 +139,23 @@ class SecurityManager:
 
         # Generate a new access token as before
         access_token = create_access_token(identity=user)
-        response = jsonify({'refreshed': True})
-        set_access_cookies(response, access_token)
-
-        # If a new refresh token was generated, set it in the response
+        
+        
         if new_refresh_token:
-            set_refresh_cookies(response, new_refresh_token)
+            
+            response = jsonify({
+            'refreshed': True,
+            'corp_access_pass': access_token,
+            'corp_refresh_pass': new_refresh_token
+            })
+            
+        else:
+            
+            response = jsonify({
+                'refreshed': True,
+                'corp_access_pass': access_token,
+                'corp_refresh_pass': None
+            })
     
         return response
     

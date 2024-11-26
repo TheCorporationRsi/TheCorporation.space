@@ -27,10 +27,6 @@ Get current influence
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getInfluenceSystemApi();
 final String influenceType = influence; // String | type of influence
@@ -59,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -78,10 +74,6 @@ Get influence system profile
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getInfluenceSystemApi();
 
@@ -102,7 +94,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -160,10 +152,6 @@ Get tribute transaction history
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getInfluenceSystemApi();
 final String type = sent; // String | sent/received
@@ -192,7 +180,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -211,14 +199,6 @@ Endpoint to send tribute to another corporateer
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: csrf
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getInfluenceSystemApi();
 final SendTributeRequest sendTributeRequest = ; // SendTributeRequest | transfer information
@@ -243,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [csrf](../README.md#csrf)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 
@@ -262,14 +242,6 @@ Division weight assignment
 ### Example
 ```dart
 import 'package:corp_api/api.dart';
-// TODO Configure API key authorization: cookieAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: csrf
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('csrf').apiKeyPrefix = 'Bearer';
 
 final api = CorpApi().getInfluenceSystemApi();
 final SetWeightRequest setWeightRequest = ; // SetWeightRequest | Division information
@@ -293,7 +265,7 @@ void (empty response body)
 
 ### Authorization
 
-[cookieAuth](../README.md#cookieAuth), [csrf](../README.md#csrf)
+[corp_access_pass](../README.md#corp_access_pass)
 
 ### HTTP request headers
 

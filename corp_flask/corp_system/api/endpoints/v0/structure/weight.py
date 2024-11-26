@@ -20,8 +20,7 @@ def set_weight():
     tags:
         - Influence System
     security:
-        - cookieAuth: []
-        - csrf: []
+        - corp_access_pass: []
     requestBody:
         description: Division information
         content:

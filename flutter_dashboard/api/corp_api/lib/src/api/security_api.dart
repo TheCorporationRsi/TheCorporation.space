@@ -9,12 +9,12 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:corp_api/src/model/change_password_request.dart';
-import 'package:corp_api/src/model/get_cookie_expiration200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 import 'package:corp_api/src/model/get_status200_response.dart';
 import 'package:corp_api/src/model/login200_response.dart';
 import 'package:corp_api/src/model/login_request.dart';
+import 'package:corp_api/src/model/refresh_token200_response.dart';
 import 'package:corp_api/src/model/register200_response.dart';
 import 'package:corp_api/src/model/register_request.dart';
 import 'package:corp_api/src/model/verify_rsi_token200_response.dart';
@@ -58,16 +58,9 @@ class SecurityApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
-          },
-          {
-            'type': 'apiKey',
-            'name': 'csrf',
-            'keyName': 'X-CSRF-TOKEN',
-            'where': 'header',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -107,80 +100,6 @@ class SecurityApi {
     return _response;
   }
 
-  /// Get the cookie expiration
-  /// &lt;br/&gt;This endpoint return the cookies expiration&lt;br/&gt;
-  ///
-  /// Parameters:
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [GetCookieExpiration200Response] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetCookieExpiration200Response>> getCookieExpiration({
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/api/v0/cookie_expiration';
-    final _options = Options(
-      method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
-        ...?extra,
-      },
-      validateStatus: validateStatus,
-    );
-
-    final _response = await _dio.request<Object>(
-      _path,
-      options: _options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    GetCookieExpiration200Response? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(GetCookieExpiration200Response),
-            ) as GetCookieExpiration200Response;
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<GetCookieExpiration200Response>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
   /// Get your logs
   /// &lt;br/&gt;This returns a list of all the logs that have been assigned to your account&lt;br/&gt;
   ///
@@ -211,10 +130,9 @@ class SecurityApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -263,10 +181,9 @@ class SecurityApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -342,7 +259,13 @@ class SecurityApi {
         ...?headers,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
+          },
+        ],
         ...?extra,
       },
       validateStatus: validateStatus,
@@ -515,10 +438,9 @@ class SecurityApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'csrf',
-            'keyName': 'X-CSRF-TOKEN',
-            'where': 'header',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,
@@ -548,9 +470,9 @@ class SecurityApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [RefreshToken200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> refreshToken({
+  Future<Response<RefreshToken200Response>> refreshToken({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -567,16 +489,9 @@ class SecurityApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
-          },
-          {
-            'type': 'apiKey',
-            'name': 'csrf_refresh',
-            'keyName': 'X-CSRF-TOKEN',
-            'where': 'header',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_refresh_pass',
           },
         ],
         ...?extra,
@@ -592,7 +507,36 @@ class SecurityApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    RefreshToken200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(RefreshToken200Response),
+            ) as RefreshToken200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<RefreshToken200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
   /// Registration endpoint
@@ -692,51 +636,6 @@ class SecurityApi {
     );
   }
 
-  /// Delete the cookie
-  /// &lt;br/&gt;This endpoint delete all the 4 cookies set by the server&lt;br/&gt;
-  ///
-  /// Parameters:
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future]
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> removeCookie({
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/api/v0/remove_cookie';
-    final _options = Options(
-      method: r'GET',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
-        ...?extra,
-      },
-      validateStatus: validateStatus,
-    );
-
-    final _response = await _dio.request<Object>(
-      _path,
-      options: _options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    return _response;
-  }
-
   /// Verify RSI token
   /// &lt;br/&gt;When used, the current user profile will be verified on the RSI website to find the assigned token&lt;br/&gt;
   ///
@@ -767,10 +666,9 @@ class SecurityApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
-            'type': 'apiKey',
-            'name': 'cookieAuth',
-            'keyName': 'corp_access_pass',
-            'where': '',
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
           },
         ],
         ...?extra,

@@ -97,8 +97,7 @@ def create_division():
     tags:
         - Admin
     security:
-        - cookieAuth: []
-        - csrf: []
+        - corp_access_pass: []
     requestBody:
         description: Division information
         content:

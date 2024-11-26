@@ -19,7 +19,7 @@ def get_logs():
     tags:
         - Security
     security:
-        - cookieAuth: []
+        - corp_access_pass: []
     responses:
         200:
             description: List of your last 100 logs
