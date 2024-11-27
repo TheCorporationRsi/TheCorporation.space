@@ -7,7 +7,6 @@ part of 'serializers.dart';
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
-      ..add(ApiV0StructureProfileRolesGet200Response.serializer)
       ..add(ChangePasswordRequest.serializer)
       ..add(CreateDepartment200Response.serializer)
       ..add(CreateDepartmentRequest.serializer)
@@ -25,6 +24,8 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetTributeHistory200ResponseInner.serializer)
       ..add(GetUserDepartments200Response.serializer)
       ..add(GetUserDivisions200Response.serializer)
+      ..add(GetUserProfile200Response.serializer)
+      ..add(GetUserRoles200Response.serializer)
       ..add(Login200Response.serializer)
       ..add(LoginRequest.serializer)
       ..add(RefreshToken200Response.serializer)

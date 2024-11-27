@@ -9,51 +9,13 @@ All URIs are relative to *http://localhost:5000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiV0StructureProfileRolesGet**](StructureApi.md#apiv0structureprofilerolesget) | **GET** /api/v0/structure/profile/roles | List of all your roles
 [**getDepartments**](StructureApi.md#getdepartments) | **GET** /api/v0/structure/departments | List of all departments
 [**getDivisions**](StructureApi.md#getdivisions) | **GET** /api/v0/structure/divisions | List of all divisions
 [**getUserDepartments**](StructureApi.md#getuserdepartments) | **GET** /api/v0/structure/profile/departments | List of all your departments
 [**getUserDivisions**](StructureApi.md#getuserdivisions) | **GET** /api/v0/structure/profile/divisions | List of all your division
+[**getUserProfile**](StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
+[**getUserRoles**](StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
 
-
-# **apiV0StructureProfileRolesGet**
-> ApiV0StructureProfileRolesGet200Response apiV0StructureProfileRolesGet()
-
-List of all your roles
-
-<br/>Returns a list of all the current user's roles<br/>
-
-### Example
-```dart
-import 'package:corp_api/api.dart';
-
-final api = CorpApi().getStructureApi();
-
-try {
-    final response = api.apiV0StructureProfileRolesGet();
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling StructureApi->apiV0StructureProfileRolesGet: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**ApiV0StructureProfileRolesGet200Response**](ApiV0StructureProfileRolesGet200Response.md)
-
-### Authorization
-
-[corp_access_pass](../README.md#corp_access_pass)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getDepartments**
 > GetDepartments200Response getDepartments()
@@ -199,6 +161,84 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**GetUserDivisions200Response**](GetUserDivisions200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserProfile**
+> GetUserProfile200Response getUserProfile()
+
+Current user profile
+
+<br/>Returns the current user's profile<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getStructureApi();
+
+try {
+    final response = api.getUserProfile();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling StructureApi->getUserProfile: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GetUserProfile200Response**](GetUserProfile200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserRoles**
+> GetUserRoles200Response getUserRoles()
+
+List of all your roles
+
+<br/>Returns a list of all the current user's roles<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getStructureApi();
+
+try {
+    final response = api.getUserRoles();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling StructureApi->getUserRoles: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GetUserRoles200Response**](GetUserRoles200Response.md)
 
 ### Authorization
 

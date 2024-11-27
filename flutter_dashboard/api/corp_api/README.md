@@ -84,16 +84,16 @@ Class | Method | HTTP request | Description
 [*SecurityApi*](doc/SecurityApi.md) | [**refreshToken**](doc/SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [*SecurityApi*](doc/SecurityApi.md) | [**register**](doc/SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
 [*SecurityApi*](doc/SecurityApi.md) | [**verifyRSIToken**](doc/SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
-[*StructureApi*](doc/StructureApi.md) | [**apiV0StructureProfileRolesGet**](doc/StructureApi.md#apiv0structureprofilerolesget) | **GET** /api/v0/structure/profile/roles | List of all your roles
 [*StructureApi*](doc/StructureApi.md) | [**getDepartments**](doc/StructureApi.md#getdepartments) | **GET** /api/v0/structure/departments | List of all departments
 [*StructureApi*](doc/StructureApi.md) | [**getDivisions**](doc/StructureApi.md#getdivisions) | **GET** /api/v0/structure/divisions | List of all divisions
 [*StructureApi*](doc/StructureApi.md) | [**getUserDepartments**](doc/StructureApi.md#getuserdepartments) | **GET** /api/v0/structure/profile/departments | List of all your departments
 [*StructureApi*](doc/StructureApi.md) | [**getUserDivisions**](doc/StructureApi.md#getuserdivisions) | **GET** /api/v0/structure/profile/divisions | List of all your division
+[*StructureApi*](doc/StructureApi.md) | [**getUserProfile**](doc/StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
+[*StructureApi*](doc/StructureApi.md) | [**getUserRoles**](doc/StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
 
 
 ## Documentation For Models
 
- - [ApiV0StructureProfileRolesGet200Response](doc/ApiV0StructureProfileRolesGet200Response.md)
  - [ChangePasswordRequest](doc/ChangePasswordRequest.md)
  - [CreateDepartment200Response](doc/CreateDepartment200Response.md)
  - [CreateDepartmentRequest](doc/CreateDepartmentRequest.md)
@@ -111,6 +111,8 @@ Class | Method | HTTP request | Description
  - [GetTributeHistory200ResponseInner](doc/GetTributeHistory200ResponseInner.md)
  - [GetUserDepartments200Response](doc/GetUserDepartments200Response.md)
  - [GetUserDivisions200Response](doc/GetUserDivisions200Response.md)
+ - [GetUserProfile200Response](doc/GetUserProfile200Response.md)
+ - [GetUserRoles200Response](doc/GetUserRoles200Response.md)
  - [Login200Response](doc/Login200Response.md)
  - [LoginRequest](doc/LoginRequest.md)
  - [RefreshToken200Response](doc/RefreshToken200Response.md)

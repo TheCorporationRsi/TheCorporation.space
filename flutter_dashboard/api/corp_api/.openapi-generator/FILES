@@ -2,7 +2,6 @@
 README.md
 analysis_options.yaml
 doc/AdminApi.md
-doc/ApiV0StructureProfileRolesGet200Response.md
 doc/ChangePasswordRequest.md
 doc/CreateDepartment200Response.md
 doc/CreateDepartmentRequest.md
@@ -20,6 +19,8 @@ doc/GetStatus200Response.md
 doc/GetTributeHistory200ResponseInner.md
 doc/GetUserDepartments200Response.md
 doc/GetUserDivisions200Response.md
+doc/GetUserProfile200Response.md
+doc/GetUserRoles200Response.md
 doc/InfluenceSystemApi.md
 doc/InformationApi.md
 doc/Login200Response.md
@@ -48,7 +49,6 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
-lib/src/model/api_v0_structure_profile_roles_get200_response.dart
 lib/src/model/change_password_request.dart
 lib/src/model/create_department200_response.dart
 lib/src/model/create_department_request.dart
@@ -67,6 +67,8 @@ lib/src/model/get_status200_response.dart
 lib/src/model/get_tribute_history200_response_inner.dart
 lib/src/model/get_user_departments200_response.dart
 lib/src/model/get_user_divisions200_response.dart
+lib/src/model/get_user_profile200_response.dart
+lib/src/model/get_user_roles200_response.dart
 lib/src/model/login200_response.dart
 lib/src/model/login_request.dart
 lib/src/model/refresh_token200_response.dart
@@ -77,3 +79,5 @@ lib/src/model/set_weight_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/get_user_profile200_response_test.dart
+test/get_user_roles200_response_test.dart

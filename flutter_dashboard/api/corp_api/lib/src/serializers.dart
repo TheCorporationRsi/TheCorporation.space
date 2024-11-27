@@ -14,7 +14,6 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:corp_api/src/date_serializer.dart';
 import 'package:corp_api/src/model/date.dart';
 
-import 'package:corp_api/src/model/api_v0_structure_profile_roles_get200_response.dart';
 import 'package:corp_api/src/model/change_password_request.dart';
 import 'package:corp_api/src/model/create_department200_response.dart';
 import 'package:corp_api/src/model/create_department_request.dart';
@@ -32,6 +31,8 @@ import 'package:corp_api/src/model/get_status200_response.dart';
 import 'package:corp_api/src/model/get_tribute_history200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_departments200_response.dart';
 import 'package:corp_api/src/model/get_user_divisions200_response.dart';
+import 'package:corp_api/src/model/get_user_profile200_response.dart';
+import 'package:corp_api/src/model/get_user_roles200_response.dart';
 import 'package:corp_api/src/model/login200_response.dart';
 import 'package:corp_api/src/model/login_request.dart';
 import 'package:corp_api/src/model/refresh_token200_response.dart';
@@ -44,7 +45,6 @@ import 'package:corp_api/src/model/verify_rsi_token200_response.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
-  ApiV0StructureProfileRolesGet200Response,
   ChangePasswordRequest,
   CreateDepartment200Response,
   CreateDepartmentRequest,
@@ -62,6 +62,8 @@ part 'serializers.g.dart';
   GetTributeHistory200ResponseInner,
   GetUserDepartments200Response,
   GetUserDivisions200Response,
+  GetUserProfile200Response,
+  GetUserRoles200Response,
   Login200Response,
   LoginRequest,
   RefreshToken200Response,

@@ -17,7 +17,6 @@ export 'package:corp_api/src/api/rsi_stats_api.dart';
 export 'package:corp_api/src/api/security_api.dart';
 export 'package:corp_api/src/api/structure_api.dart';
 
-export 'package:corp_api/src/model/api_v0_structure_profile_roles_get200_response.dart';
 export 'package:corp_api/src/model/change_password_request.dart';
 export 'package:corp_api/src/model/create_department200_response.dart';
 export 'package:corp_api/src/model/create_department_request.dart';
@@ -35,6 +34,8 @@ export 'package:corp_api/src/model/get_status200_response.dart';
 export 'package:corp_api/src/model/get_tribute_history200_response_inner.dart';
 export 'package:corp_api/src/model/get_user_departments200_response.dart';
 export 'package:corp_api/src/model/get_user_divisions200_response.dart';
+export 'package:corp_api/src/model/get_user_profile200_response.dart';
+export 'package:corp_api/src/model/get_user_roles200_response.dart';
 export 'package:corp_api/src/model/login200_response.dart';
 export 'package:corp_api/src/model/login_request.dart';
 export 'package:corp_api/src/model/refresh_token200_response.dart';
