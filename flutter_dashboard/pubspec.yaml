@@ -44,7 +44,7 @@ dependencies:
 
   corp_api:
     path: ./api/corp_api
-  flutter_secure_storage: ^4.2.1
+  flutter_secure_storage: ^9.2.2
   dart_jsonwebtoken: ^2.14.1
   meta: ^1.15.0
   dio: ^5.7.0

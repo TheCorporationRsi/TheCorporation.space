@@ -36,9 +36,9 @@ class AuthInterceptor extends QueuedInterceptor {
 
   final corpSecurityClient = CorpApi().getSecurityApi();
 
-  Future<String?> get _accessToken => secureStorage.read(key: 'accessToken');
+  Future<String?> get _accessToken => secureStorage.read(key: 'corp_access_pass');
 
-  Future<String?> get _refreshToken => secureStorage.read(key: 'refreshToken');
+  Future<String?> get _refreshToken => secureStorage.read(key: 'corp_refresh_pass');
 
   Future<TokenPair?> _getTokenPair() async {
     final accessToken = await _accessToken;
@@ -52,7 +52,7 @@ class AuthInterceptor extends QueuedInterceptor {
 
   Future<void> _saveTokenPair(TokenPair tokenPair) async {
     await secureStorage.write(
-      key: 'accessToken',
+      key: 'corp_access_pass',
       value: tokenPair.accessToken,
     );
     await secureStorage.write(
@@ -62,8 +62,8 @@ class AuthInterceptor extends QueuedInterceptor {
   }
 
   Future<void> _clearTokenPair() async {
-    await secureStorage.delete(key: 'accessToken');
-    await secureStorage.delete(key: 'refreshToken');
+    await secureStorage.delete(key: 'corp_access_pass');
+    await secureStorage.delete(key: 'corp_refresh_pass');
   }
 
   Future<Map<String, dynamic>> _buildHeaders() async {
@@ -108,7 +108,7 @@ class AuthInterceptor extends QueuedInterceptor {
       'Authorization': 'Bearer ${tokenPair.refreshToken}',
     };
 
-    corpSecurityClient.refreshToken(headers: headers).then((response) {
+    corpSecurityClient.refreshToken(headers: headers).then((response) async {
       print(response);
 
       if (response.data!.refreshed == true) {
@@ -127,17 +127,17 @@ class AuthInterceptor extends QueuedInterceptor {
         }
 
         if (shouldClearBeforeReset) {
-          _clearTokenPair();
+          await _clearTokenPair();
         }
 
-        _saveTokenPair(newTokenPair);
+        await _saveTokenPair(newTokenPair);
         return newTokenPair;
       } else {
-        _clearTokenPair();
+        await _clearTokenPair();
         throw RevokeTokenException(requestOptions: options);
       }
-    }).catchError((error) {
-      _clearTokenPair();
+    }).catchError((error) async {
+      await _clearTokenPair();
       throw RevokeTokenException(requestOptions: options);
     });
   }
@@ -180,7 +180,6 @@ class AuthInterceptor extends QueuedInterceptor {
   ) async {
     if (err is RevokeTokenException) {
       /// call the session expire logic for your state management
-      navigatorKey.currentState?.pushNamed('/login');
       return handler.reject(err);
     }
 
@@ -206,6 +205,7 @@ class AuthInterceptor extends QueuedInterceptor {
       }
     } on RevokeTokenException {
       /// call the session expire logic for your state management
+      navigatorKey.currentState?.pushNamed('/login');
       return handler.reject(err);
     } on DioException catch (err) {
       return handler.next(err);

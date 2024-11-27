@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dashboard/main.dart';
 
-void checkSecurityLevel(BuildContext context, String requiredLevel) {
+
+
+
+void checkSecurityLevel(BuildContext context, String requiredLevel) async {
   
 
   bool authentificated = false;
@@ -14,64 +17,55 @@ void checkSecurityLevel(BuildContext context, String requiredLevel) {
   
   final corpSecurityClient = corpApi.getSecurityApi();
 
-  corpSecurityClient.getStatus().then((response) =>  {
+  final headers = await getAuthHeader();
 
-    authentificated = response.data!.authentificated,
-    rsi_verified = response.data!.rSIVerified,
-    corp_member = response.data!.cORPMember,
-    isManager = response.data!.isManager,
-    isAdmin = response.data!.isAdmin,
+  try {
+  corpSecurityClient.getStatus(headers: headers).then((response)  {
 
-    if ((requiredLevel == "notLoggedIn") & (authentificated != false)) {
-      print('Already logged in'),
-      Navigator.pushNamed(context, '/dashboard')
+    print(response);
+
+    authentificated = response.data!.authentificated;
+    rsi_verified = response.data!.rSIVerified;
+    corp_member = response.data!.cORPMember;
+    isManager = response.data!.isManager;
+    isAdmin = response.data!.isAdmin;
+
+    if ((requiredLevel == "NotLoggedIn") && (authentificated == true)) {
+      print('Already logged in');
+      Navigator.pushNamed(context, '/dashboard');
     }
-    else if ((requiredLevel == "authentificated") & (authentificated != true)){
-      print('Not logged in'),
-      Navigator.pushNamed(context, '/login')
+    else if ((requiredLevel == "authentificated") && (authentificated != true)){
+      print('Not logged in');
+      Navigator.pushNamed(context, '/login');
     }
-    else if ((requiredLevel == "rsiVerified") & (rsi_verified != true)){
-      print('Not verified'),
-      Navigator.pushNamed(context, '/verification')
+    else if ((requiredLevel == "rsiVerified") && (rsi_verified != true)){
+      if (authentificated == true){
+        print('Not verified');
+        Navigator.pushNamed(context, '/verification');
+      }
+      else {
+        print('Not logged in');
+        Navigator.pushNamed(context, '/login');
+      }
     }
-    else if ((requiredLevel == "corpMember") & (corp_member != true)){
-      print('Not corp member'),
-      Navigator.pushNamed(context, '/dashboard')
+    else if ((requiredLevel == "corpMember") && (corp_member != true)){
+      print('Not corp member');
+      Navigator.pushNamed(context, '/dashboard');
     }
-    else if ((requiredLevel == "isManager") & (isManager != true)){
-      print('Not manager'),
-      Navigator.pushNamed(context, '/dashboard')
+    else if ((requiredLevel == "isManager") && (isManager != true)){
+      print('Not manager');
+      Navigator.pushNamed(context, '/dashboard');
     }
-    else if ((requiredLevel == "isAdmin") & (isAdmin != true)){
-      print('Not admin'),
-      Navigator.pushNamed(context, '/dashboard')
+    else if ((requiredLevel == "isAdmin") && (isAdmin != true)){
+      print('Not admin');
+      Navigator.pushNamed(context, '/dashboard');
     }
   
-  }).catchError((error) => {
-    
-    if (error is DioException) {
-      print('DioError: ${error.message}'),
-
-      if (error.type == DioExceptionType.connectionTimeout) {
-        print('Connection Timeout Exception')
-      } 
-      else if (error.type == DioExceptionType.sendTimeout) {
-        print('Send Timeout Exception')
-      } 
-      else if (error.type == DioExceptionType.receiveTimeout) {
-        print('Receive Timeout Exception')
-      } 
-      else if (error.type == DioExceptionType.badResponse) {
-        print('Response Exception: ${error.response?.statusCode}')
-      } 
-      else if (error.type == DioExceptionType.cancel) {
-        print('Request Cancelled')
-      }
-    } 
-    else {
-      print('Unexpected error: $error')
-    }
-      });
+  });
+  }
+  catch (e) {
+    print(e);
+  }
 
 }
 

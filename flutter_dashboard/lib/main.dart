@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-11-26T01:21:07.764976
+// Openapi Generator last run: : 2024-11-26T20:54:35.955641
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/screens/dashboard.dart';
@@ -42,8 +42,7 @@ void main() {
   runApp(const MyApp());
 }
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final secure_storage.FlutterSecureStorage secureStorage =
-    secure_storage.FlutterSecureStorage();
+final secure_storage.FlutterSecureStorage secureStorage = new secure_storage.FlutterSecureStorage();
 
 final corp_interceptor = AuthInterceptor(
     dio: Dio(),
@@ -53,7 +52,21 @@ final corp_interceptor = AuthInterceptor(
 
 final CorpApi corpApi = CorpApi(interceptors: [corp_interceptor]);
 
+Future<String?> get _accessToken => secureStorage.read(key: 'corp_access_pass');
 
+Future<Map<String, dynamic>?> getAuthHeader() async {
+    final accessToken = await _accessToken;
+
+    if (accessToken != null) {
+      return {
+      'Authorization': 'Bearer $accessToken',
+      };
+    }
+    else {
+      return null;
+    }
+
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

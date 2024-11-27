@@ -297,7 +297,7 @@ class User(Base):
             for current_department in self.departments:
                 if current_department.head_role in self.roles:
                     return True
-                
+        return False
 
     def update(self, force=False):
         

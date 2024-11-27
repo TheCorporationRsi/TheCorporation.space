@@ -3,8 +3,29 @@ import 'package:flutter_dashboard/main.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 
+Future<void> writeSecureData(String key, String value) async {
+    try {
+      await secureStorage.write(
+        key: key,
+        value: value
+      );
+      final token = await secureStorage.read(key: key);
+      if (token != null) {
+        print(token);
+      }
+      else {
+        print("token not found!");
+      }
+      print("token saved!");
+    } catch (e) {
+      print(e);
+      print("token not saved!");
+    }
+
+  }
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,11 +47,11 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
     // Your initialization code here
-      checkSecurityLevel(context, 'NotLoggedIn');
+    checkSecurityLevel(context, 'NotLoggedIn');
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
 
     return Scaffold(
         body: Stack(
@@ -80,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen>
             var corpSecurityClient = CorpApi().getSecurityApi();
 
             corpSecurityClient.login(loginRequest: loginRequest)
-              .then((response) {
+              .then((response) async {
                 
                 print(response);
                 
@@ -89,27 +110,29 @@ class _LoginScreenState extends State<LoginScreen>
                     final accessToken = response.data!.corpAccessPass;
                     final refreshToken = response.data!.corpRefreshPass;
 
-                    secureStorage.write(
-                      key: 'accessToken',
-                      value: accessToken,
-                    );
+                    if (refreshToken != null) {
+                      await writeSecureData( 'corp_refresh_pass', refreshToken);
+                    }
+                    else {
+                      print("refresh token not found!");
+                    }
 
-                    secureStorage.write(
-                      key: 'refreshToken',
-                      value: refreshToken,
-                    );
+                    if (accessToken != null) {
+                      await writeSecureData( 'corp_access_pass', accessToken);
+                    }
+                    else {
+                      print("access token not found!");
+                    }
 
-                    checkSecurityLevel(context, 'rsiVerified');
                     Navigator.pushNamed(context, '/dashboard');
 
                     }
                     else {
-                      print("Cookies were not set");
+                      print("error!!!!");
                     }
                 
                   
-              })
-              .catchError((error) {
+              }).catchError((error) {
                 
                 if ( error.response.statusCode == 400){
                   _securityFormKey.currentState?.showError(jsonDecode(error.response.toString())['msg']);

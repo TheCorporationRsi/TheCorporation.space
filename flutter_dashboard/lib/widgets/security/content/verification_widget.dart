@@ -71,8 +71,10 @@ class VerificationWidgetState extends State<VerificationWidget> {
       SelectionArea(
         child: AutoSizeText(
           widget.token,
-          style: TextStyle(color: secondaryColor, fontSize: 20.0),
+          style: TextStyle(color: secondaryColor),
           maxLines: 1,
+          minFontSize: 5.0,
+          maxFontSize: 20.0,
         ),
       ),
 
@@ -80,6 +82,12 @@ class VerificationWidgetState extends State<VerificationWidget> {
       ElevatedButton(
         onPressed: _copyToken,
         style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.horizontal(
+              left: Radius.circular(16.0),
+              right: Radius.circular(16.0),
+            ),
+          ),
           backgroundColor: backgroundColor,
           textStyle: TextStyle(
             color: Colors.white,
@@ -87,9 +95,6 @@ class VerificationWidgetState extends State<VerificationWidget> {
             fontWeight: FontWeight.bold,
           ),
           padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
-          ),
           elevation: 10.0,
           shadowColor: Colors.black,
           overlayColor: Colors.grey,
