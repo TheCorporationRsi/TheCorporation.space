@@ -4,9 +4,49 @@ from .. import api_v0 as api
 
 from flask import jsonify, request
 
-from corp_system.models import Inf_Rank, Division, Department
+from corp_system.models import Inf_Rank, Division, Department, User
 
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
+
+@api.route('/structure/profile', methods=['GET'])
+@CORP_only
+def user_profile():
+    """Current user profile
+    
+    Returns the current user's profile
+    ---
+    
+    operationId: get_user_profile
+    tags:
+        - Structure
+    security:
+        - corp_access_pass: []
+    responses:
+        200:
+            description: Profile info
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            RSI_handle:
+                                type: string
+                                example: Cyber-Dreamer
+                            Moniker:
+                                type: string
+                                example: CyberDreamer
+                            Picture:
+                                type: string
+                                example: Link
+
+    """
+    current_user: User = current_user
+    
+    return jsonify({
+        "RSI_handle": current_user.RSI_handle,
+        "Moniker": current_user.RSI_moniker,
+        "Picture": current_user.image_link,
+        }), 200
 
 @api.route('/structure/profile/departments', methods=['GET'])
 @CORP_only
@@ -100,6 +140,7 @@ def user_roles():
     
     Returns a list of all the current user's roles
     ---
+    operationId: get_user_roles
     tags:
         - Structure
     security:

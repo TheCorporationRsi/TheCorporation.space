@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
+import 'dart:convert';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -26,7 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen>
   void initState() {
     super.initState();
     // Your initialization code here
-      checkSecurityLevel(context, 'NotLoggedIn');
+    checkSecurityLevel(context, 'NotLoggedIn');
   }
 
   @override
@@ -62,17 +63,31 @@ class _RegisterScreenState extends State<RegisterScreen>
           buttonTitle2: 'Login',
           buttonTitle3: 'Need Help?',
           buttonAction1: () {
-            if (handleController.text == 'test' &&
-                passwordController.text == 'test' &&
-                confirmPasswordController.text == 'test') {
-              // Proceed with registration
-              _securityFormKey.currentState
-                  ?.showError('This is an error message');
-            } else {
-              // Show error message
-              _securityFormKey.currentState
-                  ?.showError('This is not an error message');
-            }
+            final RegisterRequest registerRequest = RegisterRequest((b) => b
+              ..username = handleController.text
+              ..password = passwordController.text
+              ..confirmedPassword = confirmPasswordController.text);
+
+            var corpSecurityClient = CorpApi().getSecurityApi();
+
+            corpSecurityClient
+                .register(registerRequest: registerRequest)
+                .then((response) async {
+              print(response);
+
+              if (response.data!.msg == 'User created') {
+                Navigator.pushNamed(context, '/login');
+              } else {
+                _securityFormKey.currentState?.showError("User not created, try again later");
+              }
+            }).catchError((error) {
+              if (error.response.statusCode == 400) {
+                _securityFormKey.currentState
+                    ?.showError(jsonDecode(error.response.toString())['msg']);
+              } else {
+                print(error);
+              }
+            });
           },
           buttonAction2: () {
             Navigator.pushNamed(context, '/login');

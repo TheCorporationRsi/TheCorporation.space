@@ -109,6 +109,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
                 ),
               ),
               style: TextStyle(color: Colors.white),
+              obscureText: widget.textFieldTitle3 == 'Confirm Password'? true : false,
               onFieldSubmitted: (value) => widget.buttonAction1(),
             ),
           ],

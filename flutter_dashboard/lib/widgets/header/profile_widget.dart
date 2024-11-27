@@ -3,11 +3,51 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/components/pie_chart_w
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/scheduled_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/summary_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dashboard/main.dart';
 
-import 'package:corp_api/corp_api.dart';
+final corpStructureClient = corpApi.getStructureApi();
 
-class ProfileWidget extends StatelessWidget {
+class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
+
+
+  @override
+  _ProfileWidgetState createState() => _ProfileWidgetState();
+}
+
+class _ProfileWidgetState extends State<ProfileWidget> with SingleTickerProviderStateMixin {
+  final String rsiHandle = "Cyber-Dreamer";
+
+
+  Future<void> getProfileInfo() async {
+    // Simulate a network call or some asynchronous operation
+
+    final headers = await getAuthHeader();
+
+
+    try {
+    /* corpStructureClient.getUserProfile(headers: headers).then((response) {
+      final rsiToken = response.data!.rSIToken;
+      if (rsiToken != null) {
+        setState(() {
+          verification_token = rsiToken;
+        });
+      }
+    }); */
+    }
+    catch (error) {
+      print(error);
+    };
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    // Your initialization code here
+    getProfileInfo();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +66,7 @@ class ProfileWidget extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'RSI Handle: CyberDreamer',
+                'RSI Handle: ${rsiHandle}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               Text(

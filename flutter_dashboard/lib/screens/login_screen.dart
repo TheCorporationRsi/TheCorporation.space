@@ -34,8 +34,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen>
-    with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
   final TextEditingController handleController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController OTPController = TextEditingController();
@@ -128,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen>
 
                     }
                     else {
-                      print("error!!!!");
+                      _securityFormKey.currentState?.showError("Login error, try again later");
                     }
                 
                   
