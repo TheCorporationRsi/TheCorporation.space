@@ -42,15 +42,19 @@ void main() {
   runApp(const MyApp());
 }
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final secure_storage.FlutterSecureStorage secureStorage = new secure_storage.FlutterSecureStorage();
-
+final SecureStorageService secureStorage = new SecureStorageService();
+final dio = Dio(BaseOptions(
+              baseUrl: r'http://localhost:5000',
+              connectTimeout: const Duration(milliseconds: 5000),
+              receiveTimeout: const Duration(milliseconds: 3000),
+            ));
 final corp_interceptor = AuthInterceptor(
-    dio: Dio(),
+    dio: dio,
     secureStorage: secureStorage,
     navigatorKey: navigatorKey,
   );
 
-final CorpApi corpApi = CorpApi(interceptors: [corp_interceptor]);
+final CorpApi corpApi = CorpApi(interceptors: [corp_interceptor], dio: dio );
 
 Future<String?> get _accessToken => secureStorage.read(key: 'corp_access_pass');
 

@@ -40,7 +40,6 @@ def user_profile():
                                 example: Link
 
     """
-    current_user: User = current_user
     
     return jsonify({
         "RSI_handle": current_user.RSI_handle,

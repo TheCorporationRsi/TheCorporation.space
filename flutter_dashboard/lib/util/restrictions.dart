@@ -5,7 +5,7 @@ import 'package:flutter_dashboard/main.dart';
 
 
 
-void checkSecurityLevel(BuildContext context, String requiredLevel) async {
+Future<void> checkSecurityLevel(BuildContext context, String requiredLevel) async {
   
 
   bool authentificated = false;
@@ -20,9 +20,9 @@ void checkSecurityLevel(BuildContext context, String requiredLevel) async {
   final headers = await getAuthHeader();
 
   try {
-  corpSecurityClient.getStatus(headers: headers).then((response)  {
+    final response = await corpSecurityClient.getStatus(headers: headers);
 
-    print(response);
+    //print(response);
 
     authentificated = response.data!.authentificated;
     rsi_verified = response.data!.rSIVerified;
@@ -60,11 +60,10 @@ void checkSecurityLevel(BuildContext context, String requiredLevel) async {
       print('Not admin');
       Navigator.pushNamed(context, '/dashboard');
     }
-  
-  });
   }
   catch (e) {
     print(e);
+    print("Status check failed");
   }
 
 }

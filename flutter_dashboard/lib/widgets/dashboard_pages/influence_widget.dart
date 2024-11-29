@@ -26,7 +26,8 @@ class InfluenceWidget extends StatelessWidget {
             const SizedBox(height: 18),
             const LineChartCard(),
             const SizedBox(height: 18),
-            if (Responsive.isTablet(context)) const ProfileWidget(),
+            if (Responsive.isTablet(context))
+            const ProfileWidget(),
             const SizedBox(height: 18),
             ElevatedButton(
               onPressed: () {

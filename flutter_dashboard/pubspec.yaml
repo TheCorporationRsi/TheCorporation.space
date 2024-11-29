@@ -48,6 +48,7 @@ dependencies:
   dart_jsonwebtoken: ^2.14.1
   meta: ^1.15.0
   dio: ^5.7.0
+  mutex: ^3.1.0
 
 
 dev_dependencies:

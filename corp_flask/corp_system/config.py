@@ -10,7 +10,7 @@ class Config_Model(ABC):
     JWT_SECRET_KEY = os.environ["JWT_SECRET_KEY"]
     JWT_SESSION_COOKIE = False
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=10)
-    JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=2)
+    JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=3)
     JWT_TOKEN_LOCATION = ["headers"]
     
     JWT_ACCESS_COOKIE_NAME = "corp_access_pass"

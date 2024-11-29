@@ -13,13 +13,9 @@ Future<void> writeSecureData(String key, String value) async {
         value: value
       );
       final token = await secureStorage.read(key: key);
-      if (token != null) {
-        print(token);
+      if (token == null) {
+        print("token saved!");
       }
-      else {
-        print("token not found!");
-      }
-      print("token saved!");
     } catch (e) {
       print(e);
       print("token not saved!");
@@ -38,19 +34,40 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   final TextEditingController handleController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController OTPController = TextEditingController();
+  bool _isLoading = true; // Ensure loading state is true initially
 
   final GlobalKey<SecurityFormWidgetState> _securityFormKey =
       GlobalKey<SecurityFormWidgetState>();
+  
+  Future<void> _initialize() async {
+    await checkSecurityLevel(context, 'NotLoggedIn'); // Ensure this completes before setting loading to false
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    _initialize(); // Call _initialize after super.initState()
     // Your initialization code here
-    checkSecurityLevel(context, 'NotLoggedIn');
+  }
+
+    @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context)  {
+
+    if (_isLoading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     return Scaffold(
         body: Stack(
@@ -102,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             corpSecurityClient.login(loginRequest: loginRequest)
               .then((response) async {
                 
-                print(response);
+                //print(response);
                 
                 if (response.data!.msg == 'logged_in')
                   {

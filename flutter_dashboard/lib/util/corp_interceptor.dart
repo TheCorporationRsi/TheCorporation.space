@@ -5,6 +5,8 @@ import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:corp_api/corp_api.dart';
+import 'package:mutex/mutex.dart';
+import 'package:flutter_dashboard/main.dart';
 
 typedef TokenPair = ({String accessToken, String refreshToken});
 
@@ -12,12 +14,51 @@ class RevokeTokenException extends DioException {
   RevokeTokenException({required super.requestOptions});
 }
 
+class SecureStorageService {
+  final secure_storage.FlutterSecureStorage _secureStorage = secure_storage.FlutterSecureStorage();
+  final Mutex _mutex = Mutex();
+
+  Future<void> write({
+    required String key,
+    required String? value,
+  }) async {
+    await _mutex.acquire();
+    try {
+      await _secureStorage.write(key: key, value: value);
+    } finally {
+      _mutex.release();
+    }
+  }
+
+  Future<String?> read({
+    required String key,
+  }) async {
+    await _mutex.acquire();
+    try {
+      return await _secureStorage.read(key: key);
+    } finally {
+      _mutex.release();
+    }
+  }
+
+  Future<void> delete({
+    required String key,
+  }) async {
+    await _mutex.acquire();
+    try {
+      await _secureStorage.delete(key: key);
+    } finally {
+      _mutex.release();
+    }
+  }
+}
+
 class AuthInterceptor extends QueuedInterceptor {
   /// Create an Auth interceptor
   AuthInterceptor({
     required this.dio,
     required this.secureStorage,
-    this.shouldClearBeforeReset = true,
+    this.shouldClearBeforeReset = false,
     required GlobalKey<NavigatorState> navigatorKey,
   }) {
     refreshClient = Dio();
@@ -28,50 +69,39 @@ class AuthInterceptor extends QueuedInterceptor {
   }
 
   final Dio dio;
-  final secure_storage.FlutterSecureStorage secureStorage;
+  final SecureStorageService secureStorage;
   final bool shouldClearBeforeReset;
   late final Dio refreshClient;
   late final Dio retryClient;
   late final  GlobalKey<NavigatorState> navigatorKey;
 
   final corpSecurityClient = CorpApi().getSecurityApi();
+  final Mutex _errorMutex = Mutex();
 
   Future<String?> get _accessToken => secureStorage.read(key: 'corp_access_pass');
 
   Future<String?> get _refreshToken => secureStorage.read(key: 'corp_refresh_pass');
 
-  Future<TokenPair?> _getTokenPair() async {
-    final accessToken = await _accessToken;
-    final refreshToken = await _refreshToken;
-
-    if (accessToken != null && refreshToken != null) {
-      return (accessToken: accessToken, refreshToken: refreshToken);
-    }
-    return null;
-  }
-
-  Future<void> _saveTokenPair(TokenPair tokenPair) async {
+  Future<void> _saveAccessToken(String accessToken) async {
     await secureStorage.write(
       key: 'corp_access_pass',
-      value: tokenPair.accessToken,
+      value: accessToken,
     );
+  }
+
+  Future<void> _saveRefreshToken(String refreshToken) async {
     await secureStorage.write(
-      key: 'refreshToken',
-      value: tokenPair.refreshToken,
+      key: 'corp_refresh_pass',
+      value: refreshToken,
     );
   }
 
-  Future<void> _clearTokenPair() async {
+  Future<void> _clearAccessToken() async {
     await secureStorage.delete(key: 'corp_access_pass');
-    await secureStorage.delete(key: 'corp_refresh_pass');
   }
 
-  Future<Map<String, dynamic>> _buildHeaders() async {
-    final tokenPair = await _getTokenPair();
-
-    return {
-      'Authorization': 'Bearer ${tokenPair!.accessToken}',
-    };
+  Future<void> _clearRefreshToken() async {
+    await secureStorage.delete(key: 'corp_refresh_pass');
   }
 
   /// Check if the token pair should be refreshed
@@ -80,13 +110,13 @@ class AuthInterceptor extends QueuedInterceptor {
   bool shouldRefresh<R>(Response<R>? response) => response?.statusCode == 401;
 
   Future<bool> get _isAccessTokenValid async {
-    final tokenPair = await _getTokenPair();
+    final accessToken = await _accessToken;
 
-    if (tokenPair == null) {
+    if (accessToken == null) {
       return false;
     }
 
-    final decodedJwt = JWT.decode(tokenPair.accessToken);
+    final decodedJwt = JWT.decode(accessToken);
     final expirationTimeEpoch = decodedJwt.payload['exp'];
     final expirationDateTime =
         DateTime.fromMillisecondsSinceEpoch(expirationTimeEpoch * 1000);
@@ -97,49 +127,38 @@ class AuthInterceptor extends QueuedInterceptor {
     return DateTime.now().add(addedMarginTime).isBefore(expirationDateTime);
   }
 
-  Future<TokenPair?> _refresh({
+  Future<void> _refresh({
     required RequestOptions options,
-    TokenPair? tokenPair,
   }) async {
-    if (tokenPair == null) {
+    print("refreshing tokens...");
+    final refreshToken = await _refreshToken;
+    if (refreshToken == null) {
       throw RevokeTokenException(requestOptions: options);
     }
     final headers = {
-      'Authorization': 'Bearer ${tokenPair.refreshToken}',
+      'Authorization': 'Bearer $refreshToken',
     };
-
-    corpSecurityClient.refreshToken(headers: headers).then((response) async {
+      try {
+      final response = await corpSecurityClient.refreshToken(headers: headers);
       print(response);
 
       if (response.data!.refreshed == true) {
-        TokenPair newTokenPair;
 
-        if (response.data!.corpRefreshPass == null) {
-          newTokenPair = (
-            accessToken: response.data!.corpAccessPass,
-            refreshToken: tokenPair.refreshToken,
-          ) as TokenPair;
-        } else {
-          newTokenPair = (
-            accessToken: response.data!.corpAccessPass,
-            refreshToken: response.data!.corpRefreshPass,
-          ) as TokenPair;
+        if (response.data!.corpAccessPass != null) {
+          await _saveAccessToken(response.data!.corpAccessPass!);
         }
-
-        if (shouldClearBeforeReset) {
-          await _clearTokenPair();
+        if (response.data!.corpRefreshPass != null) {
+          await _saveRefreshToken(response.data!.corpRefreshPass!);
         }
-
-        await _saveTokenPair(newTokenPair);
-        return newTokenPair;
+        print('Token refreshed');
       } else {
-        await _clearTokenPair();
+        await _clearAccessToken();
+        await _clearRefreshToken();
         throw RevokeTokenException(requestOptions: options);
       }
-    }).catchError((error) async {
-      await _clearTokenPair();
+    }catch (error) {
       throw RevokeTokenException(requestOptions: options);
-    });
+    };
   }
 
   Future<Response<R>> _retry<R>(
@@ -159,7 +178,7 @@ class AuthInterceptor extends QueuedInterceptor {
         sendTimeout: requestOptions.sendTimeout,
         receiveTimeout: requestOptions.receiveTimeout,
         extra: requestOptions.extra,
-        headers: requestOptions.headers..addAll(await _buildHeaders()),
+        headers: requestOptions.headers = await getAuthHeader(),
         responseType: requestOptions.responseType,
         contentType: requestOptions.contentType,
         validateStatus: requestOptions.validateStatus,
@@ -178,37 +197,55 @@ class AuthInterceptor extends QueuedInterceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    if (err is RevokeTokenException) {
-      /// call the session expire logic for your state management
-      return handler.reject(err);
-    }
-
-    if (!shouldRefresh(err.response)) {
-      return handler.next(err);
-    }
-
-    final isAccessValid = await _isAccessTokenValid;
-    final tokenPair = await _getTokenPair();
-
-    if (tokenPair == null) {
-      return handler.reject(err);
-    }
-
+    await _errorMutex.acquire();
     try {
-      if (isAccessValid) {
-        final previousRequest = await _retry(err.requestOptions);
-        return handler.resolve(previousRequest);
-      } else {
-        await _refresh(options: err.requestOptions, tokenPair: tokenPair);
-        final previousRequest = await _retry(err.requestOptions);
-        return handler.resolve(previousRequest);
+      if (err is RevokeTokenException) {
+        /// call the session expire logic for your state management
+        return handler.reject(err);
       }
-    } on RevokeTokenException {
-      /// call the session expire logic for your state management
-      navigatorKey.currentState?.pushNamed('/login');
-      return handler.reject(err);
-    } on DioException catch (err) {
-      return handler.next(err);
+
+      if (!shouldRefresh(err.response)) {
+        return handler.next(err);
+      }
+
+      
+      final accessToken = await _accessToken;
+      final refreshToken = await _refreshToken;
+      
+
+      if (accessToken == null || refreshToken == null) {
+        _clearAccessToken();
+        _clearRefreshToken();
+        return handler.reject(err);
+      }
+
+      final isAccessValid = await _isAccessTokenValid;
+
+      try {
+        if (isAccessValid) {
+          print("Access is valid...");
+          final previousRequest = await _retry(err.requestOptions);
+          return handler.resolve(previousRequest);
+        } else {
+          print("Access is invalid, trying to refresh...");
+          await _refresh(options: err.requestOptions);
+          final previousRequest = await _retry(err.requestOptions);
+          return handler.resolve(previousRequest);
+        }
+      } on RevokeTokenException {
+        print("Token expired...");
+        /// call the session expire logic for your state management
+        await _clearAccessToken();
+        await _clearRefreshToken();
+        navigatorKey.currentState?.pushNamed('/login');
+        return handler.reject(err);
+      } on DioException catch (err) {
+        print(err);
+        print("Returning error...");
+        return handler.next(err);
+      }
+    } finally {
+      _errorMutex.release();
     }
   }
 }

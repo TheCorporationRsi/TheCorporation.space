@@ -8,6 +8,7 @@ import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
 
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 
 
 class MainScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
+  bool _isLoading = true;
   int selectedIndex = 0;
   int? selectedSubIndex = 0;
   late AnimationController _controller;
@@ -32,12 +34,19 @@ class _MainScreenState extends State<MainScreen>
   final ValueNotifier<bool> _isSideMenuVisible = ValueNotifier<bool>(true);
   final ValueNotifier<bool> _isRightSideMenuVisible = ValueNotifier<bool>(true);
 
+  Future<void> _initialize() async {
+    await checkSecurityLevel(context, 'rsiVerified');
+    await current_user.update();
+    setState(() {
+      _isLoading = false;
+    });
+  }
   
 
   @override
   void initState() {
-    checkSecurityLevel(context, 'rsiVerified');
     super.initState();
+    _initialize();
     
 
     _controller = AnimationController(
@@ -123,17 +132,6 @@ class _MainScreenState extends State<MainScreen>
 
   void toggleSideMenu() {
 
-    final api = CorpApi().getInfluenceSystemApi();
-    
-    
-    try {
-      api.getRanks().then((value) => {
-        print(value)
-      });
-    } catch (e) {
-      print('Exception when calling InfluenceSystemApi->getRanks: $e\n');
-    }
-
     _isSideMenuVisible.value = !_isSideMenuVisible.value;
   }
 
@@ -143,6 +141,14 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
+
+    if (_isLoading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     final isDesktop = Responsive.isDesktop(context);
     return Scaffold(

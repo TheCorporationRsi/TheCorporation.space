@@ -20,18 +20,36 @@ class _RegisterScreenState extends State<RegisterScreen>
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  bool _isLoading = true;
+
   final GlobalKey<SecurityFormWidgetState> _securityFormKey =
       GlobalKey<SecurityFormWidgetState>();
+
+  Future<void> _initialize() async {
+    await checkSecurityLevel(context, 'NotLoggedIn'); // Ensure this completes before setting loading to false
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    _initialize(); // Call _initialize after super.initState()
     // Your initialization code here
-    checkSecurityLevel(context, 'NotLoggedIn');
   }
 
   @override
   Widget build(BuildContext context) {
+
+    if (_isLoading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
         body: Stack(
       children: [
