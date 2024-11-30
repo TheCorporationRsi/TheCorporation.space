@@ -250,7 +250,7 @@ class ProfileWidget extends StatelessWidget {
                           children: [
                             const SizedBox(height: defaultPadding),
                             Text(
-                              "4269",
+                              current_user.infAccount.influence.toString(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineMedium!

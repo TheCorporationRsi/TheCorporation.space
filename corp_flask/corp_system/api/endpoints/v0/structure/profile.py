@@ -7,6 +7,7 @@ from flask import jsonify, request
 from corp_system.models import Inf_Rank, Division, Department, User
 
 from corp_system.controllers.structure_manager import StructureManager
+from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 
 @api.route('/structure/profile', methods=['GET'])
 @CORP_only
@@ -85,6 +86,9 @@ def user_departments():
                                 weight:
                                     type: integer
                                     example: 5
+                                influence:
+                                    type: integer
+                                    example: 1000
 
     """
     
@@ -98,7 +102,8 @@ def user_departments():
             "color": department.color,
             "motto": department.motto,
             "logo": department.logo,
-            "weight": department.get_weight(current_user)
+            "weight": department.get_weight(current_user),
+            "influence": current_user.inf_account.current_influence(department=department)
         })
     
     return jsonify(departments_list), 200
@@ -142,6 +147,9 @@ def user_divisions():
                                 weight:
                                     type: integer
                                     example: 5
+                                influence:
+                                    type: integer
+                                    example: 1000
 
     """
     
@@ -154,7 +162,8 @@ def user_divisions():
             "color": division.color,
             "department": division.department.title,
             "logo": division.logo,
-            "weight": division.get_weight(current_user)
+            "weight": division.get_weight(current_user),
+            "influence": current_user.inf_account.current_influence(division=division)
         })
     
     return jsonify(divisions_list), 200

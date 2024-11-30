@@ -3,7 +3,7 @@ import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
-
+import 'package:auto_size_text/auto_size_text.dart';
 class InfluenceDetailsCard extends StatelessWidget {
   const InfluenceDetailsCard({super.key});
 
@@ -25,10 +25,11 @@ class InfluenceDetailsCard extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
+                  child: AutoSizeText(
                     "Tribute",
+                    maxLines: 1,
+                    maxFontSize: 18,
                     style: const TextStyle(
-                      fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -88,10 +89,11 @@ class InfluenceDetailsCard extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
+                  child: AutoSizeText(
                     "Influence",
+                    maxLines: 1,
+                    maxFontSize: 18,
                     style: const TextStyle(
-                      fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -102,7 +104,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: Text(
-                    "123456",
+                    current_user.infAccount.influence.toString(),
                     style: const TextStyle(
                       fontSize: 22,
                       color: secondaryColor,
@@ -151,10 +153,11 @@ class InfluenceDetailsCard extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
+                  child: AutoSizeText(
                     "Lifetime influence",
+                    maxLines: 1,
+                    maxFontSize: 18,
                     style: const TextStyle(
-                      fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -165,7 +168,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: Text(
-                    "12345",
+                    current_user.infAccount.lifetimeInfluence.toString(),
                     style: const TextStyle(
                       fontSize: 22,
                       color: secondaryColor,
@@ -214,10 +217,11 @@ class InfluenceDetailsCard extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
+                  child: AutoSizeText(
                     "Rank",
+                    maxLines: 1,
+                    maxFontSize: 18,
                     style: const TextStyle(
-                      fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
@@ -227,10 +231,12 @@ class InfluenceDetailsCard extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
-                  child: Text(
+                  child: AutoSizeText(
                     current_user.infAccount.rank.toString(),
+                    maxLines: 1,
+                    maxFontSize: 22,
+                    textScaleFactor: 1.4,
                     style: const TextStyle(
-                      fontSize: 22,
                       color: secondaryColor,
                       fontWeight: FontWeight.w600,
                     ),
