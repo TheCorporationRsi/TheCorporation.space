@@ -13,7 +13,6 @@ part 'get_user_departments200_response_inner.g.dart';
 /// Properties:
 /// * [color]
 /// * [influence]
-/// * [logo]
 /// * [motto]
 /// * [title]
 /// * [weight]
@@ -27,9 +26,6 @@ abstract class GetUserDepartments200ResponseInner
 
   @BuiltValueField(wireName: r'influence')
   int? get influence;
-
-  @BuiltValueField(wireName: r'logo')
-  String? get logo;
 
   @BuiltValueField(wireName: r'motto')
   String? get motto;
@@ -82,13 +78,6 @@ class _$GetUserDepartments200ResponseInnerSerializer
       yield serializers.serialize(
         object.influence,
         specifiedType: const FullType(int),
-      );
-    }
-    if (object.logo != null) {
-      yield r'logo';
-      yield serializers.serialize(
-        object.logo,
-        specifiedType: const FullType(String),
       );
     }
     if (object.motto != null) {
@@ -150,13 +139,6 @@ class _$GetUserDepartments200ResponseInnerSerializer
             specifiedType: const FullType(int),
           ) as int;
           result.influence = valueDes;
-          break;
-        case r'logo':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.logo = valueDes;
           break;
         case r'motto':
           final valueDes = serializers.deserialize(

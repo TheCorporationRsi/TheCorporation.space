@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **color** | **String** |  | [optional] 
 **division** | **BuiltList&lt;String&gt;** |  | [optional] 
 **heads** | **BuiltList&lt;String&gt;** |  | [optional] 
-**logo** | **String** |  | [optional] 
 **memberCount** | **int** |  | [optional] 
 **motto** | **String** |  | [optional] 
 **proxys** | **BuiltList&lt;String&gt;** |  | [optional] 

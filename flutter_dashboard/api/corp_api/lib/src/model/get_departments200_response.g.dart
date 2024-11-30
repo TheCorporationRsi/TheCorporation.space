@@ -14,8 +14,6 @@ class _$GetDepartments200Response extends GetDepartments200Response {
   @override
   final BuiltList<String>? heads;
   @override
-  final String? logo;
-  @override
   final int? memberCount;
   @override
   final String? motto;
@@ -32,7 +30,6 @@ class _$GetDepartments200Response extends GetDepartments200Response {
       {this.color,
       this.division,
       this.heads,
-      this.logo,
       this.memberCount,
       this.motto,
       this.proxys,
@@ -55,7 +52,6 @@ class _$GetDepartments200Response extends GetDepartments200Response {
         color == other.color &&
         division == other.division &&
         heads == other.heads &&
-        logo == other.logo &&
         memberCount == other.memberCount &&
         motto == other.motto &&
         proxys == other.proxys &&
@@ -68,7 +64,6 @@ class _$GetDepartments200Response extends GetDepartments200Response {
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, division.hashCode);
     _$hash = $jc(_$hash, heads.hashCode);
-    _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, memberCount.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, proxys.hashCode);
@@ -83,7 +78,6 @@ class _$GetDepartments200Response extends GetDepartments200Response {
           ..add('color', color)
           ..add('division', division)
           ..add('heads', heads)
-          ..add('logo', logo)
           ..add('memberCount', memberCount)
           ..add('motto', motto)
           ..add('proxys', proxys)
@@ -109,10 +103,6 @@ class GetDepartments200ResponseBuilder
   ListBuilder<String>? _heads;
   ListBuilder<String> get heads => _$this._heads ??= new ListBuilder<String>();
   set heads(ListBuilder<String>? heads) => _$this._heads = heads;
-
-  String? _logo;
-  String? get logo => _$this._logo;
-  set logo(String? logo) => _$this._logo = logo;
 
   int? _memberCount;
   int? get memberCount => _$this._memberCount;
@@ -141,7 +131,6 @@ class GetDepartments200ResponseBuilder
       _color = $v.color;
       _division = $v.division?.toBuilder();
       _heads = $v.heads?.toBuilder();
-      _logo = $v.logo;
       _memberCount = $v.memberCount;
       _motto = $v.motto;
       _proxys = $v.proxys?.toBuilder();
@@ -173,7 +162,6 @@ class GetDepartments200ResponseBuilder
               color: color,
               division: _division?.build(),
               heads: _heads?.build(),
-              logo: logo,
               memberCount: memberCount,
               motto: motto,
               proxys: _proxys?.build(),

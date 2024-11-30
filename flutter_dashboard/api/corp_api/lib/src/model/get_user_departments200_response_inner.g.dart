@@ -13,8 +13,6 @@ class _$GetUserDepartments200ResponseInner
   @override
   final int? influence;
   @override
-  final String? logo;
-  @override
   final String? motto;
   @override
   final String? title;
@@ -28,12 +26,7 @@ class _$GetUserDepartments200ResponseInner
           ._build();
 
   _$GetUserDepartments200ResponseInner._(
-      {this.color,
-      this.influence,
-      this.logo,
-      this.motto,
-      this.title,
-      this.weight})
+      {this.color, this.influence, this.motto, this.title, this.weight})
       : super._();
 
   @override
@@ -51,7 +44,6 @@ class _$GetUserDepartments200ResponseInner
     return other is GetUserDepartments200ResponseInner &&
         color == other.color &&
         influence == other.influence &&
-        logo == other.logo &&
         motto == other.motto &&
         title == other.title &&
         weight == other.weight;
@@ -62,7 +54,6 @@ class _$GetUserDepartments200ResponseInner
     var _$hash = 0;
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, influence.hashCode);
-    _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, weight.hashCode);
@@ -75,7 +66,6 @@ class _$GetUserDepartments200ResponseInner
     return (newBuiltValueToStringHelper(r'GetUserDepartments200ResponseInner')
           ..add('color', color)
           ..add('influence', influence)
-          ..add('logo', logo)
           ..add('motto', motto)
           ..add('title', title)
           ..add('weight', weight))
@@ -96,10 +86,6 @@ class GetUserDepartments200ResponseInnerBuilder
   int? _influence;
   int? get influence => _$this._influence;
   set influence(int? influence) => _$this._influence = influence;
-
-  String? _logo;
-  String? get logo => _$this._logo;
-  set logo(String? logo) => _$this._logo = logo;
 
   String? _motto;
   String? get motto => _$this._motto;
@@ -122,7 +108,6 @@ class GetUserDepartments200ResponseInnerBuilder
     if ($v != null) {
       _color = $v.color;
       _influence = $v.influence;
-      _logo = $v.logo;
       _motto = $v.motto;
       _title = $v.title;
       _weight = $v.weight;
@@ -151,7 +136,6 @@ class GetUserDepartments200ResponseInnerBuilder
         new _$GetUserDepartments200ResponseInner._(
             color: color,
             influence: influence,
-            logo: logo,
             motto: motto,
             title: title,
             weight: weight);

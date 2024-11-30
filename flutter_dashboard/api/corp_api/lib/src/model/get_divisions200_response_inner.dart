@@ -15,7 +15,6 @@ part 'get_divisions200_response_inner.g.dart';
 /// * [color]
 /// * [departmentTitle]
 /// * [leaders]
-/// * [logo]
 /// * [memberCount]
 /// * [motto]
 /// * [proxys]
@@ -33,9 +32,6 @@ abstract class GetDivisions200ResponseInner
 
   @BuiltValueField(wireName: r'leaders')
   BuiltList<String>? get leaders;
-
-  @BuiltValueField(wireName: r'logo')
-  String? get logo;
 
   @BuiltValueField(wireName: r'member_count')
   int? get memberCount;
@@ -98,13 +94,6 @@ class _$GetDivisions200ResponseInnerSerializer
       yield serializers.serialize(
         object.leaders,
         specifiedType: const FullType(BuiltList, [FullType(String)]),
-      );
-    }
-    if (object.logo != null) {
-      yield r'logo';
-      yield serializers.serialize(
-        object.logo,
-        specifiedType: const FullType(String),
       );
     }
     if (object.memberCount != null) {
@@ -180,13 +169,6 @@ class _$GetDivisions200ResponseInnerSerializer
             specifiedType: const FullType(BuiltList, [FullType(String)]),
           ) as BuiltList<String>;
           result.leaders.replace(valueDes);
-          break;
-        case r'logo':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.logo = valueDes;
           break;
         case r'member_count':
           final valueDes = serializers.deserialize(
