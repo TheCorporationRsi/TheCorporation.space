@@ -40,7 +40,7 @@ class Department(Base):
     
     def is_member(self, user):
         for division in self.divisions:
-            if division.member_role in user.roles:
+            if division.is_member(user):
                 return True
         return False
     

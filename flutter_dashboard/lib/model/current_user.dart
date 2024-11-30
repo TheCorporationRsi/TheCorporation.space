@@ -12,6 +12,10 @@ GetStatus200Response status = GetStatus200Response();
 
 GetProfile200Response infAccount = GetProfile200Response();
 
+BuiltList<GetUserDivisions200ResponseInner> divisions = BuiltList<GetUserDivisions200ResponseInner>();
+
+BuiltList<GetUserDepartments200ResponseInner> departments = BuiltList<GetUserDepartments200ResponseInner>();
+
 final corpStructureClient = corpApi.getStructureApi();
 final corpSecurityClient = corpApi.getSecurityApi();
 final corpInfluenceClient = corpApi.getInfluenceSystemApi();
@@ -21,6 +25,8 @@ Future<void> update() async {
   await updateUserRoles();
   await updateStatus();
   await updateInfAccount();
+  await updateUserDepartments();
+  await updateUserDivisions();
 }
 
 
@@ -73,6 +79,36 @@ Future<void> updateInfAccount() async {
     final response = await corpInfluenceClient.getProfile(headers: headers);
     if (response.data != null) {
       infAccount = response.data ?? infAccount;
+    }
+
+  } catch (error) {
+    print(error);
+  }
+}
+
+
+Future<void> updateUserDivisions() async {
+  final headers = await getAuthHeader();
+  try {
+    final response = await corpStructureClient.getUserDivisions(headers: headers);
+    
+    if (response.data != null) {
+      divisions = response.data ?? divisions;
+    }
+
+  } catch (error) {
+    print(error);
+  }
+}
+
+
+Future<void> updateUserDepartments() async {
+  final headers = await getAuthHeader();
+  try {
+    final response = await corpStructureClient.getUserDepartments(headers: headers);
+    
+    if (response.data != null) {
+      departments = response.data ?? departments;
     }
 
   } catch (error) {

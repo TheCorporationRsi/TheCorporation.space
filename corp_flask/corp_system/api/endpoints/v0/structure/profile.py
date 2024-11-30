@@ -80,9 +80,6 @@ def user_departments():
                                 motto:
                                     type: string
                                     example: We love building stuff
-                                logo:
-                                    type: string
-                                    example: logo.svg
                                 weight:
                                     type: integer
                                     example: 5
@@ -101,7 +98,6 @@ def user_departments():
             "title": department.title,
             "color": department.color,
             "motto": department.motto,
-            "logo": department.logo,
             "weight": department.get_weight(current_user),
             "influence": current_user.inf_account.current_influence(department=department)
         })

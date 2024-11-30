@@ -200,6 +200,41 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 10),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    for (var department in current_user.departments)
+                      Row(
+                        children: [
+                          Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              color: department.color != null
+                                  ? cssColorToColor(department.color!)
+                                  : Colors.grey,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            department.title ?? "Unknown",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    SizedBox(
+                      height: 18,
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: 200,
                   child: Stack(
@@ -210,37 +245,24 @@ class ProfileWidget extends StatelessWidget {
                           centerSpaceRadius: 70,
                           startDegreeOffset: -90,
                           sections: [
-                            PieChartSectionData(
-                              color: primaryColor,
-                              value: 25,
-                              showTitle: false,
-                              radius: 25,
-                            ),
-                            PieChartSectionData(
-                              color: const Color(0xFF26E5FF),
-                              value: 20,
-                              showTitle: false,
-                              radius: 22,
-                            ),
-                            PieChartSectionData(
-                              color: const Color(0xFFFFCF26),
-                              value: 10,
-                              showTitle: false,
-                              radius: 19,
-                            ),
-                            PieChartSectionData(
-                              color: const Color(0xFFEE2727),
-                              value: 15,
-                              showTitle: false,
-                              title: 'test',
-                              radius: 16,
-                            ),
-                            PieChartSectionData(
-                              color: primaryColor.withOpacity(0.1),
-                              value: 25,
-                              showTitle: false,
-                              radius: 13,
-                            ),
+                            if (current_user.departments.isEmpty)
+                              PieChartSectionData(
+                                color: backgroundColor,
+                                value: 1,
+                                radius: 25,
+                                showTitle: false,
+                              )
+                            else
+                              for (var department in current_user.departments)
+                                PieChartSectionData(
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey,
+                                  value: department.influence!.toDouble(),
+                                  title: department.title,
+                                  radius: 25,
+                                  showTitle: false,
+                                )
                           ],
                         ),
                       ),
