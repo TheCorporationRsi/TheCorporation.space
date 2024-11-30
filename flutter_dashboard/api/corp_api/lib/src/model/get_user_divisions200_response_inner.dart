@@ -13,6 +13,7 @@ part 'get_user_divisions200_response_inner.g.dart';
 /// Properties:
 /// * [color]
 /// * [department]
+/// * [influence]
 /// * [logo]
 /// * [title]
 /// * [weight]
@@ -26,6 +27,9 @@ abstract class GetUserDivisions200ResponseInner
 
   @BuiltValueField(wireName: r'department')
   String? get department;
+
+  @BuiltValueField(wireName: r'influence')
+  int? get influence;
 
   @BuiltValueField(wireName: r'logo')
   String? get logo;
@@ -78,6 +82,13 @@ class _$GetUserDivisions200ResponseInnerSerializer
       yield serializers.serialize(
         object.department,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.influence != null) {
+      yield r'influence';
+      yield serializers.serialize(
+        object.influence,
+        specifiedType: const FullType(int),
       );
     }
     if (object.logo != null) {
@@ -139,6 +150,13 @@ class _$GetUserDivisions200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.department = valueDes;
+          break;
+        case r'influence':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.influence = valueDes;
           break;
         case r'logo':
           final valueDes = serializers.deserialize(

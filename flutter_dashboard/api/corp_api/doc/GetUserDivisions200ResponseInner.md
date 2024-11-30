@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **color** | **String** |  | [optional] 
 **department** | **String** |  | [optional] 
+**influence** | **int** |  | [optional] 
 **logo** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 **weight** | **int** |  | [optional] 
