@@ -13,6 +13,7 @@ class SideMenuWidget extends StatefulWidget {
   State<SideMenuWidget> createState() => _SideMenuWidgetState();
 }
 
+
 final menu = <MenuModel>[
   MenuModel(
     icon: Icons.home,
@@ -22,7 +23,7 @@ final menu = <MenuModel>[
       MenuModel(icon: Icons.analytics, title: 'Analytics'),
     ],
   ),
-  if (current_user.status.cORPMember)
+  if (current_user.status.cORPMember!)
   MenuModel(
     icon: Icons.person,
     title: 'Influence System',
@@ -31,7 +32,7 @@ final menu = <MenuModel>[
       MenuModel(icon: Icons.security, title: 'Transfer'),
     ],
   ),
-  if (current_user.status.isAdmin)
+  if (current_user.status.isAdmin!)
   MenuModel(
     icon: Icons.person,
     title: 'Admin',
@@ -54,15 +55,40 @@ final menu = <MenuModel>[
   MenuModel(icon: Icons.logout, title: 'SignOut'),
 ];
 
-class _SideMenuWidgetState extends State<SideMenuWidget>
-    with TickerProviderStateMixin {
+class _SideMenuWidgetState extends State<SideMenuWidget> {
   int selectedIndex = 0;
   int? selectedSubIndex = 0;
   int? hoveredIndex;
   int? hoveredSubIndex;
 
+  bool _isLoading = true;
+
+
+  Future<void> _initialize() async {
+    await current_user.updateStatus();
+    setState(() {
+      _isLoading = false;
+    });
+  }
+  
+
+  @override
+  void initState() {
+    super.initState();
+    _initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    if (_isLoading) {
+      return Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       color: cardBackgroundColor,
@@ -99,6 +125,9 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
           onExit: (_) => setState(() => hoveredIndex = null),
           child: GestureDetector(
             onTap: () {
+              if (menuItem.title == "SignOut"){
+                current_user.logout();
+              }
               setState(() {
                 selectedIndex = index;
                 selectedSubIndex = null;

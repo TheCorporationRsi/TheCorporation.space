@@ -8,11 +8,11 @@ import 'package:flutter_dashboard/main.dart';
 Future<void> checkSecurityLevel(BuildContext context, String requiredLevel) async {
   
 
-  bool authentificated = false;
-  bool rsi_verified = false;
-  bool corp_member = false;
-  bool isManager = false;
-  bool isAdmin = false;
+  bool? authentificated = false;
+  bool? rsi_verified = false;
+  bool? corp_member = false;
+  bool? isManager = false;
+  bool? isAdmin = false;
 
   
   final corpSecurityClient = corpApi.getSecurityApi();

@@ -153,7 +153,7 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 20),
-                if (current_user.status.cORPMember)
+                if (current_user.status.cORPMember!)
                   Container(
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(

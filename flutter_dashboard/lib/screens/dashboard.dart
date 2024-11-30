@@ -27,7 +27,7 @@ class _MainScreenState extends State<MainScreen>
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _fadeAnimation;
-  late Widget currentPage;
+  late Widget currentPage = DashboardWidget();
 
   final GlobalKey<ScaffoldState> _headerScaffoldKey =
       GlobalKey<ScaffoldState>();
@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen>
   Future<void> _initialize() async {
     await checkSecurityLevel(context, 'rsiVerified');
     await current_user.update();
+    currentPage = getSelectedPage();
     setState(() {
       _isLoading = false;
     });
@@ -48,7 +49,6 @@ class _MainScreenState extends State<MainScreen>
     super.initState();
     _initialize();
     
-
     _controller = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -64,7 +64,6 @@ class _MainScreenState extends State<MainScreen>
       parent: _controller,
       curve: Curves.easeInOut,
     );
-    currentPage = getSelectedPage();
     _controller.forward(from: 0.0);
   }
 
@@ -94,12 +93,12 @@ class _MainScreenState extends State<MainScreen>
       const DashboardWidget(),
       const InfluenceWidget()
       ],
-      if (current_user.status.cORPMember)
+      if (current_user.status.cORPMember!)
       [
       const DashboardWidget(),
       const InfluenceWidget()
       ],
-      if (current_user.status.isAdmin)
+      if (current_user.status.isAdmin!)
       [
       const DashboardWidget(),
       const InfluenceWidget(),
@@ -163,7 +162,7 @@ class _MainScreenState extends State<MainScreen>
                 builder: (context, isVisible, child) {
                   return isVisible
                       ? Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: SideMenuWidget(
                               onMenuItemSelected: onMenuItemSelected),
                         )

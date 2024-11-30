@@ -29,6 +29,18 @@ Future<void> update() async {
   await updateUserDivisions();
 }
 
+Future<void> logout() async {
+  final headers = await getAuthHeader();
+  try {
+    await corpSecurityClient.logout(headers: headers);
+    await secureStorage.delete(key: "corp_refresh_pass");
+    await secureStorage.delete(key: "corp_access_pass");
+    navigatorKey.currentState?.pushNamed('/login');
+  } catch (error) {
+    print(error);
+  }
+}
+
 
 Future<void> updateUserInfo() async {
   final headers = await getAuthHeader();
