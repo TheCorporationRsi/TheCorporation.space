@@ -208,8 +208,8 @@ class ProfileWidget extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            width: 10,
-                            height: 10,
+                            width: 16,
+                            height: 16,
                             decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               color: department.color != null
@@ -296,6 +296,66 @@ class ProfileWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Divider(),
+                SizedBox(height: 20),
+                SizedBox(
+                  height: 200,
+                  child: Stack(
+                    children: [
+                      PieChart(
+                        PieChartData(
+                          sectionsSpace: 0,
+                          centerSpaceRadius: 70,
+                          startDegreeOffset: -90,
+                          sections: [
+                            if (current_user.departments.isEmpty)
+                              PieChartSectionData(
+                                color: backgroundColor,
+                                value: 1,
+                                radius: 25,
+                                showTitle: false,
+                              )
+                            else
+                              for (var department in current_user.departments)
+                                PieChartSectionData(
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey,
+                                  value: department.weight!.toDouble(),
+                                  title: department.title,
+                                  radius: 25,
+                                  showTitle: false,
+                                )
+                          ],
+                        ),
+                      ),
+                      Positioned.fill(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: defaultPadding),
+                            Text(
+                              "100",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineMedium!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    height: 0.5,
+                                  ),
+                            ),
+                            const SizedBox(height: 8),
+                            const Text("%")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Text(
+                  'Weights',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                )
               ],
             ),
           ),
