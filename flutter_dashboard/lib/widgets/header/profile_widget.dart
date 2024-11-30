@@ -35,19 +35,22 @@ class ProfileWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'RSI Handle: ${current_user.rsiHandle}',
+                  current_user.rsiHandle,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'RSI Moniker: ${current_user.rsiMoniker}',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  current_user.rsiMoniker,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500),
                 ),
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 10),
                 Text(
                   'Roles',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
                 if (leadershipRoles.isNotEmpty) ...[
@@ -55,6 +58,7 @@ class ProfileWidget extends StatelessWidget {
                     'Leadership',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
+                  SizedBox(height: 10),
                   Wrap(
                     spacing: 8.0,
                     runSpacing: 4.0,
@@ -85,6 +89,7 @@ class ProfileWidget extends StatelessWidget {
                     'Membership',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
+                  SizedBox(height: 10),
                   Wrap(
                     spacing: 8.0,
                     runSpacing: 4.0,
@@ -110,11 +115,12 @@ class ProfileWidget extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                 ],
-                Text(
-                  'Others',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                ),
                 if (otherRoles.isNotEmpty) ...[
+                  Text(
+                    'Others',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 10),
                   Wrap(
                     spacing: 8.0,
                     runSpacing: 4.0,
@@ -165,12 +171,14 @@ class ProfileWidget extends StatelessWidget {
                                 Text(
                                   "Rank",
                                   style: const TextStyle(
-                                      fontSize: 11, color: Colors.grey),
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
                                   current_user.infAccount.rank ?? 'Unknown',
-                                  style: const TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 13),
                                 ),
                               ],
                             ),
@@ -179,13 +187,15 @@ class ProfileWidget extends StatelessWidget {
                                 Text(
                                   "Tribute",
                                   style: const TextStyle(
-                                      fontSize: 11, color: Colors.grey),
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
                                   (current_user.infAccount.tribute ?? 0)
                                       .toString(),
-                                  style: const TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 13),
                                 ),
                               ],
                             )
@@ -245,14 +255,14 @@ class ProfileWidget extends StatelessWidget {
                           centerSpaceRadius: 70,
                           startDegreeOffset: -90,
                           sections: [
-                            if (current_user.departments.isEmpty)
+                            
                               PieChartSectionData(
                                 color: backgroundColor,
                                 value: 1,
                                 radius: 25,
                                 showTitle: false,
-                              )
-                            else
+                              ),
+                            
                               for (var department in current_user.departments)
                                 PieChartSectionData(
                                   color: department.color != null

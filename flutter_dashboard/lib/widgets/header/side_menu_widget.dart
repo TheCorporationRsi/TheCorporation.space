@@ -1,6 +1,8 @@
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/menu_model.dart';
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
+
 
 class SideMenuWidget extends StatefulWidget {
   final Function(int, {int? subIndex}) onMenuItemSelected;
@@ -11,7 +13,7 @@ class SideMenuWidget extends StatefulWidget {
   State<SideMenuWidget> createState() => _SideMenuWidgetState();
 }
 
-final menu = const <MenuModel>[
+final menu = <MenuModel>[
   MenuModel(
     icon: Icons.home,
     title: 'Dashboard',
@@ -20,17 +22,35 @@ final menu = const <MenuModel>[
       MenuModel(icon: Icons.analytics, title: 'Analytics'),
     ],
   ),
+  if (current_user.status.cORPMember)
   MenuModel(
     icon: Icons.person,
-    title: 'Profile',
+    title: 'Influence System',
     subMenu: [
-      MenuModel(icon: Icons.edit, title: 'Edit Profile'),
+      MenuModel(icon: Icons.edit, title: 'Status'),
+      MenuModel(icon: Icons.security, title: 'Transfer'),
+    ],
+  ),
+  if (current_user.status.isAdmin)
+  MenuModel(
+    icon: Icons.person,
+    title: 'Admin',
+    subMenu: [
+      MenuModel(icon: Icons.edit, title: 'Users'),
+      MenuModel(icon: Icons.security, title: 'Departments'),
+      MenuModel(icon: Icons.security, title: 'Divisions'),
+      MenuModel(icon: Icons.security, title: 'Roles'),
+    ],
+  ),
+  MenuModel(icon: Icons.history, title: 'Stats'),
+  MenuModel(
+    icon: Icons.person,
+    title: 'Settings',
+    subMenu: [
+      MenuModel(icon: Icons.edit, title: 'Profile'),
       MenuModel(icon: Icons.security, title: 'Security'),
     ],
   ),
-  MenuModel(icon: Icons.trending_up, title: 'Influence System'),
-  MenuModel(icon: Icons.settings, title: 'Settings'),
-  MenuModel(icon: Icons.history, title: 'Stats'),
   MenuModel(icon: Icons.logout, title: 'SignOut'),
 ];
 

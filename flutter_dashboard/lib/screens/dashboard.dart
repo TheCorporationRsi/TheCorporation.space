@@ -89,45 +89,38 @@ class _MainScreenState extends State<MainScreen>
   }
 
   Widget getSelectedPage() {
-    print(
-        'Selected Index: $selectedIndex, Selected SubIndex: $selectedSubIndex');
-
-    if (selectedSubIndex != null) {
-      switch (selectedIndex) {
-        case 0:
-          switch (selectedSubIndex) {
-            case 0:
-              return const InfluenceWidget();
-            case 1:
-              return const InfluenceWidget();
-          }
-          break;
-        case 1:
-          switch (selectedSubIndex) {
-            case 0:
-              return const DashboardWidget();
-            case 1:
-              return const InfluenceWidget();
-          }
-          break;
-      }
+    final menu = [
+      [
+      const DashboardWidget(),
+      const InfluenceWidget()
+      ],
+      if (current_user.status.cORPMember)
+      [
+      const DashboardWidget(),
+      const InfluenceWidget()
+      ],
+      if (current_user.status.isAdmin)
+      [
+      const DashboardWidget(),
+      const InfluenceWidget(),
+      const InfluenceWidget(),
+      const InfluenceWidget(),
+      ],
+      const InfluenceWidget(),
+      [
+      const DashboardWidget(),
+      const InfluenceWidget()
+      ],
+      const InfluenceWidget()
+      
+    ];
+    print('Selected Index: $selectedIndex, Selected SubIndex: $selectedSubIndex');
+    if (menu[selectedIndex] is List) {
+      final item = menu[selectedIndex] as List;
+      return item[selectedSubIndex!];
     } else {
-      switch (selectedIndex) {
-        case 0:
-          return const DashboardWidget();
-        case 1:
-          return const DashboardWidget();
-        case 2:
-          return const InfluenceWidget();
-        case 3:
-          return const DashboardWidget();
-        case 4:
-          return const DashboardWidget();
-        case 5:
-          return const InfluenceWidget();
-      }
+      return menu[selectedIndex] as Widget;
     }
-    return const DashboardWidget();
   }
 
   void toggleSideMenu() {

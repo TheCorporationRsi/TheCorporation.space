@@ -30,7 +30,6 @@ def get_status():
             content:
                 application/json:
                     schema:
-                        required: [authentificated, RSI_verified, CORP_member, is_manager, is_admin]
                         properties:
                             authentificated:
                                 type: boolean
