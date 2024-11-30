@@ -1,6 +1,6 @@
 import 'package:flutter_dashboard/const/constant.dart';
-import 'package:flutter_dashboard/data/side_menu_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dashboard/model/menu_model.dart';
 
 class SideMenuWidget extends StatefulWidget {
   final Function(int, {int? subIndex}) onMenuItemSelected;
@@ -11,17 +11,38 @@ class SideMenuWidget extends StatefulWidget {
   State<SideMenuWidget> createState() => _SideMenuWidgetState();
 }
 
+final menu = const <MenuModel>[
+  MenuModel(
+    icon: Icons.home,
+    title: 'Dashboard',
+    subMenu: [
+      MenuModel(icon: Icons.dashboard, title: 'Overview'),
+      MenuModel(icon: Icons.analytics, title: 'Analytics'),
+    ],
+  ),
+  MenuModel(
+    icon: Icons.person,
+    title: 'Profile',
+    subMenu: [
+      MenuModel(icon: Icons.edit, title: 'Edit Profile'),
+      MenuModel(icon: Icons.security, title: 'Security'),
+    ],
+  ),
+  MenuModel(icon: Icons.trending_up, title: 'Influence System'),
+  MenuModel(icon: Icons.settings, title: 'Settings'),
+  MenuModel(icon: Icons.history, title: 'Stats'),
+  MenuModel(icon: Icons.logout, title: 'SignOut'),
+];
+
 class _SideMenuWidgetState extends State<SideMenuWidget>
     with TickerProviderStateMixin {
   int selectedIndex = 0;
-  int? selectedSubIndex;
+  int? selectedSubIndex = 0;
   int? hoveredIndex;
   int? hoveredSubIndex;
 
   @override
   Widget build(BuildContext context) {
-    final data = SideMenuData();
-
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       color: cardBackgroundColor,
@@ -36,8 +57,8 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
           const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
-              itemCount: data.menu.length,
-              itemBuilder: (context, index) => buildMenuEntry(data, index),
+              itemCount: menu.length,
+              itemBuilder: (context, index) => buildMenuEntry(index),
             ),
           ),
         ],
@@ -45,10 +66,10 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
     );
   }
 
-  Widget buildMenuEntry(SideMenuData data, int index) {
+  Widget buildMenuEntry(int index) {
     final isSelected = selectedIndex == index;
     final isHovered = hoveredIndex == index;
-    final menu = data.menu[index];
+    final menuItem = menu[index];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +83,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
                 selectedIndex = index;
                 selectedSubIndex = null;
               });
-              if (menu.subMenu != null && menu.subMenu!.isNotEmpty) {
+              if (menuItem.subMenu != null && menuItem.subMenu!.isNotEmpty) {
                 setState(() {
                   selectedSubIndex = 0;
                 });
@@ -84,11 +105,11 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  Icon(menu.icon,
+                  Icon(menuItem.icon,
                       color: isSelected ? secondaryColor : Colors.white),
                   const SizedBox(width: 10),
                   Text(
-                    menu.title,
+                    menuItem.title,
                     style: TextStyle(
                         color: isSelected ? secondaryColor : Colors.white),
                   ),
@@ -97,7 +118,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
             ),
           ),
         ),
-        if (menu.subMenu != null)
+        if (menuItem.subMenu != null)
           AnimatedSize(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
@@ -105,8 +126,8 @@ class _SideMenuWidgetState extends State<SideMenuWidget>
                 ? Padding(
                     padding: const EdgeInsets.only(left: 20),
                     child: Column(
-                      children: menu.subMenu!.map((subMenu) {
-                        final subIndex = menu.subMenu!.indexOf(subMenu);
+                      children: menuItem.subMenu!.map((subMenu) {
+                        final subIndex = menuItem.subMenu!.indexOf(subMenu);
                         final isSubSelected = selectedSubIndex == subIndex;
                         final isSubHovered = hoveredSubIndex == subIndex;
 

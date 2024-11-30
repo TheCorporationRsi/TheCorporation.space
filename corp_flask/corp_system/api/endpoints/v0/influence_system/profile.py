@@ -73,7 +73,9 @@ def profile():
 	profile = {
 			"tribute": account.tribute_amount,
 			"last_tribute_time": account.last_tribute_time,
-			"rank": account.rank.title
+			"rank": account.rank.title,
+			"influence": account.current_influence(),
+   			"lifetime_influence": account.lifetime_influence()
 	}
 	return jsonify(profile), 200
 

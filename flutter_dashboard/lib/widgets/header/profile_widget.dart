@@ -158,7 +158,7 @@ class ProfileWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Column(
                               children: [
@@ -188,35 +188,7 @@ class ProfileWidget extends StatelessWidget {
                                   style: const TextStyle(fontSize: 14),
                                 ),
                               ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Rank",
-                                  style: const TextStyle(
-                                      fontSize: 11, color: Colors.grey),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  current_user.infAccount.rank ?? 'Unknown',
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Rank",
-                                  style: const TextStyle(
-                                      fontSize: 11, color: Colors.grey),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  current_user.infAccount.rank ?? 'Unknown',
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
-                            ),
+                            )
                           ],
                         ),
                       ))
