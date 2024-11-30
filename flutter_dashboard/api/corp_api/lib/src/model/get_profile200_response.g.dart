@@ -8,6 +8,12 @@ part of 'get_profile200_response.dart';
 
 class _$GetProfile200Response extends GetProfile200Response {
   @override
+  final int? influence;
+  @override
+  final String? lastTributeTime;
+  @override
+  final int? lifetimeInfluence;
+  @override
   final String? rank;
   @override
   final int? tribute;
@@ -16,7 +22,13 @@ class _$GetProfile200Response extends GetProfile200Response {
           [void Function(GetProfile200ResponseBuilder)? updates]) =>
       (new GetProfile200ResponseBuilder()..update(updates))._build();
 
-  _$GetProfile200Response._({this.rank, this.tribute}) : super._();
+  _$GetProfile200Response._(
+      {this.influence,
+      this.lastTributeTime,
+      this.lifetimeInfluence,
+      this.rank,
+      this.tribute})
+      : super._();
 
   @override
   GetProfile200Response rebuild(
@@ -31,6 +43,9 @@ class _$GetProfile200Response extends GetProfile200Response {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is GetProfile200Response &&
+        influence == other.influence &&
+        lastTributeTime == other.lastTributeTime &&
+        lifetimeInfluence == other.lifetimeInfluence &&
         rank == other.rank &&
         tribute == other.tribute;
   }
@@ -38,6 +53,9 @@ class _$GetProfile200Response extends GetProfile200Response {
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, influence.hashCode);
+    _$hash = $jc(_$hash, lastTributeTime.hashCode);
+    _$hash = $jc(_$hash, lifetimeInfluence.hashCode);
     _$hash = $jc(_$hash, rank.hashCode);
     _$hash = $jc(_$hash, tribute.hashCode);
     _$hash = $jf(_$hash);
@@ -47,6 +65,9 @@ class _$GetProfile200Response extends GetProfile200Response {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'GetProfile200Response')
+          ..add('influence', influence)
+          ..add('lastTributeTime', lastTributeTime)
+          ..add('lifetimeInfluence', lifetimeInfluence)
           ..add('rank', rank)
           ..add('tribute', tribute))
         .toString();
@@ -56,6 +77,20 @@ class _$GetProfile200Response extends GetProfile200Response {
 class GetProfile200ResponseBuilder
     implements Builder<GetProfile200Response, GetProfile200ResponseBuilder> {
   _$GetProfile200Response? _$v;
+
+  int? _influence;
+  int? get influence => _$this._influence;
+  set influence(int? influence) => _$this._influence = influence;
+
+  String? _lastTributeTime;
+  String? get lastTributeTime => _$this._lastTributeTime;
+  set lastTributeTime(String? lastTributeTime) =>
+      _$this._lastTributeTime = lastTributeTime;
+
+  int? _lifetimeInfluence;
+  int? get lifetimeInfluence => _$this._lifetimeInfluence;
+  set lifetimeInfluence(int? lifetimeInfluence) =>
+      _$this._lifetimeInfluence = lifetimeInfluence;
 
   String? _rank;
   String? get rank => _$this._rank;
@@ -72,6 +107,9 @@ class GetProfile200ResponseBuilder
   GetProfile200ResponseBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _influence = $v.influence;
+      _lastTributeTime = $v.lastTributeTime;
+      _lifetimeInfluence = $v.lifetimeInfluence;
       _rank = $v.rank;
       _tribute = $v.tribute;
       _$v = null;
@@ -94,8 +132,13 @@ class GetProfile200ResponseBuilder
   GetProfile200Response build() => _build();
 
   _$GetProfile200Response _build() {
-    final _$result =
-        _$v ?? new _$GetProfile200Response._(rank: rank, tribute: tribute);
+    final _$result = _$v ??
+        new _$GetProfile200Response._(
+            influence: influence,
+            lastTributeTime: lastTributeTime,
+            lifetimeInfluence: lifetimeInfluence,
+            rank: rank,
+            tribute: tribute);
     replace(_$result);
     return _$result;
   }

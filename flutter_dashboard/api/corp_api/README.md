@@ -73,6 +73,7 @@ Class | Method | HTTP request | Description
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getTributeHistory**](doc/InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**sendTribute**](doc/InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**setWeight**](doc/InfluenceSystemApi.md#setweight) | **POST** /api/v0/structure/set_weight | Division weight assignment
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**updateAccount**](doc/InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 [*InformationApi*](doc/InformationApi.md) | [**getCorporateers**](doc/InformationApi.md#getcorporateers) | **GET** /api/v0/corporateers | List of all corporateer
 [*RSIStatsApi*](doc/RSIStatsApi.md) | [**getCurrentFunding**](doc/RSIStatsApi.md#getcurrentfunding) | **GET** /api/v0/current_funding | List of all influence system ranks
 [*SecurityApi*](doc/SecurityApi.md) | [**changePassword**](doc/SecurityApi.md#changepassword) | **POST** /api/v0/change_password | Change password

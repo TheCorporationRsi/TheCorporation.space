@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**getTributeHistory**](InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
 [**sendTribute**](InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
 [**setWeight**](InfluenceSystemApi.md#setweight) | **POST** /api/v0/structure/set_weight | Division weight assignment
+[**updateAccount**](InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 
 
 # **getInfluence**
@@ -270,6 +271,44 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateAccount**
+> updateAccount()
+
+Update influence system account
+
+<br/>This endpoint updates the influence system account<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getInfluenceSystemApi();
+
+try {
+    api.updateAccount();
+} catch on DioException (e) {
+    print('Exception when calling InfluenceSystemApi->updateAccount: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

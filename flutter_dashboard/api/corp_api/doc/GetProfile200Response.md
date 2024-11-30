@@ -8,6 +8,9 @@ import 'package:corp_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**influence** | **int** |  | [optional] 
+**lastTributeTime** | **String** |  | [optional] 
+**lifetimeInfluence** | **int** |  | [optional] 
 **rank** | **String** |  | [optional] 
 **tribute** | **int** |  | [optional] 
 

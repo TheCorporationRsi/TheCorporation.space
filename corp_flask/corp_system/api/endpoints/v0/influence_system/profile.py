@@ -63,6 +63,12 @@ def profile():
 							last_tribute_time:
 								type: string
 								example: 2021-05-05 12:00:00
+							influence:
+								type: integer
+								example: 2000
+							lifetime_influence:
+								type: integer
+								example: 20000
 		401:
 			$ref: "#/components/responses/unauthorized"
 
