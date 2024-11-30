@@ -12,10 +12,10 @@ import 'package:built_collection/built_collection.dart';
 import 'package:corp_api/src/model/get_departments200_response.dart';
 import 'package:corp_api/src/model/get_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_rsi_token401_response.dart';
-import 'package:corp_api/src/model/get_user_departments200_response.dart';
-import 'package:corp_api/src/model/get_user_divisions200_response.dart';
+import 'package:corp_api/src/model/get_user_departments200_response_inner.dart';
+import 'package:corp_api/src/model/get_user_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_profile200_response.dart';
-import 'package:corp_api/src/model/get_user_roles200_response.dart';
+import 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 
 class StructureApi {
   final Dio _dio;
@@ -184,9 +184,10 @@ class StructureApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetUserDepartments200Response] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<GetUserDepartments200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetUserDepartments200Response>> getUserDepartments({
+  Future<Response<BuiltList<GetUserDepartments200ResponseInner>>>
+      getUserDepartments({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -221,7 +222,7 @@ class StructureApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetUserDepartments200Response? _responseData;
+    BuiltList<GetUserDepartments200ResponseInner>? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -229,8 +230,9 @@ class StructureApi {
           ? null
           : _serializers.deserialize(
               rawResponse,
-              specifiedType: const FullType(GetUserDepartments200Response),
-            ) as GetUserDepartments200Response;
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetUserDepartments200ResponseInner)]),
+            ) as BuiltList<GetUserDepartments200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -241,7 +243,7 @@ class StructureApi {
       );
     }
 
-    return Response<GetUserDepartments200Response>(
+    return Response<BuiltList<GetUserDepartments200ResponseInner>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -264,9 +266,10 @@ class StructureApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetUserDivisions200Response] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<GetUserDivisions200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetUserDivisions200Response>> getUserDivisions({
+  Future<Response<BuiltList<GetUserDivisions200ResponseInner>>>
+      getUserDivisions({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -301,7 +304,7 @@ class StructureApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetUserDivisions200Response? _responseData;
+    BuiltList<GetUserDivisions200ResponseInner>? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -309,8 +312,9 @@ class StructureApi {
           ? null
           : _serializers.deserialize(
               rawResponse,
-              specifiedType: const FullType(GetUserDivisions200Response),
-            ) as GetUserDivisions200Response;
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetUserDivisions200ResponseInner)]),
+            ) as BuiltList<GetUserDivisions200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -321,7 +325,7 @@ class StructureApi {
       );
     }
 
-    return Response<GetUserDivisions200Response>(
+    return Response<BuiltList<GetUserDivisions200ResponseInner>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -424,9 +428,9 @@ class StructureApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetUserRoles200Response] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<GetUserRoles200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetUserRoles200Response>> getUserRoles({
+  Future<Response<BuiltList<GetUserRoles200ResponseInner>>> getUserRoles({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -461,7 +465,7 @@ class StructureApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetUserRoles200Response? _responseData;
+    BuiltList<GetUserRoles200ResponseInner>? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -469,8 +473,9 @@ class StructureApi {
           ? null
           : _serializers.deserialize(
               rawResponse,
-              specifiedType: const FullType(GetUserRoles200Response),
-            ) as GetUserRoles200Response;
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetUserRoles200ResponseInner)]),
+            ) as BuiltList<GetUserRoles200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -481,7 +486,7 @@ class StructureApi {
       );
     }
 
-    return Response<GetUserRoles200Response>(
+    return Response<BuiltList<GetUserRoles200ResponseInner>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

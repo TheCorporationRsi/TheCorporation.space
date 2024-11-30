@@ -17,10 +17,10 @@ doc/GetRSIToken401Response.md
 doc/GetRanks200ResponseInner.md
 doc/GetStatus200Response.md
 doc/GetTributeHistory200ResponseInner.md
-doc/GetUserDepartments200Response.md
-doc/GetUserDivisions200Response.md
+doc/GetUserDepartments200ResponseInner.md
+doc/GetUserDivisions200ResponseInner.md
 doc/GetUserProfile200Response.md
-doc/GetUserRoles200Response.md
+doc/GetUserRoles200ResponseInner.md
 doc/InfluenceSystemApi.md
 doc/InformationApi.md
 doc/Login200Response.md
@@ -65,10 +65,10 @@ lib/src/model/get_rsi_token200_response.dart
 lib/src/model/get_rsi_token401_response.dart
 lib/src/model/get_status200_response.dart
 lib/src/model/get_tribute_history200_response_inner.dart
-lib/src/model/get_user_departments200_response.dart
-lib/src/model/get_user_divisions200_response.dart
+lib/src/model/get_user_departments200_response_inner.dart
+lib/src/model/get_user_divisions200_response_inner.dart
 lib/src/model/get_user_profile200_response.dart
-lib/src/model/get_user_roles200_response.dart
+lib/src/model/get_user_roles200_response_inner.dart
 lib/src/model/login200_response.dart
 lib/src/model/login_request.dart
 lib/src/model/refresh_token200_response.dart
@@ -79,5 +79,3 @@ lib/src/model/set_weight_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/get_user_profile200_response_test.dart
-test/get_user_roles200_response_test.dart

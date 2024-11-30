@@ -9,6 +9,31 @@ from corp_system.controllers.structure_manager import StructureManager
 
 from corp_system.models import Department, Division, Inf_Tribute, Inf_Account, Inf_Tribute
 
+
+@api.route('/influence_system/update', methods=['GET'])
+@CORP_only
+def update_account():
+	"""Update influence system account
+	
+	This endpoint updates the influence system account
+	---
+	operationId: update_account
+	tags:
+		- Influence System
+	security:
+		- corp_access_pass: []
+	responses:
+		200:
+			description: Suceessfully updated account
+		401:
+			$ref: "#/components/responses/unauthorized"
+
+	"""
+		
+	current_user.inf_account.update()
+	
+	return jsonify({'msg':"Updated"}), 200
+
 @api.route('/influence_system/profile', methods=['GET'])
 @CORP_only
 def profile():
@@ -35,6 +60,9 @@ def profile():
 							rank:
 								type: string
 								example: 50
+							last_tribute_time:
+								type: string
+								example: 2021-05-05 12:00:00
 		401:
 			$ref: "#/components/responses/unauthorized"
 
@@ -44,6 +72,7 @@ def profile():
 	
 	profile = {
 			"tribute": account.tribute_amount,
+			"last_tribute_time": account.last_tribute_time,
 			"rank": account.rank.title
 	}
 	return jsonify(profile), 200

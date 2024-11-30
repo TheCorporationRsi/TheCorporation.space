@@ -192,6 +192,8 @@ def create_app(config_class=Config.ProductionConfig):
     cors.init_app(app)
     swagger.init_app(app)
 
+    # Add a sample task to verify scheduler
+
     # Associate the app with the SQLAlchemy models
     db.app = app
 
@@ -204,9 +206,7 @@ def create_app(config_class=Config.ProductionConfig):
         from . import tasks
         from . import bot
 
-        # Start the scheduler if not in debug mode
-        if not is_debug_mode() or is_werkzeug_reloader_process():
-            scheduler.start()
+        scheduler.start()
 
         # Import the events after starting the scheduler
         from . import events

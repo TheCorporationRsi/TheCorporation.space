@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from corp_system import db
 
@@ -137,8 +137,8 @@ class Inf_Account(Base):
         if self.user:
             self.RSI_handle = self.user.RSI_handle
             
-        if (datetime.now() - self.last_tribute_time).days >= 7:
-            self.tribute = min(1.5 * self.rank.weekly_amount, self.tribute_amount + self.rank.weekly_amount)
+        if (datetime.now() - self.last_tribute_time) >= timedelta(weeks=1):
+            self.tribute_amount = min(1.5 * self.rank.weekly_amount, self.tribute_amount + self.rank.weekly_amount)
             self.last_tribute_time = datetime.now()
         
         from corp_system.models import Inf_Rank

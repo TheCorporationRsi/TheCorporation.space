@@ -6,7 +6,7 @@ from flask import jsonify, request
 
 from corp_system.models import Inf_Rank, Division, Department, User
 
-from corp_system.controllers.influence_system_manager import InfluenceSystemManager
+from corp_system.controllers.structure_manager import StructureManager
 
 @api.route('/structure/profile', methods=['GET'])
 @CORP_only
@@ -66,16 +66,30 @@ def user_departments():
             content:
                 application/json:
                     schema:
-                        type: object
-                        properties:
-                            title:
-                                type: string
-                                example: Resources
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: Resources
+                                color:
+                                    type: string
+                                    example: #0083ff
+                                motto:
+                                    type: string
+                                    example: We love building stuff
+                                logo:
+                                    type: string
+                                    example: logo.svg
+                                weight:
+                                    type: integer
+                                    example: 5
 
     """
     
     departments = current_user.departments
-    departments_list = {}
+    departments_list = []
     
     for department in departments:
         
@@ -109,16 +123,30 @@ def user_divisions():
             content:
                 application/json:
                     schema:
-                        type: object
-                        properties:
-                            title:
-                                type: string
-                                example: Development
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: Development
+                                color:
+                                    type: string
+                                    example: #0083ff
+                                department:
+                                    type: string
+                                    example: Resources
+                                logo:
+                                    type: string
+                                    example: logo.svg
+                                weight:
+                                    type: integer
+                                    example: 5
 
     """
     
     divisions = current_user.divisions
-    divisions_list = {}
+    divisions_list = []
     
     for division in divisions:
         divisions_list.append({
@@ -150,24 +178,39 @@ def user_roles():
             content:
                 application/json:
                     schema:
-                        type: object
-                        properties:
-                            title:
-                                type: string
-                                example: Development member
+                        type: array
+                        items:
+                            type: object
+                            properties:
+                                title:
+                                    type: string
+                                    example: Development member
+                                color:
+                                    type: string
+                                    example: #0083ff
+                                type:
+                                    type: string
+                                    example: Leadership
+                                department:
+                                    type: string
+                                    example: Resources
+                                division:
+                                    type: string
+                                    example: Development
         401:
             $ref: "#/components/responses/unauthorized"
     """
     
     roles = current_user.roles
-    roles_list = {}
+    roles_list = []
     
     for role in roles:
         roles_list.append({
             "title": role.title,
             "color": role.color,
-            "department": role.department.title,
-            "division": role.division.title
+            "type": StructureManager.get_role_type(role=role),
+            "department": role.department.title if role.department else None,
+            "division": role.division.title if role.division else None
         })
     
     return jsonify(roles_list), 200

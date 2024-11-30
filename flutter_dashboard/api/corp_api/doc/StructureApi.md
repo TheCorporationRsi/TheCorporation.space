@@ -96,7 +96,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getUserDepartments**
-> GetUserDepartments200Response getUserDepartments()
+> BuiltList<GetUserDepartments200ResponseInner> getUserDepartments()
 
 List of all your departments
 
@@ -121,7 +121,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**GetUserDepartments200Response**](GetUserDepartments200Response.md)
+[**BuiltList&lt;GetUserDepartments200ResponseInner&gt;**](GetUserDepartments200ResponseInner.md)
 
 ### Authorization
 
@@ -135,7 +135,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getUserDivisions**
-> GetUserDivisions200Response getUserDivisions()
+> BuiltList<GetUserDivisions200ResponseInner> getUserDivisions()
 
 List of all your division
 
@@ -160,7 +160,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**GetUserDivisions200Response**](GetUserDivisions200Response.md)
+[**BuiltList&lt;GetUserDivisions200ResponseInner&gt;**](GetUserDivisions200ResponseInner.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getUserRoles**
-> GetUserRoles200Response getUserRoles()
+> BuiltList<GetUserRoles200ResponseInner> getUserRoles()
 
 List of all your roles
 
@@ -238,7 +238,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**GetUserRoles200Response**](GetUserRoles200Response.md)
+[**BuiltList&lt;GetUserRoles200ResponseInner&gt;**](GetUserRoles200ResponseInner.md)
 
 ### Authorization
 

@@ -92,3 +92,14 @@ class StructureManager:
         
         db.session.add(role)
         db.session.commit()
+    
+    @staticmethod
+    def get_role_type( role):
+        if role.division != None and role.division.member_role == role:
+            return "Membership"
+        elif role.division != None and (role.division.leader_role == role or role.division.proxy_role == role):
+            return "Leadership"
+        elif role.department != None and (role.department.head_role == role or role.department.proxy_role == role):
+            return "Leadership"
+        else:
+            return "Other"

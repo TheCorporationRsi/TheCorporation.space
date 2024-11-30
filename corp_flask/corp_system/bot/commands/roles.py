@@ -21,7 +21,7 @@ def roles(ctx):
 
 @CORP_only
 def my_roles(ctx):
-    '''!myroles'''
+    '''!my_roles'''
     roles = ctx.current_user.roles
     
     message = "Roles:\n"
