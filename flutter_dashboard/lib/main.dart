@@ -12,30 +12,18 @@ import 'package:openapi_generator_annotations/openapi_generator_annotations.dart
 import 'package:flutter_dashboard/util/corp_interceptor.dart';
 import 'package:dio/dio.dart';
 
+
 @Openapi(
   additionalProperties:
       DioProperties(pubName: 'corp_api', pubAuthor: 'Cyber-Dreamer'),
   inputSpec:
-      RemoteSpec(path: 'http://localhost:5000/api/apispec.json'),
+      RemoteSpec(path: String.fromEnvironment('CORP_API_DOCS_URL', defaultValue: "http://localhost:5000/api/apispec.json")),
   typeMappings: {'Pet': 'ExamplePet'},
   generatorName: Generator.dio,
   runSourceGenOnOutput: true,
-  skipIfSpecIsUnchanged: false,
+  skipIfSpecIsUnchanged: true,
   outputDirectory: 'api/corp_api',
 )
-
-
-//@Openapi(
-//   additionalProperties:
-//   DioProperties(pubName: 'petstore_api', pubAuthor: 'Johnny dep..'),
-//   inputSpec:
-//   RemoteSpec(path: 'https://petstore3.swagger.io/api/v3/openapi.json'),
-//   typeMappings: {'Pet': 'ExamplePet'},
-//   generatorName: Generator.dio,
-//   runSourceGenOnOutput: true,
-//   outputDirectory: 'api/petstore_api',
-//)
-
 class Example {}
 
 void main() {
@@ -44,7 +32,7 @@ void main() {
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 final SecureStorageService secureStorage = new SecureStorageService();
 final dio = Dio(BaseOptions(
-              baseUrl: r'http://localhost:5000',
+              baseUrl: CorpApi.basePath,
               connectTimeout: const Duration(milliseconds: 5000),
               receiveTimeout: const Duration(milliseconds: 3000),
             ));
@@ -74,6 +62,7 @@ Future<Map<String, dynamic>?> getAuthHeader() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  
 
   @override
   Widget build(BuildContext context) {

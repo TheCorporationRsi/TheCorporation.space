@@ -22,4 +22,5 @@ RUN fvm flutter config --enable-web
 ### It generates the necessary files and assets for running the application on the web. 
 ### The --web-renderer=auto flag allows Flutter to automatically choose the appropriate web renderer (HTML or Canvas) based on the platform and browser capabilities.
 #
-RUN fvm flutter build web --release --web-renderer=auto
+
+RUN fvm dart run build_runner build --delete-conflicting-outputs

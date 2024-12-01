@@ -84,4 +84,17 @@ services:
       - corp_bot_net
     depends_on:
       - corp_system
-    command: bash -c "python3 bot.py" 
+    command: bash -c "python3 bot.py"
+
+  flutter_web:
+    restart: always
+    build: ./flutter_dashboard
+    environment:
+      CORP_API_DOCS_URL: http://@corp_system:5000/api/docs
+    expose:
+      - "8000"
+    networks:
+      - corp_cloudflared
+    depends_on:
+      - corp_system
+    command: bash -c "fvm flutter build web --release --web-renderer=auto --web-port=8000"
