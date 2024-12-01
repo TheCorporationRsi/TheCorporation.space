@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-11-30T20:40:04.158850
+// Openapi Generator last run: : 2024-12-01T17:45:32.902
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/screens/dashboard.dart';
@@ -13,11 +13,14 @@ import 'package:flutter_dashboard/util/corp_interceptor.dart';
 import 'package:dio/dio.dart';
 
 
+//const corpApiUrl = "http://localhost:5000/api/apispec.json";
+const corpApiUrl = "https://thecorporation.space/api/apispec.json";
+
 @Openapi(
   additionalProperties:
       DioProperties(pubName: 'corp_api', pubAuthor: 'Cyber-Dreamer'),
   inputSpec:
-      RemoteSpec(path: String.fromEnvironment('CORP_API_DOCS_URL', defaultValue: "http://localhost:5000/api/apispec.json")),
+      RemoteSpec(path: corpApiUrl),
   typeMappings: {'Pet': 'ExamplePet'},
   generatorName: Generator.dio,
   runSourceGenOnOutput: true,

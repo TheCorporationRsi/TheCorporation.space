@@ -17,7 +17,7 @@ import 'package:corp_api/src/api/security_api.dart';
 import 'package:corp_api/src/api/structure_api.dart';
 
 class CorpApi {
-  static const String basePath = r'http://localhost:5000';
+  static const String basePath = r'https://thecorporation.space';
 
   final Dio dio;
   final Serializers serializers;

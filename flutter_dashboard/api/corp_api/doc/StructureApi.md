@@ -5,7 +5,7 @@
 import 'package:corp_api/api.dart';
 ```
 
-All URIs are relative to *http://localhost:5000*
+All URIs are relative to *https://thecorporation.space*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

@@ -89,12 +89,10 @@ services:
   flutter_web:
     restart: always
     build: ./flutter_dashboard
-    environment:
-      CORP_API_DOCS_URL: http://@corp_system:5000/api/docs
     expose:
-      - "8000"
+      - "5000"
     networks:
       - corp_cloudflared
     depends_on:
       - corp_system
-    command: bash -c "fvm flutter build web --release --web-renderer=auto --web-port=8000"
+    command: bash -c "/app/server/server.sh"

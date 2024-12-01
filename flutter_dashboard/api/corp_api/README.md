@@ -61,7 +61,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:5000*
+All URIs are relative to *https://thecorporation.space*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
