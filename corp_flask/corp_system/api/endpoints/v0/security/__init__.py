@@ -6,3 +6,4 @@ from .RSI_token import *
 from .password_change import *
 from .logs import *
 from .status import *
+from .users import *

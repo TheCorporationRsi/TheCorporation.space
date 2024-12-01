@@ -7,7 +7,7 @@ from corp_system.controllers.security_manager import SecurityManager
 
 from corp_system import limiter
 
-@limiter.limit("5 per minute")
+@limiter.limit("1 per second")
 @api.route('/login', methods=['POST'])
 def login():
     """Authetification endpoint

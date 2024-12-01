@@ -18,12 +18,12 @@ from sqlalchemy.orm.attributes import flag_modified
 import re
 
 @jwt.user_identity_loader
-def user_identity_lookup(user):
+def user_identity_lookup(user : 'User'):
     """
     Callback function to get the user identity for JWT token.
     """
     
-    return user.id
+    return user.RSI_handle
 
 @jwt.token_in_blocklist_loader
 def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
@@ -67,7 +67,7 @@ def user_lookup_callback(_jwt_header, jwt_data):
         # If no API key is present, continue with JWT and CSRF verification
         identity = jwt_data["sub"]
         print(identity)
-        user = User.query.filter_by(id=identity).first()
+        user = User.query.filter_by(RSI_handle=identity).first()
 
         # Check if the user exists and the user account is enabled
         if user and not user.disabled:
@@ -391,6 +391,7 @@ class User(Base):
             'RSI_number': self.RSI_number,
             'image_link': self.image_link,
             'RSI_confirmed': self.RSI_confirmed,
+            'CORP_confirmed': self.CORP_confirmed,
             'RSI_verification_token': self.RSI_verification_token,
             'Enabled_2FA': self.Enabled_2FA,
             'orgs': self.orgs,
