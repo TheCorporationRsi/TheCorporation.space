@@ -145,14 +145,12 @@ class _MainScreenState extends State<MainScreen>
     final isDesktop = Responsive.isDesktop(context);
     return Scaffold(
       key: _headerScaffoldKey,
-      drawer: !isDesktop
-          ? Drawer(
-              child: Expanded(
-                flex: 2,
-                child: SideMenuWidget(onMenuItemSelected: onMenuItemSelected),
-              ),
-            )
-          : null,
+      drawer: Drawer(
+        child: SizedBox(
+          width: 250,
+          child: SideMenuWidget(onMenuItemSelected: onMenuItemSelected),
+        ),
+      ),
       body: SafeArea(
         child: Row(
           children: [
@@ -163,8 +161,7 @@ class _MainScreenState extends State<MainScreen>
                   return isVisible
                       ? Expanded(
                           flex: 3,
-                          child: SideMenuWidget(
-                              onMenuItemSelected: onMenuItemSelected),
+                          child: SideMenuWidget(onMenuItemSelected: onMenuItemSelected),
                         )
                       : SizedBox.shrink();
                 },

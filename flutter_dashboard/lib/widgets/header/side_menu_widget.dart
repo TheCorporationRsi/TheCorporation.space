@@ -6,7 +6,6 @@ import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 
 class SideMenuWidget extends StatefulWidget {
   final Function(int, {int? subIndex}) onMenuItemSelected;
-
   const SideMenuWidget({super.key, required this.onMenuItemSelected});
 
   @override
@@ -82,11 +81,11 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
   Widget build(BuildContext context) {
 
     if (_isLoading) {
-      return Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      color: cardBackgroundColor,
+      child: CircularProgressIndicator(),
+        );
     }
 
     return Container(
@@ -103,8 +102,17 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
           const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
               itemCount: menu.length,
-              itemBuilder: (context, index) => buildMenuEntry(index),
+              itemBuilder: (context, index) {
+                try {
+                  return buildMenuEntry(index);
+                } catch (e) {
+                  print('Error building menu entry at index $index: $e');
+                  return SizedBox.shrink(); // Return an empty widget on error
+                }
+              },
             ),
           ),
         ],
