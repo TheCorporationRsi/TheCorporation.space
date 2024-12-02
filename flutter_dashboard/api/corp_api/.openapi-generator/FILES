@@ -85,6 +85,3 @@ lib/src/model/set_weight_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/get_user200_response_roles_inner_test.dart
-test/get_user200_response_test.dart
-test/get_users200_response_inner_test.dart
