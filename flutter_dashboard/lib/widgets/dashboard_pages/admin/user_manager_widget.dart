@@ -4,6 +4,8 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/compo
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
 import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter_dashboard/const/constant.dart';
+import 'package:flutter_dashboard/main.dart';
 
 class UserManagerWidget extends StatefulWidget {
   const UserManagerWidget({super.key});
@@ -15,8 +17,41 @@ class UserManagerWidget extends StatefulWidget {
 class _UserManagerWidgetState extends State<UserManagerWidget> {
   BuiltList<GetUsers200ResponseInner> users = BuiltList<GetUsers200ResponseInner>();
 
+  bool _isLoading = true;
+  final corpSecurityClient = corpApi.getSecurityApi();
+
+  Future<void> _initialize() async {
+    final headers = await getAuthHeader();
+    try {
+      final response = await corpSecurityClient.getUsers(headers: headers);
+      if (response.data != null) {
+        users = response.data ?? users;
+      }
+    } catch (error) {
+      print(error);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initialize();
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    if (_isLoading) {
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        color: cardBackgroundColor,
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -31,6 +66,7 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
   }
 
   Widget _buildFilterAndSearchSection() {
+
     return Row(
       children: [
         Expanded(
@@ -62,23 +98,6 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
   }
 
   Widget _buildUserList() {
-    // Dummy user data
-    final List<Map<String, dynamic>> users = [
-      {
-        'profilePicture': 'path/to/profile1.png',
-        'name': 'User One',
-        'isVerified': true,
-        'isCorp': false,
-      },
-      {
-        'profilePicture': 'path/to/profile2.png',
-        'name': 'User Two',
-        'isVerified': false,
-        'isCorp': true,
-      },
-      // Add more users here
-    ];
-
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -90,18 +109,18 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     );
   }
 
-  Widget _buildUserItem(Map<String, dynamic> user) {
+  Widget _buildUserItem(GetUsers200ResponseInner user) {
     return Card(
       child: ListTile(
         leading: CircleAvatar(
-          backgroundImage: AssetImage(user['profilePicture']),
+          backgroundImage: NetworkImage(user.picture.toString()),
         ),
-        title: Text(user['name']),
+        title: Text(user.rSIHandle.toString()),
         subtitle: Row(
           children: [
-            if (user['isVerified'])
+            if (user.rSIConfirmed!)
               Icon(Icons.verified, color: Colors.blue, size: 16),
-            if (user['isCorp'])
+            if (user.cORPConfirmed!)
               Icon(Icons.business, color: Colors.green, size: 16),
           ],
         ),
