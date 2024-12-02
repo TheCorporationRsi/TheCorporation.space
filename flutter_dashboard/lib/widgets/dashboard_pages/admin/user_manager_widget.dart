@@ -111,6 +111,7 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
 
   Widget _buildUserItem(GetUsers200ResponseInner user) {
     return Card(
+      color: cardBackgroundColor, // Changed background color to green
       child: ListTile(
         leading: CircleAvatar(
           backgroundImage: NetworkImage(user.picture.toString()),
