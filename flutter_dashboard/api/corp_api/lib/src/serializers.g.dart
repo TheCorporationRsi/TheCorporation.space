@@ -22,10 +22,13 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetRanks200ResponseInner.serializer)
       ..add(GetStatus200Response.serializer)
       ..add(GetTributeHistory200ResponseInner.serializer)
+      ..add(GetUser200Response.serializer)
+      ..add(GetUser200ResponseRolesInner.serializer)
       ..add(GetUserDepartments200ResponseInner.serializer)
       ..add(GetUserDivisions200ResponseInner.serializer)
       ..add(GetUserProfile200Response.serializer)
       ..add(GetUserRoles200ResponseInner.serializer)
+      ..add(GetUsers200ResponseInner.serializer)
       ..add(Login200Response.serializer)
       ..add(LoginRequest.serializer)
       ..add(RefreshToken200Response.serializer)
@@ -34,6 +37,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(SendTributeRequest.serializer)
       ..add(SetWeightRequest.serializer)
       ..add(VerifyRSIToken200Response.serializer)
+      ..addBuilderFactory(
+          const FullType(
+              BuiltList, const [const FullType(GetUser200ResponseRolesInner)]),
+          () => new ListBuilder<GetUser200ResponseRolesInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

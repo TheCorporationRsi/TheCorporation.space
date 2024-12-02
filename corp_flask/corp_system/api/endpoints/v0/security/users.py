@@ -52,7 +52,7 @@ def get_users():
                                     example: Cyber-Dreamer
                                 picture:
                                     type: string
-                                    example: https://robertsspaceindustries.com/media/0p1xj2a2x3jxur/profile.jpg
+                                    example: profile.jpg
                                 RSI_confirmed:
                                     type: boolean
                                     example: True
@@ -65,7 +65,6 @@ def get_users():
                                 security_level:
                                     type: integer
                                     example: 3
-
         400:
             $ref: "#/components/responses/invalid"
 
@@ -102,6 +101,14 @@ def get_user(username):
         - Security
     security:
         - corp_access_pass: []
+    parameters:
+        -   in: path
+            name: username
+            required: true
+            schema:
+                type: string
+                example: Cyber-Dreamer
+            description: Username of the user
     responses:
         200:
             description: Login was successfull
@@ -145,8 +152,6 @@ def get_user(username):
                             RSI_verification_token:
                                 type: string
                                 example: 123456
-
-
         400:
             $ref: "#/components/responses/invalid"
 
@@ -190,9 +195,17 @@ def delete_user(username):
         - Security
     security:
         - corp_access_pass: []
+    parameters:
+        -   in: path
+            name: username
+            required: true
+            schema:
+                type: string
+                example: Cyber-Dreamer
+            description: Username of the user
     responses:
         200:
-            description: User delete
+            description: User deleted
         400:
             $ref: "#/components/responses/invalid"
 

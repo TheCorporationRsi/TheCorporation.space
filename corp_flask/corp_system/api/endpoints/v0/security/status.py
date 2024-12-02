@@ -48,7 +48,7 @@ def get_status():
     """
     
     if get_jwt_identity() is not None:
-        current_user: User = User.query.get(get_jwt_identity())
+        current_user: User = User.query.filter_by(RSI_handle=get_jwt_identity()).first()
     else:
         current_user = None
     

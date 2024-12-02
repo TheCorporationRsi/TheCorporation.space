@@ -77,9 +77,12 @@ Class | Method | HTTP request | Description
 [*InformationApi*](doc/InformationApi.md) | [**getCorporateers**](doc/InformationApi.md#getcorporateers) | **GET** /api/v0/corporateers | List of all corporateer
 [*RSIStatsApi*](doc/RSIStatsApi.md) | [**getCurrentFunding**](doc/RSIStatsApi.md#getcurrentfunding) | **GET** /api/v0/current_funding | List of all influence system ranks
 [*SecurityApi*](doc/SecurityApi.md) | [**changePassword**](doc/SecurityApi.md#changepassword) | **POST** /api/v0/change_password | Change password
+[*SecurityApi*](doc/SecurityApi.md) | [**deleteUser**](doc/SecurityApi.md#deleteuser) | **DELETE** /api/v0/users/{username} | User delete
 [*SecurityApi*](doc/SecurityApi.md) | [**getLogs**](doc/SecurityApi.md#getlogs) | **GET** /api/v0/logs | Get your logs
 [*SecurityApi*](doc/SecurityApi.md) | [**getRSIToken**](doc/SecurityApi.md#getrsitoken) | **GET** /api/v0/RSI_token | Get RSI token
 [*SecurityApi*](doc/SecurityApi.md) | [**getStatus**](doc/SecurityApi.md#getstatus) | **GET** /api/v0/status | Get current authentification status
+[*SecurityApi*](doc/SecurityApi.md) | [**getUser**](doc/SecurityApi.md#getuser) | **GET** /api/v0/users/{username} | User info
+[*SecurityApi*](doc/SecurityApi.md) | [**getUsers**](doc/SecurityApi.md#getusers) | **GET** /api/v0/users | Users list
 [*SecurityApi*](doc/SecurityApi.md) | [**login**](doc/SecurityApi.md#login) | **POST** /api/v0/login | Authetification endpoint
 [*SecurityApi*](doc/SecurityApi.md) | [**logout**](doc/SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
 [*SecurityApi*](doc/SecurityApi.md) | [**refreshToken**](doc/SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
@@ -110,10 +113,13 @@ Class | Method | HTTP request | Description
  - [GetRanks200ResponseInner](doc/GetRanks200ResponseInner.md)
  - [GetStatus200Response](doc/GetStatus200Response.md)
  - [GetTributeHistory200ResponseInner](doc/GetTributeHistory200ResponseInner.md)
+ - [GetUser200Response](doc/GetUser200Response.md)
+ - [GetUser200ResponseRolesInner](doc/GetUser200ResponseRolesInner.md)
  - [GetUserDepartments200ResponseInner](doc/GetUserDepartments200ResponseInner.md)
  - [GetUserDivisions200ResponseInner](doc/GetUserDivisions200ResponseInner.md)
  - [GetUserProfile200Response](doc/GetUserProfile200Response.md)
  - [GetUserRoles200ResponseInner](doc/GetUserRoles200ResponseInner.md)
+ - [GetUsers200ResponseInner](doc/GetUsers200ResponseInner.md)
  - [Login200Response](doc/Login200Response.md)
  - [LoginRequest](doc/LoginRequest.md)
  - [RefreshToken200Response](doc/RefreshToken200Response.md)

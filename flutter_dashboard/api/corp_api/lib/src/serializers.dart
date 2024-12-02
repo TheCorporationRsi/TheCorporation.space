@@ -29,10 +29,13 @@ import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 import 'package:corp_api/src/model/get_ranks200_response_inner.dart';
 import 'package:corp_api/src/model/get_status200_response.dart';
 import 'package:corp_api/src/model/get_tribute_history200_response_inner.dart';
+import 'package:corp_api/src/model/get_user200_response.dart';
+import 'package:corp_api/src/model/get_user200_response_roles_inner.dart';
 import 'package:corp_api/src/model/get_user_departments200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_profile200_response.dart';
 import 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
+import 'package:corp_api/src/model/get_users200_response_inner.dart';
 import 'package:corp_api/src/model/login200_response.dart';
 import 'package:corp_api/src/model/login_request.dart';
 import 'package:corp_api/src/model/refresh_token200_response.dart';
@@ -60,10 +63,13 @@ part 'serializers.g.dart';
   GetRanks200ResponseInner,
   GetStatus200Response,
   GetTributeHistory200ResponseInner,
+  GetUser200Response,
+  GetUser200ResponseRolesInner,
   GetUserDepartments200ResponseInner,
   GetUserDivisions200ResponseInner,
   GetUserProfile200Response,
   GetUserRoles200ResponseInner,
+  GetUsers200ResponseInner,
   Login200Response,
   LoginRequest,
   RefreshToken200Response,
@@ -74,6 +80,10 @@ part 'serializers.g.dart';
   VerifyRSIToken200Response,
 ])
 Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(GetUsers200ResponseInner)]),
+        () => ListBuilder<GetUsers200ResponseInner>(),
+      )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(GetDivisions200ResponseInner)]),
         () => ListBuilder<GetDivisions200ResponseInner>(),

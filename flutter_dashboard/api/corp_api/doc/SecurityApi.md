@@ -10,9 +10,12 @@ All URIs are relative to *https://thecorporation.space*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**changePassword**](SecurityApi.md#changepassword) | **POST** /api/v0/change_password | Change password
+[**deleteUser**](SecurityApi.md#deleteuser) | **DELETE** /api/v0/users/{username} | User delete
 [**getLogs**](SecurityApi.md#getlogs) | **GET** /api/v0/logs | Get your logs
 [**getRSIToken**](SecurityApi.md#getrsitoken) | **GET** /api/v0/RSI_token | Get RSI token
 [**getStatus**](SecurityApi.md#getstatus) | **GET** /api/v0/status | Get current authentification status
+[**getUser**](SecurityApi.md#getuser) | **GET** /api/v0/users/{username} | User info
+[**getUsers**](SecurityApi.md#getusers) | **GET** /api/v0/users | Users list
 [**login**](SecurityApi.md#login) | **POST** /api/v0/login | Authetification endpoint
 [**logout**](SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
 [**refreshToken**](SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
@@ -58,6 +61,48 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteUser**
+> deleteUser(username)
+
+User delete
+
+<br/>This endpoint delete a user<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getSecurityApi();
+final String username = Cyber-Dreamer; // String | Username of the user
+
+try {
+    api.deleteUser(username);
+} catch on DioException (e) {
+    print('Exception when calling SecurityApi->deleteUser: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **username** | **String**| Username of the user | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -166,6 +211,88 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**GetStatus200Response**](GetStatus200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUser**
+> GetUser200Response getUser(username)
+
+User info
+
+<br/>This endpoint returns the information on a user<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getSecurityApi();
+final String username = Cyber-Dreamer; // String | Username of the user
+
+try {
+    final response = api.getUser(username);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling SecurityApi->getUser: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **username** | **String**| Username of the user | 
+
+### Return type
+
+[**GetUser200Response**](GetUser200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUsers**
+> BuiltList<GetUsers200ResponseInner> getUsers()
+
+Users list
+
+<br/>This endpoint returns all the users in the system<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getSecurityApi();
+
+try {
+    final response = api.getUsers();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling SecurityApi->getUsers: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**BuiltList&lt;GetUsers200ResponseInner&gt;**](GetUsers200ResponseInner.md)
 
 ### Authorization
 
