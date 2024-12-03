@@ -265,7 +265,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
           fit: BoxFit.cover,
           height: 120.0, // Adjust the height to make the logo bigger
         ),
-        Expanded(
+        Flexible(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center, children: formfield),
         ),
