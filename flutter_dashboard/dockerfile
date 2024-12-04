@@ -45,7 +45,7 @@ WORKDIR /app/
 
 RUN fvm flutter pub get
 
-RUN fvm flutter build web --web-renderer canvaskit --release --source-maps
+RUN fvm flutter build web --release --source-maps --web-renderer canvaskit
 
 RUN chmod +x /app/server/server.sh
 
