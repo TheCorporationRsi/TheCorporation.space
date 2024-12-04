@@ -77,7 +77,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
               onFieldSubmitted: (value) => widget.buttonAction1(),
               autofillHints: widget.autofillHints1,
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 10.0),
             TextFormField(
               controller: widget.controller2,
               decoration: InputDecoration(
@@ -95,7 +95,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
               onFieldSubmitted: (value) => widget.buttonAction1(),
               autofillHints: widget.autofillHints2,
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 10.0),
             TextFormField(
               controller: widget.controller3,
               decoration: InputDecoration(
@@ -115,7 +115,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
           ],
         ),
       ),
-      const SizedBox(height: 32.0),
+      const SizedBox(height: 10.0),
       SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -128,7 +128,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
               fontWeight: FontWeight.bold, // make text bold
             ), // text color and size
             padding: EdgeInsets.symmetric(
-                horizontal: 32.0, vertical: 16.0), // button size
+                horizontal: 32.0, vertical: 14), // button size
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.zero, // remove rounded corners
             ),
@@ -141,79 +141,85 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
             child: Text(
               widget.buttonTitle1,
               style:
-                  TextStyle(color: Colors.white), // ensure text color is white
+                  TextStyle(color: Colors.white, fontSize: 25), // ensure text color is white
             ),
           ),
         ),
       ),
-      const SizedBox(height: 16.0), // Add spacing between button and links
+      const SizedBox(height: 10.0), // Add spacing between button and links
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: ElevatedButton(
-              onPressed: widget.buttonAction2,
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    backgroundColor, // Set background color to black
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold, // make text bold
-                ), // text color and size
-                padding: EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 16.0), // button size
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(
-                        10.0), // Add radius to bottom left corner
+            child: SizedBox(
+              height: 50.0, // Set a fixed height for both buttons
+              child: ElevatedButton(
+                onPressed: widget.buttonAction2,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      backgroundColor, // Set background color to black
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold, // make text bold
+                  ), // text color and size
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 16.0), // button size
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(
+                          10.0), // Add radius to bottom left corner
+                    ),
                   ),
+                  elevation: 10.0, // Add elevation for 3D effect
+                  shadowColor: Colors.black, // Set shadow color
+                  overlayColor:
+                      Colors.grey, // Set color to grey on hover and click
                 ),
-                elevation: 10.0, // Add elevation for 3D effect
-                shadowColor: Colors.black, // Set shadow color
-                overlayColor:
-                    Colors.grey, // Set color to grey on hover and click
-              ),
-              child: AutoSizeText(
-                widget.buttonTitle2,
-                style: TextStyle(color: Colors.white),
-                maxLines: 1,
-                minFontSize: 10.0,
-                maxFontSize: 15.0, // ensure text color is white
+                child: AutoSizeText(
+                  widget.buttonTitle2,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 1,
+                  minFontSize: 10.0,
+                  maxFontSize: 15.0, // ensure text color is white
+                ),
               ),
             ),
           ),
-          const SizedBox(width: 16.0), // Add spacing between buttons
+          const SizedBox(width: 15.0), // Add spacing between buttons
           Expanded(
-            child: ElevatedButton(
-              onPressed: widget.buttonAction3,
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    backgroundColor, // Set background color to black
-                textStyle: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold, // make text bold
-                ), // text color and size
-                padding: EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 16.0), // button size
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomRight:
-                        Radius.circular(10.0), // Add radius to top right corner
+            child: SizedBox(
+              height: 50.0, // Set a fixed height for both buttons
+              child: ElevatedButton(
+                onPressed: widget.buttonAction3,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      backgroundColor, // Set background color to black
+                  textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold, // make text bold
+                  ), // text color and size
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 16.0), // button size
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      bottomRight:
+                          Radius.circular(10.0), // Add radius to top right corner
+                    ),
                   ),
+                  elevation: 10.0, // Add elevation for 3D effect
+                  shadowColor: Colors.black, // Set shadow color
+                  overlayColor:
+                      Colors.grey, // Set color to grey on hover and click
                 ),
-                elevation: 10.0, // Add elevation for 3D effect
-                shadowColor: Colors.black, // Set shadow color
-                overlayColor:
-                    Colors.grey, // Set color to grey on hover and click
-              ),
-              child: AutoSizeText(
-                widget.buttonTitle3,
-                style: TextStyle(color: Colors.white),
-                maxLines: 1,
-                minFontSize: 10.0,
-                maxFontSize: 15.0,
+                child: AutoSizeText(
+                  widget.buttonTitle3,
+                  style: TextStyle(color: Colors.white),
+                  maxLines: 1,
+                  minFontSize: 10.0,
+                  maxFontSize: 15.0,
+                ),
               ),
             ),
           ),
