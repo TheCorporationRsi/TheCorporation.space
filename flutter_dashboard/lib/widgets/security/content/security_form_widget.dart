@@ -55,6 +55,12 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
   }
 
   @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final formfield = <Widget>[
       // Added padding on top of the form
@@ -115,7 +121,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
           ],
         ),
       ),
-      const SizedBox(height: 10.0),
+      const SizedBox(height: 20.0),
       SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -235,7 +241,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
               Container(
                 width: 400.0,
                 padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, top: 60.0, bottom: 20.0),
+                    left: 20.0, right: 20.0, top: 70.0, bottom: 20.0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: formfield),
@@ -265,7 +271,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
 
     final mobile_form = Column(
       children: [
-        const SizedBox(height: 50.0), // Added padding on top of the form
+        const SizedBox(height: 60.0), // Added padding on top of the form
         Image.asset(
           'assets/logo/corp_logo.png',
           fit: BoxFit.cover,

@@ -7,14 +7,14 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/main.dart';
 
-class UserManagerWidget extends StatefulWidget {
-  const UserManagerWidget({super.key});
+class DepartmentManagerWidget extends StatefulWidget {
+  const DepartmentManagerWidget({super.key});
 
   @override
-  _UserManagerWidgetState createState() => _UserManagerWidgetState();
+  _DepartmentManagerWidgetState createState() => _DepartmentManagerWidgetState();
 }
 
-class _UserManagerWidgetState extends State<UserManagerWidget> {
+class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   BuiltList<GetUsers200ResponseInner> users =
       BuiltList<GetUsers200ResponseInner>();
   BuiltList<GetUsers200ResponseInner> filteredUsers =

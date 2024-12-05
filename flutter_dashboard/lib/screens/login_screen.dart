@@ -140,7 +140,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       print("access token not found!");
                     }
 
-                    Navigator.pushNamed(context, '/dashboard');
+                    Navigator.pushReplacementNamed(context, '/dashboard');
+                    
 
                     }
                     else {

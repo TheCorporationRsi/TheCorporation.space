@@ -203,7 +203,7 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
                       child: Container(
                         width: 300.0,
                         height:
-                            520.0, // Increased height to fit the login button
+                            540.0, // Increased height to fit the login button
                         padding: const EdgeInsets.all(
                             16.0), // Reduced padding around the logo
                         decoration: BoxDecoration(
