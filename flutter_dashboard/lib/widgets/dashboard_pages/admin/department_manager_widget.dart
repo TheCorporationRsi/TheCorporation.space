@@ -15,23 +15,22 @@ class DepartmentManagerWidget extends StatefulWidget {
 }
 
 class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
-  BuiltList<GetUsers200ResponseInner> users =
-      BuiltList<GetUsers200ResponseInner>();
-  BuiltList<GetUsers200ResponseInner> filteredUsers =
-      BuiltList<GetUsers200ResponseInner>();
+  BuiltList<GetDepartments200ResponseInner> departments =
+      BuiltList<GetDepartments200ResponseInner>();
+  BuiltList<GetDepartments200ResponseInner> filteredItems =
+      BuiltList<GetDepartments200ResponseInner>();
   Map<int, bool> _dropdownOpen = {};
 
   bool _isLoading = true;
-  final corpSecurityClient = corpApi.getSecurityApi();
+  final corpStructureClient = corpApi.getStructureApi();
   String _searchQuery = '';
   String _filter = 'All';
 
   Future<void> _initialize() async {
-    final headers = await getAuthHeader();
     try {
-      final response = await corpSecurityClient.getUsers(headers: headers);
+      final response = await corpStructureClient.getDepartments();
       if (response.data != null) {
-        users = response.data ?? users;
+        departments = response.data ?? departments;
         _applySearchAndFilter();
       }
     } catch (error) {
@@ -44,15 +43,12 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
 
   void _applySearchAndFilter() {
     setState(() {
-      filteredUsers = users.where((user) {
-        final matchesSearch = user.rSIHandle
+      filteredItems = departments.where((department) {
+        final matchesSearch = department.title
             .toString()
             .toLowerCase()
             .contains(_searchQuery.toLowerCase());
-        final matchesFilter = _filter == 'All' ||
-            (_filter == 'Verified' && user.rSIConfirmed!) ||
-            (_filter == 'CORP' && user.cORPConfirmed!);
-        return matchesSearch && matchesFilter;
+        return matchesSearch;
       }).toBuiltList();
     });
   }
@@ -107,25 +103,6 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           ),
         ),
         SizedBox(width: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: DropdownButton<String>(
-            hint: Text('Filter by'),
-            value: _filter,
-            items: <String>['Verified', 'CORP', 'All'].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              if (newValue != null) {
-                _filter = newValue;
-                _applySearchAndFilter();
-              }
-            },
-          ),
-        ),
         IconButton(
           icon: Icon(Icons.refresh),
           onPressed: () {
@@ -143,63 +120,53 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: filteredUsers.length,
+      itemCount: filteredItems.length,
       itemBuilder: (context, index) {
-        final user = filteredUsers[index];
-        return _buildUserItem(user);
+        final department = filteredItems[index];
+        return _buildUserItem(department);
       },
     );
   }
 
-  Widget _buildUserItem(GetUsers200ResponseInner user) {
-    int userIndex = users.indexOf(user);
-    _dropdownOpen.putIfAbsent(userIndex, () => false);
+  Widget _buildUserItem(GetDepartments200ResponseInner department) {
+    int departmentIndex = departments.indexOf(department);
+    _dropdownOpen.putIfAbsent(departmentIndex, () => false);
     return Card(
       color: cardBackgroundColor,
       child: Column(
         children: [
           ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(user.picture.toString()),
-            ),
-            title: Text(user.rSIHandle.toString()),
-            subtitle: Row(
-              children: [
-                if (user.rSIConfirmed!)
-                  Icon(Icons.verified, color: Colors.blue, size: 16),
-                if (user.cORPConfirmed!)
-                  Icon(Icons.business, color: Colors.green, size: 16),
-              ],
-            ),
+            title: Text(department.title.toString()),
+            subtitle: Text(department.motto.toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   icon: Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
-                    _showDeleteDialog(user);
+                    _showDeleteDialog(department);
                   },
                 ),
                 IconButton(
-                  icon: Icon(_dropdownOpen[userIndex] == true
+                  icon: Icon(_dropdownOpen[departmentIndex] == true
                       ? Icons.arrow_drop_up
                       : Icons.more_vert),
                   onPressed: () {
                     setState(() {
-                      _dropdownOpen[userIndex] = !_dropdownOpen[userIndex]!;
+                      _dropdownOpen[departmentIndex] = !_dropdownOpen[departmentIndex]!;
                     });
                   },
                 ),
               ],
             ),
           ),
-          if (_dropdownOpen[userIndex] == true) _buildDropdownContent(user),
+          if (_dropdownOpen[departmentIndex] == true) _buildDropdownContent(department),
         ],
       ),
     );
   }
 
-  void _showDeleteDialog(GetUsers200ResponseInner user) {
+  void _showDeleteDialog(GetDepartments200ResponseInner department) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -210,7 +177,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             borderRadius: BorderRadius.circular(15.0),
           ),
           title: Text(
-            'Deleting ${user.rSIHandle.toString()}',
+            'Deleting ${department.title.toString()}',
             style: TextStyle(
               color: primaryColor,
               fontSize: 24,
@@ -249,7 +216,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     ),
     onPressed: () {
       if (pincode == '1234') { // Replace '1234' with the actual pincode logic
-        _deleteUser(user);
+        _deleteDepartment(department);
         Navigator.of(context).pop();
       } else {
         // Show error message or handle invalid pincode
@@ -269,21 +236,21 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _deleteUser(GetUsers200ResponseInner user) {
+  void _deleteDepartment(GetDepartments200ResponseInner department) {
     setState(() {
-      users = users.rebuild((b) => b.remove(user));
+      departments = departments.rebuild((b) => b.remove(department));
       _applySearchAndFilter();
     });
   }
 
-  Widget _buildDropdownContent(GetUsers200ResponseInner user) {
+  Widget _buildDropdownContent(GetDepartments200ResponseInner department) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow('Security level', user.securityLevel.toString()),
-          _buildDetailRow('Disabled', user.disabled.toString()),
+          _buildDetailRow('Heads', department.heads.toString()),
+          _buildDetailRow('Proxys', department.proxys.toString()),
           // Add more details as needed
         ],
       ),
