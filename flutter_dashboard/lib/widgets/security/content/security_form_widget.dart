@@ -148,7 +148,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
       ),
       const SizedBox(height: 10.0), // Add spacing between button and links
       Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
             child: SizedBox(
@@ -235,7 +235,7 @@ class SecurityFormWidgetState extends State<SecurityFormWidget> {
               Container(
                 width: 400.0,
                 padding: const EdgeInsets.only(
-                    left: 20.0, right: 20.0, top: 70.0, bottom: 20.0),
+                    left: 20.0, right: 20.0, top: 60.0, bottom: 20.0),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: formfield),
