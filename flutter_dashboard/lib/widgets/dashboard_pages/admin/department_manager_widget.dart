@@ -90,7 +90,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         Expanded(
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Search users...',
+              hintText: 'Search departments...',
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -101,6 +101,13 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
               _applySearchAndFilter();
             },
           ),
+        ),
+        SizedBox(width: 10),
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            _showAddDepartmentDialog();
+          },
         ),
         SizedBox(width: 10),
         IconButton(
@@ -116,7 +123,100 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
+  void _showAddDepartmentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String title = '';
+        return AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Text(
+            'Add Department',
+            style: TextStyle(
+              color: primaryColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                onChanged: (value) {
+                  title = value;
+                },
+                decoration: InputDecoration(hintText: "Title"),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(primaryColor),
+                padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                _addDepartment(title);
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Add',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _addDepartment(String title) async {
+    final headers = await getAuthHeader();
+    try {
+      //final response = await corpStructureClient.create_department(headers: headers);
+      
+      _applySearchAndFilter();
+
+    } catch (error) {
+      print(error);
+    }
+
+    setState(() {
+      _applySearchAndFilter();
+    });
+  }
+
   Widget _buildUserList() {
+    if (filteredItems.isEmpty) {
+      return Center(
+        child: Text(
+          'No departments found.',
+          style: TextStyle(fontSize: 18, color: Colors.grey),
+        ),
+      );
+    }
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),

@@ -110,10 +110,9 @@ def create_department():
                         title:
                             type: string
                             example: Ressources
-
     responses:
         200:
-            description: Login was successfull
+            description: Department created
             content:
                 application/json:
                     schema:
