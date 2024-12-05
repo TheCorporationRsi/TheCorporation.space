@@ -21,7 +21,7 @@ import 'package:corp_api/src/model/create_division200_response.dart';
 import 'package:corp_api/src/model/create_division_request.dart';
 import 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 import 'package:corp_api/src/model/get_current_funding200_response.dart';
-import 'package:corp_api/src/model/get_departments200_response.dart';
+import 'package:corp_api/src/model/get_departments200_response_inner.dart';
 import 'package:corp_api/src/model/get_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_profile200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token200_response.dart';
@@ -55,7 +55,7 @@ part 'serializers.g.dart';
   CreateDivisionRequest,
   GetCorporateers200ResponseInner,
   GetCurrentFunding200Response,
-  GetDepartments200Response,
+  GetDepartments200ResponseInner,
   GetDivisions200ResponseInner,
   GetProfile200Response,
   GetRSIToken200Response,
@@ -87,6 +87,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(GetDivisions200ResponseInner)]),
         () => ListBuilder<GetDivisions200ResponseInner>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(GetDepartments200ResponseInner)]),
+        () => ListBuilder<GetDepartments200ResponseInner>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(GetUserDivisions200ResponseInner)]),

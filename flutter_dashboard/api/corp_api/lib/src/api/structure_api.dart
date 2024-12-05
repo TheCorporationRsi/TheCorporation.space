@@ -9,7 +9,7 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:corp_api/src/model/get_departments200_response.dart';
+import 'package:corp_api/src/model/get_departments200_response_inner.dart';
 import 'package:corp_api/src/model/get_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 import 'package:corp_api/src/model/get_user_departments200_response_inner.dart';
@@ -35,9 +35,9 @@ class StructureApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [GetDepartments200Response] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<GetDepartments200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetDepartments200Response>> getDepartments({
+  Future<Response<BuiltList<GetDepartments200ResponseInner>>> getDepartments({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -66,7 +66,7 @@ class StructureApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    GetDepartments200Response? _responseData;
+    BuiltList<GetDepartments200ResponseInner>? _responseData;
 
     try {
       final rawResponse = _response.data;
@@ -74,8 +74,9 @@ class StructureApi {
           ? null
           : _serializers.deserialize(
               rawResponse,
-              specifiedType: const FullType(GetDepartments200Response),
-            ) as GetDepartments200Response;
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetDepartments200ResponseInner)]),
+            ) as BuiltList<GetDepartments200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -86,7 +87,7 @@ class StructureApi {
       );
     }
 
-    return Response<GetDepartments200Response>(
+    return Response<BuiltList<GetDepartments200ResponseInner>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

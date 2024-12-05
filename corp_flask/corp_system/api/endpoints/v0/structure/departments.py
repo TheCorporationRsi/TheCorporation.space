@@ -27,44 +27,45 @@ def departments():
             content:
                 application/json:
                     schema:
-                        type: object
-                        properties:
-                            title:
-                                type: string
-                                example: Resources
-                            color:
-                                type: string
-                                example: #0083ff
-                            motto:
-                                type: string
-                                example: We love building stuff
-                            member_count:
-                                type: integer
-                                example: 50
-                            division:
-                                type: array
-                                items:
+                        type: array
+                        items:
+                            type: object
+                            properties:   
+                                title:
                                     type: string
-                                    example: [
-                                        Development,
-                                        Ressources
-                                    ]
-                            heads:
-                                type: array
-                                items:
+                                    example: Development
+                                color:
                                     type: string
-                                    example: [
+                                    example: #0083ff
+                                motto:
+                                    type: string
+                                    example: We love building stuff
+                                member_count:
+                                    type: integer
+                                    example: 50
+                                heads:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: [
                                         Cyber-Dreamer
-                                    ]
-                            proxys:
-                                type: array
-                                items:
-                                    type: string
-                                    example: [
-                                        Stevote,
-                                        Vizi
-                                ]
-
+                                        ]
+                                proxys:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: [
+                                            Stevote,
+                                            Vizi
+                                        ]
+                                divisions:
+                                    type: array
+                                    items:
+                                        type: string
+                                        example: [
+                                            Development,
+                                            Extration
+                                        ]
     """
     departments = Department.query.all()
     departments_list = []

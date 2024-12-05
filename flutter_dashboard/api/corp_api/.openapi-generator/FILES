@@ -9,7 +9,7 @@ doc/CreateDivision200Response.md
 doc/CreateDivisionRequest.md
 doc/GetCorporateers200ResponseInner.md
 doc/GetCurrentFunding200Response.md
-doc/GetDepartments200Response.md
+doc/GetDepartments200ResponseInner.md
 doc/GetDivisions200ResponseInner.md
 doc/GetProfile200Response.md
 doc/GetRSIToken200Response.md
@@ -60,7 +60,7 @@ lib/src/model/create_division_request.dart
 lib/src/model/date.dart
 lib/src/model/get_corporateers200_response_inner.dart
 lib/src/model/get_current_funding200_response.dart
-lib/src/model/get_departments200_response.dart
+lib/src/model/get_departments200_response_inner.dart
 lib/src/model/get_divisions200_response_inner.dart
 lib/src/model/get_profile200_response.dart
 lib/src/model/get_ranks200_response_inner.dart

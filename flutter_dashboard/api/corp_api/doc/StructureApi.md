@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **getDepartments**
-> GetDepartments200Response getDepartments()
+> BuiltList<GetDepartments200ResponseInner> getDepartments()
 
 List of all departments
 
@@ -43,7 +43,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**GetDepartments200Response**](GetDepartments200Response.md)
+[**BuiltList&lt;GetDepartments200ResponseInner&gt;**](GetDepartments200ResponseInner.md)
 
 ### Authorization
 

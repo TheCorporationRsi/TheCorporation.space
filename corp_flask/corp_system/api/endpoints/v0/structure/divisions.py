@@ -60,7 +60,6 @@ def divisions():
                                             Stevote,
                                             Vizi
                                         ]
-
     """
     
     divisions = Division.query.filter_by(hidden=False).all()
