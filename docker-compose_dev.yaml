@@ -74,3 +74,12 @@ services:
     depends_on:
       - corp_system
     command: bash -c "python3 bot.py" 
+
+  flutter_web:
+    restart: always
+    build: ./flutter_dashboard
+    ports:
+      - "8000:5000"
+    depends_on:
+      - corp_system
+    command: bash -c "/app/server/server.sh"
