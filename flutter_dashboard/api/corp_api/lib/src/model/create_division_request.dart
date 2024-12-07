@@ -11,16 +11,16 @@ part 'create_division_request.g.dart';
 /// CreateDivisionRequest
 ///
 /// Properties:
+/// * [departmentTitle]
 /// * [title]
-/// * [derpartmentTitle]
 @BuiltValue()
 abstract class CreateDivisionRequest
     implements Built<CreateDivisionRequest, CreateDivisionRequestBuilder> {
+  @BuiltValueField(wireName: r'department_title')
+  String get departmentTitle;
+
   @BuiltValueField(wireName: r'title')
   String get title;
-
-  @BuiltValueField(wireName: r'derpartment_title')
-  String? get derpartmentTitle;
 
   CreateDivisionRequest._();
 
@@ -51,18 +51,16 @@ class _$CreateDivisionRequestSerializer
     CreateDivisionRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'department_title';
+    yield serializers.serialize(
+      object.departmentTitle,
+      specifiedType: const FullType(String),
+    );
     yield r'title';
     yield serializers.serialize(
       object.title,
       specifiedType: const FullType(String),
     );
-    if (object.derpartmentTitle != null) {
-      yield r'derpartment_title';
-      yield serializers.serialize(
-        object.derpartmentTitle,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
@@ -88,19 +86,19 @@ class _$CreateDivisionRequestSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'department_title':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.departmentTitle = valueDes;
+          break;
         case r'title':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.title = valueDes;
-          break;
-        case r'derpartment_title':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.derpartmentTitle = valueDes;
           break;
         default:
           unhandled.add(key);

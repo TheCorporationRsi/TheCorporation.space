@@ -106,7 +106,7 @@ def create_division():
                         title:
                             type: string
                             example: Development
-                        derpartment_title:
+                        department_title:
                             type: string
                             example: Ressources
 

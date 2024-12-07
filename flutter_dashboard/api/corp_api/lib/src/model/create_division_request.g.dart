@@ -8,16 +8,19 @@ part of 'create_division_request.dart';
 
 class _$CreateDivisionRequest extends CreateDivisionRequest {
   @override
-  final String title;
+  final String departmentTitle;
   @override
-  final String? derpartmentTitle;
+  final String title;
 
   factory _$CreateDivisionRequest(
           [void Function(CreateDivisionRequestBuilder)? updates]) =>
       (new CreateDivisionRequestBuilder()..update(updates))._build();
 
-  _$CreateDivisionRequest._({required this.title, this.derpartmentTitle})
+  _$CreateDivisionRequest._(
+      {required this.departmentTitle, required this.title})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        departmentTitle, r'CreateDivisionRequest', 'departmentTitle');
     BuiltValueNullFieldError.checkNotNull(
         title, r'CreateDivisionRequest', 'title');
   }
@@ -35,15 +38,15 @@ class _$CreateDivisionRequest extends CreateDivisionRequest {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CreateDivisionRequest &&
-        title == other.title &&
-        derpartmentTitle == other.derpartmentTitle;
+        departmentTitle == other.departmentTitle &&
+        title == other.title;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, departmentTitle.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
-    _$hash = $jc(_$hash, derpartmentTitle.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -51,8 +54,8 @@ class _$CreateDivisionRequest extends CreateDivisionRequest {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'CreateDivisionRequest')
-          ..add('title', title)
-          ..add('derpartmentTitle', derpartmentTitle))
+          ..add('departmentTitle', departmentTitle)
+          ..add('title', title))
         .toString();
   }
 }
@@ -61,14 +64,14 @@ class CreateDivisionRequestBuilder
     implements Builder<CreateDivisionRequest, CreateDivisionRequestBuilder> {
   _$CreateDivisionRequest? _$v;
 
+  String? _departmentTitle;
+  String? get departmentTitle => _$this._departmentTitle;
+  set departmentTitle(String? departmentTitle) =>
+      _$this._departmentTitle = departmentTitle;
+
   String? _title;
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
-
-  String? _derpartmentTitle;
-  String? get derpartmentTitle => _$this._derpartmentTitle;
-  set derpartmentTitle(String? derpartmentTitle) =>
-      _$this._derpartmentTitle = derpartmentTitle;
 
   CreateDivisionRequestBuilder() {
     CreateDivisionRequest._defaults(this);
@@ -77,8 +80,8 @@ class CreateDivisionRequestBuilder
   CreateDivisionRequestBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _departmentTitle = $v.departmentTitle;
       _title = $v.title;
-      _derpartmentTitle = $v.derpartmentTitle;
       _$v = null;
     }
     return this;
@@ -101,9 +104,10 @@ class CreateDivisionRequestBuilder
   _$CreateDivisionRequest _build() {
     final _$result = _$v ??
         new _$CreateDivisionRequest._(
+            departmentTitle: BuiltValueNullFieldError.checkNotNull(
+                departmentTitle, r'CreateDivisionRequest', 'departmentTitle'),
             title: BuiltValueNullFieldError.checkNotNull(
-                title, r'CreateDivisionRequest', 'title'),
-            derpartmentTitle: derpartmentTitle);
+                title, r'CreateDivisionRequest', 'title'));
     replace(_$result);
     return _$result;
   }
