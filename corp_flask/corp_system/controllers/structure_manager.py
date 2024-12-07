@@ -58,6 +58,8 @@ class StructureManager:
         
         if new_title:
             department.title = new_title
+            department.head_role.title = new_title + " Head"
+            department.proxy_role.title = new_title + " Proxy"
         if new_color:
             department.color = new_color
         if new_motto:
