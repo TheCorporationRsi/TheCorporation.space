@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-12-07T21:14:54.444751
+// Openapi Generator last run: : 2024-12-07T22:33:43.663927
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/screens/dashboard.dart';

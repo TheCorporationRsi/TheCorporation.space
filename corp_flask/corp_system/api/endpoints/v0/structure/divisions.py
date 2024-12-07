@@ -101,7 +101,7 @@ def create_division():
             application/json:
                 schema:
                     type: object
-                    required: [title]
+                    required: [title, department_title]
                     properties:
                         title:
                             type: string

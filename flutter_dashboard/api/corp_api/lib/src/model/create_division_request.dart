@@ -12,11 +12,15 @@ part 'create_division_request.g.dart';
 ///
 /// Properties:
 /// * [title]
+/// * [derpartmentTitle]
 @BuiltValue()
 abstract class CreateDivisionRequest
     implements Built<CreateDivisionRequest, CreateDivisionRequestBuilder> {
   @BuiltValueField(wireName: r'title')
   String get title;
+
+  @BuiltValueField(wireName: r'derpartment_title')
+  String? get derpartmentTitle;
 
   CreateDivisionRequest._();
 
@@ -52,6 +56,13 @@ class _$CreateDivisionRequestSerializer
       object.title,
       specifiedType: const FullType(String),
     );
+    if (object.derpartmentTitle != null) {
+      yield r'derpartment_title';
+      yield serializers.serialize(
+        object.derpartmentTitle,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -83,6 +94,13 @@ class _$CreateDivisionRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.title = valueDes;
+          break;
+        case r'derpartment_title':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.derpartmentTitle = valueDes;
           break;
         default:
           unhandled.add(key);
