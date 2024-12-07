@@ -105,6 +105,8 @@ class StructureManager:
             if not re.match("^[a-zA-Z0-9-_]{2,32}$", new_title):
                 raise ValueError("Title doesn't respect the format")
             division.title = new_title
+            division.leader_role.title = new_title + " Leader"
+            division.proxy_role.title = new_title + " Proxy"
         if new_color:
             division.color = new_color
         if new_motto:
