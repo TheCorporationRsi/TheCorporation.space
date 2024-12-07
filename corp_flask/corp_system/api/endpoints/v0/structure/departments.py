@@ -5,6 +5,7 @@ from .. import api_v0 as api
 from flask import jsonify, request
 
 from corp_system.models import Inf_Rank, Division, Department
+from corp_system import db
 
 from corp_system.controllers.structure_manager import StructureManager
 
@@ -109,7 +110,7 @@ def create_department():
                     properties:
                         title:
                             type: string
-                            example: Ressources
+                            example: Resources
     responses:
         200:
             description: Department created
@@ -136,3 +137,79 @@ def create_department():
         return jsonify({'msg': str(e)}), 400
     
     return jsonify({'msg': "Department created"}), 200
+
+@api.route('/structure/departments/update', methods=['POST'])
+@admin_only
+def update_department():
+    """Department update endpoint
+    
+    This endpoint allow the update of a department
+    ---
+    
+    operationId: update_department
+    security:
+        - corp_access_pass: []
+    tags:
+        - Admin
+    requestBody:
+        description: Department information
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [title]
+                    properties:
+                        department_title:
+                            type: integer
+                            example: 1
+                        new_title:
+                            type: string
+                            example: Resources
+                        color:
+                            type: string
+                            example: #0083ff
+                        motto:
+                            type: string
+                            example: We love building stuff
+    responses:
+        200:
+            description: Department modified
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Department modified
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+
+    """
+    data = request.get_json()
+    
+    department_title = data.get('department_title')
+    new_title = data.get('new_title')
+    new_color = data.get('color')
+    new_motto = data.get('motto')
+    
+    if not department_title:
+        return jsonify({"msg": "Department title is required"}), 400
+    
+    department = Department.query.filter_buy(title=department_title).first()
+    
+    if not department:
+        return jsonify({"error": "Department not found"}), 400
+    
+    if new_title:
+        department.title = new_title
+    if new_color:
+        department.color = new_color
+    if new_motto:
+        department.motto = new_motto
+    
+    db.session.commit()
+    
+    return jsonify({"message": "Department updated"}), 200

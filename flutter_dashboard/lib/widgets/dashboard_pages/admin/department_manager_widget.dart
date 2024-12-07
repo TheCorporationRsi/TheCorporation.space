@@ -6,12 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/main.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+
+import 'package:flutter_dashboard/util/css_color.dart';
 
 class DepartmentManagerWidget extends StatefulWidget {
   const DepartmentManagerWidget({super.key});
 
   @override
-  _DepartmentManagerWidgetState createState() => _DepartmentManagerWidgetState();
+  _DepartmentManagerWidgetState createState() =>
+      _DepartmentManagerWidgetState();
 }
 
 class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
@@ -20,9 +24,11 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   BuiltList<GetDepartments200ResponseInner> filteredItems =
       BuiltList<GetDepartments200ResponseInner>();
   Map<int, bool> _dropdownOpen = {};
+  Map<int, GlobalKey<FormState>> _formKeys = {};
 
   bool _isLoading = true;
   final corpStructureClient = corpApi.getStructureApi();
+  final corpAdminClient = corpApi.getAdminApi();
   String _searchQuery = '';
   String _filter = 'All';
 
@@ -57,6 +63,9 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   void initState() {
     super.initState();
     _initialize();
+    for (int i = 0; i < departments.length; i++) {
+      _formKeys[i] = GlobalKey<FormState>();
+    }
   }
 
   @override
@@ -167,7 +176,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             TextButton(
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all<Color>(primaryColor),
-                padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                padding: WidgetStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -194,11 +204,22 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
 
   void _addDepartment(String title) async {
     final headers = await getAuthHeader();
-    try {
-      //final response = await corpStructureClient.create_department(headers: headers);
-      
-      _applySearchAndFilter();
 
+    final CreateDepartmentRequest createDepartmentRequest =
+        CreateDepartmentRequest((b) => b..title = title);
+
+    try {
+      final response = await corpAdminClient.createDepartment(
+          headers: headers, createDepartmentRequest: createDepartmentRequest);
+
+      if (response.data!.msg == "Department created") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+
+      _applySearchAndFilter();
     } catch (error) {
       print(error);
     }
@@ -236,7 +257,15 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
       child: Column(
         children: [
           ListTile(
-            title: Text(department.title.toString()),
+            title: Text(department.title.toString(),
+                style: TextStyle(
+                  color: department.color != null
+                      ? cssColorToColor(department.color!)
+                      : Colors.grey,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )
+            ),
             subtitle: Text(department.motto.toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -253,14 +282,16 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                       : Icons.more_vert),
                   onPressed: () {
                     setState(() {
-                      _dropdownOpen[departmentIndex] = !_dropdownOpen[departmentIndex]!;
+                      _dropdownOpen[departmentIndex] =
+                          !_dropdownOpen[departmentIndex]!;
                     });
                   },
                 ),
               ],
             ),
           ),
-          if (_dropdownOpen[departmentIndex] == true) _buildDropdownContent(department),
+          if (_dropdownOpen[departmentIndex] == true)
+            _buildDropdownContent(department),
         ],
       ),
     );
@@ -304,32 +335,34 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                 Navigator.of(context).pop();
               },
             ),
-  TextButton(
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
-      padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    ),
-    onPressed: () {
-      if (pincode == '1234') { // Replace '1234' with the actual pincode logic
-        _deleteDepartment(department);
-        Navigator.of(context).pop();
-      } else {
-        // Show error message or handle invalid pincode
-      }
-    },
-    child: Text(
-      'Delete',
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
+                padding: WidgetStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                if (pincode == '1234') {
+                  // Replace '1234' with the actual pincode logic
+                  _deleteDepartment(department);
+                  Navigator.of(context).pop();
+                } else {
+                  // Show error message or handle invalid pincode
+                }
+              },
+              child: Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         );
       },
@@ -344,17 +377,78 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   }
 
   Widget _buildDropdownContent(GetDepartments200ResponseInner department) {
+    Color currentColor = department.color != null ? cssColorToColor(department.color!) : Colors.grey;
+    int departmentIndex = departments.indexOf(department);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildDetailRow('Heads', department.heads.toString()),
-          _buildDetailRow('Proxys', department.proxys.toString()),
-          // Add more details as needed
-        ],
+      child: Form(
+        key: _formKeys[departmentIndex],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDetailRow('Heads', department.heads.toString()),
+            _buildDetailRow('Proxys', department.proxys.toString()),
+            // Add more details as needed
+            SizedBox(height: 10),
+            Text('Color', style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
+            ColorInputWidget(
+              initialColor: currentColor,
+              onColorChanged: (color) {
+                currentColor = color;
+              },
+            ),
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKeys[departmentIndex]!.currentState!.validate()) {
+                    _updateDepartment(department, currentColor);
+                    
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Department updated')),
+                    );
+                  }
+                },
+                child: Text('Save'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _updateDepartment(GetDepartments200ResponseInner department, Color color) async {
+    final headers = await getAuthHeader();
+
+    final UpdateDepartmentRequest updateDepartmentRequest =
+        UpdateDepartmentRequest((b) => b
+          ..title = department.title
+          ..color = color.toCssString());
+
+    try {
+      final response = await corpAdminClient.updateDepartment(
+          headers: headers,
+          departmentId: department.id,
+          updateDepartmentRequest: updateDepartmentRequest);
+
+      if (response.data!.msg == "Department updated") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+
+      _applySearchAndFilter();
+    } catch (error) {
+      print(error);
+    }
+
+    setState(() {
+      _applySearchAndFilter();
+    });
   }
 
   Widget _buildDetailRow(String label, String value) {
