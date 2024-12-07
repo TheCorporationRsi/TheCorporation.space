@@ -51,6 +51,21 @@ class StructureManager:
         return department
     
     @staticmethod
+    def update_department(department, new_title=None, new_color=None, new_motto=None):
+        
+        if not department:
+            raise ValueError("Department not found")
+        
+        if new_title:
+            department.title = new_title
+        if new_color:
+            department.color = new_color
+        if new_motto:
+            department.motto = new_motto
+        
+        db.session.commit()
+    
+    @staticmethod
     def create_division(title, department_title):
         # Create a new division with the given name, department, and leader
         

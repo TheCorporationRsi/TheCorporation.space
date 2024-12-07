@@ -160,8 +160,8 @@ def update_department():
                     required: [department_title]
                     properties:
                         department_title:
-                            type: integer
-                            example: 1
+                            type: string
+                            example: Resources
                         new_title:
                             type: string
                             example: Resources
@@ -200,17 +200,10 @@ def update_department():
     
     department = Department.query.filter_buy(title=department_title).first()
     
-    if not department:
-        return jsonify({"error": "Department not found"}), 400
-    
-    if new_title:
-        department.title = new_title
-    if new_color:
-        department.color = new_color
-    if new_motto:
-        department.motto = new_motto
-    
-    db.session.commit()
+    try:
+        StructureManager.update_department(department=department ,title=new_title, color=new_color, motto=new_motto)
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
     
     return jsonify({"message": "Department updated"}), 200
 

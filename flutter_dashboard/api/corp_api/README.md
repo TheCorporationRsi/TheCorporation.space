@@ -67,6 +67,10 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AdminApi*](doc/AdminApi.md) | [**createDepartment**](doc/AdminApi.md#createdepartment) | **POST** /api/v0/structure/departments | Department creation endpoint
 [*AdminApi*](doc/AdminApi.md) | [**createDivision**](doc/AdminApi.md#createdivision) | **POST** /api/v0/structure/divisions | Division creation endpoint
+[*AdminApi*](doc/AdminApi.md) | [**deleteDepartment**](doc/AdminApi.md#deletedepartment) | **DELETE** /api/v0/structure/departments | Department deletion endpoint
+[*AdminApi*](doc/AdminApi.md) | [**deleteDivision**](doc/AdminApi.md#deletedivision) | **DELETE** /api/v0/structure/divisions | Division deletion endpoint
+[*AdminApi*](doc/AdminApi.md) | [**updateDepartment**](doc/AdminApi.md#updatedepartment) | **PATCH** /api/v0/structure/departments | Department update endpoint
+[*AdminApi*](doc/AdminApi.md) | [**updateDivision**](doc/AdminApi.md#updatedivision) | **PATCH** /api/v0/structure/divisions | Division update endpoint
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getInfluence**](doc/InfluenceSystemApi.md#getinfluence) | **GET** /api/v0/influence_system/profile/{influence_type}/{type}/{title} | Get current influence
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getProfile**](doc/InfluenceSystemApi.md#getprofile) | **GET** /api/v0/influence_system/profile | Get influence system profile
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getRanks**](doc/InfluenceSystemApi.md#getranks) | **GET** /api/v0/influence_system/ranks | List of all influence system ranks
@@ -88,21 +92,38 @@ Class | Method | HTTP request | Description
 [*SecurityApi*](doc/SecurityApi.md) | [**refreshToken**](doc/SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [*SecurityApi*](doc/SecurityApi.md) | [**register**](doc/SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
 [*SecurityApi*](doc/SecurityApi.md) | [**verifyRSIToken**](doc/SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
+[*StructureApi*](doc/StructureApi.md) | [**addUserRole**](doc/StructureApi.md#adduserrole) | **POST** /api/v0/structure/profile/roles | Add a role to the current user
+[*StructureApi*](doc/StructureApi.md) | [**createRole**](doc/StructureApi.md#createrole) | **POST** /api/v0/structure/roles | Create a new role
+[*StructureApi*](doc/StructureApi.md) | [**deleteRole**](doc/StructureApi.md#deleterole) | **DELETE** /api/v0/structure/roles | Delete an existing role
+[*StructureApi*](doc/StructureApi.md) | [**editRole**](doc/StructureApi.md#editrole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 [*StructureApi*](doc/StructureApi.md) | [**getDepartments**](doc/StructureApi.md#getdepartments) | **GET** /api/v0/structure/departments | List of all departments
 [*StructureApi*](doc/StructureApi.md) | [**getDivisions**](doc/StructureApi.md#getdivisions) | **GET** /api/v0/structure/divisions | List of all divisions
+[*StructureApi*](doc/StructureApi.md) | [**getRoles**](doc/StructureApi.md#getroles) | **GET** /api/v0/structure/roles | List of all roles
 [*StructureApi*](doc/StructureApi.md) | [**getUserDepartments**](doc/StructureApi.md#getuserdepartments) | **GET** /api/v0/structure/profile/departments | List of all your departments
 [*StructureApi*](doc/StructureApi.md) | [**getUserDivisions**](doc/StructureApi.md#getuserdivisions) | **GET** /api/v0/structure/profile/divisions | List of all your division
 [*StructureApi*](doc/StructureApi.md) | [**getUserProfile**](doc/StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
 [*StructureApi*](doc/StructureApi.md) | [**getUserRoles**](doc/StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
+[*StructureApi*](doc/StructureApi.md) | [**removeUserRole**](doc/StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
 
 
 ## Documentation For Models
 
+ - [AddUserRole200Response](doc/AddUserRole200Response.md)
+ - [AddUserRoleRequest](doc/AddUserRoleRequest.md)
  - [ChangePasswordRequest](doc/ChangePasswordRequest.md)
  - [CreateDepartment200Response](doc/CreateDepartment200Response.md)
  - [CreateDepartmentRequest](doc/CreateDepartmentRequest.md)
  - [CreateDivision200Response](doc/CreateDivision200Response.md)
  - [CreateDivisionRequest](doc/CreateDivisionRequest.md)
+ - [CreateRole201Response](doc/CreateRole201Response.md)
+ - [CreateRoleRequest](doc/CreateRoleRequest.md)
+ - [DeleteDepartment200Response](doc/DeleteDepartment200Response.md)
+ - [DeleteDepartmentRequest](doc/DeleteDepartmentRequest.md)
+ - [DeleteDivision200Response](doc/DeleteDivision200Response.md)
+ - [DeleteDivisionRequest](doc/DeleteDivisionRequest.md)
+ - [DeleteRole200Response](doc/DeleteRole200Response.md)
+ - [EditRole200Response](doc/EditRole200Response.md)
+ - [EditRoleRequest](doc/EditRoleRequest.md)
  - [GetCorporateers200ResponseInner](doc/GetCorporateers200ResponseInner.md)
  - [GetCurrentFunding200Response](doc/GetCurrentFunding200Response.md)
  - [GetDepartments200ResponseInner](doc/GetDepartments200ResponseInner.md)
@@ -111,6 +132,7 @@ Class | Method | HTTP request | Description
  - [GetRSIToken200Response](doc/GetRSIToken200Response.md)
  - [GetRSIToken401Response](doc/GetRSIToken401Response.md)
  - [GetRanks200ResponseInner](doc/GetRanks200ResponseInner.md)
+ - [GetRoles200ResponseInner](doc/GetRoles200ResponseInner.md)
  - [GetStatus200Response](doc/GetStatus200Response.md)
  - [GetTributeHistory200ResponseInner](doc/GetTributeHistory200ResponseInner.md)
  - [GetUser200Response](doc/GetUser200Response.md)
@@ -125,8 +147,13 @@ Class | Method | HTTP request | Description
  - [RefreshToken200Response](doc/RefreshToken200Response.md)
  - [Register200Response](doc/Register200Response.md)
  - [RegisterRequest](doc/RegisterRequest.md)
+ - [RemoveUserRole200Response](doc/RemoveUserRole200Response.md)
  - [SendTributeRequest](doc/SendTributeRequest.md)
  - [SetWeightRequest](doc/SetWeightRequest.md)
+ - [UpdateDepartment200Response](doc/UpdateDepartment200Response.md)
+ - [UpdateDepartmentRequest](doc/UpdateDepartmentRequest.md)
+ - [UpdateDivision200Response](doc/UpdateDivision200Response.md)
+ - [UpdateDivisionRequest](doc/UpdateDivisionRequest.md)
  - [VerifyRSIToken200Response](doc/VerifyRSIToken200Response.md)
 
 

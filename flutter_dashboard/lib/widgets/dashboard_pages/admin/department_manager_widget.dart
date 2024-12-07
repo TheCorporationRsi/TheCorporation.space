@@ -264,8 +264,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                       : Colors.grey,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                )
-            ),
+                )),
             subtitle: Text(department.motto.toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
@@ -369,15 +368,31 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _deleteDepartment(GetDepartments200ResponseInner department) {
-    setState(() {
-      departments = departments.rebuild((b) => b.remove(department));
-      _applySearchAndFilter();
-    });
+  void _deleteDepartment(GetDepartments200ResponseInner department) async {
+    final headers = await getAuthHeader();
+
+    final DeleteDepartmentRequest deleteDepartmentRequest =
+        DeleteDepartmentRequest((b) => b..departmentTitle = department.title);
+
+    try {
+      final response = await corpAdminClient.deleteDepartment(
+          headers: headers, deleteDepartmentRequest: deleteDepartmentRequest);
+
+      if (response.data!.msg == "Department deleted") {
+        setState(() {
+          departments = departments.rebuild((b) => b.remove(department));
+          _applySearchAndFilter();
+        });
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 
   Widget _buildDropdownContent(GetDepartments200ResponseInner department) {
-    Color currentColor = department.color != null ? cssColorToColor(department.color!) : Colors.grey;
+    Color currentColor = department.color != null
+        ? cssColorToColor(department.color!)
+        : Colors.grey;
     int departmentIndex = departments.indexOf(department);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -404,8 +419,9 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKeys[departmentIndex]!.currentState!.validate()) {
-                    _updateDepartment(department, currentColor);
-                    
+                    _updateDepartment(department, currentColor,
+                        department.title!, department.motto!);
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Department updated')),
                     );
@@ -420,20 +436,20 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _updateDepartment(GetDepartments200ResponseInner department, Color color) async {
+  void _updateDepartment(GetDepartments200ResponseInner department, Color color,
+      String title, String motto) async {
     final headers = await getAuthHeader();
-      /*
+
     final UpdateDepartmentRequest updateDepartmentRequest =
         UpdateDepartmentRequest((b) => b
-          ..title = department.title
-          ..color = color.toCssString());
-      */
+          ..departmentTitle = department.title
+          ..color = colorToCssColor(color)
+          ..newTitle = title
+          ..motto = motto);
+
     try {
-      /*
       final response = await corpAdminClient.updateDepartment(
-          headers: headers,
-          departmentId: department.id,
-          updateDepartmentRequest: updateDepartmentRequest);
+          headers: headers, updateDepartmentRequest: updateDepartmentRequest);
 
       if (response.data!.msg == "Department updated") {
         setState(() {
@@ -441,7 +457,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         });
         _initialize();
       }
-      */
+
       _applySearchAndFilter();
     } catch (error) {
       print(error);

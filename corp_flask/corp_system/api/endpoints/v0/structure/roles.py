@@ -87,7 +87,7 @@ def create_role():
                         type: object
                         properties:
                             msg:
-                                type: strint
+                                type: string
                                 example: Role created
         400:
             $ref: "#/components/responses/invalid"
