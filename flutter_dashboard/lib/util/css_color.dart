@@ -75,7 +75,6 @@ class ColorInputWidget extends StatefulWidget {
 
 class _ColorInputWidgetState extends State<ColorInputWidget> {
   final TextEditingController _controller = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
   Color? _color;
 
   @override
@@ -94,53 +93,33 @@ class _ColorInputWidgetState extends State<ColorInputWidget> {
     }
     
     setState(() {
-      _color = color;
-      widget.onColorChanged(_color!);
+    _color = color;
+    widget.onColorChanged(_color!);
     });
-  }
-
-  void _saveForm() {
-    if (_formKey.currentState!.validate()) {
-      _updateColor();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Color saved: ${_controller.text}')),
-      );
-    }
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              controller: _controller,
-              decoration: InputDecoration(
-                labelText: 'CSS color',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter a color';
-                }
-                return null;
-              },
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              labelText: 'CSS color',
             ),
+            onChanged: (text) => _updateColor(),
           ),
-          if (_color != null)
-            Container(
-              width: 30,
-              height: 30,
-              margin: EdgeInsets.only(left: 10),
-              color: _color,
-            ),
-          ElevatedButton(
-            onPressed: _saveForm,
-            child: Text('Save'),
+        ),
+        if (_color != null)
+          Container(
+            width: 30,
+            height: 30,
+            margin: EdgeInsets.only(left: 10),
+            color: _color,
           ),
-        ],
-      ),
+      ],
     );
   }
 }

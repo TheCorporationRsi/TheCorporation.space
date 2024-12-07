@@ -205,7 +205,7 @@ def update_department():
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     
-    return jsonify({"message": "Department updated"}), 200
+    return jsonify({"msg": "Department updated"}), 200
 
 
 @api.route('/structure/departments', methods=['DELETE'])

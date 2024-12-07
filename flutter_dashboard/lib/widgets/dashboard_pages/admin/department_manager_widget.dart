@@ -396,8 +396,6 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     int departmentIndex = departments.indexOf(department);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Form(
-        key: _formKeys[departmentIndex],
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -418,20 +416,15 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
               alignment: Alignment.centerRight,
               child: ElevatedButton(
                 onPressed: () {
-                  if (_formKeys[departmentIndex]!.currentState!.validate()) {
+                  
                     _updateDepartment(department, currentColor,
                         department.title!, department.motto!);
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Department updated')),
-                    );
-                  }
+                  
                 },
                 child: Text('Save'),
               ),
             ),
           ],
-        ),
       ),
     );
   }
