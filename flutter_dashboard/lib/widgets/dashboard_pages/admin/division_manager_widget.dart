@@ -10,19 +10,20 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
 
-class DepartmentManagerWidget extends StatefulWidget {
-  const DepartmentManagerWidget({super.key});
+class DivisionManagerWidget extends StatefulWidget {
+  const DivisionManagerWidget({super.key});
 
   @override
-  _DepartmentManagerWidgetState createState() =>
-      _DepartmentManagerWidgetState();
+  _DivisionManagerWidgetState createState() => _DivisionManagerWidgetState();
 }
 
-class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
+class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
+  BuiltList<GetDivisions200ResponseInner> divisions =
+      BuiltList<GetDivisions200ResponseInner>();
   BuiltList<GetDepartments200ResponseInner> departments =
       BuiltList<GetDepartments200ResponseInner>();
-  BuiltList<GetDepartments200ResponseInner> filteredItems =
-      BuiltList<GetDepartments200ResponseInner>();
+  BuiltList<GetDivisions200ResponseInner> filteredItems =
+      BuiltList<GetDivisions200ResponseInner>();
   Map<int, bool> _dropdownOpen = {};
   Map<int, GlobalKey<FormState>> _formKeys = {};
 
@@ -34,14 +35,24 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
 
   Future<void> _initialize() async {
     try {
-      final response = await corpStructureClient.getDepartments();
+      final response = await corpStructureClient.getDivisions();
       if (response.data != null) {
-        departments = response.data ?? departments;
+        divisions = response.data ?? divisions;
         _applySearchAndFilter();
       }
     } catch (error) {
       print(error);
     }
+
+    try {
+      final response = await corpStructureClient.getDepartments();
+      if (response.data != null) {
+        departments = response.data ?? departments;
+      }
+    } catch (error) {
+      print(error);
+    }
+
     setState(() {
       _isLoading = false;
     });
@@ -49,8 +60,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
 
   void _applySearchAndFilter() {
     setState(() {
-      filteredItems = departments.where((department) {
-        final matchesSearch = department.title
+      filteredItems = divisions.where((division) {
+        final matchesSearch = division.title
             .toString()
             .toLowerCase()
             .contains(_searchQuery.toLowerCase());
@@ -63,7 +74,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   void initState() {
     super.initState();
     _initialize();
-    for (int i = 0; i < departments.length; i++) {
+    for (int i = 0; i < divisions.length; i++) {
       _formKeys[i] = GlobalKey<FormState>();
     }
   }
@@ -99,7 +110,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         Expanded(
           child: TextField(
             decoration: InputDecoration(
-              hintText: 'Search departments...',
+              hintText: 'Search divisions...',
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -115,7 +126,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         IconButton(
           icon: Icon(Icons.add),
           onPressed: () {
-            _showAddDepartmentDialog();
+            _showAddDivisionDialog();
           },
         ),
         SizedBox(width: 10),
@@ -132,18 +143,19 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _showAddDepartmentDialog() {
+  void _showAddDivisionDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         String title = '';
+        String selectedDepartment = '';
         return AlertDialog(
           backgroundColor: cardBackgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           title: Text(
-            'Add Department',
+            'Add Division',
             style: TextStyle(
               color: primaryColor,
               fontSize: 24,
@@ -158,6 +170,25 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                   title = value;
                 },
                 decoration: InputDecoration(hintText: "Title"),
+              ),
+              SizedBox(height: 10),
+              DropdownButtonFormField<String>(
+                value: selectedDepartment.isEmpty ? null : selectedDepartment,
+                items: departments.map((department) {
+                  return DropdownMenuItem<String>(
+                    value: department.title,
+                    child: Text(department.title!),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedDepartment = value!;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Select Department',
+                  border: OutlineInputBorder(),
+                ),
               ),
             ],
           ),
@@ -185,7 +216,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                 ),
               ),
               onPressed: () {
-                _addDepartment(title);
+                _addDivision(title, selectedDepartment);
                 Navigator.of(context).pop();
               },
               child: Text(
@@ -202,17 +233,19 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _addDepartment(String title) async {
+  void _addDivision(String title, String department) async {
     final headers = await getAuthHeader();
 
-    final CreateDepartmentRequest createDepartmentRequest =
-        CreateDepartmentRequest((b) => b..title = title);
+    final CreateDivisionRequest createDivisionRequest =
+        CreateDivisionRequest((b) => b
+          ..title = title
+          ..department_title = department.title);
 
     try {
-      final response = await corpAdminClient.createDepartment(
-          headers: headers, createDepartmentRequest: createDepartmentRequest);
+      final response = await corpAdminClient.createDivision(
+          headers: headers, createDivisionRequest: createDivisionRequest);
 
-      if (response.data!.msg == "Department created") {
+      if (response.data!.msg == "Division created") {
         setState(() {
           _isLoading = true;
         });
@@ -233,7 +266,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     if (filteredItems.isEmpty) {
       return Center(
         child: Text(
-          'No departments found.',
+          'No divisions found.',
           style: TextStyle(fontSize: 18, color: Colors.grey),
         ),
       );
@@ -243,60 +276,60 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
       physics: NeverScrollableScrollPhysics(),
       itemCount: filteredItems.length,
       itemBuilder: (context, index) {
-        final department = filteredItems[index];
-        return _buildUserItem(department);
+        final division = filteredItems[index];
+        return _buildDivisionItem(division);
       },
     );
   }
 
-  Widget _buildUserItem(GetDepartments200ResponseInner department) {
-    int departmentIndex = departments.indexOf(department);
-    _dropdownOpen.putIfAbsent(departmentIndex, () => false);
+  Widget _buildDivisionItem(GetDivisions200ResponseInner division) {
+    int divisionIndex = divisions.indexOf(division);
+    _dropdownOpen.putIfAbsent(divisionIndex, () => false);
     return Card(
       color: cardBackgroundColor,
       child: Column(
         children: [
           ListTile(
-            title: Text(department.title.toString(),
+            title: Text(division.title.toString(),
                 style: TextStyle(
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+                  color: division.color != null
+                      ? cssColorToColor(division.color!)
                       : Colors.grey,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            subtitle: Text(department.motto.toString()),
+            subtitle: Text(division.motto.toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
                   icon: Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
-                    _showDeleteDialog(department);
+                    _showDeleteDialog(division);
                   },
                 ),
                 IconButton(
-                  icon: Icon(_dropdownOpen[departmentIndex] == true
+                  icon: Icon(_dropdownOpen[divisionIndex] == true
                       ? Icons.arrow_drop_up
                       : Icons.more_vert),
                   onPressed: () {
                     setState(() {
-                      _dropdownOpen[departmentIndex] =
-                          !_dropdownOpen[departmentIndex]!;
+                      _dropdownOpen[divisionIndex] =
+                          !_dropdownOpen[divisionIndex]!;
                     });
                   },
                 ),
               ],
             ),
           ),
-          if (_dropdownOpen[departmentIndex] == true)
-            _buildDropdownContent(department),
+          if (_dropdownOpen[divisionIndex] == true)
+            _buildDropdownContent(division),
         ],
       ),
     );
   }
 
-  void _showDeleteDialog(GetDepartments200ResponseInner department) {
+  void _showDeleteDialog(GetDivisions200ResponseInner division) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -307,7 +340,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             borderRadius: BorderRadius.circular(15.0),
           ),
           title: Text(
-            'Deleting ${department.title.toString()}',
+            'Deleting ${division.title.toString()}',
             style: TextStyle(
               color: primaryColor,
               fontSize: 24,
@@ -346,9 +379,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                 ),
               ),
               onPressed: () {
-                if (confirmation == department.title.toString()) {
-                  
-                  _deleteDepartment(department);
+                if (confirmation == division.title.toString()) {
+                  _deleteDivision(division);
                   Navigator.of(context).pop();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -373,19 +405,19 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _deleteDepartment(GetDepartments200ResponseInner department) async {
+  void _deleteDivision(GetDivisions200ResponseInner division) async {
     final headers = await getAuthHeader();
 
-    final DeleteDepartmentRequest deleteDepartmentRequest =
-        DeleteDepartmentRequest((b) => b..departmentTitle = department.title);
+    final DeleteDivisionRequest deleteDivisionRequest =
+        DeleteDivisionRequest((b) => b..divisionTitle = division.title);
 
     try {
-      final response = await corpAdminClient.deleteDepartment(
-          headers: headers, deleteDepartmentRequest: deleteDepartmentRequest);
+      final response = await corpAdminClient.deleteDivision(
+          headers: headers, deleteDivisionRequest: deleteDivisionRequest);
 
-      if (response.data!.msg == "Department deleted") {
+      if (response.data!.msg == "Division deleted") {
         setState(() {
-          departments = departments.rebuild((b) => b.remove(department));
+          divisions = divisions.rebuild((b) => b.remove(division));
           _applySearchAndFilter();
         });
       }
@@ -394,21 +426,21 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     }
   }
 
-  Widget _buildDropdownContent(GetDepartments200ResponseInner department) {
-    Color currentColor = department.color != null
-        ? cssColorToColor(department.color!)
+  Widget _buildDropdownContent(GetDivisions200ResponseInner division) {
+    Color currentColor = division.color != null
+        ? cssColorToColor(division.color!)
         : Colors.grey;
-    int departmentIndex = departments.indexOf(department);
-    String title = department.title ?? '';
-    String motto = department.motto ?? '';
+    int divisionIndex = divisions.indexOf(division);
+    String title = division.title ?? '';
+    String motto = division.motto ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow('Heads', department.heads.toString()),
-          _buildDetailRow('Proxys', department.proxys.toString()),
+          _buildDetailRow('Leaders', division.leaders.toString()),
+          _buildDetailRow('Proxys', division.proxys.toString()),
           SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: title),
@@ -443,7 +475,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDepartment(department, currentColor, title, motto);
+                _updateDivision(division, currentColor, title, motto);
               },
               child: Text('Save'),
             ),
@@ -453,22 +485,22 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _updateDepartment(GetDepartments200ResponseInner department, Color color,
+  void _updateDivision(GetDivisions200ResponseInner division, Color color,
       String title, String motto) async {
     final headers = await getAuthHeader();
 
-    final UpdateDepartmentRequest updateDepartmentRequest =
-        UpdateDepartmentRequest((b) => b
-          ..departmentTitle = department.title
+    final UpdateDivisionRequest updateDivisionRequest =
+        UpdateDivisionRequest((b) => b
+          ..divisionTitle = division.title
           ..color = colorToCssColor(color)
           ..newTitle = title
           ..motto = motto);
 
     try {
-      final response = await corpAdminClient.updateDepartment(
-          headers: headers, updateDepartmentRequest: updateDepartmentRequest);
+      final response = await corpAdminClient.updateDivision(
+          headers: headers, updateDivisionRequest: updateDivisionRequest);
 
-      if (response.data!.msg == "Department updated") {
+      if (response.data!.msg == "Division updated") {
         setState(() {
           _isLoading = true;
         });

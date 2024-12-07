@@ -7,6 +7,7 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/department_manager_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/admin/division_manager_widget.dart';
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
@@ -103,7 +104,7 @@ class _MainScreenState extends State<MainScreen>
       [
       const UserManagerWidget(),
       const DepartmentManagerWidget(),
-      const InfluenceWidget(),
+      const DivisionManagerWidget(),
       const InfluenceWidget(),
       ],
       const InfluenceWidget(),
