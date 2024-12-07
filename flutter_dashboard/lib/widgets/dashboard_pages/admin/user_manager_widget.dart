@@ -18,6 +18,8 @@ class UserManagerWidget extends StatefulWidget {
 class _UserManagerWidgetState extends State<UserManagerWidget> {
   BuiltList<GetUsers200ResponseInner> users =
       BuiltList<GetUsers200ResponseInner>();
+  BuiltList<GetRoles200ResponseInner> roles =
+      BuiltList<GetRoles200ResponseInner>();
   BuiltList<GetUsers200ResponseInner> filteredUsers =
       BuiltList<GetUsers200ResponseInner>();
   Map<int, bool> _dropdownOpen = {};
@@ -34,6 +36,14 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
       if (response.data != null) {
         users = response.data ?? users;
         _applySearchAndFilter();
+      }
+    } catch (error) {
+      print(error);
+    }
+    try {
+      final response = await corpStructureClient.getRoles(headers: headers);
+      if (response.data != null) {
+        roles = response.data ?? roles;
       }
     } catch (error) {
       print(error);
@@ -302,7 +312,8 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        String role = '';
+        String? selectedRole;
+
         return AlertDialog(
           backgroundColor: cardBackgroundColor,
           shape: RoundedRectangleBorder(
@@ -316,11 +327,18 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          content: TextField(
-            onChanged: (value) {
-              role = value;
+          content: DropdownButton<String>(
+            hint: Text('Select Role'),
+            value: selectedRole,
+            items: roles.map((String role) {
+              return DropdownMenuItem<String>(
+                value: role,
+                child: Text(role),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              selectedRole = newValue;
             },
-            decoration: InputDecoration(hintText: "Role"),
           ),
           actions: [
             TextButton(
@@ -345,8 +363,12 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                 ),
               ),
               onPressed: () {
-                _addRoleToUser(user, role);
-                Navigator.of(context).pop();
+                if (selectedRole != null) {
+                  _addRoleToUser(user, selectedRole!);
+                  Navigator.of(context).pop();
+                } else {
+                  // Show error message or handle no role selected
+                }
               },
               child: Text(
                 'Add',
