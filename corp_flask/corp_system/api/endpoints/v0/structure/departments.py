@@ -198,10 +198,10 @@ def update_department():
     if not department_title:
         return jsonify({"msg": "Department title is required"}), 400
     
-    department = Department.query.filter_buy(title=department_title).first()
+    department = Department.query.filter_by(title=department_title).first()
     
     try:
-        StructureManager.update_department(department=department ,title=new_title, color=new_color, motto=new_motto)
+        StructureManager.update_department(department=department, new_title=new_title, new_color=new_color, new_motto=new_motto)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     
