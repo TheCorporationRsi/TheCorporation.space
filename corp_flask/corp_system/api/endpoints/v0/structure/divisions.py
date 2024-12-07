@@ -210,7 +210,7 @@ def update_division():
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     
-    return jsonify({"message": "Division updated"}), 200
+    return jsonify({"msg": "Division updated"}), 200
 
 
 @api.route('/structure/divisions', methods=['DELETE'])
