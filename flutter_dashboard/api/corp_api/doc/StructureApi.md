@@ -490,7 +490,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **addUserRoleRequest** | [**AddUserRoleRequest**](AddUserRoleRequest.md)|  | 
+ **addUserRoleRequest** | [**AddUserRoleRequest**](AddUserRoleRequest.md)|  | [optional] 
 
 ### Return type
 

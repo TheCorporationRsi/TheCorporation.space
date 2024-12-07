@@ -983,7 +983,7 @@ class StructureApi {
   /// Returns a [Future] containing a [Response] with a [RemoveUserRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<RemoveUserRole200Response>> removeUserRole({
-    required AddUserRoleRequest addUserRoleRequest,
+    AddUserRoleRequest? addUserRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1015,8 +1015,9 @@ class StructureApi {
 
     try {
       const _type = FullType(AddUserRoleRequest);
-      _bodyData =
-          _serializers.serialize(addUserRoleRequest, specifiedType: _type);
+      _bodyData = addUserRoleRequest == null
+          ? null
+          : _serializers.serialize(addUserRoleRequest, specifiedType: _type);
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
