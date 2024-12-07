@@ -165,11 +165,9 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                onChanged: (value) {
-                  title = value;
-                },
-                decoration: InputDecoration(hintText: "Title"),
+              Text(
+                'Select Department',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
@@ -189,6 +187,13 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
                   hintText: 'Select Department',
                   border: OutlineInputBorder(),
                 ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                onChanged: (value) {
+                  title = value;
+                },
+                decoration: InputDecoration(hintText: "Title"),
               ),
             ],
           ),
@@ -233,13 +238,13 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     );
   }
 
-  void _addDivision(String title, String department) async {
+  void _addDivision(String title, String departmentTitle) async {
     final headers = await getAuthHeader();
 
     final CreateDivisionRequest createDivisionRequest =
         CreateDivisionRequest((b) => b
           ..title = title
-          ..department_title = department.title);
+          ..departmentTitle = departmentTitle);
 
     try {
       final response = await corpAdminClient.createDivision(
