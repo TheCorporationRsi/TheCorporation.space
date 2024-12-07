@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dashboard/const/constant.dart';
 
 Color cssColorToColor(String cssColor) {
 
@@ -104,20 +105,25 @@ class _ColorInputWidgetState extends State<ColorInputWidget> {
     return Row(
       children: [
         Expanded(
-          child: TextField(
+          child: 
+          TextField(
             controller: _controller,
             decoration: InputDecoration(
               labelText: 'CSS color',
+              border: OutlineInputBorder(),
             ),
             onChanged: (text) => _updateColor(),
           ),
         ),
         if (_color != null)
           Container(
-            width: 30,
-            height: 30,
+            width: 40,
+            height: 40,
             margin: EdgeInsets.only(left: 10),
-            color: _color,
+            decoration: BoxDecoration(
+              color: _color,
+              border: Border.all(color: backgroundColor, width: 3),
+            ),
           ),
       ],
     );

@@ -394,37 +394,44 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         ? cssColorToColor(department.color!)
         : Colors.grey;
     int departmentIndex = departments.indexOf(department);
+    String title = department.title ?? '';
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildDetailRow('Heads', department.heads.toString()),
-            _buildDetailRow('Proxys', department.proxys.toString()),
-            // Add more details as needed
-            SizedBox(height: 10),
-            Text('Color', style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: 10),
-            ColorInputWidget(
-              initialColor: currentColor,
-              onColorChanged: (color) {
-                currentColor = color;
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildDetailRow('Heads', department.heads.toString()),
+          _buildDetailRow('Proxys', department.proxys.toString()),
+          SizedBox(height: 10),
+          TextField(
+            controller: TextEditingController(text: title),
+            onChanged: (value) {
+              title = value;
+            },
+            decoration: InputDecoration(
+              labelText: 'Title',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 10),
+          ColorInputWidget(
+            initialColor: currentColor,
+            onColorChanged: (color) {
+              currentColor = color;
+            },
+          ),
+          SizedBox(height: 10),
+          Align(
+            alignment: Alignment.centerRight,
+            child: ElevatedButton(
+              onPressed: () {
+                _updateDepartment(department, currentColor, title, department.motto!);
               },
+              child: Text('Save'),
             ),
-            SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  
-                    _updateDepartment(department, currentColor,
-                        department.title!, department.motto!);
-                  
-                },
-                child: Text('Save'),
-              ),
-            ),
-          ],
+          ),
+        ],
       ),
     );
   }
