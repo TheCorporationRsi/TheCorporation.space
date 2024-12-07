@@ -128,11 +128,11 @@ def create_division():
 
     """
     title = request.json.get("title")
-    derpartment_title = request.json.get("derpartment_title")
+    department_title = request.json.get("department_title")
     #print(username, password)
     
     try:
-        StructureManager.create_division(title=title, derpartment_title=derpartment_title)
+        StructureManager.create_division(title=title, department_title=department_title)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     
