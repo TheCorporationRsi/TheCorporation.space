@@ -330,10 +330,10 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
           content: DropdownButton<String>(
             hint: Text('Select Role'),
             value: selectedRole,
-            items: roles.map((String role) {
+            items: roles.map((GetRoles200ResponseInner role) {
               return DropdownMenuItem<String>(
-                value: role,
-                child: Text(role),
+                value: role.title,
+                child: Text(role.title!),
               );
             }).toList(),
             onChanged: (String? newValue) {
