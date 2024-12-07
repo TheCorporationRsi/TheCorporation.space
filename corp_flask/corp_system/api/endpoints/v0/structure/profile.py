@@ -292,7 +292,6 @@ def remove_user_role():
     security:
         - corp_access_pass: []
     requestBody:
-        required: true
         content:
             application/json:
                 schema:
