@@ -166,9 +166,6 @@ def update_division():
                         new_title:
                             type: string
                             example: Advanced Development
-                        color:
-                            type: string
-                            example: #0083ff
                         motto:
                             type: string
                             example: We love building stuff
@@ -199,7 +196,6 @@ def update_division():
     
     division_title = data.get('division_title')
     new_title = data.get('new_title')
-    new_color = data.get('color')
     new_motto = data.get('motto')
     new_logo = data.get('logo')
     new_security_level = data.get('security_level')
@@ -210,7 +206,7 @@ def update_division():
     division: Division = Division.query.filter_by(title=division_title).first()
     
     try:
-        StructureManager.update_division(division=division, new_title=new_title, new_color=new_color, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level)
+        StructureManager.update_division(division=division, new_title=new_title, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     

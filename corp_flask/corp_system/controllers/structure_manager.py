@@ -97,7 +97,7 @@ class StructureManager:
         return division
     
     @staticmethod
-    def update_division(division, new_title=None, new_color=None, new_motto=None, new_logo=None, new_security_level=None):
+    def update_division(division, new_title=None, new_motto=None, new_logo=None, new_security_level=None):
         if not division:
             return ValueError("Division not found")
     
@@ -107,8 +107,6 @@ class StructureManager:
             division.title = new_title
             division.leader_role.title = new_title + " Leader"
             division.proxy_role.title = new_title + " Proxy"
-        if new_color:
-            division.color = new_color
         if new_motto:
             division.motto = new_motto
         if new_logo:

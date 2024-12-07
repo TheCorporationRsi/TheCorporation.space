@@ -469,18 +469,11 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
-          ColorInputWidget(
-            initialColor: currentColor,
-            onColorChanged: (color) {
-              currentColor = color;
-            },
-          ),
-          SizedBox(height: 10),
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDivision(division, currentColor, title, motto);
+                _updateDivision(division, title, motto);
               },
               child: Text('Save'),
             ),
@@ -497,7 +490,6 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     final UpdateDivisionRequest updateDivisionRequest =
         UpdateDivisionRequest((b) => b
           ..divisionTitle = division.title
-          ..color = colorToCssColor(color)
           ..newTitle = title
           ..motto = motto);
 

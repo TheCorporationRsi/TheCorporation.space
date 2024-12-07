@@ -7,7 +7,6 @@ class Division(Base):
     __tablename__ = "division"
     
     title = db.Column(db.String(32), unique=True, nullable=False)
-    _color = db.Column(db.String(32), unique=False, nullable=True)
     logo = db.Column(db.String(64), nullable=False, default='default.png')
     motto = db.Column(db.String(200), nullable=False, default='Empty')
     
@@ -115,15 +114,7 @@ class Division(Base):
     
     @hybrid_property
     def color(self):
-        if self.department:
-            return self.department.color
-        else:
-            return self._color
-
-    @color.setter
-    def color_setter(self, color: str):
-        self._color = color
-        db.session.commit()
+        return self.department.color
     
     # ============================== methods =============================
     
