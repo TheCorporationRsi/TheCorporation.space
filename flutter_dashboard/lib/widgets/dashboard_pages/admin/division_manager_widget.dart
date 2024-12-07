@@ -32,6 +32,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
   final corpAdminClient = corpApi.getAdminApi();
   String _searchQuery = '';
   String _filter = 'All';
+  String _selectedDepartmentFilter = 'All';
 
   Future<void> _initialize() async {
     try {
@@ -65,7 +66,9 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             .toString()
             .toLowerCase()
             .contains(_searchQuery.toLowerCase());
-        return matchesSearch;
+        final matchesDepartment = _selectedDepartmentFilter == 'All' ||
+            division.departmentTitle == _selectedDepartmentFilter;
+        return matchesSearch && matchesDepartment;
       }).toBuiltList();
     });
   }
@@ -121,6 +124,23 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
               _applySearchAndFilter();
             },
           ),
+        ),
+        SizedBox(width: 10),
+        DropdownButton<String>(
+          value: _selectedDepartmentFilter,
+          items: ['All', ...departments.map((d) => d.title!).toList()]
+              .map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedDepartmentFilter = value!;
+              _applySearchAndFilter();
+            });
+          },
         ),
         SizedBox(width: 10),
         IconButton(
@@ -261,10 +281,6 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     } catch (error) {
       print(error);
     }
-
-    setState(() {
-      _applySearchAndFilter();
-    });
   }
 
   Widget _buildUserList() {

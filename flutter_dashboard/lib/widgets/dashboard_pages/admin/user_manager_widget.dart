@@ -1,4 +1,5 @@
 import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/model/current_user.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/influence_details_card.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
@@ -285,9 +286,105 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
           _buildDetailRow('Security level', user.securityLevel.toString()),
           _buildDetailRow('Disabled', user.disabled.toString()),
           // Add more details as needed
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              _showAddRoleDialog(user);
+            },
+            child: Text('Add Role'),
+          ),
         ],
       ),
     );
+  }
+
+  void _showAddRoleDialog(GetUsers200ResponseInner user) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String role = '';
+        return AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Text(
+            'Add Role to ${user.rSIHandle.toString()}',
+            style: TextStyle(
+              color: primaryColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: TextField(
+            onChanged: (value) {
+              role = value;
+            },
+            decoration: InputDecoration(hintText: "Role"),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                _addRoleToUser(user, role);
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Add',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _addRoleToUser(GetUsers200ResponseInner user, String role) async {
+    final headers = await getAuthHeader();
+
+    final AddUserRoleRequest addUserRoleRequest =
+        AddUserRoleRequest((b) => b
+          ..roleTitle = role
+          ..rsiHandle = user.rSIHandle);
+
+    try {
+      final response = await corpStructureClient.addUserRole(
+          headers: headers, addUserRoleRequest: addUserRoleRequest);
+
+      if (response.data!.msg == "Role added") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+
+      _applySearchAndFilter();
+    } catch (error) {
+      print(error);
+    }
   }
 
   Widget _buildDetailRow(String label, String value) {

@@ -277,7 +277,7 @@ def add_user_role():
 
     user.add_role(role)
 
-    return jsonify({"message": "Role added successfully"}), 200
+    return jsonify({"msg": "Role added"}), 200
 
 @api.route('/structure/profile/roles', methods=['DELETE'])
 @admin_only
