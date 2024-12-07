@@ -214,7 +214,7 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        String pincode = '';
+        String confirmation = '';
         return AlertDialog(
           backgroundColor: cardBackgroundColor,
           shape: RoundedRectangleBorder(
@@ -230,9 +230,9 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
           ),
           content: TextField(
             onChanged: (value) {
-              pincode = value;
+              confirmation = value;
             },
-            decoration: InputDecoration(hintText: "Pin code"),
+            decoration: InputDecoration(hintText: "Enter handle to delete"),
             keyboardType: TextInputType.number,
             obscureText: true,
           ),
@@ -248,32 +248,34 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                 Navigator.of(context).pop();
               },
             ),
-  TextButton(
-    style: ButtonStyle(
-      backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
-      padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
-      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    ),
-    onPressed: () {
-      if (pincode == '1234') { // Replace '1234' with the actual pincode logic
-        _deleteUser(user);
-        Navigator.of(context).pop();
-      } else {
-        // Show error message or handle invalid pincode
-      }
-    },
-    child: Text(
-      'Delete',
-      style: TextStyle(
-        color: Colors.white,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
+                padding: WidgetStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                if (confirmation == user.rSIHandle) {
+                  // Replace '1234' with the actual pincode logic
+                  _deleteUser(user);
+                  Navigator.of(context).pop();
+                } else {
+                  // Show error message or handle invalid pincode
+                }
+              },
+              child: Text(
+                'Delete',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         );
       },
@@ -288,6 +290,22 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
   }
 
   Widget _buildDropdownContent(GetUsers200ResponseInner user) {
+    GetUser200Response full_user = GetUser200Response();
+
+    void _getFullUser() async {
+      final headers = await getAuthHeader();
+
+      try {
+        final response = await corpSecurityClient.getUser(
+            headers: headers, username: user.rSIHandle.toString());
+
+        full_user = response.data ?? full_user;
+      } catch (error) {
+        print(error);
+      }
+    }
+    _getFullUser();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -299,20 +317,29 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
           SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
-              _showAddRoleDialog(user);
+              _showAddRoleDialog(full_user);
             },
             child: Text('Add Role'),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              _showRemoveRoleDialog(full_user);
+            },
+            child: Text('Remove Role'),
           ),
         ],
       ),
     );
   }
 
-  void _showAddRoleDialog(GetUsers200ResponseInner user) {
+  void _showAddRoleDialog(GetUser200Response user) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         String? selectedRole;
+        List<String> userRoles = user.roles!.map((role) => role.title.toString()).toList();
+        List<GetRoles200ResponseInner> availableRoles = roles.where((role) => !userRoles.contains(role.title.toString())).toList();
 
         return AlertDialog(
           backgroundColor: cardBackgroundColor,
@@ -327,17 +354,19 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          content: DropdownButton<String>(
+          content: DropdownButtonFormField<String>(
             hint: Text('Select Role'),
             value: selectedRole,
-            items: roles.map((GetRoles200ResponseInner role) {
+            items: availableRoles.map((GetRoles200ResponseInner role) {
               return DropdownMenuItem<String>(
-                value: role.title,
-                child: Text(role.title!),
+                value: role.title.toString(),
+                child: Text(role.title.toString()),
               );
             }).toList(),
             onChanged: (String? newValue) {
-              selectedRole = newValue;
+              setState(() {
+                selectedRole = newValue;
+              });
             },
           ),
           actions: [
@@ -384,19 +413,122 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     );
   }
 
-  void _addRoleToUser(GetUsers200ResponseInner user, String role) async {
+  void _addRoleToUser(GetUser200Response user, String role) async {
     final headers = await getAuthHeader();
 
-    final AddUserRoleRequest addUserRoleRequest =
-        AddUserRoleRequest((b) => b
-          ..roleTitle = role
-          ..rsiHandle = user.rSIHandle);
+    final AddUserRoleRequest addUserRoleRequest = AddUserRoleRequest((b) => b
+      ..roleTitle = role
+      ..rsiHandle = user.rSIHandle);
 
     try {
       final response = await corpStructureClient.addUserRole(
           headers: headers, addUserRoleRequest: addUserRoleRequest);
 
       if (response.data!.msg == "Role added") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+
+      _applySearchAndFilter();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void _showRemoveRoleDialog(GetUser200Response user) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String? selectedRole;
+
+
+        return AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Text(
+            'Remove Role from ${user.rSIHandle.toString()}',
+            style: TextStyle(
+              color: primaryColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: DropdownButtonFormField<String>(
+            hint: Text('Select Role'),
+            value: selectedRole,
+            items: user.roles!.map<DropdownMenuItem<String>>((GetUser200ResponseRolesInner role) {
+              return DropdownMenuItem<String>(
+                value: role.title.toString(),
+                child: Text(role.title.toString()),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedRole = newValue;
+              });
+            },
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                if (selectedRole != null) {
+                  _removeRoleFromUser(user, selectedRole!);
+                  Navigator.of(context).pop();
+                } else {
+                  // Show error message or handle no role selected
+                }
+              },
+              child: Text(
+                'Remove',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _removeRoleFromUser(GetUser200Response user, String role) async {
+    final headers = await getAuthHeader();
+
+    final AddUserRoleRequest removeUserRoleRequest = AddUserRoleRequest((b) => b
+      ..roleTitle = role
+      ..rsiHandle = user.rSIHandle);
+
+    try {
+      final response = await corpStructureClient.removeUserRole(
+          headers: headers, addUserRoleRequest: removeUserRoleRequest);
+
+      if (response.data!.msg == "Role removed") {
         setState(() {
           _isLoading = true;
         });
