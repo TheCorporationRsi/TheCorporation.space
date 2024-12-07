@@ -12,7 +12,6 @@ part 'update_division_request.g.dart';
 ///
 /// Properties:
 /// * [divisionTitle]
-/// * [color]
 /// * [logo]
 /// * [motto]
 /// * [newTitle]
@@ -22,9 +21,6 @@ abstract class UpdateDivisionRequest
     implements Built<UpdateDivisionRequest, UpdateDivisionRequestBuilder> {
   @BuiltValueField(wireName: r'division_title')
   String get divisionTitle;
-
-  @BuiltValueField(wireName: r'color')
-  String? get color;
 
   @BuiltValueField(wireName: r'logo')
   String? get logo;
@@ -72,13 +68,6 @@ class _$UpdateDivisionRequestSerializer
       object.divisionTitle,
       specifiedType: const FullType(String),
     );
-    if (object.color != null) {
-      yield r'color';
-      yield serializers.serialize(
-        object.color,
-        specifiedType: const FullType(String),
-      );
-    }
     if (object.logo != null) {
       yield r'logo';
       yield serializers.serialize(
@@ -138,13 +127,6 @@ class _$UpdateDivisionRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.divisionTitle = valueDes;
-          break;
-        case r'color':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.color = valueDes;
           break;
         case r'logo':
           final valueDes = serializers.deserialize(

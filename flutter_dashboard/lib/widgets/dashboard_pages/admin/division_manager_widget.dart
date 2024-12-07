@@ -483,7 +483,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     );
   }
 
-  void _updateDivision(GetDivisions200ResponseInner division, Color color,
+  void _updateDivision(GetDivisions200ResponseInner division,
       String title, String motto) async {
     final headers = await getAuthHeader();
 
