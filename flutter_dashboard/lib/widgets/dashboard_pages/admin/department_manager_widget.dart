@@ -422,13 +422,14 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
 
   void _updateDepartment(GetDepartments200ResponseInner department, Color color) async {
     final headers = await getAuthHeader();
-
+      /*
     final UpdateDepartmentRequest updateDepartmentRequest =
         UpdateDepartmentRequest((b) => b
           ..title = department.title
           ..color = color.toCssString());
-
+      */
     try {
+      /*
       final response = await corpAdminClient.updateDepartment(
           headers: headers,
           departmentId: department.id,
@@ -440,7 +441,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         });
         _initialize();
       }
-
+      */
       _applySearchAndFilter();
     } catch (error) {
       print(error);

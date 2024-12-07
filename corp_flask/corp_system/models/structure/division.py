@@ -8,7 +8,7 @@ class Division(Base):
     
     title = db.Column(db.String(32), unique=True, nullable=False)
     _color = db.Column(db.String(32), unique=False, nullable=True)
-    logo = db.Column(db.String(20), nullable=False, default='default.png')
+    logo = db.Column(db.String(64), nullable=False, default='default.png')
     motto = db.Column(db.String(200), nullable=False, default='Empty')
     
     hidden = db.Column(db.Boolean, default=False)

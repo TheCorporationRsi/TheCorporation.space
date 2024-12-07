@@ -6,6 +6,8 @@ from flask import jsonify, request
 
 from corp_system.models import Inf_Rank, Division, Department
 
+from corp_system import db
+
 
 from corp_system.controllers.structure_manager import StructureManager
 
@@ -132,3 +134,149 @@ def create_division():
         return jsonify({'msg': str(e)}), 400
     
     return jsonify({'msg': "Division created"}), 200
+
+
+@api.route('/structure/divisions', methods=['PATCH'])
+@admin_only
+def update_division():
+    """Division update endpoint
+    
+    This endpoint allows the update of a division
+    ---
+    
+    operationId: update_division
+    security:
+        - corp_access_pass: []
+    tags:
+        - Admin
+    requestBody:
+        description: Division information
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [division_title]
+                    properties:
+                        division_title:
+                            type: string
+                            example: Development
+                        new_title:
+                            type: string
+                            example: Advanced Development
+                        color:
+                            type: string
+                            example: #0083ff
+                        motto:
+                            type: string
+                            example: We love building stuff
+                        logo:
+                            type: string
+                            example: advanced_dev.png
+                        security_level:
+                            type: integer
+                            example: 2
+    responses:
+        200:
+            description: Division modified
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Division modified
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+
+    """
+    data = request.get_json()
+    
+    division_title = data.get('division_title')
+    new_title = data.get('new_title')
+    new_color = data.get('color')
+    new_motto = data.get('motto')
+    new_logo = data.get('logo')
+    new_security_level = data.get('security_level')
+    
+    if not division_title:
+        return jsonify({"msg": "Division title is required"}), 400
+    
+    division: Division = Division.query.filter_by(title=division_title).first()
+    
+    if not division:
+        return jsonify({"error": "Division not found"}), 400
+    
+    if new_title:
+        division.title = new_title
+    if new_color:
+        division.color = new_color
+    if new_motto:
+        division.motto = new_motto
+    if new_logo:
+        division.logo = new_logo
+    if new_security_level:
+        division.security_requirement = new_security_level
+    
+    db.session.commit()
+    
+    return jsonify({"message": "Division updated"}), 200
+
+
+@api.route('/structure/divisions', methods=['DELETE'])
+@admin_only
+def delete_division():
+    """Division deletion endpoint
+    
+    This endpoint allows the deletion of a division
+    ---
+    
+    operationId: delete_division
+    security:
+        - corp_access_pass: []
+    tags:
+        - Admin
+    requestBody:
+        description: Division information
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [division_title]
+                    properties:
+                        division_title:
+                            type: string
+                            example: Development
+    responses:
+        200:
+            description: Division deleted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Division deleted
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+
+    """
+    data = request.get_json()
+    division_title = data.get('division_title')
+    
+    if not division_title:
+        return jsonify({"msg": "Division title is required"}), 400
+    
+    division : Division = Division.query.filter_by(title=division_title).first()
+    
+    if not division:
+        return jsonify({"error": "Division not found"}), 400
+    
+    division.delete()
+    
+    return jsonify({"msg": "Division deleted"}), 200

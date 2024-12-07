@@ -35,11 +35,9 @@ def set_weight():
                         amount:
                             type: integer
                             example: 25
-
     responses:
         200:
             description: Weight set successful
-
         400:
             $ref: "#/components/responses/invalid"
         401:

@@ -4,7 +4,7 @@ from .. import api_v0 as api
 
 from flask import jsonify, request
 
-from corp_system.models import Inf_Rank, Division, Department, User
+from corp_system.models import Inf_Rank, Division, Department, User, Role
 
 from corp_system.controllers.structure_manager import StructureManager
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
@@ -146,6 +146,8 @@ def user_divisions():
                                 influence:
                                     type: integer
                                     example: 1000
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     
@@ -219,4 +221,118 @@ def user_roles():
         })
     
     return jsonify(roles_list), 200
+
+@api.route('/structure/profile/roles', methods=['POST'])
+@admin_only
+def add_user_role():
+    """Add a role to the current user
+    
+    Adds a new role to the current user
+    ---
+    operationId: add_user_role
+    tags:
+        - Structure
+    security:
+        - corp_access_pass: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        rsi_handle:
+                            type: string
+                            example: Cyber-Dreamer
+                        role_title:
+                            type: string
+                            example: Development member
+    responses:
+        200:
+            description: Role added
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Role added successfully
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+    """
+    data = request.get_json()
+    role_title = data.get('role_title')
+    rsi_handle = data.get('rsi_handle')
+
+    role = Role.query.filter_by(title=role_title).first()
+    if not role:
+        return jsonify({"message": "Role not found"}), 400
+    
+    user = User.query.filter_by(RSI_handle=rsi_handle).first()
+    if not user:
+        return jsonify({"message": "User not found"}), 400
+
+    user.add_role(role)
+
+    return jsonify({"message": "Role added successfully"}), 200
+
+@api.route('/structure/profile/roles', methods=['DELETE'])
+@admin_only
+def remove_user_role():
+    """Remove a role from the current user
+    
+    Removes an existing role from the current user
+    ---
+    operationId: remove_user_role
+    tags:
+        - Structure
+    security:
+        - corp_access_pass: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        rsi_handle:
+                            type: string
+                            example: Cyber-Dreamer
+                        role_title:
+                            type: string
+                            example: Development member
+    responses:
+        200:
+            description: Role removed
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Role removed
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+    """
+    data = request.get_json()
+    role_title = data.get('role_title')
+    rsi_handle = data.get('rsi_handle')
+
+    role = Role.query.filter_by(title=role_title).first()
+    if not role:
+        return jsonify({"message": "Role not found"}), 400
+    
+    user = User.query.filter_by(RSI_handle=rsi_handle).first()
+    if not user:
+        return jsonify({"message": "User not found"}), 400
+
+    user.remove_role(role)
+
+    return jsonify({"message": "Role removed"}), 200
 

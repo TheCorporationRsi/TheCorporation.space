@@ -138,7 +138,7 @@ def create_department():
     
     return jsonify({'msg': "Department created"}), 200
 
-@api.route('/structure/departments/update', methods=['POST'])
+@api.route('/structure/departments', methods=['PATCH'])
 @admin_only
 def update_department():
     """Department update endpoint
@@ -157,7 +157,7 @@ def update_department():
             application/json:
                 schema:
                     type: object
-                    required: [title]
+                    required: [department_title]
                     properties:
                         department_title:
                             type: integer
@@ -213,3 +213,60 @@ def update_department():
     db.session.commit()
     
     return jsonify({"message": "Department updated"}), 200
+
+
+@api.route('/structure/departments', methods=['DELETE'])
+@admin_only
+def delete_department():
+    """Department deletion endpoint
+    
+    This endpoint allows the deletion of a department
+    ---
+    
+    operationId: delete_department
+    security:
+        - corp_access_pass: []
+    tags:
+        - Admin
+    requestBody:
+        description: Department information
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [department_title]
+                    properties:
+                        department_title:
+                            type: string
+                            example: Resources
+    responses:
+        200:
+            description: Department deleted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Department deleted
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+
+    """
+    data = request.get_json()
+    department_title = data.get('department_title')
+    
+    if not department_title:
+        return jsonify({"msg": "Department title is required"}), 400
+    
+    department: Department = Department.query.filter_by(title=department_title).first()
+    
+    if not department:
+        return jsonify({"error": "Department not found"}), 400
+    
+    department.delete()
+    
+    return jsonify({"msg": "Department deleted"}), 200
