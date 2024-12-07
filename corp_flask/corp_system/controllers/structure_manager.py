@@ -57,6 +57,8 @@ class StructureManager:
             raise ValueError("Department not found")
         
         if new_title:
+            if not re.match("^[a-zA-Z0-9-_]{2,32}$", new_title):
+                raise ValueError("Title doesn't respect the format")
             department.title = new_title
             department.head_role.title = new_title + " Head"
             department.proxy_role.title = new_title + " Proxy"
@@ -93,6 +95,26 @@ class StructureManager:
         db.session.commit()
         
         return division
+    
+    @staticmethod
+    def update_division(division, new_title=None, new_color=None, new_motto=None, new_logo=None, new_security_level=None):
+        if not division:
+            return ValueError("Division not found")
+    
+        if new_title:
+            if not re.match("^[a-zA-Z0-9-_]{2,32}$", new_title):
+                raise ValueError("Title doesn't respect the format")
+            division.title = new_title
+        if new_color:
+            division.color = new_color
+        if new_motto:
+            division.motto = new_motto
+        if new_logo:
+            division.logo = new_logo
+        if new_security_level:
+            division.security_requirement = new_security_level
+        
+        db.session.commit()
     
     @staticmethod
     def create_role(title, division=None, department=None):

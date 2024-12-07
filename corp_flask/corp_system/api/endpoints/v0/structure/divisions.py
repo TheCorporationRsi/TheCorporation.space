@@ -106,6 +106,9 @@ def create_division():
                         title:
                             type: string
                             example: Development
+                        derpartment_title:
+                            type: string
+                            example: Ressources
 
     responses:
         200:
@@ -206,21 +209,10 @@ def update_division():
     
     division: Division = Division.query.filter_by(title=division_title).first()
     
-    if not division:
-        return jsonify({"error": "Division not found"}), 400
-    
-    if new_title:
-        division.title = new_title
-    if new_color:
-        division.color = new_color
-    if new_motto:
-        division.motto = new_motto
-    if new_logo:
-        division.logo = new_logo
-    if new_security_level:
-        division.security_requirement = new_security_level
-    
-    db.session.commit()
+    try:
+        StructureManager.update_division(division=division, new_title=new_title, new_color=new_color, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level)
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
     
     return jsonify({"message": "Division updated"}), 200
 
