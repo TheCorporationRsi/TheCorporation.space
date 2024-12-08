@@ -117,8 +117,12 @@ def create_role():
     division_title=data.get('division_title'),
     department_title=data.get('department_title')
     
-    division = Division.query.filter_by(title=division_title).first()
-    department = Department.query.filter_by(title=department_title).first()
+    if division_title:
+        division = Division.query.filter_by(title=division_title).first()
+        department = division.department
+    elif department_title:
+        department = Department.query.filter_by(title=department_title).first()
+        division = None
     
     StructureManager.create_role(title=role_title, division=division, department=department)
     

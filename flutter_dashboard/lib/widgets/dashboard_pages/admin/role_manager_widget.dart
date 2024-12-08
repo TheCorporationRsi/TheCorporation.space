@@ -221,10 +221,21 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: selectedDepartment.isEmpty ? null : selectedDepartment,
-                items: departments.map((department) {
+                items: selectedDivision.isNotEmpty
+                ? departments.where((department) =>
+                    divisions.any((division) =>
+                      division.departmentTitle == department.title &&
+                      division.title == selectedDivision))
+                  .map((department) {
+                    return DropdownMenuItem<String>(
+                      value: department.title,
+                      child: Text(department.title!, style: TextStyle(color: cssColorToColor(department.color!))),
+                    );
+                  }).toList()
+                : departments.map((department) {
                   return DropdownMenuItem<String>(
                     value: department.title,
-                    child: Text(department.title!),
+                    child: Text(department.title!, style: TextStyle(color: cssColorToColor(department.color!))),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -234,6 +245,42 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
                 },
                 decoration: InputDecoration(
                   hintText: 'Select Department',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Select Division',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 10),
+              DropdownButtonFormField<String>(
+                value: selectedDivision.isEmpty ? null : selectedDivision,
+                items: selectedDepartment.isEmpty
+                  ? divisions.map((division) {
+                      return DropdownMenuItem<String>(
+                        value: division.title,
+                        child: Text(division.title!, style: TextStyle(color: cssColorToColor(division.color!))),
+                      );
+                    }).toList()
+                  : divisions.where((division) =>
+                      division.departmentTitle == selectedDepartment)
+                    .map((division) {
+                      return DropdownMenuItem<String>(
+                        value: division.title,
+                        child: Text(division.title!, style: TextStyle(color: cssColorToColor(division.color!))),
+                      );
+                    }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectedDivision = value!;
+                    selectedDepartment = divisions
+                      .firstWhere((division) => division.title == value)
+                      .departmentTitle!;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Select Division',
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -514,6 +561,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
+          if (role.type != "Membership" && role.type != "Leadership")
           ColorInputWidget(
             initialColor: currentColor,
             onColorChanged: (color) {
