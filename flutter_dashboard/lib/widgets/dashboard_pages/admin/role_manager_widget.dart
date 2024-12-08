@@ -166,6 +166,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
       builder: (BuildContext context) {
         String title = '';
         String selectedDepartment = '';
+        String selectedDivision = '';
         return AlertDialog(
           backgroundColor: cardBackgroundColor,
           shape: RoundedRectangleBorder(
@@ -238,7 +239,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
                 ),
               ),
               onPressed: () {
-                _addRole(title, selectedDepartment);
+                _addRole(title, selectedDepartment, selectedDivision);
                 Navigator.of(context).pop();
               },
               child: Text(
@@ -255,12 +256,15 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
     );
   }
 
-  void _addRole(String title, String departmentTitle) async {
+  void _addRole(String title, String? departmentTitle, String? divisionTitle) async {
     final headers = await getAuthHeader();
 
     final CreateRoleRequest createRoleRequest =
         CreateRoleRequest((b) => b
-          ..title = title);
+          ..title = title
+          ..departmentTitle = departmentTitle
+          ..divisionTitle = divisionTitle
+          );
 
     try {
       final response = await corpStructureClient.createRole(
@@ -315,7 +319,6 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            subtitle: Text(role.description.toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -425,11 +428,11 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   void _deleteRole(GetRoles200ResponseInner role) async {
     final headers = await getAuthHeader();
 
-    final DeleteRoleRequest deleteRoleRequest =
+    final DeleteRol deleteRoleRequest =
         DeleteRoleRequest((b) => b..roleTitle = role.title);
 
     try {
-      final response = await corpAdminClient.deleteRole(
+      final response = await corpStructureClient.deleteRole(
           headers: headers, deleteRoleRequest: deleteRoleRequest);
 
       if (response.data!.msg == "Role deleted") {

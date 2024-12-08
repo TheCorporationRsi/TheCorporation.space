@@ -129,7 +129,6 @@ def edit_role():
     security:
         - corp_access_pass: []
     requestBody:
-        required: true
         content:
             application/json:
                 schema:
@@ -206,14 +205,14 @@ def delete_role():
     security:
         - corp_access_pass: []
     requestBody:
-    content:
-        application/json:
-            schema:
-                type: object
-                properties:
-                    role_title:
-                        type: string
-                        example: Developer
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        role_title:
+                            type: string
+                            example: Developer
     responses:
         200:
             description: Role deleted
