@@ -34,6 +34,15 @@ def roles():
                                 title:
                                     type: string
                                     example: Developer
+                                color:
+                                    type: string
+                                    example: #0083ff
+                                division:
+                                    type: string
+                                    example: Development
+                                department:
+                                    type: string
+                                    example: Resources
 
     """
     roles: list[Role] = Role.query.all()
@@ -72,12 +81,12 @@ def create_role():
                         title:
                             type: string
                             example: Developer
-                        division_id:
-                            type: integer
-                            example: 1
-                        department_id:
-                            type: integer
-                            example: 1
+                        division_title:
+                            type: string
+                            example: Development
+                        department_title:
+                            type: string
+                            example: Resources
     responses:
         201:
             description: Role created
