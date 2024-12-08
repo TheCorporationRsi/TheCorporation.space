@@ -428,8 +428,10 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   void _deleteRole(GetRoles200ResponseInner role) async {
     final headers = await getAuthHeader();
 
-    final DeleteRol deleteRoleRequest =
-        DeleteRoleRequest((b) => b..roleTitle = role.title);
+    final DeleteRoleRequest deleteRoleRequest =
+        DeleteRoleRequest((b) => b
+        ..roleTitle = role.title
+        );
 
     try {
       final response = await corpStructureClient.deleteRole(
@@ -452,15 +454,12 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
         : Colors.grey;
     int roleIndex = roles.indexOf(role);
     String title = role.title ?? '';
-    String description = role.description ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow('Permissions', role.permissions.toString()),
-          SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: title),
             onChanged: (value) {
@@ -472,22 +471,19 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
-          TextField(
-            controller: TextEditingController(text: description),
-            onChanged: (value) {
-              description = value;
+          ColorInputWidget(
+            initialColor: currentColor,
+            onColorChanged: (color) {
+              currentColor = color;
             },
-            decoration: InputDecoration(
-              labelText: 'Description',
-              border: OutlineInputBorder(),
-            ),
           ),
+          SizedBox(height: 10),
           SizedBox(height: 10),
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateRole(role, title, description);
+                _updateRole(role, title, colorToCssColor(currentColor));
               },
               child: Text('Save'),
             ),
@@ -498,10 +494,10 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   }
 
   void _updateRole(GetRoles200ResponseInner role,
-      String title, String description) async {
+      String title, String color) async {
     final headers = await getAuthHeader();
 
-    final UpdateRoleRequest updateRoleRequest =
+    final  updateRoleRequest =
         UpdateRoleRequest((b) => b
           ..roleTitle = role.title
           ..newTitle = title

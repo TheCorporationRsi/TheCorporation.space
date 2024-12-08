@@ -123,7 +123,7 @@ def edit_role():
     Edits an existing role in the system
     ---
     
-    operationId: edit_role
+    operationId: update_role
     tags:
         - Structure
     security:
