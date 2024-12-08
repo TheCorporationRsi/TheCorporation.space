@@ -113,7 +113,7 @@ def create_role():
             $ref: "#/components/responses/unauthorized"
     """
     data = request.get_json()
-    role_title=data['title'],
+    role_title=data.get('title'),
     division_title=data.get('division_title'),
     department_title=data.get('department_title')
     
