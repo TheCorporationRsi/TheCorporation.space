@@ -15,8 +15,6 @@ import 'package:corp_api/src/model/create_role201_response.dart';
 import 'package:corp_api/src/model/create_role_request.dart';
 import 'package:corp_api/src/model/delete_role200_response.dart';
 import 'package:corp_api/src/model/delete_role_request.dart';
-import 'package:corp_api/src/model/edit_role200_response.dart';
-import 'package:corp_api/src/model/edit_role_request.dart';
 import 'package:corp_api/src/model/get_departments200_response_inner.dart';
 import 'package:corp_api/src/model/get_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_roles200_response_inner.dart';
@@ -26,6 +24,8 @@ import 'package:corp_api/src/model/get_user_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_profile200_response.dart';
 import 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 import 'package:corp_api/src/model/remove_user_role200_response.dart';
+import 'package:corp_api/src/model/update_role200_response.dart';
+import 'package:corp_api/src/model/update_role_request.dart';
 
 class StructureApi {
   final Dio _dio;
@@ -330,109 +330,6 @@ class StructureApi {
     }
 
     return Response<DeleteRole200Response>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// Edit an existing role
-  /// &lt;br/&gt;Edits an existing role in the system&lt;br/&gt;
-  ///
-  /// Parameters:
-  /// * [editRoleRequest]
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [EditRole200Response] as data
-  /// Throws [DioException] if API call or serialization fails
-  Future<Response<EditRole200Response>> editRole({
-    EditRoleRequest? editRoleRequest,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/api/v0/structure/roles';
-    final _options = Options(
-      method: r'PATCH',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'http',
-            'scheme': 'bearer',
-            'name': 'corp_access_pass',
-          },
-        ],
-        ...?extra,
-      },
-      contentType: 'application/json',
-      validateStatus: validateStatus,
-    );
-
-    dynamic _bodyData;
-
-    try {
-      const _type = FullType(EditRoleRequest);
-      _bodyData = editRoleRequest == null
-          ? null
-          : _serializers.serialize(editRoleRequest, specifiedType: _type);
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _options.compose(
-          _dio.options,
-          _path,
-        ),
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    final _response = await _dio.request<Object>(
-      _path,
-      data: _bodyData,
-      options: _options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    EditRole200Response? _responseData;
-
-    try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(EditRole200Response),
-            ) as EditRole200Response;
-    } catch (error, stackTrace) {
-      throw DioException(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioExceptionType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<EditRole200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -1086,6 +983,109 @@ class StructureApi {
     }
 
     return Response<RemoveUserRole200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
+  }
+
+  /// Edit an existing role
+  /// &lt;br/&gt;Edits an existing role in the system&lt;br/&gt;
+  ///
+  /// Parameters:
+  /// * [updateRoleRequest]
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future] containing a [Response] with a [UpdateRole200Response] as data
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<UpdateRole200Response>> updateRole({
+    UpdateRoleRequest? updateRoleRequest,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/v0/structure/roles';
+    final _options = Options(
+      method: r'PATCH',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'bearer',
+            'name': 'corp_access_pass',
+          },
+        ],
+        ...?extra,
+      },
+      contentType: 'application/json',
+      validateStatus: validateStatus,
+    );
+
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(UpdateRoleRequest);
+      _bodyData = updateRoleRequest == null
+          ? null
+          : _serializers.serialize(updateRoleRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    final _response = await _dio.request<Object>(
+      _path,
+      data: _bodyData,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    UpdateRole200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(UpdateRole200Response),
+            ) as UpdateRole200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<UpdateRole200Response>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

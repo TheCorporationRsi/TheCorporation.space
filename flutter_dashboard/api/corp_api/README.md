@@ -95,7 +95,6 @@ Class | Method | HTTP request | Description
 [*StructureApi*](doc/StructureApi.md) | [**addUserRole**](doc/StructureApi.md#adduserrole) | **POST** /api/v0/structure/profile/roles | Add a role to the current user
 [*StructureApi*](doc/StructureApi.md) | [**createRole**](doc/StructureApi.md#createrole) | **POST** /api/v0/structure/roles | Create a new role
 [*StructureApi*](doc/StructureApi.md) | [**deleteRole**](doc/StructureApi.md#deleterole) | **DELETE** /api/v0/structure/roles | Delete an existing role
-[*StructureApi*](doc/StructureApi.md) | [**editRole**](doc/StructureApi.md#editrole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 [*StructureApi*](doc/StructureApi.md) | [**getDepartments**](doc/StructureApi.md#getdepartments) | **GET** /api/v0/structure/departments | List of all departments
 [*StructureApi*](doc/StructureApi.md) | [**getDivisions**](doc/StructureApi.md#getdivisions) | **GET** /api/v0/structure/divisions | List of all divisions
 [*StructureApi*](doc/StructureApi.md) | [**getRoles**](doc/StructureApi.md#getroles) | **GET** /api/v0/structure/roles | List of all roles
@@ -104,6 +103,7 @@ Class | Method | HTTP request | Description
 [*StructureApi*](doc/StructureApi.md) | [**getUserProfile**](doc/StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
 [*StructureApi*](doc/StructureApi.md) | [**getUserRoles**](doc/StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
 [*StructureApi*](doc/StructureApi.md) | [**removeUserRole**](doc/StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
+[*StructureApi*](doc/StructureApi.md) | [**updateRole**](doc/StructureApi.md#updaterole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 
 
 ## Documentation For Models
@@ -123,8 +123,6 @@ Class | Method | HTTP request | Description
  - [DeleteDivisionRequest](doc/DeleteDivisionRequest.md)
  - [DeleteRole200Response](doc/DeleteRole200Response.md)
  - [DeleteRoleRequest](doc/DeleteRoleRequest.md)
- - [EditRole200Response](doc/EditRole200Response.md)
- - [EditRoleRequest](doc/EditRoleRequest.md)
  - [GetCorporateers200ResponseInner](doc/GetCorporateers200ResponseInner.md)
  - [GetCurrentFunding200Response](doc/GetCurrentFunding200Response.md)
  - [GetDepartments200ResponseInner](doc/GetDepartments200ResponseInner.md)
@@ -155,6 +153,8 @@ Class | Method | HTTP request | Description
  - [UpdateDepartmentRequest](doc/UpdateDepartmentRequest.md)
  - [UpdateDivision200Response](doc/UpdateDivision200Response.md)
  - [UpdateDivisionRequest](doc/UpdateDivisionRequest.md)
+ - [UpdateRole200Response](doc/UpdateRole200Response.md)
+ - [UpdateRoleRequest](doc/UpdateRoleRequest.md)
  - [VerifyRSIToken200Response](doc/VerifyRSIToken200Response.md)
 
 

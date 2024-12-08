@@ -17,8 +17,6 @@ doc/DeleteDivision200Response.md
 doc/DeleteDivisionRequest.md
 doc/DeleteRole200Response.md
 doc/DeleteRoleRequest.md
-doc/EditRole200Response.md
-doc/EditRoleRequest.md
 doc/GetCorporateers200ResponseInner.md
 doc/GetCurrentFunding200Response.md
 doc/GetDepartments200ResponseInner.md
@@ -54,6 +52,8 @@ doc/UpdateDepartment200Response.md
 doc/UpdateDepartmentRequest.md
 doc/UpdateDivision200Response.md
 doc/UpdateDivisionRequest.md
+doc/UpdateRole200Response.md
+doc/UpdateRoleRequest.md
 doc/VerifyRSIToken200Response.md
 lib/corp_api.dart
 lib/src/api.dart
@@ -86,8 +86,6 @@ lib/src/model/delete_division200_response.dart
 lib/src/model/delete_division_request.dart
 lib/src/model/delete_role200_response.dart
 lib/src/model/delete_role_request.dart
-lib/src/model/edit_role200_response.dart
-lib/src/model/edit_role_request.dart
 lib/src/model/get_corporateers200_response_inner.dart
 lib/src/model/get_current_funding200_response.dart
 lib/src/model/get_departments200_response_inner.dart
@@ -118,7 +116,10 @@ lib/src/model/update_department200_response.dart
 lib/src/model/update_department_request.dart
 lib/src/model/update_division200_response.dart
 lib/src/model/update_division_request.dart
+lib/src/model/update_role200_response.dart
+lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/delete_role_request_test.dart
+test/update_role200_response_test.dart
+test/update_role_request_test.dart

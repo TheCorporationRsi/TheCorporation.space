@@ -12,7 +12,6 @@ Method | HTTP request | Description
 [**addUserRole**](StructureApi.md#adduserrole) | **POST** /api/v0/structure/profile/roles | Add a role to the current user
 [**createRole**](StructureApi.md#createrole) | **POST** /api/v0/structure/roles | Create a new role
 [**deleteRole**](StructureApi.md#deleterole) | **DELETE** /api/v0/structure/roles | Delete an existing role
-[**editRole**](StructureApi.md#editrole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 [**getDepartments**](StructureApi.md#getdepartments) | **GET** /api/v0/structure/departments | List of all departments
 [**getDivisions**](StructureApi.md#getdivisions) | **GET** /api/v0/structure/divisions | List of all divisions
 [**getRoles**](StructureApi.md#getroles) | **GET** /api/v0/structure/roles | List of all roles
@@ -21,6 +20,7 @@ Method | HTTP request | Description
 [**getUserProfile**](StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
 [**getUserRoles**](StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
 [**removeUserRole**](StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
+[**updateRole**](StructureApi.md#updaterole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 
 
 # **addUserRole**
@@ -140,49 +140,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeleteRole200Response**](DeleteRole200Response.md)
-
-### Authorization
-
-[corp_access_pass](../README.md#corp_access_pass)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **editRole**
-> EditRole200Response editRole(editRoleRequest)
-
-Edit an existing role
-
-<br/>Edits an existing role in the system<br/>
-
-### Example
-```dart
-import 'package:corp_api/api.dart';
-
-final api = CorpApi().getStructureApi();
-final EditRoleRequest editRoleRequest = ; // EditRoleRequest | 
-
-try {
-    final response = api.editRole(editRoleRequest);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling StructureApi->editRole: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **editRoleRequest** | [**EditRoleRequest**](EditRoleRequest.md)|  | [optional] 
-
-### Return type
-
-[**EditRole200Response**](EditRole200Response.md)
 
 ### Authorization
 
@@ -499,6 +456,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RemoveUserRole200Response**](RemoveUserRole200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateRole**
+> UpdateRole200Response updateRole(updateRoleRequest)
+
+Edit an existing role
+
+<br/>Edits an existing role in the system<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getStructureApi();
+final UpdateRoleRequest updateRoleRequest = ; // UpdateRoleRequest | 
+
+try {
+    final response = api.updateRole(updateRoleRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling StructureApi->updateRole: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateRoleRequest** | [**UpdateRoleRequest**](UpdateRoleRequest.md)|  | [optional] 
+
+### Return type
+
+[**UpdateRole200Response**](UpdateRole200Response.md)
 
 ### Authorization
 

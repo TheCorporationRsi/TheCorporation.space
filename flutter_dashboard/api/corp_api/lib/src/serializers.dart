@@ -29,8 +29,6 @@ import 'package:corp_api/src/model/delete_division200_response.dart';
 import 'package:corp_api/src/model/delete_division_request.dart';
 import 'package:corp_api/src/model/delete_role200_response.dart';
 import 'package:corp_api/src/model/delete_role_request.dart';
-import 'package:corp_api/src/model/edit_role200_response.dart';
-import 'package:corp_api/src/model/edit_role_request.dart';
 import 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 import 'package:corp_api/src/model/get_current_funding200_response.dart';
 import 'package:corp_api/src/model/get_departments200_response_inner.dart';
@@ -61,6 +59,8 @@ import 'package:corp_api/src/model/update_department200_response.dart';
 import 'package:corp_api/src/model/update_department_request.dart';
 import 'package:corp_api/src/model/update_division200_response.dart';
 import 'package:corp_api/src/model/update_division_request.dart';
+import 'package:corp_api/src/model/update_role200_response.dart';
+import 'package:corp_api/src/model/update_role_request.dart';
 import 'package:corp_api/src/model/verify_rsi_token200_response.dart';
 
 part 'serializers.g.dart';
@@ -81,8 +81,6 @@ part 'serializers.g.dart';
   DeleteDivisionRequest,
   DeleteRole200Response,
   DeleteRoleRequest,
-  EditRole200Response,
-  EditRoleRequest,
   GetCorporateers200ResponseInner,
   GetCurrentFunding200Response,
   GetDepartments200ResponseInner,
@@ -113,6 +111,8 @@ part 'serializers.g.dart';
   UpdateDepartmentRequest,
   UpdateDivision200Response,
   UpdateDivisionRequest,
+  UpdateRole200Response,
+  UpdateRoleRequest,
   VerifyRSIToken200Response,
 ])
 Serializers serializers = (_$serializers.toBuilder()
