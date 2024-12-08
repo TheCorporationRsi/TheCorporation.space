@@ -133,6 +133,22 @@ class StructureManager:
         db.session.commit()
     
     @staticmethod
+    def update_role(role, new_title=None, new_discord_id=None, new_color=None):
+        if not role:
+            return ValueError("Role not found")
+        
+        if new_title:
+            if not re.match("^[a-zA-Z0-9-_]*$", new_title):
+                raise ValueError("Title contain unallowed character")
+            role.title = new_title
+        if new_discord_id:
+            role.discord_id = new_discord_id
+        if new_color:
+            role.color = new_color
+        
+        db.session.commit()
+    
+    @staticmethod
     def get_role_type( role):
         
         if role.title == "Corporateer":
