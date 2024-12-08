@@ -1,6 +1,7 @@
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/influence_details_card.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/transfer_card.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/transfer_history_card.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,7 +26,9 @@ class _InfTransferWidgetState extends State<InfTransferWidget> {
             const SizedBox(height: 10),
             const InfluenceDetailsCard(),
             const SizedBox(height: 18),
-            const TransferCard()
+            const TransferCard(),
+            const SizedBox(height: 18),
+            const TransferHistoryCard(),
             
           ],
         ),

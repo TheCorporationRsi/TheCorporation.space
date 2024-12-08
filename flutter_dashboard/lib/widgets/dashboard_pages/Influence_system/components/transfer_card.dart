@@ -65,10 +65,11 @@ class _TransferCardState extends State<TransferCard> {
           crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
           crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
           mainAxisSpacing: 12.0,
+          mainAxisExtent:  350 // Adjust the aspect ratio to reduce height
         ),
         children: [
           CustomCard(
-            padding: const EdgeInsets.all(20), // Change color to blue
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -263,7 +264,7 @@ class _TransferCardState extends State<TransferCard> {
             ),
           ),
           CustomCard(
-            padding: const EdgeInsets.all(20), // Change color to blue
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -295,30 +296,24 @@ class _TransferCardState extends State<TransferCard> {
                       CircleAvatar(
                         radius: 50,
                         backgroundImage: NetworkImage(
-                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
+                          selectedUser!.picture!,
                         ),
                       ),
                       SizedBox(height: 10),
                       Text(
-                        'Name: ${selectedUser!.rSIHandle}',
+                        '${selectedUser!.rSIHandle}',
+                        style: TextStyle(
+                          fontSize: 24,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        '${selectedUser!.rSIMoniker}',
                         style: TextStyle(
                           fontSize: 16,
                         ),
                       ),
                       SizedBox(height: 5),
-                      Text(
-                        'Amount: ${amountController.text}',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        'Message: ${messageController.text}',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
                     ],
                   ),
                 )
