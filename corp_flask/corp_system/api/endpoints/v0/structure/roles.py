@@ -174,19 +174,10 @@ def edit_role():
     else:
         jsonify({"msg": "Role title is required"}), 400
     
-    if new_title:
-        if StructureManager.get_role_type(role) == "Membership" or StructureManager.get_role_type(role) == "Leadership":
-            jsonify({"msg": "Function roles cannot be renamed"}), 400
-        else:
-            role.title = new_title
-    if new_color:
-        if StructureManager.get_role_type(role) == "Membership" or StructureManager.get_role_type(role) == "Leadership":
-            jsonify({"msg": "Function roles cannot be recolored"}), 400
-        else:
-            role.color = new_color
-            
-    if new_discord_id:
-        role.discord_id = new_discord_id
+    try:
+        StructureManager.update_role(role=role, new_title=new_title, new_color=new_color, new_discord_id=new_discord_id)
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
     
     
     return jsonify({"msg": "Role updated",}), 200
