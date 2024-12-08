@@ -120,7 +120,7 @@ class StructureManager:
     def create_role(title, division=None, department=None):
         # Create a new role with the given name, division, and/or department
         
-        if not re.match("^[a-zA-Z0-9-_]*$", title):
+        if not re.match("^[a-zA-Z0-9-_ ]{2,32}$", title):
             raise ValueError("Title contain unallowed character")
         
         role_test= Role.query.filter(func.lower(Role.title) == func.lower(title)).first()
@@ -138,7 +138,7 @@ class StructureManager:
             return ValueError("Role not found")
         
         if new_title:
-            if not re.match("^[a-zA-Z0-9-_ ]*$", new_title):
+            if not re.match("^[a-zA-Z0-9-_ ]{2,32}$", new_title):
                 raise ValueError("Title contain unallowed character")
             role.title = new_title
         if new_discord_id:
