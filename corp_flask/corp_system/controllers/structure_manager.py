@@ -138,7 +138,7 @@ class StructureManager:
             return ValueError("Role not found")
         
         if new_title:
-            if not re.match("^[a-zA-Z0-9-_]*$", new_title):
+            if not re.match("^[a-zA-Z0-9-_ ]*$", new_title):
                 raise ValueError("Title contain unallowed character")
             role.title = new_title
         if new_discord_id:

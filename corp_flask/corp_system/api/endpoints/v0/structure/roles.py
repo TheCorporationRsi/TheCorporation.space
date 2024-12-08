@@ -121,7 +121,7 @@ def create_role():
 
 @api.route('/structure/roles', methods=['PATCH'])
 @admin_only
-def edit_role():
+def update_role():
     """Edit an existing role
     
     Edits an existing role in the system

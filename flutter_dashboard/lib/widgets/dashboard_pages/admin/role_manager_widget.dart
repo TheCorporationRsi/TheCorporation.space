@@ -1,4 +1,5 @@
 import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/model/current_user.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/influence_details_card.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
@@ -20,6 +21,7 @@ class RoleManagerWidget extends StatefulWidget {
 class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   BuiltList<GetRoles200ResponseInner> roles = BuiltList<GetRoles200ResponseInner>();
   BuiltList<GetDepartments200ResponseInner> departments = BuiltList<GetDepartments200ResponseInner>();
+  BuiltList<GetDivisions200ResponseInner> divisions = BuiltList<GetDivisions200ResponseInner>();
   BuiltList<GetRoles200ResponseInner> filteredItems = BuiltList<GetRoles200ResponseInner>();
   Map<int, bool> _dropdownOpen = {};
   Map<int, GlobalKey<FormState>> _formKeys = {};
@@ -30,6 +32,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   String _searchQuery = '';
   String _filter = 'All';
   String _selectedDepartmentFilter = 'All';
+  String _selectedDivisionFilter = 'All';
 
   Future<void> _initialize() async {
     try {
@@ -51,6 +54,15 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
       print(error);
     }
 
+    try {
+      final response = await corpStructureClient.getDivisions();
+      if (response.data != null) {
+        divisions = response.data ?? divisions;
+      }
+    } catch (error) {
+      print(error);
+    }
+
     setState(() {
       _isLoading = false;
     });
@@ -64,7 +76,9 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             .toLowerCase()
             .contains(_searchQuery.toLowerCase());
         final matchesDepartment = _selectedDepartmentFilter == 'All' ||
-            role.departmentTitle == _selectedDepartmentFilter;
+            role.department == _selectedDepartmentFilter;
+        final matchesDivision = _selectedDivisionFilter == 'All' ||
+            role.division == _selectedDivisionFilter;
         return matchesSearch && matchesDepartment;
       }).toBuiltList();
     });
@@ -135,6 +149,23 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
           onChanged: (value) {
             setState(() {
               _selectedDepartmentFilter = value!;
+              _applySearchAndFilter();
+            });
+          },
+        ),
+        SizedBox(width: 10),
+        DropdownButton<String>(
+          value: _selectedDivisionFilter,
+          items: ['All', ...divisions.map((d) => d.title!).toList()]
+              .map((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              _selectedDivisionFilter = value!;
               _applySearchAndFilter();
             });
           },
@@ -454,6 +485,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
         : Colors.grey;
     int roleIndex = roles.indexOf(role);
     String title = role.title ?? '';
+    String discordID = role.discordId ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -471,6 +503,17 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
+          TextField(
+            controller: TextEditingController(text: discordID),
+            onChanged: (value) {
+              discordID = value;
+            },
+            decoration: InputDecoration(
+              labelText: 'Discord ID',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 10),
           ColorInputWidget(
             initialColor: currentColor,
             onColorChanged: (color) {
@@ -483,7 +526,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateRole(role, title, colorToCssColor(currentColor));
+                _updateRole(role, title, colorToCssColor(currentColor), discordID);
               },
               child: Text('Save'),
             ),
@@ -494,17 +537,18 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   }
 
   void _updateRole(GetRoles200ResponseInner role,
-      String title, String color) async {
+    String title, String color, String discordID) async {
     final headers = await getAuthHeader();
 
-    final  updateRoleRequest =
-        UpdateRoleRequest((b) => b
+    final UpdateRoleRequest updateRoleRequest = UpdateRoleRequest((b) => b
           ..roleTitle = role.title
           ..newTitle = title
-          ..description = description);
+          ..newColor = color
+          ..newDiscordId = discordID
+          );
 
     try {
-      final response = await corpAdminClient.updateRole(
+      final response = await corpStructureClient.updateRole(
           headers: headers, updateRoleRequest: updateRoleRequest);
 
       if (response.data!.msg == "Role updated") {
