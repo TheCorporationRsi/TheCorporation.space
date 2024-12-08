@@ -13,6 +13,7 @@ part 'get_corporateers200_response_inner.g.dart';
 /// Properties:
 /// * [rSIHandle]
 /// * [rSIMoniker]
+/// * [picture]
 @BuiltValue()
 abstract class GetCorporateers200ResponseInner
     implements
@@ -23,6 +24,9 @@ abstract class GetCorporateers200ResponseInner
 
   @BuiltValueField(wireName: r'RSI_moniker')
   String? get rSIMoniker;
+
+  @BuiltValueField(wireName: r'picture')
+  String? get picture;
 
   GetCorporateers200ResponseInner._();
 
@@ -68,6 +72,13 @@ class _$GetCorporateers200ResponseInnerSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.picture != null) {
+      yield r'picture';
+      yield serializers.serialize(
+        object.picture,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -106,6 +117,13 @@ class _$GetCorporateers200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.rSIMoniker = valueDes;
+          break;
+        case r'picture':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.picture = valueDes;
           break;
         default:
           unhandled.add(key);

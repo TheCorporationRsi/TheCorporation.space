@@ -92,7 +92,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createRoleRequest** | [**CreateRoleRequest**](CreateRoleRequest.md)|  | 
+ **createRoleRequest** | [**CreateRoleRequest**](CreateRoleRequest.md)|  | [optional] 
 
 ### Return type
 

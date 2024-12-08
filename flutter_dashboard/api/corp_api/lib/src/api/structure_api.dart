@@ -151,7 +151,7 @@ class StructureApi {
   /// Returns a [Future] containing a [Response] with a [CreateRole201Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<CreateRole201Response>> createRole({
-    required CreateRoleRequest createRoleRequest,
+    CreateRoleRequest? createRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -183,8 +183,9 @@ class StructureApi {
 
     try {
       const _type = FullType(CreateRoleRequest);
-      _bodyData =
-          _serializers.serialize(createRoleRequest, specifiedType: _type);
+      _bodyData = createRoleRequest == null
+          ? null
+          : _serializers.serialize(createRoleRequest, specifiedType: _type);
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(

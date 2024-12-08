@@ -12,12 +12,15 @@ class _$GetCorporateers200ResponseInner
   final String? rSIHandle;
   @override
   final String? rSIMoniker;
+  @override
+  final String? picture;
 
   factory _$GetCorporateers200ResponseInner(
           [void Function(GetCorporateers200ResponseInnerBuilder)? updates]) =>
       (new GetCorporateers200ResponseInnerBuilder()..update(updates))._build();
 
-  _$GetCorporateers200ResponseInner._({this.rSIHandle, this.rSIMoniker})
+  _$GetCorporateers200ResponseInner._(
+      {this.rSIHandle, this.rSIMoniker, this.picture})
       : super._();
 
   @override
@@ -34,7 +37,8 @@ class _$GetCorporateers200ResponseInner
     if (identical(other, this)) return true;
     return other is GetCorporateers200ResponseInner &&
         rSIHandle == other.rSIHandle &&
-        rSIMoniker == other.rSIMoniker;
+        rSIMoniker == other.rSIMoniker &&
+        picture == other.picture;
   }
 
   @override
@@ -42,6 +46,7 @@ class _$GetCorporateers200ResponseInner
     var _$hash = 0;
     _$hash = $jc(_$hash, rSIHandle.hashCode);
     _$hash = $jc(_$hash, rSIMoniker.hashCode);
+    _$hash = $jc(_$hash, picture.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -50,7 +55,8 @@ class _$GetCorporateers200ResponseInner
   String toString() {
     return (newBuiltValueToStringHelper(r'GetCorporateers200ResponseInner')
           ..add('rSIHandle', rSIHandle)
-          ..add('rSIMoniker', rSIMoniker))
+          ..add('rSIMoniker', rSIMoniker)
+          ..add('picture', picture))
         .toString();
   }
 }
@@ -69,6 +75,10 @@ class GetCorporateers200ResponseInnerBuilder
   String? get rSIMoniker => _$this._rSIMoniker;
   set rSIMoniker(String? rSIMoniker) => _$this._rSIMoniker = rSIMoniker;
 
+  String? _picture;
+  String? get picture => _$this._picture;
+  set picture(String? picture) => _$this._picture = picture;
+
   GetCorporateers200ResponseInnerBuilder() {
     GetCorporateers200ResponseInner._defaults(this);
   }
@@ -78,6 +88,7 @@ class GetCorporateers200ResponseInnerBuilder
     if ($v != null) {
       _rSIHandle = $v.rSIHandle;
       _rSIMoniker = $v.rSIMoniker;
+      _picture = $v.picture;
       _$v = null;
     }
     return this;
@@ -100,7 +111,7 @@ class GetCorporateers200ResponseInnerBuilder
   _$GetCorporateers200ResponseInner _build() {
     final _$result = _$v ??
         new _$GetCorporateers200ResponseInner._(
-            rSIHandle: rSIHandle, rSIMoniker: rSIMoniker);
+            rSIHandle: rSIHandle, rSIMoniker: rSIMoniker, picture: picture);
     replace(_$result);
     return _$result;
   }
