@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **color** | **String** |  | [optional] 
 **department** | **String** |  | [optional] 
+**discordId** | **String** |  | [optional] 
 **division** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 

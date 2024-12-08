@@ -43,6 +43,9 @@ def roles():
                                 department:
                                     type: string
                                     example: Resources
+                                discord_id:
+                                    type: string
+                                    example: 123456789012345678
 
     """
     roles: list[Role] = Role.query.all()
@@ -54,6 +57,7 @@ def roles():
             "color": role.color,
             "division": role.division.title if role.division else None,
             "department": role.department.title if role.department else None,
+            "discord_id": role.discord_id
         })
     
     return jsonify(roles_list), 200

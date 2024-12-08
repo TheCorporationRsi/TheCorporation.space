@@ -13,6 +13,7 @@ part 'get_roles200_response_inner.g.dart';
 /// Properties:
 /// * [color]
 /// * [department]
+/// * [discordId]
 /// * [division]
 /// * [title]
 @BuiltValue()
@@ -24,6 +25,9 @@ abstract class GetRoles200ResponseInner
 
   @BuiltValueField(wireName: r'department')
   String? get department;
+
+  @BuiltValueField(wireName: r'discord_id')
+  String? get discordId;
 
   @BuiltValueField(wireName: r'division')
   String? get division;
@@ -72,6 +76,13 @@ class _$GetRoles200ResponseInnerSerializer
       yield r'department';
       yield serializers.serialize(
         object.department,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.discordId != null) {
+      yield r'discord_id';
+      yield serializers.serialize(
+        object.discordId,
         specifiedType: const FullType(String),
       );
     }
@@ -127,6 +138,13 @@ class _$GetRoles200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.department = valueDes;
+          break;
+        case r'discord_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.discordId = valueDes;
           break;
         case r'division':
           final valueDes = serializers.deserialize(

@@ -12,6 +12,8 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
   @override
   final String? department;
   @override
+  final String? discordId;
+  @override
   final String? division;
   @override
   final String? title;
@@ -21,7 +23,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
       (new GetRoles200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetRoles200ResponseInner._(
-      {this.color, this.department, this.division, this.title})
+      {this.color, this.department, this.discordId, this.division, this.title})
       : super._();
 
   @override
@@ -39,6 +41,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
     return other is GetRoles200ResponseInner &&
         color == other.color &&
         department == other.department &&
+        discordId == other.discordId &&
         division == other.division &&
         title == other.title;
   }
@@ -48,6 +51,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
     var _$hash = 0;
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, department.hashCode);
+    _$hash = $jc(_$hash, discordId.hashCode);
     _$hash = $jc(_$hash, division.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jf(_$hash);
@@ -59,6 +63,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
     return (newBuiltValueToStringHelper(r'GetRoles200ResponseInner')
           ..add('color', color)
           ..add('department', department)
+          ..add('discordId', discordId)
           ..add('division', division)
           ..add('title', title))
         .toString();
@@ -78,6 +83,10 @@ class GetRoles200ResponseInnerBuilder
   String? get department => _$this._department;
   set department(String? department) => _$this._department = department;
 
+  String? _discordId;
+  String? get discordId => _$this._discordId;
+  set discordId(String? discordId) => _$this._discordId = discordId;
+
   String? _division;
   String? get division => _$this._division;
   set division(String? division) => _$this._division = division;
@@ -95,6 +104,7 @@ class GetRoles200ResponseInnerBuilder
     if ($v != null) {
       _color = $v.color;
       _department = $v.department;
+      _discordId = $v.discordId;
       _division = $v.division;
       _title = $v.title;
       _$v = null;
@@ -121,6 +131,7 @@ class GetRoles200ResponseInnerBuilder
         new _$GetRoles200ResponseInner._(
             color: color,
             department: department,
+            discordId: discordId,
             division: division,
             title: title);
     replace(_$result);
