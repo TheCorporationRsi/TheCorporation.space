@@ -58,6 +58,9 @@ class Role(Base):
     
     def delete(self):
         
+        if self.title == "Corporateer":
+            raise ValueError("You cannot delete this role")
+        
         links = UserRole.query.filter_by(role_id=self.id).all()
         for link in links:
             link.delete()
