@@ -166,7 +166,7 @@ def edit_role():
     
     role_title = data.get('role_title')
     new_title = data.get('new_title')
-    new_color = data.get('color')
+    new_color = data.get('new_color')
     new_discord_id = data.get('new_discord_id')
     
     if role_title:
