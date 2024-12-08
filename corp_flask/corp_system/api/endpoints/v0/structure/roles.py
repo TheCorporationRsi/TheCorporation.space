@@ -112,8 +112,8 @@ def create_role():
             $ref: "#/components/responses/unauthorized"
     """
     data = request.get_json()
-    role_title = data.get('title'),
-    division_title = data.get('division_title'),
+    role_title = data.get('title')
+    division_title = data.get('division_title')
     department_title = data.get('department_title')
     
     division = Division.query.filter_by(title=division_title).first()
@@ -124,7 +124,10 @@ def create_role():
         department = Department.query.filter_by(title=department_title).first()
         division = None
     
-    StructureManager.create_role(title=role_title, division=division, department=department)
+    try:
+        StructureManager.create_role(title=role_title, division=division, department=department)
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
     
     return jsonify({"msg": "Role created"}), 201
 
