@@ -17,13 +17,20 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
   final String? division;
   @override
   final String? title;
+  @override
+  final String? type;
 
   factory _$GetRoles200ResponseInner(
           [void Function(GetRoles200ResponseInnerBuilder)? updates]) =>
       (new GetRoles200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetRoles200ResponseInner._(
-      {this.color, this.department, this.discordId, this.division, this.title})
+      {this.color,
+      this.department,
+      this.discordId,
+      this.division,
+      this.title,
+      this.type})
       : super._();
 
   @override
@@ -43,7 +50,8 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
         department == other.department &&
         discordId == other.discordId &&
         division == other.division &&
-        title == other.title;
+        title == other.title &&
+        type == other.type;
   }
 
   @override
@@ -54,6 +62,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
     _$hash = $jc(_$hash, discordId.hashCode);
     _$hash = $jc(_$hash, division.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
+    _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -65,7 +74,8 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
           ..add('department', department)
           ..add('discordId', discordId)
           ..add('division', division)
-          ..add('title', title))
+          ..add('title', title)
+          ..add('type', type))
         .toString();
   }
 }
@@ -95,6 +105,10 @@ class GetRoles200ResponseInnerBuilder
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
 
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
+
   GetRoles200ResponseInnerBuilder() {
     GetRoles200ResponseInner._defaults(this);
   }
@@ -107,6 +121,7 @@ class GetRoles200ResponseInnerBuilder
       _discordId = $v.discordId;
       _division = $v.division;
       _title = $v.title;
+      _type = $v.type;
       _$v = null;
     }
     return this;
@@ -133,7 +148,8 @@ class GetRoles200ResponseInnerBuilder
             department: department,
             discordId: discordId,
             division: division,
-            title: title);
+            title: title,
+            type: type);
     replace(_$result);
     return _$result;
   }

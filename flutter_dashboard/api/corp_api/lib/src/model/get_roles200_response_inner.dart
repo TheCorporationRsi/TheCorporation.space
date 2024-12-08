@@ -16,6 +16,7 @@ part 'get_roles200_response_inner.g.dart';
 /// * [discordId]
 /// * [division]
 /// * [title]
+/// * [type]
 @BuiltValue()
 abstract class GetRoles200ResponseInner
     implements
@@ -34,6 +35,9 @@ abstract class GetRoles200ResponseInner
 
   @BuiltValueField(wireName: r'title')
   String? get title;
+
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
   GetRoles200ResponseInner._();
 
@@ -100,6 +104,13 @@ class _$GetRoles200ResponseInnerSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -159,6 +170,13 @@ class _$GetRoles200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.title = valueDes;
+          break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
           break;
         default:
           unhandled.add(key);
