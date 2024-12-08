@@ -110,7 +110,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **deleteRole**
-> DeleteRole200Response deleteRole()
+> DeleteRole200Response deleteRole(deleteRoleRequest)
 
 Delete an existing role
 
@@ -121,9 +121,10 @@ Delete an existing role
 import 'package:corp_api/api.dart';
 
 final api = CorpApi().getStructureApi();
+final DeleteRoleRequest deleteRoleRequest = ; // DeleteRoleRequest | 
 
 try {
-    final response = api.deleteRole();
+    final response = api.deleteRole(deleteRoleRequest);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling StructureApi->deleteRole: $e\n');
@@ -131,7 +132,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteRoleRequest** | [**DeleteRoleRequest**](DeleteRoleRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -143,7 +147,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -174,7 +178,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **editRoleRequest** | [**EditRoleRequest**](EditRoleRequest.md)|  | 
+ **editRoleRequest** | [**EditRoleRequest**](EditRoleRequest.md)|  | [optional] 
 
 ### Return type
 

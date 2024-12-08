@@ -16,6 +16,7 @@ doc/DeleteDepartmentRequest.md
 doc/DeleteDivision200Response.md
 doc/DeleteDivisionRequest.md
 doc/DeleteRole200Response.md
+doc/DeleteRoleRequest.md
 doc/EditRole200Response.md
 doc/EditRoleRequest.md
 doc/GetCorporateers200ResponseInner.md
@@ -84,6 +85,7 @@ lib/src/model/delete_department_request.dart
 lib/src/model/delete_division200_response.dart
 lib/src/model/delete_division_request.dart
 lib/src/model/delete_role200_response.dart
+lib/src/model/delete_role_request.dart
 lib/src/model/edit_role200_response.dart
 lib/src/model/edit_role_request.dart
 lib/src/model/get_corporateers200_response_inner.dart
@@ -119,3 +121,4 @@ lib/src/model/update_division_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/delete_role_request_test.dart

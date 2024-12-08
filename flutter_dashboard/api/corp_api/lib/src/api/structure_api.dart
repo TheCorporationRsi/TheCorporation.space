@@ -14,6 +14,7 @@ import 'package:corp_api/src/model/add_user_role_request.dart';
 import 'package:corp_api/src/model/create_role201_response.dart';
 import 'package:corp_api/src/model/create_role_request.dart';
 import 'package:corp_api/src/model/delete_role200_response.dart';
+import 'package:corp_api/src/model/delete_role_request.dart';
 import 'package:corp_api/src/model/edit_role200_response.dart';
 import 'package:corp_api/src/model/edit_role_request.dart';
 import 'package:corp_api/src/model/get_departments200_response_inner.dart';
@@ -241,6 +242,7 @@ class StructureApi {
   /// &lt;br/&gt;Deletes an existing role in the system&lt;br/&gt;
   ///
   /// Parameters:
+  /// * [deleteRoleRequest]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -251,6 +253,7 @@ class StructureApi {
   /// Returns a [Future] containing a [Response] with a [DeleteRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<DeleteRole200Response>> deleteRole({
+    DeleteRoleRequest? deleteRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -274,11 +277,32 @@ class StructureApi {
         ],
         ...?extra,
       },
+      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(DeleteRoleRequest);
+      _bodyData = deleteRoleRequest == null
+          ? null
+          : _serializers.serialize(deleteRoleRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
     final _response = await _dio.request<Object>(
       _path,
+      data: _bodyData,
       options: _options,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
@@ -332,7 +356,7 @@ class StructureApi {
   /// Returns a [Future] containing a [Response] with a [EditRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<EditRole200Response>> editRole({
-    required EditRoleRequest editRoleRequest,
+    EditRoleRequest? editRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -364,7 +388,9 @@ class StructureApi {
 
     try {
       const _type = FullType(EditRoleRequest);
-      _bodyData = _serializers.serialize(editRoleRequest, specifiedType: _type);
+      _bodyData = editRoleRequest == null
+          ? null
+          : _serializers.serialize(editRoleRequest, specifiedType: _type);
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(

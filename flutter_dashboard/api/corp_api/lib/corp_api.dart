@@ -31,6 +31,7 @@ export 'package:corp_api/src/model/delete_department_request.dart';
 export 'package:corp_api/src/model/delete_division200_response.dart';
 export 'package:corp_api/src/model/delete_division_request.dart';
 export 'package:corp_api/src/model/delete_role200_response.dart';
+export 'package:corp_api/src/model/delete_role_request.dart';
 export 'package:corp_api/src/model/edit_role200_response.dart';
 export 'package:corp_api/src/model/edit_role_request.dart';
 export 'package:corp_api/src/model/get_corporateers200_response_inner.dart';

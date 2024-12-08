@@ -28,6 +28,7 @@ import 'package:corp_api/src/model/delete_department_request.dart';
 import 'package:corp_api/src/model/delete_division200_response.dart';
 import 'package:corp_api/src/model/delete_division_request.dart';
 import 'package:corp_api/src/model/delete_role200_response.dart';
+import 'package:corp_api/src/model/delete_role_request.dart';
 import 'package:corp_api/src/model/edit_role200_response.dart';
 import 'package:corp_api/src/model/edit_role_request.dart';
 import 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
@@ -79,6 +80,7 @@ part 'serializers.g.dart';
   DeleteDivision200Response,
   DeleteDivisionRequest,
   DeleteRole200Response,
+  DeleteRoleRequest,
   EditRole200Response,
   EditRoleRequest,
   GetCorporateers200ResponseInner,
