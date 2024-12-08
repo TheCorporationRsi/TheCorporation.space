@@ -8,8 +8,8 @@ import 'package:corp_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**departmentId** | **int** |  | [optional] 
-**divisionId** | **int** |  | [optional] 
+**departmentTitle** | **String** |  | [optional] 
+**divisionTitle** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

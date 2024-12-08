@@ -11,11 +11,23 @@ part 'get_roles200_response_inner.g.dart';
 /// GetRoles200ResponseInner
 ///
 /// Properties:
+/// * [color]
+/// * [department]
+/// * [division]
 /// * [title]
 @BuiltValue()
 abstract class GetRoles200ResponseInner
     implements
         Built<GetRoles200ResponseInner, GetRoles200ResponseInnerBuilder> {
+  @BuiltValueField(wireName: r'color')
+  String? get color;
+
+  @BuiltValueField(wireName: r'department')
+  String? get department;
+
+  @BuiltValueField(wireName: r'division')
+  String? get division;
+
   @BuiltValueField(wireName: r'title')
   String? get title;
 
@@ -49,6 +61,27 @@ class _$GetRoles200ResponseInnerSerializer
     GetRoles200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.color != null) {
+      yield r'color';
+      yield serializers.serialize(
+        object.color,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.department != null) {
+      yield r'department';
+      yield serializers.serialize(
+        object.department,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.division != null) {
+      yield r'division';
+      yield serializers.serialize(
+        object.division,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.title != null) {
       yield r'title';
       yield serializers.serialize(
@@ -81,6 +114,27 @@ class _$GetRoles200ResponseInnerSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'color':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.color = valueDes;
+          break;
+        case r'department':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.department = valueDes;
+          break;
+        case r'division':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.division = valueDes;
+          break;
         case r'title':
           final valueDes = serializers.deserialize(
             value,

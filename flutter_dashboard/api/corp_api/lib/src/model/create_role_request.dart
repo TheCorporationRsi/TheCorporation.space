@@ -11,17 +11,17 @@ part 'create_role_request.g.dart';
 /// CreateRoleRequest
 ///
 /// Properties:
-/// * [departmentId]
-/// * [divisionId]
+/// * [departmentTitle]
+/// * [divisionTitle]
 /// * [title]
 @BuiltValue()
 abstract class CreateRoleRequest
     implements Built<CreateRoleRequest, CreateRoleRequestBuilder> {
-  @BuiltValueField(wireName: r'department_id')
-  int? get departmentId;
+  @BuiltValueField(wireName: r'department_title')
+  String? get departmentTitle;
 
-  @BuiltValueField(wireName: r'division_id')
-  int? get divisionId;
+  @BuiltValueField(wireName: r'division_title')
+  String? get divisionTitle;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -52,18 +52,18 @@ class _$CreateRoleRequestSerializer
     CreateRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.departmentId != null) {
-      yield r'department_id';
+    if (object.departmentTitle != null) {
+      yield r'department_title';
       yield serializers.serialize(
-        object.departmentId,
-        specifiedType: const FullType(int),
+        object.departmentTitle,
+        specifiedType: const FullType(String),
       );
     }
-    if (object.divisionId != null) {
-      yield r'division_id';
+    if (object.divisionTitle != null) {
+      yield r'division_title';
       yield serializers.serialize(
-        object.divisionId,
-        specifiedType: const FullType(int),
+        object.divisionTitle,
+        specifiedType: const FullType(String),
       );
     }
     if (object.title != null) {
@@ -98,19 +98,19 @@ class _$CreateRoleRequestSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'department_id':
+        case r'department_title':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.departmentId = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.departmentTitle = valueDes;
           break;
-        case r'division_id':
+        case r'division_title':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.divisionId = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.divisionTitle = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(
