@@ -3,6 +3,7 @@ import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/dashboard_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/influence_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/transfer_widget.dart';
 import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_widget.dart';
@@ -98,8 +99,8 @@ class _MainScreenState extends State<MainScreen>
       ],
       if (current_user.status.cORPMember!)
       [
-      const DashboardWidget(),
-      const InfluenceWidget()
+      const InfluenceWidget(),
+      const InfTransferWidget()
       ],
       if (current_user.status.isAdmin!)
       [

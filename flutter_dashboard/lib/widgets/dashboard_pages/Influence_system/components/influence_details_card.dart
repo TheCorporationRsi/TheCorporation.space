@@ -18,6 +18,7 @@ class InfluenceDetailsCard extends StatelessWidget {
         mainAxisSpacing: 12.0,
       ),
       children: [
+        
         CustomCard(
           child: Stack(
             children: [

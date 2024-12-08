@@ -16,7 +16,8 @@ class CorporateerManager:
         for user in corporateers:
             corp_list.append({
                 'RSI_handle': user.RSI_handle,
-                'RSI_moniker': user.RSI_moniker
+                'RSI_moniker': user.RSI_moniker,
+                'picture': user.image_link,
             })
             
         return corp_list

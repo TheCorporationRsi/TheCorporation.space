@@ -35,6 +35,9 @@ def corporateers():
                                 RSI_moniker:
                                     example: CyberDreamer
                                     type: string
+                                picture:
+                                    example: https://robertsspaceindustries.com/media/6h6f4d3j2j8hpr/profile.jpg
+                                    type: string
         401:
             $ref: "#/components/responses/unauthorized"
 
