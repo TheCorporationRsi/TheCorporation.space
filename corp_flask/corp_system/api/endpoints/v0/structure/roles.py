@@ -81,7 +81,6 @@ def create_role():
     security:
         - corp_access_pass: []
     requestBody:
-        required: true
         content:
             application/json:
                 schema:
@@ -113,14 +112,15 @@ def create_role():
             $ref: "#/components/responses/unauthorized"
     """
     data = request.get_json()
-    role_title=data.get('title'),
-    division_title=data.get('division_title'),
-    department_title=data.get('department_title')
+    role_title = data.get('title'),
+    division_title = data.get('division_title'),
+    department_title = data.get('department_title')
     
-    if division_title:
-        division = Division.query.filter_by(title=division_title).first()
+    division = Division.query.filter_by(title=division_title).first()
+    department = Department.query.filter_by(title=department_title).first()
+    if division:
         department = division.department
-    elif department_title:
+    elif department:
         department = Department.query.filter_by(title=department_title).first()
         division = None
     
