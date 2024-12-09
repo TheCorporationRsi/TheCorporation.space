@@ -324,7 +324,15 @@ class User(Base):
             except:
                 print("Issue with RSI website")
         
-        self.inf_account.update()
+        if self.CORP_confirmed:
+            if not self.inf_account:
+                from corp_system.models import Inf_Account
+                account = Inf_Account(user=self)
+                db.session.add(account)
+                db.session.commit()
+                account.update()
+            else:
+                self.inf_account.update()
         
         
         from corp_system.models import Role

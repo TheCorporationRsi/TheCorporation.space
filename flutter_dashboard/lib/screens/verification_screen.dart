@@ -5,6 +5,7 @@ import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_dashboard/main.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 
 final corpSecurityClient = corpApi.getSecurityApi();
 class VerificationScreen extends StatefulWidget {
@@ -17,7 +18,6 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen>
     with SingleTickerProviderStateMixin {
   String verification_token = "a8Fj3kL9zQw2Xy7Ba8Fj3kL9zQw2Xy7B";
-  String RSI_handle = "Cyber-Dreamer";
 
   final GlobalKey<VerificationWidgetState> _verificationKey =
       GlobalKey<VerificationWidgetState>();
@@ -73,13 +73,13 @@ class _VerificationScreenState extends State<VerificationScreen>
           key: _verificationKey,
           formTitle: 'VERIFICATION',
           description: '''In order to verify your Star Citizen account,
-
+          For help: https://discord.gg/thecorporation
 Please enter the verification token in your RSI profile bio:''',
           token: verification_token,
           textFieldTitle1: 'RSI handle',
           buttonTitle1: 'Verify',
           buttonTitle2: 'RSI profile',
-          buttonTitle3: 'Need Help?',
+          buttonTitle3: 'Cancel',
           buttonAction1: () async {
 
             final headers = await getAuthHeader();
@@ -103,8 +103,9 @@ Please enter the verification token in your RSI profile bio:''',
             launchUrl(Uri.parse(
                 'https://robertsspaceindustries.com/account/profile'));
           },
-          buttonAction3: () {
-            launchUrl(Uri.parse('https://discord.gg/thecorporation'));
+          buttonAction3: () async {
+            await current_user.logout();
+            Navigator.pushNamed(context, '/login');
           },
         ),
       ],
