@@ -5,6 +5,9 @@ import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/main.dart';
+import 'package:flutter_dashboard/model/information.dart' as information;
+import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 
 class TransferCard extends StatefulWidget {
   const TransferCard({super.key});
@@ -15,15 +18,11 @@ class TransferCard extends StatefulWidget {
 
 class _TransferCardState extends State<TransferCard> {
   final TextEditingController memberController = TextEditingController();
-  final TextEditingController messageController = TextEditingController();
-  final TextEditingController amountController = TextEditingController();
   final GlobalKey _fieldKey = GlobalKey();
 
   GetCorporateers200ResponseInner? selectedUser;
-
-  BuiltList<GetCorporateers200ResponseInner> corporateers =
-      BuiltList<GetCorporateers200ResponseInner>();
-  final corpInformationClient = corpApi.getInformationApi();
+  int? amount;
+  String? message;
 
   bool _isLoading = true;
 
@@ -34,14 +33,7 @@ class _TransferCardState extends State<TransferCard> {
   }
 
   Future<void> _initialize() async {
-    try {
-      final response = await corpInformationClient.getCorporateers();
-      if (response.data != null) {
-        corporateers = response.data ?? corporateers;
-      }
-    } catch (error) {
-      print(error);
-    }
+    await information.update();
 
     setState(() {
       _isLoading = false;
@@ -50,6 +42,15 @@ class _TransferCardState extends State<TransferCard> {
 
   @override
   Widget build(BuildContext context) {
+    void _showErrorMessage(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Center(child: Text(message, style: TextStyle(color: Colors.white, fontSize: 16))),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+
     if (_isLoading) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -62,11 +63,11 @@ class _TransferCardState extends State<TransferCard> {
         shrinkWrap: true,
         physics: const ScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
-          crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
-          mainAxisSpacing: 12.0,
-          mainAxisExtent:  350 // Adjust the aspect ratio to reduce height
-        ),
+            crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
+            crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
+            mainAxisSpacing: 12.0,
+            mainAxisExtent: 350 // Adjust the aspect ratio to reduce height
+            ),
         children: [
           CustomCard(
             padding: const EdgeInsets.all(20),
@@ -87,7 +88,7 @@ class _TransferCardState extends State<TransferCard> {
                     if (textEditingValue.text.isEmpty) {
                       return const Iterable<String>.empty();
                     }
-                    return corporateers
+                    return information.corporateers
                         .where((GetCorporateers200ResponseInner user) {
                       return user.rSIHandle!
                           .toLowerCase()
@@ -106,7 +107,7 @@ class _TransferCardState extends State<TransferCard> {
                       controller: fieldTextEditingController,
                       focusNode: fieldFocusNode,
                       onChanged: (value) {
-                        for (var user in corporateers) {
+                        for (var user in information.corporateers) {
                           if (user.rSIHandle!.toLowerCase() ==
                               value.toLowerCase()) {
                             setState(() {
@@ -169,7 +170,7 @@ class _TransferCardState extends State<TransferCard> {
                             return GestureDetector(
                               onTap: () {
                                 onSelected(option);
-                                for (var user in corporateers) {
+                                for (var user in information.corporateers) {
                                   if (user.rSIHandle!.toLowerCase() ==
                                       option.toLowerCase()) {
                                     setState(() {
@@ -197,7 +198,11 @@ class _TransferCardState extends State<TransferCard> {
                 ),
                 SizedBox(height: 20),
                 TextField(
-                  controller: amountController,
+                  onChanged: (value) {
+                    setState(() {
+                      amount = int.tryParse(value);
+                    });
+                  },
                   decoration: InputDecoration(
                     labelText: 'Amount',
                     border: OutlineInputBorder(
@@ -217,7 +222,11 @@ class _TransferCardState extends State<TransferCard> {
                 ),
                 SizedBox(height: 20),
                 TextField(
-                  controller: messageController,
+                  onChanged: (value) {
+                    setState(() {
+                      message = value;
+                    });
+                  },
                   decoration: InputDecoration(
                     labelText: 'Message',
                     border: OutlineInputBorder(
@@ -239,8 +248,21 @@ class _TransferCardState extends State<TransferCard> {
                   child: Align(
                     alignment: Alignment.topRight,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Handle send action
+                      onPressed: () async {
+                        if (selectedUser == null) {
+                          _showErrorMessage(
+                            'Please select a corporateer before sending.',
+                          );
+                        }
+                        else if (amount == null || amount! <= 0) {
+                          _showErrorMessage(
+                            'Amount must be greater than 0.',
+                          );
+                        } else {
+                          infAccount.sendTribute(onErrorMsg: _showErrorMessage, receiver: selectedUser!.rSIHandle!, amount: amount!, message: message);
+                          await infAccount.update();
+                          await current_user.update();
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor, // Use primary color
@@ -284,39 +306,39 @@ class _TransferCardState extends State<TransferCard> {
                     ),
                   ),
                 if (selectedUser != null)
-                Container(
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: cardBackgroundColor,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(
-                          selectedUser!.picture!,
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: cardBackgroundColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          backgroundImage: NetworkImage(
+                            selectedUser!.picture!,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        '${selectedUser!.rSIHandle}',
-                        style: TextStyle(
-                          fontSize: 24,
+                        SizedBox(height: 10),
+                        Text(
+                          '${selectedUser!.rSIHandle}',
+                          style: TextStyle(
+                            fontSize: 24,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        '${selectedUser!.rSIMoniker}',
-                        style: TextStyle(
-                          fontSize: 16,
+                        SizedBox(height: 5),
+                        Text(
+                          '${selectedUser!.rSIMoniker}',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 5),
-                    ],
-                  ),
-                )
+                        SizedBox(height: 5),
+                      ],
+                    ),
+                  )
               ],
             ),
           )

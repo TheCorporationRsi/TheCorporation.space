@@ -5,6 +5,7 @@ import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/main.dart';
+import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
 
 class TransferHistoryCard extends StatefulWidget {
   const TransferHistoryCard({super.key});
@@ -21,8 +22,6 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
 
   GetCorporateers200ResponseInner? selectedUser;
 
-  BuiltList<GetCorporateers200ResponseInner> corporateers =
-      BuiltList<GetCorporateers200ResponseInner>();
   final corpInformationClient = corpApi.getInformationApi();
 
   bool _isLoading = true;
@@ -38,14 +37,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
   }
 
   Future<void> _initialize() async {
-    try {
-      final response = await corpInformationClient.getCorporateers();
-      if (response.data != null) {
-        corporateers = response.data ?? corporateers;
-      }
-    } catch (error) {
-      print(error);
-    }
+    await infAccount.update();
 
     setState(() {
       _isLoading = false;
@@ -66,11 +58,10 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
-        crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
-        mainAxisSpacing: 12.0,
-        mainAxisExtent: 800
-      ),
+          crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
+          crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
+          mainAxisSpacing: 12.0,
+          mainAxisExtent: 800),
       children: [
         CustomCard(
           padding: const EdgeInsets.all(20),
@@ -86,37 +77,43 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
               ),
               SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
-                  itemCount: _itemsPerPage,
-                  itemBuilder: (context, index) {
-                    int actualIndex = _currentPageSent * _itemsPerPage + index;
-                    return Container(
-                      padding: const EdgeInsets.all(5), // Reduced padding
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text('Tribute to User $actualIndex'),
-
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text('Amount: 100'),
-                                SizedBox(width: 20),
-                                Text('Date: 2023-10-01'),
-                            ],
+                child: infAccount.sentTributeHistory.isEmpty
+                    ? Center(
+                        child: Text('No tributes sent'),
+                      )
+                    : ListView.builder(
+                        itemCount: infAccount.sentTributeHistory.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.all(5), // Reduced padding
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            Text('Message:\nThis is a sample message for sent transfer $actualIndex'),
-                          ],
-                        ),
+                            child: ListTile(
+                              title: Text(
+                                  'Tribute to ${infAccount.sentTributeHistory[index].receiver}'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                          'Amount: ${infAccount.sentTributeHistory[index].amount}'),
+                                      SizedBox(width: 20),
+                                      Text(
+                                          'Method: ${infAccount.sentTributeHistory[index].method}'),
+                                    ],
+                                  ),
+                                  Text(
+                                      'Message:\n${infAccount.sentTributeHistory[index].message}'),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -124,7 +121,9 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                   IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: _currentPageSent > 0
-                        ? () {
+                        ? () async {
+                            await infAccount.updateSentTributeHistory(
+                                page: _currentPageSent);
                             setState(() {
                               _currentPageSent--;
                             });
@@ -134,7 +133,9 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                   Text('Page ${_currentPageSent + 1}'),
                   IconButton(
                     icon: Icon(Icons.arrow_forward),
-                    onPressed: () {
+                    onPressed: () async {
+                      await infAccount.updateSentTributeHistory(
+                          page: _currentPageSent + 1);
                       setState(() {
                         _currentPageSent++;
                       });
@@ -159,36 +160,43 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
               ),
               SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
-                  itemCount: _itemsPerPage,
-                  itemBuilder: (context, index) {
-                    int actualIndex = _currentPageReceived * _itemsPerPage + index;
-                    return Container(
-                      padding: const EdgeInsets.all(5), // Reduced padding
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: ListTile(
-                        title: Text('Tribute from User $actualIndex'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text('Amount: 100'),
-                                SizedBox(width: 20),
-                                Text('Date: 2023-10-01'),
-                            ],
+                child: infAccount.receivedTributeHistory.isEmpty
+                    ? Center(
+                        child: Text('No tributes received'),
+                      )
+                    : ListView.builder(
+                        itemCount: infAccount.receivedTributeHistory.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.all(5), // Reduced padding
+                            margin: const EdgeInsets.symmetric(vertical: 5),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                            Text('Message:\nThis is a sample message for sent transfer $actualIndex'),
-                          ],
-                        ),
+                            child: ListTile(
+                              title: Text(
+                                  'Tribute from User ${infAccount.receivedTributeHistory[index].amount}'),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                          'Amount: ${infAccount.receivedTributeHistory[index].amount}'),
+                                      SizedBox(width: 20),
+                                      Text(
+                                          'Method: ${infAccount.receivedTributeHistory[index].method}'),
+                                    ],
+                                  ),
+                                  Text(
+                                      'Message:\n${infAccount.receivedTributeHistory[index].message}'),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,7 +204,9 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                   IconButton(
                     icon: Icon(Icons.arrow_back),
                     onPressed: _currentPageReceived > 0
-                        ? () {
+                        ? () async {
+                            await infAccount.updateReceivedTributeHistory(
+                                page: _currentPageSent - 1);
                             setState(() {
                               _currentPageReceived--;
                             });
@@ -206,7 +216,9 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                   Text('Page ${_currentPageReceived + 1}'),
                   IconButton(
                     icon: Icon(Icons.arrow_forward),
-                    onPressed: () {
+                    onPressed: () async {
+                      await infAccount.updateReceivedTributeHistory(
+                          page: _currentPageSent + 1);
                       setState(() {
                         _currentPageReceived++;
                       });
