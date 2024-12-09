@@ -17,7 +17,6 @@ class VerificationScreen extends StatefulWidget {
 class _VerificationScreenState extends State<VerificationScreen>
     with SingleTickerProviderStateMixin {
   String verification_token = "a8Fj3kL9zQw2Xy7Ba8Fj3kL9zQw2Xy7B";
-  String RSI_handle = "Cyber-Dreamer";
 
   final GlobalKey<VerificationWidgetState> _verificationKey =
       GlobalKey<VerificationWidgetState>();
