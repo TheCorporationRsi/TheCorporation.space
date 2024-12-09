@@ -249,7 +249,7 @@ def sent_tribute(type, request, page):
 	else:
 			return jsonify({'msg': "Please select request type"}), 400    
 	
-	tributes_list = {}
+	tributes_list = []
 	
 	for tribute in tributes:
 			tributes_list.append({

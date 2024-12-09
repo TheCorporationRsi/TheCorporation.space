@@ -20,6 +20,8 @@ final corpStructureClient = corpApi.getStructureApi();
 final corpSecurityClient = corpApi.getSecurityApi();
 final corpInfluenceClient = corpApi.getInfluenceSystemApi();
 
+
+
 Future<void> update() async {
   await updateUserInfo();
   await updateUserRoles();
@@ -27,6 +29,7 @@ Future<void> update() async {
   await updateInfAccount();
   await updateUserDepartments();
   await updateUserDivisions();
+
 }
 
 Future<void> logout() async {
