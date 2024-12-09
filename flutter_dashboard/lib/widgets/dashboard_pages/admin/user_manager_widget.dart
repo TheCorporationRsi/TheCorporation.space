@@ -282,11 +282,25 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     );
   }
 
-  void _deleteUser(GetUsers200ResponseInner user) {
-    setState(() {
-      users = users.rebuild((b) => b.remove(user));
+  void _deleteUser(GetUsers200ResponseInner user) async {
+
+    final headers = await getAuthHeader();
+
+    try {
+      final response = await corpSecurityClient.deleteUser(
+          headers: headers, username: user.rSIHandle.toString());
+      /*
+      if (response.data!.msg == "User deleted") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+      */
       _applySearchAndFilter();
-    });
+    } catch (error) {
+      print(error);
+    }
   }
 
   Widget _buildDropdownContent(GetUsers200ResponseInner user) {

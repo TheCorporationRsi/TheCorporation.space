@@ -206,6 +206,14 @@ def delete_user(username):
     responses:
         200:
             description: User deleted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: User deleted
         400:
             $ref: "#/components/responses/invalid"
 
