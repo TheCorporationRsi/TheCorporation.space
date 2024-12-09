@@ -3,6 +3,7 @@ import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'dart:async';
 
 class SecurityModuleWidget extends StatefulWidget {
   final Column DesktoColumn;
@@ -28,6 +29,12 @@ class SecurityModuleWidgetState extends State<SecurityModuleWidget> {
     setState(() {
       _errorMessage = message;
       _errorBannerPosition = 0;
+    });
+
+    Timer(Duration(seconds: 5), () {
+      setState(() {
+        _errorBannerPosition = -51;
+      });
     });
   }
 
