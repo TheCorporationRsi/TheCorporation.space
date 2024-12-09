@@ -11,10 +11,6 @@ class _$GetUserDepartments200ResponseInner
   @override
   final String? color;
   @override
-  final int? influence;
-  @override
-  final int? lifetimeInfluence;
-  @override
   final String? motto;
   @override
   final String? title;
@@ -28,12 +24,7 @@ class _$GetUserDepartments200ResponseInner
           ._build();
 
   _$GetUserDepartments200ResponseInner._(
-      {this.color,
-      this.influence,
-      this.lifetimeInfluence,
-      this.motto,
-      this.title,
-      this.weight})
+      {this.color, this.motto, this.title, this.weight})
       : super._();
 
   @override
@@ -50,8 +41,6 @@ class _$GetUserDepartments200ResponseInner
     if (identical(other, this)) return true;
     return other is GetUserDepartments200ResponseInner &&
         color == other.color &&
-        influence == other.influence &&
-        lifetimeInfluence == other.lifetimeInfluence &&
         motto == other.motto &&
         title == other.title &&
         weight == other.weight;
@@ -61,8 +50,6 @@ class _$GetUserDepartments200ResponseInner
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, color.hashCode);
-    _$hash = $jc(_$hash, influence.hashCode);
-    _$hash = $jc(_$hash, lifetimeInfluence.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, weight.hashCode);
@@ -74,8 +61,6 @@ class _$GetUserDepartments200ResponseInner
   String toString() {
     return (newBuiltValueToStringHelper(r'GetUserDepartments200ResponseInner')
           ..add('color', color)
-          ..add('influence', influence)
-          ..add('lifetimeInfluence', lifetimeInfluence)
           ..add('motto', motto)
           ..add('title', title)
           ..add('weight', weight))
@@ -92,15 +77,6 @@ class GetUserDepartments200ResponseInnerBuilder
   String? _color;
   String? get color => _$this._color;
   set color(String? color) => _$this._color = color;
-
-  int? _influence;
-  int? get influence => _$this._influence;
-  set influence(int? influence) => _$this._influence = influence;
-
-  int? _lifetimeInfluence;
-  int? get lifetimeInfluence => _$this._lifetimeInfluence;
-  set lifetimeInfluence(int? lifetimeInfluence) =>
-      _$this._lifetimeInfluence = lifetimeInfluence;
 
   String? _motto;
   String? get motto => _$this._motto;
@@ -122,8 +98,6 @@ class GetUserDepartments200ResponseInnerBuilder
     final $v = _$v;
     if ($v != null) {
       _color = $v.color;
-      _influence = $v.influence;
-      _lifetimeInfluence = $v.lifetimeInfluence;
       _motto = $v.motto;
       _title = $v.title;
       _weight = $v.weight;
@@ -150,12 +124,7 @@ class GetUserDepartments200ResponseInnerBuilder
   _$GetUserDepartments200ResponseInner _build() {
     final _$result = _$v ??
         new _$GetUserDepartments200ResponseInner._(
-            color: color,
-            influence: influence,
-            lifetimeInfluence: lifetimeInfluence,
-            motto: motto,
-            title: title,
-            weight: weight);
+            color: color, motto: motto, title: title, weight: weight);
     replace(_$result);
     return _$result;
   }

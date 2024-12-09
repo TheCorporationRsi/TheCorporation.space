@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getProfile**](doc/InfluenceSystemApi.md#getprofile) | **GET** /api/v0/influence_system/profile | Get influence system profile
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getRanks**](doc/InfluenceSystemApi.md#getranks) | **GET** /api/v0/influence_system/ranks | List of all influence system ranks
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getTributeHistory**](doc/InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getUserInfluenceStats**](doc/InfluenceSystemApi.md#getuserinfluencestats) | **GET** /api/v0/influence_system/profile/stats | Get influence stats
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**sendTribute**](doc/InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**setWeight**](doc/InfluenceSystemApi.md#setweight) | **POST** /api/v0/structure/set_weight | Division weight assignment
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**updateAccount**](doc/InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
@@ -140,6 +141,9 @@ Class | Method | HTTP request | Description
  - [GetUser200ResponseRolesInner](doc/GetUser200ResponseRolesInner.md)
  - [GetUserDepartments200ResponseInner](doc/GetUserDepartments200ResponseInner.md)
  - [GetUserDivisions200ResponseInner](doc/GetUserDivisions200ResponseInner.md)
+ - [GetUserInfluenceStats200Response](doc/GetUserInfluenceStats200Response.md)
+ - [GetUserInfluenceStats200ResponseDepartmentsInner](doc/GetUserInfluenceStats200ResponseDepartmentsInner.md)
+ - [GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner](doc/GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner.md)
  - [GetUserProfile200Response](doc/GetUserProfile200Response.md)
  - [GetUserRoles200ResponseInner](doc/GetUserRoles200ResponseInner.md)
  - [GetUsers200ResponseInner](doc/GetUsers200ResponseInner.md)

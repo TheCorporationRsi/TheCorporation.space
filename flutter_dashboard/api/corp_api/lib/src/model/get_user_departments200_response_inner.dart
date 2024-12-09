@@ -12,8 +12,6 @@ part 'get_user_departments200_response_inner.g.dart';
 ///
 /// Properties:
 /// * [color]
-/// * [influence]
-/// * [lifetimeInfluence]
 /// * [motto]
 /// * [title]
 /// * [weight]
@@ -24,12 +22,6 @@ abstract class GetUserDepartments200ResponseInner
             GetUserDepartments200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
-
-  @BuiltValueField(wireName: r'influence')
-  int? get influence;
-
-  @BuiltValueField(wireName: r'lifetime_influence')
-  int? get lifetimeInfluence;
 
   @BuiltValueField(wireName: r'motto')
   String? get motto;
@@ -75,20 +67,6 @@ class _$GetUserDepartments200ResponseInnerSerializer
       yield serializers.serialize(
         object.color,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.influence != null) {
-      yield r'influence';
-      yield serializers.serialize(
-        object.influence,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.lifetimeInfluence != null) {
-      yield r'lifetime_influence';
-      yield serializers.serialize(
-        object.lifetimeInfluence,
-        specifiedType: const FullType(int),
       );
     }
     if (object.motto != null) {
@@ -143,20 +121,6 @@ class _$GetUserDepartments200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.color = valueDes;
-          break;
-        case r'influence':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.influence = valueDes;
-          break;
-        case r'lifetime_influence':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.lifetimeInfluence = valueDes;
           break;
         case r'motto':
           final valueDes = serializers.deserialize(

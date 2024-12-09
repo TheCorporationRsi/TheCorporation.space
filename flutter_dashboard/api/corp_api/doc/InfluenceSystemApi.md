@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**getProfile**](InfluenceSystemApi.md#getprofile) | **GET** /api/v0/influence_system/profile | Get influence system profile
 [**getRanks**](InfluenceSystemApi.md#getranks) | **GET** /api/v0/influence_system/ranks | List of all influence system ranks
 [**getTributeHistory**](InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
+[**getUserInfluenceStats**](InfluenceSystemApi.md#getuserinfluencestats) | **GET** /api/v0/influence_system/profile/stats | Get influence stats
 [**sendTribute**](InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
 [**setWeight**](InfluenceSystemApi.md#setweight) | **POST** /api/v0/structure/set_weight | Division weight assignment
 [**updateAccount**](InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
@@ -178,6 +179,45 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BuiltList&lt;GetTributeHistory200ResponseInner&gt;**](GetTributeHistory200ResponseInner.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUserInfluenceStats**
+> GetUserInfluenceStats200Response getUserInfluenceStats()
+
+Get influence stats
+
+<br/>This endpoint provide the current amount of specified influence<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getInfluenceSystemApi();
+
+try {
+    final response = api.getUserInfluenceStats();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling InfluenceSystemApi->getUserInfluenceStats: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**GetUserInfluenceStats200Response**](GetUserInfluenceStats200Response.md)
 
 ### Authorization
 

@@ -13,8 +13,6 @@ class _$GetUserDivisions200ResponseInner
   @override
   final String? department;
   @override
-  final int? influence;
-  @override
   final String? logo;
   @override
   final String? title;
@@ -26,12 +24,7 @@ class _$GetUserDivisions200ResponseInner
       (new GetUserDivisions200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetUserDivisions200ResponseInner._(
-      {this.color,
-      this.department,
-      this.influence,
-      this.logo,
-      this.title,
-      this.weight})
+      {this.color, this.department, this.logo, this.title, this.weight})
       : super._();
 
   @override
@@ -49,7 +42,6 @@ class _$GetUserDivisions200ResponseInner
     return other is GetUserDivisions200ResponseInner &&
         color == other.color &&
         department == other.department &&
-        influence == other.influence &&
         logo == other.logo &&
         title == other.title &&
         weight == other.weight;
@@ -60,7 +52,6 @@ class _$GetUserDivisions200ResponseInner
     var _$hash = 0;
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, department.hashCode);
-    _$hash = $jc(_$hash, influence.hashCode);
     _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, weight.hashCode);
@@ -73,7 +64,6 @@ class _$GetUserDivisions200ResponseInner
     return (newBuiltValueToStringHelper(r'GetUserDivisions200ResponseInner')
           ..add('color', color)
           ..add('department', department)
-          ..add('influence', influence)
           ..add('logo', logo)
           ..add('title', title)
           ..add('weight', weight))
@@ -94,10 +84,6 @@ class GetUserDivisions200ResponseInnerBuilder
   String? _department;
   String? get department => _$this._department;
   set department(String? department) => _$this._department = department;
-
-  int? _influence;
-  int? get influence => _$this._influence;
-  set influence(int? influence) => _$this._influence = influence;
 
   String? _logo;
   String? get logo => _$this._logo;
@@ -120,7 +106,6 @@ class GetUserDivisions200ResponseInnerBuilder
     if ($v != null) {
       _color = $v.color;
       _department = $v.department;
-      _influence = $v.influence;
       _logo = $v.logo;
       _title = $v.title;
       _weight = $v.weight;
@@ -148,7 +133,6 @@ class GetUserDivisions200ResponseInnerBuilder
         new _$GetUserDivisions200ResponseInner._(
             color: color,
             department: department,
-            influence: influence,
             logo: logo,
             title: title,
             weight: weight);

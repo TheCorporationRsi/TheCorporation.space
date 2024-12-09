@@ -5,14 +5,17 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-
-ValueNotifier<GetProfile200Response> profile = ValueNotifier(GetProfile200Response());
-
+ValueNotifier<GetProfile200Response> profile =
+    ValueNotifier(GetProfile200Response());
 
 ValueNotifier<BuiltList<GetCorporateers200ResponseInner>> corporateers =
     ValueNotifier(BuiltList<GetCorporateers200ResponseInner>());
 
-ValueNotifier<BuiltList<GetTributeHistory200ResponseInner>> receivedTributeHistory =
+ValueNotifier<GetUserInfluenceStats200Response> stats =
+    ValueNotifier(GetUserInfluenceStats200Response());
+
+ValueNotifier<BuiltList<GetTributeHistory200ResponseInner>>
+    receivedTributeHistory =
     ValueNotifier(BuiltList<GetTributeHistory200ResponseInner>());
 
 ValueNotifier<BuiltList<GetTributeHistory200ResponseInner>> sentTributeHistory =
@@ -24,8 +27,8 @@ Future<void> update() async {
   await updateProfile();
   await updateSentTributeHistory();
   await updateReceivedTributeHistory();
+  await updateStats();
 }
-
 
 Future<void> updateProfile() async {
   final headers = await getAuthHeader();
@@ -34,41 +37,61 @@ Future<void> updateProfile() async {
     if (response.data != null) {
       profile.value = response.data ?? profile.value;
     }
-
   } catch (error) {
     print(error);
   }
 }
 
-
-Future<void> sendTribute({required Function onErrorMsg, required Function onSuccessMsg, required String receiver, required int amount, String? message }) async {
+Future<void> sendTribute(
+    {required Function onErrorMsg,
+    required Function onSuccessMsg,
+    required String receiver,
+    required int amount,
+    String? message}) async {
   final headers = await getAuthHeader();
   try {
     final SendTributeRequest sendTributeRequest = SendTributeRequest((b) => b
-              ..receiverHandle = receiver
-              ..amount = amount
-              ..message = message);
-    await corpInfluenceClient.sendTribute(headers: headers, sendTributeRequest: sendTributeRequest);
+      ..receiverHandle = receiver
+      ..amount = amount
+      ..message = message);
+    await corpInfluenceClient.sendTribute(
+        headers: headers, sendTributeRequest: sendTributeRequest);
 
     onSuccessMsg("$amount tribute successfully sent to $receiver");
-
   } catch (error) {
-    if ( error is DioException && error.response?.statusCode == 400){
+    if (error is DioException && error.response?.statusCode == 400) {
       onErrorMsg(jsonDecode(error.response.toString())['msg']);
-    }
-    else {
+    } else {
       print(error);
     }
   }
 }
 
-
-Future<void> updateSentTributeHistory({int page = 0, String request = "page"}) async {
+Future<void> updateStats({int page = 0, String request = "page"}) async {
   final headers = await getAuthHeader();
 
   try {
     final response =
-        await corpInfluenceClient.getTributeHistory(headers: headers, type: "sent", request: request, page: page.toString(),);
+        await corpInfluenceClient.getUserInfluenceStats(headers: headers);
+    if (response.data != null) {
+      stats.value = response.data ?? stats.value;
+    }
+  } catch (error) {
+    print(error);
+  }
+}
+
+Future<void> updateSentTributeHistory(
+    {int page = 0, String request = "page"}) async {
+  final headers = await getAuthHeader();
+
+  try {
+    final response = await corpInfluenceClient.getTributeHistory(
+      headers: headers,
+      type: "sent",
+      request: request,
+      page: page.toString(),
+    );
     if (response.data != null) {
       sentTributeHistory.value = response.data ?? sentTributeHistory.value;
     }
@@ -77,14 +100,20 @@ Future<void> updateSentTributeHistory({int page = 0, String request = "page"}) a
   }
 }
 
-Future<void> updateReceivedTributeHistory({int page = 0, String request = "page"}) async {
+Future<void> updateReceivedTributeHistory(
+    {int page = 0, String request = "page"}) async {
   final headers = await getAuthHeader();
 
   try {
-    final response =
-        await corpInfluenceClient.getTributeHistory(headers: headers, type: "received", request: request, page: page.toString(),);
+    final response = await corpInfluenceClient.getTributeHistory(
+      headers: headers,
+      type: "received",
+      request: request,
+      page: page.toString(),
+    );
     if (response.data != null) {
-      receivedTributeHistory.value = response.data ?? receivedTributeHistory.value;
+      receivedTributeHistory.value =
+          response.data ?? receivedTributeHistory.value;
     }
   } catch (error) {
     print(error);

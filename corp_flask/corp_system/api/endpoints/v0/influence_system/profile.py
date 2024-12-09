@@ -141,22 +141,22 @@ def current_influence(influence_type, type, title):
 	general = False
 	
 	if type != None:
-			if type == "division":
-					if title != None:
-							division = Division.query.filter_by(title=title).first()
-							if division == None:
-									return jsonify({'msg': "Division doesn't exist"}), 400
-			elif type == "department":
-					if title != None:
-							department = Department.query.filter_by(title=title).first()
-							if department == None:
-									return jsonify({'msg': "Department doesn't exist"}), 400
-			elif type == "general":
-					general = True
-			elif type == "all":
-					pass
-			else:
-					return jsonify({'msg': "Please select a type"}), 400
+		if type == "division":
+			if title != None:
+				division = Division.query.filter_by(title=title).first()
+				if division == None:
+					return jsonify({'msg': "Division doesn't exist"}), 400
+		elif type == "department":
+				if title != None:
+					department = Department.query.filter_by(title=title).first()
+					if department == None:
+						return jsonify({'msg': "Department doesn't exist"}), 400
+		elif type == "general":
+			general = True
+		elif type == "all":
+			pass
+		else:
+			return jsonify({'msg': "Please select a type"}), 400
 
 	if influence_type == "influence":
 			return jsonify(current_user.inf_account.current_influence(department=department, division=division, general=general)), 200
@@ -164,6 +164,101 @@ def current_influence(influence_type, type, title):
 			return jsonify(current_user.inf_account.lifetime_influence(department=department, division=division, general=general)), 200
 	else:
 			return jsonify({'msg': "Please select influence type"}), 400
+
+@api.route('/influence_system/profile/stats', methods=['GET'])
+@CORP_only
+def influence_stats():
+	"""Get influence stats
+	
+	This endpoint provide the current amount of specified influence
+	---
+	operationId: get_user_influence_stats
+	tags:
+		- Influence System
+	security: 
+        - corp_access_pass: []
+	responses:
+		200:
+			description: Transfer was successful
+			content:
+				application/json:
+					schema:
+						type: object
+						properties:
+							total_influence:
+								type: integer
+								example: 2000
+							total_lifetime_influence:
+								type: integer
+								example: 20000
+							general_influence:
+								type: integer
+								example: 2000
+							lifetime_general_influence:
+								type: integer
+								example: 20000
+							departments:
+								type: array
+								items:
+									type: object
+									properties:
+										department_title:
+											type: string
+											example: Development
+										color:
+											type: string
+											example: #FF0000
+										influence:
+											type: integer
+											example: 2000
+										lifetime_influence:
+											type: integer
+											example: 20000
+										divisions:
+											type: array
+											items:
+												type: object
+												properties:
+													division_title:
+														type: string
+														example: Backend
+													influence:
+														type: integer
+														example: 2000
+													lifetime_influence:
+														type: integer
+		401:
+			$ref: "#/components/responses/unauthorized"
+
+	"""
+	influence_list = {}
+	departments = Department.query.all()
+	
+	influence_list["total_influence"] = current_user.inf_account.current_influence()
+	influence_list["total_lifetime_influence"] = current_user.inf_account.lifetime_influence()
+	influence_list["general_influence"] = current_user.inf_account.current_influence(general=True)
+	influence_list["lifetime_general_influence"] = current_user.inf_account.lifetime_influence(general=True)
+	influence_list["departments"] = []
+
+	for department in departments:
+		department_item = {}
+		department_item["department_title"] = department.title
+		department_item["color"] = department.color
+		department_item["influence"] = current_user.inf_account.current_influence(department=department)
+		department_item["lifetime_influence"] = current_user.inf_account.lifetime_influence(department=department)
+		department_item["divisions"] = []
+
+		for division in department.divisions:
+			division_item = {}
+			division_item["division_title"] = division.title
+			division_item["influence"] = current_user.inf_account.current_influence(division=division)
+			division_item["lifetime_influence"] = current_user.inf_account.lifetime_influence(division=division)
+			department_item["divisions"].append(division_item)
+
+		influence_list["departments"].append(department_item)
+	
+	return jsonify(influence_list), 200
+	
 
 
 @api.route('/influence_system/profile/tribute_history/<type>/<request>/<int:page>', methods=['GET'])

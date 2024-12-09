@@ -38,6 +38,10 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetUser200ResponseRolesInner.serializer)
       ..add(GetUserDepartments200ResponseInner.serializer)
       ..add(GetUserDivisions200ResponseInner.serializer)
+      ..add(GetUserInfluenceStats200Response.serializer)
+      ..add(GetUserInfluenceStats200ResponseDepartmentsInner.serializer)
+      ..add(GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner
+          .serializer)
       ..add(GetUserProfile200Response.serializer)
       ..add(GetUserRoles200ResponseInner.serializer)
       ..add(GetUsers200ResponseInner.serializer)
@@ -61,6 +65,19 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(
               BuiltList, const [const FullType(GetUser200ResponseRolesInner)]),
           () => new ListBuilder<GetUser200ResponseRolesInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GetUserInfluenceStats200ResponseDepartmentsInner)
+          ]),
+          () => new ListBuilder<
+              GetUserInfluenceStats200ResponseDepartmentsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(
+                GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)
+          ]),
+          () => new ListBuilder<
+              GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

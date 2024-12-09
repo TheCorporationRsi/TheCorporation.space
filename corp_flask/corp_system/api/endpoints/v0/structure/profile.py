@@ -41,7 +41,10 @@ def user_profile():
                             Picture:
                                 type: string
                                 example: Link
-
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
     """
     
     return jsonify({
@@ -85,15 +88,11 @@ def user_departments():
                                 weight:
                                     type: integer
                                     example: 5
-                                influence:
-                                    type: integer
-                                    example: 1000
-                                lifetime_influence:
-                                    type: integer
-                                    example: 10000
-
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
     """
-    
     departments = current_user.departments
     departments_list = []
     
@@ -104,8 +103,6 @@ def user_departments():
             "color": department.color,
             "motto": department.motto,
             "weight": department.get_weight(current_user),
-            "influence": current_user.inf_account.current_influence(department=department),
-            "lifetime_influence": current_user.inf_account.lifetime_influence(department=department)
         })
     
     return jsonify(departments_list), 200
@@ -149,9 +146,8 @@ def user_divisions():
                                 weight:
                                     type: integer
                                     example: 5
-                                influence:
-                                    type: integer
-                                    example: 1000
+        400:
+            $ref: "#/components/responses/invalid"
         401:
             $ref: "#/components/responses/unauthorized"
 
@@ -167,7 +163,6 @@ def user_divisions():
             "department": division.department.title,
             "logo": division.logo,
             "weight": division.get_weight(current_user),
-            "influence": current_user.inf_account.current_influence(division=division)
         })
     
     return jsonify(divisions_list), 200
@@ -210,6 +205,8 @@ def user_roles():
                                 division:
                                     type: string
                                     example: Development
+        400:
+            $ref: "#/components/responses/invalid"
         401:
             $ref: "#/components/responses/unauthorized"
     """

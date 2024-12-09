@@ -57,13 +57,14 @@ class Department(Base):
         for role in self.roles:
             role.delete()
             
-        '''    
+        
         from corp_system.models import Influence
         
         influences = Influence.query.filter_by(department=self).all()
         for influence in influences:
             influence.department_influence = False
-        '''
+            influence.department = None
+        
         db.session.delete(self)
         db.session.commit()
     

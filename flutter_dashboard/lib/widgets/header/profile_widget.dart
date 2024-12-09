@@ -215,12 +215,12 @@ class ProfileWidget extends StatelessWidget {
                 Divider(),
                 SizedBox(height: 10),
                 ValueListenableBuilder(
-                  valueListenable: current_user.departments,
+                  valueListenable: infAccount.stats,
                   builder: (context, value, child) => Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      for (var department in value)
+                      for (var department in value.departments!)
                         Row(
                           children: [
                             Container(
@@ -237,7 +237,7 @@ class ProfileWidget extends StatelessWidget {
                               width: 4,
                             ),
                             Text(
-                              department.title ?? "Unknown",
+                              department.departmentTitle ?? "Unknown",
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -254,59 +254,58 @@ class ProfileWidget extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 200,
-                  child: Stack(
-                    children: [
-                      ValueListenableBuilder(
-                          valueListenable: current_user.departments,
-                          builder: (context, value, child) => PieChart(
-                                PieChartData(
-                                  sectionsSpace: 0,
-                                  centerSpaceRadius: 70,
-                                  startDegreeOffset: -90,
-                                  sections: [
-                                    PieChartSectionData(
-                                      color: backgroundColor,
-                                      value: 1,
-                                      radius: 25,
-                                      showTitle: false,
+                  child: ValueListenableBuilder(
+                    valueListenable: infAccount.stats,
+                    builder: (context, value, child) => Stack(
+                      children: [
+                        PieChart(
+                          PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 70,
+                            startDegreeOffset: -90,
+                            sections: [
+                              PieChartSectionData(
+                                color: backgroundColor,
+                                value: value.generalInfluence!.toDouble(),
+                                radius: 25,
+                                showTitle: false,
+                              ),
+                              for (var department in value.departments!)
+                                PieChartSectionData(
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey,
+                                  value: department.influence!.toDouble(),
+                                  title: department.departmentTitle,
+                                  radius: 25,
+                                  showTitle: false,
+                                )
+                            ],
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: defaultPadding),
+                              Text(
+                                value.totalInfluence.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      height: 0.5,
                                     ),
-                                    for (var department in value)
-                                      PieChartSectionData(
-                                        color: department.color != null
-                                            ? cssColorToColor(department.color!)
-                                            : Colors.grey,
-                                        value: department.influence!.toDouble(),
-                                        title: department.title,
-                                        radius: 25,
-                                        showTitle: false,
-                                      )
-                                  ],
-                                ),
-                              )),
-                      Positioned.fill(
-                        child: ValueListenableBuilder(
-                            valueListenable: infAccount.profile,
-                            builder: (context, value, child) => Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(height: defaultPadding),
-                                    Text(
-                                      value.influence.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            height: 0.5,
-                                          ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    const Text("Total")
-                                  ],
-                                )),
-                      ),
-                    ],
+                              ),
+                              const SizedBox(height: 8),
+                              const Text("Total")
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),
@@ -385,59 +384,59 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 SizedBox(
                   height: 200,
-                  child: Stack(
-                    children: [
-                      ValueListenableBuilder(
-                          valueListenable: current_user.departments,
-                          builder: (context, value, child) => PieChart(
-                                PieChartData(
-                                  sectionsSpace: 0,
-                                  centerSpaceRadius: 70,
-                                  startDegreeOffset: -90,
-                                  sections: [
-                                    PieChartSectionData(
-                                      color: backgroundColor,
-                                      value: 1,
-                                      radius: 25,
-                                      showTitle: false,
+                  child: ValueListenableBuilder(
+                    valueListenable: infAccount.stats,
+                    builder: (context, value, child) => Stack(
+                      children: [
+                        PieChart(
+                          PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 70,
+                            startDegreeOffset: -90,
+                            sections: [
+                              PieChartSectionData(
+                                color: backgroundColor,
+                                value: value.lifetimeGeneralInfluence!.toDouble(),
+                                radius: 25,
+                                showTitle: false,
+                              ),
+                              for (var department in value.departments!)
+                                PieChartSectionData(
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey,
+                                  value:
+                                      department.lifetimeInfluence!.toDouble(),
+                                  title: department.departmentTitle,
+                                  radius: 25,
+                                  showTitle: false,
+                                )
+                            ],
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: defaultPadding),
+                              Text(
+                                value.totalLifetimeInfluence.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      height: 0.5,
                                     ),
-                                    for (var department in value)
-                                      PieChartSectionData(
-                                        color: department.color != null
-                                            ? cssColorToColor(department.color!)
-                                            : Colors.grey,
-                                        value: department.lifetimeInfluence!.toDouble(),
-                                        title: department.title,
-                                        radius: 25,
-                                        showTitle: false,
-                                      )
-                                  ],
-                                ),
-                              )),
-                      Positioned.fill(
-                        child: ValueListenableBuilder(
-                            valueListenable: infAccount.profile,
-                            builder: (context, value, child) => Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(height: defaultPadding),
-                                    Text(
-                                      value.lifetimeInfluence.toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineMedium!
-                                          .copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            height: 0.5,
-                                          ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    const Text("Total")
-                                  ],
-                                )),
-                      ),
-                    ],
+                              ),
+                              const SizedBox(height: 8),
+                              const Text("Total")
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 10),

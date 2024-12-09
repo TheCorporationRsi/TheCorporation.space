@@ -45,6 +45,9 @@ import 'package:corp_api/src/model/get_user200_response.dart';
 import 'package:corp_api/src/model/get_user200_response_roles_inner.dart';
 import 'package:corp_api/src/model/get_user_departments200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_divisions200_response_inner.dart';
+import 'package:corp_api/src/model/get_user_influence_stats200_response.dart';
+import 'package:corp_api/src/model/get_user_influence_stats200_response_departments_inner.dart';
+import 'package:corp_api/src/model/get_user_influence_stats200_response_departments_inner_divisions_inner.dart';
 import 'package:corp_api/src/model/get_user_profile200_response.dart';
 import 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 import 'package:corp_api/src/model/get_users200_response_inner.dart';
@@ -99,6 +102,9 @@ part 'serializers.g.dart';
   GetUser200ResponseRolesInner,
   GetUserDepartments200ResponseInner,
   GetUserDivisions200ResponseInner,
+  GetUserInfluenceStats200Response,
+  GetUserInfluenceStats200ResponseDepartmentsInner,
+  GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner,
   GetUserProfile200Response,
   GetUserRoles200ResponseInner,
   GetUsers200ResponseInner,

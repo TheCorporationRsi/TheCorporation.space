@@ -99,13 +99,14 @@ class Division(Base):
         
         for role in self.roles:
                 role.delete()
-        '''    
+                
         from corp_system.models import Influence
         
         influences = Influence.query.filter_by(division=self).all()
         for influence in influences:
             influence.division_influence = False
-        '''
+            influence.division = None
+        
     
         db.session.delete(self)
         db.session.commit()

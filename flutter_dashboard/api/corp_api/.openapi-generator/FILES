@@ -33,6 +33,9 @@ doc/GetUser200Response.md
 doc/GetUser200ResponseRolesInner.md
 doc/GetUserDepartments200ResponseInner.md
 doc/GetUserDivisions200ResponseInner.md
+doc/GetUserInfluenceStats200Response.md
+doc/GetUserInfluenceStats200ResponseDepartmentsInner.md
+doc/GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner.md
 doc/GetUserProfile200Response.md
 doc/GetUserRoles200ResponseInner.md
 doc/GetUsers200ResponseInner.md
@@ -104,6 +107,9 @@ lib/src/model/get_user200_response.dart
 lib/src/model/get_user200_response_roles_inner.dart
 lib/src/model/get_user_departments200_response_inner.dart
 lib/src/model/get_user_divisions200_response_inner.dart
+lib/src/model/get_user_influence_stats200_response.dart
+lib/src/model/get_user_influence_stats200_response_departments_inner.dart
+lib/src/model/get_user_influence_stats200_response_departments_inner_divisions_inner.dart
 lib/src/model/get_user_profile200_response.dart
 lib/src/model/get_user_roles200_response_inner.dart
 lib/src/model/get_users200_response_inner.dart
