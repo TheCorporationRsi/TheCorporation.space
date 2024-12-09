@@ -254,7 +254,10 @@ class User(Base):
             self.roles.append(role)
             db.session.commit()
             
-            Bot_controller.add_role(self, role)
+            try:
+                Bot_controller.add_role(self, role)
+            except:
+                print("Issue with bot controller")
 
     def remove_role(self, role):
         from corp_system.bot.controller import Bot_controller
@@ -263,7 +266,10 @@ class User(Base):
             self.roles.remove(role)
             db.session.commit()
             
-            Bot_controller.remove_role(self, role)
+            try:
+                Bot_controller.remove_role(self, role)
+            except:
+                print("Issue with bot controller")
             
     
     # Structure methods
@@ -325,12 +331,15 @@ class User(Base):
         if self.CORP_confirmed:
             self.add_role(Role.query.filter_by(title='Corporateer').first())
         
-        from corp_system.bot.controller import Bot_controller
-        Bot_controller.update_nickname(self)
-        Bot_controller.sync_role(self)
-        
-        from corp_system.controllers.structure_manager import StructureManager
-        StructureManager.equalize_roles(self)
+        try:
+            from corp_system.bot.controller import Bot_controller
+            Bot_controller.update_nickname(self)
+            Bot_controller.sync_role(self)
+            
+            from corp_system.controllers.structure_manager import StructureManager
+            StructureManager.equalize_roles(self)
+        except:
+            print("Issue with bot controller")
         
         for token in self.auth_tokens:
             expiration = datetime.fromtimestamp(token['exp'])
