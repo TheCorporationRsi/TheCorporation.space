@@ -6,6 +6,8 @@ from flask import jsonify, request
 
 from corp_system.models import Inf_Rank, Division, Department, User, Role
 
+from corp_system import db
+
 from corp_system.controllers.structure_manager import StructureManager
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 
@@ -274,6 +276,10 @@ def add_user_role():
     user = User.query.filter_by(RSI_handle=rsi_handle).first()
     if not user:
         return jsonify({"message": "User not found"}), 400
+    
+    if role.title == "Corporateer":
+        user.CORP_confirmed = True
+        db.session.commit()
 
     user.add_role(role)
 
@@ -327,9 +333,13 @@ def remove_user_role():
     if not role:
         return jsonify({"message": "Role not found"}), 400
     
-    user = User.query.filter_by(RSI_handle=rsi_handle).first()
+    user: User= User.query.filter_by(RSI_handle=rsi_handle).first()
     if not user:
         return jsonify({"message": "User not found"}), 400
+    
+    if role.title == "Corporateer":
+        user.CORP_confirmed = False
+        db.session.commit()
 
     user.remove_role(role)
 

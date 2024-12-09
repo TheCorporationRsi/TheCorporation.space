@@ -19,7 +19,7 @@ from flask import jsonify, request
 
 from corp_system.controllers.security_manager import SecurityManager
 
-from corp_system import limiter
+from corp_system import limiter, db
 
 from corp_system.models import User
 
@@ -226,3 +226,50 @@ def delete_user(username):
     user.delete()
 
     return jsonify({"msg": "User deleted"}), 200
+
+@api.route("/users/<username>", methods=["PATCH"])
+@admin_only
+def manualy_verify_user(username):
+    """Manualy verify user
+
+    This endpoint manually verifies a user
+    ---
+
+    operationId: manualy_verify_user
+    tags:
+        - Security
+    security:
+        - corp_access_pass: []
+    parameters:
+        -   in: path
+            name: username
+            required: true
+            schema:
+                type: string
+                example: Cyber-Dreamer
+            description: Username of the user
+    responses:
+        200:
+            description: User manually verified
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: User manually verified
+        400:
+            $ref: "#/components/responses/invalid"
+
+    """
+    user: User = User.query.filter_by(RSI_handle=username).first()
+
+    if not user:
+        return jsonify({"msg": "User not found"}), 400
+
+    user.RSI_confirmed = True
+    db.session.commit()
+
+    return jsonify({"msg": "User manually verified"}), 200
+

@@ -40,6 +40,7 @@ doc/InfluenceSystemApi.md
 doc/InformationApi.md
 doc/Login200Response.md
 doc/LoginRequest.md
+doc/ManualyVerifyUser200Response.md
 doc/RSIStatsApi.md
 doc/RefreshToken200Response.md
 doc/Register200Response.md
@@ -108,6 +109,7 @@ lib/src/model/get_user_roles200_response_inner.dart
 lib/src/model/get_users200_response_inner.dart
 lib/src/model/login200_response.dart
 lib/src/model/login_request.dart
+lib/src/model/manualy_verify_user200_response.dart
 lib/src/model/refresh_token200_response.dart
 lib/src/model/register200_response.dart
 lib/src/model/register_request.dart
@@ -123,4 +125,3 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/delete_user200_response_test.dart

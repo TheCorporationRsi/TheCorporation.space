@@ -89,6 +89,7 @@ Class | Method | HTTP request | Description
 [*SecurityApi*](doc/SecurityApi.md) | [**getUsers**](doc/SecurityApi.md#getusers) | **GET** /api/v0/users | Users list
 [*SecurityApi*](doc/SecurityApi.md) | [**login**](doc/SecurityApi.md#login) | **POST** /api/v0/login | Authetification endpoint
 [*SecurityApi*](doc/SecurityApi.md) | [**logout**](doc/SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
+[*SecurityApi*](doc/SecurityApi.md) | [**manualyVerifyUser**](doc/SecurityApi.md#manualyverifyuser) | **PATCH** /api/v0/users/{username} | Manualy verify user
 [*SecurityApi*](doc/SecurityApi.md) | [**refreshToken**](doc/SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [*SecurityApi*](doc/SecurityApi.md) | [**register**](doc/SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
 [*SecurityApi*](doc/SecurityApi.md) | [**verifyRSIToken**](doc/SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
@@ -144,6 +145,7 @@ Class | Method | HTTP request | Description
  - [GetUsers200ResponseInner](doc/GetUsers200ResponseInner.md)
  - [Login200Response](doc/Login200Response.md)
  - [LoginRequest](doc/LoginRequest.md)
+ - [ManualyVerifyUser200Response](doc/ManualyVerifyUser200Response.md)
  - [RefreshToken200Response](doc/RefreshToken200Response.md)
  - [Register200Response](doc/Register200Response.md)
  - [RegisterRequest](doc/RegisterRequest.md)

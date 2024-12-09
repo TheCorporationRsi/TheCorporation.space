@@ -50,6 +50,7 @@ import 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 import 'package:corp_api/src/model/get_users200_response_inner.dart';
 import 'package:corp_api/src/model/login200_response.dart';
 import 'package:corp_api/src/model/login_request.dart';
+import 'package:corp_api/src/model/manualy_verify_user200_response.dart';
 import 'package:corp_api/src/model/refresh_token200_response.dart';
 import 'package:corp_api/src/model/register200_response.dart';
 import 'package:corp_api/src/model/register_request.dart';
@@ -103,6 +104,7 @@ part 'serializers.g.dart';
   GetUsers200ResponseInner,
   Login200Response,
   LoginRequest,
+  ManualyVerifyUser200Response,
   RefreshToken200Response,
   Register200Response,
   RegisterRequest,

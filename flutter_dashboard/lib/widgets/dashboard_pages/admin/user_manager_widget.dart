@@ -201,6 +201,14 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                     });
                   },
                 ),
+                IconButton(
+                  icon: Icon(Icons.verified, color: Colors.blue),
+                  onPressed: () {
+                    if (!user.rSIConfirmed!) {
+                      _showVerifyDialog(user);
+                    }
+                  },
+                ),
               ],
             ),
           ),
@@ -264,7 +272,13 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                   // Replace '1234' with the actual pincode logic
                   _deleteUser(user);
                 } else {
-                  // Show error message or handle invalid pincode
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Username does not match'),
+                      backgroundColor: Colors.red,
+                    )
+
+                  );
                 }
               },
               child: Text(
@@ -542,6 +556,85 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
           headers: headers, addUserRoleRequest: removeUserRoleRequest);
 
       if (response.data!.msg == "Role removed") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+
+      _applySearchAndFilter();
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void _showVerifyDialog(GetUsers200ResponseInner user) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Text(
+            'Verify ${user.rSIHandle.toString()}',
+            style: TextStyle(
+              color: primaryColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: Text('Are you sure you want to verify this user?'),
+          actions: [
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                _verifyUser(user);
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Verify',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _verifyUser(GetUsers200ResponseInner user) async {
+    final headers = await getAuthHeader();
+
+    try {
+      final response = await corpSecurityClient.manualyVerifyUser(
+          headers: headers, username: user.rSIHandle.toString());
+
+      if (response.data!.msg == "User verified") {
         setState(() {
           _isLoading = true;
         });

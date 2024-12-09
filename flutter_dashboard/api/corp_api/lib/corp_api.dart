@@ -53,6 +53,7 @@ export 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 export 'package:corp_api/src/model/get_users200_response_inner.dart';
 export 'package:corp_api/src/model/login200_response.dart';
 export 'package:corp_api/src/model/login_request.dart';
+export 'package:corp_api/src/model/manualy_verify_user200_response.dart';
 export 'package:corp_api/src/model/refresh_token200_response.dart';
 export 'package:corp_api/src/model/register200_response.dart';
 export 'package:corp_api/src/model/register_request.dart';

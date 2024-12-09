@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**getUsers**](SecurityApi.md#getusers) | **GET** /api/v0/users | Users list
 [**login**](SecurityApi.md#login) | **POST** /api/v0/login | Authetification endpoint
 [**logout**](SecurityApi.md#logout) | **POST** /api/v0/logout | Logout current user
+[**manualyVerifyUser**](SecurityApi.md#manualyverifyuser) | **PATCH** /api/v0/users/{username} | Manualy verify user
 [**refreshToken**](SecurityApi.md#refreshtoken) | **POST** /api/v0/refresh_token | Path to refresh cookie that are soon to expire
 [**register**](SecurityApi.md#register) | **POST** /api/v0/register | Registration endpoint
 [**verifyRSIToken**](SecurityApi.md#verifyrsitoken) | **GET** /api/v0/test_RSI_token | Verify RSI token
@@ -375,6 +376,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 void (empty response body)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **manualyVerifyUser**
+> ManualyVerifyUser200Response manualyVerifyUser(username)
+
+Manualy verify user
+
+<br/>This endpoint manually verifies a user<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getSecurityApi();
+final String username = Cyber-Dreamer; // String | Username of the user
+
+try {
+    final response = api.manualyVerifyUser(username);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling SecurityApi->manualyVerifyUser: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **username** | **String**| Username of the user | 
+
+### Return type
+
+[**ManualyVerifyUser200Response**](ManualyVerifyUser200Response.md)
 
 ### Authorization
 
