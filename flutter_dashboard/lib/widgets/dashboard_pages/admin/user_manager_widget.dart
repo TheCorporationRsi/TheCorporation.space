@@ -185,6 +185,15 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (user.rSIConfirmed == false)
+                IconButton(
+                  icon: Icon(Icons.verified, color: Colors.blue),
+                  onPressed: () {
+                    if (!user.rSIConfirmed!) {
+                      _showVerifyDialog(user);
+                    }
+                  },
+                ),
                 IconButton(
                   icon: Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
@@ -199,14 +208,6 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                     setState(() {
                       _dropdownOpen[userIndex] = !_dropdownOpen[userIndex]!;
                     });
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.verified, color: Colors.blue),
-                  onPressed: () {
-                    if (!user.rSIConfirmed!) {
-                      _showVerifyDialog(user);
-                    }
                   },
                 ),
               ],
@@ -271,6 +272,7 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                 if (confirmation == user.rSIHandle) {
                   // Replace '1234' with the actual pincode logic
                   _deleteUser(user);
+                  Navigator.of(context).pop();
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
