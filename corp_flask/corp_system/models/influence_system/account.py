@@ -144,6 +144,15 @@ class Inf_Account(Base):
         from corp_system.models import Inf_Rank
         self.rank = db.session.query(Inf_Rank).filter(Inf_Rank.required_lifetime_influence <= self.lifetime_influence()).order_by(Inf_Rank.required_lifetime_influence.desc()).first()
         
+        user_divisions = self.user.divisions
+        user_departments = self.user.departments
+        
+        for influence in self.influences:
+            if influence.division_influence and influence.division not in user_divisions:
+                influence.division_influence = False
+            if influence.department_influence and influence.department not in user_departments:
+                influence.department_influence = False
+        
         db.session.commit()
     
     def as_dict(self):
