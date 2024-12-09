@@ -263,7 +263,6 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
                 if (confirmation == user.rSIHandle) {
                   // Replace '1234' with the actual pincode logic
                   _deleteUser(user);
-                  Navigator.of(context).pop();
                 } else {
                   // Show error message or handle invalid pincode
                 }
@@ -289,14 +288,14 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     try {
       final response = await corpSecurityClient.deleteUser(
           headers: headers, username: user.rSIHandle.toString());
-      /*
+      
       if (response.data!.msg == "User deleted") {
         setState(() {
           _isLoading = true;
         });
         _initialize();
       }
-      */
+      
       _applySearchAndFilter();
     } catch (error) {
       print(error);
