@@ -9,7 +9,9 @@ class InfluenceDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return ValueListenableBuilder(
+                  valueListenable: current_user.infAccount,
+                  builder: (context, value, child) =>GridView(
       shrinkWrap: true,
       physics: const ScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -41,7 +43,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: Text(
-                    current_user.infAccount.tribute.toString(),
+                    value.tribute.toString(),
                     style: const TextStyle(
                       fontSize: 22,
                       color: secondaryColor,
@@ -105,7 +107,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: Text(
-                    current_user.infAccount.influence.toString(),
+                    value.influence.toString(),
                     style: const TextStyle(
                       fontSize: 22,
                       color: secondaryColor,
@@ -169,7 +171,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: Text(
-                    current_user.infAccount.lifetimeInfluence.toString(),
+                    value.lifetimeInfluence.toString(),
                     style: const TextStyle(
                       fontSize: 22,
                       color: secondaryColor,
@@ -233,7 +235,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   child: AutoSizeText(
-                    current_user.infAccount.rank.toString(),
+                    value.rank.toString(),
                     maxLines: 1,
                     maxFontSize: 22,
                     textScaleFactor: 1.4,
@@ -278,6 +280,6 @@ class InfluenceDetailsCard extends StatelessWidget {
           ),
         ),
       ],
-    );
+    ));
   }
 }

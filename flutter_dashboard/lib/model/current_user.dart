@@ -1,20 +1,21 @@
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/main.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/material.dart';
 
 String rsiHandle = "loading";
 String rsiMoniker = "loading";
 String profilePicture = "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250";
 
-BuiltList<GetUserRoles200ResponseInner> roles = BuiltList<GetUserRoles200ResponseInner>();
+ValueNotifier<BuiltList<GetUserRoles200ResponseInner>> roles = ValueNotifier(BuiltList<GetUserRoles200ResponseInner>());
 
-GetStatus200Response status = GetStatus200Response();
+ValueNotifier<GetStatus200Response> status = ValueNotifier(GetStatus200Response());
 
-GetProfile200Response infAccount = GetProfile200Response();
+ValueNotifier<GetProfile200Response> infAccount = ValueNotifier(GetProfile200Response());
 
-BuiltList<GetUserDivisions200ResponseInner> divisions = BuiltList<GetUserDivisions200ResponseInner>();
+ValueNotifier<BuiltList<GetUserDivisions200ResponseInner>> divisions = ValueNotifier(BuiltList<GetUserDivisions200ResponseInner>());
 
-BuiltList<GetUserDepartments200ResponseInner> departments = BuiltList<GetUserDepartments200ResponseInner>();
+ValueNotifier<BuiltList<GetUserDepartments200ResponseInner>> departments = ValueNotifier(BuiltList<GetUserDepartments200ResponseInner>());
 
 final corpStructureClient = corpApi.getStructureApi();
 final corpSecurityClient = corpApi.getSecurityApi();
@@ -66,7 +67,7 @@ Future<void> updateUserRoles() async {
   try {
     final response = await corpStructureClient.getUserRoles(headers: headers);
     if (response.data != null) {
-      roles = response.data ?? roles;
+      roles.value = response.data ?? roles.value;
     }
 
   } catch (error) {
@@ -80,7 +81,7 @@ Future<void> updateStatus() async {
   try {
     final response = await corpSecurityClient.getStatus(headers: headers);
     if (response.data != null) {
-      status = response.data ?? status;
+      status.value = response.data ?? status.value;
     }
 
   } catch (error) {
@@ -93,7 +94,7 @@ Future<void> updateInfAccount() async {
   try {
     final response = await corpInfluenceClient.getProfile(headers: headers);
     if (response.data != null) {
-      infAccount = response.data ?? infAccount;
+      infAccount.value = response.data ?? infAccount.value;
     }
 
   } catch (error) {
@@ -108,7 +109,7 @@ Future<void> updateUserDivisions() async {
     final response = await corpStructureClient.getUserDivisions(headers: headers);
     
     if (response.data != null) {
-      divisions = response.data ?? divisions;
+      divisions.value = response.data ?? divisions.value;
     }
 
   } catch (error) {
@@ -123,7 +124,7 @@ Future<void> updateUserDepartments() async {
     final response = await corpStructureClient.getUserDepartments(headers: headers);
     
     if (response.data != null) {
-      departments = response.data ?? departments;
+      departments.value = response.data ?? departments.value;
     }
 
   } catch (error) {

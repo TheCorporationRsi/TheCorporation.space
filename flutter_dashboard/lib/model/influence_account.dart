@@ -35,7 +35,7 @@ Future<void> updateAccount() async {
   }
 }
 
-Future<void> sendTribute({required Function onErrorMsg, required String receiver, required int amount, String? message }) async {
+Future<void> sendTribute({required Function onErrorMsg, required Function onSuccessMsg, required String receiver, required int amount, String? message }) async {
   final headers = await getAuthHeader();
   try {
     final SendTributeRequest sendTributeRequest = SendTributeRequest((b) => b
@@ -43,6 +43,8 @@ Future<void> sendTribute({required Function onErrorMsg, required String receiver
               ..amount = amount
               ..message = message);
     await corpInfluenceClient.sendTribute(headers: headers, sendTributeRequest: sendTributeRequest);
+
+    onSuccessMsg("$amount tribute successfully sent to $receiver");
 
   } catch (error) {
     if ( error is DioException && error.response?.statusCode == 400){

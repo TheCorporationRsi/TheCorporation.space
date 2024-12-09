@@ -51,6 +51,17 @@ class _TransferCardState extends State<TransferCard> {
       );
     }
 
+   void _showSuccessMessage(String message) {
+    setState(() {
+    });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Center(child: Text(message, style: TextStyle(color: Colors.white, fontSize: 16))),
+          backgroundColor: Colors.green,
+        ),
+      );
+    }
+
     if (_isLoading) {
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -259,9 +270,10 @@ class _TransferCardState extends State<TransferCard> {
                             'Amount must be greater than 0.',
                           );
                         } else {
-                          infAccount.sendTribute(onErrorMsg: _showErrorMessage, receiver: selectedUser!.rSIHandle!, amount: amount!, message: message);
-                          await infAccount.update();
+                          await infAccount.sendTribute(onErrorMsg: _showErrorMessage, onSuccessMsg:_showSuccessMessage, receiver: selectedUser!.rSIHandle!, amount: amount!, message: message);
                           await current_user.update();
+                          await infAccount.update();
+
                         }
                       },
                       style: ElevatedButton.styleFrom(

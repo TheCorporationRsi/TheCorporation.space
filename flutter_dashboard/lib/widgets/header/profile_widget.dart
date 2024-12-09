@@ -12,12 +12,14 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final leadershipRoles =
-        current_user.roles.where((role) => role.type == 'Leadership').toList();
-    final membershipRoles =
-        current_user.roles.where((role) => role.type == 'Membership').toList();
+    final leadershipRoles = current_user.roles.value
+        .where((role) => role.type == 'Leadership')
+        .toList();
+    final membershipRoles = current_user.roles.value
+        .where((role) => role.type == 'Membership')
+        .toList();
     final otherRoles =
-        current_user.roles.where((role) => role.type == 'Other').toList();
+        current_user.roles.value.where((role) => role.type == 'Other').toList();
     return Container(
       decoration: const BoxDecoration(
         color: cardBackgroundColor,
@@ -153,7 +155,10 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 20),
-                if (current_user.status.cORPMember!)
+                if (current_user.status.value.cORPMember!)
+                ValueListenableBuilder(
+                  valueListenable: current_user.infAccount,
+                  builder: (context, value, child) =>
                   Container(
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(
@@ -177,7 +182,8 @@ class ProfileWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  current_user.infAccount.rank ?? 'Unknown',
+                                  value.rank ??
+                                      'Unknown',
                                   style: const TextStyle(fontSize: 13),
                                 ),
                               ],
@@ -193,7 +199,7 @@ class ProfileWidget extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  (current_user.infAccount.tribute ?? 0)
+                                  (value.tribute ?? 0)
                                       .toString(),
                                   style: const TextStyle(fontSize: 13),
                                 ),
@@ -201,7 +207,7 @@ class ProfileWidget extends StatelessWidget {
                             )
                           ],
                         ),
-                      ))
+                      )))
                 else
                   Text(
                     'Must be a CORP member to view Influence Account',
@@ -210,60 +216,63 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 10),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    for (var department in current_user.departments)
-                      Row(
-                        children: [
-                          Container(
-                            width: 16,
-                            height: 16,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: department.color != null
-                                  ? cssColorToColor(department.color!)
-                                  : Colors.grey,
+                ValueListenableBuilder(
+                  valueListenable: current_user.departments,
+                  builder: (context, value, child) => Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      for (var department in value)
+                        Row(
+                          children: [
+                            Container(
+                              width: 16,
+                              height: 16,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: department.color != null
+                                    ? cssColorToColor(department.color!)
+                                    : Colors.grey,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            department.title ?? "Unknown",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                            const SizedBox(
+                              width: 4,
                             ),
-                          )
-                        ],
+                            Text(
+                              department.title ?? "Unknown",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            )
+                          ],
+                        ),
+                      SizedBox(
+                        height: 18,
                       ),
-                    SizedBox(
-                      height: 18,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 200,
-                  child: Stack(
-                    children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 70,
-                          startDegreeOffset: -90,
-                          sections: [
-                            
+                  child: ValueListenableBuilder(
+                    valueListenable: current_user.departments,
+                    builder: (context, value, child) => Stack(
+                      children: [
+                        PieChart(
+                          PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 70,
+                            startDegreeOffset: -90,
+                            sections: [
                               PieChartSectionData(
                                 color: backgroundColor,
                                 value: 1,
                                 radius: 25,
                                 showTitle: false,
                               ),
-                            
-                              for (var department in current_user.departments)
+                              for (var department in value)
                                 PieChartSectionData(
                                   color: department.color != null
                                       ? cssColorToColor(department.color!)
@@ -273,31 +282,33 @@ class ProfileWidget extends StatelessWidget {
                                   radius: 25,
                                   showTitle: false,
                                 )
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned.fill(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: defaultPadding),
-                            Text(
-                              current_user.infAccount.influence.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    height: 0.5,
-                                  ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text("Total")
-                          ],
+                        Positioned.fill(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: defaultPadding),
+                              Text(
+                                current_user.infAccount.value.influence
+                                    .toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      height: 0.5,
+                                    ),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text("Total")
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Text(
@@ -309,57 +320,60 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 SizedBox(
                   height: 200,
-                  child: Stack(
-                    children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 0,
-                          centerSpaceRadius: 70,
-                          startDegreeOffset: -90,
-                          sections: [
-                            if (current_user.departments.isEmpty)
-                              PieChartSectionData(
-                                color: backgroundColor,
-                                value: 1,
-                                radius: 25,
-                                showTitle: false,
-                              )
-                            else
-                              for (var department in current_user.departments)
+                  child: ValueListenableBuilder(
+                    valueListenable: current_user.departments,
+                    builder: (context, value, child) => Stack(
+                      children: [
+                        PieChart(
+                          PieChartData(
+                            sectionsSpace: 0,
+                            centerSpaceRadius: 70,
+                            startDegreeOffset: -90,
+                            sections: [
+                              if (value.isEmpty)
                                 PieChartSectionData(
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
-                                      : Colors.grey,
-                                  value: department.weight!.toDouble(),
-                                  title: department.title,
+                                  color: backgroundColor,
+                                  value: 1,
                                   radius: 25,
                                   showTitle: false,
                                 )
-                          ],
+                              else
+                                for (var department in value)
+                                  PieChartSectionData(
+                                    color: department.color != null
+                                        ? cssColorToColor(department.color!)
+                                        : Colors.grey,
+                                    value: department.weight!.toDouble(),
+                                    title: department.title,
+                                    radius: 25,
+                                    showTitle: false,
+                                  )
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned.fill(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: defaultPadding),
-                            Text(
-                              "100",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineMedium!
-                                  .copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    height: 0.5,
-                                  ),
-                            ),
-                            const SizedBox(height: 8),
-                            const Text("%")
-                          ],
+                        Positioned.fill(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(height: defaultPadding),
+                              Text(
+                                "100",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineMedium!
+                                    .copyWith(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      height: 0.5,
+                                    ),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text("%")
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Text(

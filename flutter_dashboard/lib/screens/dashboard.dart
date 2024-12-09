@@ -97,12 +97,12 @@ class _MainScreenState extends State<MainScreen>
       const DashboardWidget(),
       const InfluenceWidget()
       ],
-      if (current_user.status.cORPMember!)
+      if (current_user.status.value.cORPMember!)
       [
       const InfluenceWidget(),
       const InfTransferWidget()
       ],
-      if (current_user.status.isAdmin!)
+      if (current_user.status.value.isAdmin!)
       [
       const UserManagerWidget(),
       const DepartmentManagerWidget(),

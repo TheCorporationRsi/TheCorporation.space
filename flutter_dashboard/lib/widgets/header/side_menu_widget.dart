@@ -22,7 +22,7 @@ final menu = <MenuModel>[
       MenuModel(icon: Icons.analytics, title: 'Analytics'),
     ],
   ),
-  if (current_user.status.cORPMember!)
+  if (current_user.status.value.cORPMember!)
   MenuModel(
     icon: Icons.person,
     title: 'Influence System',
@@ -31,7 +31,7 @@ final menu = <MenuModel>[
       MenuModel(icon: Icons.security, title: 'Transfer'),
     ],
   ),
-  if (current_user.status.isAdmin!)
+  if (current_user.status.value.isAdmin!)
   MenuModel(
     icon: Icons.person,
     title: 'Admin',
