@@ -23,8 +23,6 @@ class _InfTransferWidgetState extends State<InfTransferWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
           children: [
-            const SizedBox(height: 10),
-            const InfluenceDetailsCard(),
             const SizedBox(height: 18),
             const TransferCard(),
             const SizedBox(height: 18),

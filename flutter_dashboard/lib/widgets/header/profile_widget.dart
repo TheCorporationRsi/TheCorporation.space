@@ -406,7 +406,7 @@ class ProfileWidget extends StatelessWidget {
                                         color: department.color != null
                                             ? cssColorToColor(department.color!)
                                             : Colors.grey,
-                                        value: department.influence!.toDouble(),
+                                        value: department.lifetimeInfluence!.toDouble(),
                                         title: department.title,
                                         radius: 25,
                                         showTitle: false,
@@ -422,7 +422,7 @@ class ProfileWidget extends StatelessWidget {
                                   children: [
                                     const SizedBox(height: defaultPadding),
                                     Text(
-                                      value.influence.toString(),
+                                      value.lifetimeInfluence.toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineMedium!
@@ -442,7 +442,7 @@ class ProfileWidget extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Influence',
+                  'Lifetime Influence',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ],
