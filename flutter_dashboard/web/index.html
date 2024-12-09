@@ -29,13 +29,23 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/x-icon" href="corplogo.ico"/>
 
   <!--Fixing mobile size-->
   <meta flt-viewport="" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <title>The Corporation</title>
   <link rel="manifest" href="manifest.json">
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('/flutter_service_worker.js?v=<timestamp>'); // replace '<timestamp>' with your latest version/timestamp
+      });
+    }
+  </script>
+
+
 </head>
 <body>
   <script src="flutter_bootstrap.js?version=0.0.1" async></script>
