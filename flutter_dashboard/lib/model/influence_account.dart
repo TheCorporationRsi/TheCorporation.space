@@ -3,37 +3,43 @@ import 'package:flutter_dashboard/main.dart';
 import 'package:built_collection/built_collection.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
-GetProfile200Response account = GetProfile200Response();
 
-BuiltList<GetCorporateers200ResponseInner> corporateers =
-    BuiltList<GetCorporateers200ResponseInner>();
+ValueNotifier<GetProfile200Response> profile = ValueNotifier(GetProfile200Response());
 
-BuiltList<GetTributeHistory200ResponseInner> receivedTributeHistory =
-    BuiltList<GetTributeHistory200ResponseInner>();
 
-BuiltList<GetTributeHistory200ResponseInner> sentTributeHistory =
-    BuiltList<GetTributeHistory200ResponseInner>();
+ValueNotifier<BuiltList<GetCorporateers200ResponseInner>> corporateers =
+    ValueNotifier(BuiltList<GetCorporateers200ResponseInner>());
+
+ValueNotifier<BuiltList<GetTributeHistory200ResponseInner>> receivedTributeHistory =
+    ValueNotifier(BuiltList<GetTributeHistory200ResponseInner>());
+
+ValueNotifier<BuiltList<GetTributeHistory200ResponseInner>> sentTributeHistory =
+    ValueNotifier(BuiltList<GetTributeHistory200ResponseInner>());
 
 final corpInfluenceClient = corpApi.getInfluenceSystemApi();
 
 Future<void> update() async {
-  await updateAccount();
+  await updateProfile();
   await updateSentTributeHistory();
   await updateReceivedTributeHistory();
 }
 
-Future<void> updateAccount() async {
+
+Future<void> updateProfile() async {
   final headers = await getAuthHeader();
   try {
     final response = await corpInfluenceClient.getProfile(headers: headers);
     if (response.data != null) {
-      account = response.data ?? account;
+      profile.value = response.data ?? profile.value;
     }
+
   } catch (error) {
     print(error);
   }
 }
+
 
 Future<void> sendTribute({required Function onErrorMsg, required Function onSuccessMsg, required String receiver, required int amount, String? message }) async {
   final headers = await getAuthHeader();
@@ -64,7 +70,7 @@ Future<void> updateSentTributeHistory({int page = 0, String request = "page"}) a
     final response =
         await corpInfluenceClient.getTributeHistory(headers: headers, type: "sent", request: request, page: page.toString(),);
     if (response.data != null) {
-      sentTributeHistory = response.data ?? sentTributeHistory;
+      sentTributeHistory.value = response.data ?? sentTributeHistory.value;
     }
   } catch (error) {
     print(error);
@@ -78,7 +84,7 @@ Future<void> updateReceivedTributeHistory({int page = 0, String request = "page"
     final response =
         await corpInfluenceClient.getTributeHistory(headers: headers, type: "received", request: request, page: page.toString(),);
     if (response.data != null) {
-      receivedTributeHistory = response.data ?? receivedTributeHistory;
+      receivedTributeHistory.value = response.data ?? receivedTributeHistory.value;
     }
   } catch (error) {
     print(error);

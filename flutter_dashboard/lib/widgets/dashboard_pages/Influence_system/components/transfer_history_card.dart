@@ -63,172 +63,184 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
           mainAxisSpacing: 12.0,
           mainAxisExtent: 800),
       children: [
-        CustomCard(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Sent Tributes',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: infAccount.sentTributeHistory.isEmpty
-                    ? Center(
-                        child: Text('No tributes sent'),
-                      )
-                    : ListView.builder(
-                        itemCount: infAccount.sentTributeHistory.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(5), // Reduced padding
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                  'Tribute to ${infAccount.sentTributeHistory[index].receiver}'),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                          'Amount: ${infAccount.sentTributeHistory[index].amount}'),
-                                      SizedBox(width: 20),
-                                      Text(
-                                          'Method: ${infAccount.sentTributeHistory[index].method}'),
-                                    ],
-                                  ),
-                                  Text(
-                                      'Message:\n${infAccount.sentTributeHistory[index].message}'),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
+        ValueListenableBuilder(
+            valueListenable: infAccount.sentTributeHistory,
+            builder: (context, value, child) => CustomCard(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Sent Tributes',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: _currentPageSent > 0
-                        ? () async {
-                            await infAccount.updateSentTributeHistory(
-                                page: _currentPageSent);
-                            setState(() {
-                              _currentPageSent--;
-                            });
-                          }
-                        : null,
-                  ),
-                  Text('Page ${_currentPageSent + 1}'),
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () async {
-                      await infAccount.updateSentTributeHistory(
-                          page: _currentPageSent + 1);
-                      setState(() {
-                        _currentPageSent++;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        CustomCard(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Received Tributes',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20),
-              Expanded(
-                child: infAccount.receivedTributeHistory.isEmpty
-                    ? Center(
-                        child: Text('No tributes received'),
-                      )
-                    : ListView.builder(
-                        itemCount: infAccount.receivedTributeHistory.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.all(5), // Reduced padding
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: ListTile(
-                              title: Text(
-                                  'Tribute from User ${infAccount.receivedTributeHistory[index].amount}'),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                          'Amount: ${infAccount.receivedTributeHistory[index].amount}'),
-                                      SizedBox(width: 20),
-                                      Text(
-                                          'Method: ${infAccount.receivedTributeHistory[index].method}'),
-                                    ],
-                                  ),
-                                  Text(
-                                      'Message:\n${infAccount.receivedTributeHistory[index].message}'),
-                                ],
+                      SizedBox(height: 20),
+                      Expanded(
+                        child: value.isEmpty
+                            ? Center(
+                                child: Text('No tributes sent'),
+                              )
+                            : ListView.builder(
+                                itemCount: value.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(
+                                        5), // Reduced padding
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: ListTile(
+                                      title: Text(
+                                          'Tribute to ${value[index].receiver}'),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  'Amount: ${value[index].amount}'),
+                                              SizedBox(width: 20),
+                                              Text(
+                                                  'Method: ${value[index].method}'),
+                                            ],
+                                          ),
+                                          Text(
+                                              'Message:\n${value[index].message}'),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            ),
-                          );
-                        },
                       ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: _currentPageReceived > 0
-                        ? () async {
-                            await infAccount.updateReceivedTributeHistory(
-                                page: _currentPageSent - 1);
-                            setState(() {
-                              _currentPageReceived--;
-                            });
-                          }
-                        : null,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.arrow_back),
+                            onPressed: _currentPageSent > 0
+                                ? () async {
+                                    await infAccount.updateSentTributeHistory(
+                                        page: _currentPageSent - 1);
+                                    setState(() {
+                                      _currentPageSent--;
+                                    });
+                                  }
+                                : null,
+                          ),
+                          Text('Page ${_currentPageSent + 1}'),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () async {
+                              await infAccount.updateSentTributeHistory(
+                                  page: _currentPageSent + 1);
+                              setState(() {
+                                _currentPageSent++;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  Text('Page ${_currentPageReceived + 1}'),
-                  IconButton(
-                    icon: Icon(Icons.arrow_forward),
-                    onPressed: () async {
-                      await infAccount.updateReceivedTributeHistory(
-                          page: _currentPageSent + 1);
-                      setState(() {
-                        _currentPageReceived++;
-                      });
-                    },
+                )),
+        ValueListenableBuilder(
+            valueListenable: infAccount.receivedTributeHistory,
+            builder: (context, value, child) => CustomCard(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Received Tributes',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Expanded(
+                        child: value.isEmpty
+                            ? Center(
+                                child: Text('No tributes received'),
+                              )
+                            : ListView.builder(
+                                itemCount:
+                                    value.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(
+                                        5), // Reduced padding
+                                    margin:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: ListTile(
+                                      title: Text(
+                                          'Tribute from User ${value[index].amount}'),
+                                      subtitle: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  'Amount: ${value[index].amount}'),
+                                              SizedBox(width: 20),
+                                              Text(
+                                                  'Method: ${value[index].method}'),
+                                            ],
+                                          ),
+                                          Text(
+                                              'Message:\n${value[index].message}'),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.arrow_back),
+                            onPressed: _currentPageReceived > 0
+                                ? () async {
+                                    await infAccount
+                                        .updateReceivedTributeHistory(
+                                            page: _currentPageSent - 1);
+                                    setState(() {
+                                      _currentPageReceived--;
+                                    });
+                                  }
+                                : null,
+                          ),
+                          Text('Page ${_currentPageReceived + 1}'),
+                          IconButton(
+                            icon: Icon(Icons.arrow_forward),
+                            onPressed: () async {
+                              await infAccount.updateReceivedTributeHistory(
+                                  page: _currentPageSent + 1);
+                              setState(() {
+                                _currentPageReceived++;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                )),
       ],
     );
   }

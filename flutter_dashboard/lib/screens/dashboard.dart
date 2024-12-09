@@ -13,6 +13,8 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/admin/role_manager_wid
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
+import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
+
 
 
 class MainScreen extends StatefulWidget {
@@ -41,6 +43,7 @@ class _MainScreenState extends State<MainScreen>
   Future<void> _initialize() async {
     await checkSecurityLevel(context, 'rsiVerified');
     await current_user.update();
+    await infAccount.update();
     currentPage = getSelectedPage();
     setState(() {
       _isLoading = false;

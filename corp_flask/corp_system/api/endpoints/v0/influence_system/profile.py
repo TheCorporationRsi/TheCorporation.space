@@ -241,9 +241,9 @@ def sent_tribute(type, request, page):
 			if not isinstance(page, int):
 					return jsonify({'msg': "Page must be integer"}), 400
 			if type == "sent":
-					tributes = Inf_Tribute.query.order_by(Inf_Tribute.created_on.desc()).filter_by(sender=current_user.inf_account).paginate(page=page, per_page=20, error_out=False)
+					tributes = Inf_Tribute.query.order_by(Inf_Tribute.created_on.desc()).filter_by(sender=current_user.inf_account).paginate(page=page, per_page=5, error_out=False)
 			elif type == "received":
-					tributes = Inf_Tribute.query.order_by(Inf_Tribute.created_on.desc()).filter_by(receiver=current_user.inf_account).paginate(page=page, per_page=20, error_out=False)
+					tributes = Inf_Tribute.query.order_by(Inf_Tribute.created_on.desc()).filter_by(receiver=current_user.inf_account).paginate(page=page, per_page=5, error_out=False)
 			else:
 					return jsonify({'msg': "Please select the type of history"}), 400
 	else:

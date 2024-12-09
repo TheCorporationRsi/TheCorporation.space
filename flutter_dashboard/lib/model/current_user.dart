@@ -11,15 +11,12 @@ ValueNotifier<BuiltList<GetUserRoles200ResponseInner>> roles = ValueNotifier(Bui
 
 ValueNotifier<GetStatus200Response> status = ValueNotifier(GetStatus200Response());
 
-ValueNotifier<GetProfile200Response> infAccount = ValueNotifier(GetProfile200Response());
-
 ValueNotifier<BuiltList<GetUserDivisions200ResponseInner>> divisions = ValueNotifier(BuiltList<GetUserDivisions200ResponseInner>());
 
 ValueNotifier<BuiltList<GetUserDepartments200ResponseInner>> departments = ValueNotifier(BuiltList<GetUserDepartments200ResponseInner>());
 
 final corpStructureClient = corpApi.getStructureApi();
 final corpSecurityClient = corpApi.getSecurityApi();
-final corpInfluenceClient = corpApi.getInfluenceSystemApi();
 
 
 
@@ -27,7 +24,6 @@ Future<void> update() async {
   await updateUserInfo();
   await updateUserRoles();
   await updateStatus();
-  await updateInfAccount();
   await updateUserDepartments();
   await updateUserDivisions();
 
@@ -89,18 +85,6 @@ Future<void> updateStatus() async {
   }
 }
 
-Future<void> updateInfAccount() async {
-  final headers = await getAuthHeader();
-  try {
-    final response = await corpInfluenceClient.getProfile(headers: headers);
-    if (response.data != null) {
-      infAccount.value = response.data ?? infAccount.value;
-    }
-
-  } catch (error) {
-    print(error);
-  }
-}
 
 
 Future<void> updateUserDivisions() async {

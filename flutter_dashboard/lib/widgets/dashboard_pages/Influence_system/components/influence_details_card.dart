@@ -3,6 +3,7 @@ import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
+import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
 import 'package:auto_size_text/auto_size_text.dart';
 class InfluenceDetailsCard extends StatelessWidget {
   const InfluenceDetailsCard({super.key});
@@ -10,7 +11,7 @@ class InfluenceDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-                  valueListenable: current_user.infAccount,
+                  valueListenable: infAccount.profile,
                   builder: (context, value, child) =>GridView(
       shrinkWrap: true,
       physics: const ScrollPhysics(),
