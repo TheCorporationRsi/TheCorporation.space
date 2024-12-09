@@ -66,7 +66,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **deleteUser**
-> deleteUser(username)
+> DeleteUser200Response deleteUser(username)
 
 User delete
 
@@ -80,7 +80,8 @@ final api = CorpApi().getSecurityApi();
 final String username = Cyber-Dreamer; // String | Username of the user
 
 try {
-    api.deleteUser(username);
+    final response = api.deleteUser(username);
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling SecurityApi->deleteUser: $e\n');
 }
@@ -94,7 +95,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**DeleteUser200Response**](DeleteUser200Response.md)
 
 ### Authorization
 

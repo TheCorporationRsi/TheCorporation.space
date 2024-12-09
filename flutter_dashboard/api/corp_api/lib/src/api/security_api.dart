@@ -11,6 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:corp_api/src/api_util.dart';
 import 'package:corp_api/src/model/change_password_request.dart';
+import 'package:corp_api/src/model/delete_user200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 import 'package:corp_api/src/model/get_status200_response.dart';
@@ -116,9 +117,9 @@ class SecurityApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [DeleteUser200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> deleteUser({
+  Future<Response<DeleteUser200Response>> deleteUser({
     required String username,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -157,7 +158,36 @@ class SecurityApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    DeleteUser200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(DeleteUser200Response),
+            ) as DeleteUser200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<DeleteUser200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
   /// Get your logs

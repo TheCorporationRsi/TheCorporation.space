@@ -32,6 +32,7 @@ export 'package:corp_api/src/model/delete_division200_response.dart';
 export 'package:corp_api/src/model/delete_division_request.dart';
 export 'package:corp_api/src/model/delete_role200_response.dart';
 export 'package:corp_api/src/model/delete_role_request.dart';
+export 'package:corp_api/src/model/delete_user200_response.dart';
 export 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 export 'package:corp_api/src/model/get_current_funding200_response.dart';
 export 'package:corp_api/src/model/get_departments200_response_inner.dart';

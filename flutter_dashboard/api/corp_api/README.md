@@ -123,6 +123,7 @@ Class | Method | HTTP request | Description
  - [DeleteDivisionRequest](doc/DeleteDivisionRequest.md)
  - [DeleteRole200Response](doc/DeleteRole200Response.md)
  - [DeleteRoleRequest](doc/DeleteRoleRequest.md)
+ - [DeleteUser200Response](doc/DeleteUser200Response.md)
  - [GetCorporateers200ResponseInner](doc/GetCorporateers200ResponseInner.md)
  - [GetCurrentFunding200Response](doc/GetCurrentFunding200Response.md)
  - [GetDepartments200ResponseInner](doc/GetDepartments200ResponseInner.md)
