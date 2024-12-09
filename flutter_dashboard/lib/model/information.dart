@@ -15,8 +15,9 @@ Future<void> update() async {
 }
 
 Future<void> updateCorporateers() async {
+  final headers = await getAuthHeader();
   try {
-    final response = await corpInformationClient.getCorporateers();
+    final response = await corpInformationClient.getCorporateers(headers: headers);
     if (response.data != null) {
       corporateers = response.data ?? corporateers;
     }
