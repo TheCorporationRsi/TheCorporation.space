@@ -29,7 +29,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
 
   int _currentPageSent = 0;
   int _currentPageReceived = 0;
-  final int _itemsPerPage = 4;
+  final int _itemsPerPage = 5;
 
   @override
   void initState() {
@@ -64,12 +64,12 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
 
     return GridView(
       shrinkWrap: true,
-      physics: const ScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
         crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
         mainAxisSpacing: 12.0,
-        mainAxisExtent: 550,
+        mainAxisExtent: 800
       ),
       children: [
         CustomCard(
@@ -78,7 +78,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sent Transfers',
+                'Sent Tributes',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -98,15 +98,21 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: ListTile(
-                        title: Text('Transfer to User $actualIndex'),
+                        title: Text('Tribute to User $actualIndex'),
+
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Amount: \$100'),
-                            Text('Message: This is a sample message for sent transfer $actualIndex'),
+                            Row(
+                              children: [
+                                Text('Amount: 100'),
+                                SizedBox(width: 20),
+                                Text('Date: 2023-10-01'),
+                            ],
+                            ),
+                            Text('Message:\nThis is a sample message for sent transfer $actualIndex'),
                           ],
                         ),
-                        trailing: Text('Date: 2023-10-01'),
                       ),
                     );
                   },
@@ -145,7 +151,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Received Transfers',
+                'Received Tributes',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -165,15 +171,20 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: ListTile(
-                        title: Text('Transfer from User $actualIndex'),
+                        title: Text('Tribute from User $actualIndex'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Amount: \$100'),
-                            Text('Message: This is a sample message for received transfer $actualIndex'),
+                            Row(
+                              children: [
+                                Text('Amount: 100'),
+                                SizedBox(width: 20),
+                                Text('Date: 2023-10-01'),
+                            ],
+                            ),
+                            Text('Message:\nThis is a sample message for sent transfer $actualIndex'),
                           ],
                         ),
-                        trailing: Text('Date: 2023-10-01'),
                       ),
                     );
                   },
