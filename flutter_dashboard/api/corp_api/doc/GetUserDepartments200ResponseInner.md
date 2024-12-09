@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **color** | **String** |  | [optional] 
 **influence** | **int** |  | [optional] 
+**lifetimeInfluence** | **int** |  | [optional] 
 **motto** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 **weight** | **int** |  | [optional] 
