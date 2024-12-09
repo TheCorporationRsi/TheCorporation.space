@@ -375,10 +375,76 @@ class ProfileWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   'Weights',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                )
+                ),
+                SizedBox(height: 20),
+                Divider(),
+                SizedBox(height: 20),
+                SizedBox(
+                  height: 200,
+                  child: Stack(
+                    children: [
+                      ValueListenableBuilder(
+                          valueListenable: current_user.departments,
+                          builder: (context, value, child) => PieChart(
+                                PieChartData(
+                                  sectionsSpace: 0,
+                                  centerSpaceRadius: 70,
+                                  startDegreeOffset: -90,
+                                  sections: [
+                                    PieChartSectionData(
+                                      color: backgroundColor,
+                                      value: 1,
+                                      radius: 25,
+                                      showTitle: false,
+                                    ),
+                                    for (var department in value)
+                                      PieChartSectionData(
+                                        color: department.color != null
+                                            ? cssColorToColor(department.color!)
+                                            : Colors.grey,
+                                        value: department.influence!.toDouble(),
+                                        title: department.title,
+                                        radius: 25,
+                                        showTitle: false,
+                                      )
+                                  ],
+                                ),
+                              )),
+                      Positioned.fill(
+                        child: ValueListenableBuilder(
+                            valueListenable: infAccount.profile,
+                            builder: (context, value, child) => Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: defaultPadding),
+                                    Text(
+                                      value.influence.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                            height: 0.5,
+                                          ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    const Text("Total")
+                                  ],
+                                )),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Influence',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),

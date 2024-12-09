@@ -88,6 +88,9 @@ def user_departments():
                                 influence:
                                     type: integer
                                     example: 1000
+                                lifetime_influence:
+                                    type: integer
+                                    example: 10000
 
     """
     
@@ -101,7 +104,8 @@ def user_departments():
             "color": department.color,
             "motto": department.motto,
             "weight": department.get_weight(current_user),
-            "influence": current_user.inf_account.current_influence(department=department)
+            "influence": current_user.inf_account.current_influence(department=department),
+            "lifetime_influence": current_user.inf_account.lifetime_influence(department=department)
         })
     
     return jsonify(departments_list), 200
