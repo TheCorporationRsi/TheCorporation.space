@@ -2,7 +2,7 @@
     "name": "The Corporation Dashboard",
     "short_name": "TheCorporation",
     "start_url": ".",
-    "display": "standalone",
+    "display": "minimal-ui",
     "background_color": "#1C1C1C",
     "theme_color": "#0083ff",
     "description": "The multifunctional dashboard of The Corporation",
