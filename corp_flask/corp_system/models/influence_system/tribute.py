@@ -23,7 +23,7 @@ class Inf_Tribute(Base):
     amount = db.Column(db.Integer, nullable=False, default=0)
     
     # Personalized message
-    message = db.Column(db.Text, nullable=True)
+    message = db.Column(db.Text, nullable=False, default='')
     
 
     def delete(self):

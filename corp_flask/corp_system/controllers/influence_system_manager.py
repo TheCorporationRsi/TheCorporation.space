@@ -38,15 +38,16 @@ class InfluenceSystemManager:
         if not isinstance(amount, int):
             raise ValueError("Amount must be integer")
         
-        if not isinstance(message, str):
-            raise ValueError("Message must be string")
+        if message is not None:
+            if not isinstance(message, str):
+                raise ValueError("Message must be string")
         
-        if len(message) > 250:
-            raise ValueError("Message too long")
-        
-        if not re.match("^[a-zA-Z0-9 .,?!'\"()&-]*$", message):
-            raise ValueError("Message contain unallowed character")
-        
+            if len(message) > 250:
+                raise ValueError("Message too long")
+            
+            if not re.match("^[a-zA-Z0-9 .,?!'\"()&-]*$", message):
+                raise ValueError("Message contain unallowed character")
+            
         if receiver.CORP_confirmed is False:
             raise ValueError("Receiver not a CORP member")
         
