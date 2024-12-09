@@ -309,6 +309,7 @@ class ProfileWidget extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(height: 10),
                 Text(
                   'Influence',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
