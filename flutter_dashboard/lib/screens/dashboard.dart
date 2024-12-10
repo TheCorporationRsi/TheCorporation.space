@@ -10,6 +10,7 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_wid
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/department_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/division_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/role_manager_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/home/welcome_widget.dart';
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
@@ -97,11 +98,13 @@ class _MainScreenState extends State<MainScreen>
   Widget getSelectedPage() {
     final menu = [
       [
-      const DashboardWidget(),
+      const WelcomeWidget(),
       const InfluenceWidget()
       ],
       if (current_user.status.value.cORPMember!)
       [
+      const InfluenceWidget(),
+      const InfTransferWidget(),
       const InfluenceWidget(),
       const InfTransferWidget()
       ],

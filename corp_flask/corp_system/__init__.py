@@ -8,7 +8,7 @@ import sys
 
 
 from pathlib import Path
-from flask import Flask, jsonify, Response, request
+from flask import Flask, jsonify, Response, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_apscheduler import APScheduler
@@ -217,6 +217,10 @@ def create_app(config_class=Config.ProductionConfig):
 
         # Register the API blueprint
         app.register_blueprint(api, url_prefix="/api")
+        
+        app.route('api/static/influence_video.mp4', methods=['GET'])
+        def influence_system_video():
+            return send_from_directory(filename, as_attachment=True)
 
         # Create all database tables
         db.create_all()

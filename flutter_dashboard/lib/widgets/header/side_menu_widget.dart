@@ -16,10 +16,11 @@ class SideMenuWidget extends StatefulWidget {
 final menu = <MenuModel>[
   MenuModel(
     icon: Icons.home,
-    title: 'Dashboard',
+    title: 'Home',
     subMenu: [
-      MenuModel(icon: Icons.dashboard, title: 'Overview'),
-      MenuModel(icon: Icons.analytics, title: 'Analytics'),
+      MenuModel(icon: Icons.flag, title: 'Welcome'),
+      MenuModel(icon: Icons.schema, title: 'Structure'),
+      
     ],
   ),
   if (current_user.status.value.cORPMember!)
@@ -27,8 +28,10 @@ final menu = <MenuModel>[
     icon: Icons.person,
     title: 'Influence System',
     subMenu: [
-      MenuModel(icon: Icons.edit, title: 'Status'),
-      MenuModel(icon: Icons.security, title: 'Transfer'),
+      MenuModel(icon: Icons.dashboard, title: 'Status'),
+      MenuModel(icon: Icons.send, title: 'Transfer'),
+      MenuModel(icon: Icons.military_tech, title: 'Personnal Stats'),
+      MenuModel(icon: Icons.query_stats, title: 'Global Stats'),
     ],
   ),
   if (current_user.status.value.isAdmin!)
@@ -36,10 +39,10 @@ final menu = <MenuModel>[
     icon: Icons.person,
     title: 'Admin',
     subMenu: [
-      MenuModel(icon: Icons.edit, title: 'Users'),
-      MenuModel(icon: Icons.security, title: 'Departments'),
-      MenuModel(icon: Icons.security, title: 'Divisions'),
-      MenuModel(icon: Icons.security, title: 'Roles'),
+      MenuModel(icon: Icons.account_circle, title: 'Users'),
+      MenuModel(icon: Icons.business, title: 'Departments'),
+      MenuModel(icon: Icons.groups, title: 'Divisions'),
+      MenuModel(icon: Icons.assignment_ind, title: 'Roles'),
     ],
   ),
   MenuModel(icon: Icons.history, title: 'Stats'),
@@ -47,7 +50,7 @@ final menu = <MenuModel>[
     icon: Icons.person,
     title: 'Settings',
     subMenu: [
-      MenuModel(icon: Icons.edit, title: 'Profile'),
+      MenuModel(icon: Icons.manage_accounts, title: 'Profile'),
       MenuModel(icon: Icons.security, title: 'Security'),
     ],
   ),

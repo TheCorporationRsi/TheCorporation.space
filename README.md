@@ -17,4 +17,5 @@ This program need python 3.10 and docker
 ## Info
 Made by Cyber-Dreamer for The Corporation. Completely free, only request is to give me credit for my work.
 
+Nuget cli required for windows
 
