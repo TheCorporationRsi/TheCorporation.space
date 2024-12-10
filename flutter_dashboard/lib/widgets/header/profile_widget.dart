@@ -216,12 +216,13 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 10),
                 ValueListenableBuilder(
                   valueListenable: infAccount.stats,
-                  builder: (context, value, child) => Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  builder: (context, value, child) => Wrap(
+                    spacing: 8.0,
+                    runSpacing: 4.0,
                     children: <Widget>[
                       for (var department in value.departments!)
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
                               width: 16,
@@ -246,12 +247,12 @@ class ProfileWidget extends StatelessWidget {
                             )
                           ],
                         ),
-                      SizedBox(
-                        height: 18,
-                      ),
                     ],
                   ),
                 ),
+                SizedBox(height: 20),
+                Divider(),
+                SizedBox(height: 20),
                 SizedBox(
                   height: 200,
                   child: ValueListenableBuilder(
