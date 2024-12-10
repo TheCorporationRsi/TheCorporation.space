@@ -298,7 +298,7 @@ class User(Base):
                 return True
         else:
             for current_division in self.divisions:
-                if current_department.leader_role in self.roles:
+                if current_division.leader_role in self.roles:
                     return True
             for current_department in self.departments:
                 if current_department.head_role in self.roles:
