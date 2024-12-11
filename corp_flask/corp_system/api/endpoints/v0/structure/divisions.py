@@ -38,6 +38,9 @@ def divisions():
                                 color:
                                     type: string
                                     example: #0083ff
+                                logo:
+                                    type: string
+                                    example: disabled_by_default
                                 department_title:
                                     type: string
                                     example: Ressources
@@ -72,6 +75,7 @@ def divisions():
         divisions_list.append({
             "title": division.title,
             "color": division.color,
+            "logo": division.logo,
             "department_title": division.department.title,
             "motto": division.motto,
             "leaders": [leader.RSI_handle for leader in division.leader_role.users],

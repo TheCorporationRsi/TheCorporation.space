@@ -41,6 +41,9 @@ def departments():
                                 motto:
                                     type: string
                                     example: We love building stuff
+                                logo:
+                                    type: string
+                                    example: disabled_by_default
                                 member_count:
                                     type: integer
                                     example: 50
@@ -77,6 +80,7 @@ def departments():
             "title": department.title,
             "color": department.color,
             "motto": department.motto,
+            "logo": department.logo,
             "member_count": len(department.members),
             "divisions": [division.title for division in department.divisions if division.hidden == False],
             "heads": [head.RSI_handle for head in department.head_role.users],

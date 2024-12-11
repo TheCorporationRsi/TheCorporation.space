@@ -13,7 +13,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_apscheduler import APScheduler
 from flask_socketio import SocketIO, emit
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade
 from flask_jwt_extended import JWTManager
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
@@ -44,6 +44,8 @@ jwt = JWTManager()
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 scheduler = APScheduler()
+migrate = Migrate()
+
 socketio = SocketIO(
     async_handlers=True, async_mode="threading", logger=True, engineio_logger=True
 )  # , ,logger=True, engineio_logger=True, cors_allowed_origins=['http://localhost:8000', 'https://localhost:8000']
@@ -198,7 +200,7 @@ def create_app(config_class=Config.ProductionConfig):
     db.app = app
 
     # Initialize Flask-Migrate for handling database migrations
-    Migrate(app, db)
+    migrate.init_app(app, db)
 
     # Import the models after initializing the database
     with app.app_context():

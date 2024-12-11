@@ -14,6 +14,8 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
   @override
   final BuiltList<String>? heads;
   @override
+  final String? logo;
+  @override
   final int? memberCount;
   @override
   final String? motto;
@@ -30,6 +32,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
       {this.color,
       this.divisions,
       this.heads,
+      this.logo,
       this.memberCount,
       this.motto,
       this.proxys,
@@ -52,6 +55,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
         color == other.color &&
         divisions == other.divisions &&
         heads == other.heads &&
+        logo == other.logo &&
         memberCount == other.memberCount &&
         motto == other.motto &&
         proxys == other.proxys &&
@@ -64,6 +68,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, divisions.hashCode);
     _$hash = $jc(_$hash, heads.hashCode);
+    _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, memberCount.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, proxys.hashCode);
@@ -78,6 +83,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
           ..add('color', color)
           ..add('divisions', divisions)
           ..add('heads', heads)
+          ..add('logo', logo)
           ..add('memberCount', memberCount)
           ..add('motto', motto)
           ..add('proxys', proxys)
@@ -106,6 +112,10 @@ class GetDepartments200ResponseInnerBuilder
   ListBuilder<String> get heads => _$this._heads ??= new ListBuilder<String>();
   set heads(ListBuilder<String>? heads) => _$this._heads = heads;
 
+  String? _logo;
+  String? get logo => _$this._logo;
+  set logo(String? logo) => _$this._logo = logo;
+
   int? _memberCount;
   int? get memberCount => _$this._memberCount;
   set memberCount(int? memberCount) => _$this._memberCount = memberCount;
@@ -133,6 +143,7 @@ class GetDepartments200ResponseInnerBuilder
       _color = $v.color;
       _divisions = $v.divisions?.toBuilder();
       _heads = $v.heads?.toBuilder();
+      _logo = $v.logo;
       _memberCount = $v.memberCount;
       _motto = $v.motto;
       _proxys = $v.proxys?.toBuilder();
@@ -164,6 +175,7 @@ class GetDepartments200ResponseInnerBuilder
               color: color,
               divisions: _divisions?.build(),
               heads: _heads?.build(),
+              logo: logo,
               memberCount: memberCount,
               motto: motto,
               proxys: _proxys?.build(),
