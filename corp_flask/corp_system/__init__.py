@@ -217,10 +217,6 @@ def create_app(config_class=Config.ProductionConfig):
 
         # Register the API blueprint
         app.register_blueprint(api, url_prefix="/api")
-        
-        app.route('api/static/influence_video.mp4', methods=['GET'])
-        def influence_system_video():
-            return send_from_directory(filename, as_attachment=True)
 
         # Create all database tables
         db.create_all()
