@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:video_player/video_player.dart';
+import 'package:flutter_dashboard/util/video_player_widget.dart';
 
 class WelcomeWidget extends StatefulWidget {
   const WelcomeWidget({super.key});
@@ -26,11 +27,13 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
 
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(
-        'https://www.youtube.com/watch?v=FTAC4zLYxl8',
+        'https://thecorporation.space/api/v0/influence_presentation.mp4',
       ),
     );
 
-    _initializeVideoPlayerFuture = _controller.initialize();
+    _initializeVideoPlayerFuture = _controller.initialize().then((_) {
+      _controller.setVolume(0.5); // Set default volume to 75%
+    });
   }
 
   @override
@@ -45,127 +48,233 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
       width: double.infinity,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
-              Image.asset(
-                'assets/logo/corp_logo.png',
-                width: 200, // Adjust width
-              ),
-              const SizedBox(height: 10),
-              Text('Welcome to The Corporation Dashboard!',
-                  style: GoogleFonts.orbitron(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  )),
-              const SizedBox(height: 5),
-              Text('Your one-stop tool to progress in The Corporation',
-                  style: GoogleFonts.orbitron(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  )),
-              const SizedBox(height: 10),
-              Container(
-                  width: double.infinity,
-                  height: 200, // Adjust height as needed
-                  child: FutureBuilder(
-                    future: _initializeVideoPlayerFuture,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        // If the VideoPlayerController has finished initialization, use
-                        // the data it provides to limit the aspect ratio of the video.
-                        return AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          // Use the VideoPlayer widget to display the video.
-                          child: VideoPlayer(_controller),
-                        );
-                      } else {
-                        // If the VideoPlayerController is still initializing, show a
-                        // loading spinner.
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  )),
-              FloatingActionButton(
-                onPressed: () {
-                  // Wrap the play or pause in a call to `setState`. This ensures the
-                  // correct icon is shown.
-                  setState(() {
-                    // If the video is playing, pause it.
-                    if (_controller.value.isPlaying) {
-                      _controller.pause();
-                    } else {
-                      // If the video is paused, play it.
-                      _controller.play();
-                    }
-                  });
-                },
-                // Display the correct icon depending on the state of the player.
-                child: Icon(
-                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                ),
-              ),
-              const SizedBox(height: 18),
-              CustomCard(
-                child: const Text(
-                  'This dashboard provides you with all the tools and information you need to manage your projects effectively.',
-                  style: TextStyle(
-                    fontSize: 16,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Column(
+                children: [
+                  const SizedBox(height: 10),
+                  Image.asset(
+                    'assets/logo/corp_logo.png',
+                    width: 200, // Adjust width
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              CustomCard(
-                child: const Text(
-                  'Here\'s how to get started:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 10),
+                  Text('Welcome to',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.orbitron(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                  Text('The Corporation Dashboard',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.orbitron(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )),
+                  const SizedBox(height: 5),
+                  Text('Your one-stop tool to progress in The Corporation',
+                      style: GoogleFonts.orbitron(
+                        fontSize: 16,
+                        color: Colors.white70,
+                      )),
+                  const SizedBox(height: 20),
+                  GridView(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        mainAxisExtent: 500),
+                    children: [
+                      CustomCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              'The Corporation',
+                              style: GoogleFonts.orbitron(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              '''The Corporation was founded by @Pete AKA Weyland in the early days of the game.
+                              \nThe goal of The Corporation is the play the role of the "evil" richest company that have control that extend to each corner of the galaxy.\nSimilar to the Weyland-Yutani corp in Alien, Cyberdyne in Terminator...
+                              \nBeyond this funny image that is more as a joke, our goal is to build a better tommorow while keeping a fun and structured experience of collaboration that spread troughout all the aspects of the game.
+                              \nOur organization is build over the influence system that act as the democracy system of the CORP.
+                              ''',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomCard(
+                        color: backgroundColor,
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/images/evil_corps.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              CustomCard(
-                child: const Text(
-                  '1. Explore the various sections using the navigation menu on the left.',
-                  style: TextStyle(
-                    fontSize: 16,
+                  const SizedBox(height: 20),
+                  GridView(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        mainAxisExtent: 500,
+                        
+                        ),
+                    children: [
+                      CustomCard(
+                        color: backgroundColor,
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/images/department_mixed.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              'Our Structure',
+                              style: GoogleFonts.orbitron(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              '''The structure of The Corporation is divided into Departments and Divisions.
+                              \nThe departments are the main branches that are based on general activities such as Ressources gathering, Exploration, Combat....
+                              \nDivisions are the sub-branches that are based on specific activities such as Mining, Esport, Scouting, Space Combat...
+                              \nYou can join as many divisions as you want, but you will have to specify the importance of each divisions in your profile.
+                              \nThose weights as we call it will be used for your progress as well as how the Corporation will asign ressources to each divisions.
+                              ''',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 5),
-              CustomCard(
-                child: const Text(
-                  '2. Check out the bar graph and line chart for visual representations of your data.',
-                  style: TextStyle(
-                    fontSize: 16,
+                  const SizedBox(height: 20),
+                  GridView(
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        mainAxisExtent: 500),
+                    children: [
+                      CustomCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              'The Influence System',
+                              style: GoogleFonts.orbitron(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              '''The Influence System is a powerful tool that allows you to track your progress in The Corporation.
+                              \nEach week, you receive a set amount of tribute to send to the people that you think deserves it the most.
+                              \nThe generated influence that you and the person receive will be calculated based on both memberships.''',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'For more details, visit the Influence System section.',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Features includes:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              '• Real-time data updates',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                            const Text(
+                              '• Customizable widgets',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                            const Text(
+                              '• Detailed analytics',
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomCard(
+                          color: backgroundColor,
+                          padding: const EdgeInsets.all(20),
+                          child: VideoPlayerWidget(
+                            controller: _controller,
+                            initializeVideoPlayerFuture:
+                                _initializeVideoPlayerFuture,
+                          )),
+                    ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 5),
-              CustomCard(
-                child: const Text(
-                  '3. Visit the Influence System section to see detailed insights and analytics.',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 5),
-              CustomCard(
-                child: const Text(
-                  '4. Use the profile widget at the top right to manage your account settings.',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 18),
-            ],
+                  const SizedBox(height: 18),
+                  const SizedBox(height: 18),
+                ],
+              );
+            },
           ),
         ),
       ),

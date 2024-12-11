@@ -11,6 +11,7 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/admin/department_manag
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/division_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/role_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/home/welcome_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/home/structure_widget.dart';
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
@@ -99,7 +100,7 @@ class _MainScreenState extends State<MainScreen>
     final menu = [
       [
       const WelcomeWidget(),
-      const InfluenceWidget()
+      const StructureWidget()
       ],
       if (current_user.status.value.cORPMember!)
       [

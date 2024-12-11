@@ -65,31 +65,8 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
   bool _isLoading = true;
 
-
-  Future<void> _initialize() async {
-    await current_user.updateStatus();
-    setState(() {
-      _isLoading = false;
-    });
-  }
-  
-
-  @override
-  void initState() {
-    super.initState();
-    _initialize();
-  }
-
   @override
   Widget build(BuildContext context) {
-
-    if (_isLoading) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      color: cardBackgroundColor,
-      child: CircularProgressIndicator(),
-        );
-    }
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
