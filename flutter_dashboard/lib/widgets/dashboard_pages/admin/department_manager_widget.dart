@@ -347,7 +347,6 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
               ),
               onPressed: () {
                 if (confirmation == department.title.toString()) {
-                  
                   _deleteDepartment(department);
                   Navigator.of(context).pop();
                 } else {
@@ -401,6 +400,24 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     int departmentIndex = departments.indexOf(department);
     String title = department.title ?? '';
     String motto = department.motto ?? '';
+    IconData icon = department.logo != null
+        ? IconData(int.parse(department.logo!), fontFamily: 'MaterialIcons')
+        : Icons.disabled_by_default;
+
+    final Map<String, IconData> titleIconMap = {
+      'Business': Icons.business,
+      'Default': Icons.disabled_by_default,
+      'Finance': Icons.attach_money,
+      'HR': Icons.people,
+      'IT': Icons.computer,
+      'Marketing': Icons.campaign,
+      'Sales': Icons.shopping_cart,
+      'Operations': Icons.settings,
+      'Legal': Icons.gavel,
+      'R&D': Icons.science,
+      'Customer Service': Icons.support_agent,
+      
+    };
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -419,6 +436,25 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
               labelText: 'Title',
               border: OutlineInputBorder(),
             ),
+          ),
+          SizedBox(height: 10),
+          DropdownButton<IconData>(
+            value: icon,
+            items: titleIconMap.entries.map((entry) {
+              return DropdownMenuItem(
+                value: entry.value,
+                child: Row(
+                  children: [
+                    Icon(entry.value),
+                    SizedBox(width: 10),
+                    Text(entry.key),
+                  ],
+                ),
+              );
+            }).toList(),
+            onChanged: (IconData? newIcon) {
+              print("icon changed");
+            },
           ),
           SizedBox(height: 10),
           TextField(
