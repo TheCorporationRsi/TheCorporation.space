@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/main.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/util/icon_helper.dart';
 
 class DepartmentManagerWidget extends StatefulWidget {
   const DepartmentManagerWidget({super.key});
@@ -244,12 +244,12 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
       itemCount: filteredItems.length,
       itemBuilder: (context, index) {
         final department = filteredItems[index];
-        return _buildUserItem(department);
+        return _buildDepartmentItem(department);
       },
     );
   }
 
-  Widget _buildUserItem(GetDepartments200ResponseInner department) {
+  Widget _buildDepartmentItem(GetDepartments200ResponseInner department) {
     int departmentIndex = departments.indexOf(department);
     _dropdownOpen.putIfAbsent(departmentIndex, () => false);
     return Card(
@@ -404,21 +404,6 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         ? IconData(int.parse(department.logo!), fontFamily: 'MaterialIcons')
         : Icons.disabled_by_default;
 
-    final Map<String, IconData> titleIconMap = {
-      'Business': Icons.business,
-      'Default': Icons.disabled_by_default,
-      'Finance': Icons.attach_money,
-      'HR': Icons.people,
-      'IT': Icons.computer,
-      'Marketing': Icons.campaign,
-      'Sales': Icons.shopping_cart,
-      'Operations': Icons.settings,
-      'Legal': Icons.gavel,
-      'R&D': Icons.science,
-      'Customer Service': Icons.support_agent,
-      
-    };
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -438,24 +423,9 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
-          DropdownButton<IconData>(
-            value: icon,
-            items: titleIconMap.entries.map((entry) {
-              return DropdownMenuItem(
-                value: entry.value,
-                child: Row(
-                  children: [
-                    Icon(entry.value),
-                    SizedBox(width: 10),
-                    Text(entry.key),
-                  ],
-                ),
-              );
-            }).toList(),
-            onChanged: (IconData? newIcon) {
-              print("icon changed");
-            },
-          ),
+          IconInputWidget(initialIcon: icon, onIconChanged: (icon) {
+            icon = icon;
+          }),
           SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: motto),
