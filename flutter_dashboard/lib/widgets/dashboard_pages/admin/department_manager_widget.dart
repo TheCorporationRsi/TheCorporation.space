@@ -257,6 +257,10 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
       child: Column(
         children: [
           ListTile(
+            leading: Icon(icons[department.logo] ?? Icons.error,
+                color: department.color != null
+                    ? cssColorToColor(department.color!)
+                    : Colors.grey),
             title: Text(department.title.toString(),
                 style: TextStyle(
                   color: department.color != null
@@ -397,10 +401,9 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     Color currentColor = department.color != null
         ? cssColorToColor(department.color!)
         : Colors.grey;
-    int departmentIndex = departments.indexOf(department);
     String title = department.title ?? '';
     String motto = department.motto ?? '';
-    String icon = department.logo ?? '';
+    String logo = department.logo ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -421,8 +424,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
-          IconInputWidget(initialIcon: icon, onIconChanged: (icon) {
-            icon = icon;
+          IconInputWidget(initialIcon: logo, onIconChanged: (newLogo) {
+            logo = newLogo;
           }),
           SizedBox(height: 10),
           TextField(
@@ -447,7 +450,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDepartment(department, currentColor, title, motto);
+                _updateDepartment(department, currentColor, title, motto, logo);
               },
               child: Text('Save'),
             ),
@@ -458,7 +461,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   }
 
   void _updateDepartment(GetDepartments200ResponseInner department, Color color,
-      String title, String motto) async {
+      String title, String motto, String logo) async {
     final headers = await getAuthHeader();
 
     final UpdateDepartmentRequest updateDepartmentRequest =
@@ -467,7 +470,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           ..color = colorToCssColor(color)
           ..newTitle = title
           ..motto = motto
-          
+          ..logo = logo
           );
 
     try {
