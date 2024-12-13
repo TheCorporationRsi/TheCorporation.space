@@ -9,6 +9,7 @@ import 'package:flutter_dashboard/main.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/util/icon_helper.dart';
 
 class DivisionManagerWidget extends StatefulWidget {
   const DivisionManagerWidget({super.key});
@@ -100,7 +101,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             SizedBox(height: 10),
             _buildFilterAndSearchSection(),
             SizedBox(height: 10),
-            _buildUserList(),
+            _buildDivisionList(),
           ],
         ),
       ),
@@ -283,7 +284,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     }
   }
 
-  Widget _buildUserList() {
+  Widget _buildDivisionList() {
     if (filteredItems.isEmpty) {
       return Center(
         child: Text(
@@ -454,6 +455,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     int divisionIndex = divisions.indexOf(division);
     String title = division.title ?? '';
     String motto = division.motto ?? '';
+    String logo = division.logo ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -474,6 +476,9 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
+          IconInputWidget(initialIcon: logo, onIconChanged: (new_logo) {
+            logo = new_logo;
+          }),
           TextField(
             controller: TextEditingController(text: motto),
             onChanged: (value) {

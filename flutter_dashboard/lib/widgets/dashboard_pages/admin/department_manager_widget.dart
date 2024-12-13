@@ -467,6 +467,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           ..color = colorToCssColor(color)
           ..newTitle = title
           ..motto = motto
+          
           );
 
     try {
