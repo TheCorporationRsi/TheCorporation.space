@@ -466,7 +466,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           ..departmentTitle = department.title
           ..color = colorToCssColor(color)
           ..newTitle = title
-          ..motto = motto);
+          ..motto = motto
+          );
 
     try {
       final response = await corpAdminClient.updateDepartment(

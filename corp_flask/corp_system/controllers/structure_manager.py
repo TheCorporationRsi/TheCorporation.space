@@ -51,7 +51,7 @@ class StructureManager:
         return department
     
     @staticmethod
-    def update_department(department, new_title=None, new_color=None, new_motto=None):
+    def update_department(department, new_title=None, new_color=None, new_motto=None, new_logo=None):
         
         if not department:
             raise ValueError("Department not found")
@@ -66,6 +66,8 @@ class StructureManager:
             department.color = new_color
         if new_motto:
             department.motto = new_motto
+        if new_logo:
+            department.logo = new_logo
         
         db.session.commit()
     

@@ -7,7 +7,7 @@ class Department(Base):
     __tablename__ = "department"
     
     title = db.Column(db.String(32), unique=True, nullable=False)
-    logo = db.Column(db.String(64), nullable=True, default='disabled_by_default')
+    logo = db.Column(db.String(64), nullable=True)
     color = db.Column(db.String(32), unique=False, nullable=True)
     motto = db.Column(db.String(200), nullable=False, default='Empty')
     
