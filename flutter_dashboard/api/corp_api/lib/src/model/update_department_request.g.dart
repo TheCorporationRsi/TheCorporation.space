@@ -12,6 +12,8 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
   @override
   final String? color;
   @override
+  final String? logo;
+  @override
   final String? motto;
   @override
   final String? newTitle;
@@ -21,7 +23,11 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
       (new UpdateDepartmentRequestBuilder()..update(updates))._build();
 
   _$UpdateDepartmentRequest._(
-      {required this.departmentTitle, this.color, this.motto, this.newTitle})
+      {required this.departmentTitle,
+      this.color,
+      this.logo,
+      this.motto,
+      this.newTitle})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         departmentTitle, r'UpdateDepartmentRequest', 'departmentTitle');
@@ -42,6 +48,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
     return other is UpdateDepartmentRequest &&
         departmentTitle == other.departmentTitle &&
         color == other.color &&
+        logo == other.logo &&
         motto == other.motto &&
         newTitle == other.newTitle;
   }
@@ -51,6 +58,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, departmentTitle.hashCode);
     _$hash = $jc(_$hash, color.hashCode);
+    _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, newTitle.hashCode);
     _$hash = $jf(_$hash);
@@ -62,6 +70,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
     return (newBuiltValueToStringHelper(r'UpdateDepartmentRequest')
           ..add('departmentTitle', departmentTitle)
           ..add('color', color)
+          ..add('logo', logo)
           ..add('motto', motto)
           ..add('newTitle', newTitle))
         .toString();
@@ -82,6 +91,10 @@ class UpdateDepartmentRequestBuilder
   String? get color => _$this._color;
   set color(String? color) => _$this._color = color;
 
+  String? _logo;
+  String? get logo => _$this._logo;
+  set logo(String? logo) => _$this._logo = logo;
+
   String? _motto;
   String? get motto => _$this._motto;
   set motto(String? motto) => _$this._motto = motto;
@@ -99,6 +112,7 @@ class UpdateDepartmentRequestBuilder
     if ($v != null) {
       _departmentTitle = $v.departmentTitle;
       _color = $v.color;
+      _logo = $v.logo;
       _motto = $v.motto;
       _newTitle = $v.newTitle;
       _$v = null;
@@ -126,6 +140,7 @@ class UpdateDepartmentRequestBuilder
             departmentTitle: BuiltValueNullFieldError.checkNotNull(
                 departmentTitle, r'UpdateDepartmentRequest', 'departmentTitle'),
             color: color,
+            logo: logo,
             motto: motto,
             newTitle: newTitle);
     replace(_$result);
