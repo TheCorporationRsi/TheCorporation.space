@@ -53,7 +53,7 @@ class _IconInputWidgetState extends State<IconInputWidget> {
   @override
   void initState() {
     super.initState();
-    _selectedIcon = widget.initialIcon ?? 'error';
+    _selectedIcon = icons.keys.contains(widget.initialIcon) ? widget.initialIcon : 'error';
     _icon = icons[_selectedIcon] ?? Icons.error;
   }
 
@@ -71,7 +71,7 @@ class _IconInputWidgetState extends State<IconInputWidget> {
       children: [
         Expanded(
           child: DropdownButton<String>(
-            value: icons.containsKey(_selectedIcon) ? _selectedIcon : 'error',
+            value: _selectedIcon,
             items: icons.keys.map((String key) {
               return DropdownMenuItem<String>(
                 value: key,

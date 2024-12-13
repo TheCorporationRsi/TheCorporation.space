@@ -9,6 +9,7 @@ import 'package:flutter_dashboard/main.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/util/icon_helper.dart';
 
 class DivisionManagerWidget extends StatefulWidget {
   const DivisionManagerWidget({super.key});
@@ -311,6 +312,10 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
       child: Column(
         children: [
           ListTile(
+            leading: Icon(icons[division.logo] ?? Icons.error,
+                color: division.color != null
+                    ? cssColorToColor(division.color!)
+                    : Colors.grey),
             title: Text(division.title.toString(),
                 style: TextStyle(
                   color: division.color != null
@@ -454,6 +459,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     int divisionIndex = divisions.indexOf(division);
     String title = division.title ?? '';
     String motto = division.motto ?? '';
+    String logo = division.logo ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -474,6 +480,10 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
+          IconInputWidget(initialIcon: logo, onIconChanged: (newLogo) {
+            logo = newLogo;
+          }),
+          SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: motto),
             onChanged: (value) {
@@ -489,7 +499,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDivision(division, title, motto);
+                _updateDivision(division, title, motto, logo);
               },
               child: Text('Save'),
             ),
@@ -500,14 +510,16 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
   }
 
   void _updateDivision(GetDivisions200ResponseInner division,
-      String title, String motto) async {
+      String title, String motto, String logo) async {
     final headers = await getAuthHeader();
 
     final UpdateDivisionRequest updateDivisionRequest =
         UpdateDivisionRequest((b) => b
           ..divisionTitle = division.title
           ..newTitle = title
-          ..motto = motto);
+          ..motto = motto
+          ..logo = logo
+          );
 
     try {
       final response = await corpAdminClient.updateDivision(
