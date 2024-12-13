@@ -400,9 +400,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     int departmentIndex = departments.indexOf(department);
     String title = department.title ?? '';
     String motto = department.motto ?? '';
-    IconData icon = department.logo != null
-        ? IconData(int.parse(department.logo!), fontFamily: 'MaterialIcons')
-        : Icons.disabled_by_default;
+    String icon = department.logo ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

@@ -1,10 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 
+const icons = {
+  'factory': Icons.factory,
+  'pallet': Icons.pallet,
+  'engineering': Icons.engineering,
+  'business_center': Icons.business_center,
+  'health_and_safety': Icons.health_and_safety,
+  'groups': Icons.groups,
+  'local_police': Icons.local_police,
+  'devices': Icons.devices,
+  'explore': Icons.explore,
+  'work_outline': Icons.work_outline,
+  'error': Icons.error,
+  'newspaper': Icons.newspaper,
+  'rocket_launch': Icons.rocket_launch,
+  'military_tech': Icons.military_tech,
+  'personal_injury': Icons.personal_injury,
+  'sensor_occupied': Icons.sensor_occupied,
+  'two_wheeler': Icons.two_wheeler,
+  'trolley': Icons.trolley,
+  'forklift': Icons.forklift,
+  'oil_barrel': Icons.oil_barrel,
+  'campaign': Icons.campaign,
+  'travel_explore': Icons.travel_explore,
+  'place': Icons.place,
+  'science': Icons.science,
+  'account_balance': Icons.account_balance,
+  'storefront': Icons.storefront,
+  'description': Icons.description,
+  'sports_esports': Icons.sports_esports,
+  'flag': Icons.flag,
+  'diversity_3': Icons.diversity_3,
+};
+
 
 class IconInputWidget extends StatefulWidget {
-  final IconData initialIcon;
-  final ValueChanged<IconData> onIconChanged;
+  final String? initialIcon;
+  final ValueChanged<String> onIconChanged;
 
   IconInputWidget({required this.initialIcon, required this.onIconChanged});
 
@@ -15,26 +48,21 @@ class IconInputWidget extends StatefulWidget {
 class _IconInputWidgetState extends State<IconInputWidget> {
   final TextEditingController _controller = TextEditingController();
   IconData? _icon;
+  String? _selectedIcon;
 
   @override
   void initState() {
     super.initState();
-    _icon = widget.initialIcon;
+    _selectedIcon = widget.initialIcon ?? 'error';
+    _icon = icons[_selectedIcon] ?? Icons.error;
   }
 
-  void _updateColor() {
-    late final IconData icon;
-    try {
-      icon = IconData(int.parse(_controller.text), fontFamily: 'MaterialIcons');
-    } catch (e) {
-      return;
-    }
-    
+  void _updateIcon(String? newIcon) {
     setState(() {
-    _icon = icon;
-    widget.onIconChanged(_icon!);
+      _selectedIcon = newIcon;
+      _icon = icons[_selectedIcon] ?? Icons.error;
+      widget.onIconChanged(_selectedIcon!);
     });
-    
   }
 
   @override
@@ -42,24 +70,23 @@ class _IconInputWidgetState extends State<IconInputWidget> {
     return Row(
       children: [
         Expanded(
-          child: 
-          TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              labelText: 'Icon code',
-              border: OutlineInputBorder(),
-            ),
-            onChanged: (text) => _updateColor(),
+          child: DropdownButton<String>(
+            value: icons.containsKey(_selectedIcon) ? _selectedIcon : 'error',
+            items: icons.keys.map((String key) {
+              return DropdownMenuItem<String>(
+                value: key,
+                child: Row(
+                  children: [
+                    Icon(icons[key]),
+                    SizedBox(width: 10),
+                    Text(key),
+                  ],
+                ),
+              );
+            }).toList(),
+            onChanged: _updateIcon,
           ),
         ),
-        if (_icon != null)
-            Container(
-            width: 40,
-            height: 40,
-            margin: EdgeInsets.only(left: 10),
-            child: Icon(_icon, size: 30),
-            ),
-          
       ],
     );
   }
