@@ -230,33 +230,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Features includes:',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-                            const Text(
-                              '• Real-time data updates',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            const Text(
-                              '• Customizable widgets',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            const Text(
-                              '• Detailed analytics',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
+                            
                           ],
                         ),
                       ),
