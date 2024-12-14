@@ -26,6 +26,7 @@ class Role(Base):
     
     title = db.Column(db.String(32), unique=True, nullable=False)
     _color = db.Column(db.String(32), unique=False, nullable=True, default='grey')
+    _logo = db.Column(db.String(64), nullable=False, default='error')
 
     # Department
     department_id = db.Column(db.String(36), db.ForeignKey('department.id', ondelete="CASCADE", name='fk_role_department_id'), nullable=True)
@@ -81,6 +82,21 @@ class Role(Base):
     def color(self, color: str):
         self._color = color
         db.session.commit()
+    
+    @property
+    def logo(self):
+        if self.division:
+            return self.division.logo
+        elif self.department:
+            return self.department.logo
+        else:
+            return self._logo
+
+    @color.setter
+    def logo(self, logo: str):
+        self._logo = logo
+        db.session.commit()
+    
     
     @hybrid_property
     def type(self):

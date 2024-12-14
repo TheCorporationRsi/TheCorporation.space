@@ -205,6 +205,9 @@ def user_roles():
                                 division:
                                     type: string
                                     example: Development
+                                logo:
+                                    type: string
+                                    example: error
         400:
             $ref: "#/components/responses/invalid"
         401:
@@ -218,6 +221,7 @@ def user_roles():
         roles_list.append({
             "title": role.title,
             "color": role.color,
+            "logo": role.logo,
             "type": StructureManager.get_role_type(role=role),
             "department": role.department.title if role.department else None,
             "division": role.division.title if role.division else None

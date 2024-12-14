@@ -10,6 +10,7 @@ class Department(Base):
     logo = db.Column(db.String(64), nullable=False, default='error')
     color = db.Column(db.String(32), unique=False, nullable=True)
     motto = db.Column(db.String(200), nullable=False, default='Empty')
+    description = db.Column(db.String(500), nullable=False, default='Empty')
     
     # Head role
     head_role_id = db.Column(db.String(36), db.ForeignKey('role.id'), nullable=True)

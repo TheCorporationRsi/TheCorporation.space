@@ -7,8 +7,9 @@ class Division(Base):
     __tablename__ = "division"
     
     title = db.Column(db.String(32), unique=True, nullable=False)
-    logo = db.Column(db.String(64), nullable=True)
+    logo = db.Column(db.String(64), nullable=False, default='error')
     motto = db.Column(db.String(200), nullable=False, default='Empty')
+    description = db.Column(db.String(500), nullable=False, default='Empty')
     
     hidden = db.Column(db.Boolean, default=False)
     restricted = db.Column(db.Boolean, default=False)

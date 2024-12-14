@@ -49,6 +49,9 @@ def roles():
                                 type:
                                     type: string
                                     example: Membership
+                                logo:
+                                    type: string
+                                    example: error
 
     """
     roles: list[Role] = Role.query.all()
@@ -58,6 +61,7 @@ def roles():
         roles_list.append({
             "title": role.title,
             "color": role.color,
+            "logo": role.logo,
             "division": role.division.title if role.division else None,
             "department": role.department.title if role.department else None,
             "discord_id": role.discord_id,
@@ -162,6 +166,9 @@ def update_role():
                         new_discord_id:
                             type: string
                             example: 123456789012345678
+                        new_logo:
+                            type: string
+                            example: error
     responses:
         200:
             description: Role updated
@@ -183,6 +190,7 @@ def update_role():
     role_title = data.get('role_title')
     new_title = data.get('new_title')
     new_color = data.get('new_color')
+    new_logo = data.get('new_logo')
     new_discord_id = data.get('new_discord_id')
     
     if role_title:

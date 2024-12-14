@@ -59,6 +59,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    #command: tail -f /dev/null
     command: bash -c "gunicorn -k gthread -w 1 --threads 4 -b 0.0.0.0:5000 --preload app:app"
 
   cloudflared:

@@ -13,7 +13,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_apscheduler import APScheduler
 from flask_socketio import SocketIO, emit
-from flask_migrate import Migrate, upgrade
+from flask_migrate import Migrate, upgrade, migrate
 from flask_jwt_extended import JWTManager
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
@@ -222,19 +222,21 @@ def create_app(config_class=Config.ProductionConfig):
 
         # Create all database tables
         db.create_all()
-
+        
         from .models import Role, Inf_Rank
 
-        if Role.query.filter_by(title="Corporateer").first() is None:
-            db.session.add(Role(title="Corporateer"))
-            db.session.commit()
+        # Check if the script is being run with Flask-Migrate
+        if 'db' not in sys.argv:
+            if Role.query.filter_by(title="Corporateer").first() is None:
+                db.session.add(Role(title="Corporateer"))
+                db.session.commit()
 
-        if Inf_Rank.query.filter_by(title="Corporateer").first() is None:
-            db.session.add(
-                Inf_Rank(
-                    title="Corporateer", required_lifetime_influence=0, weekly_amount=50
+            if Inf_Rank.query.filter_by(title="Corporateer").first() is None:
+                db.session.add(
+                    Inf_Rank(
+                        title="Corporateer", required_lifetime_influence=0, weekly_amount=50
+                    )
                 )
-            )
-            db.session.commit()
+                db.session.commit()
 
     return app
