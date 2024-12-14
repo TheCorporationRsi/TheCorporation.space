@@ -199,7 +199,7 @@ def update_role():
         jsonify({"msg": "Role title is required"}), 400
     
     try:
-        StructureManager.update_role(role=role, new_title=new_title, new_color=new_color, new_discord_id=new_discord_id)
+        StructureManager.update_role(role=role, new_title=new_title, new_color=new_color, new_discord_id=new_discord_id, new_logo=new_logo)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     

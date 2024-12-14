@@ -135,7 +135,7 @@ class StructureManager:
         db.session.commit()
     
     @staticmethod
-    def update_role(role, new_title=None, new_discord_id=None, new_color=None):
+    def update_role(role, new_title=None, new_discord_id=None, new_color=None, new_logo=None):
         if not role:
             return ValueError("Role not found")
         
@@ -147,6 +147,8 @@ class StructureManager:
             role.discord_id = new_discord_id
         if new_color:
             role.color = new_color
+        if new_logo:
+            role.logo = new_logo
         
         db.session.commit()
     

@@ -92,7 +92,7 @@ class Role(Base):
         else:
             return self._logo
 
-    @color.setter
+    @logo.setter
     def logo(self, logo: str):
         self._logo = logo
         db.session.commit()
