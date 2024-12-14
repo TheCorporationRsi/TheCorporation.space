@@ -307,60 +307,136 @@ class _StructureWidgetState extends State<StructureWidget> {
           SizedBox(height: 10),
           Text("Head:", style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
-          ...department.heads!.map((head) => Chip(
-                          avatar: Icon(icons[department.logo] ?? Icons.error,
-                            color: department.color != null
-                                  ? cssColorToColor(department.color!)
-                                  : Colors.grey),
-                          label: Text(head ?? 'Unknown'),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: department.color != null
-                                  ? cssColorToColor(department.color!)
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ),),
+          ...department.heads!.map(
+            (head) => Chip(
+              avatar: Icon(icons[department.logo] ?? Icons.error,
+                  color: department.color != null
+                      ? cssColorToColor(department.color!)
+                      : Colors.grey),
+              label: Text(head ?? 'Unknown'),
+              shape: StadiumBorder(
+                side: BorderSide(
+                  color: department.color != null
+                      ? cssColorToColor(department.color!)
+                      : Colors.grey,
+                ),
+              ),
+            ),
+          ),
           SizedBox(height: 10),
           Text("Proxy:", style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
-          ...department.proxys!.map((proxy) => Chip(
-                          avatar: Icon(icons[department.logo] ?? Icons.error,
-                            color: department.color != null
-                                  ? cssColorToColor(department.color!)
-                                  : Colors.grey),
-                          label: Text(proxy ?? 'Unknown'),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: department.color != null
-                                  ? cssColorToColor(department.color!)
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ),),
+          ...department.proxys!.map(
+            (proxy) => Chip(
+              avatar: Icon(icons[department.logo] ?? Icons.error,
+                  color: department.color != null
+                      ? cssColorToColor(department.color!)
+                      : Colors.grey),
+              label: Text(proxy ?? 'Unknown'),
+              shape: StadiumBorder(
+                side: BorderSide(
+                  color: department.color != null
+                      ? cssColorToColor(department.color!)
+                      : Colors.grey,
+                ),
+              ),
+            ),
+          ),
           SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...department.divisions!.map((division) => ListTile(
-                    
-                    leading: Icon(icons[division.logo] ?? Icons.error,
+              ...department.divisions!.map(
+                (division) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListTile(
+                      leading: Icon(
+                        icons[division.logo] ?? Icons.error,
                         color: department.color != null
                             ? cssColorToColor(department.color!)
-                            : Colors.grey),
-                    title: Text(division.title.toString(),
-                        style: TextStyle(
-                          color: department.color != null
-                              ? cssColorToColor(department.color!)
-                              : Colors.grey,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    subtitle: Text(division.motto.toString()),
-                    trailing: Text(division.description!,
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 15)),
-                  )),
+                            : Colors.grey,
+                      ),
+                      title: Row(
+                        children: [
+                          Text(
+                            division.title.toString(),
+                            style: TextStyle(
+                              color: department.color != null
+                                  ? cssColorToColor(department.color!)
+                                  : Colors.grey,
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            division.motto.toString(),
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20),
+                      child: Row(
+                        children: [
+                          Text("Leader:",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          SizedBox(width: 10),
+                          ...division.leaders!.map(
+                            (head) => Chip(
+                              avatar: Icon(
+                                  icons[division.logo] ?? Icons.error,
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey),
+                              label: Text(head ?? 'Unknown'),
+                              shape: StadiumBorder(
+                                side: BorderSide(
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Text("Proxy:",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          SizedBox(width: 10),
+                          ...division.proxys!.map(
+                            (proxy) => Chip(
+                              avatar: Icon(
+                                  icons[division.logo] ?? Icons.error,
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey),
+                              label: Text(proxy ?? 'Unknown'),
+                              shape: StadiumBorder(
+                                side: BorderSide(
+                                  color: department.color != null
+                                      ? cssColorToColor(department.color!)
+                                      : Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(20),
+                        child: Text(division.description!,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal, fontSize: 15))),
+                  ],
+                ),
+              ),
             ],
           ),
         ],

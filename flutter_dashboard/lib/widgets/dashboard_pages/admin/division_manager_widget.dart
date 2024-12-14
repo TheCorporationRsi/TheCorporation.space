@@ -459,6 +459,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     int divisionIndex = divisions.indexOf(division);
     String title = division.title ?? '';
     String motto = division.motto ?? '';
+    String description = division.description ?? '';
     String logo = division.logo ?? '';
 
     return Padding(
@@ -493,13 +494,29 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
               labelText: 'Motto',
               border: OutlineInputBorder(),
             ),
+            maxLines: 2,
+            maxLength: 200,
+          ),
+          
+          SizedBox(height: 10),
+          TextField(
+            controller: TextEditingController(text: description),
+            onChanged: (value) {
+              description = value;
+            },
+            decoration: InputDecoration(
+              labelText: 'Description',
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 5,
+            maxLength: 500,
           ),
           SizedBox(height: 10),
           Align(
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDivision(division, title, motto, logo);
+                _updateDivision(division, title, motto, logo, description);
               },
               child: Text('Save'),
             ),
@@ -510,7 +527,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
   }
 
   void _updateDivision(GetDivisions200ResponseInner division,
-      String title, String motto, String logo) async {
+      String title, String motto, String logo, String description) async {
     final headers = await getAuthHeader();
 
     final UpdateDivisionRequest updateDivisionRequest =
@@ -519,6 +536,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           ..newTitle = title
           ..motto = motto
           ..logo = logo
+          ..description = description
           );
 
     try {

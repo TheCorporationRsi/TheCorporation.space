@@ -403,6 +403,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         : Colors.grey;
     String title = department.title ?? '';
     String motto = department.motto ?? '';
+    String description = department.description ?? '';
     String logo = department.logo ?? '';
 
     return Padding(
@@ -437,6 +438,21 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
               labelText: 'Motto',
               border: OutlineInputBorder(),
             ),
+            maxLength: 200,
+            maxLines: 2,
+          ),
+          SizedBox(height: 10),
+          TextField(
+            controller: TextEditingController(text: description),
+            onChanged: (value) {
+              description = value;
+            },
+            decoration: InputDecoration(
+              labelText: 'Description',
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 5,
+            maxLength: 500,
           ),
           SizedBox(height: 10),
           ColorInputWidget(
@@ -450,7 +466,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDepartment(department, currentColor, title, motto, logo);
+                _updateDepartment(department, currentColor, title, motto, logo, description);
               },
               child: Text('Save'),
             ),
@@ -461,7 +477,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   }
 
   void _updateDepartment(GetDepartments200ResponseInner department, Color color,
-      String title, String motto, String logo) async {
+      String title, String motto, String logo, String description) async {
     final headers = await getAuthHeader();
 
     final UpdateDepartmentRequest updateDepartmentRequest =
@@ -471,6 +487,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           ..newTitle = title
           ..motto = motto
           ..logo = logo
+          ..description = description
           );
 
     try {
