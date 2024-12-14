@@ -7,6 +7,7 @@ import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
 
 import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/util/icon_helper.dart';
 
 class ProfileWidget extends StatelessWidget {
   const ProfileWidget({super.key});
@@ -68,12 +69,10 @@ class ProfileWidget extends StatelessWidget {
                     children: [
                       for (var role in leadershipRoles)
                         Chip(
-                          avatar: Icon(
-                            Icons.star,
+                          avatar: Icon(icons[role.logo] ?? Icons.error,
                             color: role.color != null
-                                ? cssColorToColor(role.color!)
-                                : Colors.grey,
-                          ),
+                                  ? cssColorToColor(role.color!)
+                                  : Colors.grey),
                           label: Text(role.title ?? 'Unknown'),
                           shape: StadiumBorder(
                             side: BorderSide(
@@ -99,12 +98,10 @@ class ProfileWidget extends StatelessWidget {
                     children: [
                       for (var role in membershipRoles)
                         Chip(
-                          avatar: Icon(
-                            Icons.star,
+                          avatar: Icon(icons[role.logo] ?? Icons.error,
                             color: role.color != null
-                                ? cssColorToColor(role.color!)
-                                : Colors.grey,
-                          ),
+                                  ? cssColorToColor(role.color!)
+                                  : Colors.grey),
                           label: Text(role.title ?? 'Unknown'),
                           shape: StadiumBorder(
                             side: BorderSide(
@@ -130,12 +127,10 @@ class ProfileWidget extends StatelessWidget {
                     children: [
                       for (var role in otherRoles)
                         Chip(
-                          avatar: Icon(
-                            Icons.star,
+                          avatar: Icon(icons[role.logo] ?? Icons.error,
                             color: role.color != null
-                                ? cssColorToColor(role.color!)
-                                : Colors.grey,
-                          ),
+                                  ? cssColorToColor(role.color!)
+                                  : Colors.grey),
                           label: Text(role.title ?? 'Unknown'),
                           shape: StadiumBorder(
                             side: BorderSide(

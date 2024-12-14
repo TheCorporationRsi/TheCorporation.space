@@ -10,6 +10,7 @@ import 'package:flutter_dashboard/main.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/util/icon_helper.dart';
 
 class RoleManagerWidget extends StatefulWidget {
   const RoleManagerWidget({super.key});
@@ -389,6 +390,10 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
       child: Column(
         children: [
           ListTile(
+            leading: Icon(icons[role.logo] ?? Icons.error,
+                color: role.color != null
+                    ? cssColorToColor(role.color!)
+                    : Colors.grey),
             title: Text(role.title.toString(),
                 style: TextStyle(
                   color: role.color != null
@@ -533,6 +538,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
     int roleIndex = roles.indexOf(role);
     String title = role.title ?? '';
     String discordID = role.discordId ?? '';
+    String logo = role.logo ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -549,6 +555,12 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
               border: OutlineInputBorder(),
             ),
           ),
+          SizedBox(height: 10),
+          if (role.division == null && role.department == null) 
+          IconInputWidget(initialIcon: logo, onIconChanged: (newLogo) {
+            logo = newLogo;
+          }),
+          if (role.division == null && role.department == null) 
           SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: discordID),
@@ -574,7 +586,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateRole(role, title, colorToCssColor(currentColor), discordID);
+                _updateRole(role, title, colorToCssColor(currentColor), discordID, logo);
               },
               child: Text('Save'),
             ),
@@ -585,7 +597,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
   }
 
   void _updateRole(GetRoles200ResponseInner role,
-    String title, String color, String discordID) async {
+    String title, String color, String discordID, String logo) async {
     final headers = await getAuthHeader();
 
     final UpdateRoleRequest updateRoleRequest = UpdateRoleRequest((b) => b
@@ -593,6 +605,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
           ..newTitle = title
           ..newColor = color
           ..newDiscordId = discordID
+          ..newLogo = logo
           );
 
     try {

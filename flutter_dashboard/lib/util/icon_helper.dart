@@ -32,6 +32,7 @@ const icons = {
   'sports_esports': Icons.sports_esports,
   'flag': Icons.flag,
   'diversity_3': Icons.diversity_3,
+  'badge': Icons.badge,
 };
 
 
@@ -70,8 +71,12 @@ class _IconInputWidgetState extends State<IconInputWidget> {
     return Row(
       children: [
         Expanded(
-          child: DropdownButton<String>(
+          child: DropdownButtonFormField<String>(
             value: _selectedIcon,
+            decoration: InputDecoration(
+              labelText: 'Icon',
+              border: OutlineInputBorder()
+            ),
             items: icons.keys.map((String key) {
               return DropdownMenuItem<String>(
                 value: key,
