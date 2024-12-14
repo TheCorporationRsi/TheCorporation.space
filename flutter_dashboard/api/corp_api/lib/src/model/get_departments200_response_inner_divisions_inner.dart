@@ -12,7 +12,7 @@ part 'get_departments200_response_inner_divisions_inner.g.dart';
 ///
 /// Properties:
 /// * [description]
-/// * [icon]
+/// * [logo]
 /// * [motto]
 /// * [title]
 @BuiltValue()
@@ -23,8 +23,8 @@ abstract class GetDepartments200ResponseInnerDivisionsInner
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'icon')
-  String? get icon;
+  @BuiltValueField(wireName: r'logo')
+  String? get logo;
 
   @BuiltValueField(wireName: r'motto')
   String? get motto;
@@ -74,10 +74,10 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
         specifiedType: const FullType(String),
       );
     }
-    if (object.icon != null) {
-      yield r'icon';
+    if (object.logo != null) {
+      yield r'logo';
       yield serializers.serialize(
-        object.icon,
+        object.logo,
         specifiedType: const FullType(String),
       );
     }
@@ -127,12 +127,12 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
           ) as String;
           result.description = valueDes;
           break;
-        case r'icon':
+        case r'logo':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.icon = valueDes;
+          result.logo = valueDes;
           break;
         case r'motto':
           final valueDes = serializers.deserialize(

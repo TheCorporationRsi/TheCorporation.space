@@ -133,4 +133,3 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/get_departments200_response_inner_divisions_inner_test.dart

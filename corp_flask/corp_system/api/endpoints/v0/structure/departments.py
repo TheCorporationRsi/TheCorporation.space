@@ -79,7 +79,7 @@ def departments():
                                             description:
                                                 type: string
                                                 example: This division is responsible for the development of the corp website
-                                            icon:
+                                            logo:
                                                 type: string
                                                 example: disabled_by_default
     """
@@ -99,7 +99,7 @@ def departments():
                 "title":division.title,
                 "motto": division.motto,
                 "description": division.description,
-                "icon": division.icon
+                "logo": division.logo
                 } for division in department.divisions if division.hidden == False],
             "heads": [head.RSI_handle for head in department.head_role.users],
             "proxys": [proxy.RSI_handle for proxy in department.proxy_role.users],

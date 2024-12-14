@@ -11,7 +11,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
   @override
   final String? description;
   @override
-  final String? icon;
+  final String? logo;
   @override
   final String? motto;
   @override
@@ -25,7 +25,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
           ._build();
 
   _$GetDepartments200ResponseInnerDivisionsInner._(
-      {this.description, this.icon, this.motto, this.title})
+      {this.description, this.logo, this.motto, this.title})
       : super._();
 
   @override
@@ -43,7 +43,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
     if (identical(other, this)) return true;
     return other is GetDepartments200ResponseInnerDivisionsInner &&
         description == other.description &&
-        icon == other.icon &&
+        logo == other.logo &&
         motto == other.motto &&
         title == other.title;
   }
@@ -52,7 +52,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, description.hashCode);
-    _$hash = $jc(_$hash, icon.hashCode);
+    _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jf(_$hash);
@@ -64,7 +64,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
     return (newBuiltValueToStringHelper(
             r'GetDepartments200ResponseInnerDivisionsInner')
           ..add('description', description)
-          ..add('icon', icon)
+          ..add('logo', logo)
           ..add('motto', motto)
           ..add('title', title))
         .toString();
@@ -81,9 +81,9 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
-  String? _icon;
-  String? get icon => _$this._icon;
-  set icon(String? icon) => _$this._icon = icon;
+  String? _logo;
+  String? get logo => _$this._logo;
+  set logo(String? logo) => _$this._logo = logo;
 
   String? _motto;
   String? get motto => _$this._motto;
@@ -101,7 +101,7 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
     final $v = _$v;
     if ($v != null) {
       _description = $v.description;
-      _icon = $v.icon;
+      _logo = $v.logo;
       _motto = $v.motto;
       _title = $v.title;
       _$v = null;
@@ -128,7 +128,7 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   _$GetDepartments200ResponseInnerDivisionsInner _build() {
     final _$result = _$v ??
         new _$GetDepartments200ResponseInnerDivisionsInner._(
-            description: description, icon: icon, motto: motto, title: title);
+            description: description, logo: logo, motto: motto, title: title);
     replace(_$result);
     return _$result;
   }

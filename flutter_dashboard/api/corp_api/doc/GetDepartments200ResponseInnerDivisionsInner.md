@@ -9,7 +9,7 @@ import 'package:corp_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **String** |  | [optional] 
-**icon** | **String** |  | [optional] 
+**logo** | **String** |  | [optional] 
 **motto** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 
