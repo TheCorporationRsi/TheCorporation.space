@@ -302,19 +302,53 @@ class _StructureWidgetState extends State<StructureWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow('Heads', department.heads.toString()),
-          _buildDetailRow('Proxys', department.proxys.toString()),
+          Text(department.description!,
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
+          SizedBox(height: 10),
+          Text("Head:", style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 10),
+          ...department.heads!.map((head) => Chip(
+                          avatar: Icon(icons[department.logo] ?? Icons.error,
+                            color: department.color != null
+                                  ? cssColorToColor(department.color!)
+                                  : Colors.grey),
+                          label: Text(head ?? 'Unknown'),
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: department.color != null
+                                  ? cssColorToColor(department.color!)
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),),
+          SizedBox(height: 10),
+          Text("Proxy:", style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 10),
+          ...department.proxys!.map((proxy) => Chip(
+                          avatar: Icon(icons[department.logo] ?? Icons.error,
+                            color: department.color != null
+                                  ? cssColorToColor(department.color!)
+                                  : Colors.grey),
+                          label: Text(proxy ?? 'Unknown'),
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: department.color != null
+                                  ? cssColorToColor(department.color!)
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),),
           SizedBox(height: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 5),
               ...department.divisions!.map((division) => ListTile(
-                    leading: Icon(icons[department.logo] ?? Icons.error,
+                    
+                    leading: Icon(icons[division.logo] ?? Icons.error,
                         color: department.color != null
                             ? cssColorToColor(department.color!)
                             : Colors.grey),
-                    title: Text(division.toString(),
+                    title: Text(division.title.toString(),
                         style: TextStyle(
                           color: department.color != null
                               ? cssColorToColor(department.color!)
@@ -322,7 +356,10 @@ class _StructureWidgetState extends State<StructureWidget> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         )),
-                    subtitle: Text(department.motto.toString()),
+                    subtitle: Text(division.motto.toString()),
+                    trailing: Text(division.description!,
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal, fontSize: 15)),
                   )),
             ],
           ),
