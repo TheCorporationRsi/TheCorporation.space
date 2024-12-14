@@ -82,6 +82,21 @@ def departments():
                                             logo:
                                                 type: string
                                                 example: disabled_by_default
+                                            leaders:
+                                                type: array
+                                                items:
+                                                    type: string
+                                                    example: [
+                                                        Cyber-Dreamer
+                                                    ]
+                                            proxys:
+                                                type: array
+                                                items:
+                                                    type: string
+                                                    example: [
+                                                        Stevote,
+                                                        Vizi
+                                                    ]
     """
     departments = Department.query.all()
     departments_list = []
@@ -99,7 +114,9 @@ def departments():
                 "title":division.title,
                 "motto": division.motto,
                 "description": division.description,
-                "logo": division.logo
+                "logo": division.logo,
+                "leaders": [leader.RSI_handle for leader in division.leader_role.users],
+                "proxys": [proxy.RSI_handle for proxy in division.proxy_role.users],
                 } for division in department.divisions if division.hidden == False],
             "heads": [head.RSI_handle for head in department.head_role.users],
             "proxys": [proxy.RSI_handle for proxy in department.proxy_role.users],

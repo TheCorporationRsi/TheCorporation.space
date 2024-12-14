@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -12,8 +13,10 @@ part 'get_departments200_response_inner_divisions_inner.g.dart';
 ///
 /// Properties:
 /// * [description]
+/// * [leaders]
 /// * [logo]
 /// * [motto]
+/// * [proxys]
 /// * [title]
 @BuiltValue()
 abstract class GetDepartments200ResponseInnerDivisionsInner
@@ -23,11 +26,17 @@ abstract class GetDepartments200ResponseInnerDivisionsInner
   @BuiltValueField(wireName: r'description')
   String? get description;
 
+  @BuiltValueField(wireName: r'leaders')
+  BuiltList<String>? get leaders;
+
   @BuiltValueField(wireName: r'logo')
   String? get logo;
 
   @BuiltValueField(wireName: r'motto')
   String? get motto;
+
+  @BuiltValueField(wireName: r'proxys')
+  BuiltList<String>? get proxys;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -74,6 +83,13 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.leaders != null) {
+      yield r'leaders';
+      yield serializers.serialize(
+        object.leaders,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
     if (object.logo != null) {
       yield r'logo';
       yield serializers.serialize(
@@ -86,6 +102,13 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
       yield serializers.serialize(
         object.motto,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.proxys != null) {
+      yield r'proxys';
+      yield serializers.serialize(
+        object.proxys,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
     if (object.title != null) {
@@ -127,6 +150,13 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
           ) as String;
           result.description = valueDes;
           break;
+        case r'leaders':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.leaders.replace(valueDes);
+          break;
         case r'logo':
           final valueDes = serializers.deserialize(
             value,
@@ -140,6 +170,13 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.motto = valueDes;
+          break;
+        case r'proxys':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.proxys.replace(valueDes);
           break;
         case r'title':
           final valueDes = serializers.deserialize(

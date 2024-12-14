@@ -11,9 +11,13 @@ class _$GetDepartments200ResponseInnerDivisionsInner
   @override
   final String? description;
   @override
+  final BuiltList<String>? leaders;
+  @override
   final String? logo;
   @override
   final String? motto;
+  @override
+  final BuiltList<String>? proxys;
   @override
   final String? title;
 
@@ -25,7 +29,12 @@ class _$GetDepartments200ResponseInnerDivisionsInner
           ._build();
 
   _$GetDepartments200ResponseInnerDivisionsInner._(
-      {this.description, this.logo, this.motto, this.title})
+      {this.description,
+      this.leaders,
+      this.logo,
+      this.motto,
+      this.proxys,
+      this.title})
       : super._();
 
   @override
@@ -43,8 +52,10 @@ class _$GetDepartments200ResponseInnerDivisionsInner
     if (identical(other, this)) return true;
     return other is GetDepartments200ResponseInnerDivisionsInner &&
         description == other.description &&
+        leaders == other.leaders &&
         logo == other.logo &&
         motto == other.motto &&
+        proxys == other.proxys &&
         title == other.title;
   }
 
@@ -52,8 +63,10 @@ class _$GetDepartments200ResponseInnerDivisionsInner
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, description.hashCode);
+    _$hash = $jc(_$hash, leaders.hashCode);
     _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
+    _$hash = $jc(_$hash, proxys.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -64,8 +77,10 @@ class _$GetDepartments200ResponseInnerDivisionsInner
     return (newBuiltValueToStringHelper(
             r'GetDepartments200ResponseInnerDivisionsInner')
           ..add('description', description)
+          ..add('leaders', leaders)
           ..add('logo', logo)
           ..add('motto', motto)
+          ..add('proxys', proxys)
           ..add('title', title))
         .toString();
   }
@@ -81,6 +96,11 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   String? get description => _$this._description;
   set description(String? description) => _$this._description = description;
 
+  ListBuilder<String>? _leaders;
+  ListBuilder<String> get leaders =>
+      _$this._leaders ??= new ListBuilder<String>();
+  set leaders(ListBuilder<String>? leaders) => _$this._leaders = leaders;
+
   String? _logo;
   String? get logo => _$this._logo;
   set logo(String? logo) => _$this._logo = logo;
@@ -88,6 +108,11 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   String? _motto;
   String? get motto => _$this._motto;
   set motto(String? motto) => _$this._motto = motto;
+
+  ListBuilder<String>? _proxys;
+  ListBuilder<String> get proxys =>
+      _$this._proxys ??= new ListBuilder<String>();
+  set proxys(ListBuilder<String>? proxys) => _$this._proxys = proxys;
 
   String? _title;
   String? get title => _$this._title;
@@ -101,8 +126,10 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
     final $v = _$v;
     if ($v != null) {
       _description = $v.description;
+      _leaders = $v.leaders?.toBuilder();
       _logo = $v.logo;
       _motto = $v.motto;
+      _proxys = $v.proxys?.toBuilder();
       _title = $v.title;
       _$v = null;
     }
@@ -126,9 +153,32 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   GetDepartments200ResponseInnerDivisionsInner build() => _build();
 
   _$GetDepartments200ResponseInnerDivisionsInner _build() {
-    final _$result = _$v ??
-        new _$GetDepartments200ResponseInnerDivisionsInner._(
-            description: description, logo: logo, motto: motto, title: title);
+    _$GetDepartments200ResponseInnerDivisionsInner _$result;
+    try {
+      _$result = _$v ??
+          new _$GetDepartments200ResponseInnerDivisionsInner._(
+              description: description,
+              leaders: _leaders?.build(),
+              logo: logo,
+              motto: motto,
+              proxys: _proxys?.build(),
+              title: title);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'leaders';
+        _leaders?.build();
+
+        _$failedField = 'proxys';
+        _proxys?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'GetDepartments200ResponseInnerDivisionsInner',
+            _$failedField,
+            e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
