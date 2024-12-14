@@ -47,6 +47,9 @@ def divisions():
                                 motto:
                                     type: string
                                     example: We love building stuff
+                                description:
+                                    type: string
+                                    example: This is the development division
                                 member_count:
                                     type: integer
                                     example: 50
@@ -78,6 +81,7 @@ def divisions():
             "logo": division.logo,
             "department_title": division.department.title,
             "motto": division.motto,
+            "description": division.description,
             "leaders": [leader.RSI_handle for leader in division.leader_role.users],
             "proxys": [proxy.RSI_handle for proxy in division.proxy_role.users],
             "member_count": len(division.members)

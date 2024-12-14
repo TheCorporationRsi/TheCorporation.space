@@ -10,7 +10,9 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
   @override
   final String? color;
   @override
-  final BuiltList<String>? divisions;
+  final String? description;
+  @override
+  final BuiltList<GetDepartments200ResponseInnerDivisionsInner>? divisions;
   @override
   final BuiltList<String>? heads;
   @override
@@ -30,6 +32,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
 
   _$GetDepartments200ResponseInner._(
       {this.color,
+      this.description,
       this.divisions,
       this.heads,
       this.logo,
@@ -53,6 +56,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
     if (identical(other, this)) return true;
     return other is GetDepartments200ResponseInner &&
         color == other.color &&
+        description == other.description &&
         divisions == other.divisions &&
         heads == other.heads &&
         logo == other.logo &&
@@ -66,6 +70,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, color.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, divisions.hashCode);
     _$hash = $jc(_$hash, heads.hashCode);
     _$hash = $jc(_$hash, logo.hashCode);
@@ -81,6 +86,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
   String toString() {
     return (newBuiltValueToStringHelper(r'GetDepartments200ResponseInner')
           ..add('color', color)
+          ..add('description', description)
           ..add('divisions', divisions)
           ..add('heads', heads)
           ..add('logo', logo)
@@ -102,10 +108,17 @@ class GetDepartments200ResponseInnerBuilder
   String? get color => _$this._color;
   set color(String? color) => _$this._color = color;
 
-  ListBuilder<String>? _divisions;
-  ListBuilder<String> get divisions =>
-      _$this._divisions ??= new ListBuilder<String>();
-  set divisions(ListBuilder<String>? divisions) =>
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
+
+  ListBuilder<GetDepartments200ResponseInnerDivisionsInner>? _divisions;
+  ListBuilder<GetDepartments200ResponseInnerDivisionsInner> get divisions =>
+      _$this._divisions ??=
+          new ListBuilder<GetDepartments200ResponseInnerDivisionsInner>();
+  set divisions(
+          ListBuilder<GetDepartments200ResponseInnerDivisionsInner>?
+              divisions) =>
       _$this._divisions = divisions;
 
   ListBuilder<String>? _heads;
@@ -141,6 +154,7 @@ class GetDepartments200ResponseInnerBuilder
     final $v = _$v;
     if ($v != null) {
       _color = $v.color;
+      _description = $v.description;
       _divisions = $v.divisions?.toBuilder();
       _heads = $v.heads?.toBuilder();
       _logo = $v.logo;
@@ -173,6 +187,7 @@ class GetDepartments200ResponseInnerBuilder
       _$result = _$v ??
           new _$GetDepartments200ResponseInner._(
               color: color,
+              description: description,
               divisions: _divisions?.build(),
               heads: _heads?.build(),
               logo: logo,

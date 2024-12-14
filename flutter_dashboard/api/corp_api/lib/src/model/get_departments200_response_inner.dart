@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:corp_api/src/model/get_departments200_response_inner_divisions_inner.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -13,6 +14,7 @@ part 'get_departments200_response_inner.g.dart';
 ///
 /// Properties:
 /// * [color]
+/// * [description]
 /// * [divisions]
 /// * [heads]
 /// * [logo]
@@ -28,8 +30,11 @@ abstract class GetDepartments200ResponseInner
   @BuiltValueField(wireName: r'color')
   String? get color;
 
+  @BuiltValueField(wireName: r'description')
+  String? get description;
+
   @BuiltValueField(wireName: r'divisions')
-  BuiltList<String>? get divisions;
+  BuiltList<GetDepartments200ResponseInnerDivisionsInner>? get divisions;
 
   @BuiltValueField(wireName: r'heads')
   BuiltList<String>? get heads;
@@ -86,11 +91,19 @@ class _$GetDepartments200ResponseInnerSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.divisions != null) {
       yield r'divisions';
       yield serializers.serialize(
         object.divisions,
-        specifiedType: const FullType(BuiltList, [FullType(String)]),
+        specifiedType: const FullType(BuiltList,
+            [FullType(GetDepartments200ResponseInnerDivisionsInner)]),
       );
     }
     if (object.heads != null) {
@@ -167,11 +180,19 @@ class _$GetDepartments200ResponseInnerSerializer
           ) as String;
           result.color = valueDes;
           break;
+        case r'description':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.description = valueDes;
+          break;
         case r'divisions':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(String)]),
-          ) as BuiltList<String>;
+            specifiedType: const FullType(BuiltList,
+                [FullType(GetDepartments200ResponseInnerDivisionsInner)]),
+          ) as BuiltList<GetDepartments200ResponseInnerDivisionsInner>;
           result.divisions.replace(valueDes);
           break;
         case r'heads':

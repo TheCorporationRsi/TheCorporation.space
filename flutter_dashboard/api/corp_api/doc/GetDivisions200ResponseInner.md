@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **color** | **String** |  | [optional] 
 **departmentTitle** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
 **leaders** | **BuiltList&lt;String&gt;** |  | [optional] 
 **logo** | **String** |  | [optional] 
 **memberCount** | **int** |  | [optional] 

@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
  - [GetCorporateers200ResponseInner](doc/GetCorporateers200ResponseInner.md)
  - [GetCurrentFunding200Response](doc/GetCurrentFunding200Response.md)
  - [GetDepartments200ResponseInner](doc/GetDepartments200ResponseInner.md)
+ - [GetDepartments200ResponseInnerDivisionsInner](doc/GetDepartments200ResponseInnerDivisionsInner.md)
  - [GetDivisions200ResponseInner](doc/GetDivisions200ResponseInner.md)
  - [GetProfile200Response](doc/GetProfile200Response.md)
  - [GetRSIToken200Response](doc/GetRSIToken200Response.md)

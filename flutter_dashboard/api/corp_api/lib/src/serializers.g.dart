@@ -26,6 +26,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetCorporateers200ResponseInner.serializer)
       ..add(GetCurrentFunding200Response.serializer)
       ..add(GetDepartments200ResponseInner.serializer)
+      ..add(GetDepartments200ResponseInnerDivisionsInner.serializer)
       ..add(GetDivisions200ResponseInner.serializer)
       ..add(GetProfile200Response.serializer)
       ..add(GetRSIToken200Response.serializer)
@@ -62,6 +63,17 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(UpdateRoleRequest.serializer)
       ..add(VerifyRSIToken200Response.serializer)
       ..addBuilderFactory(
+          const FullType(BuiltList, const [
+            const FullType(GetDepartments200ResponseInnerDivisionsInner)
+          ]),
+          () => new ListBuilder<GetDepartments200ResponseInnerDivisionsInner>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GetUser200ResponseRolesInner)]),
           () => new ListBuilder<GetUser200ResponseRolesInner>())
@@ -78,15 +90,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
           ]),
           () => new ListBuilder<
               GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
-      ..addBuilderFactory(
-          const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

@@ -12,6 +12,8 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
   @override
   final String? departmentTitle;
   @override
+  final String? description;
+  @override
   final BuiltList<String>? leaders;
   @override
   final String? logo;
@@ -31,6 +33,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
   _$GetDivisions200ResponseInner._(
       {this.color,
       this.departmentTitle,
+      this.description,
       this.leaders,
       this.logo,
       this.memberCount,
@@ -54,6 +57,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
     return other is GetDivisions200ResponseInner &&
         color == other.color &&
         departmentTitle == other.departmentTitle &&
+        description == other.description &&
         leaders == other.leaders &&
         logo == other.logo &&
         memberCount == other.memberCount &&
@@ -67,6 +71,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
     var _$hash = 0;
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, departmentTitle.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, leaders.hashCode);
     _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, memberCount.hashCode);
@@ -82,6 +87,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
     return (newBuiltValueToStringHelper(r'GetDivisions200ResponseInner')
           ..add('color', color)
           ..add('departmentTitle', departmentTitle)
+          ..add('description', description)
           ..add('leaders', leaders)
           ..add('logo', logo)
           ..add('memberCount', memberCount)
@@ -106,6 +112,10 @@ class GetDivisions200ResponseInnerBuilder
   String? get departmentTitle => _$this._departmentTitle;
   set departmentTitle(String? departmentTitle) =>
       _$this._departmentTitle = departmentTitle;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   ListBuilder<String>? _leaders;
   ListBuilder<String> get leaders =>
@@ -142,6 +152,7 @@ class GetDivisions200ResponseInnerBuilder
     if ($v != null) {
       _color = $v.color;
       _departmentTitle = $v.departmentTitle;
+      _description = $v.description;
       _leaders = $v.leaders?.toBuilder();
       _logo = $v.logo;
       _memberCount = $v.memberCount;
@@ -174,6 +185,7 @@ class GetDivisions200ResponseInnerBuilder
           new _$GetDivisions200ResponseInner._(
               color: color,
               departmentTitle: departmentTitle,
+              description: description,
               leaders: _leaders?.build(),
               logo: logo,
               memberCount: memberCount,

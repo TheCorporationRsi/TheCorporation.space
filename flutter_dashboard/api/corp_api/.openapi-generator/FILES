@@ -21,6 +21,7 @@ doc/DeleteUser200Response.md
 doc/GetCorporateers200ResponseInner.md
 doc/GetCurrentFunding200Response.md
 doc/GetDepartments200ResponseInner.md
+doc/GetDepartments200ResponseInnerDivisionsInner.md
 doc/GetDivisions200ResponseInner.md
 doc/GetProfile200Response.md
 doc/GetRSIToken200Response.md
@@ -95,6 +96,7 @@ lib/src/model/delete_user200_response.dart
 lib/src/model/get_corporateers200_response_inner.dart
 lib/src/model/get_current_funding200_response.dart
 lib/src/model/get_departments200_response_inner.dart
+lib/src/model/get_departments200_response_inner_divisions_inner.dart
 lib/src/model/get_divisions200_response_inner.dart
 lib/src/model/get_profile200_response.dart
 lib/src/model/get_ranks200_response_inner.dart
@@ -131,3 +133,4 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/get_departments200_response_inner_divisions_inner_test.dart

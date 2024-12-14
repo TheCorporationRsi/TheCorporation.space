@@ -41,6 +41,9 @@ def departments():
                                 motto:
                                     type: string
                                     example: We love building stuff
+                                description:
+                                    type: string
+                                    example: This department is responsible for the development of the corp website
                                 logo:
                                     type: string
                                     example: disabled_by_default
@@ -65,11 +68,20 @@ def departments():
                                 divisions:
                                     type: array
                                     items:
-                                        type: string
-                                        example: [
-                                            Development,
-                                            Extration
-                                        ]
+                                        type: object
+                                        properties:
+                                            title:
+                                                type: string
+                                                example: Web
+                                            motto:
+                                                type: string
+                                                example: We love building websites
+                                            description:
+                                                type: string
+                                                example: This division is responsible for the development of the corp website
+                                            icon:
+                                                type: string
+                                                example: disabled_by_default
     """
     departments = Department.query.all()
     departments_list = []
@@ -80,9 +92,15 @@ def departments():
             "title": department.title,
             "color": department.color,
             "motto": department.motto,
+            "description": department.description,
             "logo": department.logo,
             "member_count": len(department.members),
-            "divisions": [division.title for division in department.divisions if division.hidden == False],
+            "divisions": [{
+                "title":division.title,
+                "motto": division.motto,
+                "description": division.description,
+                "icon": division.icon
+                } for division in department.divisions if division.hidden == False],
             "heads": [head.RSI_handle for head in department.head_role.users],
             "proxys": [proxy.RSI_handle for proxy in department.proxy_role.users],
         })

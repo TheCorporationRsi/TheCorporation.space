@@ -33,6 +33,7 @@ import 'package:corp_api/src/model/delete_user200_response.dart';
 import 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 import 'package:corp_api/src/model/get_current_funding200_response.dart';
 import 'package:corp_api/src/model/get_departments200_response_inner.dart';
+import 'package:corp_api/src/model/get_departments200_response_inner_divisions_inner.dart';
 import 'package:corp_api/src/model/get_divisions200_response_inner.dart';
 import 'package:corp_api/src/model/get_profile200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token200_response.dart';
@@ -90,6 +91,7 @@ part 'serializers.g.dart';
   GetCorporateers200ResponseInner,
   GetCurrentFunding200Response,
   GetDepartments200ResponseInner,
+  GetDepartments200ResponseInnerDivisionsInner,
   GetDivisions200ResponseInner,
   GetProfile200Response,
   GetRSIToken200Response,
