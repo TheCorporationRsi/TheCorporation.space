@@ -11,15 +11,12 @@ part 'get_tribute_history200_response_inner.g.dart';
 /// GetTributeHistory200ResponseInner
 ///
 /// Properties:
-/// * [amount]
-/// * [message]
-/// * [method]
-/// * [receiver]
+/// * [amount] 
+/// * [message] 
+/// * [method] 
+/// * [receiver] 
 @BuiltValue()
-abstract class GetTributeHistory200ResponseInner
-    implements
-        Built<GetTributeHistory200ResponseInner,
-            GetTributeHistory200ResponseInnerBuilder> {
+abstract class GetTributeHistory200ResponseInner implements Built<GetTributeHistory200ResponseInner, GetTributeHistory200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'amount')
   int? get amount;
 
@@ -34,25 +31,18 @@ abstract class GetTributeHistory200ResponseInner
 
   GetTributeHistory200ResponseInner._();
 
-  factory GetTributeHistory200ResponseInner(
-          [void updates(GetTributeHistory200ResponseInnerBuilder b)]) =
-      _$GetTributeHistory200ResponseInner;
+  factory GetTributeHistory200ResponseInner([void updates(GetTributeHistory200ResponseInnerBuilder b)]) = _$GetTributeHistory200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetTributeHistory200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetTributeHistory200ResponseInner> get serializer =>
-      _$GetTributeHistory200ResponseInnerSerializer();
+  static Serializer<GetTributeHistory200ResponseInner> get serializer => _$GetTributeHistory200ResponseInnerSerializer();
 }
 
-class _$GetTributeHistory200ResponseInnerSerializer
-    implements PrimitiveSerializer<GetTributeHistory200ResponseInner> {
+class _$GetTributeHistory200ResponseInnerSerializer implements PrimitiveSerializer<GetTributeHistory200ResponseInner> {
   @override
-  final Iterable<Type> types = const [
-    GetTributeHistory200ResponseInner,
-    _$GetTributeHistory200ResponseInner
-  ];
+  final Iterable<Type> types = const [GetTributeHistory200ResponseInner, _$GetTributeHistory200ResponseInner];
 
   @override
   final String wireName = r'GetTributeHistory200ResponseInner';
@@ -98,9 +88,7 @@ class _$GetTributeHistory200ResponseInnerSerializer
     GetTributeHistory200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -171,3 +159,4 @@ class _$GetTributeHistory200ResponseInnerSerializer
     return result.build();
   }
 }
+

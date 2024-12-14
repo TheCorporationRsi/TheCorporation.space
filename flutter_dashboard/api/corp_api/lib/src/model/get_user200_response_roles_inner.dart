@@ -11,13 +11,10 @@ part 'get_user200_response_roles_inner.g.dart';
 /// GetUser200ResponseRolesInner
 ///
 /// Properties:
-/// * [color]
-/// * [title]
+/// * [color] 
+/// * [title] 
 @BuiltValue()
-abstract class GetUser200ResponseRolesInner
-    implements
-        Built<GetUser200ResponseRolesInner,
-            GetUser200ResponseRolesInnerBuilder> {
+abstract class GetUser200ResponseRolesInner implements Built<GetUser200ResponseRolesInner, GetUser200ResponseRolesInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -26,25 +23,18 @@ abstract class GetUser200ResponseRolesInner
 
   GetUser200ResponseRolesInner._();
 
-  factory GetUser200ResponseRolesInner(
-          [void updates(GetUser200ResponseRolesInnerBuilder b)]) =
-      _$GetUser200ResponseRolesInner;
+  factory GetUser200ResponseRolesInner([void updates(GetUser200ResponseRolesInnerBuilder b)]) = _$GetUser200ResponseRolesInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetUser200ResponseRolesInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUser200ResponseRolesInner> get serializer =>
-      _$GetUser200ResponseRolesInnerSerializer();
+  static Serializer<GetUser200ResponseRolesInner> get serializer => _$GetUser200ResponseRolesInnerSerializer();
 }
 
-class _$GetUser200ResponseRolesInnerSerializer
-    implements PrimitiveSerializer<GetUser200ResponseRolesInner> {
+class _$GetUser200ResponseRolesInnerSerializer implements PrimitiveSerializer<GetUser200ResponseRolesInner> {
   @override
-  final Iterable<Type> types = const [
-    GetUser200ResponseRolesInner,
-    _$GetUser200ResponseRolesInner
-  ];
+  final Iterable<Type> types = const [GetUser200ResponseRolesInner, _$GetUser200ResponseRolesInner];
 
   @override
   final String wireName = r'GetUser200ResponseRolesInner';
@@ -76,9 +66,7 @@ class _$GetUser200ResponseRolesInnerSerializer
     GetUser200ResponseRolesInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -135,3 +123,4 @@ class _$GetUser200ResponseRolesInnerSerializer
     return result.build();
   }
 }
+

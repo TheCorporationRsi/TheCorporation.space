@@ -11,16 +11,14 @@ part 'get_users200_response_inner.g.dart';
 /// GetUsers200ResponseInner
 ///
 /// Properties:
-/// * [cORPConfirmed]
-/// * [rSIConfirmed]
-/// * [rSIHandle]
-/// * [disabled]
-/// * [picture]
-/// * [securityLevel]
+/// * [cORPConfirmed] 
+/// * [rSIConfirmed] 
+/// * [rSIHandle] 
+/// * [disabled] 
+/// * [picture] 
+/// * [securityLevel] 
 @BuiltValue()
-abstract class GetUsers200ResponseInner
-    implements
-        Built<GetUsers200ResponseInner, GetUsers200ResponseInnerBuilder> {
+abstract class GetUsers200ResponseInner implements Built<GetUsers200ResponseInner, GetUsers200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'CORP_confirmed')
   bool? get cORPConfirmed;
 
@@ -41,25 +39,18 @@ abstract class GetUsers200ResponseInner
 
   GetUsers200ResponseInner._();
 
-  factory GetUsers200ResponseInner(
-          [void updates(GetUsers200ResponseInnerBuilder b)]) =
-      _$GetUsers200ResponseInner;
+  factory GetUsers200ResponseInner([void updates(GetUsers200ResponseInnerBuilder b)]) = _$GetUsers200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetUsers200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUsers200ResponseInner> get serializer =>
-      _$GetUsers200ResponseInnerSerializer();
+  static Serializer<GetUsers200ResponseInner> get serializer => _$GetUsers200ResponseInnerSerializer();
 }
 
-class _$GetUsers200ResponseInnerSerializer
-    implements PrimitiveSerializer<GetUsers200ResponseInner> {
+class _$GetUsers200ResponseInnerSerializer implements PrimitiveSerializer<GetUsers200ResponseInner> {
   @override
-  final Iterable<Type> types = const [
-    GetUsers200ResponseInner,
-    _$GetUsers200ResponseInner
-  ];
+  final Iterable<Type> types = const [GetUsers200ResponseInner, _$GetUsers200ResponseInner];
 
   @override
   final String wireName = r'GetUsers200ResponseInner';
@@ -119,9 +110,7 @@ class _$GetUsers200ResponseInnerSerializer
     GetUsers200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -206,3 +195,4 @@ class _$GetUsers200ResponseInnerSerializer
     return result.build();
   }
 }
+

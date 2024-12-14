@@ -11,33 +11,26 @@ part 'create_role201_response.g.dart';
 /// CreateRole201Response
 ///
 /// Properties:
-/// * [msg]
+/// * [msg] 
 @BuiltValue()
-abstract class CreateRole201Response
-    implements Built<CreateRole201Response, CreateRole201ResponseBuilder> {
+abstract class CreateRole201Response implements Built<CreateRole201Response, CreateRole201ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   CreateRole201Response._();
 
-  factory CreateRole201Response(
-      [void updates(CreateRole201ResponseBuilder b)]) = _$CreateRole201Response;
+  factory CreateRole201Response([void updates(CreateRole201ResponseBuilder b)]) = _$CreateRole201Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CreateRole201ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateRole201Response> get serializer =>
-      _$CreateRole201ResponseSerializer();
+  static Serializer<CreateRole201Response> get serializer => _$CreateRole201ResponseSerializer();
 }
 
-class _$CreateRole201ResponseSerializer
-    implements PrimitiveSerializer<CreateRole201Response> {
+class _$CreateRole201ResponseSerializer implements PrimitiveSerializer<CreateRole201Response> {
   @override
-  final Iterable<Type> types = const [
-    CreateRole201Response,
-    _$CreateRole201Response
-  ];
+  final Iterable<Type> types = const [CreateRole201Response, _$CreateRole201Response];
 
   @override
   final String wireName = r'CreateRole201Response';
@@ -62,9 +55,7 @@ class _$CreateRole201ResponseSerializer
     CreateRole201Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -114,3 +105,4 @@ class _$CreateRole201ResponseSerializer
     return result.build();
   }
 }
+

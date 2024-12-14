@@ -11,14 +11,13 @@ part 'get_profile200_response.g.dart';
 /// GetProfile200Response
 ///
 /// Properties:
-/// * [influence]
-/// * [lastTributeTime]
-/// * [lifetimeInfluence]
-/// * [rank]
-/// * [tribute]
+/// * [influence] 
+/// * [lastTributeTime] 
+/// * [lifetimeInfluence] 
+/// * [rank] 
+/// * [tribute] 
 @BuiltValue()
-abstract class GetProfile200Response
-    implements Built<GetProfile200Response, GetProfile200ResponseBuilder> {
+abstract class GetProfile200Response implements Built<GetProfile200Response, GetProfile200ResponseBuilder> {
   @BuiltValueField(wireName: r'influence')
   int? get influence;
 
@@ -36,24 +35,18 @@ abstract class GetProfile200Response
 
   GetProfile200Response._();
 
-  factory GetProfile200Response(
-      [void updates(GetProfile200ResponseBuilder b)]) = _$GetProfile200Response;
+  factory GetProfile200Response([void updates(GetProfile200ResponseBuilder b)]) = _$GetProfile200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetProfile200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetProfile200Response> get serializer =>
-      _$GetProfile200ResponseSerializer();
+  static Serializer<GetProfile200Response> get serializer => _$GetProfile200ResponseSerializer();
 }
 
-class _$GetProfile200ResponseSerializer
-    implements PrimitiveSerializer<GetProfile200Response> {
+class _$GetProfile200ResponseSerializer implements PrimitiveSerializer<GetProfile200Response> {
   @override
-  final Iterable<Type> types = const [
-    GetProfile200Response,
-    _$GetProfile200Response
-  ];
+  final Iterable<Type> types = const [GetProfile200Response, _$GetProfile200Response];
 
   @override
   final String wireName = r'GetProfile200Response';
@@ -106,9 +99,7 @@ class _$GetProfile200ResponseSerializer
     GetProfile200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -186,3 +177,4 @@ class _$GetProfile200ResponseSerializer
     return result.build();
   }
 }
+

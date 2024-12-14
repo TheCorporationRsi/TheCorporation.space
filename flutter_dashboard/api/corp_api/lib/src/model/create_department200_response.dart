@@ -11,35 +11,26 @@ part 'create_department200_response.g.dart';
 /// CreateDepartment200Response
 ///
 /// Properties:
-/// * [msg]
+/// * [msg] 
 @BuiltValue()
-abstract class CreateDepartment200Response
-    implements
-        Built<CreateDepartment200Response, CreateDepartment200ResponseBuilder> {
+abstract class CreateDepartment200Response implements Built<CreateDepartment200Response, CreateDepartment200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   CreateDepartment200Response._();
 
-  factory CreateDepartment200Response(
-          [void updates(CreateDepartment200ResponseBuilder b)]) =
-      _$CreateDepartment200Response;
+  factory CreateDepartment200Response([void updates(CreateDepartment200ResponseBuilder b)]) = _$CreateDepartment200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CreateDepartment200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateDepartment200Response> get serializer =>
-      _$CreateDepartment200ResponseSerializer();
+  static Serializer<CreateDepartment200Response> get serializer => _$CreateDepartment200ResponseSerializer();
 }
 
-class _$CreateDepartment200ResponseSerializer
-    implements PrimitiveSerializer<CreateDepartment200Response> {
+class _$CreateDepartment200ResponseSerializer implements PrimitiveSerializer<CreateDepartment200Response> {
   @override
-  final Iterable<Type> types = const [
-    CreateDepartment200Response,
-    _$CreateDepartment200Response
-  ];
+  final Iterable<Type> types = const [CreateDepartment200Response, _$CreateDepartment200Response];
 
   @override
   final String wireName = r'CreateDepartment200Response';
@@ -64,9 +55,7 @@ class _$CreateDepartment200ResponseSerializer
     CreateDepartment200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -116,3 +105,4 @@ class _$CreateDepartment200ResponseSerializer
     return result.build();
   }
 }
+

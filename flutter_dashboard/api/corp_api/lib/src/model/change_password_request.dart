@@ -11,12 +11,11 @@ part 'change_password_request.g.dart';
 /// ChangePasswordRequest
 ///
 /// Properties:
-/// * [confirmedPassword]
-/// * [currentPassword]
-/// * [newPassword]
+/// * [confirmedPassword] 
+/// * [currentPassword] 
+/// * [newPassword] 
 @BuiltValue()
-abstract class ChangePasswordRequest
-    implements Built<ChangePasswordRequest, ChangePasswordRequestBuilder> {
+abstract class ChangePasswordRequest implements Built<ChangePasswordRequest, ChangePasswordRequestBuilder> {
   @BuiltValueField(wireName: r'confirmed_password')
   String get confirmedPassword;
 
@@ -28,24 +27,18 @@ abstract class ChangePasswordRequest
 
   ChangePasswordRequest._();
 
-  factory ChangePasswordRequest(
-      [void updates(ChangePasswordRequestBuilder b)]) = _$ChangePasswordRequest;
+  factory ChangePasswordRequest([void updates(ChangePasswordRequestBuilder b)]) = _$ChangePasswordRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(ChangePasswordRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ChangePasswordRequest> get serializer =>
-      _$ChangePasswordRequestSerializer();
+  static Serializer<ChangePasswordRequest> get serializer => _$ChangePasswordRequestSerializer();
 }
 
-class _$ChangePasswordRequestSerializer
-    implements PrimitiveSerializer<ChangePasswordRequest> {
+class _$ChangePasswordRequestSerializer implements PrimitiveSerializer<ChangePasswordRequest> {
   @override
-  final Iterable<Type> types = const [
-    ChangePasswordRequest,
-    _$ChangePasswordRequest
-  ];
+  final Iterable<Type> types = const [ChangePasswordRequest, _$ChangePasswordRequest];
 
   @override
   final String wireName = r'ChangePasswordRequest';
@@ -78,9 +71,7 @@ class _$ChangePasswordRequestSerializer
     ChangePasswordRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -144,3 +135,4 @@ class _$ChangePasswordRequestSerializer
     return result.build();
   }
 }
+

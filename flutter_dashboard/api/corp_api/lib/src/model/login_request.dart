@@ -11,12 +11,11 @@ part 'login_request.g.dart';
 /// LoginRequest
 ///
 /// Properties:
-/// * [password]
-/// * [username]
-/// * [otp]
+/// * [password] 
+/// * [username] 
+/// * [otp] 
 @BuiltValue()
-abstract class LoginRequest
-    implements Built<LoginRequest, LoginRequestBuilder> {
+abstract class LoginRequest implements Built<LoginRequest, LoginRequestBuilder> {
   @BuiltValueField(wireName: r'password')
   String get password;
 
@@ -74,9 +73,7 @@ class _$LoginRequestSerializer implements PrimitiveSerializer<LoginRequest> {
     LoginRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -140,3 +137,4 @@ class _$LoginRequestSerializer implements PrimitiveSerializer<LoginRequest> {
     return result.build();
   }
 }
+

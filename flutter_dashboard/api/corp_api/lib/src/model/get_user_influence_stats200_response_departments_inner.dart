@@ -13,16 +13,13 @@ part 'get_user_influence_stats200_response_departments_inner.g.dart';
 /// GetUserInfluenceStats200ResponseDepartmentsInner
 ///
 /// Properties:
-/// * [color]
-/// * [departmentTitle]
-/// * [divisions]
-/// * [influence]
-/// * [lifetimeInfluence]
+/// * [color] 
+/// * [departmentTitle] 
+/// * [divisions] 
+/// * [influence] 
+/// * [lifetimeInfluence] 
 @BuiltValue()
-abstract class GetUserInfluenceStats200ResponseDepartmentsInner
-    implements
-        Built<GetUserInfluenceStats200ResponseDepartmentsInner,
-            GetUserInfluenceStats200ResponseDepartmentsInnerBuilder> {
+abstract class GetUserInfluenceStats200ResponseDepartmentsInner implements Built<GetUserInfluenceStats200ResponseDepartmentsInner, GetUserInfluenceStats200ResponseDepartmentsInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -30,8 +27,7 @@ abstract class GetUserInfluenceStats200ResponseDepartmentsInner
   String? get departmentTitle;
 
   @BuiltValueField(wireName: r'divisions')
-  BuiltList<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>?
-      get divisions;
+  BuiltList<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>? get divisions;
 
   @BuiltValueField(wireName: r'influence')
   int? get influence;
@@ -41,30 +37,18 @@ abstract class GetUserInfluenceStats200ResponseDepartmentsInner
 
   GetUserInfluenceStats200ResponseDepartmentsInner._();
 
-  factory GetUserInfluenceStats200ResponseDepartmentsInner(
-          [void updates(
-              GetUserInfluenceStats200ResponseDepartmentsInnerBuilder b)]) =
-      _$GetUserInfluenceStats200ResponseDepartmentsInner;
+  factory GetUserInfluenceStats200ResponseDepartmentsInner([void updates(GetUserInfluenceStats200ResponseDepartmentsInnerBuilder b)]) = _$GetUserInfluenceStats200ResponseDepartmentsInner;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(
-          GetUserInfluenceStats200ResponseDepartmentsInnerBuilder b) =>
-      b;
+  static void _defaults(GetUserInfluenceStats200ResponseDepartmentsInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUserInfluenceStats200ResponseDepartmentsInner>
-      get serializer =>
-          _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer();
+  static Serializer<GetUserInfluenceStats200ResponseDepartmentsInner> get serializer => _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer();
 }
 
-class _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer
-    implements
-        PrimitiveSerializer<GetUserInfluenceStats200ResponseDepartmentsInner> {
+class _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer implements PrimitiveSerializer<GetUserInfluenceStats200ResponseDepartmentsInner> {
   @override
-  final Iterable<Type> types = const [
-    GetUserInfluenceStats200ResponseDepartmentsInner,
-    _$GetUserInfluenceStats200ResponseDepartmentsInner
-  ];
+  final Iterable<Type> types = const [GetUserInfluenceStats200ResponseDepartmentsInner, _$GetUserInfluenceStats200ResponseDepartmentsInner];
 
   @override
   final String wireName = r'GetUserInfluenceStats200ResponseDepartmentsInner';
@@ -92,10 +76,7 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer
       yield r'divisions';
       yield serializers.serialize(
         object.divisions,
-        specifiedType: const FullType(BuiltList, [
-          FullType(
-              GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)
-        ]),
+        specifiedType: const FullType(BuiltList, [FullType(GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)]),
       );
     }
     if (object.influence != null) {
@@ -120,9 +101,7 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer
     GetUserInfluenceStats200ResponseDepartmentsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -154,12 +133,8 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer
         case r'divisions':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [
-              FullType(
-                  GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)
-            ]),
-          ) as BuiltList<
-              GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>;
+            specifiedType: const FullType(BuiltList, [FullType(GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)]),
+          ) as BuiltList<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>;
           result.divisions.replace(valueDes);
           break;
         case r'influence':
@@ -204,3 +179,4 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerSerializer
     return result.build();
   }
 }
+

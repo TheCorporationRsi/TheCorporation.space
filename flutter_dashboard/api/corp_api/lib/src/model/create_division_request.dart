@@ -11,11 +11,10 @@ part 'create_division_request.g.dart';
 /// CreateDivisionRequest
 ///
 /// Properties:
-/// * [departmentTitle]
-/// * [title]
+/// * [departmentTitle] 
+/// * [title] 
 @BuiltValue()
-abstract class CreateDivisionRequest
-    implements Built<CreateDivisionRequest, CreateDivisionRequestBuilder> {
+abstract class CreateDivisionRequest implements Built<CreateDivisionRequest, CreateDivisionRequestBuilder> {
   @BuiltValueField(wireName: r'department_title')
   String get departmentTitle;
 
@@ -24,24 +23,18 @@ abstract class CreateDivisionRequest
 
   CreateDivisionRequest._();
 
-  factory CreateDivisionRequest(
-      [void updates(CreateDivisionRequestBuilder b)]) = _$CreateDivisionRequest;
+  factory CreateDivisionRequest([void updates(CreateDivisionRequestBuilder b)]) = _$CreateDivisionRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CreateDivisionRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateDivisionRequest> get serializer =>
-      _$CreateDivisionRequestSerializer();
+  static Serializer<CreateDivisionRequest> get serializer => _$CreateDivisionRequestSerializer();
 }
 
-class _$CreateDivisionRequestSerializer
-    implements PrimitiveSerializer<CreateDivisionRequest> {
+class _$CreateDivisionRequestSerializer implements PrimitiveSerializer<CreateDivisionRequest> {
   @override
-  final Iterable<Type> types = const [
-    CreateDivisionRequest,
-    _$CreateDivisionRequest
-  ];
+  final Iterable<Type> types = const [CreateDivisionRequest, _$CreateDivisionRequest];
 
   @override
   final String wireName = r'CreateDivisionRequest';
@@ -69,9 +62,7 @@ class _$CreateDivisionRequestSerializer
     CreateDivisionRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -128,3 +119,4 @@ class _$CreateDivisionRequestSerializer
     return result.build();
   }
 }
+

@@ -12,19 +12,16 @@ part 'get_departments200_response_inner.g.dart';
 /// GetDepartments200ResponseInner
 ///
 /// Properties:
-/// * [color]
-/// * [divisions]
-/// * [heads]
-/// * [logo]
-/// * [memberCount]
-/// * [motto]
-/// * [proxys]
-/// * [title]
+/// * [color] 
+/// * [divisions] 
+/// * [heads] 
+/// * [logo] 
+/// * [memberCount] 
+/// * [motto] 
+/// * [proxys] 
+/// * [title] 
 @BuiltValue()
-abstract class GetDepartments200ResponseInner
-    implements
-        Built<GetDepartments200ResponseInner,
-            GetDepartments200ResponseInnerBuilder> {
+abstract class GetDepartments200ResponseInner implements Built<GetDepartments200ResponseInner, GetDepartments200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -51,25 +48,18 @@ abstract class GetDepartments200ResponseInner
 
   GetDepartments200ResponseInner._();
 
-  factory GetDepartments200ResponseInner(
-          [void updates(GetDepartments200ResponseInnerBuilder b)]) =
-      _$GetDepartments200ResponseInner;
+  factory GetDepartments200ResponseInner([void updates(GetDepartments200ResponseInnerBuilder b)]) = _$GetDepartments200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetDepartments200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetDepartments200ResponseInner> get serializer =>
-      _$GetDepartments200ResponseInnerSerializer();
+  static Serializer<GetDepartments200ResponseInner> get serializer => _$GetDepartments200ResponseInnerSerializer();
 }
 
-class _$GetDepartments200ResponseInnerSerializer
-    implements PrimitiveSerializer<GetDepartments200ResponseInner> {
+class _$GetDepartments200ResponseInnerSerializer implements PrimitiveSerializer<GetDepartments200ResponseInner> {
   @override
-  final Iterable<Type> types = const [
-    GetDepartments200ResponseInner,
-    _$GetDepartments200ResponseInner
-  ];
+  final Iterable<Type> types = const [GetDepartments200ResponseInner, _$GetDepartments200ResponseInner];
 
   @override
   final String wireName = r'GetDepartments200ResponseInner';
@@ -143,9 +133,7 @@ class _$GetDepartments200ResponseInnerSerializer
     GetDepartments200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -244,3 +232,4 @@ class _$GetDepartments200ResponseInnerSerializer
     return result.build();
   }
 }
+

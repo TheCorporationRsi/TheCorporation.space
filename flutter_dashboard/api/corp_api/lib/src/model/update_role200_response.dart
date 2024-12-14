@@ -11,33 +11,26 @@ part 'update_role200_response.g.dart';
 /// UpdateRole200Response
 ///
 /// Properties:
-/// * [msg]
+/// * [msg] 
 @BuiltValue()
-abstract class UpdateRole200Response
-    implements Built<UpdateRole200Response, UpdateRole200ResponseBuilder> {
+abstract class UpdateRole200Response implements Built<UpdateRole200Response, UpdateRole200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   UpdateRole200Response._();
 
-  factory UpdateRole200Response(
-      [void updates(UpdateRole200ResponseBuilder b)]) = _$UpdateRole200Response;
+  factory UpdateRole200Response([void updates(UpdateRole200ResponseBuilder b)]) = _$UpdateRole200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(UpdateRole200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UpdateRole200Response> get serializer =>
-      _$UpdateRole200ResponseSerializer();
+  static Serializer<UpdateRole200Response> get serializer => _$UpdateRole200ResponseSerializer();
 }
 
-class _$UpdateRole200ResponseSerializer
-    implements PrimitiveSerializer<UpdateRole200Response> {
+class _$UpdateRole200ResponseSerializer implements PrimitiveSerializer<UpdateRole200Response> {
   @override
-  final Iterable<Type> types = const [
-    UpdateRole200Response,
-    _$UpdateRole200Response
-  ];
+  final Iterable<Type> types = const [UpdateRole200Response, _$UpdateRole200Response];
 
   @override
   final String wireName = r'UpdateRole200Response';
@@ -62,9 +55,7 @@ class _$UpdateRole200ResponseSerializer
     UpdateRole200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -114,3 +105,4 @@ class _$UpdateRole200ResponseSerializer
     return result.build();
   }
 }
+

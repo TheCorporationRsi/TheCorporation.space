@@ -11,14 +11,13 @@ part 'update_division_request.g.dart';
 /// UpdateDivisionRequest
 ///
 /// Properties:
-/// * [divisionTitle]
-/// * [logo]
-/// * [motto]
-/// * [newTitle]
-/// * [securityLevel]
+/// * [divisionTitle] 
+/// * [logo] 
+/// * [motto] 
+/// * [newTitle] 
+/// * [securityLevel] 
 @BuiltValue()
-abstract class UpdateDivisionRequest
-    implements Built<UpdateDivisionRequest, UpdateDivisionRequestBuilder> {
+abstract class UpdateDivisionRequest implements Built<UpdateDivisionRequest, UpdateDivisionRequestBuilder> {
   @BuiltValueField(wireName: r'division_title')
   String get divisionTitle;
 
@@ -36,24 +35,18 @@ abstract class UpdateDivisionRequest
 
   UpdateDivisionRequest._();
 
-  factory UpdateDivisionRequest(
-      [void updates(UpdateDivisionRequestBuilder b)]) = _$UpdateDivisionRequest;
+  factory UpdateDivisionRequest([void updates(UpdateDivisionRequestBuilder b)]) = _$UpdateDivisionRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(UpdateDivisionRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UpdateDivisionRequest> get serializer =>
-      _$UpdateDivisionRequestSerializer();
+  static Serializer<UpdateDivisionRequest> get serializer => _$UpdateDivisionRequestSerializer();
 }
 
-class _$UpdateDivisionRequestSerializer
-    implements PrimitiveSerializer<UpdateDivisionRequest> {
+class _$UpdateDivisionRequestSerializer implements PrimitiveSerializer<UpdateDivisionRequest> {
   @override
-  final Iterable<Type> types = const [
-    UpdateDivisionRequest,
-    _$UpdateDivisionRequest
-  ];
+  final Iterable<Type> types = const [UpdateDivisionRequest, _$UpdateDivisionRequest];
 
   @override
   final String wireName = r'UpdateDivisionRequest';
@@ -104,9 +97,7 @@ class _$UpdateDivisionRequestSerializer
     UpdateDivisionRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -184,3 +175,4 @@ class _$UpdateDivisionRequestSerializer
     return result.build();
   }
 }
+

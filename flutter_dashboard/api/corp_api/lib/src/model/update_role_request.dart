@@ -11,18 +11,21 @@ part 'update_role_request.g.dart';
 /// UpdateRoleRequest
 ///
 /// Properties:
-/// * [newColor]
-/// * [newDiscordId]
-/// * [newTitle]
-/// * [roleTitle]
+/// * [newColor] 
+/// * [newDiscordId] 
+/// * [newLogo] 
+/// * [newTitle] 
+/// * [roleTitle] 
 @BuiltValue()
-abstract class UpdateRoleRequest
-    implements Built<UpdateRoleRequest, UpdateRoleRequestBuilder> {
+abstract class UpdateRoleRequest implements Built<UpdateRoleRequest, UpdateRoleRequestBuilder> {
   @BuiltValueField(wireName: r'new_color')
   String? get newColor;
 
   @BuiltValueField(wireName: r'new_discord_id')
   String? get newDiscordId;
+
+  @BuiltValueField(wireName: r'new_logo')
+  String? get newLogo;
 
   @BuiltValueField(wireName: r'new_title')
   String? get newTitle;
@@ -32,19 +35,16 @@ abstract class UpdateRoleRequest
 
   UpdateRoleRequest._();
 
-  factory UpdateRoleRequest([void updates(UpdateRoleRequestBuilder b)]) =
-      _$UpdateRoleRequest;
+  factory UpdateRoleRequest([void updates(UpdateRoleRequestBuilder b)]) = _$UpdateRoleRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(UpdateRoleRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UpdateRoleRequest> get serializer =>
-      _$UpdateRoleRequestSerializer();
+  static Serializer<UpdateRoleRequest> get serializer => _$UpdateRoleRequestSerializer();
 }
 
-class _$UpdateRoleRequestSerializer
-    implements PrimitiveSerializer<UpdateRoleRequest> {
+class _$UpdateRoleRequestSerializer implements PrimitiveSerializer<UpdateRoleRequest> {
   @override
   final Iterable<Type> types = const [UpdateRoleRequest, _$UpdateRoleRequest];
 
@@ -70,6 +70,13 @@ class _$UpdateRoleRequestSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.newLogo != null) {
+      yield r'new_logo';
+      yield serializers.serialize(
+        object.newLogo,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.newTitle != null) {
       yield r'new_title';
       yield serializers.serialize(
@@ -92,9 +99,7 @@ class _$UpdateRoleRequestSerializer
     UpdateRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -122,6 +127,13 @@ class _$UpdateRoleRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.newDiscordId = valueDes;
+          break;
+        case r'new_logo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.newLogo = valueDes;
           break;
         case r'new_title':
           final valueDes = serializers.deserialize(
@@ -165,3 +177,4 @@ class _$UpdateRoleRequestSerializer
     return result.build();
   }
 }
+

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **department** | **String** |  | [optional] 
 **discordId** | **String** |  | [optional] 
 **division** | **String** |  | [optional] 
+**logo** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 
 

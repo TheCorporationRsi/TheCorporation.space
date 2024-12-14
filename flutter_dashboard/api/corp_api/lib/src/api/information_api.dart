@@ -13,6 +13,7 @@ import 'package:corp_api/src/model/get_corporateers200_response_inner.dart';
 import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 
 class InformationApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -32,7 +33,7 @@ class InformationApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetCorporateers200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetCorporateers200ResponseInner>>> getCorporateers({
+  Future<Response<BuiltList<GetCorporateers200ResponseInner>>> getCorporateers({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -71,13 +72,11 @@ class InformationApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetCorporateers200ResponseInner)]),
-            ) as BuiltList<GetCorporateers200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetCorporateers200ResponseInner)]),
+      ) as BuiltList<GetCorporateers200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -99,4 +98,5 @@ class InformationApi {
       extra: _response.extra,
     );
   }
+
 }

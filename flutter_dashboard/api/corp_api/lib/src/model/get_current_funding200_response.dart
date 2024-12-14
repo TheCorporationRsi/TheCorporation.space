@@ -11,13 +11,10 @@ part 'get_current_funding200_response.g.dart';
 /// GetCurrentFunding200Response
 ///
 /// Properties:
-/// * [citizens]
-/// * [fund]
+/// * [citizens] 
+/// * [fund] 
 @BuiltValue()
-abstract class GetCurrentFunding200Response
-    implements
-        Built<GetCurrentFunding200Response,
-            GetCurrentFunding200ResponseBuilder> {
+abstract class GetCurrentFunding200Response implements Built<GetCurrentFunding200Response, GetCurrentFunding200ResponseBuilder> {
   @BuiltValueField(wireName: r'citizens')
   int? get citizens;
 
@@ -26,25 +23,18 @@ abstract class GetCurrentFunding200Response
 
   GetCurrentFunding200Response._();
 
-  factory GetCurrentFunding200Response(
-          [void updates(GetCurrentFunding200ResponseBuilder b)]) =
-      _$GetCurrentFunding200Response;
+  factory GetCurrentFunding200Response([void updates(GetCurrentFunding200ResponseBuilder b)]) = _$GetCurrentFunding200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetCurrentFunding200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetCurrentFunding200Response> get serializer =>
-      _$GetCurrentFunding200ResponseSerializer();
+  static Serializer<GetCurrentFunding200Response> get serializer => _$GetCurrentFunding200ResponseSerializer();
 }
 
-class _$GetCurrentFunding200ResponseSerializer
-    implements PrimitiveSerializer<GetCurrentFunding200Response> {
+class _$GetCurrentFunding200ResponseSerializer implements PrimitiveSerializer<GetCurrentFunding200Response> {
   @override
-  final Iterable<Type> types = const [
-    GetCurrentFunding200Response,
-    _$GetCurrentFunding200Response
-  ];
+  final Iterable<Type> types = const [GetCurrentFunding200Response, _$GetCurrentFunding200Response];
 
   @override
   final String wireName = r'GetCurrentFunding200Response';
@@ -76,9 +66,7 @@ class _$GetCurrentFunding200ResponseSerializer
     GetCurrentFunding200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -135,3 +123,4 @@ class _$GetCurrentFunding200ResponseSerializer
     return result.build();
   }
 }
+

@@ -11,14 +11,11 @@ part 'get_corporateers200_response_inner.g.dart';
 /// GetCorporateers200ResponseInner
 ///
 /// Properties:
-/// * [rSIHandle]
-/// * [rSIMoniker]
-/// * [picture]
+/// * [rSIHandle] 
+/// * [rSIMoniker] 
+/// * [picture] 
 @BuiltValue()
-abstract class GetCorporateers200ResponseInner
-    implements
-        Built<GetCorporateers200ResponseInner,
-            GetCorporateers200ResponseInnerBuilder> {
+abstract class GetCorporateers200ResponseInner implements Built<GetCorporateers200ResponseInner, GetCorporateers200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'RSI_handle')
   String? get rSIHandle;
 
@@ -30,25 +27,18 @@ abstract class GetCorporateers200ResponseInner
 
   GetCorporateers200ResponseInner._();
 
-  factory GetCorporateers200ResponseInner(
-          [void updates(GetCorporateers200ResponseInnerBuilder b)]) =
-      _$GetCorporateers200ResponseInner;
+  factory GetCorporateers200ResponseInner([void updates(GetCorporateers200ResponseInnerBuilder b)]) = _$GetCorporateers200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetCorporateers200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetCorporateers200ResponseInner> get serializer =>
-      _$GetCorporateers200ResponseInnerSerializer();
+  static Serializer<GetCorporateers200ResponseInner> get serializer => _$GetCorporateers200ResponseInnerSerializer();
 }
 
-class _$GetCorporateers200ResponseInnerSerializer
-    implements PrimitiveSerializer<GetCorporateers200ResponseInner> {
+class _$GetCorporateers200ResponseInnerSerializer implements PrimitiveSerializer<GetCorporateers200ResponseInner> {
   @override
-  final Iterable<Type> types = const [
-    GetCorporateers200ResponseInner,
-    _$GetCorporateers200ResponseInner
-  ];
+  final Iterable<Type> types = const [GetCorporateers200ResponseInner, _$GetCorporateers200ResponseInner];
 
   @override
   final String wireName = r'GetCorporateers200ResponseInner';
@@ -87,9 +77,7 @@ class _$GetCorporateers200ResponseInnerSerializer
     GetCorporateers200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -153,3 +141,4 @@ class _$GetCorporateers200ResponseInnerSerializer
     return result.build();
   }
 }
+

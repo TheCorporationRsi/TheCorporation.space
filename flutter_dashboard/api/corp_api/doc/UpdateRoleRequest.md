@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **newColor** | **String** |  | [optional] 
 **newDiscordId** | **String** |  | [optional] 
+**newLogo** | **String** |  | [optional] 
 **newTitle** | **String** |  | [optional] 
 **roleTitle** | **String** |  | [optional] 
 

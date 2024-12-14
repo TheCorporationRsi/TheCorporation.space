@@ -11,34 +11,26 @@ part 'get_rsi_token401_response.g.dart';
 /// GetRSIToken401Response
 ///
 /// Properties:
-/// * [msg]
+/// * [msg] 
 @BuiltValue()
-abstract class GetRSIToken401Response
-    implements Built<GetRSIToken401Response, GetRSIToken401ResponseBuilder> {
+abstract class GetRSIToken401Response implements Built<GetRSIToken401Response, GetRSIToken401ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   GetRSIToken401Response._();
 
-  factory GetRSIToken401Response(
-          [void updates(GetRSIToken401ResponseBuilder b)]) =
-      _$GetRSIToken401Response;
+  factory GetRSIToken401Response([void updates(GetRSIToken401ResponseBuilder b)]) = _$GetRSIToken401Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetRSIToken401ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetRSIToken401Response> get serializer =>
-      _$GetRSIToken401ResponseSerializer();
+  static Serializer<GetRSIToken401Response> get serializer => _$GetRSIToken401ResponseSerializer();
 }
 
-class _$GetRSIToken401ResponseSerializer
-    implements PrimitiveSerializer<GetRSIToken401Response> {
+class _$GetRSIToken401ResponseSerializer implements PrimitiveSerializer<GetRSIToken401Response> {
   @override
-  final Iterable<Type> types = const [
-    GetRSIToken401Response,
-    _$GetRSIToken401Response
-  ];
+  final Iterable<Type> types = const [GetRSIToken401Response, _$GetRSIToken401Response];
 
   @override
   final String wireName = r'GetRSIToken401Response';
@@ -63,9 +55,7 @@ class _$GetRSIToken401ResponseSerializer
     GetRSIToken401Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -115,3 +105,4 @@ class _$GetRSIToken401ResponseSerializer
     return result.build();
   }
 }
+

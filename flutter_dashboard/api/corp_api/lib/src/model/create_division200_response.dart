@@ -11,35 +11,26 @@ part 'create_division200_response.g.dart';
 /// CreateDivision200Response
 ///
 /// Properties:
-/// * [msg]
+/// * [msg] 
 @BuiltValue()
-abstract class CreateDivision200Response
-    implements
-        Built<CreateDivision200Response, CreateDivision200ResponseBuilder> {
+abstract class CreateDivision200Response implements Built<CreateDivision200Response, CreateDivision200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   CreateDivision200Response._();
 
-  factory CreateDivision200Response(
-          [void updates(CreateDivision200ResponseBuilder b)]) =
-      _$CreateDivision200Response;
+  factory CreateDivision200Response([void updates(CreateDivision200ResponseBuilder b)]) = _$CreateDivision200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CreateDivision200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateDivision200Response> get serializer =>
-      _$CreateDivision200ResponseSerializer();
+  static Serializer<CreateDivision200Response> get serializer => _$CreateDivision200ResponseSerializer();
 }
 
-class _$CreateDivision200ResponseSerializer
-    implements PrimitiveSerializer<CreateDivision200Response> {
+class _$CreateDivision200ResponseSerializer implements PrimitiveSerializer<CreateDivision200Response> {
   @override
-  final Iterable<Type> types = const [
-    CreateDivision200Response,
-    _$CreateDivision200Response
-  ];
+  final Iterable<Type> types = const [CreateDivision200Response, _$CreateDivision200Response];
 
   @override
   final String wireName = r'CreateDivision200Response';
@@ -64,9 +55,7 @@ class _$CreateDivision200ResponseSerializer
     CreateDivision200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -116,3 +105,4 @@ class _$CreateDivision200ResponseSerializer
     return result.build();
   }
 }
+

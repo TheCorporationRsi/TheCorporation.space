@@ -12,19 +12,16 @@ part 'get_divisions200_response_inner.g.dart';
 /// GetDivisions200ResponseInner
 ///
 /// Properties:
-/// * [color]
-/// * [departmentTitle]
-/// * [leaders]
-/// * [logo]
-/// * [memberCount]
-/// * [motto]
-/// * [proxys]
-/// * [title]
+/// * [color] 
+/// * [departmentTitle] 
+/// * [leaders] 
+/// * [logo] 
+/// * [memberCount] 
+/// * [motto] 
+/// * [proxys] 
+/// * [title] 
 @BuiltValue()
-abstract class GetDivisions200ResponseInner
-    implements
-        Built<GetDivisions200ResponseInner,
-            GetDivisions200ResponseInnerBuilder> {
+abstract class GetDivisions200ResponseInner implements Built<GetDivisions200ResponseInner, GetDivisions200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -51,25 +48,18 @@ abstract class GetDivisions200ResponseInner
 
   GetDivisions200ResponseInner._();
 
-  factory GetDivisions200ResponseInner(
-          [void updates(GetDivisions200ResponseInnerBuilder b)]) =
-      _$GetDivisions200ResponseInner;
+  factory GetDivisions200ResponseInner([void updates(GetDivisions200ResponseInnerBuilder b)]) = _$GetDivisions200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetDivisions200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetDivisions200ResponseInner> get serializer =>
-      _$GetDivisions200ResponseInnerSerializer();
+  static Serializer<GetDivisions200ResponseInner> get serializer => _$GetDivisions200ResponseInnerSerializer();
 }
 
-class _$GetDivisions200ResponseInnerSerializer
-    implements PrimitiveSerializer<GetDivisions200ResponseInner> {
+class _$GetDivisions200ResponseInnerSerializer implements PrimitiveSerializer<GetDivisions200ResponseInner> {
   @override
-  final Iterable<Type> types = const [
-    GetDivisions200ResponseInner,
-    _$GetDivisions200ResponseInner
-  ];
+  final Iterable<Type> types = const [GetDivisions200ResponseInner, _$GetDivisions200ResponseInner];
 
   @override
   final String wireName = r'GetDivisions200ResponseInner';
@@ -143,9 +133,7 @@ class _$GetDivisions200ResponseInnerSerializer
     GetDivisions200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -244,3 +232,4 @@ class _$GetDivisions200ResponseInnerSerializer
     return result.build();
   }
 }
+

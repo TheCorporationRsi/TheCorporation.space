@@ -70,3 +70,4 @@ export 'package:corp_api/src/model/update_division_request.dart';
 export 'package:corp_api/src/model/update_role200_response.dart';
 export 'package:corp_api/src/model/update_role_request.dart';
 export 'package:corp_api/src/model/verify_rsi_token200_response.dart';
+

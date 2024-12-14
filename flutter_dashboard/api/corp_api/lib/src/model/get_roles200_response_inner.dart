@@ -11,16 +11,15 @@ part 'get_roles200_response_inner.g.dart';
 /// GetRoles200ResponseInner
 ///
 /// Properties:
-/// * [color]
-/// * [department]
-/// * [discordId]
-/// * [division]
-/// * [title]
-/// * [type]
+/// * [color] 
+/// * [department] 
+/// * [discordId] 
+/// * [division] 
+/// * [logo] 
+/// * [title] 
+/// * [type] 
 @BuiltValue()
-abstract class GetRoles200ResponseInner
-    implements
-        Built<GetRoles200ResponseInner, GetRoles200ResponseInnerBuilder> {
+abstract class GetRoles200ResponseInner implements Built<GetRoles200ResponseInner, GetRoles200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -33,6 +32,9 @@ abstract class GetRoles200ResponseInner
   @BuiltValueField(wireName: r'division')
   String? get division;
 
+  @BuiltValueField(wireName: r'logo')
+  String? get logo;
+
   @BuiltValueField(wireName: r'title')
   String? get title;
 
@@ -41,25 +43,18 @@ abstract class GetRoles200ResponseInner
 
   GetRoles200ResponseInner._();
 
-  factory GetRoles200ResponseInner(
-          [void updates(GetRoles200ResponseInnerBuilder b)]) =
-      _$GetRoles200ResponseInner;
+  factory GetRoles200ResponseInner([void updates(GetRoles200ResponseInnerBuilder b)]) = _$GetRoles200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetRoles200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetRoles200ResponseInner> get serializer =>
-      _$GetRoles200ResponseInnerSerializer();
+  static Serializer<GetRoles200ResponseInner> get serializer => _$GetRoles200ResponseInnerSerializer();
 }
 
-class _$GetRoles200ResponseInnerSerializer
-    implements PrimitiveSerializer<GetRoles200ResponseInner> {
+class _$GetRoles200ResponseInnerSerializer implements PrimitiveSerializer<GetRoles200ResponseInner> {
   @override
-  final Iterable<Type> types = const [
-    GetRoles200ResponseInner,
-    _$GetRoles200ResponseInner
-  ];
+  final Iterable<Type> types = const [GetRoles200ResponseInner, _$GetRoles200ResponseInner];
 
   @override
   final String wireName = r'GetRoles200ResponseInner';
@@ -97,6 +92,13 @@ class _$GetRoles200ResponseInnerSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.logo != null) {
+      yield r'logo';
+      yield serializers.serialize(
+        object.logo,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.title != null) {
       yield r'title';
       yield serializers.serialize(
@@ -119,9 +121,7 @@ class _$GetRoles200ResponseInnerSerializer
     GetRoles200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -163,6 +163,13 @@ class _$GetRoles200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.division = valueDes;
+          break;
+        case r'logo':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.logo = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(
@@ -206,3 +213,4 @@ class _$GetRoles200ResponseInnerSerializer
     return result.build();
   }
 }
+

@@ -11,11 +11,10 @@ part 'set_weight_request.g.dart';
 /// SetWeightRequest
 ///
 /// Properties:
-/// * [amount]
-/// * [divisionTitle]
+/// * [amount] 
+/// * [divisionTitle] 
 @BuiltValue()
-abstract class SetWeightRequest
-    implements Built<SetWeightRequest, SetWeightRequestBuilder> {
+abstract class SetWeightRequest implements Built<SetWeightRequest, SetWeightRequestBuilder> {
   @BuiltValueField(wireName: r'amount')
   int get amount;
 
@@ -24,19 +23,16 @@ abstract class SetWeightRequest
 
   SetWeightRequest._();
 
-  factory SetWeightRequest([void updates(SetWeightRequestBuilder b)]) =
-      _$SetWeightRequest;
+  factory SetWeightRequest([void updates(SetWeightRequestBuilder b)]) = _$SetWeightRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(SetWeightRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<SetWeightRequest> get serializer =>
-      _$SetWeightRequestSerializer();
+  static Serializer<SetWeightRequest> get serializer => _$SetWeightRequestSerializer();
 }
 
-class _$SetWeightRequestSerializer
-    implements PrimitiveSerializer<SetWeightRequest> {
+class _$SetWeightRequestSerializer implements PrimitiveSerializer<SetWeightRequest> {
   @override
   final Iterable<Type> types = const [SetWeightRequest, _$SetWeightRequest];
 
@@ -66,9 +62,7 @@ class _$SetWeightRequestSerializer
     SetWeightRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -125,3 +119,4 @@ class _$SetWeightRequestSerializer
     return result.build();
   }
 }
+

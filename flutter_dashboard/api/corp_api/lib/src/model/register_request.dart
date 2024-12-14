@@ -11,12 +11,11 @@ part 'register_request.g.dart';
 /// RegisterRequest
 ///
 /// Properties:
-/// * [confirmedPassword]
-/// * [password]
-/// * [username]
+/// * [confirmedPassword] 
+/// * [password] 
+/// * [username] 
 @BuiltValue()
-abstract class RegisterRequest
-    implements Built<RegisterRequest, RegisterRequestBuilder> {
+abstract class RegisterRequest implements Built<RegisterRequest, RegisterRequestBuilder> {
   @BuiltValueField(wireName: r'confirmed_password')
   String get confirmedPassword;
 
@@ -28,19 +27,16 @@ abstract class RegisterRequest
 
   RegisterRequest._();
 
-  factory RegisterRequest([void updates(RegisterRequestBuilder b)]) =
-      _$RegisterRequest;
+  factory RegisterRequest([void updates(RegisterRequestBuilder b)]) = _$RegisterRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(RegisterRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<RegisterRequest> get serializer =>
-      _$RegisterRequestSerializer();
+  static Serializer<RegisterRequest> get serializer => _$RegisterRequestSerializer();
 }
 
-class _$RegisterRequestSerializer
-    implements PrimitiveSerializer<RegisterRequest> {
+class _$RegisterRequestSerializer implements PrimitiveSerializer<RegisterRequest> {
   @override
   final Iterable<Type> types = const [RegisterRequest, _$RegisterRequest];
 
@@ -75,9 +71,7 @@ class _$RegisterRequestSerializer
     RegisterRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -141,3 +135,4 @@ class _$RegisterRequestSerializer
     return result.build();
   }
 }
+

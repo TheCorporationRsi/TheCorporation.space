@@ -11,34 +11,26 @@ part 'add_user_role200_response.g.dart';
 /// AddUserRole200Response
 ///
 /// Properties:
-/// * [msg]
+/// * [msg] 
 @BuiltValue()
-abstract class AddUserRole200Response
-    implements Built<AddUserRole200Response, AddUserRole200ResponseBuilder> {
+abstract class AddUserRole200Response implements Built<AddUserRole200Response, AddUserRole200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   AddUserRole200Response._();
 
-  factory AddUserRole200Response(
-          [void updates(AddUserRole200ResponseBuilder b)]) =
-      _$AddUserRole200Response;
+  factory AddUserRole200Response([void updates(AddUserRole200ResponseBuilder b)]) = _$AddUserRole200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(AddUserRole200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AddUserRole200Response> get serializer =>
-      _$AddUserRole200ResponseSerializer();
+  static Serializer<AddUserRole200Response> get serializer => _$AddUserRole200ResponseSerializer();
 }
 
-class _$AddUserRole200ResponseSerializer
-    implements PrimitiveSerializer<AddUserRole200Response> {
+class _$AddUserRole200ResponseSerializer implements PrimitiveSerializer<AddUserRole200Response> {
   @override
-  final Iterable<Type> types = const [
-    AddUserRole200Response,
-    _$AddUserRole200Response
-  ];
+  final Iterable<Type> types = const [AddUserRole200Response, _$AddUserRole200Response];
 
   @override
   final String wireName = r'AddUserRole200Response';
@@ -63,9 +55,7 @@ class _$AddUserRole200ResponseSerializer
     AddUserRole200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -115,3 +105,4 @@ class _$AddUserRole200ResponseSerializer
     return result.build();
   }
 }
+

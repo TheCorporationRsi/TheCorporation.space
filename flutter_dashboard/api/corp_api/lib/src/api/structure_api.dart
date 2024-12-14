@@ -28,6 +28,7 @@ import 'package:corp_api/src/model/update_role200_response.dart';
 import 'package:corp_api/src/model/update_role_request.dart';
 
 class StructureApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -38,7 +39,7 @@ class StructureApi {
   /// &lt;br/&gt;Adds a new role to the current user&lt;br/&gt;
   ///
   /// Parameters:
-  /// * [addUserRoleRequest]
+  /// * [addUserRoleRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -48,7 +49,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [AddUserRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<AddUserRole200Response>> addUserRole({
+  Future<Response<AddUserRole200Response>> addUserRole({ 
     required AddUserRoleRequest addUserRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -81,11 +82,11 @@ class StructureApi {
 
     try {
       const _type = FullType(AddUserRoleRequest);
-      _bodyData =
-          _serializers.serialize(addUserRoleRequest, specifiedType: _type);
-    } catch (error, stackTrace) {
+      _bodyData = _serializers.serialize(addUserRoleRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -108,12 +109,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(AddUserRole200Response),
-            ) as AddUserRole200Response;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AddUserRole200Response),
+      ) as AddUserRole200Response;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -140,7 +140,7 @@ class StructureApi {
   /// &lt;br/&gt;Creates a new role in the system&lt;br/&gt;
   ///
   /// Parameters:
-  /// * [createRoleRequest]
+  /// * [createRoleRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -150,7 +150,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [CreateRole201Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<CreateRole201Response>> createRole({
+  Future<Response<CreateRole201Response>> createRole({ 
     CreateRoleRequest? createRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -183,12 +183,11 @@ class StructureApi {
 
     try {
       const _type = FullType(CreateRoleRequest);
-      _bodyData = createRoleRequest == null
-          ? null
-          : _serializers.serialize(createRoleRequest, specifiedType: _type);
-    } catch (error, stackTrace) {
+      _bodyData = createRoleRequest == null ? null : _serializers.serialize(createRoleRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -211,12 +210,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(CreateRole201Response),
-            ) as CreateRole201Response;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(CreateRole201Response),
+      ) as CreateRole201Response;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -243,7 +241,7 @@ class StructureApi {
   /// &lt;br/&gt;Deletes an existing role in the system&lt;br/&gt;
   ///
   /// Parameters:
-  /// * [deleteRoleRequest]
+  /// * [deleteRoleRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -253,7 +251,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [DeleteRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<DeleteRole200Response>> deleteRole({
+  Future<Response<DeleteRole200Response>> deleteRole({ 
     DeleteRoleRequest? deleteRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -286,12 +284,11 @@ class StructureApi {
 
     try {
       const _type = FullType(DeleteRoleRequest);
-      _bodyData = deleteRoleRequest == null
-          ? null
-          : _serializers.serialize(deleteRoleRequest, specifiedType: _type);
-    } catch (error, stackTrace) {
+      _bodyData = deleteRoleRequest == null ? null : _serializers.serialize(deleteRoleRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -314,12 +311,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(DeleteRole200Response),
-            ) as DeleteRole200Response;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(DeleteRole200Response),
+      ) as DeleteRole200Response;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -355,7 +351,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetDepartments200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetDepartments200ResponseInner>>> getDepartments({
+  Future<Response<BuiltList<GetDepartments200ResponseInner>>> getDepartments({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -388,13 +384,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetDepartments200ResponseInner)]),
-            ) as BuiltList<GetDepartments200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetDepartments200ResponseInner)]),
+      ) as BuiltList<GetDepartments200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -430,7 +424,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetDivisions200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetDivisions200ResponseInner>>> getDivisions({
+  Future<Response<BuiltList<GetDivisions200ResponseInner>>> getDivisions({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -463,13 +457,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetDivisions200ResponseInner)]),
-            ) as BuiltList<GetDivisions200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetDivisions200ResponseInner)]),
+      ) as BuiltList<GetDivisions200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -505,7 +497,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetRoles200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetRoles200ResponseInner>>> getRoles({
+  Future<Response<BuiltList<GetRoles200ResponseInner>>> getRoles({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -538,13 +530,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetRoles200ResponseInner)]),
-            ) as BuiltList<GetRoles200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetRoles200ResponseInner)]),
+      ) as BuiltList<GetRoles200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -580,8 +570,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetUserDepartments200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetUserDepartments200ResponseInner>>>
-      getUserDepartments({
+  Future<Response<BuiltList<GetUserDepartments200ResponseInner>>> getUserDepartments({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -620,13 +609,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetUserDepartments200ResponseInner)]),
-            ) as BuiltList<GetUserDepartments200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetUserDepartments200ResponseInner)]),
+      ) as BuiltList<GetUserDepartments200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -662,8 +649,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetUserDivisions200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetUserDivisions200ResponseInner>>>
-      getUserDivisions({
+  Future<Response<BuiltList<GetUserDivisions200ResponseInner>>> getUserDivisions({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -702,13 +688,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetUserDivisions200ResponseInner)]),
-            ) as BuiltList<GetUserDivisions200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetUserDivisions200ResponseInner)]),
+      ) as BuiltList<GetUserDivisions200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -744,7 +728,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetUserProfile200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetUserProfile200Response>> getUserProfile({
+  Future<Response<GetUserProfile200Response>> getUserProfile({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -783,12 +767,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(GetUserProfile200Response),
-            ) as GetUserProfile200Response;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(GetUserProfile200Response),
+      ) as GetUserProfile200Response;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -824,7 +807,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetUserRoles200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetUserRoles200ResponseInner>>> getUserRoles({
+  Future<Response<BuiltList<GetUserRoles200ResponseInner>>> getUserRoles({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -863,13 +846,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(
-                  BuiltList, [FullType(GetUserRoles200ResponseInner)]),
-            ) as BuiltList<GetUserRoles200ResponseInner>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(GetUserRoles200ResponseInner)]),
+      ) as BuiltList<GetUserRoles200ResponseInner>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -896,7 +877,7 @@ class StructureApi {
   /// &lt;br/&gt;Removes an existing role from the current user&lt;br/&gt;
   ///
   /// Parameters:
-  /// * [addUserRoleRequest]
+  /// * [addUserRoleRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -906,7 +887,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [RemoveUserRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<RemoveUserRole200Response>> removeUserRole({
+  Future<Response<RemoveUserRole200Response>> removeUserRole({ 
     AddUserRoleRequest? addUserRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -939,12 +920,11 @@ class StructureApi {
 
     try {
       const _type = FullType(AddUserRoleRequest);
-      _bodyData = addUserRoleRequest == null
-          ? null
-          : _serializers.serialize(addUserRoleRequest, specifiedType: _type);
-    } catch (error, stackTrace) {
+      _bodyData = addUserRoleRequest == null ? null : _serializers.serialize(addUserRoleRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -967,12 +947,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(RemoveUserRole200Response),
-            ) as RemoveUserRole200Response;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(RemoveUserRole200Response),
+      ) as RemoveUserRole200Response;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -999,7 +978,7 @@ class StructureApi {
   /// &lt;br/&gt;Edits an existing role in the system&lt;br/&gt;
   ///
   /// Parameters:
-  /// * [updateRoleRequest]
+  /// * [updateRoleRequest] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -1009,7 +988,7 @@ class StructureApi {
   ///
   /// Returns a [Future] containing a [Response] with a [UpdateRole200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<UpdateRole200Response>> updateRole({
+  Future<Response<UpdateRole200Response>> updateRole({ 
     UpdateRoleRequest? updateRoleRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -1042,12 +1021,11 @@ class StructureApi {
 
     try {
       const _type = FullType(UpdateRoleRequest);
-      _bodyData = updateRoleRequest == null
-          ? null
-          : _serializers.serialize(updateRoleRequest, specifiedType: _type);
-    } catch (error, stackTrace) {
+      _bodyData = updateRoleRequest == null ? null : _serializers.serialize(updateRoleRequest, specifiedType: _type);
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -1070,12 +1048,11 @@ class StructureApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(UpdateRole200Response),
-            ) as UpdateRole200Response;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(UpdateRole200Response),
+      ) as UpdateRole200Response;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1097,4 +1074,5 @@ class StructureApi {
       extra: _response.extra,
     );
   }
+
 }

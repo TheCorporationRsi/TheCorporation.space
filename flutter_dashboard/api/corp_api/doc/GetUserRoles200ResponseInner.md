@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **color** | **String** |  | [optional] 
 **department** | **String** |  | [optional] 
 **division** | **String** |  | [optional] 
+**logo** | **String** |  | [optional] 
 **title** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 
 

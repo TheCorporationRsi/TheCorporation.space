@@ -12,11 +12,10 @@ part 'send_tribute_request.g.dart';
 ///
 /// Properties:
 /// * [amount] - Amount of tribute that you wish to send
-/// * [receiverHandle]
-/// * [message]
+/// * [receiverHandle] 
+/// * [message] 
 @BuiltValue()
-abstract class SendTributeRequest
-    implements Built<SendTributeRequest, SendTributeRequestBuilder> {
+abstract class SendTributeRequest implements Built<SendTributeRequest, SendTributeRequestBuilder> {
   /// Amount of tribute that you wish to send
   @BuiltValueField(wireName: r'amount')
   int get amount;
@@ -29,19 +28,16 @@ abstract class SendTributeRequest
 
   SendTributeRequest._();
 
-  factory SendTributeRequest([void updates(SendTributeRequestBuilder b)]) =
-      _$SendTributeRequest;
+  factory SendTributeRequest([void updates(SendTributeRequestBuilder b)]) = _$SendTributeRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(SendTributeRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<SendTributeRequest> get serializer =>
-      _$SendTributeRequestSerializer();
+  static Serializer<SendTributeRequest> get serializer => _$SendTributeRequestSerializer();
 }
 
-class _$SendTributeRequestSerializer
-    implements PrimitiveSerializer<SendTributeRequest> {
+class _$SendTributeRequestSerializer implements PrimitiveSerializer<SendTributeRequest> {
   @override
   final Iterable<Type> types = const [SendTributeRequest, _$SendTributeRequest];
 
@@ -78,9 +74,7 @@ class _$SendTributeRequestSerializer
     SendTributeRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -144,3 +138,4 @@ class _$SendTributeRequestSerializer
     return result.build();
   }
 }
+

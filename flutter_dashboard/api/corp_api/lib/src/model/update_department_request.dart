@@ -11,14 +11,13 @@ part 'update_department_request.g.dart';
 /// UpdateDepartmentRequest
 ///
 /// Properties:
-/// * [departmentTitle]
-/// * [color]
-/// * [logo]
-/// * [motto]
-/// * [newTitle]
+/// * [departmentTitle] 
+/// * [color] 
+/// * [logo] 
+/// * [motto] 
+/// * [newTitle] 
 @BuiltValue()
-abstract class UpdateDepartmentRequest
-    implements Built<UpdateDepartmentRequest, UpdateDepartmentRequestBuilder> {
+abstract class UpdateDepartmentRequest implements Built<UpdateDepartmentRequest, UpdateDepartmentRequestBuilder> {
   @BuiltValueField(wireName: r'department_title')
   String get departmentTitle;
 
@@ -36,25 +35,18 @@ abstract class UpdateDepartmentRequest
 
   UpdateDepartmentRequest._();
 
-  factory UpdateDepartmentRequest(
-          [void updates(UpdateDepartmentRequestBuilder b)]) =
-      _$UpdateDepartmentRequest;
+  factory UpdateDepartmentRequest([void updates(UpdateDepartmentRequestBuilder b)]) = _$UpdateDepartmentRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(UpdateDepartmentRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UpdateDepartmentRequest> get serializer =>
-      _$UpdateDepartmentRequestSerializer();
+  static Serializer<UpdateDepartmentRequest> get serializer => _$UpdateDepartmentRequestSerializer();
 }
 
-class _$UpdateDepartmentRequestSerializer
-    implements PrimitiveSerializer<UpdateDepartmentRequest> {
+class _$UpdateDepartmentRequestSerializer implements PrimitiveSerializer<UpdateDepartmentRequest> {
   @override
-  final Iterable<Type> types = const [
-    UpdateDepartmentRequest,
-    _$UpdateDepartmentRequest
-  ];
+  final Iterable<Type> types = const [UpdateDepartmentRequest, _$UpdateDepartmentRequest];
 
   @override
   final String wireName = r'UpdateDepartmentRequest';
@@ -105,9 +97,7 @@ class _$UpdateDepartmentRequestSerializer
     UpdateDepartmentRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object,
-            specifiedType: specifiedType)
-        .toList();
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
   }
 
   void _deserializeProperties(
@@ -185,3 +175,4 @@ class _$UpdateDepartmentRequestSerializer
     return result.build();
   }
 }
+
