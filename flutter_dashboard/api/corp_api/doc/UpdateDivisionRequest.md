@@ -9,6 +9,7 @@ import 'package:corp_api/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **divisionTitle** | **String** |  | 
+**description** | **String** |  | [optional] 
 **logo** | **String** |  | [optional] 
 **motto** | **String** |  | [optional] 
 **newTitle** | **String** |  | [optional] 

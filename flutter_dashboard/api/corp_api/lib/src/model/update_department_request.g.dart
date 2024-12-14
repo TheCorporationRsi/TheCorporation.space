@@ -12,6 +12,8 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
   @override
   final String? color;
   @override
+  final String? description;
+  @override
   final String? logo;
   @override
   final String? motto;
@@ -25,6 +27,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
   _$UpdateDepartmentRequest._(
       {required this.departmentTitle,
       this.color,
+      this.description,
       this.logo,
       this.motto,
       this.newTitle})
@@ -48,6 +51,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
     return other is UpdateDepartmentRequest &&
         departmentTitle == other.departmentTitle &&
         color == other.color &&
+        description == other.description &&
         logo == other.logo &&
         motto == other.motto &&
         newTitle == other.newTitle;
@@ -58,6 +62,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, departmentTitle.hashCode);
     _$hash = $jc(_$hash, color.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, newTitle.hashCode);
@@ -70,6 +75,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
     return (newBuiltValueToStringHelper(r'UpdateDepartmentRequest')
           ..add('departmentTitle', departmentTitle)
           ..add('color', color)
+          ..add('description', description)
           ..add('logo', logo)
           ..add('motto', motto)
           ..add('newTitle', newTitle))
@@ -90,6 +96,10 @@ class UpdateDepartmentRequestBuilder
   String? _color;
   String? get color => _$this._color;
   set color(String? color) => _$this._color = color;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   String? _logo;
   String? get logo => _$this._logo;
@@ -112,6 +122,7 @@ class UpdateDepartmentRequestBuilder
     if ($v != null) {
       _departmentTitle = $v.departmentTitle;
       _color = $v.color;
+      _description = $v.description;
       _logo = $v.logo;
       _motto = $v.motto;
       _newTitle = $v.newTitle;
@@ -140,6 +151,7 @@ class UpdateDepartmentRequestBuilder
             departmentTitle: BuiltValueNullFieldError.checkNotNull(
                 departmentTitle, r'UpdateDepartmentRequest', 'departmentTitle'),
             color: color,
+            description: description,
             logo: logo,
             motto: motto,
             newTitle: newTitle);

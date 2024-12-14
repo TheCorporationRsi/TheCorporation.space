@@ -177,6 +177,9 @@ def update_division():
                         motto:
                             type: string
                             example: We love building stuff
+                        description:
+                            type: string
+                            example: This is the advanced development division
                         logo:
                             type: string
                             example: advanced_dev.png
@@ -207,6 +210,7 @@ def update_division():
     new_motto = data.get('motto')
     new_logo = data.get('logo')
     new_security_level = data.get('security_level')
+    new_description = data.get('description')
     
     if not division_title:
         return jsonify({"msg": "Division title is required"}), 400
@@ -214,7 +218,7 @@ def update_division():
     division: Division = Division.query.filter_by(title=division_title).first()
     
     try:
-        StructureManager.update_division(division=division, new_title=new_title, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level)
+        StructureManager.update_division(division=division, new_title=new_title, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level, new_description=new_description)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     

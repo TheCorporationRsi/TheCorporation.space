@@ -10,6 +10,8 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
   @override
   final String divisionTitle;
   @override
+  final String? description;
+  @override
   final String? logo;
   @override
   final String? motto;
@@ -24,6 +26,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
 
   _$UpdateDivisionRequest._(
       {required this.divisionTitle,
+      this.description,
       this.logo,
       this.motto,
       this.newTitle,
@@ -47,6 +50,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
     if (identical(other, this)) return true;
     return other is UpdateDivisionRequest &&
         divisionTitle == other.divisionTitle &&
+        description == other.description &&
         logo == other.logo &&
         motto == other.motto &&
         newTitle == other.newTitle &&
@@ -57,6 +61,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
   int get hashCode {
     var _$hash = 0;
     _$hash = $jc(_$hash, divisionTitle.hashCode);
+    _$hash = $jc(_$hash, description.hashCode);
     _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, newTitle.hashCode);
@@ -69,6 +74,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
   String toString() {
     return (newBuiltValueToStringHelper(r'UpdateDivisionRequest')
           ..add('divisionTitle', divisionTitle)
+          ..add('description', description)
           ..add('logo', logo)
           ..add('motto', motto)
           ..add('newTitle', newTitle)
@@ -85,6 +91,10 @@ class UpdateDivisionRequestBuilder
   String? get divisionTitle => _$this._divisionTitle;
   set divisionTitle(String? divisionTitle) =>
       _$this._divisionTitle = divisionTitle;
+
+  String? _description;
+  String? get description => _$this._description;
+  set description(String? description) => _$this._description = description;
 
   String? _logo;
   String? get logo => _$this._logo;
@@ -111,6 +121,7 @@ class UpdateDivisionRequestBuilder
     final $v = _$v;
     if ($v != null) {
       _divisionTitle = $v.divisionTitle;
+      _description = $v.description;
       _logo = $v.logo;
       _motto = $v.motto;
       _newTitle = $v.newTitle;
@@ -139,6 +150,7 @@ class UpdateDivisionRequestBuilder
         new _$UpdateDivisionRequest._(
             divisionTitle: BuiltValueNullFieldError.checkNotNull(
                 divisionTitle, r'UpdateDivisionRequest', 'divisionTitle'),
+            description: description,
             logo: logo,
             motto: motto,
             newTitle: newTitle,

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **departmentTitle** | **String** |  | 
 **color** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
 **logo** | **String** |  | [optional] 
 **motto** | **String** |  | [optional] 
 **newTitle** | **String** |  | [optional] 

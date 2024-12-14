@@ -13,6 +13,7 @@ part 'update_department_request.g.dart';
 /// Properties:
 /// * [departmentTitle]
 /// * [color]
+/// * [description]
 /// * [logo]
 /// * [motto]
 /// * [newTitle]
@@ -24,6 +25,9 @@ abstract class UpdateDepartmentRequest
 
   @BuiltValueField(wireName: r'color')
   String? get color;
+
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
   @BuiltValueField(wireName: r'logo')
   String? get logo;
@@ -73,6 +77,13 @@ class _$UpdateDepartmentRequestSerializer
       yield r'color';
       yield serializers.serialize(
         object.color,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.description != null) {
+      yield r'description';
+      yield serializers.serialize(
+        object.description,
         specifiedType: const FullType(String),
       );
     }
@@ -135,6 +146,13 @@ class _$UpdateDepartmentRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.color = valueDes;
+          break;
+        case r'description':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.description = valueDes;
           break;
         case r'logo':
           final valueDes = serializers.deserialize(

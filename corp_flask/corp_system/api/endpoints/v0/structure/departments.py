@@ -193,6 +193,9 @@ def update_department():
                         motto:
                             type: string
                             example: We love building stuff
+                        description:
+                            type: string
+                            example: This department is responsible for the development of the corp website
                         logo:
                             type: string
                             example: disabled_by_default
@@ -220,6 +223,7 @@ def update_department():
     new_color = data.get('color')
     new_motto = data.get('motto')
     new_logo = data.get('logo')
+    new_description = data.get('description')
     
     if not department_title:
         return jsonify({"msg": "Department title is required"}), 400
@@ -227,7 +231,7 @@ def update_department():
     department = Department.query.filter_by(title=department_title).first()
     
     try:
-        StructureManager.update_department(department=department, new_title=new_title, new_color=new_color, new_motto=new_motto, new_logo=new_logo)
+        StructureManager.update_department(department=department, new_title=new_title, new_color=new_color, new_motto=new_motto, new_logo=new_logo, new_description=new_description)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     
