@@ -12,7 +12,6 @@ import 'package:corp_api/src/model/get_current_funding200_response.dart';
 import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 
 class RSIStatsApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -32,7 +31,7 @@ class RSIStatsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetCurrentFunding200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetCurrentFunding200Response>> getCurrentFunding({ 
+  Future<Response<GetCurrentFunding200Response>> getCurrentFunding({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -71,11 +70,12 @@ class RSIStatsApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetCurrentFunding200Response),
-      ) as GetCurrentFunding200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetCurrentFunding200Response),
+            ) as GetCurrentFunding200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -97,5 +97,4 @@ class RSIStatsApi {
       extra: _response.extra,
     );
   }
-
 }

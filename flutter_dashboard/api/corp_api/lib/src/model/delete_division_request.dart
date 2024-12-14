@@ -11,26 +11,33 @@ part 'delete_division_request.g.dart';
 /// DeleteDivisionRequest
 ///
 /// Properties:
-/// * [divisionTitle] 
+/// * [divisionTitle]
 @BuiltValue()
-abstract class DeleteDivisionRequest implements Built<DeleteDivisionRequest, DeleteDivisionRequestBuilder> {
+abstract class DeleteDivisionRequest
+    implements Built<DeleteDivisionRequest, DeleteDivisionRequestBuilder> {
   @BuiltValueField(wireName: r'division_title')
   String get divisionTitle;
 
   DeleteDivisionRequest._();
 
-  factory DeleteDivisionRequest([void updates(DeleteDivisionRequestBuilder b)]) = _$DeleteDivisionRequest;
+  factory DeleteDivisionRequest(
+      [void updates(DeleteDivisionRequestBuilder b)]) = _$DeleteDivisionRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeleteDivisionRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<DeleteDivisionRequest> get serializer => _$DeleteDivisionRequestSerializer();
+  static Serializer<DeleteDivisionRequest> get serializer =>
+      _$DeleteDivisionRequestSerializer();
 }
 
-class _$DeleteDivisionRequestSerializer implements PrimitiveSerializer<DeleteDivisionRequest> {
+class _$DeleteDivisionRequestSerializer
+    implements PrimitiveSerializer<DeleteDivisionRequest> {
   @override
-  final Iterable<Type> types = const [DeleteDivisionRequest, _$DeleteDivisionRequest];
+  final Iterable<Type> types = const [
+    DeleteDivisionRequest,
+    _$DeleteDivisionRequest
+  ];
 
   @override
   final String wireName = r'DeleteDivisionRequest';
@@ -53,7 +60,9 @@ class _$DeleteDivisionRequestSerializer implements PrimitiveSerializer<DeleteDiv
     DeleteDivisionRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -103,4 +112,3 @@ class _$DeleteDivisionRequestSerializer implements PrimitiveSerializer<DeleteDiv
     return result.build();
   }
 }
-

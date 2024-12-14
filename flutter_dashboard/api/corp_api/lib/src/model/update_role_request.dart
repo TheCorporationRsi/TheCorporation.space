@@ -11,13 +11,14 @@ part 'update_role_request.g.dart';
 /// UpdateRoleRequest
 ///
 /// Properties:
-/// * [newColor] 
-/// * [newDiscordId] 
-/// * [newLogo] 
-/// * [newTitle] 
-/// * [roleTitle] 
+/// * [newColor]
+/// * [newDiscordId]
+/// * [newLogo]
+/// * [newTitle]
+/// * [roleTitle]
 @BuiltValue()
-abstract class UpdateRoleRequest implements Built<UpdateRoleRequest, UpdateRoleRequestBuilder> {
+abstract class UpdateRoleRequest
+    implements Built<UpdateRoleRequest, UpdateRoleRequestBuilder> {
   @BuiltValueField(wireName: r'new_color')
   String? get newColor;
 
@@ -35,16 +36,19 @@ abstract class UpdateRoleRequest implements Built<UpdateRoleRequest, UpdateRoleR
 
   UpdateRoleRequest._();
 
-  factory UpdateRoleRequest([void updates(UpdateRoleRequestBuilder b)]) = _$UpdateRoleRequest;
+  factory UpdateRoleRequest([void updates(UpdateRoleRequestBuilder b)]) =
+      _$UpdateRoleRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(UpdateRoleRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UpdateRoleRequest> get serializer => _$UpdateRoleRequestSerializer();
+  static Serializer<UpdateRoleRequest> get serializer =>
+      _$UpdateRoleRequestSerializer();
 }
 
-class _$UpdateRoleRequestSerializer implements PrimitiveSerializer<UpdateRoleRequest> {
+class _$UpdateRoleRequestSerializer
+    implements PrimitiveSerializer<UpdateRoleRequest> {
   @override
   final Iterable<Type> types = const [UpdateRoleRequest, _$UpdateRoleRequest];
 
@@ -99,7 +103,9 @@ class _$UpdateRoleRequestSerializer implements PrimitiveSerializer<UpdateRoleReq
     UpdateRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -177,4 +183,3 @@ class _$UpdateRoleRequestSerializer implements PrimitiveSerializer<UpdateRoleReq
     return result.build();
   }
 }
-

@@ -11,24 +11,28 @@ part 'delete_role_request.g.dart';
 /// DeleteRoleRequest
 ///
 /// Properties:
-/// * [roleTitle] 
+/// * [roleTitle]
 @BuiltValue()
-abstract class DeleteRoleRequest implements Built<DeleteRoleRequest, DeleteRoleRequestBuilder> {
+abstract class DeleteRoleRequest
+    implements Built<DeleteRoleRequest, DeleteRoleRequestBuilder> {
   @BuiltValueField(wireName: r'role_title')
   String? get roleTitle;
 
   DeleteRoleRequest._();
 
-  factory DeleteRoleRequest([void updates(DeleteRoleRequestBuilder b)]) = _$DeleteRoleRequest;
+  factory DeleteRoleRequest([void updates(DeleteRoleRequestBuilder b)]) =
+      _$DeleteRoleRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeleteRoleRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<DeleteRoleRequest> get serializer => _$DeleteRoleRequestSerializer();
+  static Serializer<DeleteRoleRequest> get serializer =>
+      _$DeleteRoleRequestSerializer();
 }
 
-class _$DeleteRoleRequestSerializer implements PrimitiveSerializer<DeleteRoleRequest> {
+class _$DeleteRoleRequestSerializer
+    implements PrimitiveSerializer<DeleteRoleRequest> {
   @override
   final Iterable<Type> types = const [DeleteRoleRequest, _$DeleteRoleRequest];
 
@@ -55,7 +59,9 @@ class _$DeleteRoleRequestSerializer implements PrimitiveSerializer<DeleteRoleReq
     DeleteRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +111,3 @@ class _$DeleteRoleRequestSerializer implements PrimitiveSerializer<DeleteRoleReq
     return result.build();
   }
 }
-

@@ -11,11 +11,12 @@ part 'create_role_request.g.dart';
 /// CreateRoleRequest
 ///
 /// Properties:
-/// * [departmentTitle] 
-/// * [divisionTitle] 
-/// * [title] 
+/// * [departmentTitle]
+/// * [divisionTitle]
+/// * [title]
 @BuiltValue()
-abstract class CreateRoleRequest implements Built<CreateRoleRequest, CreateRoleRequestBuilder> {
+abstract class CreateRoleRequest
+    implements Built<CreateRoleRequest, CreateRoleRequestBuilder> {
   @BuiltValueField(wireName: r'department_title')
   String? get departmentTitle;
 
@@ -27,16 +28,19 @@ abstract class CreateRoleRequest implements Built<CreateRoleRequest, CreateRoleR
 
   CreateRoleRequest._();
 
-  factory CreateRoleRequest([void updates(CreateRoleRequestBuilder b)]) = _$CreateRoleRequest;
+  factory CreateRoleRequest([void updates(CreateRoleRequestBuilder b)]) =
+      _$CreateRoleRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CreateRoleRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateRoleRequest> get serializer => _$CreateRoleRequestSerializer();
+  static Serializer<CreateRoleRequest> get serializer =>
+      _$CreateRoleRequestSerializer();
 }
 
-class _$CreateRoleRequestSerializer implements PrimitiveSerializer<CreateRoleRequest> {
+class _$CreateRoleRequestSerializer
+    implements PrimitiveSerializer<CreateRoleRequest> {
   @override
   final Iterable<Type> types = const [CreateRoleRequest, _$CreateRoleRequest];
 
@@ -77,7 +81,9 @@ class _$CreateRoleRequestSerializer implements PrimitiveSerializer<CreateRoleReq
     CreateRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -141,4 +147,3 @@ class _$CreateRoleRequestSerializer implements PrimitiveSerializer<CreateRoleReq
     return result.build();
   }
 }
-

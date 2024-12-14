@@ -11,26 +11,35 @@ part 'remove_user_role200_response.g.dart';
 /// RemoveUserRole200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class RemoveUserRole200Response implements Built<RemoveUserRole200Response, RemoveUserRole200ResponseBuilder> {
+abstract class RemoveUserRole200Response
+    implements
+        Built<RemoveUserRole200Response, RemoveUserRole200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   RemoveUserRole200Response._();
 
-  factory RemoveUserRole200Response([void updates(RemoveUserRole200ResponseBuilder b)]) = _$RemoveUserRole200Response;
+  factory RemoveUserRole200Response(
+          [void updates(RemoveUserRole200ResponseBuilder b)]) =
+      _$RemoveUserRole200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(RemoveUserRole200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<RemoveUserRole200Response> get serializer => _$RemoveUserRole200ResponseSerializer();
+  static Serializer<RemoveUserRole200Response> get serializer =>
+      _$RemoveUserRole200ResponseSerializer();
 }
 
-class _$RemoveUserRole200ResponseSerializer implements PrimitiveSerializer<RemoveUserRole200Response> {
+class _$RemoveUserRole200ResponseSerializer
+    implements PrimitiveSerializer<RemoveUserRole200Response> {
   @override
-  final Iterable<Type> types = const [RemoveUserRole200Response, _$RemoveUserRole200Response];
+  final Iterable<Type> types = const [
+    RemoveUserRole200Response,
+    _$RemoveUserRole200Response
+  ];
 
   @override
   final String wireName = r'RemoveUserRole200Response';
@@ -55,7 +64,9 @@ class _$RemoveUserRole200ResponseSerializer implements PrimitiveSerializer<Remov
     RemoveUserRole200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +116,3 @@ class _$RemoveUserRole200ResponseSerializer implements PrimitiveSerializer<Remov
     return result.build();
   }
 }
-

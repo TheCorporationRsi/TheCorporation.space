@@ -11,12 +11,15 @@ part 'get_user_departments200_response_inner.g.dart';
 /// GetUserDepartments200ResponseInner
 ///
 /// Properties:
-/// * [color] 
-/// * [motto] 
-/// * [title] 
-/// * [weight] 
+/// * [color]
+/// * [motto]
+/// * [title]
+/// * [weight]
 @BuiltValue()
-abstract class GetUserDepartments200ResponseInner implements Built<GetUserDepartments200ResponseInner, GetUserDepartments200ResponseInnerBuilder> {
+abstract class GetUserDepartments200ResponseInner
+    implements
+        Built<GetUserDepartments200ResponseInner,
+            GetUserDepartments200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -31,18 +34,25 @@ abstract class GetUserDepartments200ResponseInner implements Built<GetUserDepart
 
   GetUserDepartments200ResponseInner._();
 
-  factory GetUserDepartments200ResponseInner([void updates(GetUserDepartments200ResponseInnerBuilder b)]) = _$GetUserDepartments200ResponseInner;
+  factory GetUserDepartments200ResponseInner(
+          [void updates(GetUserDepartments200ResponseInnerBuilder b)]) =
+      _$GetUserDepartments200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetUserDepartments200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUserDepartments200ResponseInner> get serializer => _$GetUserDepartments200ResponseInnerSerializer();
+  static Serializer<GetUserDepartments200ResponseInner> get serializer =>
+      _$GetUserDepartments200ResponseInnerSerializer();
 }
 
-class _$GetUserDepartments200ResponseInnerSerializer implements PrimitiveSerializer<GetUserDepartments200ResponseInner> {
+class _$GetUserDepartments200ResponseInnerSerializer
+    implements PrimitiveSerializer<GetUserDepartments200ResponseInner> {
   @override
-  final Iterable<Type> types = const [GetUserDepartments200ResponseInner, _$GetUserDepartments200ResponseInner];
+  final Iterable<Type> types = const [
+    GetUserDepartments200ResponseInner,
+    _$GetUserDepartments200ResponseInner
+  ];
 
   @override
   final String wireName = r'GetUserDepartments200ResponseInner';
@@ -88,7 +98,9 @@ class _$GetUserDepartments200ResponseInnerSerializer implements PrimitiveSeriali
     GetUserDepartments200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -159,4 +171,3 @@ class _$GetUserDepartments200ResponseInnerSerializer implements PrimitiveSeriali
     return result.build();
   }
 }
-

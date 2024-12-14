@@ -11,11 +11,12 @@ part 'refresh_token200_response.g.dart';
 /// RefreshToken200Response
 ///
 /// Properties:
-/// * [corpAccessPass] 
-/// * [corpRefreshPass] 
-/// * [refreshed] 
+/// * [corpAccessPass]
+/// * [corpRefreshPass]
+/// * [refreshed]
 @BuiltValue()
-abstract class RefreshToken200Response implements Built<RefreshToken200Response, RefreshToken200ResponseBuilder> {
+abstract class RefreshToken200Response
+    implements Built<RefreshToken200Response, RefreshToken200ResponseBuilder> {
   @BuiltValueField(wireName: r'corp_access_pass')
   String? get corpAccessPass;
 
@@ -27,18 +28,25 @@ abstract class RefreshToken200Response implements Built<RefreshToken200Response,
 
   RefreshToken200Response._();
 
-  factory RefreshToken200Response([void updates(RefreshToken200ResponseBuilder b)]) = _$RefreshToken200Response;
+  factory RefreshToken200Response(
+          [void updates(RefreshToken200ResponseBuilder b)]) =
+      _$RefreshToken200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(RefreshToken200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<RefreshToken200Response> get serializer => _$RefreshToken200ResponseSerializer();
+  static Serializer<RefreshToken200Response> get serializer =>
+      _$RefreshToken200ResponseSerializer();
 }
 
-class _$RefreshToken200ResponseSerializer implements PrimitiveSerializer<RefreshToken200Response> {
+class _$RefreshToken200ResponseSerializer
+    implements PrimitiveSerializer<RefreshToken200Response> {
   @override
-  final Iterable<Type> types = const [RefreshToken200Response, _$RefreshToken200Response];
+  final Iterable<Type> types = const [
+    RefreshToken200Response,
+    _$RefreshToken200Response
+  ];
 
   @override
   final String wireName = r'RefreshToken200Response';
@@ -77,7 +85,9 @@ class _$RefreshToken200ResponseSerializer implements PrimitiveSerializer<Refresh
     RefreshToken200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -141,4 +151,3 @@ class _$RefreshToken200ResponseSerializer implements PrimitiveSerializer<Refresh
     return result.build();
   }
 }
-

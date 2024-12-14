@@ -11,26 +11,35 @@ part 'verify_rsi_token200_response.g.dart';
 /// VerifyRSIToken200Response
 ///
 /// Properties:
-/// * [message] 
+/// * [message]
 @BuiltValue()
-abstract class VerifyRSIToken200Response implements Built<VerifyRSIToken200Response, VerifyRSIToken200ResponseBuilder> {
+abstract class VerifyRSIToken200Response
+    implements
+        Built<VerifyRSIToken200Response, VerifyRSIToken200ResponseBuilder> {
   @BuiltValueField(wireName: r'message')
   String? get message;
 
   VerifyRSIToken200Response._();
 
-  factory VerifyRSIToken200Response([void updates(VerifyRSIToken200ResponseBuilder b)]) = _$VerifyRSIToken200Response;
+  factory VerifyRSIToken200Response(
+          [void updates(VerifyRSIToken200ResponseBuilder b)]) =
+      _$VerifyRSIToken200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(VerifyRSIToken200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<VerifyRSIToken200Response> get serializer => _$VerifyRSIToken200ResponseSerializer();
+  static Serializer<VerifyRSIToken200Response> get serializer =>
+      _$VerifyRSIToken200ResponseSerializer();
 }
 
-class _$VerifyRSIToken200ResponseSerializer implements PrimitiveSerializer<VerifyRSIToken200Response> {
+class _$VerifyRSIToken200ResponseSerializer
+    implements PrimitiveSerializer<VerifyRSIToken200Response> {
   @override
-  final Iterable<Type> types = const [VerifyRSIToken200Response, _$VerifyRSIToken200Response];
+  final Iterable<Type> types = const [
+    VerifyRSIToken200Response,
+    _$VerifyRSIToken200Response
+  ];
 
   @override
   final String wireName = r'VerifyRSIToken200Response';
@@ -55,7 +64,9 @@ class _$VerifyRSIToken200ResponseSerializer implements PrimitiveSerializer<Verif
     VerifyRSIToken200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +116,3 @@ class _$VerifyRSIToken200ResponseSerializer implements PrimitiveSerializer<Verif
     return result.build();
   }
 }
-

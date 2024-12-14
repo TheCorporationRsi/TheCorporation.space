@@ -11,26 +11,34 @@ part 'get_rsi_token200_response.g.dart';
 /// GetRSIToken200Response
 ///
 /// Properties:
-/// * [rSIToken] 
+/// * [rSIToken]
 @BuiltValue()
-abstract class GetRSIToken200Response implements Built<GetRSIToken200Response, GetRSIToken200ResponseBuilder> {
+abstract class GetRSIToken200Response
+    implements Built<GetRSIToken200Response, GetRSIToken200ResponseBuilder> {
   @BuiltValueField(wireName: r'RSI_token')
   String? get rSIToken;
 
   GetRSIToken200Response._();
 
-  factory GetRSIToken200Response([void updates(GetRSIToken200ResponseBuilder b)]) = _$GetRSIToken200Response;
+  factory GetRSIToken200Response(
+          [void updates(GetRSIToken200ResponseBuilder b)]) =
+      _$GetRSIToken200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetRSIToken200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetRSIToken200Response> get serializer => _$GetRSIToken200ResponseSerializer();
+  static Serializer<GetRSIToken200Response> get serializer =>
+      _$GetRSIToken200ResponseSerializer();
 }
 
-class _$GetRSIToken200ResponseSerializer implements PrimitiveSerializer<GetRSIToken200Response> {
+class _$GetRSIToken200ResponseSerializer
+    implements PrimitiveSerializer<GetRSIToken200Response> {
   @override
-  final Iterable<Type> types = const [GetRSIToken200Response, _$GetRSIToken200Response];
+  final Iterable<Type> types = const [
+    GetRSIToken200Response,
+    _$GetRSIToken200Response
+  ];
 
   @override
   final String wireName = r'GetRSIToken200Response';
@@ -55,7 +63,9 @@ class _$GetRSIToken200ResponseSerializer implements PrimitiveSerializer<GetRSITo
     GetRSIToken200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +115,3 @@ class _$GetRSIToken200ResponseSerializer implements PrimitiveSerializer<GetRSITo
     return result.build();
   }
 }
-

@@ -11,26 +11,33 @@ part 'delete_role200_response.g.dart';
 /// DeleteRole200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class DeleteRole200Response implements Built<DeleteRole200Response, DeleteRole200ResponseBuilder> {
+abstract class DeleteRole200Response
+    implements Built<DeleteRole200Response, DeleteRole200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   DeleteRole200Response._();
 
-  factory DeleteRole200Response([void updates(DeleteRole200ResponseBuilder b)]) = _$DeleteRole200Response;
+  factory DeleteRole200Response(
+      [void updates(DeleteRole200ResponseBuilder b)]) = _$DeleteRole200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeleteRole200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<DeleteRole200Response> get serializer => _$DeleteRole200ResponseSerializer();
+  static Serializer<DeleteRole200Response> get serializer =>
+      _$DeleteRole200ResponseSerializer();
 }
 
-class _$DeleteRole200ResponseSerializer implements PrimitiveSerializer<DeleteRole200Response> {
+class _$DeleteRole200ResponseSerializer
+    implements PrimitiveSerializer<DeleteRole200Response> {
   @override
-  final Iterable<Type> types = const [DeleteRole200Response, _$DeleteRole200Response];
+  final Iterable<Type> types = const [
+    DeleteRole200Response,
+    _$DeleteRole200Response
+  ];
 
   @override
   final String wireName = r'DeleteRole200Response';
@@ -55,7 +62,9 @@ class _$DeleteRole200ResponseSerializer implements PrimitiveSerializer<DeleteRol
     DeleteRole200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +114,3 @@ class _$DeleteRole200ResponseSerializer implements PrimitiveSerializer<DeleteRol
     return result.build();
   }
 }
-

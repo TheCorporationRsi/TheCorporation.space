@@ -13,17 +13,18 @@ part 'get_user200_response.g.dart';
 /// GetUser200Response
 ///
 /// Properties:
-/// * [cORPConfirmed] 
-/// * [rSIConfirmed] 
-/// * [rSIHandle] 
-/// * [rSIVerificationToken] 
-/// * [disabled] 
-/// * [enabled2fa] 
-/// * [picture] 
-/// * [roles] 
-/// * [securityLevel] 
+/// * [cORPConfirmed]
+/// * [rSIConfirmed]
+/// * [rSIHandle]
+/// * [rSIVerificationToken]
+/// * [disabled]
+/// * [enabled2fa]
+/// * [picture]
+/// * [roles]
+/// * [securityLevel]
 @BuiltValue()
-abstract class GetUser200Response implements Built<GetUser200Response, GetUser200ResponseBuilder> {
+abstract class GetUser200Response
+    implements Built<GetUser200Response, GetUser200ResponseBuilder> {
   @BuiltValueField(wireName: r'CORP_confirmed')
   bool? get cORPConfirmed;
 
@@ -53,16 +54,19 @@ abstract class GetUser200Response implements Built<GetUser200Response, GetUser20
 
   GetUser200Response._();
 
-  factory GetUser200Response([void updates(GetUser200ResponseBuilder b)]) = _$GetUser200Response;
+  factory GetUser200Response([void updates(GetUser200ResponseBuilder b)]) =
+      _$GetUser200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetUser200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUser200Response> get serializer => _$GetUser200ResponseSerializer();
+  static Serializer<GetUser200Response> get serializer =>
+      _$GetUser200ResponseSerializer();
 }
 
-class _$GetUser200ResponseSerializer implements PrimitiveSerializer<GetUser200Response> {
+class _$GetUser200ResponseSerializer
+    implements PrimitiveSerializer<GetUser200Response> {
   @override
   final Iterable<Type> types = const [GetUser200Response, _$GetUser200Response];
 
@@ -127,7 +131,8 @@ class _$GetUser200ResponseSerializer implements PrimitiveSerializer<GetUser200Re
       yield r'roles';
       yield serializers.serialize(
         object.roles,
-        specifiedType: const FullType(BuiltList, [FullType(GetUser200ResponseRolesInner)]),
+        specifiedType:
+            const FullType(BuiltList, [FullType(GetUser200ResponseRolesInner)]),
       );
     }
     if (object.securityLevel != null) {
@@ -145,7 +150,9 @@ class _$GetUser200ResponseSerializer implements PrimitiveSerializer<GetUser200Re
     GetUser200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -212,7 +219,8 @@ class _$GetUser200ResponseSerializer implements PrimitiveSerializer<GetUser200Re
         case r'roles':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(GetUser200ResponseRolesInner)]),
+            specifiedType: const FullType(
+                BuiltList, [FullType(GetUser200ResponseRolesInner)]),
           ) as BuiltList<GetUser200ResponseRolesInner>;
           result.roles.replace(valueDes);
           break;
@@ -251,4 +259,3 @@ class _$GetUser200ResponseSerializer implements PrimitiveSerializer<GetUser200Re
     return result.build();
   }
 }
-

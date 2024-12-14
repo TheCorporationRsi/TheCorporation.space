@@ -143,7 +143,8 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<GetUserDivisions200ResponseInner>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(GetTributeHistory200ResponseInner)]),
+        const FullType(
+            BuiltList, [FullType(GetTributeHistory200ResponseInner)]),
         () => ListBuilder<GetTributeHistory200ResponseInner>(),
       )
       ..addBuilderFactory(
@@ -163,7 +164,8 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<GetRoles200ResponseInner>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(GetUserDepartments200ResponseInner)]),
+        const FullType(
+            BuiltList, [FullType(GetUserDepartments200ResponseInner)]),
         () => ListBuilder<GetUserDepartments200ResponseInner>(),
       )
       ..add(const OneOfSerializer())

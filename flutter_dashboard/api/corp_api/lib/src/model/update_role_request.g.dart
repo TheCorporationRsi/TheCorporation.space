@@ -12,6 +12,8 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
   @override
   final String? newDiscordId;
   @override
+  final String? newLogo;
+  @override
   final String? newTitle;
   @override
   final String? roleTitle;
@@ -21,7 +23,11 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
       (new UpdateRoleRequestBuilder()..update(updates))._build();
 
   _$UpdateRoleRequest._(
-      {this.newColor, this.newDiscordId, this.newTitle, this.roleTitle})
+      {this.newColor,
+      this.newDiscordId,
+      this.newLogo,
+      this.newTitle,
+      this.roleTitle})
       : super._();
 
   @override
@@ -38,6 +44,7 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
     return other is UpdateRoleRequest &&
         newColor == other.newColor &&
         newDiscordId == other.newDiscordId &&
+        newLogo == other.newLogo &&
         newTitle == other.newTitle &&
         roleTitle == other.roleTitle;
   }
@@ -47,6 +54,7 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
     var _$hash = 0;
     _$hash = $jc(_$hash, newColor.hashCode);
     _$hash = $jc(_$hash, newDiscordId.hashCode);
+    _$hash = $jc(_$hash, newLogo.hashCode);
     _$hash = $jc(_$hash, newTitle.hashCode);
     _$hash = $jc(_$hash, roleTitle.hashCode);
     _$hash = $jf(_$hash);
@@ -58,6 +66,7 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
     return (newBuiltValueToStringHelper(r'UpdateRoleRequest')
           ..add('newColor', newColor)
           ..add('newDiscordId', newDiscordId)
+          ..add('newLogo', newLogo)
           ..add('newTitle', newTitle)
           ..add('roleTitle', roleTitle))
         .toString();
@@ -76,6 +85,10 @@ class UpdateRoleRequestBuilder
   String? get newDiscordId => _$this._newDiscordId;
   set newDiscordId(String? newDiscordId) => _$this._newDiscordId = newDiscordId;
 
+  String? _newLogo;
+  String? get newLogo => _$this._newLogo;
+  set newLogo(String? newLogo) => _$this._newLogo = newLogo;
+
   String? _newTitle;
   String? get newTitle => _$this._newTitle;
   set newTitle(String? newTitle) => _$this._newTitle = newTitle;
@@ -93,6 +106,7 @@ class UpdateRoleRequestBuilder
     if ($v != null) {
       _newColor = $v.newColor;
       _newDiscordId = $v.newDiscordId;
+      _newLogo = $v.newLogo;
       _newTitle = $v.newTitle;
       _roleTitle = $v.roleTitle;
       _$v = null;
@@ -119,6 +133,7 @@ class UpdateRoleRequestBuilder
         new _$UpdateRoleRequest._(
             newColor: newColor,
             newDiscordId: newDiscordId,
+            newLogo: newLogo,
             newTitle: newTitle,
             roleTitle: roleTitle);
     replace(_$result);

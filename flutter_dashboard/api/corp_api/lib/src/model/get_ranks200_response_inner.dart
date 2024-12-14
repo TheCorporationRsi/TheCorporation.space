@@ -11,11 +11,13 @@ part 'get_ranks200_response_inner.g.dart';
 /// GetRanks200ResponseInner
 ///
 /// Properties:
-/// * [requiredLifetimeInfluence] 
-/// * [title] 
-/// * [weeklyAmount] 
+/// * [requiredLifetimeInfluence]
+/// * [title]
+/// * [weeklyAmount]
 @BuiltValue()
-abstract class GetRanks200ResponseInner implements Built<GetRanks200ResponseInner, GetRanks200ResponseInnerBuilder> {
+abstract class GetRanks200ResponseInner
+    implements
+        Built<GetRanks200ResponseInner, GetRanks200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'required_lifetime_influence')
   int? get requiredLifetimeInfluence;
 
@@ -27,18 +29,25 @@ abstract class GetRanks200ResponseInner implements Built<GetRanks200ResponseInne
 
   GetRanks200ResponseInner._();
 
-  factory GetRanks200ResponseInner([void updates(GetRanks200ResponseInnerBuilder b)]) = _$GetRanks200ResponseInner;
+  factory GetRanks200ResponseInner(
+          [void updates(GetRanks200ResponseInnerBuilder b)]) =
+      _$GetRanks200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetRanks200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetRanks200ResponseInner> get serializer => _$GetRanks200ResponseInnerSerializer();
+  static Serializer<GetRanks200ResponseInner> get serializer =>
+      _$GetRanks200ResponseInnerSerializer();
 }
 
-class _$GetRanks200ResponseInnerSerializer implements PrimitiveSerializer<GetRanks200ResponseInner> {
+class _$GetRanks200ResponseInnerSerializer
+    implements PrimitiveSerializer<GetRanks200ResponseInner> {
   @override
-  final Iterable<Type> types = const [GetRanks200ResponseInner, _$GetRanks200ResponseInner];
+  final Iterable<Type> types = const [
+    GetRanks200ResponseInner,
+    _$GetRanks200ResponseInner
+  ];
 
   @override
   final String wireName = r'GetRanks200ResponseInner';
@@ -77,7 +86,9 @@ class _$GetRanks200ResponseInnerSerializer implements PrimitiveSerializer<GetRan
     GetRanks200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -141,4 +152,3 @@ class _$GetRanks200ResponseInnerSerializer implements PrimitiveSerializer<GetRan
     return result.build();
   }
 }
-

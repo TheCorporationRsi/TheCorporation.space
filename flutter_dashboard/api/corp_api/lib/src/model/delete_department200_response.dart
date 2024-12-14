@@ -11,26 +11,35 @@ part 'delete_department200_response.g.dart';
 /// DeleteDepartment200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class DeleteDepartment200Response implements Built<DeleteDepartment200Response, DeleteDepartment200ResponseBuilder> {
+abstract class DeleteDepartment200Response
+    implements
+        Built<DeleteDepartment200Response, DeleteDepartment200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   DeleteDepartment200Response._();
 
-  factory DeleteDepartment200Response([void updates(DeleteDepartment200ResponseBuilder b)]) = _$DeleteDepartment200Response;
+  factory DeleteDepartment200Response(
+          [void updates(DeleteDepartment200ResponseBuilder b)]) =
+      _$DeleteDepartment200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeleteDepartment200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<DeleteDepartment200Response> get serializer => _$DeleteDepartment200ResponseSerializer();
+  static Serializer<DeleteDepartment200Response> get serializer =>
+      _$DeleteDepartment200ResponseSerializer();
 }
 
-class _$DeleteDepartment200ResponseSerializer implements PrimitiveSerializer<DeleteDepartment200Response> {
+class _$DeleteDepartment200ResponseSerializer
+    implements PrimitiveSerializer<DeleteDepartment200Response> {
   @override
-  final Iterable<Type> types = const [DeleteDepartment200Response, _$DeleteDepartment200Response];
+  final Iterable<Type> types = const [
+    DeleteDepartment200Response,
+    _$DeleteDepartment200Response
+  ];
 
   @override
   final String wireName = r'DeleteDepartment200Response';
@@ -55,7 +64,9 @@ class _$DeleteDepartment200ResponseSerializer implements PrimitiveSerializer<Del
     DeleteDepartment200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +116,3 @@ class _$DeleteDepartment200ResponseSerializer implements PrimitiveSerializer<Del
     return result.build();
   }
 }
-

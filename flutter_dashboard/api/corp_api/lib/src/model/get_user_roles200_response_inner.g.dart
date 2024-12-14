@@ -14,6 +14,8 @@ class _$GetUserRoles200ResponseInner extends GetUserRoles200ResponseInner {
   @override
   final String? division;
   @override
+  final String? logo;
+  @override
   final String? title;
   @override
   final String? type;
@@ -23,7 +25,12 @@ class _$GetUserRoles200ResponseInner extends GetUserRoles200ResponseInner {
       (new GetUserRoles200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetUserRoles200ResponseInner._(
-      {this.color, this.department, this.division, this.title, this.type})
+      {this.color,
+      this.department,
+      this.division,
+      this.logo,
+      this.title,
+      this.type})
       : super._();
 
   @override
@@ -42,6 +49,7 @@ class _$GetUserRoles200ResponseInner extends GetUserRoles200ResponseInner {
         color == other.color &&
         department == other.department &&
         division == other.division &&
+        logo == other.logo &&
         title == other.title &&
         type == other.type;
   }
@@ -52,6 +60,7 @@ class _$GetUserRoles200ResponseInner extends GetUserRoles200ResponseInner {
     _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, department.hashCode);
     _$hash = $jc(_$hash, division.hashCode);
+    _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jc(_$hash, type.hashCode);
     _$hash = $jf(_$hash);
@@ -64,6 +73,7 @@ class _$GetUserRoles200ResponseInner extends GetUserRoles200ResponseInner {
           ..add('color', color)
           ..add('department', department)
           ..add('division', division)
+          ..add('logo', logo)
           ..add('title', title)
           ..add('type', type))
         .toString();
@@ -88,6 +98,10 @@ class GetUserRoles200ResponseInnerBuilder
   String? get division => _$this._division;
   set division(String? division) => _$this._division = division;
 
+  String? _logo;
+  String? get logo => _$this._logo;
+  set logo(String? logo) => _$this._logo = logo;
+
   String? _title;
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
@@ -106,6 +120,7 @@ class GetUserRoles200ResponseInnerBuilder
       _color = $v.color;
       _department = $v.department;
       _division = $v.division;
+      _logo = $v.logo;
       _title = $v.title;
       _type = $v.type;
       _$v = null;
@@ -133,6 +148,7 @@ class GetUserRoles200ResponseInnerBuilder
             color: color,
             department: department,
             division: division,
+            logo: logo,
             title: title,
             type: type);
     replace(_$result);

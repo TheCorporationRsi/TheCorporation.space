@@ -11,10 +11,11 @@ part 'add_user_role_request.g.dart';
 /// AddUserRoleRequest
 ///
 /// Properties:
-/// * [roleTitle] 
-/// * [rsiHandle] 
+/// * [roleTitle]
+/// * [rsiHandle]
 @BuiltValue()
-abstract class AddUserRoleRequest implements Built<AddUserRoleRequest, AddUserRoleRequestBuilder> {
+abstract class AddUserRoleRequest
+    implements Built<AddUserRoleRequest, AddUserRoleRequestBuilder> {
   @BuiltValueField(wireName: r'role_title')
   String? get roleTitle;
 
@@ -23,16 +24,19 @@ abstract class AddUserRoleRequest implements Built<AddUserRoleRequest, AddUserRo
 
   AddUserRoleRequest._();
 
-  factory AddUserRoleRequest([void updates(AddUserRoleRequestBuilder b)]) = _$AddUserRoleRequest;
+  factory AddUserRoleRequest([void updates(AddUserRoleRequestBuilder b)]) =
+      _$AddUserRoleRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(AddUserRoleRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AddUserRoleRequest> get serializer => _$AddUserRoleRequestSerializer();
+  static Serializer<AddUserRoleRequest> get serializer =>
+      _$AddUserRoleRequestSerializer();
 }
 
-class _$AddUserRoleRequestSerializer implements PrimitiveSerializer<AddUserRoleRequest> {
+class _$AddUserRoleRequestSerializer
+    implements PrimitiveSerializer<AddUserRoleRequest> {
   @override
   final Iterable<Type> types = const [AddUserRoleRequest, _$AddUserRoleRequest];
 
@@ -66,7 +70,9 @@ class _$AddUserRoleRequestSerializer implements PrimitiveSerializer<AddUserRoleR
     AddUserRoleRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -123,4 +129,3 @@ class _$AddUserRoleRequestSerializer implements PrimitiveSerializer<AddUserRoleR
     return result.build();
   }
 }
-

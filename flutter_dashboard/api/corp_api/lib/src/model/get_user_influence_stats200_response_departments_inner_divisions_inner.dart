@@ -11,11 +11,14 @@ part 'get_user_influence_stats200_response_departments_inner_divisions_inner.g.d
 /// GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner
 ///
 /// Properties:
-/// * [divisionTitle] 
-/// * [influence] 
-/// * [lifetimeInfluence] 
+/// * [divisionTitle]
+/// * [influence]
+/// * [lifetimeInfluence]
 @BuiltValue()
-abstract class GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner implements Built<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner, GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder> {
+abstract class GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner
+    implements
+        Built<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner,
+            GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder> {
   @BuiltValueField(wireName: r'division_title')
   String? get divisionTitle;
 
@@ -27,21 +30,38 @@ abstract class GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner im
 
   GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner._();
 
-  factory GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner([void updates(GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder b)]) = _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner;
+  factory GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner(
+          [void updates(
+              GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder
+                  b)]) =
+      _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder b) => b;
+  static void _defaults(
+          GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder
+              b) =>
+      b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner> get serializer => _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer();
+  static Serializer<
+          GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>
+      get serializer =>
+          _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer();
 }
 
-class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer implements PrimitiveSerializer<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner> {
+class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer
+    implements
+        PrimitiveSerializer<
+            GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner> {
   @override
-  final Iterable<Type> types = const [GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner, _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner];
+  final Iterable<Type> types = const [
+    GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner,
+    _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner
+  ];
 
   @override
-  final String wireName = r'GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner';
+  final String wireName =
+      r'GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
@@ -77,7 +97,9 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer
     GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -85,7 +107,8 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder result,
+    required GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder
+        result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -127,7 +150,8 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder();
+    final result =
+        GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(
@@ -141,4 +165,3 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerSerializer
     return result.build();
   }
 }
-

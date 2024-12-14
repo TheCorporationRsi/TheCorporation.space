@@ -11,14 +11,17 @@ part 'get_user_roles200_response_inner.g.dart';
 /// GetUserRoles200ResponseInner
 ///
 /// Properties:
-/// * [color] 
-/// * [department] 
-/// * [division] 
-/// * [logo] 
-/// * [title] 
-/// * [type] 
+/// * [color]
+/// * [department]
+/// * [division]
+/// * [logo]
+/// * [title]
+/// * [type]
 @BuiltValue()
-abstract class GetUserRoles200ResponseInner implements Built<GetUserRoles200ResponseInner, GetUserRoles200ResponseInnerBuilder> {
+abstract class GetUserRoles200ResponseInner
+    implements
+        Built<GetUserRoles200ResponseInner,
+            GetUserRoles200ResponseInnerBuilder> {
   @BuiltValueField(wireName: r'color')
   String? get color;
 
@@ -39,18 +42,25 @@ abstract class GetUserRoles200ResponseInner implements Built<GetUserRoles200Resp
 
   GetUserRoles200ResponseInner._();
 
-  factory GetUserRoles200ResponseInner([void updates(GetUserRoles200ResponseInnerBuilder b)]) = _$GetUserRoles200ResponseInner;
+  factory GetUserRoles200ResponseInner(
+          [void updates(GetUserRoles200ResponseInnerBuilder b)]) =
+      _$GetUserRoles200ResponseInner;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetUserRoles200ResponseInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUserRoles200ResponseInner> get serializer => _$GetUserRoles200ResponseInnerSerializer();
+  static Serializer<GetUserRoles200ResponseInner> get serializer =>
+      _$GetUserRoles200ResponseInnerSerializer();
 }
 
-class _$GetUserRoles200ResponseInnerSerializer implements PrimitiveSerializer<GetUserRoles200ResponseInner> {
+class _$GetUserRoles200ResponseInnerSerializer
+    implements PrimitiveSerializer<GetUserRoles200ResponseInner> {
   @override
-  final Iterable<Type> types = const [GetUserRoles200ResponseInner, _$GetUserRoles200ResponseInner];
+  final Iterable<Type> types = const [
+    GetUserRoles200ResponseInner,
+    _$GetUserRoles200ResponseInner
+  ];
 
   @override
   final String wireName = r'GetUserRoles200ResponseInner';
@@ -110,7 +120,9 @@ class _$GetUserRoles200ResponseInnerSerializer implements PrimitiveSerializer<Ge
     GetUserRoles200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -195,4 +207,3 @@ class _$GetUserRoles200ResponseInnerSerializer implements PrimitiveSerializer<Ge
     return result.build();
   }
 }
-

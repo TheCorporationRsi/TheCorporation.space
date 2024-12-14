@@ -11,26 +11,35 @@ part 'update_division200_response.g.dart';
 /// UpdateDivision200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class UpdateDivision200Response implements Built<UpdateDivision200Response, UpdateDivision200ResponseBuilder> {
+abstract class UpdateDivision200Response
+    implements
+        Built<UpdateDivision200Response, UpdateDivision200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   UpdateDivision200Response._();
 
-  factory UpdateDivision200Response([void updates(UpdateDivision200ResponseBuilder b)]) = _$UpdateDivision200Response;
+  factory UpdateDivision200Response(
+          [void updates(UpdateDivision200ResponseBuilder b)]) =
+      _$UpdateDivision200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(UpdateDivision200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UpdateDivision200Response> get serializer => _$UpdateDivision200ResponseSerializer();
+  static Serializer<UpdateDivision200Response> get serializer =>
+      _$UpdateDivision200ResponseSerializer();
 }
 
-class _$UpdateDivision200ResponseSerializer implements PrimitiveSerializer<UpdateDivision200Response> {
+class _$UpdateDivision200ResponseSerializer
+    implements PrimitiveSerializer<UpdateDivision200Response> {
   @override
-  final Iterable<Type> types = const [UpdateDivision200Response, _$UpdateDivision200Response];
+  final Iterable<Type> types = const [
+    UpdateDivision200Response,
+    _$UpdateDivision200Response
+  ];
 
   @override
   final String wireName = r'UpdateDivision200Response';
@@ -55,7 +64,9 @@ class _$UpdateDivision200ResponseSerializer implements PrimitiveSerializer<Updat
     UpdateDivision200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +116,3 @@ class _$UpdateDivision200ResponseSerializer implements PrimitiveSerializer<Updat
     return result.build();
   }
 }
-

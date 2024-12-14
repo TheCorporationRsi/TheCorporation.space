@@ -11,26 +11,33 @@ part 'register200_response.g.dart';
 /// Register200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class Register200Response implements Built<Register200Response, Register200ResponseBuilder> {
+abstract class Register200Response
+    implements Built<Register200Response, Register200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   Register200Response._();
 
-  factory Register200Response([void updates(Register200ResponseBuilder b)]) = _$Register200Response;
+  factory Register200Response([void updates(Register200ResponseBuilder b)]) =
+      _$Register200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(Register200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Register200Response> get serializer => _$Register200ResponseSerializer();
+  static Serializer<Register200Response> get serializer =>
+      _$Register200ResponseSerializer();
 }
 
-class _$Register200ResponseSerializer implements PrimitiveSerializer<Register200Response> {
+class _$Register200ResponseSerializer
+    implements PrimitiveSerializer<Register200Response> {
   @override
-  final Iterable<Type> types = const [Register200Response, _$Register200Response];
+  final Iterable<Type> types = const [
+    Register200Response,
+    _$Register200Response
+  ];
 
   @override
   final String wireName = r'Register200Response';
@@ -55,7 +62,9 @@ class _$Register200ResponseSerializer implements PrimitiveSerializer<Register200
     Register200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +114,3 @@ class _$Register200ResponseSerializer implements PrimitiveSerializer<Register200
     return result.build();
   }
 }
-

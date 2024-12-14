@@ -11,26 +11,34 @@ part 'delete_department_request.g.dart';
 /// DeleteDepartmentRequest
 ///
 /// Properties:
-/// * [departmentTitle] 
+/// * [departmentTitle]
 @BuiltValue()
-abstract class DeleteDepartmentRequest implements Built<DeleteDepartmentRequest, DeleteDepartmentRequestBuilder> {
+abstract class DeleteDepartmentRequest
+    implements Built<DeleteDepartmentRequest, DeleteDepartmentRequestBuilder> {
   @BuiltValueField(wireName: r'department_title')
   String get departmentTitle;
 
   DeleteDepartmentRequest._();
 
-  factory DeleteDepartmentRequest([void updates(DeleteDepartmentRequestBuilder b)]) = _$DeleteDepartmentRequest;
+  factory DeleteDepartmentRequest(
+          [void updates(DeleteDepartmentRequestBuilder b)]) =
+      _$DeleteDepartmentRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeleteDepartmentRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<DeleteDepartmentRequest> get serializer => _$DeleteDepartmentRequestSerializer();
+  static Serializer<DeleteDepartmentRequest> get serializer =>
+      _$DeleteDepartmentRequestSerializer();
 }
 
-class _$DeleteDepartmentRequestSerializer implements PrimitiveSerializer<DeleteDepartmentRequest> {
+class _$DeleteDepartmentRequestSerializer
+    implements PrimitiveSerializer<DeleteDepartmentRequest> {
   @override
-  final Iterable<Type> types = const [DeleteDepartmentRequest, _$DeleteDepartmentRequest];
+  final Iterable<Type> types = const [
+    DeleteDepartmentRequest,
+    _$DeleteDepartmentRequest
+  ];
 
   @override
   final String wireName = r'DeleteDepartmentRequest';
@@ -53,7 +61,9 @@ class _$DeleteDepartmentRequestSerializer implements PrimitiveSerializer<DeleteD
     DeleteDepartmentRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -103,4 +113,3 @@ class _$DeleteDepartmentRequestSerializer implements PrimitiveSerializer<DeleteD
     return result.build();
   }
 }
-

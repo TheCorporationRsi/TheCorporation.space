@@ -11,11 +11,13 @@ part 'get_user_profile200_response.g.dart';
 /// GetUserProfile200Response
 ///
 /// Properties:
-/// * [moniker] 
-/// * [picture] 
-/// * [rSIHandle] 
+/// * [moniker]
+/// * [picture]
+/// * [rSIHandle]
 @BuiltValue()
-abstract class GetUserProfile200Response implements Built<GetUserProfile200Response, GetUserProfile200ResponseBuilder> {
+abstract class GetUserProfile200Response
+    implements
+        Built<GetUserProfile200Response, GetUserProfile200ResponseBuilder> {
   @BuiltValueField(wireName: r'Moniker')
   String? get moniker;
 
@@ -27,18 +29,25 @@ abstract class GetUserProfile200Response implements Built<GetUserProfile200Respo
 
   GetUserProfile200Response._();
 
-  factory GetUserProfile200Response([void updates(GetUserProfile200ResponseBuilder b)]) = _$GetUserProfile200Response;
+  factory GetUserProfile200Response(
+          [void updates(GetUserProfile200ResponseBuilder b)]) =
+      _$GetUserProfile200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetUserProfile200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetUserProfile200Response> get serializer => _$GetUserProfile200ResponseSerializer();
+  static Serializer<GetUserProfile200Response> get serializer =>
+      _$GetUserProfile200ResponseSerializer();
 }
 
-class _$GetUserProfile200ResponseSerializer implements PrimitiveSerializer<GetUserProfile200Response> {
+class _$GetUserProfile200ResponseSerializer
+    implements PrimitiveSerializer<GetUserProfile200Response> {
   @override
-  final Iterable<Type> types = const [GetUserProfile200Response, _$GetUserProfile200Response];
+  final Iterable<Type> types = const [
+    GetUserProfile200Response,
+    _$GetUserProfile200Response
+  ];
 
   @override
   final String wireName = r'GetUserProfile200Response';
@@ -77,7 +86,9 @@ class _$GetUserProfile200ResponseSerializer implements PrimitiveSerializer<GetUs
     GetUserProfile200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -141,4 +152,3 @@ class _$GetUserProfile200ResponseSerializer implements PrimitiveSerializer<GetUs
     return result.build();
   }
 }
-

@@ -11,26 +11,33 @@ part 'delete_user200_response.g.dart';
 /// DeleteUser200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class DeleteUser200Response implements Built<DeleteUser200Response, DeleteUser200ResponseBuilder> {
+abstract class DeleteUser200Response
+    implements Built<DeleteUser200Response, DeleteUser200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   DeleteUser200Response._();
 
-  factory DeleteUser200Response([void updates(DeleteUser200ResponseBuilder b)]) = _$DeleteUser200Response;
+  factory DeleteUser200Response(
+      [void updates(DeleteUser200ResponseBuilder b)]) = _$DeleteUser200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(DeleteUser200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<DeleteUser200Response> get serializer => _$DeleteUser200ResponseSerializer();
+  static Serializer<DeleteUser200Response> get serializer =>
+      _$DeleteUser200ResponseSerializer();
 }
 
-class _$DeleteUser200ResponseSerializer implements PrimitiveSerializer<DeleteUser200Response> {
+class _$DeleteUser200ResponseSerializer
+    implements PrimitiveSerializer<DeleteUser200Response> {
   @override
-  final Iterable<Type> types = const [DeleteUser200Response, _$DeleteUser200Response];
+  final Iterable<Type> types = const [
+    DeleteUser200Response,
+    _$DeleteUser200Response
+  ];
 
   @override
   final String wireName = r'DeleteUser200Response';
@@ -55,7 +62,9 @@ class _$DeleteUser200ResponseSerializer implements PrimitiveSerializer<DeleteUse
     DeleteUser200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +114,3 @@ class _$DeleteUser200ResponseSerializer implements PrimitiveSerializer<DeleteUse
     return result.build();
   }
 }
-

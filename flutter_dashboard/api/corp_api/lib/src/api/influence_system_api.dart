@@ -19,7 +19,6 @@ import 'package:corp_api/src/model/send_tribute_request.dart';
 import 'package:corp_api/src/model/set_weight_request.dart';
 
 class InfluenceSystemApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -42,7 +41,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future] containing a [Response] with a [String] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<String>> getInfluence({ 
+  Future<Response<String>> getInfluence({
     required String influenceType,
     required String type,
     required String title,
@@ -53,7 +52,22 @@ class InfluenceSystemApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v0/influence_system/profile/{influence_type}/{type}/{title}'.replaceAll('{' r'influence_type' '}', encodeQueryParameter(_serializers, influenceType, const FullType(String)).toString()).replaceAll('{' r'type' '}', encodeQueryParameter(_serializers, type, const FullType(String)).toString()).replaceAll('{' r'title' '}', encodeQueryParameter(_serializers, title, const FullType(String)).toString());
+    final _path =
+        r'/api/v0/influence_system/profile/{influence_type}/{type}/{title}'
+            .replaceAll(
+                '{' r'influence_type' '}',
+                encodeQueryParameter(
+                        _serializers, influenceType, const FullType(String))
+                    .toString())
+            .replaceAll(
+                '{' r'type' '}',
+                encodeQueryParameter(_serializers, type, const FullType(String))
+                    .toString())
+            .replaceAll(
+                '{' r'title' '}',
+                encodeQueryParameter(
+                        _serializers, title, const FullType(String))
+                    .toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -85,7 +99,6 @@ class InfluenceSystemApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as String;
-
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -121,7 +134,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetProfile200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetProfile200Response>> getProfile({ 
+  Future<Response<GetProfile200Response>> getProfile({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -160,11 +173,12 @@ class InfluenceSystemApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetProfile200Response),
-      ) as GetProfile200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetProfile200Response),
+            ) as GetProfile200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -200,7 +214,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetRanks200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetRanks200ResponseInner>>> getRanks({ 
+  Future<Response<BuiltList<GetRanks200ResponseInner>>> getRanks({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -233,11 +247,13 @@ class InfluenceSystemApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(GetRanks200ResponseInner)]),
-      ) as BuiltList<GetRanks200ResponseInner>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetRanks200ResponseInner)]),
+            ) as BuiltList<GetRanks200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -276,7 +292,8 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetTributeHistory200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetTributeHistory200ResponseInner>>> getTributeHistory({ 
+  Future<Response<BuiltList<GetTributeHistory200ResponseInner>>>
+      getTributeHistory({
     required String type,
     required String request,
     required String page,
@@ -287,7 +304,21 @@ class InfluenceSystemApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v0/influence_system/profile/tribute_history/{type}/{request}/{page}'.replaceAll('{' r'type' '}', encodeQueryParameter(_serializers, type, const FullType(String)).toString()).replaceAll('{' r'request' '}', encodeQueryParameter(_serializers, request, const FullType(String)).toString()).replaceAll('{' r'page' '}', encodeQueryParameter(_serializers, page, const FullType(String)).toString());
+    final _path =
+        r'/api/v0/influence_system/profile/tribute_history/{type}/{request}/{page}'
+            .replaceAll(
+                '{' r'type' '}',
+                encodeQueryParameter(_serializers, type, const FullType(String))
+                    .toString())
+            .replaceAll(
+                '{' r'request' '}',
+                encodeQueryParameter(
+                        _serializers, request, const FullType(String))
+                    .toString())
+            .replaceAll(
+                '{' r'page' '}',
+                encodeQueryParameter(_serializers, page, const FullType(String))
+                    .toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -318,11 +349,13 @@ class InfluenceSystemApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(GetTributeHistory200ResponseInner)]),
-      ) as BuiltList<GetTributeHistory200ResponseInner>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetTributeHistory200ResponseInner)]),
+            ) as BuiltList<GetTributeHistory200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -358,7 +391,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetUserInfluenceStats200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetUserInfluenceStats200Response>> getUserInfluenceStats({ 
+  Future<Response<GetUserInfluenceStats200Response>> getUserInfluenceStats({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -397,11 +430,12 @@ class InfluenceSystemApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetUserInfluenceStats200Response),
-      ) as GetUserInfluenceStats200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetUserInfluenceStats200Response),
+            ) as GetUserInfluenceStats200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -438,7 +472,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetRanks200ResponseInner] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetRanks200ResponseInner>> sendTribute({ 
+  Future<Response<GetRanks200ResponseInner>> sendTribute({
     SendTributeRequest? sendTributeRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -471,11 +505,12 @@ class InfluenceSystemApi {
 
     try {
       const _type = FullType(SendTributeRequest);
-      _bodyData = sendTributeRequest == null ? null : _serializers.serialize(sendTributeRequest, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+      _bodyData = sendTributeRequest == null
+          ? null
+          : _serializers.serialize(sendTributeRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -498,11 +533,12 @@ class InfluenceSystemApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetRanks200ResponseInner),
-      ) as GetRanks200ResponseInner;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetRanks200ResponseInner),
+            ) as GetRanks200ResponseInner;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -539,7 +575,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> setWeight({ 
+  Future<Response<void>> setWeight({
     SetWeightRequest? setWeightRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -572,11 +608,12 @@ class InfluenceSystemApi {
 
     try {
       const _type = FullType(SetWeightRequest);
-      _bodyData = setWeightRequest == null ? null : _serializers.serialize(setWeightRequest, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+      _bodyData = setWeightRequest == null
+          ? null
+          : _serializers.serialize(setWeightRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -611,7 +648,7 @@ class InfluenceSystemApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> updateAccount({ 
+  Future<Response<void>> updateAccount({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -648,5 +685,4 @@ class InfluenceSystemApi {
 
     return _response;
   }
-
 }

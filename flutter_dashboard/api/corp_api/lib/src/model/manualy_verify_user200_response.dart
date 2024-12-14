@@ -11,26 +11,36 @@ part 'manualy_verify_user200_response.g.dart';
 /// ManualyVerifyUser200Response
 ///
 /// Properties:
-/// * [msg] 
+/// * [msg]
 @BuiltValue()
-abstract class ManualyVerifyUser200Response implements Built<ManualyVerifyUser200Response, ManualyVerifyUser200ResponseBuilder> {
+abstract class ManualyVerifyUser200Response
+    implements
+        Built<ManualyVerifyUser200Response,
+            ManualyVerifyUser200ResponseBuilder> {
   @BuiltValueField(wireName: r'msg')
   String? get msg;
 
   ManualyVerifyUser200Response._();
 
-  factory ManualyVerifyUser200Response([void updates(ManualyVerifyUser200ResponseBuilder b)]) = _$ManualyVerifyUser200Response;
+  factory ManualyVerifyUser200Response(
+          [void updates(ManualyVerifyUser200ResponseBuilder b)]) =
+      _$ManualyVerifyUser200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(ManualyVerifyUser200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ManualyVerifyUser200Response> get serializer => _$ManualyVerifyUser200ResponseSerializer();
+  static Serializer<ManualyVerifyUser200Response> get serializer =>
+      _$ManualyVerifyUser200ResponseSerializer();
 }
 
-class _$ManualyVerifyUser200ResponseSerializer implements PrimitiveSerializer<ManualyVerifyUser200Response> {
+class _$ManualyVerifyUser200ResponseSerializer
+    implements PrimitiveSerializer<ManualyVerifyUser200Response> {
   @override
-  final Iterable<Type> types = const [ManualyVerifyUser200Response, _$ManualyVerifyUser200Response];
+  final Iterable<Type> types = const [
+    ManualyVerifyUser200Response,
+    _$ManualyVerifyUser200Response
+  ];
 
   @override
   final String wireName = r'ManualyVerifyUser200Response';
@@ -55,7 +65,9 @@ class _$ManualyVerifyUser200ResponseSerializer implements PrimitiveSerializer<Ma
     ManualyVerifyUser200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -105,4 +117,3 @@ class _$ManualyVerifyUser200ResponseSerializer implements PrimitiveSerializer<Ma
     return result.build();
   }
 }
-

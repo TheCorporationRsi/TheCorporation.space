@@ -11,13 +11,14 @@ part 'get_status200_response.g.dart';
 /// GetStatus200Response
 ///
 /// Properties:
-/// * [cORPMember] 
-/// * [rSIVerified] 
-/// * [authentificated] 
-/// * [isAdmin] 
-/// * [isManager] 
+/// * [cORPMember]
+/// * [rSIVerified]
+/// * [authentificated]
+/// * [isAdmin]
+/// * [isManager]
 @BuiltValue()
-abstract class GetStatus200Response implements Built<GetStatus200Response, GetStatus200ResponseBuilder> {
+abstract class GetStatus200Response
+    implements Built<GetStatus200Response, GetStatus200ResponseBuilder> {
   @BuiltValueField(wireName: r'CORP_member')
   bool? get cORPMember;
 
@@ -35,18 +36,24 @@ abstract class GetStatus200Response implements Built<GetStatus200Response, GetSt
 
   GetStatus200Response._();
 
-  factory GetStatus200Response([void updates(GetStatus200ResponseBuilder b)]) = _$GetStatus200Response;
+  factory GetStatus200Response([void updates(GetStatus200ResponseBuilder b)]) =
+      _$GetStatus200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(GetStatus200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<GetStatus200Response> get serializer => _$GetStatus200ResponseSerializer();
+  static Serializer<GetStatus200Response> get serializer =>
+      _$GetStatus200ResponseSerializer();
 }
 
-class _$GetStatus200ResponseSerializer implements PrimitiveSerializer<GetStatus200Response> {
+class _$GetStatus200ResponseSerializer
+    implements PrimitiveSerializer<GetStatus200Response> {
   @override
-  final Iterable<Type> types = const [GetStatus200Response, _$GetStatus200Response];
+  final Iterable<Type> types = const [
+    GetStatus200Response,
+    _$GetStatus200Response
+  ];
 
   @override
   final String wireName = r'GetStatus200Response';
@@ -99,7 +106,9 @@ class _$GetStatus200ResponseSerializer implements PrimitiveSerializer<GetStatus2
     GetStatus200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -177,4 +186,3 @@ class _$GetStatus200ResponseSerializer implements PrimitiveSerializer<GetStatus2
     return result.build();
   }
 }
-

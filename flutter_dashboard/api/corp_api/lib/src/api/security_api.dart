@@ -26,7 +26,6 @@ import 'package:corp_api/src/model/register_request.dart';
 import 'package:corp_api/src/model/verify_rsi_token200_response.dart';
 
 class SecurityApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -47,7 +46,7 @@ class SecurityApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> changePassword({ 
+  Future<Response<void>> changePassword({
     ChangePasswordRequest? changePasswordRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -80,11 +79,12 @@ class SecurityApi {
 
     try {
       const _type = FullType(ChangePasswordRequest);
-      _bodyData = changePasswordRequest == null ? null : _serializers.serialize(changePasswordRequest, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+      _bodyData = changePasswordRequest == null
+          ? null
+          : _serializers.serialize(changePasswordRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -120,7 +120,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [DeleteUser200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<DeleteUser200Response>> deleteUser({ 
+  Future<Response<DeleteUser200Response>> deleteUser({
     required String username,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -129,7 +129,10 @@ class SecurityApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v0/users/{username}'.replaceAll('{' r'username' '}', encodeQueryParameter(_serializers, username, const FullType(String)).toString());
+    final _path = r'/api/v0/users/{username}'.replaceAll(
+        '{' r'username' '}',
+        encodeQueryParameter(_serializers, username, const FullType(String))
+            .toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -160,11 +163,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(DeleteUser200Response),
-      ) as DeleteUser200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(DeleteUser200Response),
+            ) as DeleteUser200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -200,7 +204,7 @@ class SecurityApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> getLogs({ 
+  Future<Response<void>> getLogs({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -251,7 +255,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetRSIToken200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetRSIToken200Response>> getRSIToken({ 
+  Future<Response<GetRSIToken200Response>> getRSIToken({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -290,11 +294,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetRSIToken200Response),
-      ) as GetRSIToken200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetRSIToken200Response),
+            ) as GetRSIToken200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -330,7 +335,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetStatus200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetStatus200Response>> getStatus({ 
+  Future<Response<GetStatus200Response>> getStatus({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -369,11 +374,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetStatus200Response),
-      ) as GetStatus200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetStatus200Response),
+            ) as GetStatus200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -410,7 +416,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [GetUser200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<GetUser200Response>> getUser({ 
+  Future<Response<GetUser200Response>> getUser({
     required String username,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -419,7 +425,10 @@ class SecurityApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v0/users/{username}'.replaceAll('{' r'username' '}', encodeQueryParameter(_serializers, username, const FullType(String)).toString());
+    final _path = r'/api/v0/users/{username}'.replaceAll(
+        '{' r'username' '}',
+        encodeQueryParameter(_serializers, username, const FullType(String))
+            .toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -450,11 +459,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(GetUser200Response),
-      ) as GetUser200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(GetUser200Response),
+            ) as GetUser200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -490,7 +500,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<GetUsers200ResponseInner>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<GetUsers200ResponseInner>>> getUsers({ 
+  Future<Response<BuiltList<GetUsers200ResponseInner>>> getUsers({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -529,11 +539,13 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(GetUsers200ResponseInner)]),
-      ) as BuiltList<GetUsers200ResponseInner>;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(
+                  BuiltList, [FullType(GetUsers200ResponseInner)]),
+            ) as BuiltList<GetUsers200ResponseInner>;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -570,7 +582,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Login200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<Login200Response>> login({ 
+  Future<Response<Login200Response>> login({
     LoginRequest? loginRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -597,11 +609,12 @@ class SecurityApi {
 
     try {
       const _type = FullType(LoginRequest);
-      _bodyData = loginRequest == null ? null : _serializers.serialize(loginRequest, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+      _bodyData = loginRequest == null
+          ? null
+          : _serializers.serialize(loginRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -624,11 +637,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(Login200Response),
-      ) as Login200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(Login200Response),
+            ) as Login200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -664,7 +678,7 @@ class SecurityApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> logout({ 
+  Future<Response<void>> logout({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -716,7 +730,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [ManualyVerifyUser200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<ManualyVerifyUser200Response>> manualyVerifyUser({ 
+  Future<Response<ManualyVerifyUser200Response>> manualyVerifyUser({
     required String username,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -725,7 +739,10 @@ class SecurityApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v0/users/{username}'.replaceAll('{' r'username' '}', encodeQueryParameter(_serializers, username, const FullType(String)).toString());
+    final _path = r'/api/v0/users/{username}'.replaceAll(
+        '{' r'username' '}',
+        encodeQueryParameter(_serializers, username, const FullType(String))
+            .toString());
     final _options = Options(
       method: r'PATCH',
       headers: <String, dynamic>{
@@ -756,11 +773,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(ManualyVerifyUser200Response),
-      ) as ManualyVerifyUser200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(ManualyVerifyUser200Response),
+            ) as ManualyVerifyUser200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -796,7 +814,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [RefreshToken200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<RefreshToken200Response>> refreshToken({ 
+  Future<Response<RefreshToken200Response>> refreshToken({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -835,11 +853,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(RefreshToken200Response),
-      ) as RefreshToken200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(RefreshToken200Response),
+            ) as RefreshToken200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -876,7 +895,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Register200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<Register200Response>> register({ 
+  Future<Response<Register200Response>> register({
     RegisterRequest? registerRequest,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -903,11 +922,12 @@ class SecurityApi {
 
     try {
       const _type = FullType(RegisterRequest);
-      _bodyData = registerRequest == null ? null : _serializers.serialize(registerRequest, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+      _bodyData = registerRequest == null
+          ? null
+          : _serializers.serialize(registerRequest, specifiedType: _type);
+    } catch (error, stackTrace) {
       throw DioException(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -930,11 +950,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(Register200Response),
-      ) as Register200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(Register200Response),
+            ) as Register200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -970,7 +991,7 @@ class SecurityApi {
   ///
   /// Returns a [Future] containing a [Response] with a [VerifyRSIToken200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<VerifyRSIToken200Response>> verifyRSIToken({ 
+  Future<Response<VerifyRSIToken200Response>> verifyRSIToken({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -1009,11 +1030,12 @@ class SecurityApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(VerifyRSIToken200Response),
-      ) as VerifyRSIToken200Response;
-
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(VerifyRSIToken200Response),
+            ) as VerifyRSIToken200Response;
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -1035,5 +1057,4 @@ class SecurityApi {
       extra: _response.extra,
     );
   }
-
 }

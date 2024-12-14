@@ -11,11 +11,12 @@ part 'login200_response.g.dart';
 /// Login200Response
 ///
 /// Properties:
-/// * [corpAccessPass] 
-/// * [corpRefreshPass] 
-/// * [msg] 
+/// * [corpAccessPass]
+/// * [corpRefreshPass]
+/// * [msg]
 @BuiltValue()
-abstract class Login200Response implements Built<Login200Response, Login200ResponseBuilder> {
+abstract class Login200Response
+    implements Built<Login200Response, Login200ResponseBuilder> {
   @BuiltValueField(wireName: r'corp_access_pass')
   String? get corpAccessPass;
 
@@ -27,16 +28,19 @@ abstract class Login200Response implements Built<Login200Response, Login200Respo
 
   Login200Response._();
 
-  factory Login200Response([void updates(Login200ResponseBuilder b)]) = _$Login200Response;
+  factory Login200Response([void updates(Login200ResponseBuilder b)]) =
+      _$Login200Response;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(Login200ResponseBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Login200Response> get serializer => _$Login200ResponseSerializer();
+  static Serializer<Login200Response> get serializer =>
+      _$Login200ResponseSerializer();
 }
 
-class _$Login200ResponseSerializer implements PrimitiveSerializer<Login200Response> {
+class _$Login200ResponseSerializer
+    implements PrimitiveSerializer<Login200Response> {
   @override
   final Iterable<Type> types = const [Login200Response, _$Login200Response];
 
@@ -77,7 +81,9 @@ class _$Login200ResponseSerializer implements PrimitiveSerializer<Login200Respon
     Login200Response object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -141,4 +147,3 @@ class _$Login200ResponseSerializer implements PrimitiveSerializer<Login200Respon
     return result.build();
   }
 }
-

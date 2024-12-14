@@ -11,26 +11,34 @@ part 'create_department_request.g.dart';
 /// CreateDepartmentRequest
 ///
 /// Properties:
-/// * [title] 
+/// * [title]
 @BuiltValue()
-abstract class CreateDepartmentRequest implements Built<CreateDepartmentRequest, CreateDepartmentRequestBuilder> {
+abstract class CreateDepartmentRequest
+    implements Built<CreateDepartmentRequest, CreateDepartmentRequestBuilder> {
   @BuiltValueField(wireName: r'title')
   String get title;
 
   CreateDepartmentRequest._();
 
-  factory CreateDepartmentRequest([void updates(CreateDepartmentRequestBuilder b)]) = _$CreateDepartmentRequest;
+  factory CreateDepartmentRequest(
+          [void updates(CreateDepartmentRequestBuilder b)]) =
+      _$CreateDepartmentRequest;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(CreateDepartmentRequestBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<CreateDepartmentRequest> get serializer => _$CreateDepartmentRequestSerializer();
+  static Serializer<CreateDepartmentRequest> get serializer =>
+      _$CreateDepartmentRequestSerializer();
 }
 
-class _$CreateDepartmentRequestSerializer implements PrimitiveSerializer<CreateDepartmentRequest> {
+class _$CreateDepartmentRequestSerializer
+    implements PrimitiveSerializer<CreateDepartmentRequest> {
   @override
-  final Iterable<Type> types = const [CreateDepartmentRequest, _$CreateDepartmentRequest];
+  final Iterable<Type> types = const [
+    CreateDepartmentRequest,
+    _$CreateDepartmentRequest
+  ];
 
   @override
   final String wireName = r'CreateDepartmentRequest';
@@ -53,7 +61,9 @@ class _$CreateDepartmentRequestSerializer implements PrimitiveSerializer<CreateD
     CreateDepartmentRequest object, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+    return _serializeProperties(serializers, object,
+            specifiedType: specifiedType)
+        .toList();
   }
 
   void _deserializeProperties(
@@ -103,4 +113,3 @@ class _$CreateDepartmentRequestSerializer implements PrimitiveSerializer<CreateD
     return result.build();
   }
 }
-
