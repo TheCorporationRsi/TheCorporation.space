@@ -53,6 +53,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                       SizedBox(height: 20),
@@ -141,6 +142,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                       SizedBox(height: 20),

@@ -76,6 +76,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
         brightness: Brightness.dark,
+        primaryColor: primaryColor,
+        
       ),
       routes: {
         '/': (context) => const LoginScreen(),

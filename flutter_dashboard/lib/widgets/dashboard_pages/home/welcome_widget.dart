@@ -81,6 +81,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                       )),
                   const SizedBox(height: 20),
                   GridView(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
@@ -111,6 +112,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -137,6 +139,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                   const SizedBox(height: 20),
                   GridView(
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
                         crossAxisSpacing: 20,
@@ -171,6 +174,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               style: GoogleFonts.orbitron(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -184,6 +188,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
                           ],
@@ -193,6 +198,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                   ),
                   const SizedBox(height: 20),
                   GridView(
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
@@ -211,6 +217,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               style: GoogleFonts.orbitron(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -221,6 +228,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
                             const SizedBox(height: 10),
@@ -228,7 +236,10 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                               'For more details, visit the Influence System section.',
                               textAlign: TextAlign.start,
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                  fontSize: 18, 
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  ),
                             ),
                             
                           ],

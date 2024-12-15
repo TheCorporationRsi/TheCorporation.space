@@ -68,6 +68,7 @@ class _TransferCardState extends State<TransferCard> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -285,6 +286,7 @@ class _TransferCardState extends State<TransferCard> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 20),
