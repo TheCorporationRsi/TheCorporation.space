@@ -24,35 +24,13 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
 
   final corpInformationClient = corpApi.getInformationApi();
 
-  bool _isLoading = true;
-
   int _currentPageSent = 0;
   int _currentPageReceived = 0;
   final int _itemsPerPage = 5;
 
-  @override
-  void initState() {
-    super.initState();
-    _initialize();
-  }
-
-  Future<void> _initialize() async {
-    await infAccount.update();
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        color: cardBackgroundColor,
-        child: CircularProgressIndicator(),
-      );
-    }
 
     return GridView(
       shrinkWrap: true,

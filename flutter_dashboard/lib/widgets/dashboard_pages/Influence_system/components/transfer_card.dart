@@ -24,21 +24,7 @@ class _TransferCardState extends State<TransferCard> {
   int? amount;
   String? message;
 
-  bool _isLoading = true;
 
-  @override
-  void initState() {
-    super.initState();
-    _initialize();
-  }
-
-  Future<void> _initialize() async {
-    await information.update();
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,23 +37,15 @@ class _TransferCardState extends State<TransferCard> {
       );
     }
 
-   void _showSuccessMessage(String message) {
-    setState(() {
-    });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Center(child: Text(message, style: TextStyle(color: Colors.white, fontSize: 16))),
-          backgroundColor: Colors.green,
-        ),
-      );
-    }
-
-    if (_isLoading) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        color: cardBackgroundColor,
-        child: CircularProgressIndicator(),
-      );
+    void _showSuccessMessage(String message) {
+      setState(() {
+      });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Center(child: Text(message, style: TextStyle(color: Colors.white, fontSize: 16))),
+            backgroundColor: Colors.green,
+          ),
+        );
     }
 
     return GridView(
