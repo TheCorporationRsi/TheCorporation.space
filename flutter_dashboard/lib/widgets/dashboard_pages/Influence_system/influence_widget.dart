@@ -22,7 +22,7 @@ class InfluenceWidget extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const InfluenceDetailsCard(),
+            const InfluenceDetailsCard(category: "Personnal", filter: "All", show_details: true),
             const SizedBox(height: 18),
             const LineChartCard(),
             const SizedBox(height: 18),

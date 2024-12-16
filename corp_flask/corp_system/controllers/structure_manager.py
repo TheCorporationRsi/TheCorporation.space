@@ -101,7 +101,7 @@ class StructureManager:
         return division
     
     @staticmethod
-    def update_division(division, new_title=None, new_motto=None, new_logo=None, new_security_level=None, new_description=None):
+    def update_division(division, new_title=None, new_motto=None, new_logo=None, new_security_level=None, new_description=None, new_restricted=None):
         if not division:
             return ValueError("Division not found")
     
@@ -119,6 +119,8 @@ class StructureManager:
             division.security_requirement = new_security_level
         if new_description:
             division.description = new_description
+        if new_restricted:
+            division.restricted = new_restricted
         
         db.session.commit()
     

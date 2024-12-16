@@ -8,7 +8,9 @@ import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
 
 class DepartmentSelectionCard extends StatelessWidget {
-  const DepartmentSelectionCard({super.key});
+  final ValueChanged<String?>? onChanged;
+
+  const DepartmentSelectionCard({super.key, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class DepartmentSelectionCard extends StatelessWidget {
                         ),
                       ),
                     ), 
-                    onChanged: (String? newValue) {},
+                    onChanged: onChanged,
                     items: [
                       DropdownMenuItem<String>(
                         value: "All",

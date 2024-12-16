@@ -82,6 +82,9 @@ def departments():
                                             logo:
                                                 type: string
                                                 example: disabled_by_default
+                                            restricted:
+                                                type: boolean
+                                                example: false
                                             leaders:
                                                 type: array
                                                 items:
@@ -115,6 +118,7 @@ def departments():
                 "motto": division.motto,
                 "description": division.description,
                 "logo": division.logo,
+                "restricted": division.restricted,
                 "leaders": [leader.RSI_handle for leader in division.leader_role.users],
                 "proxys": [proxy.RSI_handle for proxy in division.proxy_role.users],
                 } for division in department.divisions if division.hidden == False],

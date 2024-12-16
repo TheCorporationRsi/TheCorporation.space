@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/influence_details_card.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
 
-class InfPersonalStatsWidget extends StatefulWidget {
-  const InfPersonalStatsWidget({super.key});
+class InfGlobalStatsWidget extends StatefulWidget {
+  const InfGlobalStatsWidget({super.key});
 
   @override
-  _InfPersonalStatsWidgetState createState() => _InfPersonalStatsWidgetState();
+  _InfGlobalStatsWidgetState createState() => _InfGlobalStatsWidgetState();
 }
 
-class _InfPersonalStatsWidgetState extends State<InfPersonalStatsWidget> {
+class _InfGlobalStatsWidgetState extends State<InfGlobalStatsWidget> {
 
   String filter = "All";
 
@@ -34,7 +34,7 @@ class _InfPersonalStatsWidgetState extends State<InfPersonalStatsWidget> {
               filter = value!;
             })),
             const SizedBox(height: 18),
-            InfluenceDetailsCard(category: "Personnal", filter: filter, show_details: false),
+            InfluenceDetailsCard(category: "Global", filter: filter, show_details: false),
             const SizedBox(height: 18),
             const LineChartCard(),
             const SizedBox(height: 18),

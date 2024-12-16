@@ -1,7 +1,7 @@
 import 'package:flutter_dashboard/const/constant.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/components/pie_chart_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/components/scheduled_widget.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/lifetime_influence_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
@@ -250,59 +250,7 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 SizedBox(
                   height: 200,
-                  child: ValueListenableBuilder(
-                    valueListenable: infAccount.stats,
-                    builder: (context, value, child) => Stack(
-                      children: [
-                        PieChart(
-                          PieChartData(
-                            sectionsSpace: 0,
-                            centerSpaceRadius: 70,
-                            startDegreeOffset: -90,
-                            sections: [
-                              PieChartSectionData(
-                                color: backgroundColor,
-                                value: value.generalInfluence!.toDouble(),
-                                radius: 25,
-                                showTitle: false,
-                              ),
-                              for (var department in value.departments!)
-                                PieChartSectionData(
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
-                                      : Colors.grey,
-                                  value: department.influence!.toDouble(),
-                                  title: department.departmentTitle,
-                                  radius: 25,
-                                  showTitle: false,
-                                )
-                            ],
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: defaultPadding),
-                              Text(
-                                value.totalInfluence.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      height: 0.5,
-                                    ),
-                              ),
-                              const SizedBox(height: 8),
-                              const Text("Total")
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: InfluenceChartWidget(category: "Personnal", filter: "All")
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -314,61 +262,7 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 SizedBox(
                   height: 200,
-                  child: ValueListenableBuilder(
-                    valueListenable: current_user.departments,
-                    builder: (context, value, child) => Stack(
-                      children: [
-                        PieChart(
-                          PieChartData(
-                            sectionsSpace: 0,
-                            centerSpaceRadius: 70,
-                            startDegreeOffset: -90,
-                            sections: [
-                              if (value.isEmpty)
-                                PieChartSectionData(
-                                  color: backgroundColor,
-                                  value: 1,
-                                  radius: 25,
-                                  showTitle: false,
-                                )
-                              else
-                                for (var department in value)
-                                  PieChartSectionData(
-                                    color: department.color != null
-                                        ? cssColorToColor(department.color!)
-                                        : Colors.grey,
-                                    value: department.weight!.toDouble(),
-                                    title: department.title,
-                                    radius: 25,
-                                    showTitle: false,
-                                  )
-                            ],
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: defaultPadding),
-                              Text(
-                                "100",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      height: 0.5,
-                                    ),
-                              ),
-                              const SizedBox(height: 8),
-                              const Text("%")
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: WeightsChartWidget(category: "Personnal", filter: "All")
                 ),
                 SizedBox(height: 10),
                 Text(
@@ -380,60 +274,7 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 SizedBox(
                   height: 200,
-                  child: ValueListenableBuilder(
-                    valueListenable: infAccount.stats,
-                    builder: (context, value, child) => Stack(
-                      children: [
-                        PieChart(
-                          PieChartData(
-                            sectionsSpace: 0,
-                            centerSpaceRadius: 70,
-                            startDegreeOffset: -90,
-                            sections: [
-                              PieChartSectionData(
-                                color: backgroundColor,
-                                value: value.lifetimeGeneralInfluence!.toDouble(),
-                                radius: 25,
-                                showTitle: false,
-                              ),
-                              for (var department in value.departments!)
-                                PieChartSectionData(
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
-                                      : Colors.grey,
-                                  value:
-                                      department.lifetimeInfluence!.toDouble(),
-                                  title: department.departmentTitle,
-                                  radius: 25,
-                                  showTitle: false,
-                                )
-                            ],
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const SizedBox(height: defaultPadding),
-                              Text(
-                                value.totalLifetimeInfluence.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineMedium!
-                                    .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      height: 0.5,
-                                    ),
-                              ),
-                              const SizedBox(height: 8),
-                              const Text("Total")
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: LifetimeInfluenceChartWidget(category: "Personnal",filter: "All")
                 ),
                 SizedBox(height: 10),
                 Text(

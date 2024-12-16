@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
 import 'package:auto_size_text/auto_size_text.dart';
+
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/lifetime_influence_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/tribute_chart_widget.dart';
 class InfluenceDetailsCard extends StatelessWidget {
-  const InfluenceDetailsCard({super.key});
+  final String filter;
+  final String category;
+  final bool show_details;
+  const InfluenceDetailsCard({super.key, required this.category, required this.filter, required this.show_details});
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +50,7 @@ class InfluenceDetailsCard extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
-                  child: Text(
-                    value.tribute.toString(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: secondaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: TributeChartWidget(category: category, filter: filter)
                 ),
               ),
               Align(
@@ -64,6 +64,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                   ),
                 ),
               ),
+              if (show_details)
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(
@@ -107,14 +108,7 @@ class InfluenceDetailsCard extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
-                  child: Text(
-                    value.influence.toString(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: secondaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: InfluenceChartWidget(category: category, filter: filter)
                 ),
               ),
               Align(
@@ -128,6 +122,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                   ),
                 ),
               ),
+              if (show_details)
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(
@@ -171,14 +166,7 @@ class InfluenceDetailsCard extends StatelessWidget {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
-                  child: Text(
-                    value.lifetimeInfluence.toString(),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: secondaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: LifetimeInfluenceChartWidget(category: category, filter: filter)
                 ),
               ),
               Align(
@@ -192,6 +180,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                   ),
                 ),
               ),
+              if (show_details)
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(
@@ -258,6 +247,7 @@ class InfluenceDetailsCard extends StatelessWidget {
                   ),
                 ),
               ),
+              if (show_details)
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(

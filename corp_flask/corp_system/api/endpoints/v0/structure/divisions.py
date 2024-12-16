@@ -47,6 +47,9 @@ def divisions():
                                 motto:
                                     type: string
                                     example: We love building stuff
+                                restricted:
+                                    type: boolean
+                                    example: false
                                 description:
                                     type: string
                                     example: This is the development division
@@ -80,6 +83,7 @@ def divisions():
             "color": division.color,
             "logo": division.logo,
             "department_title": division.department.title,
+            "restricted": division.restricted,
             "motto": division.motto,
             "description": division.description,
             "leaders": [leader.RSI_handle for leader in division.leader_role.users],
@@ -186,6 +190,9 @@ def update_division():
                         security_level:
                             type: integer
                             example: 2
+                        restricted:
+                            type: boolean
+                            example: false
     responses:
         200:
             description: Division modified
@@ -211,6 +218,7 @@ def update_division():
     new_logo = data.get('logo')
     new_security_level = data.get('security_level')
     new_description = data.get('description')
+    new_restricted = data.get('restricted')
     
     if not division_title:
         return jsonify({"msg": "Division title is required"}), 400
@@ -218,7 +226,7 @@ def update_division():
     division: Division = Division.query.filter_by(title=division_title).first()
     
     try:
-        StructureManager.update_division(division=division, new_title=new_title, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level, new_description=new_description)
+        StructureManager.update_division(division=division, new_title=new_title, new_motto=new_motto, new_logo=new_logo, new_security_level=new_security_level, new_description=new_description, new_restricted=new_restricted)
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     

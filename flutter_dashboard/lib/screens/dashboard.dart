@@ -207,7 +207,8 @@ class _MainScreenState extends State<MainScreen>
                           ),
                           title: Padding(
                             padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child: Text('Dashboard'),
+                            child: Text(menu[selectedIndex.value.$1].subMenu?[selectedIndex.value.$2]?.title ?? menu[selectedIndex.value.$1].title,
+                            ),
                           ),
                           actions: [
                             if (!isDesktop)
