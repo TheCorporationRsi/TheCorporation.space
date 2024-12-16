@@ -1,74 +1,28 @@
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dashboard/model/menu_model.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
+import 'package:flutter_dashboard/model/dashboard_pages.dart';
 
 
 class SideMenuWidget extends StatefulWidget {
-  final Function(int, {int? subIndex}) onMenuItemSelected;
-  const SideMenuWidget({super.key, required this.onMenuItemSelected});
+  const SideMenuWidget({super.key});
 
   @override
   State<SideMenuWidget> createState() => _SideMenuWidgetState();
 }
 
 
-final menu = <MenuModel>[
-  MenuModel(
-    icon: Icons.home,
-    title: 'Home',
-    subMenu: [
-      MenuModel(icon: Icons.flag, title: 'Welcome'),
-      MenuModel(icon: Icons.schema, title: 'Structure'),
-      
-    ],
-  ),
-  if (current_user.status.value.cORPMember!)
-  MenuModel(
-    icon: Icons.person,
-    title: 'Influence System',
-    subMenu: [
-      MenuModel(icon: Icons.dashboard, title: 'Status'),
-      MenuModel(icon: Icons.send, title: 'Transfer'),
-      MenuModel(icon: Icons.military_tech, title: 'Personnal Stats'),
-      MenuModel(icon: Icons.query_stats, title: 'Global Stats'),
-    ],
-  ),
-  if (current_user.status.value.isAdmin!)
-  MenuModel(
-    icon: Icons.person,
-    title: 'Admin',
-    subMenu: [
-      MenuModel(icon: Icons.account_circle, title: 'Users'),
-      MenuModel(icon: Icons.business, title: 'Departments'),
-      MenuModel(icon: Icons.groups, title: 'Divisions'),
-      MenuModel(icon: Icons.assignment_ind, title: 'Roles'),
-    ],
-  ),
-  MenuModel(icon: Icons.history, title: 'Stats'),
-  MenuModel(
-    icon: Icons.person,
-    title: 'Settings',
-    subMenu: [
-      MenuModel(icon: Icons.manage_accounts, title: 'Profile'),
-      MenuModel(icon: Icons.security, title: 'Security'),
-    ],
-  ),
-  MenuModel(icon: Icons.logout, title: 'SignOut'),
-];
 
 class _SideMenuWidgetState extends State<SideMenuWidget> {
-  int selectedIndex = 0;
-  int? selectedSubIndex = 0;
   int? hoveredIndex;
   int? hoveredSubIndex;
-
-  bool _isLoading = true;
 
   @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return  ValueListenableBuilder(
+        valueListenable: selectedIndex,
+        builder: (context, value, child) =>Container(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       color: cardBackgroundColor,
       child: Column(
@@ -97,11 +51,11 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
           ),
         ],
       ),
-    );
+    ));
   }
 
   Widget buildMenuEntry(int index) {
-    final isSelected = selectedIndex == index;
+    final isSelected = selectedIndex.value.$1 == index;
     final isHovered = hoveredIndex == index;
     final menuItem = menu[index];
 
@@ -117,16 +71,13 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                 current_user.logout();
               }
               setState(() {
-                selectedIndex = index;
-                selectedSubIndex = null;
+                selectedIndex.value = (index, 0);
               });
               if (menuItem.subMenu != null && menuItem.subMenu!.isNotEmpty) {
                 setState(() {
-                  selectedSubIndex = 0;
+                  selectedIndex.value = (index, 0);
                 });
-                widget.onMenuItemSelected(index, subIndex: 0);
               } else {
-                widget.onMenuItemSelected(index);
               }
             },
             child: Container(
@@ -165,7 +116,7 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                     child: Column(
                       children: menuItem.subMenu!.map((subMenu) {
                         final subIndex = menuItem.subMenu!.indexOf(subMenu);
-                        final isSubSelected = selectedSubIndex == subIndex;
+                        final isSubSelected = selectedIndex.value.$2 == subIndex;
                         final isSubHovered = hoveredSubIndex == subIndex;
 
                         return MouseRegion(
@@ -175,10 +126,8 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                selectedSubIndex = subIndex;
+                                selectedIndex.value = (index, subIndex);
                               });
-                              widget.onMenuItemSelected(index,
-                                  subIndex: subIndex);
                             },
                             child: Container(
                               margin: const EdgeInsets.symmetric(vertical: 5),

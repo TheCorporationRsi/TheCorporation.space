@@ -78,7 +78,7 @@ class _TransferCardState extends State<TransferCard> {
                     if (textEditingValue.text.isEmpty) {
                       return const Iterable<String>.empty();
                     }
-                    return information.corporateers
+                    return infAccount.corporateers.value
                         .where((GetCorporateers200ResponseInner user) {
                       return user.rSIHandle!
                           .toLowerCase()
@@ -97,7 +97,7 @@ class _TransferCardState extends State<TransferCard> {
                       controller: fieldTextEditingController,
                       focusNode: fieldFocusNode,
                       onChanged: (value) {
-                        for (var user in information.corporateers) {
+                        for (var user in infAccount.corporateers.value) {
                           if (user.rSIHandle!.toLowerCase() ==
                               value.toLowerCase()) {
                             setState(() {
@@ -160,7 +160,7 @@ class _TransferCardState extends State<TransferCard> {
                             return GestureDetector(
                               onTap: () {
                                 onSelected(option);
-                                for (var user in information.corporateers) {
+                                for (var user in infAccount.corporateers.value) {
                                   if (user.rSIHandle!.toLowerCase() ==
                                       option.toLowerCase()) {
                                     setState(() {

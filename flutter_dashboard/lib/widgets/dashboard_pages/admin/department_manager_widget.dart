@@ -9,6 +9,8 @@ import 'package:flutter_dashboard/main.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
+import 'package:flutter_dashboard/model/information.dart' as information;
+
 
 class DepartmentManagerWidget extends StatefulWidget {
   const DepartmentManagerWidget({super.key});
@@ -19,37 +21,19 @@ class DepartmentManagerWidget extends StatefulWidget {
 }
 
 class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
-  BuiltList<GetDepartments200ResponseInner> departments =
-      BuiltList<GetDepartments200ResponseInner>();
   BuiltList<GetDepartments200ResponseInner> filteredItems =
-      BuiltList<GetDepartments200ResponseInner>();
+      information.departments.value;
   Map<int, bool> _dropdownOpen = {};
   Map<int, GlobalKey<FormState>> _formKeys = {};
 
-  bool _isLoading = true;
   final corpStructureClient = corpApi.getStructureApi();
   final corpAdminClient = corpApi.getAdminApi();
   String _searchQuery = '';
   String _filter = 'All';
 
-  Future<void> _initialize() async {
-    try {
-      final response = await corpStructureClient.getDepartments();
-      if (response.data != null) {
-        departments = response.data ?? departments;
-        _applySearchAndFilter();
-      }
-    } catch (error) {
-      print(error);
-    }
-    setState(() {
-      _isLoading = false;
-    });
-  }
-
   void _applySearchAndFilter() {
     setState(() {
-      filteredItems = departments.where((department) {
+      filteredItems = information.departments.value.where((department) {
         final matchesSearch = department.title
             .toString()
             .toLowerCase()
@@ -62,35 +46,25 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   @override
   void initState() {
     super.initState();
-    _initialize();
-    for (int i = 0; i < departments.length; i++) {
-      _formKeys[i] = GlobalKey<FormState>();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        color: cardBackgroundColor,
-        child: CircularProgressIndicator(),
-      );
-    }
-
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            _buildFilterAndSearchSection(),
-            SizedBox(height: 10),
-            _buildUserList(),
-          ],
-        ),
-      ),
-    );
+    return ValueListenableBuilder(
+        valueListenable: information.departments,
+        builder: (context, value, child) => SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    _buildFilterAndSearchSection(),
+                    SizedBox(height: 10),
+                    _buildDepartmentList(),
+                  ],
+                ),
+              ),
+            ));
   }
 
   Widget _buildFilterAndSearchSection() {
@@ -121,11 +95,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
         SizedBox(width: 10),
         IconButton(
           icon: Icon(Icons.refresh),
-          onPressed: () {
-            setState(() {
-              _isLoading = true;
-            });
-            _initialize();
+          onPressed: () async {
+            await information.update();
           },
         ),
       ],
@@ -213,10 +184,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           headers: headers, createDepartmentRequest: createDepartmentRequest);
 
       if (response.data!.msg == "Department created") {
-        setState(() {
-          _isLoading = true;
-        });
-        _initialize();
+        await information.update();
       }
 
       _applySearchAndFilter();
@@ -229,7 +197,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     });
   }
 
-  Widget _buildUserList() {
+  Widget _buildDepartmentList() {
     if (filteredItems.isEmpty) {
       return Center(
         child: Text(
@@ -244,14 +212,14 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
       itemCount: filteredItems.length,
       itemBuilder: (context, index) {
         final department = filteredItems[index];
-        return _buildDepartmentItem(department);
+        return _buildDepartmentItem(department, index);
       },
     );
   }
 
-  Widget _buildDepartmentItem(GetDepartments200ResponseInner department) {
-    int departmentIndex = departments.indexOf(department);
-    _dropdownOpen.putIfAbsent(departmentIndex, () => false);
+  Widget _buildDepartmentItem(
+      GetDepartments200ResponseInner department, int index) {
+    _dropdownOpen.putIfAbsent(index, () => false);
     return Card(
       color: cardBackgroundColor,
       child: Column(
@@ -280,21 +248,19 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                   },
                 ),
                 IconButton(
-                  icon: Icon(_dropdownOpen[departmentIndex] == true
+                  icon: Icon(_dropdownOpen[index] == true
                       ? Icons.arrow_drop_up
                       : Icons.more_vert),
                   onPressed: () {
                     setState(() {
-                      _dropdownOpen[departmentIndex] =
-                          !_dropdownOpen[departmentIndex]!;
+                      _dropdownOpen[index] = !_dropdownOpen[index]!;
                     });
                   },
                 ),
               ],
             ),
           ),
-          if (_dropdownOpen[departmentIndex] == true)
-            _buildDropdownContent(department),
+          if (_dropdownOpen[index] == true) _buildDropdownContent(department),
         ],
       ),
     );
@@ -387,10 +353,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           headers: headers, deleteDepartmentRequest: deleteDepartmentRequest);
 
       if (response.data!.msg == "Department deleted") {
-        setState(() {
-          departments = departments.rebuild((b) => b.remove(department));
-          _applySearchAndFilter();
-        });
+        await information.update();
+        _applySearchAndFilter();
       }
     } catch (error) {
       print(error);
@@ -425,9 +389,11 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             ),
           ),
           SizedBox(height: 10),
-          IconInputWidget(initialIcon: logo, onIconChanged: (newLogo) {
-            logo = newLogo;
-          }),
+          IconInputWidget(
+              initialIcon: logo,
+              onIconChanged: (newLogo) {
+                logo = newLogo;
+              }),
           SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: motto),
@@ -466,7 +432,8 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDepartment(department, currentColor, title, motto, logo, description);
+                _updateDepartment(
+                    department, currentColor, title, motto, logo, description);
               },
               child: Text('Save'),
             ),
@@ -487,18 +454,14 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
           ..newTitle = title
           ..motto = motto
           ..logo = logo
-          ..description = description
-          );
+          ..description = description);
 
     try {
       final response = await corpAdminClient.updateDepartment(
           headers: headers, updateDepartmentRequest: updateDepartmentRequest);
 
       if (response.data!.msg == "Department updated") {
-        setState(() {
-          _isLoading = true;
-        });
-        _initialize();
+        await information.update();
       }
 
       _applySearchAndFilter();

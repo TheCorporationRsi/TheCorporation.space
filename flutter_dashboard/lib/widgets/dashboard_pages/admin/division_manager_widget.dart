@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/main.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
+
+import 'package:flutter_dashboard/model/information.dart' as information;
 
 class DivisionManagerWidget extends StatefulWidget {
   const DivisionManagerWidget({super.key});
@@ -19,50 +20,23 @@ class DivisionManagerWidget extends StatefulWidget {
 }
 
 class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
-  BuiltList<GetDivisions200ResponseInner> divisions =
-      BuiltList<GetDivisions200ResponseInner>();
-  BuiltList<GetDepartments200ResponseInner> departments =
-      BuiltList<GetDepartments200ResponseInner>();
+
   BuiltList<GetDivisions200ResponseInner> filteredItems =
-      BuiltList<GetDivisions200ResponseInner>();
+      information.divisions.value;
   Map<int, bool> _dropdownOpen = {};
   Map<int, GlobalKey<FormState>> _formKeys = {};
 
-  bool _isLoading = true;
   final corpStructureClient = corpApi.getStructureApi();
   final corpAdminClient = corpApi.getAdminApi();
   String _searchQuery = '';
   String _filter = 'All';
   String _selectedDepartmentFilter = 'All';
 
-  Future<void> _initialize() async {
-    try {
-      final response = await corpStructureClient.getDivisions();
-      if (response.data != null) {
-        divisions = response.data ?? divisions;
-        _applySearchAndFilter();
-      }
-    } catch (error) {
-      print(error);
-    }
 
-    try {
-      final response = await corpStructureClient.getDepartments();
-      if (response.data != null) {
-        departments = response.data ?? departments;
-      }
-    } catch (error) {
-      print(error);
-    }
-
-    setState(() {
-      _isLoading = false;
-    });
-  }
 
   void _applySearchAndFilter() {
     setState(() {
-      filteredItems = divisions.where((division) {
+      filteredItems = information.divisions.value.where((division) {
         final matchesSearch = division.title
             .toString()
             .toLowerCase()
@@ -77,23 +51,15 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
   @override
   void initState() {
     super.initState();
-    _initialize();
-    for (int i = 0; i < divisions.length; i++) {
-      _formKeys[i] = GlobalKey<FormState>();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        color: cardBackgroundColor,
-        child: CircularProgressIndicator(),
-      );
-    }
 
-    return SingleChildScrollView(
+
+    return ValueListenableBuilder(
+        valueListenable: information.divisions,
+        builder: (context, value, child) => SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
@@ -105,7 +71,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           ],
         ),
       ),
-    );
+    ));
   }
 
   Widget _buildFilterAndSearchSection() {
@@ -129,7 +95,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
         SizedBox(width: 10),
         DropdownButton<String>(
           value: _selectedDepartmentFilter,
-          items: ['All', ...departments.map((d) => d.title!).toList()]
+          items: ['All', ...information.departments.value.map((d) => d.title!).toList()]
               .map((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -153,11 +119,8 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
         SizedBox(width: 10),
         IconButton(
           icon: Icon(Icons.refresh),
-          onPressed: () {
-            setState(() {
-              _isLoading = true;
-            });
-            _initialize();
+          onPressed: () async {
+            await information.update();
           },
         ),
       ],
@@ -193,7 +156,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 value: selectedDepartment.isEmpty ? null : selectedDepartment,
-                items: departments.map((department) {
+                items: information.departments.value.map((department) {
                   return DropdownMenuItem<String>(
                     value: department.title,
                     child: Text(department.title!),
@@ -272,10 +235,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           headers: headers, createDivisionRequest: createDivisionRequest);
 
       if (response.data!.msg == "Division created") {
-        setState(() {
-          _isLoading = true;
-        });
-        _initialize();
+        information.update();
       }
 
       _applySearchAndFilter();
@@ -299,14 +259,13 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
       itemCount: filteredItems.length,
       itemBuilder: (context, index) {
         final division = filteredItems[index];
-        return _buildDivisionItem(division);
+        return _buildDivisionItem(division, index);
       },
     );
   }
 
-  Widget _buildDivisionItem(GetDivisions200ResponseInner division) {
-    int divisionIndex = divisions.indexOf(division);
-    _dropdownOpen.putIfAbsent(divisionIndex, () => false);
+  Widget _buildDivisionItem(GetDivisions200ResponseInner division, int index) {
+    _dropdownOpen.putIfAbsent(index, () => false);
     return Card(
       color: cardBackgroundColor,
       child: Column(
@@ -335,20 +294,20 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
                   },
                 ),
                 IconButton(
-                  icon: Icon(_dropdownOpen[divisionIndex] == true
+                  icon: Icon(_dropdownOpen[index] == true
                       ? Icons.arrow_drop_up
                       : Icons.more_vert),
                   onPressed: () {
                     setState(() {
-                      _dropdownOpen[divisionIndex] =
-                          !_dropdownOpen[divisionIndex]!;
+                      _dropdownOpen[index] =
+                          !_dropdownOpen[index]!;
                     });
                   },
                 ),
               ],
             ),
           ),
-          if (_dropdownOpen[divisionIndex] == true)
+          if (_dropdownOpen[index] == true)
             _buildDropdownContent(division),
         ],
       ),
@@ -442,10 +401,8 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           headers: headers, deleteDivisionRequest: deleteDivisionRequest);
 
       if (response.data!.msg == "Division deleted") {
-        setState(() {
-          divisions = divisions.rebuild((b) => b.remove(division));
-          _applySearchAndFilter();
-        });
+        await information.update();
+        _applySearchAndFilter();
       }
     } catch (error) {
       print(error);
@@ -456,7 +413,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     Color currentColor = division.color != null
         ? cssColorToColor(division.color!)
         : Colors.grey;
-    int divisionIndex = divisions.indexOf(division);
+    int divisionIndex = information.divisions.value.indexOf(division);
     String title = division.title ?? '';
     String motto = division.motto ?? '';
     String description = division.description ?? '';
@@ -544,10 +501,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           headers: headers, updateDivisionRequest: updateDivisionRequest);
 
       if (response.data!.msg == "Division updated") {
-        setState(() {
-          _isLoading = true;
-        });
-        _initialize();
+        await information.update();
       }
 
       _applySearchAndFilter();

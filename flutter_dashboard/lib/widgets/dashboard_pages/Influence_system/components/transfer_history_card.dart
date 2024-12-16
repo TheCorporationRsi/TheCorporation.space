@@ -34,7 +34,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
 
     return GridView(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: Responsive.isMobile(context) ? 1 : 2,
           crossAxisSpacing: Responsive.isMobile(context) ? 12 : 15,
@@ -63,6 +63,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                                 child: Text('No tributes sent'),
                               )
                             : ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
                                 itemCount: value.length,
                                 itemBuilder: (context, index) {
                                   return Container(
@@ -71,12 +72,15 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                                     margin:
                                         const EdgeInsets.symmetric(vertical: 5),
                                     decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
+                                      border: Border.all(color: Colors.white),
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: ListTile(
                                       title: Text(
-                                          'Tribute to ${value[index].receiver}'),
+                                          'Tribute to ${value[index].receiver}',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                       subtitle: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -84,14 +88,23 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                                           Row(
                                             children: [
                                               Text(
-                                                  'Amount: ${value[index].amount}'),
+                                                  'Amount: ${value[index].amount}',
+                                                  style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                               SizedBox(width: 20),
                                               Text(
-                                                  'Method: ${value[index].method}'),
+                                                  'Method: ${value[index].method}',
+                                                  style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                             ],
                                           ),
                                           Text(
-                                              'Message:\n${value[index].message}'),
+                                              'Message:\n${value[index].message}',
+                                              style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                         ],
                                       ),
                                     ),
@@ -152,6 +165,7 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                                 child: Text('No tributes received'),
                               )
                             : ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
                                 itemCount:
                                     value.length,
                                 itemBuilder: (context, index) {
@@ -166,7 +180,10 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                                     ),
                                     child: ListTile(
                                       title: Text(
-                                          'Tribute from User ${value[index].amount}'),
+                                          'Tribute from User ${value[index].amount}',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                       subtitle: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -174,14 +191,23 @@ class _TransferHistoryCardState extends State<TransferHistoryCard> {
                                           Row(
                                             children: [
                                               Text(
-                                                  'Amount: ${value[index].amount}'),
+                                                  'Amount: ${value[index].amount}',
+                                                  style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                               SizedBox(width: 20),
                                               Text(
-                                                  'Method: ${value[index].method}'),
+                                                  'Method: ${value[index].method}',
+                                                  style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                             ],
                                           ),
                                           Text(
-                                              'Message:\n${value[index].message}'),
+                                              'Message:\n${value[index].message}',
+                                              style: TextStyle(
+                                            color: Colors.white,
+                                          )),
                                         ],
                                       ),
                                     ),

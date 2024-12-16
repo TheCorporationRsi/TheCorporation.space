@@ -2,32 +2,65 @@ import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dashboard/model/current_user.dart' as current_user;
-import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
 import 'package:auto_size_text/auto_size_text.dart';
+
+import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
+
 class DepartmentSelectionCard extends StatelessWidget {
   const DepartmentSelectionCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
-    return ValueListenableBuilder(
-      valueListenable: infAccount.profile,
-      builder: (context, value, child) => 
-
-      DropdownButton<String>(
-        value: "HR",
-        onChanged: (String? newValue) {
-          infAccount.profile.value = infAccount.profile.value.copyWith(department: newValue);
-        },
-        items: <String>['HR', 'Engineering', 'Marketing', 'Sales']
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      )
+    return SizedBox(
+      width: double.infinity,
+      child: CustomCard(
+        padding: const EdgeInsets.all(20.0),
+        child: ValueListenableBuilder(
+            valueListenable: infAccount.stats,
+            builder: (context, value, child) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                  
+                  DropdownButtonFormField<String>(
+                    isExpanded: false,
+                    value: "All",
+                    decoration: InputDecoration(
+                      labelText: "Department",
+                      labelStyle: const TextStyle(
+                        color: secondaryColor,
+                      ),
+                      border: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: primaryColor,
+                        ),
+                      ),
+                    ), 
+                    onChanged: (String? newValue) {},
+                    items: [
+                      DropdownMenuItem<String>(
+                        value: "All",
+                        child: Text("All"),
+                      ),
+                      ...value.departments!
+                          .map<DropdownMenuItem<String>>((value) {
+                        return DropdownMenuItem<String>(
+                          value: value.departmentTitle,
+                          onTap: () {
+                            print("Tapped");
+                          },
+                          child: Text(
+                            value.departmentTitle!,
+                            style:
+                                TextStyle(color: cssColorToColor(value.color!)),
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                ])),
+      ),
     );
   }
 }
