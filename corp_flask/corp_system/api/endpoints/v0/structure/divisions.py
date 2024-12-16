@@ -288,3 +288,135 @@ def delete_division():
     division.delete()
     
     return jsonify({"msg": "Division deleted"}), 200
+
+
+@api.route('/structure/divisions/join', methods=['POST'])
+@CORP_only
+def join_division():
+    """Joining divisions
+    
+    Allow member to join a division
+    ---
+    
+    operationId: join_division
+    tags:
+        - Structure
+    security: []
+    requestBody:
+        description: Division title
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [division_title]
+                    properties:
+                        division_title:
+                            type: string
+                            example: Development
+    responses:
+        200:
+            description: Division deleted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Division joined
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+                        
+    """
+    
+    data = request.get_json()
+    division_title = data.get('division_title')
+    
+    if not division_title:
+        return jsonify({"msg": "Division title is required"}), 400
+    
+    division : Division = Division.query.filter_by(title=division_title).first()
+    
+    if not division:
+        return jsonify({"error": "Division not found"}), 400
+    
+    if division.restricted:
+        return jsonify({"error": "Division access is restricted"}), 400
+    
+    if division.security_requirement > current_user.security_level:
+        return jsonify({"error": "User security level is too low"}), 400
+    
+    try:
+        current_user.add_role(division.member_role)
+        current_user.update()
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
+    
+    
+    
+    return jsonify({"msg": "Division joined"}), 200
+
+
+@api.route('/structure/divisions/leave', methods=['POST'])
+@CORP_only
+def leave_division():
+    """Leaving divisions
+    
+    Allow member to leave a division
+    ---
+    
+    operationId: leave_division
+    tags:
+        - Structure
+    security: []
+    requestBody:
+        description: Division title
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [division_title]
+                    properties:
+                        division_title:
+                            type: string
+                            example: Development
+    responses:
+        200:
+            description: Division deleted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Division joined
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+                        
+    """
+    
+    data = request.get_json()
+    division_title = data.get('division_title')
+    
+    if not division_title:
+        return jsonify({"msg": "Division title is required"}), 400
+    
+    division : Division = Division.query.filter_by(title=division_title).first()
+    
+    if not division:
+        return jsonify({"error": "Division not found"}), 400
+    
+    try:
+        current_user.remove_role(division.member_role)
+        current_user.update()
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
+    
+    
+    
+    return jsonify({"msg": "Division left"}), 200
