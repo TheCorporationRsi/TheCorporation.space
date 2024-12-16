@@ -1,4 +1,4 @@
-# corp_api.model.UpdateDivisionRequest
+# corp_api.model.JoinDivision200Response
 
 ## Load the model package
 ```dart
@@ -8,13 +8,7 @@ import 'package:corp_api/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**divisionTitle** | **String** |  | 
-**description** | **String** |  | [optional] 
-**logo** | **String** |  | [optional] 
-**motto** | **String** |  | [optional] 
-**newTitle** | **String** |  | [optional] 
-**restricted** | **bool** |  | [optional] 
-**securityLevel** | **int** |  | [optional] 
+**msg** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

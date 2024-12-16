@@ -18,6 +18,8 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
   @override
   final String? newTitle;
   @override
+  final bool? restricted;
+  @override
   final int? securityLevel;
 
   factory _$UpdateDivisionRequest(
@@ -30,6 +32,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
       this.logo,
       this.motto,
       this.newTitle,
+      this.restricted,
       this.securityLevel})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -54,6 +57,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
         logo == other.logo &&
         motto == other.motto &&
         newTitle == other.newTitle &&
+        restricted == other.restricted &&
         securityLevel == other.securityLevel;
   }
 
@@ -65,6 +69,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
     _$hash = $jc(_$hash, logo.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, newTitle.hashCode);
+    _$hash = $jc(_$hash, restricted.hashCode);
     _$hash = $jc(_$hash, securityLevel.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -78,6 +83,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
           ..add('logo', logo)
           ..add('motto', motto)
           ..add('newTitle', newTitle)
+          ..add('restricted', restricted)
           ..add('securityLevel', securityLevel))
         .toString();
   }
@@ -108,6 +114,10 @@ class UpdateDivisionRequestBuilder
   String? get newTitle => _$this._newTitle;
   set newTitle(String? newTitle) => _$this._newTitle = newTitle;
 
+  bool? _restricted;
+  bool? get restricted => _$this._restricted;
+  set restricted(bool? restricted) => _$this._restricted = restricted;
+
   int? _securityLevel;
   int? get securityLevel => _$this._securityLevel;
   set securityLevel(int? securityLevel) =>
@@ -125,6 +135,7 @@ class UpdateDivisionRequestBuilder
       _logo = $v.logo;
       _motto = $v.motto;
       _newTitle = $v.newTitle;
+      _restricted = $v.restricted;
       _securityLevel = $v.securityLevel;
       _$v = null;
     }
@@ -154,6 +165,7 @@ class UpdateDivisionRequestBuilder
             logo: logo,
             motto: motto,
             newTitle: newTitle,
+            restricted: restricted,
             securityLevel: securityLevel);
     replace(_$result);
     return _$result;

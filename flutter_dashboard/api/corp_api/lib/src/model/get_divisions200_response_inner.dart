@@ -20,6 +20,7 @@ part 'get_divisions200_response_inner.g.dart';
 /// * [memberCount]
 /// * [motto]
 /// * [proxys]
+/// * [restricted]
 /// * [title]
 @BuiltValue()
 abstract class GetDivisions200ResponseInner
@@ -49,6 +50,9 @@ abstract class GetDivisions200ResponseInner
 
   @BuiltValueField(wireName: r'proxys')
   BuiltList<String>? get proxys;
+
+  @BuiltValueField(wireName: r'restricted')
+  bool? get restricted;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -139,6 +143,13 @@ class _$GetDivisions200ResponseInnerSerializer
         specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
+    if (object.restricted != null) {
+      yield r'restricted';
+      yield serializers.serialize(
+        object.restricted,
+        specifiedType: const FullType(bool),
+      );
+    }
     if (object.title != null) {
       yield r'title';
       yield serializers.serialize(
@@ -226,6 +237,13 @@ class _$GetDivisions200ResponseInnerSerializer
             specifiedType: const FullType(BuiltList, [FullType(String)]),
           ) as BuiltList<String>;
           result.proxys.replace(valueDes);
+          break;
+        case r'restricted':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.restricted = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(

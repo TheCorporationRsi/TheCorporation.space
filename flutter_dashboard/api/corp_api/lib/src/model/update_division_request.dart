@@ -16,6 +16,7 @@ part 'update_division_request.g.dart';
 /// * [logo]
 /// * [motto]
 /// * [newTitle]
+/// * [restricted]
 /// * [securityLevel]
 @BuiltValue()
 abstract class UpdateDivisionRequest
@@ -34,6 +35,9 @@ abstract class UpdateDivisionRequest
 
   @BuiltValueField(wireName: r'new_title')
   String? get newTitle;
+
+  @BuiltValueField(wireName: r'restricted')
+  bool? get restricted;
 
   @BuiltValueField(wireName: r'security_level')
   int? get securityLevel;
@@ -98,6 +102,13 @@ class _$UpdateDivisionRequestSerializer
       yield serializers.serialize(
         object.newTitle,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.restricted != null) {
+      yield r'restricted';
+      yield serializers.serialize(
+        object.restricted,
+        specifiedType: const FullType(bool),
       );
     }
     if (object.securityLevel != null) {
@@ -166,6 +177,13 @@ class _$UpdateDivisionRequestSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.newTitle = valueDes;
+          break;
+        case r'restricted':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.restricted = valueDes;
           break;
         case r'security_level':
           final valueDes = serializers.deserialize(

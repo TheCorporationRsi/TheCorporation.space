@@ -52,6 +52,7 @@ import 'package:corp_api/src/model/get_user_influence_stats200_response_departme
 import 'package:corp_api/src/model/get_user_profile200_response.dart';
 import 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 import 'package:corp_api/src/model/get_users200_response_inner.dart';
+import 'package:corp_api/src/model/join_division200_response.dart';
 import 'package:corp_api/src/model/login200_response.dart';
 import 'package:corp_api/src/model/login_request.dart';
 import 'package:corp_api/src/model/manualy_verify_user200_response.dart';
@@ -110,6 +111,7 @@ part 'serializers.g.dart';
   GetUserProfile200Response,
   GetUserRoles200ResponseInner,
   GetUsers200ResponseInner,
+  JoinDivision200Response,
   Login200Response,
   LoginRequest,
   ManualyVerifyUser200Response,

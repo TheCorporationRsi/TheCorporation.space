@@ -17,6 +17,7 @@ part 'get_departments200_response_inner_divisions_inner.g.dart';
 /// * [logo]
 /// * [motto]
 /// * [proxys]
+/// * [restricted]
 /// * [title]
 @BuiltValue()
 abstract class GetDepartments200ResponseInnerDivisionsInner
@@ -37,6 +38,9 @@ abstract class GetDepartments200ResponseInnerDivisionsInner
 
   @BuiltValueField(wireName: r'proxys')
   BuiltList<String>? get proxys;
+
+  @BuiltValueField(wireName: r'restricted')
+  bool? get restricted;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -111,6 +115,13 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
         specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
+    if (object.restricted != null) {
+      yield r'restricted';
+      yield serializers.serialize(
+        object.restricted,
+        specifiedType: const FullType(bool),
+      );
+    }
     if (object.title != null) {
       yield r'title';
       yield serializers.serialize(
@@ -177,6 +188,13 @@ class _$GetDepartments200ResponseInnerDivisionsInnerSerializer
             specifiedType: const FullType(BuiltList, [FullType(String)]),
           ) as BuiltList<String>;
           result.proxys.replace(valueDes);
+          break;
+        case r'restricted':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.restricted = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(

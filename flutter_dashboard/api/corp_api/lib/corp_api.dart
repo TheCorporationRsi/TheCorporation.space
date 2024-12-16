@@ -55,6 +55,7 @@ export 'package:corp_api/src/model/get_user_influence_stats200_response_departme
 export 'package:corp_api/src/model/get_user_profile200_response.dart';
 export 'package:corp_api/src/model/get_user_roles200_response_inner.dart';
 export 'package:corp_api/src/model/get_users200_response_inner.dart';
+export 'package:corp_api/src/model/join_division200_response.dart';
 export 'package:corp_api/src/model/login200_response.dart';
 export 'package:corp_api/src/model/login_request.dart';
 export 'package:corp_api/src/model/manualy_verify_user200_response.dart';

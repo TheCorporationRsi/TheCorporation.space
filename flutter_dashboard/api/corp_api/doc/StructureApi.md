@@ -19,6 +19,8 @@ Method | HTTP request | Description
 [**getUserDivisions**](StructureApi.md#getuserdivisions) | **GET** /api/v0/structure/profile/divisions | List of all your division
 [**getUserProfile**](StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
 [**getUserRoles**](StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
+[**joinDivision**](StructureApi.md#joindivision) | **POST** /api/v0/structure/divisions/join | Joining divisions
+[**leaveDivision**](StructureApi.md#leavedivision) | **POST** /api/v0/structure/divisions/leave | Leaving divisions
 [**removeUserRole**](StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
 [**updateRole**](StructureApi.md#updaterole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 
@@ -421,6 +423,92 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **joinDivision**
+> JoinDivision200Response joinDivision(deleteDivisionRequest)
+
+Joining divisions
+
+<br/>Allow member to join a division<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getStructureApi();
+final DeleteDivisionRequest deleteDivisionRequest = ; // DeleteDivisionRequest | Division title
+
+try {
+    final response = api.joinDivision(deleteDivisionRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling StructureApi->joinDivision: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteDivisionRequest** | [**DeleteDivisionRequest**](DeleteDivisionRequest.md)| Division title | [optional] 
+
+### Return type
+
+[**JoinDivision200Response**](JoinDivision200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **leaveDivision**
+> JoinDivision200Response leaveDivision(deleteDivisionRequest)
+
+Leaving divisions
+
+<br/>Allow member to leave a division<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getStructureApi();
+final DeleteDivisionRequest deleteDivisionRequest = ; // DeleteDivisionRequest | Division title
+
+try {
+    final response = api.leaveDivision(deleteDivisionRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling StructureApi->leaveDivision: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteDivisionRequest** | [**DeleteDivisionRequest**](DeleteDivisionRequest.md)| Division title | [optional] 
+
+### Return type
+
+[**JoinDivision200Response**](JoinDivision200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

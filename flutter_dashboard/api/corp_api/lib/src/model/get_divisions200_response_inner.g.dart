@@ -24,6 +24,8 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
   @override
   final BuiltList<String>? proxys;
   @override
+  final bool? restricted;
+  @override
   final String? title;
 
   factory _$GetDivisions200ResponseInner(
@@ -39,6 +41,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
       this.memberCount,
       this.motto,
       this.proxys,
+      this.restricted,
       this.title})
       : super._();
 
@@ -63,6 +66,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
         memberCount == other.memberCount &&
         motto == other.motto &&
         proxys == other.proxys &&
+        restricted == other.restricted &&
         title == other.title;
   }
 
@@ -77,6 +81,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
     _$hash = $jc(_$hash, memberCount.hashCode);
     _$hash = $jc(_$hash, motto.hashCode);
     _$hash = $jc(_$hash, proxys.hashCode);
+    _$hash = $jc(_$hash, restricted.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -93,6 +98,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
           ..add('memberCount', memberCount)
           ..add('motto', motto)
           ..add('proxys', proxys)
+          ..add('restricted', restricted)
           ..add('title', title))
         .toString();
   }
@@ -139,6 +145,10 @@ class GetDivisions200ResponseInnerBuilder
       _$this._proxys ??= new ListBuilder<String>();
   set proxys(ListBuilder<String>? proxys) => _$this._proxys = proxys;
 
+  bool? _restricted;
+  bool? get restricted => _$this._restricted;
+  set restricted(bool? restricted) => _$this._restricted = restricted;
+
   String? _title;
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
@@ -158,6 +168,7 @@ class GetDivisions200ResponseInnerBuilder
       _memberCount = $v.memberCount;
       _motto = $v.motto;
       _proxys = $v.proxys?.toBuilder();
+      _restricted = $v.restricted;
       _title = $v.title;
       _$v = null;
     }
@@ -191,6 +202,7 @@ class GetDivisions200ResponseInnerBuilder
               memberCount: memberCount,
               motto: motto,
               proxys: _proxys?.build(),
+              restricted: restricted,
               title: title);
     } catch (_) {
       late String _$failedField;

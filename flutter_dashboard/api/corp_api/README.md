@@ -104,6 +104,8 @@ Class | Method | HTTP request | Description
 [*StructureApi*](doc/StructureApi.md) | [**getUserDivisions**](doc/StructureApi.md#getuserdivisions) | **GET** /api/v0/structure/profile/divisions | List of all your division
 [*StructureApi*](doc/StructureApi.md) | [**getUserProfile**](doc/StructureApi.md#getuserprofile) | **GET** /api/v0/structure/profile | Current user profile
 [*StructureApi*](doc/StructureApi.md) | [**getUserRoles**](doc/StructureApi.md#getuserroles) | **GET** /api/v0/structure/profile/roles | List of all your roles
+[*StructureApi*](doc/StructureApi.md) | [**joinDivision**](doc/StructureApi.md#joindivision) | **POST** /api/v0/structure/divisions/join | Joining divisions
+[*StructureApi*](doc/StructureApi.md) | [**leaveDivision**](doc/StructureApi.md#leavedivision) | **POST** /api/v0/structure/divisions/leave | Leaving divisions
 [*StructureApi*](doc/StructureApi.md) | [**removeUserRole**](doc/StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
 [*StructureApi*](doc/StructureApi.md) | [**updateRole**](doc/StructureApi.md#updaterole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 
@@ -148,6 +150,7 @@ Class | Method | HTTP request | Description
  - [GetUserProfile200Response](doc/GetUserProfile200Response.md)
  - [GetUserRoles200ResponseInner](doc/GetUserRoles200ResponseInner.md)
  - [GetUsers200ResponseInner](doc/GetUsers200ResponseInner.md)
+ - [JoinDivision200Response](doc/JoinDivision200Response.md)
  - [Login200Response](doc/Login200Response.md)
  - [LoginRequest](doc/LoginRequest.md)
  - [ManualyVerifyUser200Response](doc/ManualyVerifyUser200Response.md)
