@@ -1,4 +1,5 @@
 import 'package:flutter_dashboard/util/css_color.dart';
+import 'package:flutter_dashboard/util/icon_helper.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/department_selection_card.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/bar_graph_widget.dart';
@@ -7,13 +8,11 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 
-
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:corp_api/corp_api.dart';
 
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
-
 
 class ProfileSettingsWidget extends StatefulWidget {
   const ProfileSettingsWidget({super.key});
@@ -23,52 +22,59 @@ class ProfileSettingsWidget extends StatefulWidget {
 }
 
 class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
-
   String filter = "All";
-  BuiltList<GetUserDivisions200ResponseInner> customDivisions = current_user.divisions.value;
-  
+  ValueNotifier<BuiltList<GetUserDivisions200ResponseInner>> customDivisions =
+      ValueNotifier(current_user.divisions.value);
 
   @override
   Widget build(BuildContext context) {
+    final totalWeight = customDivisions.value
+        .fold(0, (sum, division) => sum + (division.weight ?? 0));
+
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Column(
           children: [
             const SizedBox(height: 10),
-            ListView.builder(
+            CustomCard(
+              padding: const EdgeInsets.all(20),
+                child: ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: customDivisions.length,
+              itemCount: customDivisions.value.length,
               itemBuilder: (context, index) {
-                final division = customDivisions[index];
+                final division = customDivisions.value[index];
                 return Column(
                   children: [
-                    Text(division.title ?? 'Unknown Division', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold ,color: cssColorToColor(division.color!))),
+                    Row(
+                      children: [
+                        Icon(icons[division.logo] ?? Icons.error, color: cssColorToColor(division.color!)),
+                        const SizedBox(width: 8),
+                        Text("${division.title} : ${division.weight.toString()}",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: cssColorToColor(division.color!))),
+                      ],
+                    ),
                     Slider(
-                      value: (division.weight?.toDouble() ?? 0.0)*100,
-                      min: 0,
-                      max: 100,
-                      divisions: 100,
+                      value: (division.weight?.toDouble() ?? 0.0),
+                      min: 1,
+                      max: 100 - (customDivisions.value.length - 1),
+                      divisions: 100 - (customDivisions.value.length - 1),
                       label: division.weight?.toString(),
                       activeColor: cssColorToColor(division.color!),
-                      inactiveColor: cssColorToColor(division.color!).withOpacity(0.3),
+                      inactiveColor:
+                          cssColorToColor(division.color!).withOpacity(0.3),
                       onChanged: (double value) {
+                        print("value: $value");
                         setState(() {
-                          customDivisions = customDivisions.rebuild((b) => b[index] = b[index].rebuild((d) => d.weight = value.toInt()));
-                        });
-                      },
-                    ),
-                    TextField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Weight',
-                        border: OutlineInputBorder(),
-                      ),
-                      controller: TextEditingController(text: division.weight?.toString()),
-                      onChanged: (String value) {
-                        setState(() {
-                          customDivisions = customDivisions.rebuild((b) => b[index] = b[index].rebuild((d) => d.weight = int.tryParse(value)));
+                          final updatedDivision = customDivisions.value[index]
+                              .rebuild((b) => b.weight = value.toInt());
+                          final updatedList = customDivisions.value
+                              .rebuild((b) => b[index] = updatedDivision);
+                          customDivisions.value = updatedList;
                         });
                       },
                     ),
@@ -76,15 +82,43 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
                   ],
                 );
               },
-            ),
+            )),
             const SizedBox(height: 18),
             CustomCard(
-          child:
-            WeightsChartWidget(category: "Settings", filter: "All", customDivisions: customDivisions)),
+              padding: const EdgeInsets.all(20),
+                child: Column(children: [
+              WeightsChartWidget(
+                  category: "Settings",
+                  filter: "All",
+                  customDivisions: customDivisions),
+              const SizedBox(height: 18),
+              ElevatedButton(
+                onPressed: totalWeight == 100 ? _saveSettings : _showError,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: totalWeight == 100 ? Colors.green : Colors.red,
+                ),
+                child: Text('Save', style: TextStyle(color: Colors.black),),
+              ),
+            ])),
             const SizedBox(height: 18),
             
+            const SizedBox(height: 18),
           ],
         ),
+      ),
+    );
+  }
+
+  void _saveSettings() {
+    // Implement save functionality here
+    print("Settings saved!");
+  }
+
+  void _showError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Total weight must be 100 to save weights.'),
+        backgroundColor: Colors.red,
       ),
     );
   }

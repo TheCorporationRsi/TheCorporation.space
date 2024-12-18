@@ -11,7 +11,7 @@ import 'package:built_collection/built_collection.dart';
 class WeightsChartWidget extends StatelessWidget {
   final String filter;
   final String category;
-  final BuiltList<GetUserDivisions200ResponseInner>? customDivisions;
+  final ValueNotifier<BuiltList<GetUserDivisions200ResponseInner>>? customDivisions;
   const WeightsChartWidget({super.key, required this.category, required this.filter, this.customDivisions});
 
   @override
@@ -26,9 +26,10 @@ class WeightsChartWidget extends StatelessWidget {
         all_departments = current_user.departments;
         all_divisions = current_user.divisions;
       } else if (category == "Settings"){
-        all_departments = current_user.departments;
-        all_divisions = current_user.divisions;
-      } 
+        all_departments = customDivisions;
+      }
+
+
     List<PieChartSectionData> generateStats() {
       if (filter == "All") {
         int totalWeight = all_departments.value.isNotEmpty 
@@ -53,7 +54,7 @@ class WeightsChartWidget extends StatelessWidget {
           );
         }).toList()
         ];
-      } else if (filter == "Current_User") {
+      } else {
         final department = all_departments.value.firstWhere((element) => element.title == filter);
         final divisions = all_divisions.value.where((element) => element.department == filter).toList();
         return [
@@ -77,34 +78,12 @@ class WeightsChartWidget extends StatelessWidget {
             );
           }).toList()
         ];
-      } else {
-
-        final divisions = customDivisions!.toList();
-        return [
-          if (divisions.isEmpty)
-          PieChartSectionData(
-            color: backgroundColor,
-            value: 1,
-            radius: 25,
-            showTitle: false,
-          )
-          else
-          ...divisions.asMap().entries.map((entry) {
-            int index = entry.key;
-            var division = entry.value;
-            return PieChartSectionData(
-              color: division.color != null ? cssColorToColor(division.color!).withOpacity(1.0 - (index * 0.1)) : Colors.grey.withOpacity(1.0 - (index * 0.1)),
-              value: division.weight!.toDouble(),
-              title: division.title,
-              radius: 25,
-              showTitle: false,
-            );
-          }).toList()
-        ];
-
       }
     }
     
+    int getTotalWeight() {
+      return generateStats().fold(0, (sum, section) => sum + section.value.toInt());
+    }
 
     return SizedBox(
       height: 200,
@@ -114,7 +93,7 @@ class WeightsChartWidget extends StatelessWidget {
           children: [
             PieChart(
               PieChartData(
-                sectionsSpace: 0,
+                sectionsSpace: 2, // Add space between sections
                 centerSpaceRadius: 70,
                 startDegreeOffset: -90,
                 sections: generateStats()
@@ -126,24 +105,26 @@ class WeightsChartWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: defaultPadding),
-                  if (filter == "All")
+                  if (category == "Settings")
                     Text(
-                      "100",
+                      getTotalWeight().toString(),
+                      style: Theme.of(context).textTheme.headlineMedium!.copyWith(
+                            color: getTotalWeight() == 100 ? Colors.green : Colors.red,
+                            fontWeight: FontWeight.w600,
+                            height: 0.5,
+                          ),
+                    ),
+                  if (category != "Settings")
+                    Text(
+                      getTotalWeight().toString(),
                       style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                             height: 0.5,
                           ),
-                    )
-                  else
-                  Text(
-                    all_departments.value.firstWhere((element) => element.title == filter).weight.toString(),
-                    style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          height: 0.5,
-                        ),
-                  ),
+                    ),
+                  
+
                   const SizedBox(height: 8),
                   const Text("%")
                 ],

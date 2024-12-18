@@ -77,7 +77,7 @@ class InfluenceChartWidget extends StatelessWidget {
           children: [
             PieChart(
               PieChartData(
-                sectionsSpace: 0,
+                sectionsSpace: 2,
                 centerSpaceRadius: 70,
                 startDegreeOffset: -90,
                 sections: generateStats()

@@ -148,3 +148,19 @@ Future<void> leaveDivision(String title) async {
     print(error);
   }
 }
+
+Future<void> setWeights(String title) async {
+  final headers = await getAuthHeader();
+  final DeleteDivisionRequest deleteDivisionRequest = DeleteDivisionRequest((b) => b
+      ..divisionTitle = title);
+  try {
+    final response = await corpStructureClient.leaveDivision(headers: headers, deleteDivisionRequest: deleteDivisionRequest);
+    
+    if (response.data!.msg == "Division left") {
+      await update();
+    }
+
+  } catch (error) {
+    print(error);
+  }
+}
