@@ -17,6 +17,7 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/main/welcome_widget.da
 import 'package:flutter_dashboard/widgets/dashboard_pages/main/structure_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/main/usage_guide_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/main/profile_settings_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/main/security_settings_widget.dart';
 
 class MenuModel {
   final IconData icon;
@@ -73,7 +74,7 @@ final menu = <MenuModel>[
     title: 'Settings',
     subMenu: [
       MenuModel(icon: Icons.manage_accounts, title: 'Profile', page: ProfileSettingsWidget()),
-      MenuModel(icon: Icons.security, title: 'Security', page: InfluenceWidget()),
+      MenuModel(icon: Icons.security, title: 'Security', page: SecuritySettingsWidget()),
     ],
   ),
   MenuModel(icon: Icons.logout, title: 'SignOut', page: InfluenceWidget()),
