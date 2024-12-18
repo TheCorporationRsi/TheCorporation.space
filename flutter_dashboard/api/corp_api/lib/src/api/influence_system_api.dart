@@ -16,7 +16,8 @@ import 'package:corp_api/src/model/get_rsi_token401_response.dart';
 import 'package:corp_api/src/model/get_tribute_history200_response_inner.dart';
 import 'package:corp_api/src/model/get_user_influence_stats200_response.dart';
 import 'package:corp_api/src/model/send_tribute_request.dart';
-import 'package:corp_api/src/model/set_weight_request.dart';
+import 'package:corp_api/src/model/set_weights200_response.dart';
+import 'package:corp_api/src/model/set_weights_request_inner.dart';
 
 class InfluenceSystemApi {
   final Dio _dio;
@@ -565,7 +566,7 @@ class InfluenceSystemApi {
   /// &lt;br/&gt;This endpoint goal is to set the weight of the member&#39;s divisions &lt;br/&gt;
   ///
   /// Parameters:
-  /// * [setWeightRequest] - Division information
+  /// * [setWeightsRequestInner] - Division information
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -573,10 +574,10 @@ class InfluenceSystemApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future]
+  /// Returns a [Future] containing a [Response] with a [SetWeights200Response] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> setWeight({
-    SetWeightRequest? setWeightRequest,
+  Future<Response<SetWeights200Response>> setWeights({
+    BuiltList<SetWeightsRequestInner>? setWeightsRequestInner,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -584,7 +585,7 @@ class InfluenceSystemApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/v0/structure/set_weight';
+    final _path = r'/api/v0/structure/set_weights';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -607,10 +608,11 @@ class InfluenceSystemApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(SetWeightRequest);
-      _bodyData = setWeightRequest == null
+      const _type = FullType(BuiltList, [FullType(SetWeightsRequestInner)]);
+      _bodyData = setWeightsRequestInner == null
           ? null
-          : _serializers.serialize(setWeightRequest, specifiedType: _type);
+          : _serializers.serialize(setWeightsRequestInner,
+              specifiedType: _type);
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _options.compose(
@@ -632,7 +634,36 @@ class InfluenceSystemApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    return _response;
+    SetWeights200Response? _responseData;
+
+    try {
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null
+          ? null
+          : _serializers.deserialize(
+              rawResponse,
+              specifiedType: const FullType(SetWeights200Response),
+            ) as SetWeights200Response;
+    } catch (error, stackTrace) {
+      throw DioException(
+        requestOptions: _response.requestOptions,
+        response: _response,
+        type: DioExceptionType.unknown,
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+
+    return Response<SetWeights200Response>(
+      data: _responseData,
+      headers: _response.headers,
+      isRedirect: _response.isRedirect,
+      requestOptions: _response.requestOptions,
+      redirects: _response.redirects,
+      statusCode: _response.statusCode,
+      statusMessage: _response.statusMessage,
+      extra: _response.extra,
+    );
   }
 
   /// Update influence system account

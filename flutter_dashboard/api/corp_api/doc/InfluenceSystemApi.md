@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**getTributeHistory**](InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
 [**getUserInfluenceStats**](InfluenceSystemApi.md#getuserinfluencestats) | **GET** /api/v0/influence_system/profile/stats | Get influence stats
 [**sendTribute**](InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
-[**setWeight**](InfluenceSystemApi.md#setweight) | **POST** /api/v0/structure/set_weight | Division weight assignment
+[**setWeights**](InfluenceSystemApi.md#setweights) | **POST** /api/v0/structure/set_weights | Division weight assignment
 [**updateAccount**](InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 
 
@@ -273,8 +273,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **setWeight**
-> setWeight(setWeightRequest)
+# **setWeights**
+> SetWeights200Response setWeights(setWeightsRequestInner)
 
 Division weight assignment
 
@@ -285,12 +285,13 @@ Division weight assignment
 import 'package:corp_api/api.dart';
 
 final api = CorpApi().getInfluenceSystemApi();
-final SetWeightRequest setWeightRequest = ; // SetWeightRequest | Division information
+final BuiltList<SetWeightsRequestInner> setWeightsRequestInner = ; // BuiltList<SetWeightsRequestInner> | Division information
 
 try {
-    api.setWeight(setWeightRequest);
+    final response = api.setWeights(setWeightsRequestInner);
+    print(response);
 } catch on DioException (e) {
-    print('Exception when calling InfluenceSystemApi->setWeight: $e\n');
+    print('Exception when calling InfluenceSystemApi->setWeights: $e\n');
 }
 ```
 
@@ -298,11 +299,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setWeightRequest** | [**SetWeightRequest**](SetWeightRequest.md)| Division information | [optional] 
+ **setWeightsRequestInner** | [**BuiltList&lt;SetWeightsRequestInner&gt;**](SetWeightsRequestInner.md)| Division information | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**SetWeights200Response**](SetWeights200Response.md)
 
 ### Authorization
 

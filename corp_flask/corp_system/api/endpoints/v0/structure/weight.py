@@ -39,6 +39,14 @@ def set_weights():
     responses:
         200:
             description: Weight set successful
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Weights updated!
         400:
             $ref: "#/components/responses/invalid"
         401:
@@ -47,22 +55,34 @@ def set_weights():
     """
     division_list = request.json
     
+    total = 0
     for division in division_list:
-        division = Division.query.filter_by(title=division.title).first()
+        title = division.get("title")
+        amount = division.get("amount")
+        total += amount
+        division = Division.query.filter_by(title=title).first()
         if division is None:
-            return jsonify({'msg': "Wrong division"}), 400
+            return jsonify({'msg': "Wrong division title"}), 400
     
-    if division not in current_user.divisions:
-        return jsonify({'msg': "Not member of this division"}), 400
+        if division not in current_user.divisions:
+            return jsonify({'msg': "Not member of all divisions"}), 400
     
-    if not isinstance(amount, int) or amount > 100 or amount < 0:
-        return jsonify({'msg': "Amount must be integer between 1 and 100"}), 400
+        if not isinstance(amount, int) or amount > 100 or amount < 1:
+            return jsonify({'msg': "Amounts must be integer between 1 and 100"}), 400
     
-    try:
-        division.set_weight(user=current_user, weight=amount)
-    except ValueError as e:
-        return jsonify({'msg': str(e)}), 400
+    if total != 100:
+        return jsonify({'msg': "Total weight must be 100"}), 400
+    
+    for division in division_list:
+        title = division.get("title")
+        amount = division.get("amount")
+        division = Division.query.filter_by(title=title).first()
+        try:
+            division.set_weight(user=current_user, weight=amount)
+        except ValueError as e:
+            return jsonify({'msg': str(e)}), 400
+    
+    current_user.update()
     
     
-    
-    return jsonify({'msg': "Weight set!"}), 200
+    return jsonify({'msg': "Weights updated!"}), 200

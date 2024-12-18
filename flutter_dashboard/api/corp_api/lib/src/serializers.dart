@@ -61,7 +61,8 @@ import 'package:corp_api/src/model/register200_response.dart';
 import 'package:corp_api/src/model/register_request.dart';
 import 'package:corp_api/src/model/remove_user_role200_response.dart';
 import 'package:corp_api/src/model/send_tribute_request.dart';
-import 'package:corp_api/src/model/set_weight_request.dart';
+import 'package:corp_api/src/model/set_weights200_response.dart';
+import 'package:corp_api/src/model/set_weights_request_inner.dart';
 import 'package:corp_api/src/model/update_department200_response.dart';
 import 'package:corp_api/src/model/update_department_request.dart';
 import 'package:corp_api/src/model/update_division200_response.dart';
@@ -120,7 +121,8 @@ part 'serializers.g.dart';
   RegisterRequest,
   RemoveUserRole200Response,
   SendTributeRequest,
-  SetWeightRequest,
+  SetWeights200Response,
+  SetWeightsRequestInner,
   UpdateDepartment200Response,
   UpdateDepartmentRequest,
   UpdateDivision200Response,
@@ -162,6 +164,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(GetRanks200ResponseInner)]),
         () => ListBuilder<GetRanks200ResponseInner>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(SetWeightsRequestInner)]),
+        () => ListBuilder<SetWeightsRequestInner>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(GetRoles200ResponseInner)]),

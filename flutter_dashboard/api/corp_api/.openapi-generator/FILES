@@ -53,7 +53,8 @@ doc/RegisterRequest.md
 doc/RemoveUserRole200Response.md
 doc/SecurityApi.md
 doc/SendTributeRequest.md
-doc/SetWeightRequest.md
+doc/SetWeights200Response.md
+doc/SetWeightsRequestInner.md
 doc/StructureApi.md
 doc/UpdateDepartment200Response.md
 doc/UpdateDepartmentRequest.md
@@ -125,7 +126,8 @@ lib/src/model/register200_response.dart
 lib/src/model/register_request.dart
 lib/src/model/remove_user_role200_response.dart
 lib/src/model/send_tribute_request.dart
-lib/src/model/set_weight_request.dart
+lib/src/model/set_weights200_response.dart
+lib/src/model/set_weights_request_inner.dart
 lib/src/model/update_department200_response.dart
 lib/src/model/update_department_request.dart
 lib/src/model/update_division200_response.dart
@@ -135,4 +137,5 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/join_division200_response_test.dart
+test/set_weights200_response_test.dart
+test/set_weights_request_inner_test.dart
