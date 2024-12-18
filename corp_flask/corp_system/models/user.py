@@ -136,19 +136,7 @@ class User(Base):
 
     @staticmethod
     def verify_password_requirements(password):
-        if not re.search(r"(?=.*[a-z])", password):
-            raise ValueError("Password must contain at least one lowercase letter.")
-        
-        if not re.search(r"(?=.*[A-Z])", password):
-            raise ValueError("Password must contain at least one uppercase letter.")
-        
-        if not re.search(r"(?=.*\d)", password):
-            raise ValueError("Password must contain at least one digit.")
-        
-        if not re.search(r"(?=.*[!@#$%^&*()_+={}\[\]:;\"'<>,.?/~`-])", password):
-            raise ValueError("Password must contain at least one special character.")
-        
-        if not re.match(r"^[A-Za-z\d!@#$%^&*()_+={}\[\]:;\"'<>,.?/~`-]{8,32}$", password):
+        if not len(password) >= 8:
             raise ValueError("Password must be between 8 and 32 characters long.")
         
         return True
