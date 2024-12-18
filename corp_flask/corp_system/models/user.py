@@ -258,6 +258,8 @@ class User(Base):
                 Bot_controller.add_role(self, role)
             except:
                 print("Issue with bot controller")
+            
+            self.update()
 
     def remove_role(self, role):
         from corp_system.bot.controller import Bot_controller
@@ -270,6 +272,8 @@ class User(Base):
                 Bot_controller.remove_role(self, role)
             except:
                 print("Issue with bot controller")
+                
+            self.update()
             
     
     # Structure methods
@@ -353,6 +357,9 @@ class User(Base):
             expiration = datetime.fromtimestamp(token['exp'])
             if expiration < datetime.now():
                 self.auth_tokens.remove(token)
+        
+        from corp_system.controllers.structure_manager import StructureManager
+        StructureManager.equalize_roles(self)
         
         db.session.commit()
 
