@@ -1,3 +1,4 @@
+import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
@@ -41,7 +42,7 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final totalWeight = customDivisions.value
+    int totalWeight = customDivisions.value
         .fold(0, (sum, division) => sum + (division.weight ?? 0));
 
     return SingleChildScrollView(
@@ -50,6 +51,7 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
         child: Column(
           children: [
             const SizedBox(height: 10),
+            
             CustomCard(
                 padding: const EdgeInsets.all(20),
                 child: ListView.builder(
@@ -66,24 +68,34 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
                                 color: cssColorToColor(division.color!)),
                             const SizedBox(width: 8),
                             Text(
-                                "${division.title} : ${division.weight.toString()}",
+                                "${division.title!} : ",
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                     color: cssColorToColor(division.color!))),
+                            Text(
+                                "${division.weight.toString()}",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: totalWeight == 100
+                                        ? Colors.green
+                                        : Colors.red)),
                           ],
                         ),
+                        
                         Slider(
                           value: (division.weight?.toDouble() ?? 0.0),
+                          secondaryTrackValue: ((division.weight!.toDouble() + (100 - totalWeight).toDouble()).clamp(1.0, 100.0 - (customDivisions.value.length - 1).toDouble())),
+                          secondaryActiveColor: cssColorToColor(division.color!).withOpacity(0.7),
+                          label: " ${division.weight?.toString()} / $totalWeight ",
                           min: 1,
                           max: 100 - (customDivisions.value.length - 1),
                           divisions: 100 - (customDivisions.value.length - 1),
-                          label: division.weight?.toString(),
                           activeColor: cssColorToColor(division.color!),
                           inactiveColor:
                               cssColorToColor(division.color!).withOpacity(0.3),
                           onChanged: (double value) {
-                            print("value: $value");
                             setState(() {
                               final updatedDivision = customDivisions
                                   .value[index]
@@ -91,6 +103,9 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
                               final updatedList = customDivisions.value
                                   .rebuild((b) => b[index] = updatedDivision);
                               customDivisions.value = updatedList;
+                              
+                              // Update totalWeight
+                              totalWeight = customDivisions.value.fold(0, (sum, item) => sum + item.weight!);
                             });
                           },
                         ),
