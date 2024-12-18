@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**joinDivision**](StructureApi.md#joindivision) | **POST** /api/v0/structure/divisions/join | Joining divisions
 [**leaveDivision**](StructureApi.md#leavedivision) | **POST** /api/v0/structure/divisions/leave | Leaving divisions
 [**removeUserRole**](StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
+[**setWeights**](StructureApi.md#setweights) | **POST** /api/v0/structure/set_weights | Division weight assignment
 [**updateRole**](StructureApi.md#updaterole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 
 
@@ -544,6 +545,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RemoveUserRole200Response**](RemoveUserRole200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setWeights**
+> SetWeights200Response setWeights(setWeightsRequestInner)
+
+Division weight assignment
+
+<br/>This endpoint goal is to set the weight of the member's divisions <br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getStructureApi();
+final BuiltList<SetWeightsRequestInner> setWeightsRequestInner = ; // BuiltList<SetWeightsRequestInner> | Division information
+
+try {
+    final response = api.setWeights(setWeightsRequestInner);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling StructureApi->setWeights: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **setWeightsRequestInner** | [**BuiltList&lt;SetWeightsRequestInner&gt;**](SetWeightsRequestInner.md)| Division information | [optional] 
+
+### Return type
+
+[**SetWeights200Response**](SetWeights200Response.md)
 
 ### Authorization
 

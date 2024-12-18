@@ -77,7 +77,6 @@ Class | Method | HTTP request | Description
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getTributeHistory**](doc/InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getUserInfluenceStats**](doc/InfluenceSystemApi.md#getuserinfluencestats) | **GET** /api/v0/influence_system/profile/stats | Get influence stats
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**sendTribute**](doc/InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
-[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**setWeights**](doc/InfluenceSystemApi.md#setweights) | **POST** /api/v0/structure/set_weights | Division weight assignment
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**updateAccount**](doc/InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 [*InformationApi*](doc/InformationApi.md) | [**getCorporateers**](doc/InformationApi.md#getcorporateers) | **GET** /api/v0/corporateers | List of all corporateer
 [*RSIStatsApi*](doc/RSIStatsApi.md) | [**getCurrentFunding**](doc/RSIStatsApi.md#getcurrentfunding) | **GET** /api/v0/current_funding | List of all influence system ranks
@@ -107,6 +106,7 @@ Class | Method | HTTP request | Description
 [*StructureApi*](doc/StructureApi.md) | [**joinDivision**](doc/StructureApi.md#joindivision) | **POST** /api/v0/structure/divisions/join | Joining divisions
 [*StructureApi*](doc/StructureApi.md) | [**leaveDivision**](doc/StructureApi.md#leavedivision) | **POST** /api/v0/structure/divisions/leave | Leaving divisions
 [*StructureApi*](doc/StructureApi.md) | [**removeUserRole**](doc/StructureApi.md#removeuserrole) | **DELETE** /api/v0/structure/profile/roles | Remove a role from the current user
+[*StructureApi*](doc/StructureApi.md) | [**setWeights**](doc/StructureApi.md#setweights) | **POST** /api/v0/structure/set_weights | Division weight assignment
 [*StructureApi*](doc/StructureApi.md) | [**updateRole**](doc/StructureApi.md#updaterole) | **PATCH** /api/v0/structure/roles | Edit an existing role
 
 

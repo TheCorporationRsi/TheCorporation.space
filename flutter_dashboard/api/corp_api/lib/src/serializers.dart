@@ -166,10 +166,6 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<GetRanks200ResponseInner>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(SetWeightsRequestInner)]),
-        () => ListBuilder<SetWeightsRequestInner>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(GetRoles200ResponseInner)]),
         () => ListBuilder<GetRoles200ResponseInner>(),
       )
@@ -177,6 +173,10 @@ Serializers serializers = (_$serializers.toBuilder()
         const FullType(
             BuiltList, [FullType(GetUserDepartments200ResponseInner)]),
         () => ListBuilder<GetUserDepartments200ResponseInner>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(SetWeightsRequestInner)]),
+        () => ListBuilder<SetWeightsRequestInner>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

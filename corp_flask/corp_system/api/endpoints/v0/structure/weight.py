@@ -18,7 +18,7 @@ def set_weights():
     
     operationId: set_weights
     tags:
-        - Influence System
+        - Structure
     security:
         - corp_access_pass: []
     requestBody:

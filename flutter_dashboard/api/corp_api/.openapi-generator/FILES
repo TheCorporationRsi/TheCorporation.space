@@ -137,5 +137,3 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/set_weights200_response_test.dart
-test/set_weights_request_inner_test.dart

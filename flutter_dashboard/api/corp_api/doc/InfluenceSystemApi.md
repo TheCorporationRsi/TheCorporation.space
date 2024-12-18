@@ -15,7 +15,6 @@ Method | HTTP request | Description
 [**getTributeHistory**](InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
 [**getUserInfluenceStats**](InfluenceSystemApi.md#getuserinfluencestats) | **GET** /api/v0/influence_system/profile/stats | Get influence stats
 [**sendTribute**](InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
-[**setWeights**](InfluenceSystemApi.md#setweights) | **POST** /api/v0/structure/set_weights | Division weight assignment
 [**updateAccount**](InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 
 
@@ -261,49 +260,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GetRanks200ResponseInner**](GetRanks200ResponseInner.md)
-
-### Authorization
-
-[corp_access_pass](../README.md#corp_access_pass)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **setWeights**
-> SetWeights200Response setWeights(setWeightsRequestInner)
-
-Division weight assignment
-
-<br/>This endpoint goal is to set the weight of the member's divisions <br/>
-
-### Example
-```dart
-import 'package:corp_api/api.dart';
-
-final api = CorpApi().getInfluenceSystemApi();
-final BuiltList<SetWeightsRequestInner> setWeightsRequestInner = ; // BuiltList<SetWeightsRequestInner> | Division information
-
-try {
-    final response = api.setWeights(setWeightsRequestInner);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling InfluenceSystemApi->setWeights: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **setWeightsRequestInner** | [**BuiltList&lt;SetWeightsRequestInner&gt;**](SetWeightsRequestInner.md)| Division information | [optional] 
-
-### Return type
-
-[**SetWeights200Response**](SetWeights200Response.md)
 
 ### Authorization
 
