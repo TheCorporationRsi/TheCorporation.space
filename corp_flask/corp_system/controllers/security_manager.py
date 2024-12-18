@@ -117,8 +117,13 @@ class SecurityManager:
         
         if len(password) < 8:
             raise ValueError("Password too short")
+        
+        if RSI_info.citizen == '':
+            citizen_number = None
+        else:
+            citizen_number = int(RSI_info.citizen)
 
-        user = User(password=password, RSI_handle=RSI_info.RSI_handle, RSI_moniker=RSI_info.Moniker, image_link=RSI_info.image_link, RSI_number=RSI_info.citizen)
+        user = User(password=password, RSI_handle=RSI_info.RSI_handle, RSI_moniker=RSI_info.Moniker, image_link=RSI_info.image_link, RSI_number= citizen_number)
         db.session.add(user)
         db.session.commit()
         
