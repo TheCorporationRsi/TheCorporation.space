@@ -26,7 +26,6 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
   ValueNotifier<BuiltList<GetUserDivisions200ResponseInner>> customDivisions =
       ValueNotifier(current_user.divisions.value);
 
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +35,8 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
   void _sortCustomDivisions() {
     final sortedList = customDivisions.value.toList()
       ..sort((a, b) => a.department!.compareTo(b.department!));
-    customDivisions.value = BuiltList<GetUserDivisions200ResponseInner>(sortedList);
+    customDivisions.value =
+        BuiltList<GetUserDivisions200ResponseInner>(sortedList);
   }
 
   @override
@@ -51,87 +51,97 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
           children: [
             const SizedBox(height: 10),
             CustomCard(
-              padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: customDivisions.value.length,
-              itemBuilder: (context, index) {
-                final division = customDivisions.value[index];
-                return Column(
-                  children: [
-                    Row(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: customDivisions.value.length,
+                  itemBuilder: (context, index) {
+                    final division = customDivisions.value[index];
+                    return Column(
                       children: [
-                        Icon(icons[division.logo] ?? Icons.error, color: cssColorToColor(division.color!)),
-                        const SizedBox(width: 8),
-                        Text("${division.title} : ${division.weight.toString()}",
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: cssColorToColor(division.color!))),
+                        Row(
+                          children: [
+                            Icon(icons[division.logo] ?? Icons.error,
+                                color: cssColorToColor(division.color!)),
+                            const SizedBox(width: 8),
+                            Text(
+                                "${division.title} : ${division.weight.toString()}",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: cssColorToColor(division.color!))),
+                          ],
+                        ),
+                        Slider(
+                          value: (division.weight?.toDouble() ?? 0.0),
+                          min: 1,
+                          max: 100 - (customDivisions.value.length - 1),
+                          divisions: 100 - (customDivisions.value.length - 1),
+                          label: division.weight?.toString(),
+                          activeColor: cssColorToColor(division.color!),
+                          inactiveColor:
+                              cssColorToColor(division.color!).withOpacity(0.3),
+                          onChanged: (double value) {
+                            print("value: $value");
+                            setState(() {
+                              final updatedDivision = customDivisions
+                                  .value[index]
+                                  .rebuild((b) => b.weight = value.toInt());
+                              final updatedList = customDivisions.value
+                                  .rebuild((b) => b[index] = updatedDivision);
+                              customDivisions.value = updatedList;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 10),
                       ],
-                    ),
-                    Slider(
-                      value: (division.weight?.toDouble() ?? 0.0),
-                      min: 1,
-                      max: 100 - (customDivisions.value.length - 1),
-                      divisions: 100 - (customDivisions.value.length - 1),
-                      label: division.weight?.toString(),
-                      activeColor: cssColorToColor(division.color!),
-                      inactiveColor:
-                          cssColorToColor(division.color!).withOpacity(0.3),
-                      onChanged: (double value) {
-                        print("value: $value");
-                        setState(() {
-                          final updatedDivision = customDivisions.value[index]
-                              .rebuild((b) => b.weight = value.toInt());
-                          final updatedList = customDivisions.value
-                              .rebuild((b) => b[index] = updatedDivision);
-                          customDivisions.value = updatedList;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                  ],
-                );
-              },
-            )),
+                    );
+                  },
+                )),
             const SizedBox(height: 18),
             CustomCard(
-              padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(children: [
-              WeightsChartWidget(
-                  category: "Settings",
-                  filter: "All",
-                  customDivisions: customDivisions),
-              const SizedBox(height: 18),
-              ElevatedButton(
-                onPressed: totalWeight == 100 ? _saveSettings : _showError,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: totalWeight == 100 ? Colors.green : Colors.red,
-                ),
-                child: Text('Save', style: TextStyle(color: Colors.black),),
-              ),
-            ])),
+                  WeightsChartWidget(
+                      category: "Settings",
+                      filter: "All",
+                      customDivisions: customDivisions),
+                  const SizedBox(height: 18),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (totalWeight == 100) {
+                        await current_user.setWeights(customDivisions.value);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Saving weights..'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Total weight must be 100 to save weights.'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          totalWeight == 100 ? Colors.green : Colors.red,
+                    ),
+                    child: Text(
+                      'Save',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ])),
             const SizedBox(height: 18),
-            
             const SizedBox(height: 18),
           ],
         ),
-      ),
-    );
-  }
-
-  void _saveSettings() {
-    // Implement save functionality here
-    print("Settings saved!");
-  }
-
-  void _showError() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Total weight must be 100 to save weights.'),
-        backgroundColor: Colors.red,
       ),
     );
   }

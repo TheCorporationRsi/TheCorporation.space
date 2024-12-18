@@ -149,14 +149,19 @@ Future<void> leaveDivision(String title) async {
   }
 }
 
-Future<void> setWeights(String title) async {
+Future<void> setWeights(BuiltList<GetUserDivisions200ResponseInner> divisions) async {
   final headers = await getAuthHeader();
-  final DeleteDivisionRequest deleteDivisionRequest = DeleteDivisionRequest((b) => b
-      ..divisionTitle = title);
+  final BuiltList<SetWeightsRequestInner> setWeightsRequestInner = BuiltList<SetWeightsRequestInner>([
+    for (var division in divisions)
+      SetWeightsRequestInner((b) => b
+        ..title = division.title
+        ..amount = division.weight
+      )
+  ]);
   try {
-    final response = await corpStructureClient.leaveDivision(headers: headers, deleteDivisionRequest: deleteDivisionRequest);
+    final response = await corpStructureClient.setWeights(headers: headers, setWeightsRequestInner: setWeightsRequestInner);
     
-    if (response.data!.msg == "Division left") {
+    if (response.data!.msg == "Weights updated!") {
       await update();
     }
 
