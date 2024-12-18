@@ -97,7 +97,11 @@ class User(Base):
         super().__init__(**kwargs)
         
         from corp_system.models import Inf_Account
-        if Inf_Account.query.filter_by(user_id=self.id).first() is None:
+        if Inf_Account.query.filter_by(RSI_handle=self.RSI_handle).first() is not None:
+            account = Inf_Account.query.filter_by(RSI_handle=self.RSI_handle).first()
+            account.user = self
+            db.session.commit()
+        else:
             account = Inf_Account(user=self)
             db.session.add(account)
             db.session.commit()
@@ -387,6 +391,7 @@ class User(Base):
         links = UserRole.query.filter_by(user_id=self.id)
         for link in links:
             link.delete()
+        
         # Delete the user
         db.session.delete(self)
         db.session.commit()
