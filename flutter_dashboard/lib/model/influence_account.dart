@@ -22,12 +22,14 @@ ValueNotifier<BuiltList<GetTributeHistory200ResponseInner>> sentTributeHistory =
     ValueNotifier(BuiltList<GetTributeHistory200ResponseInner>());
 
 final corpInfluenceClient = corpApi.getInfluenceSystemApi();
+final corpInformationClient = corpApi.getInformationApi();
 
 Future<void> update() async {
   await updateProfile();
   await updateSentTributeHistory();
   await updateReceivedTributeHistory();
   await updateStats();
+  await updateCorporateer();
 }
 
 Future<void> updateProfile() async {
@@ -36,6 +38,18 @@ Future<void> updateProfile() async {
     final response = await corpInfluenceClient.getProfile(headers: headers);
     if (response.data != null) {
       profile.value = response.data ?? profile.value;
+    }
+  } catch (error) {
+    print(error);
+  }
+}
+
+Future<void> updateCorporateer() async {
+  final headers = await getAuthHeader();
+  try {
+    final response = await corpInformationClient.getCorporateers(headers: headers);
+    if (response.data != null) {
+      corporateers.value = response.data ?? corporateers.value;
     }
   } catch (error) {
     print(error);
