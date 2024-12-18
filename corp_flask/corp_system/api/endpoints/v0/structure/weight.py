@@ -8,15 +8,15 @@ from corp_system.models import Inf_Rank, Division, Department
 
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 
-@api.route('/structure/set_weight', methods=['POST'])
+@api.route('/structure/set_weights', methods=['POST'])
 @CORP_only
-def set_weight():
+def set_weights():
     """Division weight assignment
     
     This endpoint goal is to set the weight of the member's divisions 
     ---
     
-    operationId: set_weight
+    operationId: set_weights
     tags:
         - Influence System
     security:
@@ -26,15 +26,16 @@ def set_weight():
         content:
             application/json:
                 schema:
-                    type: object
-                    required: [division_title, amount]
-                    properties:
-                        division_title:
-                            type: string
-                            example: Development
-                        amount:
-                            type: integer
-                            example: 25
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            title:
+                                type: string
+                                example: Development
+                            amount:
+                                type: integer
+                                example: 25
     responses:
         200:
             description: Weight set successful
@@ -44,12 +45,12 @@ def set_weight():
             $ref: "#/components/responses/unauthorized"
 
     """
-    division_title = request.json.get("division_title")
-    amount = request.json.get("amount")
+    division_list = request.json
     
-    division = Division.query.filter_by(title=division_title).first()
-    if division is None:
-        return jsonify({'msg': "Wrong division"}), 400
+    for division in division_list:
+        division = Division.query.filter_by(title=division.title).first()
+        if division is None:
+            return jsonify({'msg': "Wrong division"}), 400
     
     if division not in current_user.divisions:
         return jsonify({'msg': "Not member of this division"}), 400

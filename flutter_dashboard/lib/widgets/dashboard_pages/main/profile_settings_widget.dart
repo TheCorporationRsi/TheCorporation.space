@@ -26,6 +26,19 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
   ValueNotifier<BuiltList<GetUserDivisions200ResponseInner>> customDivisions =
       ValueNotifier(current_user.divisions.value);
 
+
+  @override
+  void initState() {
+    super.initState();
+    _sortCustomDivisions();
+  }
+
+  void _sortCustomDivisions() {
+    final sortedList = customDivisions.value.toList()
+      ..sort((a, b) => a.department!.compareTo(b.department!));
+    customDivisions.value = BuiltList<GetUserDivisions200ResponseInner>(sortedList);
+  }
+
   @override
   Widget build(BuildContext context) {
     final totalWeight = customDivisions.value

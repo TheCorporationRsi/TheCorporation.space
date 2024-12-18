@@ -22,7 +22,7 @@ class DivisionManagerWidget extends StatefulWidget {
 class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
 
   BuiltList<GetDivisions200ResponseInner> filteredItems =
-      information.divisions.value;
+      information.divisions.value.rebuild((b) => b.sort((a, b) => a.departmentTitle!.compareTo(b.departmentTitle!)));
   Map<int, bool> _dropdownOpen = {};
   Map<int, GlobalKey<FormState>> _formKeys = {};
 
@@ -44,7 +44,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
         final matchesDepartment = _selectedDepartmentFilter == 'All' ||
             division.departmentTitle == _selectedDepartmentFilter;
         return matchesSearch && matchesDepartment;
-      }).toBuiltList();
+      }).toBuiltList().rebuild((b) => b.sort((a, b) => a.departmentTitle!.compareTo(b.departmentTitle!)));
     });
   }
 

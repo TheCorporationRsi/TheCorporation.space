@@ -81,7 +81,7 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
         final matchesDivision = _selectedDivisionFilter == 'All' ||
             role.division == _selectedDivisionFilter;
         return matchesSearch && matchesDepartment;
-      }).toBuiltList();
+      }).toBuiltList().rebuild((b) => b.sort((a, b) => a.title!.compareTo(b.title!)));;
     });
   }
 

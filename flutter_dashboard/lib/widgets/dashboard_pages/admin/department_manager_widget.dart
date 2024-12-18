@@ -22,7 +22,7 @@ class DepartmentManagerWidget extends StatefulWidget {
 
 class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   BuiltList<GetDepartments200ResponseInner> filteredItems =
-      information.departments.value;
+      information.departments.value.rebuild((b) => b.sort((a, b) => a.title!.compareTo(b.title!)));
   Map<int, bool> _dropdownOpen = {};
   Map<int, GlobalKey<FormState>> _formKeys = {};
 
@@ -39,7 +39,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             .toLowerCase()
             .contains(_searchQuery.toLowerCase());
         return matchesSearch;
-      }).toBuiltList();
+      }).toBuiltList().rebuild((b) => b.sort((a, b) => a.title!.compareTo(b.title!)));
     });
   }
 
