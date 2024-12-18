@@ -5,6 +5,7 @@ import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
+import 'package:crypto/crypto.dart'; // Add this import for hashing
 
 Future<void> writeSecureData(String key, String value) async {
     try {
@@ -21,6 +22,13 @@ Future<void> writeSecureData(String key, String value) async {
       print("token not saved!");
     }
 
+  }
+
+
+  String _hashPassword(String password) {
+    var bytes = utf8.encode(password); // Convert password to bytes
+    var digest = sha256.convert(bytes); // Hash the password using SHA-256
+    return digest.toString(); // Convert the hash to a string
   }
 
 class LoginScreen extends StatefulWidget {
@@ -111,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
             final LoginRequest loginRequest = LoginRequest((b) => b
               ..username = handleController.text
-              ..password = passwordController.text
+              ..password = _hashPassword(passwordController.text)
               ..otp = otp);
 
             var corpSecurityClient = CorpApi().getSecurityApi();

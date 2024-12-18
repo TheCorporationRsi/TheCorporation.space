@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/security_form_widget.dart'; // Ensure this path is correct
 import 'package:url_launcher/url_launcher.dart';
+import 'package:crypto/crypto.dart'; // Add this import for hashing
 
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
@@ -30,6 +31,12 @@ class _RegisterScreenState extends State<RegisterScreen>
     setState(() {
       _isLoading = false;
     });
+  }
+
+  String _hashPassword(String password) {
+    var bytes = utf8.encode(password); // Convert password to bytes
+    var digest = sha256.convert(bytes); // Hash the password using SHA-256
+    return digest.toString(); // Convert the hash to a string
   }
 
   @override
@@ -83,8 +90,8 @@ class _RegisterScreenState extends State<RegisterScreen>
           buttonAction1: () {
             final RegisterRequest registerRequest = RegisterRequest((b) => b
               ..username = handleController.text
-              ..password = passwordController.text
-              ..confirmedPassword = confirmPasswordController.text);
+              ..password = _hashPassword(passwordController.text) // Hash the password
+              ..confirmedPassword = _hashPassword(confirmPasswordController.text)); // Hash the confirmed password
 
             var corpSecurityClient = CorpApi().getSecurityApi();
 
