@@ -1,7 +1,7 @@
 import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/influence_details_card.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/transfer_card.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/transfer_history_card.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_details_card.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/transfer_card.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/transfer_history_card.dart';
 import 'package:flutter/material.dart';
 
 

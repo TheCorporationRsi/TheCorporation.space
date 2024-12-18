@@ -2,10 +2,10 @@ import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dashboard/widgets/dashboard_pages/dashboard_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/influence_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/transfer_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/pers_stats_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/global_stats_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/influence_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/transfer_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/pers_stats_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/global_stats_widget.dart';
 
 
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_widget.dart';

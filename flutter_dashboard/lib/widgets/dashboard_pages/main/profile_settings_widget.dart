@@ -1,7 +1,7 @@
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
 import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/department_selection_card.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/department_selection_card.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/bar_graph_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
 import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
