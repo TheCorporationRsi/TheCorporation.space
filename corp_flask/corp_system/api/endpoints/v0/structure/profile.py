@@ -12,7 +12,7 @@ from corp_system.controllers.structure_manager import StructureManager
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 
 @api.route('/structure/profile', methods=['GET'])
-@CORP_only
+@Confirmed_RSI_only
 def user_profile():
     """Current user profile
     
@@ -169,7 +169,7 @@ def user_divisions():
 
 
 @api.route('/structure/profile/roles', methods=['GET'])
-@CORP_only
+@Confirmed_RSI_only
 def user_roles():
     """List of all your roles
     
@@ -287,6 +287,8 @@ def add_user_role():
         db.session.commit()
 
     user.add_role(role)
+    
+    user.update()
 
     return jsonify({"msg": "Role added"}), 200
 
@@ -347,6 +349,8 @@ def remove_user_role():
         db.session.commit()
 
     user.remove_role(role)
+    
+    user.update()
 
     return jsonify({"message": "Role removed"}), 200
 

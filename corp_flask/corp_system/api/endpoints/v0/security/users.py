@@ -270,6 +270,8 @@ def manualy_verify_user(username):
 
     user.RSI_confirmed = True
     db.session.commit()
+    
+    user.update()
 
     return jsonify({"msg": "User manually verified"}), 200
 
