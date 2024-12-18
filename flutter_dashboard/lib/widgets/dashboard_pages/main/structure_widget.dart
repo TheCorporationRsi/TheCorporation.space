@@ -259,7 +259,7 @@ class _StructureWidgetState extends State<StructureWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      leading: division.restricted!
+                      leading: (division.restricted! ||  !current_user.status.value.cORPMember! )
                           ? null
                           : ValueListenableBuilder(
                               valueListenable: current_user.divisions,

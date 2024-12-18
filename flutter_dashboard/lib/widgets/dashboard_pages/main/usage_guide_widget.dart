@@ -10,37 +10,8 @@ import 'package:flutter_dashboard/const/constant.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_dashboard/util/video_player_widget.dart';
 
-class UsageGuideWidget extends StatefulWidget {
+class UsageGuideWidget extends StatelessWidget {
   const UsageGuideWidget({super.key});
-
-  @override
-  _UsageGuideState createState() => _UsageGuideState();
-}
-
-class _UsageGuideState extends State<UsageGuideWidget> {
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(
-        'https://thecorporation.space/api/v0/influence_presentation.mp4',
-      ),
-    );
-
-    _initializeVideoPlayerFuture = _controller.initialize().then((_) {
-      _controller.setVolume(0.5); // Set default volume to 75%
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,32 +24,6 @@ class _UsageGuideState extends State<UsageGuideWidget> {
             builder: (context, constraints) {
               return Column(
                 children: [
-                  const SizedBox(height: 10),
-                  Image.asset(
-                    'assets/logo/corp_logo.png',
-                    width: 200, // Adjust width
-                  ),
-                  const SizedBox(height: 10),
-                  Text('Welcome to',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.orbitron(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
-                  Text('The Corporation Dashboard',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.orbitron(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
-                  const SizedBox(height: 5),
-                  Text('Your one-stop tool to progress in The Corporation',
-                      style: GoogleFonts.orbitron(
-                        fontSize: 16,
-                        color: Colors.white70,
-                      )),
                   const SizedBox(height: 20),
                   GridView(
                     physics: const NeverScrollableScrollPhysics(),
@@ -96,7 +41,7 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                           children: [
                             const SizedBox(height: 10),
                             Text(
-                              'The Corporation',
+                              'Profile menu',
                               style: GoogleFonts.orbitron(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -104,10 +49,8 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                             ),
                             const SizedBox(height: 20),
                             const Text(
-                              '''The Corporation was founded by @Pete AKA Weyland in the early days of the game.
-                              \nThe goal of The Corporation is the play the role of the "evil" richest company that have control that extend to each corner of the galaxy.\nSimilar to the Weyland-Yutani corp in Alien, Cyberdyne in Terminator...
-                              \nBeyond this funny image that is more as a joke, our goal is to build a better tommorow while keeping a fun and structured experience of collaboration that spread troughout all the aspects of the game.
-                              \nOur organization is build over the influence system that act as the democracy system of the CORP.
+                              '''The profile menu show you all the information about your profile, your roles, your influence system status....
+                              \nThis section will be usefull trought the application to know your tribute balance and your total influence
                               ''',
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -127,8 +70,8 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                           children: [
                             Expanded(
                               child: Image.asset(
-                                'assets/images/evil_corps.png',
-                                fit: BoxFit.cover,
+                                'assets/images/side_menu.png',
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ],
@@ -156,8 +99,8 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                           children: [
                             Expanded(
                               child: Image.asset(
-                                'assets/images/department_mixed.png',
-                                fit: BoxFit.cover,
+                                'assets/images/structure_section.png',
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ],
@@ -170,7 +113,7 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                           children: [
                             const SizedBox(height: 10),
                             Text(
-                              'Our Structure',
+                              'Structure documentation',
                               style: GoogleFonts.orbitron(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -179,11 +122,10 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                             ),
                             const SizedBox(height: 20),
                             const Text(
-                              '''The structure of The Corporation is divided into Departments and Divisions.
-                              \nThe departments are the main branches that are based on general activities such as Ressources gathering, Exploration, Combat....
-                              \nDivisions are the sub-branches that are based on specific activities such as Mining, Esport, Scouting, Space Combat...
-                              \nYou can join as many divisions as you want, but you will have to specify the importance of each divisions in your profile.
-                              \nThose weights as we call it will be used for your progress as well as how the Corporation will asign ressources to each divisions.
+                              '''In this section, you will see all the information about the structure of The Corporation
+                              \nYou will be able to see the different divisions, their leaders and what they do.
+                              \nYou will also be able to join/leave the divisions you want to be part of.
+
                               ''',
                               textAlign: TextAlign.start,
                               style: TextStyle(
@@ -193,19 +135,23 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                             ),
                           ],
                         ),
-                      )
+                      ),
+                      
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 18),
                   GridView(
-                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
                         crossAxisSpacing: 20,
                         mainAxisSpacing: 20,
-                        mainAxisExtent: 500),
+                        mainAxisExtent: 500,
+                        
+                        ),
                     children: [
+                      
                       CustomCard(
                         padding: const EdgeInsets.all(20),
                         child: Column(
@@ -213,7 +159,7 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                           children: [
                             const SizedBox(height: 10),
                             Text(
-                              'The Influence System',
+                              'Personnal Stats',
                               style: GoogleFonts.orbitron(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
@@ -222,40 +168,160 @@ class _UsageGuideState extends State<UsageGuideWidget> {
                             ),
                             const SizedBox(height: 20),
                             const Text(
-                              '''The Influence System is a powerful tool that allows you to track your progress in The Corporation.
-                              \nEach week, you receive a set amount of tribute to send to the people that you think deserves it the most.
-                              \nThe generated influence that you and the person receive will be calculated based on both memberships.''',
+                              '''The goal of this section is to let you explore in details how much influence you gained in each divisions.
+                              \nIt is probably empty at the beginning but it will be filled with data as you start sending and receiving tributes.
+
+                              ''',
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 18,
                                 color: Colors.white,
                               ),
                             ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'For more details, visit the Influence System section.',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  fontSize: 18, 
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  ),
-                            ),
-                            
                           ],
                         ),
                       ),
                       CustomCard(
-                          color: backgroundColor,
-                          padding: const EdgeInsets.all(20),
-                          child: VideoPlayerWidget(
-                            controller: _controller,
-                            initializeVideoPlayerFuture:
-                                _initializeVideoPlayerFuture,
-                          )),
+                        color: backgroundColor,
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/images/pers_stats.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 20),
+                  GridView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        mainAxisExtent: 500,
+                        
+                        ),
+                    children: [
+                      
+                      
+                      CustomCard(
+                        color: backgroundColor,
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/images/weights_section.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              'Weights Settings',
+                              style: GoogleFonts.orbitron(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              '''Each divisions have a weight, a percentage of you membership in this division vs another one.
+                              \nThis section will allow you to change the weights of each divisions to reflect your implication in each of them.
+                              \nThis will be used during the tribute calculation to determine how much influence you will gain in each divisions.
+                              \nChoose wisely since this will have a direct impact on your journey in The Corporation
+
+                              ''',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  GridView(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: constraints.maxWidth > 1000 ? 2 : 1,
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        mainAxisExtent: 500,
+                        
+                        ),
+                    children: [
+                      
+                      CustomCard(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 10),
+                            Text(
+                              'Tribute transfer',
+                              style: GoogleFonts.orbitron(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            const Text(
+                              '''This section allow you to send tribute to the people that you think deserve it by their actions in The Corporation.
+                              \nEach week you will receive a certain amount of tribute that you can send to the people you think deserve it.
+                              \nYou can send it to one person or split it between multiple people.
+                              \nThe more lifetime influence you gain, the higher rank you gain and the more tribute you will receive each week.
+
+                              ''',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      CustomCard(
+                        color: backgroundColor,
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Image.asset(
+                                'assets/images/transfer_section.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                   const SizedBox(height: 18),
                 ],
               );

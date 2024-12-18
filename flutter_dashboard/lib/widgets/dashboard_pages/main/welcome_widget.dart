@@ -128,7 +128,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                             Expanded(
                               child: Image.asset(
                                 'assets/images/evil_corps.png',
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ],
@@ -157,7 +157,7 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
                             Expanded(
                               child: Image.asset(
                                 'assets/images/department_mixed.png',
-                                fit: BoxFit.cover,
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ],

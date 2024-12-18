@@ -73,7 +73,8 @@ final menu = <MenuModel>[
     icon: Icons.settings,
     title: 'Settings',
     subMenu: [
-      MenuModel(icon: Icons.manage_accounts, title: 'Profile', page: ProfileSettingsWidget()),
+      if (current_user.status.value.cORPMember!)
+      MenuModel(icon: Icons.manage_accounts, title: 'Weights', page: ProfileSettingsWidget()),
       MenuModel(icon: Icons.security, title: 'Security', page: SecuritySettingsWidget()),
     ],
   ),

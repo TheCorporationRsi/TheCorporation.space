@@ -3,6 +3,9 @@ import 'package:flutter_dashboard/main.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 
+import 'package:crypto/crypto.dart'; // Add this import for hashing
+import 'dart:convert';
+
 String rsiHandle = "loading";
 String rsiMoniker = "loading";
 String profilePicture = "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250";
@@ -165,6 +168,32 @@ Future<void> setWeights(BuiltList<GetUserDivisions200ResponseInner> divisions) a
       await update();
     }
 
+  } catch (error) {
+    print(error);
+  }
+}
+
+
+String _hashPassword(String password) {
+    var bytes = utf8.encode(password); // Convert password to bytes
+    var digest = sha256.convert(bytes); // Hash the password using SHA-256
+    return digest.toString(); // Convert the hash to a string
+  }
+
+
+  
+
+Future<void> changePassword({ required String currentPassword, required String newPassword, required String confirmedPassword}) async {
+  final headers = await getAuthHeader();
+
+  final ChangePasswordRequest changePasswordRequest = ChangePasswordRequest((b) => b
+    ..currentPassword = _hashPassword(currentPassword)
+    ..newPassword = _hashPassword(newPassword)
+    ..confirmedPassword = _hashPassword(confirmedPassword)
+  );
+
+  try {
+    final response = await corpSecurityClient.changePassword(headers: headers, changePasswordRequest: changePasswordRequest);
   } catch (error) {
     print(error);
   }
