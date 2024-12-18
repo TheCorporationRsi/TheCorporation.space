@@ -12,9 +12,11 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_wid
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/department_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/division_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/role_manager_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/home/welcome_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/home/structure_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/home/usage_guide_widget.dart';
+
+import 'package:flutter_dashboard/widgets/dashboard_pages/main/welcome_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/main/structure_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/main/usage_guide_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/main/profile_settings_widget.dart';
 
 class MenuModel {
   final IconData icon;
@@ -56,7 +58,7 @@ final menu = <MenuModel>[
   ),
   if (current_user.status.value.isAdmin!)
   MenuModel(
-    icon: Icons.person,
+    icon: Icons.admin_panel_settings,
     title: 'Admin',
     subMenu: [
       MenuModel(icon: Icons.account_circle, title: 'Users', page: UserManagerWidget()),
@@ -67,10 +69,10 @@ final menu = <MenuModel>[
   ),
   //MenuModel(icon: Icons.history, title: 'Stats', page: InfluenceWidget()),
   MenuModel(
-    icon: Icons.person,
+    icon: Icons.settings,
     title: 'Settings',
     subMenu: [
-      MenuModel(icon: Icons.manage_accounts, title: 'Profile', page: DashboardWidget()),
+      MenuModel(icon: Icons.manage_accounts, title: 'Profile', page: ProfileSettingsWidget()),
       MenuModel(icon: Icons.security, title: 'Security', page: InfluenceWidget()),
     ],
   ),

@@ -456,7 +456,6 @@ class _RoleManagerWidgetState extends State<RoleManagerWidget> {
             },
             decoration: InputDecoration(hintText: "Enter title to delete"),
             keyboardType: TextInputType.number,
-            obscureText: true,
           ),
           actions: [
             TextButton(

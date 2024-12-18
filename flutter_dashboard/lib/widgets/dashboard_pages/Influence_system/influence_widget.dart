@@ -26,12 +26,6 @@ class InfluenceWidget extends StatelessWidget {
             const SizedBox(height: 18),
             const LineChartCard(),
             const SizedBox(height: 18),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              },
-              child: const Text('Go to Login'),
-            ),
           ],
         ),
       ),

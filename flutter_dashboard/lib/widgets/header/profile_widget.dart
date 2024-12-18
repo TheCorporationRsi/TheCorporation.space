@@ -14,14 +14,6 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final leadershipRoles = current_user.roles.value
-        .where((role) => role.type == 'Leadership')
-        .toList();
-    final membershipRoles = current_user.roles.value
-        .where((role) => role.type == 'Membership')
-        .toList();
-    final otherRoles =
-        current_user.roles.value.where((role) => role.type == 'Other').toList();
     return Container(
       decoration: const BoxDecoration(
         color: cardBackgroundColor,
@@ -52,102 +44,122 @@ class ProfileWidget extends StatelessWidget {
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 10),
-                Text(
-                  'Roles',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                if (leadershipRoles.isNotEmpty) ...[
-                  Text(
-                    'Leadership',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 4.0,
-                    children: [
-                      for (var role in leadershipRoles)
-                        Chip(
-                          avatar: Icon(icons[role.logo] ?? Icons.error,
-                            color: role.color != null
-                                  ? cssColorToColor(role.color!)
-                                  : Colors.grey),
-                          label: Text(role.title ?? 'Unknown'),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: role.color != null
-                                  ? cssColorToColor(role.color!)
-                                  : Colors.grey,
+                ValueListenableBuilder(
+                    valueListenable: current_user.roles,
+                    builder: (context, value, child) => Column(
+                          children: [
+                            Text(
+                              'Roles',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
                             ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                ],
-                if (membershipRoles.isNotEmpty) ...[
-                  Text(
-                    'Membership',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 4.0,
-                    children: [
-                      for (var role in membershipRoles)
-                        Chip(
-                          avatar: Icon(icons[role.logo] ?? Icons.error,
-                            color: role.color != null
-                                  ? cssColorToColor(role.color!)
-                                  : Colors.grey),
-                          label: Text(role.title ?? 'Unknown'),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: role.color != null
-                                  ? cssColorToColor(role.color!)
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                ],
-                if (otherRoles.isNotEmpty) ...[
-                  Text(
-                    'Others',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(height: 10),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 4.0,
-                    children: [
-                      for (var role in otherRoles)
-                        Chip(
-                          avatar: Icon(icons[role.logo] ?? Icons.error,
-                            color: role.color != null
-                                  ? cssColorToColor(role.color!)
-                                  : Colors.grey),
-                          label: Text(role.title ?? 'Unknown'),
-                          shape: StadiumBorder(
-                            side: BorderSide(
-                              color: role.color != null
-                                  ? cssColorToColor(role.color!)
-                                  : Colors.grey,
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ] else ...[
-                  Text(
-                    'None',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                  ),
-                ],
+                            SizedBox(height: 10),
+                            if (current_user.roles.value
+                                .where((role) => role.type == 'Leadership')
+                                .toList()
+                                .isNotEmpty) ...[
+                              Text(
+                                'Leadership',
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(height: 10),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 4.0,
+                                children: [
+                                  for (var role in current_user.roles.value
+                                      .where(
+                                          (role) => role.type == 'Leadership')
+                                      .toList())
+                                    Chip(
+                                      avatar: Icon(
+                                          icons[role.logo] ?? Icons.error,
+                                          color: role.color != null
+                                              ? cssColorToColor(role.color!)
+                                              : Colors.grey),
+                                      label: Text(role.title ?? 'Unknown'),
+                                      shape: StadiumBorder(
+                                        side: BorderSide(
+                                          color: role.color != null
+                                              ? cssColorToColor(role.color!)
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                            if (current_user.roles.value
+                                .where((role) => role.type == 'Membership')
+                                .toList()
+                                .isNotEmpty) ...[
+                              Text(
+                                'Membership',
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(height: 10),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 4.0,
+                                children: [
+                                  for (var role in current_user.roles.value
+                                      .where(
+                                          (role) => role.type == 'Membership')
+                                      .toList())
+                                    Chip(
+                                      avatar: Icon(
+                                          icons[role.logo] ?? Icons.error,
+                                          color: role.color != null
+                                              ? cssColorToColor(role.color!)
+                                              : Colors.grey),
+                                      label: Text(role.title ?? 'Unknown'),
+                                      shape: StadiumBorder(
+                                        side: BorderSide(
+                                          color: role.color != null
+                                              ? cssColorToColor(role.color!)
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                            if (current_user.roles.value.where((role) => role.type == 'Other').toList().isNotEmpty) ...[
+                              Text(
+                                'Others',
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(height: 10),
+                              Wrap(
+                                spacing: 8.0,
+                                runSpacing: 4.0,
+                                children: [
+                                  for (var role in current_user.roles.value.where((role) => role.type == 'Other').toList())
+                                    Chip(
+                                      avatar: Icon(
+                                          icons[role.logo] ?? Icons.error,
+                                          color: role.color != null
+                                              ? cssColorToColor(role.color!)
+                                              : Colors.grey),
+                                      label: Text(role.title ?? 'Unknown'),
+                                      shape: StadiumBorder(
+                                        side: BorderSide(
+                                          color: role.color != null
+                                              ? cssColorToColor(role.color!)
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ]
+                          ],
+                        )),
                 SizedBox(height: 20),
                 Divider(),
                 SizedBox(height: 20),
@@ -249,9 +261,9 @@ class ProfileWidget extends StatelessWidget {
                 Divider(),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 200,
-                  child: InfluenceChartWidget(category: "Personnal", filter: "All")
-                ),
+                    height: 200,
+                    child: InfluenceChartWidget(
+                        category: "Current_User", filter: "All")),
                 SizedBox(height: 10),
                 Text(
                   'Influence',
@@ -261,9 +273,9 @@ class ProfileWidget extends StatelessWidget {
                 Divider(),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 200,
-                  child: WeightsChartWidget(category: "Personnal", filter: "All")
-                ),
+                    height: 200,
+                    child: WeightsChartWidget(
+                        category: "Current_User", filter: "All")),
                 SizedBox(height: 10),
                 Text(
                   'Weights',
@@ -273,9 +285,9 @@ class ProfileWidget extends StatelessWidget {
                 Divider(),
                 SizedBox(height: 20),
                 SizedBox(
-                  height: 200,
-                  child: LifetimeInfluenceChartWidget(category: "Personnal",filter: "All")
-                ),
+                    height: 200,
+                    child: LifetimeInfluenceChartWidget(
+                        category: "Current_User", filter: "All")),
                 SizedBox(height: 10),
                 Text(
                   'Lifetime Influence',

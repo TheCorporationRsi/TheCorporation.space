@@ -243,7 +243,6 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
             },
             decoration: InputDecoration(hintText: "Enter handle to delete"),
             keyboardType: TextInputType.number,
-            obscureText: true,
           ),
           actions: [
             TextButton(

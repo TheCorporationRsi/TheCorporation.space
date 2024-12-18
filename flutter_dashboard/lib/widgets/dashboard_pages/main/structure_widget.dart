@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/main.dart';
+import 'package:flutter_dashboard/util/tooltip.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
 import 'package:flutter_dashboard/model/information.dart' as information;
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 
 class StructureWidget extends StatefulWidget {
   const StructureWidget({super.key});
@@ -21,13 +23,8 @@ class StructureWidget extends StatefulWidget {
 class _StructureWidgetState extends State<StructureWidget> {
   Map<int, bool> _dropdownOpen = {};
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -53,7 +50,8 @@ class _StructureWidgetState extends State<StructureWidget> {
     );
   }
 
-  Widget _buildDepartmentItem(GetDepartments200ResponseInner department, int index) {
+  Widget _buildDepartmentItem(
+      GetDepartments200ResponseInner department, int index) {
     _dropdownOpen.putIfAbsent(index, () => false);
     return Card(
       color: cardBackgroundColor,
@@ -82,16 +80,14 @@ class _StructureWidgetState extends State<StructureWidget> {
                       : Icons.more_vert),
                   onPressed: () {
                     setState(() {
-                      _dropdownOpen[index] =
-                          !_dropdownOpen[index]!;
+                      _dropdownOpen[index] = !_dropdownOpen[index]!;
                     });
                   },
                 ),
               ],
             ),
           ),
-          if (_dropdownOpen[index] == true)
-            _buildDropdownContent(department),
+          if (_dropdownOpen[index] == true) _buildDropdownContent(department),
         ],
       ),
     );
@@ -104,6 +100,110 @@ class _StructureWidgetState extends State<StructureWidget> {
     String title = department.title ?? '';
     String motto = department.motto ?? '';
     String logo = department.logo ?? '';
+
+    void _showLeaveDialog(String division_title) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          String confirmation = '';
+          return AlertDialog(
+            backgroundColor: cardBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            title: Text(
+              'Leaving ${division_title.toString()}',
+              style: TextStyle(
+                color: primaryColor,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: SizedBox(
+              width: 300, // Set a fixed width
+              height: 300, // Set a fixed height
+              child: Column(
+                children: [
+                  Text(
+                    'Warning',
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                    ),
+                    softWrap: true,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'Leaving a divisions will downgrade your divisional influence, but you will keep your lifetime influence.',
+                    textAlign: TextAlign.justify,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                    softWrap: true,
+                  ),
+                  SizedBox(height: 10),
+                  TextField(
+                    onChanged: (value) {
+                      confirmation = value;
+                    },
+                    decoration:
+                        InputDecoration(hintText: "Enter title to leave"),
+                    keyboardType: TextInputType.number,
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
+                  padding: WidgetStateProperty.all<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                onPressed: () {
+                  if (confirmation == division_title) {
+                    current_user.leaveDivision(division_title);
+                    Navigator.of(context).pop();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Title does not match'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                child: Text(
+                  'Leave',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -159,14 +259,53 @@ class _StructureWidgetState extends State<StructureWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      leading: Icon(
-                        icons[division.logo] ?? Icons.error,
-                        color: department.color != null
-                            ? cssColorToColor(department.color!)
-                            : Colors.grey,
-                      ),
+                      leading: division.restricted!
+                          ? null
+                          : ValueListenableBuilder(
+                              valueListenable: current_user.divisions,
+                              builder: (context, value, child) => Tooltip(
+                                  message: current_user.divisions.value.any(
+                                          (element) =>
+                                              element.title == division.title)
+                                      ? "Leave"
+                                      : "Join",
+                                  child: IconButton(
+                                    hoverColor: backgroundColor,
+                                    icon: Icon(
+                                      current_user.divisions.value.any(
+                                              (element) =>
+                                                  element.title ==
+                                                  division.title)
+                                          ? Icons.group_remove
+                                          : Icons.group_add,
+                                      color: current_user.divisions.value.any(
+                                              (element) =>
+                                                  element.title ==
+                                                  division.title)
+                                          ? Colors.red
+                                          : Colors.green,
+                                    ),
+                                    onPressed: () {
+                                      if (current_user.divisions.value.any(
+                                          (element) =>
+                                              element.title ==
+                                              division.title)) {
+                                        _showLeaveDialog(division.title!);
+                                      } else {
+                                        current_user
+                                            .joinDivision(division.title!);
+                                      }
+                                    },
+                                  ))),
                       title: Row(
                         children: [
+                          Icon(
+                            icons[division.logo] ?? Icons.error,
+                            color: department.color != null
+                                ? cssColorToColor(department.color!)
+                                : Colors.grey,
+                          ),
+                          SizedBox(width: 10),
                           Text(
                             division.title.toString(),
                             style: TextStyle(
@@ -198,8 +337,7 @@ class _StructureWidgetState extends State<StructureWidget> {
                           SizedBox(width: 10),
                           ...division.leaders!.map(
                             (head) => Chip(
-                              avatar: Icon(
-                                  icons[division.logo] ?? Icons.error,
+                              avatar: Icon(icons[division.logo] ?? Icons.error,
                                   color: department.color != null
                                       ? cssColorToColor(department.color!)
                                       : Colors.grey),
@@ -219,8 +357,7 @@ class _StructureWidgetState extends State<StructureWidget> {
                           SizedBox(width: 10),
                           ...division.proxys!.map(
                             (proxy) => Chip(
-                              avatar: Icon(
-                                  icons[division.logo] ?? Icons.error,
+                              avatar: Icon(icons[division.logo] ?? Icons.error,
                                   color: department.color != null
                                       ? cssColorToColor(department.color!)
                                       : Colors.grey),

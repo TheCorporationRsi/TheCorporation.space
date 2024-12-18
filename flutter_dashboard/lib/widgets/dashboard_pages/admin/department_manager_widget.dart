@@ -290,7 +290,6 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             },
             decoration: InputDecoration(hintText: "Enter title to delete"),
             keyboardType: TextInputType.number,
-            obscureText: true,
           ),
           actions: [
             TextButton(

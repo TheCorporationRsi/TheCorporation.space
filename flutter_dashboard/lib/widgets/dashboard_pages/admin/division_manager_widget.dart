@@ -338,7 +338,6 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             },
             decoration: InputDecoration(hintText: "Enter title to delete"),
             keyboardType: TextInputType.number,
-            obscureText: true,
           ),
           actions: [
             TextButton(
@@ -418,6 +417,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
     String motto = division.motto ?? '';
     String description = division.description ?? '';
     String logo = division.logo ?? '';
+    bool restricted = division.restricted ?? false;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -426,6 +426,27 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
         children: [
           _buildDetailRow('Leaders', division.leaders.toString()),
           _buildDetailRow('Proxys', division.proxys.toString()),
+          SizedBox(height: 10),
+            DropdownButtonFormField<bool>(
+              value: restricted,
+              items: [
+                DropdownMenuItem(
+                  value: true,
+                  child: Text('Restricted'),
+                ),
+                DropdownMenuItem(
+                  value: false,
+                  child: Text('Unrestricted'),
+                ),
+              ],
+              onChanged: (value) {
+                  restricted = value!;
+              },
+              decoration: InputDecoration(
+                labelText: 'Access Level',
+                border: OutlineInputBorder(),
+              ),
+            ),
           SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: title),
@@ -442,6 +463,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             logo = newLogo;
           }),
           SizedBox(height: 10),
+          
           TextField(
             controller: TextEditingController(text: motto),
             onChanged: (value) {
@@ -473,7 +495,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
             alignment: Alignment.centerRight,
             child: ElevatedButton(
               onPressed: () {
-                _updateDivision(division, title, motto, logo, description);
+                _updateDivision(division, title, motto, logo, description, restricted);
               },
               child: Text('Save'),
             ),
@@ -484,7 +506,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
   }
 
   void _updateDivision(GetDivisions200ResponseInner division,
-      String title, String motto, String logo, String description) async {
+      String title, String motto, String logo, String description, bool restricted) async {
     final headers = await getAuthHeader();
 
     final UpdateDivisionRequest updateDivisionRequest =
@@ -494,6 +516,7 @@ class _DivisionManagerWidgetState extends State<DivisionManagerWidget> {
           ..motto = motto
           ..logo = logo
           ..description = description
+          ..restricted = restricted
           );
 
     try {

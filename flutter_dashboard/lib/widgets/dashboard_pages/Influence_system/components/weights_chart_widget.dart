@@ -1,3 +1,4 @@
+import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/data/pie_chart_data.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -5,25 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
+import 'package:built_collection/built_collection.dart';
 
 class WeightsChartWidget extends StatelessWidget {
   final String filter;
   final String category;
-  const WeightsChartWidget({super.key, required this.category, required this.filter});
+  final BuiltList<GetUserDivisions200ResponseInner>? customDivisions;
+  const WeightsChartWidget({super.key, required this.category, required this.filter, this.customDivisions});
 
   @override
   Widget build(BuildContext context) {
 
     late final all_departments;
     late final all_divisions;
-      if (category == "Personal"){
+      if (category == "Current_User"){
         all_departments = current_user.departments;
         all_divisions = current_user.divisions;
-      } else {
+      } else if (category == "All"){
         all_departments = current_user.departments;
         all_divisions = current_user.divisions;
-      }
-
+      } else if (category == "Settings"){
+        all_departments = current_user.departments;
+        all_divisions = current_user.divisions;
+      } 
     List<PieChartSectionData> generateStats() {
       if (filter == "All") {
         int totalWeight = all_departments.value.isNotEmpty 
@@ -48,7 +53,7 @@ class WeightsChartWidget extends StatelessWidget {
           );
         }).toList()
         ];
-      } else {
+      } else if (filter == "Current_User") {
         final department = all_departments.value.firstWhere((element) => element.title == filter);
         final divisions = all_divisions.value.where((element) => element.department == filter).toList();
         return [
@@ -72,6 +77,31 @@ class WeightsChartWidget extends StatelessWidget {
             );
           }).toList()
         ];
+      } else {
+
+        final divisions = customDivisions!.toList();
+        return [
+          if (divisions.isEmpty)
+          PieChartSectionData(
+            color: backgroundColor,
+            value: 1,
+            radius: 25,
+            showTitle: false,
+          )
+          else
+          ...divisions.asMap().entries.map((entry) {
+            int index = entry.key;
+            var division = entry.value;
+            return PieChartSectionData(
+              color: division.color != null ? cssColorToColor(division.color!).withOpacity(1.0 - (index * 0.1)) : Colors.grey.withOpacity(1.0 - (index * 0.1)),
+              value: division.weight!.toDouble(),
+              title: division.title,
+              radius: 25,
+              showTitle: false,
+            );
+          }).toList()
+        ];
+
       }
     }
     

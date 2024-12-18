@@ -36,14 +36,6 @@ class _InfGlobalStatsWidgetState extends State<InfGlobalStatsWidget> {
             const SizedBox(height: 18),
             InfluenceDetailsCard(category: "Global", filter: filter, show_details: false),
             const SizedBox(height: 18),
-            const LineChartCard(),
-            const SizedBox(height: 18),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login');
-              },
-              child: const Text('Go to Login'),
-            ),
           ],
         ),
       ),

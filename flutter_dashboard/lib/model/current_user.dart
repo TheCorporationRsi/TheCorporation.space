@@ -115,3 +115,36 @@ Future<void> updateUserDepartments() async {
     print(error);
   }
 }
+
+
+Future<void> joinDivision(String title) async {
+  final headers = await getAuthHeader();
+  final DeleteDivisionRequest deleteDivisionRequest = DeleteDivisionRequest((b) => b
+      ..divisionTitle = title);
+  try {
+    final response = await corpStructureClient.joinDivision(headers: headers,deleteDivisionRequest: deleteDivisionRequest);
+    
+    if (response.data!.msg == "Division joined") {
+      await update();
+    }
+
+  } catch (error) {
+    print(error);
+  }
+}
+
+Future<void> leaveDivision(String title) async {
+  final headers = await getAuthHeader();
+  final DeleteDivisionRequest deleteDivisionRequest = DeleteDivisionRequest((b) => b
+      ..divisionTitle = title);
+  try {
+    final response = await corpStructureClient.leaveDivision(headers: headers, deleteDivisionRequest: deleteDivisionRequest);
+    
+    if (response.data!.msg == "Division left") {
+      await update();
+    }
+
+  } catch (error) {
+    print(error);
+  }
+}

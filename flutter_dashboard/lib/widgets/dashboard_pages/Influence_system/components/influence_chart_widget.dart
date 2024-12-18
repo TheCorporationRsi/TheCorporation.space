@@ -15,7 +15,7 @@ class InfluenceChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     late final stats;
-      if (category == "Personal"){
+      if (category == "Current_User"){
         stats = infAccount.stats;
       } else {
         stats = infAccount.stats;

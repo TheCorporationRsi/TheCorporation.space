@@ -6,19 +6,25 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_dashboard/widgets/dashboard_pages/Influence_system/components/influence_details_card.dart';
 
-class InfPersonalStatsWidget extends StatefulWidget {
-  const InfPersonalStatsWidget({super.key});
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:corp_api/corp_api.dart';
+
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
+
+
+class ProfileSettingsWidget extends StatefulWidget {
+  const ProfileSettingsWidget({super.key});
 
   @override
-  _InfPersonalStatsWidgetState createState() => _InfPersonalStatsWidgetState();
+  _ProfileSettingsWidgetState createState() => _ProfileSettingsWidgetState();
 }
 
-class _InfPersonalStatsWidgetState extends State<InfPersonalStatsWidget> {
+class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
 
   String filter = "All";
-
+  BuiltList<GetUserDivisions200ResponseInner> customDivisions = current_user.divisions.value;
   
 
   @override
@@ -29,14 +35,10 @@ class _InfPersonalStatsWidgetState extends State<InfPersonalStatsWidget> {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            DepartmentSelectionCard(onChanged:(value) => setState(() {
-              filter = value!;
-            })),
             const SizedBox(height: 18),
-            InfluenceDetailsCard(category: "Personnal", filter: filter, show_details: false),
+            WeightsChartWidget(category: "Settings", filter: "All", customDivisions: customDivisions),
             const SizedBox(height: 18),
-            const LineChartCard(),
-            const SizedBox(height: 18),
+            
           ],
         ),
       ),
