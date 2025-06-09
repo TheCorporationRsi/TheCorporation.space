@@ -9,6 +9,9 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/aucti
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/global_stats_widget.dart';
 
 
+import 'package:flutter_dashboard/widgets/dashboard_pages/tools/refinery_widget.dart';
+
+
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/department_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/division_manager_widget.dart';
@@ -46,6 +49,13 @@ final menu = <MenuModel>[
       MenuModel(icon: Icons.help, title: 'Usage Guide', page: UsageGuideWidget()),
       MenuModel(icon: Icons.schema, title: 'Structure', page: StructureWidget()),
       
+    ],
+  ),
+  MenuModel(
+    icon: Icons.handyman,
+    title: 'Tools',
+    subMenu: [
+      MenuModel(icon: Icons.flag, title: 'Refinery', page: RefineryWidget()),
     ],
   ),
   if (current_user.status.value.cORPMember!)
