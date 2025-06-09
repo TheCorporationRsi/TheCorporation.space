@@ -1,51 +1,27 @@
 FROM ubuntu:latest
 
 RUN apt-get update && \
-    apt-get install build-essential curl file git ruby-full locales --no-install-recommends -y && \
+    apt-get install build-essential curl unzip file python3 git ruby-full locales --no-install-recommends -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN localedef -i en_US -f UTF-8 en_US.UTF-8
 
-RUN useradd -m -s /bin/bash linuxbrew && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
-
-USER linuxbrew
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-
-USER root
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
-
 RUN useradd Corp_FLutter
 
-USER linuxbrew
-### Installing fvm
-RUN brew tap leoafarias/fvm
-RUN brew install fvm
+# Install Flutter SDK
+RUN git clone https://github.com/flutter/flutter.git /opt/flutter
+ENV PATH="/opt/flutter/bin:/opt/flutter/bin/cache/dart-sdk/bin:${PATH}"
 
+RUN git config --global --add safe.directory /opt/flutter
 
-### Copying the files to the /app/ directory and setting it as the working directory.
-#
-USER root
+RUN flutter doctor -v
 
-RUN apt-get update 
-RUN apt-get install -y python3
-RUN apt-get clean
-
-COPY ./.fvmrc ./.fvmrc
-
-RUN fvm install
-
-RUN fvm flutter doctor -v
-
-RUN fvm flutter config --enable-web
+RUN flutter config --enable-web
 
 RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
 
-RUN fvm flutter pub get
+RUN flutter pub get
 
-RUN fvm flutter build web --release --source-maps --web-renderer canvaskit
-
-RUN chmod +x /app/server/server.sh
-
+RUN flutter build web --release --source-maps

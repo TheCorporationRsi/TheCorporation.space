@@ -82,4 +82,4 @@ services:
       - "8000:5000"
     depends_on:
       - corp_system
-    command: bash -c "fvm flutter run -d web-server --web-port 5000 --web-enable-expression-evaluation"
+    command: bash -c "flutter run -d web-server --web-port 5000 --web-enable-expression-evaluation"
