@@ -5,6 +5,7 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/dashboard_widget.dart'
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/influence_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/transfer_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/pers_stats_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/auction_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/global_stats_widget.dart';
 
 
@@ -54,6 +55,7 @@ final menu = <MenuModel>[
     subMenu: [
       MenuModel(icon: Icons.military_tech, title: 'Personal Stats', page: InfPersonalStatsWidget()),
       MenuModel(icon: Icons.send, title: 'Transfer', page: InfTransferWidget()),
+      MenuModel(icon: Icons.bar_chart, title: 'Auction', page: AuctionWidget()),
       //MenuModel(icon: Icons.query_stats, title: 'Global Stats', page: InfGlobalStatsWidget()),
     ],
   ),
