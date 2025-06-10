@@ -9,6 +9,7 @@ All URIs are relative to *https://thecorporation.space*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**adminAddTribute**](AdminApi.md#adminaddtribute) | **POST** /api/v0/influence_system/add_tribute | Admin: Add tribute to a user&#39;s account
 [**createDepartment**](AdminApi.md#createdepartment) | **POST** /api/v0/structure/departments | Department creation endpoint
 [**createDivision**](AdminApi.md#createdivision) | **POST** /api/v0/structure/divisions | Division creation endpoint
 [**createRank**](AdminApi.md#createrank) | **POST** /api/v0/influence_system/ranks | Allow to edit a rank of the influence system 
@@ -20,6 +21,49 @@ Method | HTTP request | Description
 [**updateDepartment**](AdminApi.md#updatedepartment) | **PATCH** /api/v0/structure/departments | Department update endpoint
 [**updateDivision**](AdminApi.md#updatedivision) | **PATCH** /api/v0/structure/divisions | Division update endpoint
 
+
+# **adminAddTribute**
+> AdminAddTribute200Response adminAddTribute(adminAddTributeRequest)
+
+Admin: Add tribute to a user's account
+
+<br/>Requires JSON body with 'rsi_handle' (str) and 'amount' (int).<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getAdminApi();
+final AdminAddTributeRequest adminAddTributeRequest = ; // AdminAddTributeRequest | 
+
+try {
+    final response = api.adminAddTribute(adminAddTributeRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminApi->adminAddTribute: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **adminAddTributeRequest** | [**AdminAddTributeRequest**](AdminAddTributeRequest.md)|  | 
+
+### Return type
+
+[**AdminAddTribute200Response**](AdminAddTribute200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createDepartment**
 > CreateDepartment200Response createDepartment(createDepartmentRequest)

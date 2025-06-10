@@ -18,6 +18,10 @@ class _$ListAuctions200ResponseInner extends ListAuctions200ResponseInner {
   @override
   final String? id;
   @override
+  final String? itemHolder;
+  @override
+  final DateTime? startTime;
+  @override
   final String? title;
 
   factory _$ListAuctions200ResponseInner(
@@ -30,6 +34,8 @@ class _$ListAuctions200ResponseInner extends ListAuctions200ResponseInner {
       this.endTime,
       this.highestBidder,
       this.id,
+      this.itemHolder,
+      this.startTime,
       this.title})
       : super._();
   @override
@@ -50,6 +56,8 @@ class _$ListAuctions200ResponseInner extends ListAuctions200ResponseInner {
         endTime == other.endTime &&
         highestBidder == other.highestBidder &&
         id == other.id &&
+        itemHolder == other.itemHolder &&
+        startTime == other.startTime &&
         title == other.title;
   }
 
@@ -61,6 +69,8 @@ class _$ListAuctions200ResponseInner extends ListAuctions200ResponseInner {
     _$hash = $jc(_$hash, endTime.hashCode);
     _$hash = $jc(_$hash, highestBidder.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, itemHolder.hashCode);
+    _$hash = $jc(_$hash, startTime.hashCode);
     _$hash = $jc(_$hash, title.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -74,6 +84,8 @@ class _$ListAuctions200ResponseInner extends ListAuctions200ResponseInner {
           ..add('endTime', endTime)
           ..add('highestBidder', highestBidder)
           ..add('id', id)
+          ..add('itemHolder', itemHolder)
+          ..add('startTime', startTime)
           ..add('title', title))
         .toString();
   }
@@ -106,6 +118,14 @@ class ListAuctions200ResponseInnerBuilder
   String? get id => _$this._id;
   set id(String? id) => _$this._id = id;
 
+  String? _itemHolder;
+  String? get itemHolder => _$this._itemHolder;
+  set itemHolder(String? itemHolder) => _$this._itemHolder = itemHolder;
+
+  DateTime? _startTime;
+  DateTime? get startTime => _$this._startTime;
+  set startTime(DateTime? startTime) => _$this._startTime = startTime;
+
   String? _title;
   String? get title => _$this._title;
   set title(String? title) => _$this._title = title;
@@ -122,6 +142,8 @@ class ListAuctions200ResponseInnerBuilder
       _endTime = $v.endTime;
       _highestBidder = $v.highestBidder;
       _id = $v.id;
+      _itemHolder = $v.itemHolder;
+      _startTime = $v.startTime;
       _title = $v.title;
       _$v = null;
     }
@@ -149,6 +171,8 @@ class ListAuctions200ResponseInnerBuilder
           endTime: endTime,
           highestBidder: highestBidder,
           id: id,
+          itemHolder: itemHolder,
+          startTime: startTime,
           title: title,
         );
     replace(_$result);

@@ -19,6 +19,8 @@ export 'package:corp_api/src/api/structure_api.dart';
 
 export 'package:corp_api/src/model/add_user_role200_response.dart';
 export 'package:corp_api/src/model/add_user_role_request.dart';
+export 'package:corp_api/src/model/admin_add_tribute200_response.dart';
+export 'package:corp_api/src/model/admin_add_tribute_request.dart';
 export 'package:corp_api/src/model/change_password_request.dart';
 export 'package:corp_api/src/model/create_auction201_response.dart';
 export 'package:corp_api/src/model/create_auction_request.dart';

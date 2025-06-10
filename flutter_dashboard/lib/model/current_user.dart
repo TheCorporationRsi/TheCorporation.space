@@ -198,3 +198,9 @@ Future<void> changePassword({ required String currentPassword, required String n
     print(error);
   }
 }
+
+// Returns true if the current user is a manager, false otherwise.
+bool isCurrentUserManager() {
+  // Adjust the property name if your API uses a different one
+  return status.value.isManager == true;
+}

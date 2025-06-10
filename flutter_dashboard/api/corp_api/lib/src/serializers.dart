@@ -16,6 +16,8 @@ import 'package:corp_api/src/model/date.dart';
 
 import 'package:corp_api/src/model/add_user_role200_response.dart';
 import 'package:corp_api/src/model/add_user_role_request.dart';
+import 'package:corp_api/src/model/admin_add_tribute200_response.dart';
+import 'package:corp_api/src/model/admin_add_tribute_request.dart';
 import 'package:corp_api/src/model/change_password_request.dart';
 import 'package:corp_api/src/model/create_auction201_response.dart';
 import 'package:corp_api/src/model/create_auction_request.dart';
@@ -89,6 +91,8 @@ part 'serializers.g.dart';
 @SerializersFor([
   AddUserRole200Response,
   AddUserRoleRequest,
+  AdminAddTribute200Response,
+  AdminAddTributeRequest,
   ChangePasswordRequest,
   CreateAuction201Response,
   CreateAuctionRequest,

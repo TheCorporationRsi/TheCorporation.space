@@ -48,13 +48,13 @@ import 'package:corp_api/corp_api.dart';
 
 
 final api = CorpApi().getAdminApi();
-final CreateDepartmentRequest createDepartmentRequest = ; // CreateDepartmentRequest | Department information
+final AdminAddTributeRequest adminAddTributeRequest = ; // AdminAddTributeRequest | 
 
 try {
-    final response = await api.createDepartment(createDepartmentRequest);
+    final response = await api.adminAddTribute(adminAddTributeRequest);
     print(response);
 } catch on DioException (e) {
-    print("Exception when calling AdminApi->createDepartment: $e\n");
+    print("Exception when calling AdminApi->adminAddTribute: $e\n");
 }
 
 ```
@@ -65,6 +65,7 @@ All URIs are relative to *https://thecorporation.space*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AdminApi*](doc/AdminApi.md) | [**adminAddTribute**](doc/AdminApi.md#adminaddtribute) | **POST** /api/v0/influence_system/add_tribute | Admin: Add tribute to a user&#39;s account
 [*AdminApi*](doc/AdminApi.md) | [**createDepartment**](doc/AdminApi.md#createdepartment) | **POST** /api/v0/structure/departments | Department creation endpoint
 [*AdminApi*](doc/AdminApi.md) | [**createDivision**](doc/AdminApi.md#createdivision) | **POST** /api/v0/structure/divisions | Division creation endpoint
 [*AdminApi*](doc/AdminApi.md) | [**createRank**](doc/AdminApi.md#createrank) | **POST** /api/v0/influence_system/ranks | Allow to edit a rank of the influence system 
@@ -121,6 +122,8 @@ Class | Method | HTTP request | Description
 
  - [AddUserRole200Response](doc/AddUserRole200Response.md)
  - [AddUserRoleRequest](doc/AddUserRoleRequest.md)
+ - [AdminAddTribute200Response](doc/AdminAddTribute200Response.md)
+ - [AdminAddTributeRequest](doc/AdminAddTributeRequest.md)
  - [ChangePasswordRequest](doc/ChangePasswordRequest.md)
  - [CreateAuction201Response](doc/CreateAuction201Response.md)
  - [CreateAuctionRequest](doc/CreateAuctionRequest.md)

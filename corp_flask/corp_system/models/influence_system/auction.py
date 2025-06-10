@@ -54,8 +54,11 @@ class Inf_Auction(Base):
     
     current_price = db.Column(db.Integer, default=0)
     
+    closed = db.Column(db.Boolean, default=False)
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+    
     
     
     def claim_prize(self):

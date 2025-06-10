@@ -337,3 +337,5 @@ def set_user_security_level():
     user.update()
 
     return jsonify({"msg": "User security level updated"}), 200
+
+

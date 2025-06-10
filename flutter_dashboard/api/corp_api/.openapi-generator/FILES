@@ -3,6 +3,8 @@ README.md
 analysis_options.yaml
 doc/AddUserRole200Response.md
 doc/AddUserRoleRequest.md
+doc/AdminAddTribute200Response.md
+doc/AdminAddTributeRequest.md
 doc/AdminApi.md
 doc/ChangePasswordRequest.md
 doc/CreateAuction201Response.md
@@ -93,6 +95,8 @@ lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/add_user_role200_response.dart
 lib/src/model/add_user_role_request.dart
+lib/src/model/admin_add_tribute200_response.dart
+lib/src/model/admin_add_tribute_request.dart
 lib/src/model/change_password_request.dart
 lib/src/model/create_auction201_response.dart
 lib/src/model/create_auction_request.dart
@@ -163,3 +167,4 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/admin_add_tribute200_response_test.dart

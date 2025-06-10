@@ -363,9 +363,61 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
             },
             child: Text('Remove Role'),
           ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
+              _addTributeToInfluence(user);
+            },
+            child: Text('Add 100 Tribute'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.amber,
+              foregroundColor: Colors.black,
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> _addTributeToInfluence(GetUsers200ResponseInner user) async {
+    final headers = await getAuthHeader();
+    try {
+      // Assuming there is an API endpoint for this operation
+      final response = await corpApi.getAdminApi().adminAddTribute(
+        headers: headers,
+        adminAddTributeRequest: AdminAddTributeRequest((b) => b
+          ..rsiHandle = user.rSIHandle
+          ..amount = 100
+        ),
+      );
+      if (response.data != null && response.data!.msg == "Added tribute") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('100 Tribute added to ${user.rSIHandle}'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to add tribute'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (error) {
+      print(error);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to add tribute'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   void _showSetSecurityLevelDialog(GetUsers200ResponseInner user) {

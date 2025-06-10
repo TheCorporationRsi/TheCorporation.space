@@ -284,10 +284,15 @@ class InfluenceSystemManager:
 
         # Place bid
         bet = Inf_AuctionBet(
-            user_id=user.id,
+            account_id=user.inf_account.id,
             auction_id=auction.id,
             amount=bid_amount,
         )
         db.session.add(bet)
+        db.session.commit()
+        
+        # Update auction's highest bidder and amount
+        auction.highest_bidder_id = user.inf_account.id
+        auction.current_price = bid_amount
         db.session.commit()
 

@@ -43,6 +43,10 @@ def list_auctions():
                                 end_time:
                                     type: string
                                     format: date-time
+                                start_time:
+                                    type: string
+                                    format: date-time
+                                    example: "2024-06-01T12:00:00Z"
                                 current_price:
                                     type: number
                                     example: 100
@@ -50,19 +54,27 @@ def list_auctions():
                                     type: string
                                     nullable: true
                                     example: "john_doe"
+                                item_holder:
+                                    type: string
+                                    example: "jane_doe"
         401:
             $ref: "#/components/responses/unauthorized"
     """
     auctions = Inf_Auction.query.all()
     auction_list = []
     for auction in auctions:
+        def to_utc(dt):
+            iso = dt.isoformat()
+            return iso if iso.endswith('Z') else iso + 'Z'
         auction_list.append({
             "id": auction.id,
             "title": auction.title,
             "description": auction.description,
-            "end_time": auction.end_time.isoformat(),
+            "end_time": to_utc(auction.end_time),
+            "start_time": to_utc(auction.start_time),
             "current_price": auction.current_price,
-            "highest_bidder": auction.highest_bidder.username if auction.highest_bidder else None,
+            "highest_bidder": auction.highest_bidder.RSI_handle if auction.highest_bidder else None,
+            "item_holder": auction.item_holder.RSI_handle
         })
     return jsonify(auction_list), 200
 
@@ -83,7 +95,7 @@ def create_auction():
             application/json:
                 schema:
                     type: object
-                    required: [title, description, starting_bid, end_time, department, division]
+                    required: [title, description, end_time]
                     properties:
                         title:
                             type: string
@@ -91,9 +103,6 @@ def create_auction():
                         description:
                             type: string
                             example: "Auctioning a rare ship."
-                        starting_bid:
-                            type: number
-                            example: 100
                         end_time:
                             type: string
                             format: date-time

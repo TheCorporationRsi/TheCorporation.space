@@ -9,6 +9,8 @@ part of 'serializers.dart';
 Serializers _$serializers = (Serializers().toBuilder()
       ..add(AddUserRole200Response.serializer)
       ..add(AddUserRoleRequest.serializer)
+      ..add(AdminAddTribute200Response.serializer)
+      ..add(AdminAddTributeRequest.serializer)
       ..add(ChangePasswordRequest.serializer)
       ..add(CreateAuction201Response.serializer)
       ..add(CreateAuctionRequest.serializer)

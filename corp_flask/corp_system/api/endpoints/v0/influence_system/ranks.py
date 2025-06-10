@@ -189,6 +189,9 @@ def edit_rank():
             required_lifetime_influence=data.get("required_lifetime_influence"),
             weekly_amount=data.get("weekly_amount"),
         )
+        
+        InfluenceSystemManager.update_accounts()
+        
         return jsonify({"msg": "Rank updated"}), 200
     except ValueError as e:
         return jsonify({"msg": str(e)}), 400

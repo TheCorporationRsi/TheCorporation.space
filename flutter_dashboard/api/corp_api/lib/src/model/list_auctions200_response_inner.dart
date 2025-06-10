@@ -16,6 +16,8 @@ part 'list_auctions200_response_inner.g.dart';
 /// * [endTime]
 /// * [highestBidder]
 /// * [id]
+/// * [itemHolder]
+/// * [startTime]
 /// * [title]
 @BuiltValue()
 abstract class ListAuctions200ResponseInner
@@ -36,6 +38,12 @@ abstract class ListAuctions200ResponseInner
 
   @BuiltValueField(wireName: r'id')
   String? get id;
+
+  @BuiltValueField(wireName: r'item_holder')
+  String? get itemHolder;
+
+  @BuiltValueField(wireName: r'start_time')
+  DateTime? get startTime;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -105,6 +113,20 @@ class _$ListAuctions200ResponseInnerSerializer
         specifiedType: const FullType(String),
       );
     }
+    if (object.itemHolder != null) {
+      yield r'item_holder';
+      yield serializers.serialize(
+        object.itemHolder,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.startTime != null) {
+      yield r'start_time';
+      yield serializers.serialize(
+        object.startTime,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     if (object.title != null) {
       yield r'title';
       yield serializers.serialize(
@@ -172,6 +194,20 @@ class _$ListAuctions200ResponseInnerSerializer
             specifiedType: const FullType(String),
           ) as String;
           result.id = valueDes;
+          break;
+        case r'item_holder':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.itemHolder = valueDes;
+          break;
+        case r'start_time':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.startTime = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(
