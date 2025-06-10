@@ -22,7 +22,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
 
   factory _$UpdateDepartmentRequest(
           [void Function(UpdateDepartmentRequestBuilder)? updates]) =>
-      (new UpdateDepartmentRequestBuilder()..update(updates))._build();
+      (UpdateDepartmentRequestBuilder()..update(updates))._build();
 
   _$UpdateDepartmentRequest._(
       {required this.departmentTitle,
@@ -31,11 +31,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
       this.logo,
       this.motto,
       this.newTitle})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        departmentTitle, r'UpdateDepartmentRequest', 'departmentTitle');
-  }
-
+      : super._();
   @override
   UpdateDepartmentRequest rebuild(
           void Function(UpdateDepartmentRequestBuilder) updates) =>
@@ -43,7 +39,7 @@ class _$UpdateDepartmentRequest extends UpdateDepartmentRequest {
 
   @override
   UpdateDepartmentRequestBuilder toBuilder() =>
-      new UpdateDepartmentRequestBuilder()..replace(this);
+      UpdateDepartmentRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -133,7 +129,6 @@ class UpdateDepartmentRequestBuilder
 
   @override
   void replace(UpdateDepartmentRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateDepartmentRequest;
   }
 
@@ -147,14 +142,15 @@ class UpdateDepartmentRequestBuilder
 
   _$UpdateDepartmentRequest _build() {
     final _$result = _$v ??
-        new _$UpdateDepartmentRequest._(
-            departmentTitle: BuiltValueNullFieldError.checkNotNull(
-                departmentTitle, r'UpdateDepartmentRequest', 'departmentTitle'),
-            color: color,
-            description: description,
-            logo: logo,
-            motto: motto,
-            newTitle: newTitle);
+        _$UpdateDepartmentRequest._(
+          departmentTitle: BuiltValueNullFieldError.checkNotNull(
+              departmentTitle, r'UpdateDepartmentRequest', 'departmentTitle'),
+          color: color,
+          description: description,
+          logo: logo,
+          motto: motto,
+          newTitle: newTitle,
+        );
     replace(_$result);
     return _$result;
   }

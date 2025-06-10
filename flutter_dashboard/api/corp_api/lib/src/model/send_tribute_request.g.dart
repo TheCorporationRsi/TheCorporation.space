@@ -16,17 +16,11 @@ class _$SendTributeRequest extends SendTributeRequest {
 
   factory _$SendTributeRequest(
           [void Function(SendTributeRequestBuilder)? updates]) =>
-      (new SendTributeRequestBuilder()..update(updates))._build();
+      (SendTributeRequestBuilder()..update(updates))._build();
 
   _$SendTributeRequest._(
       {required this.amount, required this.receiverHandle, this.message})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        amount, r'SendTributeRequest', 'amount');
-    BuiltValueNullFieldError.checkNotNull(
-        receiverHandle, r'SendTributeRequest', 'receiverHandle');
-  }
-
+      : super._();
   @override
   SendTributeRequest rebuild(
           void Function(SendTributeRequestBuilder) updates) =>
@@ -34,7 +28,7 @@ class _$SendTributeRequest extends SendTributeRequest {
 
   @override
   SendTributeRequestBuilder toBuilder() =>
-      new SendTributeRequestBuilder()..replace(this);
+      SendTributeRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -99,7 +93,6 @@ class SendTributeRequestBuilder
 
   @override
   void replace(SendTributeRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SendTributeRequest;
   }
 
@@ -113,12 +106,13 @@ class SendTributeRequestBuilder
 
   _$SendTributeRequest _build() {
     final _$result = _$v ??
-        new _$SendTributeRequest._(
-            amount: BuiltValueNullFieldError.checkNotNull(
-                amount, r'SendTributeRequest', 'amount'),
-            receiverHandle: BuiltValueNullFieldError.checkNotNull(
-                receiverHandle, r'SendTributeRequest', 'receiverHandle'),
-            message: message);
+        _$SendTributeRequest._(
+          amount: BuiltValueNullFieldError.checkNotNull(
+              amount, r'SendTributeRequest', 'amount'),
+          receiverHandle: BuiltValueNullFieldError.checkNotNull(
+              receiverHandle, r'SendTributeRequest', 'receiverHandle'),
+          message: message,
+        );
     replace(_$result);
     return _$result;
   }

@@ -12,10 +12,9 @@ class _$Register200Response extends Register200Response {
 
   factory _$Register200Response(
           [void Function(Register200ResponseBuilder)? updates]) =>
-      (new Register200ResponseBuilder()..update(updates))._build();
+      (Register200ResponseBuilder()..update(updates))._build();
 
   _$Register200Response._({this.msg}) : super._();
-
   @override
   Register200Response rebuild(
           void Function(Register200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$Register200Response extends Register200Response {
 
   @override
   Register200ResponseBuilder toBuilder() =>
-      new Register200ResponseBuilder()..replace(this);
+      Register200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class Register200ResponseBuilder
 
   @override
   void replace(Register200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Register200Response;
   }
 
@@ -83,7 +81,10 @@ class Register200ResponseBuilder
   Register200Response build() => _build();
 
   _$Register200Response _build() {
-    final _$result = _$v ?? new _$Register200Response._(msg: msg);
+    final _$result = _$v ??
+        _$Register200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

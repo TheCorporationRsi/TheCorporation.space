@@ -16,11 +16,10 @@ class _$GetUserProfile200Response extends GetUserProfile200Response {
 
   factory _$GetUserProfile200Response(
           [void Function(GetUserProfile200ResponseBuilder)? updates]) =>
-      (new GetUserProfile200ResponseBuilder()..update(updates))._build();
+      (GetUserProfile200ResponseBuilder()..update(updates))._build();
 
   _$GetUserProfile200Response._({this.moniker, this.picture, this.rSIHandle})
       : super._();
-
   @override
   GetUserProfile200Response rebuild(
           void Function(GetUserProfile200ResponseBuilder) updates) =>
@@ -28,7 +27,7 @@ class _$GetUserProfile200Response extends GetUserProfile200Response {
 
   @override
   GetUserProfile200ResponseBuilder toBuilder() =>
-      new GetUserProfile200ResponseBuilder()..replace(this);
+      GetUserProfile200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +92,6 @@ class GetUserProfile200ResponseBuilder
 
   @override
   void replace(GetUserProfile200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserProfile200Response;
   }
 
@@ -107,8 +105,11 @@ class GetUserProfile200ResponseBuilder
 
   _$GetUserProfile200Response _build() {
     final _$result = _$v ??
-        new _$GetUserProfile200Response._(
-            moniker: moniker, picture: picture, rSIHandle: rSIHandle);
+        _$GetUserProfile200Response._(
+          moniker: moniker,
+          picture: picture,
+          rSIHandle: rSIHandle,
+        );
     replace(_$result);
     return _$result;
   }

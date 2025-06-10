@@ -28,7 +28,7 @@ class _$GetUser200Response extends GetUser200Response {
 
   factory _$GetUser200Response(
           [void Function(GetUser200ResponseBuilder)? updates]) =>
-      (new GetUser200ResponseBuilder()..update(updates))._build();
+      (GetUser200ResponseBuilder()..update(updates))._build();
 
   _$GetUser200Response._(
       {this.cORPConfirmed,
@@ -41,7 +41,6 @@ class _$GetUser200Response extends GetUser200Response {
       this.roles,
       this.securityLevel})
       : super._();
-
   @override
   GetUser200Response rebuild(
           void Function(GetUser200ResponseBuilder) updates) =>
@@ -49,7 +48,7 @@ class _$GetUser200Response extends GetUser200Response {
 
   @override
   GetUser200ResponseBuilder toBuilder() =>
-      new GetUser200ResponseBuilder()..replace(this);
+      GetUser200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -134,7 +133,7 @@ class GetUser200ResponseBuilder
 
   ListBuilder<GetUser200ResponseRolesInner>? _roles;
   ListBuilder<GetUser200ResponseRolesInner> get roles =>
-      _$this._roles ??= new ListBuilder<GetUser200ResponseRolesInner>();
+      _$this._roles ??= ListBuilder<GetUser200ResponseRolesInner>();
   set roles(ListBuilder<GetUser200ResponseRolesInner>? roles) =>
       _$this._roles = roles;
 
@@ -166,7 +165,6 @@ class GetUser200ResponseBuilder
 
   @override
   void replace(GetUser200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUser200Response;
   }
 
@@ -182,23 +180,24 @@ class GetUser200ResponseBuilder
     _$GetUser200Response _$result;
     try {
       _$result = _$v ??
-          new _$GetUser200Response._(
-              cORPConfirmed: cORPConfirmed,
-              rSIConfirmed: rSIConfirmed,
-              rSIHandle: rSIHandle,
-              rSIVerificationToken: rSIVerificationToken,
-              disabled: disabled,
-              enabled2fa: enabled2fa,
-              picture: picture,
-              roles: _roles?.build(),
-              securityLevel: securityLevel);
+          _$GetUser200Response._(
+            cORPConfirmed: cORPConfirmed,
+            rSIConfirmed: rSIConfirmed,
+            rSIHandle: rSIHandle,
+            rSIVerificationToken: rSIVerificationToken,
+            disabled: disabled,
+            enabled2fa: enabled2fa,
+            picture: picture,
+            roles: _roles?.build(),
+            securityLevel: securityLevel,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'roles';
         _roles?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetUser200Response', _$failedField, e.toString());
       }
       rethrow;

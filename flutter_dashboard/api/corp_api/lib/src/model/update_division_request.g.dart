@@ -24,7 +24,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
 
   factory _$UpdateDivisionRequest(
           [void Function(UpdateDivisionRequestBuilder)? updates]) =>
-      (new UpdateDivisionRequestBuilder()..update(updates))._build();
+      (UpdateDivisionRequestBuilder()..update(updates))._build();
 
   _$UpdateDivisionRequest._(
       {required this.divisionTitle,
@@ -34,11 +34,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
       this.newTitle,
       this.restricted,
       this.securityLevel})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        divisionTitle, r'UpdateDivisionRequest', 'divisionTitle');
-  }
-
+      : super._();
   @override
   UpdateDivisionRequest rebuild(
           void Function(UpdateDivisionRequestBuilder) updates) =>
@@ -46,7 +42,7 @@ class _$UpdateDivisionRequest extends UpdateDivisionRequest {
 
   @override
   UpdateDivisionRequestBuilder toBuilder() =>
-      new UpdateDivisionRequestBuilder()..replace(this);
+      UpdateDivisionRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -144,7 +140,6 @@ class UpdateDivisionRequestBuilder
 
   @override
   void replace(UpdateDivisionRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateDivisionRequest;
   }
 
@@ -158,15 +153,16 @@ class UpdateDivisionRequestBuilder
 
   _$UpdateDivisionRequest _build() {
     final _$result = _$v ??
-        new _$UpdateDivisionRequest._(
-            divisionTitle: BuiltValueNullFieldError.checkNotNull(
-                divisionTitle, r'UpdateDivisionRequest', 'divisionTitle'),
-            description: description,
-            logo: logo,
-            motto: motto,
-            newTitle: newTitle,
-            restricted: restricted,
-            securityLevel: securityLevel);
+        _$UpdateDivisionRequest._(
+          divisionTitle: BuiltValueNullFieldError.checkNotNull(
+              divisionTitle, r'UpdateDivisionRequest', 'divisionTitle'),
+          description: description,
+          logo: logo,
+          motto: motto,
+          newTitle: newTitle,
+          restricted: restricted,
+          securityLevel: securityLevel,
+        );
     replace(_$result);
     return _$result;
   }

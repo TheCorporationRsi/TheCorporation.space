@@ -91,9 +91,8 @@ services:
     restart: always
     build: ./flutter_dashboard
     expose:
-      - "5000"
+      - "80"
     networks:
       - corp_cloudflared
     depends_on:
       - corp_system
-    command: bash -c "/app/server/server.sh"

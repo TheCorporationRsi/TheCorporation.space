@@ -1,27 +1,8 @@
-FROM ubuntu:latest
+# Use an official Nginx image as the base image
+FROM nginx:alpine
 
-RUN apt-get update && \
-    apt-get install build-essential curl unzip file python3 git ruby-full locales --no-install-recommends -y && \
-    rm -rf /var/lib/apt/lists/*
+# Remove default Nginx static assets
+RUN rm -rf /usr/share/nginx/html/*
 
-RUN localedef -i en_US -f UTF-8 en_US.UTF-8
-
-RUN useradd Corp_FLutter
-
-# Install Flutter SDK
-RUN git clone https://github.com/flutter/flutter.git /opt/flutter
-ENV PATH="/opt/flutter/bin:/opt/flutter/bin/cache/dart-sdk/bin:${PATH}"
-
-RUN git config --global --add safe.directory /opt/flutter
-
-RUN flutter doctor -v
-
-RUN flutter config --enable-web
-
-RUN mkdir /app/
-COPY . /app/
-WORKDIR /app/
-
-RUN flutter pub get
-
-RUN flutter build web --release --source-maps
+# Copy static website files to the Nginx document root
+COPY ./build/web/ /usr/share/nginx/html

@@ -14,10 +14,9 @@ class _$AddUserRoleRequest extends AddUserRoleRequest {
 
   factory _$AddUserRoleRequest(
           [void Function(AddUserRoleRequestBuilder)? updates]) =>
-      (new AddUserRoleRequestBuilder()..update(updates))._build();
+      (AddUserRoleRequestBuilder()..update(updates))._build();
 
   _$AddUserRoleRequest._({this.roleTitle, this.rsiHandle}) : super._();
-
   @override
   AddUserRoleRequest rebuild(
           void Function(AddUserRoleRequestBuilder) updates) =>
@@ -25,7 +24,7 @@ class _$AddUserRoleRequest extends AddUserRoleRequest {
 
   @override
   AddUserRoleRequestBuilder toBuilder() =>
-      new AddUserRoleRequestBuilder()..replace(this);
+      AddUserRoleRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -81,7 +80,6 @@ class AddUserRoleRequestBuilder
 
   @override
   void replace(AddUserRoleRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$AddUserRoleRequest;
   }
 
@@ -95,7 +93,10 @@ class AddUserRoleRequestBuilder
 
   _$AddUserRoleRequest _build() {
     final _$result = _$v ??
-        new _$AddUserRoleRequest._(roleTitle: roleTitle, rsiHandle: rsiHandle);
+        _$AddUserRoleRequest._(
+          roleTitle: roleTitle,
+          rsiHandle: rsiHandle,
+        );
     replace(_$result);
     return _$result;
   }

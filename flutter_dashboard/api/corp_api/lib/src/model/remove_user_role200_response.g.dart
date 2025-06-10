@@ -12,10 +12,9 @@ class _$RemoveUserRole200Response extends RemoveUserRole200Response {
 
   factory _$RemoveUserRole200Response(
           [void Function(RemoveUserRole200ResponseBuilder)? updates]) =>
-      (new RemoveUserRole200ResponseBuilder()..update(updates))._build();
+      (RemoveUserRole200ResponseBuilder()..update(updates))._build();
 
   _$RemoveUserRole200Response._({this.msg}) : super._();
-
   @override
   RemoveUserRole200Response rebuild(
           void Function(RemoveUserRole200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$RemoveUserRole200Response extends RemoveUserRole200Response {
 
   @override
   RemoveUserRole200ResponseBuilder toBuilder() =>
-      new RemoveUserRole200ResponseBuilder()..replace(this);
+      RemoveUserRole200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class RemoveUserRole200ResponseBuilder
 
   @override
   void replace(RemoveUserRole200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RemoveUserRole200Response;
   }
 
@@ -84,7 +82,10 @@ class RemoveUserRole200ResponseBuilder
   RemoveUserRole200Response build() => _build();
 
   _$RemoveUserRole200Response _build() {
-    final _$result = _$v ?? new _$RemoveUserRole200Response._(msg: msg);
+    final _$result = _$v ??
+        _$RemoveUserRole200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

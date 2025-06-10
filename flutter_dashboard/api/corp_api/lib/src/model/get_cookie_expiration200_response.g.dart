@@ -14,12 +14,11 @@ class _$GetCookieExpiration200Response extends GetCookieExpiration200Response {
 
   factory _$GetCookieExpiration200Response(
           [void Function(GetCookieExpiration200ResponseBuilder)? updates]) =>
-      (new GetCookieExpiration200ResponseBuilder()..update(updates))._build();
+      (GetCookieExpiration200ResponseBuilder()..update(updates))._build();
 
   _$GetCookieExpiration200Response._(
       {this.corpAccessPassExpiration, this.corpRefreshPassExpiration})
       : super._();
-
   @override
   GetCookieExpiration200Response rebuild(
           void Function(GetCookieExpiration200ResponseBuilder) updates) =>
@@ -27,7 +26,7 @@ class _$GetCookieExpiration200Response extends GetCookieExpiration200Response {
 
   @override
   GetCookieExpiration200ResponseBuilder toBuilder() =>
-      new GetCookieExpiration200ResponseBuilder()..replace(this);
+      GetCookieExpiration200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +86,6 @@ class GetCookieExpiration200ResponseBuilder
 
   @override
   void replace(GetCookieExpiration200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetCookieExpiration200Response;
   }
 
@@ -101,9 +99,10 @@ class GetCookieExpiration200ResponseBuilder
 
   _$GetCookieExpiration200Response _build() {
     final _$result = _$v ??
-        new _$GetCookieExpiration200Response._(
-            corpAccessPassExpiration: corpAccessPassExpiration,
-            corpRefreshPassExpiration: corpRefreshPassExpiration);
+        _$GetCookieExpiration200Response._(
+          corpAccessPassExpiration: corpAccessPassExpiration,
+          corpRefreshPassExpiration: corpRefreshPassExpiration,
+        );
     replace(_$result);
     return _$result;
   }

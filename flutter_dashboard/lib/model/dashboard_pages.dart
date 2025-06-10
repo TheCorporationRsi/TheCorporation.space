@@ -55,7 +55,7 @@ final menu = <MenuModel>[
     icon: Icons.handyman,
     title: 'Tools',
     subMenu: [
-      MenuModel(icon: Icons.flag, title: 'Refinery', page: RefineryWidget()),
+      MenuModel(icon: Icons.factory_sharp, title: 'Refinery', page: RefineryWidget()),
     ],
   ),
   if (current_user.status.value.cORPMember!)

@@ -16,12 +16,11 @@ class _$RefreshToken200Response extends RefreshToken200Response {
 
   factory _$RefreshToken200Response(
           [void Function(RefreshToken200ResponseBuilder)? updates]) =>
-      (new RefreshToken200ResponseBuilder()..update(updates))._build();
+      (RefreshToken200ResponseBuilder()..update(updates))._build();
 
   _$RefreshToken200Response._(
       {this.corpAccessPass, this.corpRefreshPass, this.refreshed})
       : super._();
-
   @override
   RefreshToken200Response rebuild(
           void Function(RefreshToken200ResponseBuilder) updates) =>
@@ -29,7 +28,7 @@ class _$RefreshToken200Response extends RefreshToken200Response {
 
   @override
   RefreshToken200ResponseBuilder toBuilder() =>
-      new RefreshToken200ResponseBuilder()..replace(this);
+      RefreshToken200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +95,6 @@ class RefreshToken200ResponseBuilder
 
   @override
   void replace(RefreshToken200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RefreshToken200Response;
   }
 
@@ -110,10 +108,11 @@ class RefreshToken200ResponseBuilder
 
   _$RefreshToken200Response _build() {
     final _$result = _$v ??
-        new _$RefreshToken200Response._(
-            corpAccessPass: corpAccessPass,
-            corpRefreshPass: corpRefreshPass,
-            refreshed: refreshed);
+        _$RefreshToken200Response._(
+          corpAccessPass: corpAccessPass,
+          corpRefreshPass: corpRefreshPass,
+          refreshed: refreshed,
+        );
     replace(_$result);
     return _$result;
   }

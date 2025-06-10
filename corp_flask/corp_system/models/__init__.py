@@ -13,5 +13,5 @@ class Base(db.Model):
 
 from .user import User, Jwt_Blacklist
 from .structure import Department, Division, Role, UserRole
-from .influence_system import Influence, Inf_Account, Inf_Rank, Inf_Tribute, Inf_Auction
+from .influence_system import Influence, Inf_Account, Inf_Rank, Inf_Tribute, Inf_Auction, Inf_AuctionBet
 from .rsi_stats import Funding

@@ -28,7 +28,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
 
   factory _$GetDepartments200ResponseInner(
           [void Function(GetDepartments200ResponseInnerBuilder)? updates]) =>
-      (new GetDepartments200ResponseInnerBuilder()..update(updates))._build();
+      (GetDepartments200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetDepartments200ResponseInner._(
       {this.color,
@@ -41,7 +41,6 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
       this.proxys,
       this.title})
       : super._();
-
   @override
   GetDepartments200ResponseInner rebuild(
           void Function(GetDepartments200ResponseInnerBuilder) updates) =>
@@ -49,7 +48,7 @@ class _$GetDepartments200ResponseInner extends GetDepartments200ResponseInner {
 
   @override
   GetDepartments200ResponseInnerBuilder toBuilder() =>
-      new GetDepartments200ResponseInnerBuilder()..replace(this);
+      GetDepartments200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -115,14 +114,14 @@ class GetDepartments200ResponseInnerBuilder
   ListBuilder<GetDepartments200ResponseInnerDivisionsInner>? _divisions;
   ListBuilder<GetDepartments200ResponseInnerDivisionsInner> get divisions =>
       _$this._divisions ??=
-          new ListBuilder<GetDepartments200ResponseInnerDivisionsInner>();
+          ListBuilder<GetDepartments200ResponseInnerDivisionsInner>();
   set divisions(
           ListBuilder<GetDepartments200ResponseInnerDivisionsInner>?
               divisions) =>
       _$this._divisions = divisions;
 
   ListBuilder<String>? _heads;
-  ListBuilder<String> get heads => _$this._heads ??= new ListBuilder<String>();
+  ListBuilder<String> get heads => _$this._heads ??= ListBuilder<String>();
   set heads(ListBuilder<String>? heads) => _$this._heads = heads;
 
   String? _logo;
@@ -138,8 +137,7 @@ class GetDepartments200ResponseInnerBuilder
   set motto(String? motto) => _$this._motto = motto;
 
   ListBuilder<String>? _proxys;
-  ListBuilder<String> get proxys =>
-      _$this._proxys ??= new ListBuilder<String>();
+  ListBuilder<String> get proxys => _$this._proxys ??= ListBuilder<String>();
   set proxys(ListBuilder<String>? proxys) => _$this._proxys = proxys;
 
   String? _title;
@@ -169,7 +167,6 @@ class GetDepartments200ResponseInnerBuilder
 
   @override
   void replace(GetDepartments200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetDepartments200ResponseInner;
   }
 
@@ -185,16 +182,17 @@ class GetDepartments200ResponseInnerBuilder
     _$GetDepartments200ResponseInner _$result;
     try {
       _$result = _$v ??
-          new _$GetDepartments200ResponseInner._(
-              color: color,
-              description: description,
-              divisions: _divisions?.build(),
-              heads: _heads?.build(),
-              logo: logo,
-              memberCount: memberCount,
-              motto: motto,
-              proxys: _proxys?.build(),
-              title: title);
+          _$GetDepartments200ResponseInner._(
+            color: color,
+            description: description,
+            divisions: _divisions?.build(),
+            heads: _heads?.build(),
+            logo: logo,
+            memberCount: memberCount,
+            motto: motto,
+            proxys: _proxys?.build(),
+            title: title,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -206,7 +204,7 @@ class GetDepartments200ResponseInnerBuilder
         _$failedField = 'proxys';
         _proxys?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetDepartments200ResponseInner', _$failedField, e.toString());
       }
       rethrow;

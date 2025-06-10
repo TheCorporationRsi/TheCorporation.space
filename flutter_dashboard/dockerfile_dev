@@ -1,0 +1,30 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get install build-essential curl unzip file python3 git ruby-full locales --no-install-recommends -y && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+
+RUN useradd Corp_FLutter
+
+# Install Flutter SDK
+RUN git clone https://github.com/flutter/flutter.git /opt/flutter
+ENV PATH="/opt/flutter/bin:/opt/flutter/bin/cache/dart-sdk/bin:${PATH}"
+
+RUN git config --global --add safe.directory /opt/flutter
+
+RUN flutter doctor -v
+
+RUN flutter config --enable-web
+
+RUN flutter upgrade
+
+
+
+RUN mkdir /app/
+COPY . /app/
+WORKDIR /app/
+
+RUN flutter pub get
+RUN flutter pub upgrade

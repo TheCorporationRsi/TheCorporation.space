@@ -12,10 +12,9 @@ class _$CreateDepartment200Response extends CreateDepartment200Response {
 
   factory _$CreateDepartment200Response(
           [void Function(CreateDepartment200ResponseBuilder)? updates]) =>
-      (new CreateDepartment200ResponseBuilder()..update(updates))._build();
+      (CreateDepartment200ResponseBuilder()..update(updates))._build();
 
   _$CreateDepartment200Response._({this.msg}) : super._();
-
   @override
   CreateDepartment200Response rebuild(
           void Function(CreateDepartment200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$CreateDepartment200Response extends CreateDepartment200Response {
 
   @override
   CreateDepartment200ResponseBuilder toBuilder() =>
-      new CreateDepartment200ResponseBuilder()..replace(this);
+      CreateDepartment200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class CreateDepartment200ResponseBuilder
 
   @override
   void replace(CreateDepartment200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateDepartment200Response;
   }
 
@@ -85,7 +83,10 @@ class CreateDepartment200ResponseBuilder
   CreateDepartment200Response build() => _build();
 
   _$CreateDepartment200Response _build() {
-    final _$result = _$v ?? new _$CreateDepartment200Response._(msg: msg);
+    final _$result = _$v ??
+        _$CreateDepartment200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

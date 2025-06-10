@@ -12,10 +12,9 @@ class _$GetRSIToken401Response extends GetRSIToken401Response {
 
   factory _$GetRSIToken401Response(
           [void Function(GetRSIToken401ResponseBuilder)? updates]) =>
-      (new GetRSIToken401ResponseBuilder()..update(updates))._build();
+      (GetRSIToken401ResponseBuilder()..update(updates))._build();
 
   _$GetRSIToken401Response._({this.msg}) : super._();
-
   @override
   GetRSIToken401Response rebuild(
           void Function(GetRSIToken401ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$GetRSIToken401Response extends GetRSIToken401Response {
 
   @override
   GetRSIToken401ResponseBuilder toBuilder() =>
-      new GetRSIToken401ResponseBuilder()..replace(this);
+      GetRSIToken401ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class GetRSIToken401ResponseBuilder
 
   @override
   void replace(GetRSIToken401Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetRSIToken401Response;
   }
 
@@ -83,7 +81,10 @@ class GetRSIToken401ResponseBuilder
   GetRSIToken401Response build() => _build();
 
   _$GetRSIToken401Response _build() {
-    final _$result = _$v ?? new _$GetRSIToken401Response._(msg: msg);
+    final _$result = _$v ??
+        _$GetRSIToken401Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

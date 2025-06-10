@@ -20,7 +20,7 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
 
   factory _$UpdateRoleRequest(
           [void Function(UpdateRoleRequestBuilder)? updates]) =>
-      (new UpdateRoleRequestBuilder()..update(updates))._build();
+      (UpdateRoleRequestBuilder()..update(updates))._build();
 
   _$UpdateRoleRequest._(
       {this.newColor,
@@ -29,14 +29,13 @@ class _$UpdateRoleRequest extends UpdateRoleRequest {
       this.newTitle,
       this.roleTitle})
       : super._();
-
   @override
   UpdateRoleRequest rebuild(void Function(UpdateRoleRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   UpdateRoleRequestBuilder toBuilder() =>
-      new UpdateRoleRequestBuilder()..replace(this);
+      UpdateRoleRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -116,7 +115,6 @@ class UpdateRoleRequestBuilder
 
   @override
   void replace(UpdateRoleRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$UpdateRoleRequest;
   }
 
@@ -130,12 +128,13 @@ class UpdateRoleRequestBuilder
 
   _$UpdateRoleRequest _build() {
     final _$result = _$v ??
-        new _$UpdateRoleRequest._(
-            newColor: newColor,
-            newDiscordId: newDiscordId,
-            newLogo: newLogo,
-            newTitle: newTitle,
-            roleTitle: roleTitle);
+        _$UpdateRoleRequest._(
+          newColor: newColor,
+          newDiscordId: newDiscordId,
+          newLogo: newLogo,
+          newTitle: newTitle,
+          roleTitle: roleTitle,
+        );
     replace(_$result);
     return _$result;
   }

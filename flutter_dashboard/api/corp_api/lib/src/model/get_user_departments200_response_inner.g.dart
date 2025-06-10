@@ -20,13 +20,11 @@ class _$GetUserDepartments200ResponseInner
   factory _$GetUserDepartments200ResponseInner(
           [void Function(GetUserDepartments200ResponseInnerBuilder)?
               updates]) =>
-      (new GetUserDepartments200ResponseInnerBuilder()..update(updates))
-          ._build();
+      (GetUserDepartments200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetUserDepartments200ResponseInner._(
       {this.color, this.motto, this.title, this.weight})
       : super._();
-
   @override
   GetUserDepartments200ResponseInner rebuild(
           void Function(GetUserDepartments200ResponseInnerBuilder) updates) =>
@@ -34,7 +32,7 @@ class _$GetUserDepartments200ResponseInner
 
   @override
   GetUserDepartments200ResponseInnerBuilder toBuilder() =>
-      new GetUserDepartments200ResponseInnerBuilder()..replace(this);
+      GetUserDepartments200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -108,7 +106,6 @@ class GetUserDepartments200ResponseInnerBuilder
 
   @override
   void replace(GetUserDepartments200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserDepartments200ResponseInner;
   }
 
@@ -123,8 +120,12 @@ class GetUserDepartments200ResponseInnerBuilder
 
   _$GetUserDepartments200ResponseInner _build() {
     final _$result = _$v ??
-        new _$GetUserDepartments200ResponseInner._(
-            color: color, motto: motto, title: title, weight: weight);
+        _$GetUserDepartments200ResponseInner._(
+          color: color,
+          motto: motto,
+          title: title,
+          weight: weight,
+        );
     replace(_$result);
     return _$result;
   }

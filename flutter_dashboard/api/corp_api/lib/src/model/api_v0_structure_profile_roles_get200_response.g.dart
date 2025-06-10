@@ -14,11 +14,10 @@ class _$ApiV0StructureProfileRolesGet200Response
   factory _$ApiV0StructureProfileRolesGet200Response(
           [void Function(ApiV0StructureProfileRolesGet200ResponseBuilder)?
               updates]) =>
-      (new ApiV0StructureProfileRolesGet200ResponseBuilder()..update(updates))
+      (ApiV0StructureProfileRolesGet200ResponseBuilder()..update(updates))
           ._build();
 
   _$ApiV0StructureProfileRolesGet200Response._({this.title}) : super._();
-
   @override
   ApiV0StructureProfileRolesGet200Response rebuild(
           void Function(ApiV0StructureProfileRolesGet200ResponseBuilder)
@@ -27,7 +26,7 @@ class _$ApiV0StructureProfileRolesGet200Response
 
   @override
   ApiV0StructureProfileRolesGet200ResponseBuilder toBuilder() =>
-      new ApiV0StructureProfileRolesGet200ResponseBuilder()..replace(this);
+      ApiV0StructureProfileRolesGet200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -78,7 +77,6 @@ class ApiV0StructureProfileRolesGet200ResponseBuilder
 
   @override
   void replace(ApiV0StructureProfileRolesGet200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ApiV0StructureProfileRolesGet200Response;
   }
 
@@ -92,8 +90,10 @@ class ApiV0StructureProfileRolesGet200ResponseBuilder
   ApiV0StructureProfileRolesGet200Response build() => _build();
 
   _$ApiV0StructureProfileRolesGet200Response _build() {
-    final _$result =
-        _$v ?? new _$ApiV0StructureProfileRolesGet200Response._(title: title);
+    final _$result = _$v ??
+        _$ApiV0StructureProfileRolesGet200Response._(
+          title: title,
+        );
     replace(_$result);
     return _$result;
   }

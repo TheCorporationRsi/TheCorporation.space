@@ -12,13 +12,9 @@ class _$CreateDepartmentRequest extends CreateDepartmentRequest {
 
   factory _$CreateDepartmentRequest(
           [void Function(CreateDepartmentRequestBuilder)? updates]) =>
-      (new CreateDepartmentRequestBuilder()..update(updates))._build();
+      (CreateDepartmentRequestBuilder()..update(updates))._build();
 
-  _$CreateDepartmentRequest._({required this.title}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        title, r'CreateDepartmentRequest', 'title');
-  }
-
+  _$CreateDepartmentRequest._({required this.title}) : super._();
   @override
   CreateDepartmentRequest rebuild(
           void Function(CreateDepartmentRequestBuilder) updates) =>
@@ -26,7 +22,7 @@ class _$CreateDepartmentRequest extends CreateDepartmentRequest {
 
   @override
   CreateDepartmentRequestBuilder toBuilder() =>
-      new CreateDepartmentRequestBuilder()..replace(this);
+      CreateDepartmentRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -74,7 +70,6 @@ class CreateDepartmentRequestBuilder
 
   @override
   void replace(CreateDepartmentRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateDepartmentRequest;
   }
 
@@ -88,9 +83,10 @@ class CreateDepartmentRequestBuilder
 
   _$CreateDepartmentRequest _build() {
     final _$result = _$v ??
-        new _$CreateDepartmentRequest._(
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'CreateDepartmentRequest', 'title'));
+        _$CreateDepartmentRequest._(
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'CreateDepartmentRequest', 'title'),
+        );
     replace(_$result);
     return _$result;
   }

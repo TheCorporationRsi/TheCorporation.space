@@ -42,7 +42,7 @@ class _AuctionWidgetState extends State<AuctionWidget> {
     AuctionItem(
       name: "Vintage Watch",
       description: "Classic 1960s wristwatch.",
-      imageUrl: "https://img.icons8.com/fluency/96/watch.png",
+      imageUrl: "https://img.icons8.com/fluency/96/trophy.png",
       itemType: "Accessory",
       auctionLevel: "Epic",
       highestBid: 800,

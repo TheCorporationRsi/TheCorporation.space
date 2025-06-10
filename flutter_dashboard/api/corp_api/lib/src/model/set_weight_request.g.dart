@@ -14,23 +14,17 @@ class _$SetWeightRequest extends SetWeightRequest {
 
   factory _$SetWeightRequest(
           [void Function(SetWeightRequestBuilder)? updates]) =>
-      (new SetWeightRequestBuilder()..update(updates))._build();
+      (SetWeightRequestBuilder()..update(updates))._build();
 
   _$SetWeightRequest._({required this.amount, required this.divisionTitle})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        amount, r'SetWeightRequest', 'amount');
-    BuiltValueNullFieldError.checkNotNull(
-        divisionTitle, r'SetWeightRequest', 'divisionTitle');
-  }
-
+      : super._();
   @override
   SetWeightRequest rebuild(void Function(SetWeightRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   SetWeightRequestBuilder toBuilder() =>
-      new SetWeightRequestBuilder()..replace(this);
+      SetWeightRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -87,7 +81,6 @@ class SetWeightRequestBuilder
 
   @override
   void replace(SetWeightRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SetWeightRequest;
   }
 
@@ -101,11 +94,12 @@ class SetWeightRequestBuilder
 
   _$SetWeightRequest _build() {
     final _$result = _$v ??
-        new _$SetWeightRequest._(
-            amount: BuiltValueNullFieldError.checkNotNull(
-                amount, r'SetWeightRequest', 'amount'),
-            divisionTitle: BuiltValueNullFieldError.checkNotNull(
-                divisionTitle, r'SetWeightRequest', 'divisionTitle'));
+        _$SetWeightRequest._(
+          amount: BuiltValueNullFieldError.checkNotNull(
+              amount, r'SetWeightRequest', 'amount'),
+          divisionTitle: BuiltValueNullFieldError.checkNotNull(
+              divisionTitle, r'SetWeightRequest', 'divisionTitle'),
+        );
     replace(_$result);
     return _$result;
   }

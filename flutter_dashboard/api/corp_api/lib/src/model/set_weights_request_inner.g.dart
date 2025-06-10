@@ -14,10 +14,9 @@ class _$SetWeightsRequestInner extends SetWeightsRequestInner {
 
   factory _$SetWeightsRequestInner(
           [void Function(SetWeightsRequestInnerBuilder)? updates]) =>
-      (new SetWeightsRequestInnerBuilder()..update(updates))._build();
+      (SetWeightsRequestInnerBuilder()..update(updates))._build();
 
   _$SetWeightsRequestInner._({this.amount, this.title}) : super._();
-
   @override
   SetWeightsRequestInner rebuild(
           void Function(SetWeightsRequestInnerBuilder) updates) =>
@@ -25,7 +24,7 @@ class _$SetWeightsRequestInner extends SetWeightsRequestInner {
 
   @override
   SetWeightsRequestInnerBuilder toBuilder() =>
-      new SetWeightsRequestInnerBuilder()..replace(this);
+      SetWeightsRequestInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -81,7 +80,6 @@ class SetWeightsRequestInnerBuilder
 
   @override
   void replace(SetWeightsRequestInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SetWeightsRequestInner;
   }
 
@@ -94,8 +92,11 @@ class SetWeightsRequestInnerBuilder
   SetWeightsRequestInner build() => _build();
 
   _$SetWeightsRequestInner _build() {
-    final _$result =
-        _$v ?? new _$SetWeightsRequestInner._(amount: amount, title: title);
+    final _$result = _$v ??
+        _$SetWeightsRequestInner._(
+          amount: amount,
+          title: title,
+        );
     replace(_$result);
     return _$result;
   }

@@ -16,18 +16,17 @@ class _$CreateRoleRequest extends CreateRoleRequest {
 
   factory _$CreateRoleRequest(
           [void Function(CreateRoleRequestBuilder)? updates]) =>
-      (new CreateRoleRequestBuilder()..update(updates))._build();
+      (CreateRoleRequestBuilder()..update(updates))._build();
 
   _$CreateRoleRequest._({this.departmentTitle, this.divisionTitle, this.title})
       : super._();
-
   @override
   CreateRoleRequest rebuild(void Function(CreateRoleRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   CreateRoleRequestBuilder toBuilder() =>
-      new CreateRoleRequestBuilder()..replace(this);
+      CreateRoleRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +92,6 @@ class CreateRoleRequestBuilder
 
   @override
   void replace(CreateRoleRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateRoleRequest;
   }
 
@@ -107,10 +105,11 @@ class CreateRoleRequestBuilder
 
   _$CreateRoleRequest _build() {
     final _$result = _$v ??
-        new _$CreateRoleRequest._(
-            departmentTitle: departmentTitle,
-            divisionTitle: divisionTitle,
-            title: title);
+        _$CreateRoleRequest._(
+          departmentTitle: departmentTitle,
+          divisionTitle: divisionTitle,
+          title: title,
+        );
     replace(_$result);
     return _$result;
   }

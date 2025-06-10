@@ -14,17 +14,11 @@ class _$CreateDivisionRequest extends CreateDivisionRequest {
 
   factory _$CreateDivisionRequest(
           [void Function(CreateDivisionRequestBuilder)? updates]) =>
-      (new CreateDivisionRequestBuilder()..update(updates))._build();
+      (CreateDivisionRequestBuilder()..update(updates))._build();
 
   _$CreateDivisionRequest._(
       {required this.departmentTitle, required this.title})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        departmentTitle, r'CreateDivisionRequest', 'departmentTitle');
-    BuiltValueNullFieldError.checkNotNull(
-        title, r'CreateDivisionRequest', 'title');
-  }
-
+      : super._();
   @override
   CreateDivisionRequest rebuild(
           void Function(CreateDivisionRequestBuilder) updates) =>
@@ -32,7 +26,7 @@ class _$CreateDivisionRequest extends CreateDivisionRequest {
 
   @override
   CreateDivisionRequestBuilder toBuilder() =>
-      new CreateDivisionRequestBuilder()..replace(this);
+      CreateDivisionRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -89,7 +83,6 @@ class CreateDivisionRequestBuilder
 
   @override
   void replace(CreateDivisionRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$CreateDivisionRequest;
   }
 
@@ -103,11 +96,12 @@ class CreateDivisionRequestBuilder
 
   _$CreateDivisionRequest _build() {
     final _$result = _$v ??
-        new _$CreateDivisionRequest._(
-            departmentTitle: BuiltValueNullFieldError.checkNotNull(
-                departmentTitle, r'CreateDivisionRequest', 'departmentTitle'),
-            title: BuiltValueNullFieldError.checkNotNull(
-                title, r'CreateDivisionRequest', 'title'));
+        _$CreateDivisionRequest._(
+          departmentTitle: BuiltValueNullFieldError.checkNotNull(
+              departmentTitle, r'CreateDivisionRequest', 'departmentTitle'),
+          title: BuiltValueNullFieldError.checkNotNull(
+              title, r'CreateDivisionRequest', 'title'),
+        );
     replace(_$result);
     return _$result;
   }

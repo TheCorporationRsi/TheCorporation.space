@@ -77,7 +77,9 @@ services:
 
   flutter_web:
     restart: always
-    build: ./flutter_dashboard
+    build: 
+      context: ./flutter_dashboard
+      dockerfile: dockerfile_dev
     ports:
       - "8000:8000"
     depends_on:

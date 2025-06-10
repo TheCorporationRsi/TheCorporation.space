@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/const/constant.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:convert';
+import 'dart:async';
 
 class RefineryJob {
   final String location;
@@ -27,6 +30,23 @@ class RefineryJob {
   }
 
   bool get isDone => DateTime.now().isAfter(endTime);
+
+  // Serialization
+  Map<String, dynamic> toJson() => {
+        'location': location,
+        'amount': amount,
+        'cost': cost,
+        'duration': duration.inSeconds,
+        'startTime': startTime.toIso8601String(),
+      };
+
+  factory RefineryJob.fromJson(Map<String, dynamic> json) => RefineryJob(
+        location: json['location'],
+        amount: json['amount'],
+        cost: (json['cost'] as num).toDouble(),
+        duration: Duration(seconds: json['duration']),
+        startTime: DateTime.parse(json['startTime']),
+      );
 }
 
 class RefineryWidget extends StatefulWidget {
@@ -44,8 +64,23 @@ class _RefineryWidgetState extends State<RefineryWidget> {
   final _costController = TextEditingController();
   final _durationController = TextEditingController();
 
+  final _storage = const FlutterSecureStorage();
+  static const _storageKey = 'refinery_jobs';
+
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadJobs();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
   @override
   void dispose() {
+    _timer?.cancel();
     _locationController.dispose();
     _amountController.dispose();
     _costController.dispose();
@@ -53,7 +88,23 @@ class _RefineryWidgetState extends State<RefineryWidget> {
     super.dispose();
   }
 
-  void _addJob() {
+  Future<void> _loadJobs() async {
+    final data = await _storage.read(key: _storageKey);
+    if (data != null) {
+      final List<dynamic> decoded = jsonDecode(data);
+      setState(() {
+        jobs.clear();
+        jobs.addAll(decoded.map((e) => RefineryJob.fromJson(e)));
+      });
+    }
+  }
+
+  Future<void> _saveJobs() async {
+    final encoded = jsonEncode(jobs.map((e) => e.toJson()).toList());
+    await _storage.write(key: _storageKey, value: encoded);
+  }
+
+  void _addJob() async {
     if (_formKey.currentState?.validate() ?? false) {
       final location = _locationController.text.trim();
       final amount = int.tryParse(_amountController.text.trim()) ?? 0;
@@ -70,6 +121,7 @@ class _RefineryWidgetState extends State<RefineryWidget> {
           startTime: DateTime.now(),
         ));
       });
+      await _saveJobs();
 
       _locationController.clear();
       _amountController.clear();
@@ -150,174 +202,167 @@ class _RefineryWidgetState extends State<RefineryWidget> {
     );
   }
 
-  void _removeJob(int idx) {
+  void _removeJob(int idx) async {
     setState(() {
       jobs.removeAt(idx);
     });
+    await _saveJobs();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Timer to update progress bars
-    return StatefulBuilder(
-      builder: (context, setStateSB) {
-        Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) setStateSB(() {});
-        });
-
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Column(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 18),
+        child: Column(
+          children: [
+            const SizedBox(height: 18),
+            Row(
               children: [
-                const SizedBox(height: 18),
-                Row(
-                  children: [
-                    Text(
-                      "Refinery Tracker",
-                      style: TextStyle(
-                        color: primaryColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                      ),
+                Text(
+                  "Refinery Tracker",
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.add),
+                  label: const Text('Add Job'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue, // changed to blue
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    const Spacer(),
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.add),
-                      label: const Text('Add Job'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: secondaryColor,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                  ),
+                  onPressed: _showAddJobDialog,
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            if (jobs.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    Icon(Icons.factory, size: 48, color: secondaryColor),
+                    const SizedBox(height: 12),
+                    Text(
+                      "No refinery jobs tracked.",
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 16,
                       ),
-                      onPressed: _showAddJobDialog,
                     ),
                   ],
                 ),
-                const SizedBox(height: 18),
-                if (jobs.isEmpty)
-                  Padding(
-                    padding: const EdgeInsets.all(32),
+              ),
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: jobs.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 16),
+              itemBuilder: (context, idx) {
+                final job = jobs[idx];
+                final done = job.isDone;
+                final remaining = done
+                    ? Duration.zero
+                    : job.endTime.difference(DateTime.now());
+                return Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  color: cardBackgroundColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.factory, size: 48, color: secondaryColor),
-                        const SizedBox(height: 12),
-                        Text(
-                          "No refinery jobs tracked.",
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
-                            fontSize: 16,
-                          ),
+                        Row(
+                          children: [
+                            Icon(Icons.location_on, color: primaryColor),
+                            const SizedBox(width: 8),
+                            Text(
+                              job.location,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const Spacer(),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red), // changed to red
+                              onPressed: () => _removeJob(idx),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Row(
+                          children: [
+                            Icon(Icons.inventory, color: secondaryColor, size: 18),
+                            const SizedBox(width: 4),
+                            Text(
+                              "Amount: ${job.amount}",
+                              style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                            ),
+                            const SizedBox(width: 16),
+                            Icon(Icons.monetization_on, color: primaryColor, size: 18),
+                            const SizedBox(width: 4),
+                            Text(
+                              "Cost: ${job.cost.toStringAsFixed(2)}",
+                              style: TextStyle(color: Colors.white.withOpacity(0.8)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        LinearProgressIndicator(
+                          value: job.progress,
+                          backgroundColor: Colors.white.withOpacity(0.1),
+                          color: done ? secondaryColor : primaryColor,
+                          minHeight: 8,
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            if (!done)
+                              Text(
+                                // Show hours:minutes:seconds
+                                "Time left: ${remaining.inHours.toString().padLeft(2, '0')}:${remaining.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(remaining.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.7),
+                                ),
+                              ),
+                            if (done)
+                              Text(
+                                "Done!",
+                                style: TextStyle(
+                                  color: secondaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            const Spacer(),
+                            Text(
+                              "Total: ${job.duration.inMinutes} min",
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.5),
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: jobs.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 16),
-                  itemBuilder: (context, idx) {
-                    final job = jobs[idx];
-                    final done = job.isDone;
-                    final remaining = done
-                        ? Duration.zero
-                        : job.endTime.difference(DateTime.now());
-                    return Card(
-                      elevation: 3,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      color: cardBackgroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Icon(Icons.location_on, color: primaryColor),
-                                const SizedBox(width: 8),
-                                Text(
-                                  job.location,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                const Spacer(),
-                                IconButton(
-                                  icon: Icon(Icons.delete, color: secondaryColor),
-                                  onPressed: () => _removeJob(idx),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 6),
-                            Row(
-                              children: [
-                                Icon(Icons.inventory, color: secondaryColor, size: 18),
-                                const SizedBox(width: 4),
-                                Text(
-                                  "Amount: ${job.amount}",
-                                  style: TextStyle(color: Colors.white.withOpacity(0.8)),
-                                ),
-                                const SizedBox(width: 16),
-                                Icon(Icons.monetization_on, color: primaryColor, size: 18),
-                                const SizedBox(width: 4),
-                                Text(
-                                  "Cost: ${job.cost.toStringAsFixed(2)}",
-                                  style: TextStyle(color: Colors.white.withOpacity(0.8)),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            LinearProgressIndicator(
-                              value: job.progress,
-                              backgroundColor: Colors.white.withOpacity(0.1),
-                              color: done ? secondaryColor : primaryColor,
-                              minHeight: 8,
-                            ),
-                            const SizedBox(height: 8),
-                            Row(
-                              children: [
-                                if (!done)
-                                  Text(
-                                    "Time left: ${remaining.inMinutes.remainder(60).toString().padLeft(2, '0')}:${(remaining.inSeconds.remainder(60)).toString().padLeft(2, '0')}",
-                                    style: TextStyle(
-                                      color: Colors.white.withOpacity(0.7),
-                                    ),
-                                  ),
-                                if (done)
-                                  Text(
-                                    "Done!",
-                                    style: TextStyle(
-                                      color: secondaryColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                const Spacer(),
-                                Text(
-                                  "Total: ${job.duration.inMinutes} min",
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.5),
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 24),
-              ],
+                );
+              },
             ),
-          ),
-        );
-      },
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
     );
   }
 }

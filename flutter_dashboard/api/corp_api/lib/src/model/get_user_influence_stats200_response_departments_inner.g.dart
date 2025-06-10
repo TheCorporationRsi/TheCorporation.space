@@ -25,7 +25,7 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInner
           [void Function(
                   GetUserInfluenceStats200ResponseDepartmentsInnerBuilder)?
               updates]) =>
-      (new GetUserInfluenceStats200ResponseDepartmentsInnerBuilder()
+      (GetUserInfluenceStats200ResponseDepartmentsInnerBuilder()
             ..update(updates))
           ._build();
 
@@ -36,7 +36,6 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInner
       this.influence,
       this.lifetimeInfluence})
       : super._();
-
   @override
   GetUserInfluenceStats200ResponseDepartmentsInner rebuild(
           void Function(GetUserInfluenceStats200ResponseDepartmentsInnerBuilder)
@@ -45,8 +44,7 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInner
 
   @override
   GetUserInfluenceStats200ResponseDepartmentsInnerBuilder toBuilder() =>
-      new GetUserInfluenceStats200ResponseDepartmentsInnerBuilder()
-        ..replace(this);
+      GetUserInfluenceStats200ResponseDepartmentsInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -102,7 +100,7 @@ class GetUserInfluenceStats200ResponseDepartmentsInnerBuilder
   ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>?
       _divisions;
   ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>
-      get divisions => _$this._divisions ??= new ListBuilder<
+      get divisions => _$this._divisions ??= ListBuilder<
           GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>();
   set divisions(
           ListBuilder<
@@ -138,7 +136,6 @@ class GetUserInfluenceStats200ResponseDepartmentsInnerBuilder
 
   @override
   void replace(GetUserInfluenceStats200ResponseDepartmentsInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserInfluenceStats200ResponseDepartmentsInner;
   }
 
@@ -156,19 +153,20 @@ class GetUserInfluenceStats200ResponseDepartmentsInnerBuilder
     _$GetUserInfluenceStats200ResponseDepartmentsInner _$result;
     try {
       _$result = _$v ??
-          new _$GetUserInfluenceStats200ResponseDepartmentsInner._(
-              color: color,
-              departmentTitle: departmentTitle,
-              divisions: _divisions?.build(),
-              influence: influence,
-              lifetimeInfluence: lifetimeInfluence);
+          _$GetUserInfluenceStats200ResponseDepartmentsInner._(
+            color: color,
+            departmentTitle: departmentTitle,
+            divisions: _divisions?.build(),
+            influence: influence,
+            lifetimeInfluence: lifetimeInfluence,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'divisions';
         _divisions?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetUserInfluenceStats200ResponseDepartmentsInner',
             _$failedField,
             e.toString());

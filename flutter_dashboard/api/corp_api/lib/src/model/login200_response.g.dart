@@ -16,18 +16,17 @@ class _$Login200Response extends Login200Response {
 
   factory _$Login200Response(
           [void Function(Login200ResponseBuilder)? updates]) =>
-      (new Login200ResponseBuilder()..update(updates))._build();
+      (Login200ResponseBuilder()..update(updates))._build();
 
   _$Login200Response._({this.corpAccessPass, this.corpRefreshPass, this.msg})
       : super._();
-
   @override
   Login200Response rebuild(void Function(Login200ResponseBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   Login200ResponseBuilder toBuilder() =>
-      new Login200ResponseBuilder()..replace(this);
+      Login200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -93,7 +92,6 @@ class Login200ResponseBuilder
 
   @override
   void replace(Login200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Login200Response;
   }
 
@@ -107,10 +105,11 @@ class Login200ResponseBuilder
 
   _$Login200Response _build() {
     final _$result = _$v ??
-        new _$Login200Response._(
-            corpAccessPass: corpAccessPass,
-            corpRefreshPass: corpRefreshPass,
-            msg: msg);
+        _$Login200Response._(
+          corpAccessPass: corpAccessPass,
+          corpRefreshPass: corpRefreshPass,
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

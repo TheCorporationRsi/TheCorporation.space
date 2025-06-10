@@ -12,10 +12,9 @@ class _$GetUserRoles200Response extends GetUserRoles200Response {
 
   factory _$GetUserRoles200Response(
           [void Function(GetUserRoles200ResponseBuilder)? updates]) =>
-      (new GetUserRoles200ResponseBuilder()..update(updates))._build();
+      (GetUserRoles200ResponseBuilder()..update(updates))._build();
 
   _$GetUserRoles200Response._({this.title}) : super._();
-
   @override
   GetUserRoles200Response rebuild(
           void Function(GetUserRoles200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$GetUserRoles200Response extends GetUserRoles200Response {
 
   @override
   GetUserRoles200ResponseBuilder toBuilder() =>
-      new GetUserRoles200ResponseBuilder()..replace(this);
+      GetUserRoles200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class GetUserRoles200ResponseBuilder
 
   @override
   void replace(GetUserRoles200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserRoles200Response;
   }
 
@@ -84,7 +82,10 @@ class GetUserRoles200ResponseBuilder
   GetUserRoles200Response build() => _build();
 
   _$GetUserRoles200Response _build() {
-    final _$result = _$v ?? new _$GetUserRoles200Response._(title: title);
+    final _$result = _$v ??
+        _$GetUserRoles200Response._(
+          title: title,
+        );
     replace(_$result);
     return _$result;
   }

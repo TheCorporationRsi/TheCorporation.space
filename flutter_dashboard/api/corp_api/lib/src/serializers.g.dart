@@ -6,7 +6,7 @@ part of 'serializers.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
+Serializers _$serializers = (Serializers().toBuilder()
       ..add(AddUserRole200Response.serializer)
       ..add(AddUserRoleRequest.serializer)
       ..add(ChangePasswordRequest.serializer)
@@ -68,42 +68,41 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [
             const FullType(GetDepartments200ResponseInnerDivisionsInner)
           ]),
-          () => new ListBuilder<GetDepartments200ResponseInnerDivisionsInner>())
+          () => ListBuilder<GetDepartments200ResponseInnerDivisionsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GetUser200ResponseRolesInner)]),
-          () => new ListBuilder<GetUser200ResponseRolesInner>())
+          () => ListBuilder<GetUser200ResponseRolesInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(GetUserInfluenceStats200ResponseDepartmentsInner)
           ]),
-          () => new ListBuilder<
-              GetUserInfluenceStats200ResponseDepartmentsInner>())
+          () => ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(
                 GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)
           ]),
-          () => new ListBuilder<
+          () => ListBuilder<
               GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>()))
+          () => ListBuilder<String>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

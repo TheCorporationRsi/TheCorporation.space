@@ -15,28 +15,19 @@ class _$RegisterRequest extends RegisterRequest {
   final String username;
 
   factory _$RegisterRequest([void Function(RegisterRequestBuilder)? updates]) =>
-      (new RegisterRequestBuilder()..update(updates))._build();
+      (RegisterRequestBuilder()..update(updates))._build();
 
   _$RegisterRequest._(
       {required this.confirmedPassword,
       required this.password,
       required this.username})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        confirmedPassword, r'RegisterRequest', 'confirmedPassword');
-    BuiltValueNullFieldError.checkNotNull(
-        password, r'RegisterRequest', 'password');
-    BuiltValueNullFieldError.checkNotNull(
-        username, r'RegisterRequest', 'username');
-  }
-
+      : super._();
   @override
   RegisterRequest rebuild(void Function(RegisterRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  RegisterRequestBuilder toBuilder() =>
-      new RegisterRequestBuilder()..replace(this);
+  RegisterRequestBuilder toBuilder() => RegisterRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +92,6 @@ class RegisterRequestBuilder
 
   @override
   void replace(RegisterRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$RegisterRequest;
   }
 
@@ -115,13 +105,14 @@ class RegisterRequestBuilder
 
   _$RegisterRequest _build() {
     final _$result = _$v ??
-        new _$RegisterRequest._(
-            confirmedPassword: BuiltValueNullFieldError.checkNotNull(
-                confirmedPassword, r'RegisterRequest', 'confirmedPassword'),
-            password: BuiltValueNullFieldError.checkNotNull(
-                password, r'RegisterRequest', 'password'),
-            username: BuiltValueNullFieldError.checkNotNull(
-                username, r'RegisterRequest', 'username'));
+        _$RegisterRequest._(
+          confirmedPassword: BuiltValueNullFieldError.checkNotNull(
+              confirmedPassword, r'RegisterRequest', 'confirmedPassword'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'RegisterRequest', 'password'),
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'RegisterRequest', 'username'),
+        );
     replace(_$result);
     return _$result;
   }
