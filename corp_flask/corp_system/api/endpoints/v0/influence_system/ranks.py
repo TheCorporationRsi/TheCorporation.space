@@ -102,10 +102,21 @@ def create_rank():
                         weekly_amount:
                             type: integer
     responses:
-        201:
+        200:
             description: Rank created
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Rank created
+            
         400:
-            description: Invalid input
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     data = request.get_json()
@@ -156,10 +167,18 @@ def edit_rank():
     responses:
         200:
             description: Rank updated
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Rank updated
         400:
-            description: Invalid input
-        404:
-            description: Rank not found
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     data = request.get_json()
@@ -202,8 +221,18 @@ def delete_rank():
     responses:
         200:
             description: Rank deleted
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Rank deleted
         400:
-            description: Rank not found or invalid input
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
 
     """
     data = request.get_json()

@@ -275,3 +275,65 @@ def manualy_verify_user(username):
 
     return jsonify({"msg": "User manually verified"}), 200
 
+
+@api.route("/users/security_level", methods=["PATCH"])
+@admin_only
+def set_user_security_level():
+    """Set user security level
+
+    This endpoint sets the security level of a user
+    ---
+
+    operationId: set_user_security_level
+    tags:
+        - Admin
+    security:
+        - corp_access_pass: []
+    requestBody:
+        required: true
+        content:
+            application/json:
+                schema:
+                    type: object
+                    properties:
+                        username:
+                            type: string
+                            example: Cyber-Dreamer
+                        security_level:
+                            type: integer
+                            example: 3
+    responses:
+        200:
+            description: User security level updated
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: User security level updated
+        400:
+            $ref: "#/components/responses/invalid"
+
+    """
+    data = request.get_json()
+    if not data or "username" not in data or "security_level" not in data:
+        return jsonify({"msg": "Missing username or security_level"}), 400
+
+    username = data["username"]
+    try:
+        security_level = int(data["security_level"])
+    except (ValueError, TypeError):
+        return jsonify({"msg": "Invalid security_level"}), 400
+
+    user: User = User.query.filter_by(RSI_handle=username).first()
+
+    if not user:
+        return jsonify({"msg": "User not found"}), 400
+
+    user.security_level = security_level
+    db.session.commit()
+    user.update()
+
+    return jsonify({"msg": "User security level updated"}), 200

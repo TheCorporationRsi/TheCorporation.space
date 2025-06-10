@@ -345,6 +345,13 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
           SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
+              _showSetSecurityLevelDialog(user);
+            },
+            child: Text('Set Security Level'),
+          ),
+          SizedBox(height: 10),
+          ElevatedButton(
+            onPressed: () {
               _showAddRoleDialog(full_user);
             },
             child: Text('Add Role'),
@@ -359,6 +366,113 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
         ],
       ),
     );
+  }
+
+  void _showSetSecurityLevelDialog(GetUsers200ResponseInner user) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String? newLevel;
+        return AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: Text(
+            'Set Security Level for ${user.rSIHandle.toString()}',
+            style: TextStyle(
+              color: primaryColor,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: TextField(
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              hintText: 'Enter new security level',
+            ),
+            onChanged: (value) {
+              newLevel = value;
+            },
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 10)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                if (newLevel != null && int.tryParse(newLevel!) != null) {
+                  _setUserSecurityLevel(user, int.parse(newLevel!));
+                  Navigator.of(context).pop();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Please enter a valid number'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
+              child: Text(
+                'Set',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _setUserSecurityLevel(GetUsers200ResponseInner user, int level) async {
+    final headers = await getAuthHeader();
+    try {
+      final setUserSecurityLevelRequest = SetUserSecurityLevelRequest((b) => b
+        ..username = user.rSIHandle
+        ..securityLevel = level
+      );
+      final adminApi = corpApi.getAdminApi();
+      final response = await adminApi.setUserSecurityLevel(
+        headers: headers,
+        setUserSecurityLevelRequest: setUserSecurityLevelRequest,
+      );
+      if (response.data != null && response.data!.msg == "Security level updated") {
+        setState(() {
+          _isLoading = true;
+        });
+        _initialize();
+      }
+      _applySearchAndFilter();
+    } catch (error) {
+      print(error);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to set security level'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   void _showAddRoleDialog(GetUser200Response user) {

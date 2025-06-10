@@ -67,15 +67,22 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AdminApi*](doc/AdminApi.md) | [**createDepartment**](doc/AdminApi.md#createdepartment) | **POST** /api/v0/structure/departments | Department creation endpoint
 [*AdminApi*](doc/AdminApi.md) | [**createDivision**](doc/AdminApi.md#createdivision) | **POST** /api/v0/structure/divisions | Division creation endpoint
+[*AdminApi*](doc/AdminApi.md) | [**createRank**](doc/AdminApi.md#createrank) | **POST** /api/v0/influence_system/ranks | Allow to edit a rank of the influence system 
 [*AdminApi*](doc/AdminApi.md) | [**deleteDepartment**](doc/AdminApi.md#deletedepartment) | **DELETE** /api/v0/structure/departments | Department deletion endpoint
 [*AdminApi*](doc/AdminApi.md) | [**deleteDivision**](doc/AdminApi.md#deletedivision) | **DELETE** /api/v0/structure/divisions | Division deletion endpoint
+[*AdminApi*](doc/AdminApi.md) | [**deleteRank**](doc/AdminApi.md#deleterank) | **DELETE** /api/v0/influence_system/ranks | Allow to delete a rank of the influence system 
+[*AdminApi*](doc/AdminApi.md) | [**editRank**](doc/AdminApi.md#editrank) | **PATCH** /api/v0/influence_system/ranks | Allow to edit a rank of the influence system 
+[*AdminApi*](doc/AdminApi.md) | [**setUserSecurityLevel**](doc/AdminApi.md#setusersecuritylevel) | **PATCH** /api/v0/users/security_level | Set user security level
 [*AdminApi*](doc/AdminApi.md) | [**updateDepartment**](doc/AdminApi.md#updatedepartment) | **PATCH** /api/v0/structure/departments | Department update endpoint
 [*AdminApi*](doc/AdminApi.md) | [**updateDivision**](doc/AdminApi.md#updatedivision) | **PATCH** /api/v0/structure/divisions | Division update endpoint
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**createAuction**](doc/InfluenceSystemApi.md#createauction) | **POST** /api/v0/influence_system/auction | Create a new auction
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getInfluence**](doc/InfluenceSystemApi.md#getinfluence) | **GET** /api/v0/influence_system/profile/{influence_type}/{type}/{title} | Get current influence
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getProfile**](doc/InfluenceSystemApi.md#getprofile) | **GET** /api/v0/influence_system/profile | Get influence system profile
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getRanks**](doc/InfluenceSystemApi.md#getranks) | **GET** /api/v0/influence_system/ranks | List of all influence system ranks
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getTributeHistory**](doc/InfluenceSystemApi.md#gettributehistory) | **GET** /api/v0/influence_system/profile/tribute_history/{type}/{request}/{page} | Get tribute transaction history
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getUserInfluenceStats**](doc/InfluenceSystemApi.md#getuserinfluencestats) | **GET** /api/v0/influence_system/profile/stats | Get influence stats
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**listAuctions**](doc/InfluenceSystemApi.md#listauctions) | **GET** /api/v0/influence_system/auction | Get a list of all auctions
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**placeBet**](doc/InfluenceSystemApi.md#placebet) | **POST** /api/v0/influence_system/auction/bet | Place a bet on an auction
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**sendTribute**](doc/InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**updateAccount**](doc/InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 [*InformationApi*](doc/InformationApi.md) | [**getCorporateers**](doc/InformationApi.md#getcorporateers) | **GET** /api/v0/corporateers | List of all corporateer
@@ -115,19 +122,27 @@ Class | Method | HTTP request | Description
  - [AddUserRole200Response](doc/AddUserRole200Response.md)
  - [AddUserRoleRequest](doc/AddUserRoleRequest.md)
  - [ChangePasswordRequest](doc/ChangePasswordRequest.md)
+ - [CreateAuction201Response](doc/CreateAuction201Response.md)
+ - [CreateAuctionRequest](doc/CreateAuctionRequest.md)
  - [CreateDepartment200Response](doc/CreateDepartment200Response.md)
  - [CreateDepartmentRequest](doc/CreateDepartmentRequest.md)
  - [CreateDivision200Response](doc/CreateDivision200Response.md)
  - [CreateDivisionRequest](doc/CreateDivisionRequest.md)
+ - [CreateRank200Response](doc/CreateRank200Response.md)
+ - [CreateRankRequest](doc/CreateRankRequest.md)
  - [CreateRole201Response](doc/CreateRole201Response.md)
  - [CreateRoleRequest](doc/CreateRoleRequest.md)
  - [DeleteDepartment200Response](doc/DeleteDepartment200Response.md)
  - [DeleteDepartmentRequest](doc/DeleteDepartmentRequest.md)
  - [DeleteDivision200Response](doc/DeleteDivision200Response.md)
  - [DeleteDivisionRequest](doc/DeleteDivisionRequest.md)
+ - [DeleteRank200Response](doc/DeleteRank200Response.md)
+ - [DeleteRankRequest](doc/DeleteRankRequest.md)
  - [DeleteRole200Response](doc/DeleteRole200Response.md)
  - [DeleteRoleRequest](doc/DeleteRoleRequest.md)
  - [DeleteUser200Response](doc/DeleteUser200Response.md)
+ - [EditRank200Response](doc/EditRank200Response.md)
+ - [EditRankRequest](doc/EditRankRequest.md)
  - [GetCorporateers200ResponseInner](doc/GetCorporateers200ResponseInner.md)
  - [GetCurrentFunding200Response](doc/GetCurrentFunding200Response.md)
  - [GetDepartments200ResponseInner](doc/GetDepartments200ResponseInner.md)
@@ -151,14 +166,19 @@ Class | Method | HTTP request | Description
  - [GetUserRoles200ResponseInner](doc/GetUserRoles200ResponseInner.md)
  - [GetUsers200ResponseInner](doc/GetUsers200ResponseInner.md)
  - [JoinDivision200Response](doc/JoinDivision200Response.md)
+ - [ListAuctions200ResponseInner](doc/ListAuctions200ResponseInner.md)
  - [Login200Response](doc/Login200Response.md)
  - [LoginRequest](doc/LoginRequest.md)
  - [ManualyVerifyUser200Response](doc/ManualyVerifyUser200Response.md)
+ - [PlaceBet200Response](doc/PlaceBet200Response.md)
+ - [PlaceBetRequest](doc/PlaceBetRequest.md)
  - [RefreshToken200Response](doc/RefreshToken200Response.md)
  - [Register200Response](doc/Register200Response.md)
  - [RegisterRequest](doc/RegisterRequest.md)
  - [RemoveUserRole200Response](doc/RemoveUserRole200Response.md)
  - [SendTributeRequest](doc/SendTributeRequest.md)
+ - [SetUserSecurityLevel200Response](doc/SetUserSecurityLevel200Response.md)
+ - [SetUserSecurityLevelRequest](doc/SetUserSecurityLevelRequest.md)
  - [SetWeights200Response](doc/SetWeights200Response.md)
  - [SetWeightsRequestInner](doc/SetWeightsRequestInner.md)
  - [UpdateDepartment200Response](doc/UpdateDepartment200Response.md)

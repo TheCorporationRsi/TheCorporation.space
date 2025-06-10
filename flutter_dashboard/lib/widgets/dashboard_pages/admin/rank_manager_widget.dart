@@ -17,6 +17,7 @@ class _RankManagerWidgetState extends State<RankManagerWidget> {
   bool _isLoading = true;
   String _searchQuery = '';
   final corpInfluenceApi = corpApi.getInfluenceSystemApi();
+  final corpAdminApi = corpApi.getAdminApi(); // <-- Add this line
 
   @override
   void initState() {
@@ -134,35 +135,92 @@ class _RankManagerWidgetState extends State<RankManagerWidget> {
   Widget _buildRankItem(GetRanks200ResponseInner rank) {
     return Card(
       color: cardBackgroundColor,
-      child: ListTile(
-        title: Text(
-          rank.title ?? '',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        subtitle: Column(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(14),
+        side: BorderSide(color: primaryColor.withOpacity(0.15), width: 1),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Required Lifetime Influence: ${rank.requiredLifetimeInfluence ?? 0}'),
-            Text('Weekly Amount: ${rank.weeklyAmount ?? 0}'),
-          ],
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: Icon(Icons.edit, color: Colors.blue),
-              onPressed: () {
-                _showEditRankDialog(rank);
-              },
+            Icon(Icons.emoji_events, color: secondaryColor, size: 26),
+            SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    rank.title ?? '',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(Icons.star, color: secondaryColor, size: 20),
+                      SizedBox(width: 6),
+                      Text(
+                        'Required Lifetime Influence: ',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        '${rank.requiredLifetimeInfluence ?? 0}',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Icon(Icons.calendar_today, color: primaryColor, size: 18),
+                      SizedBox(width: 6),
+                      Text(
+                        'Weekly Amount: ',
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        '${rank.weeklyAmount ?? 0}',
+                        style: TextStyle(
+                          color: secondaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            IconButton(
-              icon: Icon(Icons.delete, color: Colors.red),
-              onPressed: () {
-                _showDeleteDialog(rank);
-              },
+            SizedBox(width: 10),
+            Column(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.edit, color: Colors.blue),
+                  onPressed: () {
+                    _showEditRankDialog(rank);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    _showDeleteDialog(rank);
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -247,7 +305,7 @@ class _RankManagerWidgetState extends State<RankManagerWidget> {
       ..weeklyAmount = weeklyAmount
     );
     try {
-      final response = await corpInfluenceApi.createRank(
+      final response = await corpAdminApi.createRank( // <-- Use admin API here
         headers: headers,
         createRankRequest: request,
       );
@@ -340,7 +398,7 @@ class _RankManagerWidgetState extends State<RankManagerWidget> {
       ..weeklyAmount = newWeeklyAmount
     );
     try {
-      final response = await corpInfluenceApi.editRank(
+      final response = await corpAdminApi.editRank( // <-- Use admin API
         headers: headers,
         editRankRequest: request,
       );
@@ -417,7 +475,7 @@ class _RankManagerWidgetState extends State<RankManagerWidget> {
     final headers = await getAuthHeader();
     final request = DeleteRankRequest((b) => b..rankTitle = rankTitle);
     try {
-      final response = await corpInfluenceApi.deleteRank(
+      final response = await corpAdminApi.deleteRank( // <-- Use admin API
         headers: headers,
         deleteRankRequest: request,
       );
