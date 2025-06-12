@@ -97,7 +97,8 @@ class _RanksDocumentationWidgetState extends State<RanksDocumentationWidget> {
   Widget _buildRankList() {
     final filteredRanks = ranks.where((rank) {
       return rank.title!.toLowerCase().contains(_searchQuery.toLowerCase());
-    }).toList();
+    }).toList()
+      ..sort((a, b) => (a.requiredLifetimeInfluence ?? 0).compareTo(b.requiredLifetimeInfluence ?? 0));
 
     if (filteredRanks.isEmpty) {
       return Center(

@@ -45,9 +45,12 @@ class _RankManagerWidgetState extends State<RankManagerWidget> {
 
   void _applySearch() {
     setState(() {
-      filteredRanks = ranks.where((rank) {
+      final sortedList = ranks.where((rank) {
         return rank.title!.toLowerCase().contains(_searchQuery.toLowerCase());
-      }).toBuiltList();
+      })
+      .toList()
+      ..sort((a, b) => (a.requiredLifetimeInfluence ?? 0).compareTo(b.requiredLifetimeInfluence ?? 0));
+      filteredRanks = sortedList.toBuiltList();
     });
   }
 

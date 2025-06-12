@@ -231,10 +231,10 @@ def create_app(config_class=Config.ProductionConfig):
                 db.session.add(Role(title="Corporateer"))
                 db.session.commit()
 
-            if Inf_Rank.query.filter_by(title="Corporateer").first() is None:
+            if Inf_Rank.query.filter_by(title="Intern").first() is None:
                 db.session.add(
                     Inf_Rank(
-                        title="Corporateer", required_lifetime_influence=0, weekly_amount=50
+                        title="Intern", required_lifetime_influence=0, weekly_amount=50
                     )
                 )
                 db.session.commit()

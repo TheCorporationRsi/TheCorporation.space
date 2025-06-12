@@ -172,7 +172,7 @@ class InfluenceSystemManager:
     @staticmethod
     def create_rank(title, required_lifetime_influence, weekly_amount):
         # Create a new rank with the given title and requirements
-        if not re.match("^[a-zA-Z0-9-_]*$", title):
+        if not re.match("^[a-zA-Z0-9-_ ]*$", title):
             raise ValueError("Title contain unallowed character")
         
         existing_rank = Inf_Rank.query.filter_by(title=title).first()
@@ -191,7 +191,7 @@ class InfluenceSystemManager:
         if not rank:
             raise ValueError("Rank not found")
         if title is not None:
-            if not re.match("^[a-zA-Z0-9-_]*$", title):
+            if not re.match("^[a-zA-Z0-9-_ ]*$", title):
                 raise ValueError("Title contain unallowed character")
             # Check for duplicate title
             existing_rank = Inf_Rank.query.filter_by(title=title).first()
