@@ -204,6 +204,8 @@ def create_app(config_class=Config.ProductionConfig):
 
     # Import the models after initializing the database
     with app.app_context():
+        
+        
         from . import models
         from . import tasks
         from . import bot
@@ -219,9 +221,13 @@ def create_app(config_class=Config.ProductionConfig):
 
         # Register the API blueprint
         app.register_blueprint(api, url_prefix="/api")
+        
+        
+        
 
         # Create all database tables
         db.create_all()
+        
         
         from .models import Role, Inf_Rank
 

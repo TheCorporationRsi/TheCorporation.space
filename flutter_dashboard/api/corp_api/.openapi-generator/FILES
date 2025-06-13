@@ -7,6 +7,7 @@ doc/AdminAddTribute200Response.md
 doc/AdminAddTributeRequest.md
 doc/AdminApi.md
 doc/ChangePasswordRequest.md
+doc/CloseAuction200Response.md
 doc/CreateAuction201Response.md
 doc/CreateAuctionRequest.md
 doc/CreateDepartment200Response.md
@@ -17,6 +18,8 @@ doc/CreateRank200Response.md
 doc/CreateRankRequest.md
 doc/CreateRole201Response.md
 doc/CreateRoleRequest.md
+doc/DeleteAuction200Response.md
+doc/DeleteAuctionRequest.md
 doc/DeleteDepartment200Response.md
 doc/DeleteDepartmentRequest.md
 doc/DeleteDivision200Response.md
@@ -98,6 +101,7 @@ lib/src/model/add_user_role_request.dart
 lib/src/model/admin_add_tribute200_response.dart
 lib/src/model/admin_add_tribute_request.dart
 lib/src/model/change_password_request.dart
+lib/src/model/close_auction200_response.dart
 lib/src/model/create_auction201_response.dart
 lib/src/model/create_auction_request.dart
 lib/src/model/create_department200_response.dart
@@ -109,6 +113,8 @@ lib/src/model/create_rank_request.dart
 lib/src/model/create_role201_response.dart
 lib/src/model/create_role_request.dart
 lib/src/model/date.dart
+lib/src/model/delete_auction200_response.dart
+lib/src/model/delete_auction_request.dart
 lib/src/model/delete_department200_response.dart
 lib/src/model/delete_department_request.dart
 lib/src/model/delete_division200_response.dart
@@ -167,4 +173,3 @@ lib/src/model/update_role_request.dart
 lib/src/model/verify_rsi_token200_response.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/admin_add_tribute200_response_test.dart

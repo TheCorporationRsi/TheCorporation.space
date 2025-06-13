@@ -76,7 +76,9 @@ Class | Method | HTTP request | Description
 [*AdminApi*](doc/AdminApi.md) | [**setUserSecurityLevel**](doc/AdminApi.md#setusersecuritylevel) | **PATCH** /api/v0/users/security_level | Set user security level
 [*AdminApi*](doc/AdminApi.md) | [**updateDepartment**](doc/AdminApi.md#updatedepartment) | **PATCH** /api/v0/structure/departments | Department update endpoint
 [*AdminApi*](doc/AdminApi.md) | [**updateDivision**](doc/AdminApi.md#updatedivision) | **PATCH** /api/v0/structure/divisions | Division update endpoint
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**closeAuction**](doc/InfluenceSystemApi.md#closeauction) | **POST** /api/v0/influence_system/auction/close | Close an auction by ID
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**createAuction**](doc/InfluenceSystemApi.md#createauction) | **POST** /api/v0/influence_system/auction | Create a new auction
+[*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**deleteAuction**](doc/InfluenceSystemApi.md#deleteauction) | **DELETE** /api/v0/influence_system/auction | Delete an auction by ID (ID in POST data)
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getInfluence**](doc/InfluenceSystemApi.md#getinfluence) | **GET** /api/v0/influence_system/profile/{influence_type}/{type}/{title} | Get current influence
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getProfile**](doc/InfluenceSystemApi.md#getprofile) | **GET** /api/v0/influence_system/profile | Get influence system profile
 [*InfluenceSystemApi*](doc/InfluenceSystemApi.md) | [**getRanks**](doc/InfluenceSystemApi.md#getranks) | **GET** /api/v0/influence_system/ranks | List of all influence system ranks
@@ -125,6 +127,7 @@ Class | Method | HTTP request | Description
  - [AdminAddTribute200Response](doc/AdminAddTribute200Response.md)
  - [AdminAddTributeRequest](doc/AdminAddTributeRequest.md)
  - [ChangePasswordRequest](doc/ChangePasswordRequest.md)
+ - [CloseAuction200Response](doc/CloseAuction200Response.md)
  - [CreateAuction201Response](doc/CreateAuction201Response.md)
  - [CreateAuctionRequest](doc/CreateAuctionRequest.md)
  - [CreateDepartment200Response](doc/CreateDepartment200Response.md)
@@ -135,6 +138,8 @@ Class | Method | HTTP request | Description
  - [CreateRankRequest](doc/CreateRankRequest.md)
  - [CreateRole201Response](doc/CreateRole201Response.md)
  - [CreateRoleRequest](doc/CreateRoleRequest.md)
+ - [DeleteAuction200Response](doc/DeleteAuction200Response.md)
+ - [DeleteAuctionRequest](doc/DeleteAuctionRequest.md)
  - [DeleteDepartment200Response](doc/DeleteDepartment200Response.md)
  - [DeleteDepartmentRequest](doc/DeleteDepartmentRequest.md)
  - [DeleteDivision200Response](doc/DeleteDivision200Response.md)

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/main.dart';
-import 'package:flutter_dashboard/model/current_user.dart';
+import 'package:flutter_dashboard/model/current_user.dart' as current_user;
+import 'package:flutter_dashboard/model/information.dart';
+import 'components/auction_card.dart';
 
 class AuctionWidget extends StatefulWidget {
   const AuctionWidget({super.key});
@@ -145,6 +147,10 @@ class _AuctionWidgetState extends State<AuctionWidget> {
     String? error;
     bool submitting = false;
 
+    // For department and division selection
+    String selectedDepartmentId = 'none';
+    String selectedDivisionId = 'none';
+
     await showDialog(
       context: context,
       builder: (context) => StatefulBuilder(
@@ -173,6 +179,85 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                   style: const TextStyle(color: Colors.white),
                   maxLines: 2,
                 ),
+                const SizedBox(height: 12),
+                // Department dropdown
+                ValueListenableBuilder(
+                  valueListenable: current_user.departments,
+                  builder: (context, deptList, _) {
+                    final items = [
+                      const DropdownMenuItem<String>(
+                        value: 'none',
+                        child: Text('None', style: TextStyle(color: Colors.white)),
+                      ),
+                      ...deptList.map((d) => DropdownMenuItem<String>(
+                        value: d.title ?? '',
+                        child: Text(d.title ?? '', style: const TextStyle(color: Colors.white)),
+                      )),
+                    ];
+                    return Row(
+                      children: [
+                        const Text('Department:', style: TextStyle(color: Colors.white)),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: DropdownButton<String>(
+                            value: selectedDepartmentId,
+                            dropdownColor: cardBackgroundColor,
+                            style: const TextStyle(color: Colors.white),
+                            items: items,
+                            onChanged: (val) {
+                              if (val != null) {
+                                setDialogState(() {
+                                  selectedDepartmentId = val;
+                                  selectedDivisionId = 'none';
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 12),
+                // Division dropdown (only if department selected)
+                if (selectedDepartmentId != 'none')
+                  ValueListenableBuilder(
+                    valueListenable: divisions,
+                    builder: (context, divList, _) {
+                      final filteredDivs = divList.where((d) => d.departmentTitle == selectedDepartmentId).toList();
+                      final items = [
+                        const DropdownMenuItem<String>(
+                          value: 'none',
+                          child: Text('None', style: TextStyle(color: Colors.white)),
+                        ),
+                        ...filteredDivs.map((d) => DropdownMenuItem<String>(
+                          value: d.title ?? '',
+                          child: Text(d.title ?? '', style: const TextStyle(color: Colors.white)),
+                        )),
+                      ];
+                      return Row(
+                        children: [
+                          const Text('Division:', style: TextStyle(color: Colors.white)),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: DropdownButton<String>(
+                              value: selectedDivisionId,
+                              dropdownColor: cardBackgroundColor,
+                              style: const TextStyle(color: Colors.white),
+                              items: items,
+                              onChanged: (val) {
+                                if (val != null) {
+                                  setDialogState(() {
+                                    selectedDivisionId = val;
+                                  });
+                                }
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -247,10 +332,18 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                         final headers = await getAuthHeader();
                         await api.createAuction(
                           headers: headers,
-                          createAuctionRequest: CreateAuctionRequest((b) => b
-                            ..title = title
-                            ..description = desc
-                            ..endTime = endTime!.toUtc()),
+                          createAuctionRequest: CreateAuctionRequest((b) {
+                            b
+                              ..title = title
+                              ..description = desc
+                              ..endTime = endTime!.toUtc();
+                            // Attach division or department if selected
+                            if (selectedDivisionId != 'none') {
+                              b.division = selectedDivisionId;
+                            } else if (selectedDepartmentId != 'none') {
+                              b.department = selectedDepartmentId;
+                            }
+                          }),
                         );
                         Navigator.pop(context);
                         _fetchAuctions();
@@ -271,6 +364,148 @@ class _AuctionWidgetState extends State<AuctionWidget> {
     );
   }
 
+  Future<void> _deleteAuction(ListAuctions200ResponseInner auction) async {
+    bool submitting = false;
+    String? error;
+    await showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          title: const Text('Delete Auction', style: TextStyle(color: Colors.white)),
+          content: Text(
+            'Are you sure you want to delete "${auction.title ?? ''}"?',
+            style: const TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel', style: TextStyle(color: secondaryColor)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+              onPressed: submitting
+                  ? null
+                  : () async {
+                      setDialogState(() {
+                        submitting = true;
+                        error = null;
+                      });
+                      try {
+                        final headers = await getAuthHeader();
+                        final request = DeleteAuctionRequest((b) => b
+                          ..auctionId = auction.id ?? ''
+                        );
+                        final response = await api.deleteAuction(
+                          headers: headers,
+                          deleteAuctionRequest: request,
+                        );
+                        if (response.statusCode == 200) {
+                          Navigator.pop(context);
+                          _fetchAuctions();
+                        } else {
+                          setDialogState(() {
+                            error = "Failed to delete auction.";
+                            submitting = false;
+                          });
+                        }
+                      } catch (_) {
+                        setDialogState(() {
+                          error = "Failed to delete auction.";
+                          submitting = false;
+                        });
+                      }
+                    },
+              child: submitting
+                  ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                  : const Text('Delete'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _closeAuction(ListAuctions200ResponseInner auction) async {
+    // Prevent finalizing before auction end time
+    final now = DateTime.now().toUtc();
+    final endTime = auction.endTime?.toUtc();
+    if (endTime != null && now.isBefore(endTime)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("You can't finalize this auction before it ends."),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    bool submitting = false;
+    String? error;
+    await showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          backgroundColor: cardBackgroundColor,
+          title: const Text('Finalize Auction', style: TextStyle(color: Colors.white)),
+          content: Text(
+            'Are you sure you want to finalize (close) "${auction.title ?? ''}"? This will end the auction immediately.',
+            style: const TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel', style: TextStyle(color: secondaryColor)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+              onPressed: submitting
+                  ? null
+                  : () async {
+                      setDialogState(() {
+                        submitting = true;
+                        error = null;
+                      });
+                      try {
+                        final headers = await getAuthHeader();
+                        final request = DeleteAuctionRequest((b) => b
+                          ..auctionId = auction.id ?? ''
+                        );
+                        final response = await api.closeAuction(
+                          headers: headers,
+                          deleteAuctionRequest: request,
+                        );
+                        if (response.statusCode == 200) {
+                          Navigator.pop(context);
+                          _fetchAuctions();
+                        } else {
+                          setDialogState(() {
+                            error = "Failed to finalize auction.";
+                            submitting = false;
+                          });
+                        }
+                      } catch (_) {
+                        setDialogState(() {
+                          error = "Failed to finalize auction.";
+                          submitting = false;
+                        });
+                      }
+                    },
+              child: submitting
+                  ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                  : const Text('Finalize'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  bool _isCurrentUserCreator(ListAuctions200ResponseInner auction) {
+    // Use itemHolder (creator) and rsiHandle (current user) for comparison
+    return auction.itemHolder != null && auction.itemHolder == current_user.rsiHandle;
+  }
+
   String _formatTimeLeft(DateTime? endTime) {
     if (endTime == null) return "No end time";
     final now = DateTime.now().toUtc();
@@ -286,126 +521,6 @@ class _AuctionWidgetState extends State<AuctionWidget> {
     } else {
       return "${diff.inSeconds}s left";
     }
-  }
-
-  Widget _buildAuctionCard(ListAuctions200ResponseInner auction) {
-    // Calculate progress for the progress bar
-    double? progress;
-    DateTime? start = auction.startTime;
-    DateTime? end = auction.endTime;
-    if (start != null && end != null) {
-      final now = DateTime.now().toUtc();
-      final startUtc = start.isUtc ? start : start.toUtc();
-      final endUtc = end.isUtc ? end : end.toUtc();
-      final total = endUtc.difference(startUtc).inSeconds;
-      final elapsed = now.difference(startUtc).inSeconds;
-      if (total > 0) {
-        progress = (elapsed / total).clamp(0.0, 1.0);
-      } else {
-        progress = 1.0;
-      }
-    }
-    return Card(
-      color: cardBackgroundColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    auction.title ?? '',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    auction.description ?? '',
-                    style: TextStyle(color: Colors.white.withOpacity(0.7)),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Icon(Icons.monetization_on, color: primaryColor, size: 20),
-                      Text(
-                        "${(auction.currentPrice?.toInt() ?? 0)} INF",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: primaryColor),
-                      ),
-                      const SizedBox(width: 8),
-                      Text('by', style: TextStyle(color: Colors.white.withOpacity(0.7))),
-                      const SizedBox(width: 4),
-                      Chip(
-                        label: Text(auction.highestBidder ?? '-'),
-                        backgroundColor: secondaryColor.withOpacity(0.15),
-                        labelStyle: TextStyle(color: secondaryColor),
-                      ),
-                    ],
-                  ),
-                  // Show item holder (auction creator)
-                  if (auction.itemHolder != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 6),
-                      child: Row(
-                        children: [
-                          Icon(Icons.person, color: secondaryColor, size: 18),
-                          const SizedBox(width: 4),
-                          Text(
-                            "Auctioned by: ${auction.itemHolder}",
-                            style: TextStyle(color: secondaryColor.withOpacity(0.8), fontSize: 13),
-                          ),
-                        ],
-                      ),
-                    ),
-                  if (auction.endTime != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text(
-                        "Time left: ${_formatTimeLeft(auction.endTime?.toUtc())}",
-                        style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 13),
-                      ),
-                    ),
-                  if (progress != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: LinearProgressIndicator(
-                        value: progress,
-                        backgroundColor: Colors.white.withOpacity(0.1),
-                        color: primaryColor,
-                        minHeight: 6,
-                      ),
-                    ),
-                  if (progress != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        "Started: ${auction.startTime?.toLocal().toString().substring(0, 16) ?? '-'}",
-                        style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 12),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-            // Only show the bid button if auction hasn't ended
-            if (auction.endTime == null || auction.endTime!.toUtc().isAfter(DateTime.now().toUtc()))
-              ElevatedButton.icon(
-                icon: const Icon(Icons.gavel),
-                label: const Text('Bid'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                onPressed: () => _showBidDialog(auction),
-              ),
-          ],
-        ),
-      ),
-    );
   }
 
   @override
@@ -475,7 +590,7 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                if (isCurrentUserManager())
+                if (current_user.isCurrentUserManager())
                   Tooltip(
                     message: "Add Auction",
                     child: IconButton(
@@ -515,7 +630,16 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: filtered.length,
-                itemBuilder: (context, idx) => _buildAuctionCard(filtered[idx]),
+                itemBuilder: (context, idx) {
+                  final auction = filtered[idx];
+                  final isCreator = _isCurrentUserCreator(auction);
+                  return AuctionCard(
+                    auction: auction,
+                    onBid: () => _showBidDialog(auction),
+                    onDelete: isCreator ? () => _deleteAuction(auction) : null,
+                    onFinalize: isCreator ? () => _closeAuction(auction) : null,
+                  );
+                },
               ),
             const SizedBox(height: 24),
           ],

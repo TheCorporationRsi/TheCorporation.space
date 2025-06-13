@@ -57,6 +57,17 @@ def list_auctions():
                                 item_holder:
                                     type: string
                                     example: "jane_doe"
+                                division:
+                                    type: string
+                                    nullable: true
+                                    example: "Research Division"
+                                department:
+                                    type: string
+                                    nullable: true
+                                    example: "Engineering"
+                                closed:
+                                    type: boolean
+                                    example: false
         401:
             $ref: "#/components/responses/unauthorized"
     """
@@ -74,7 +85,11 @@ def list_auctions():
             "start_time": to_utc(auction.start_time),
             "current_price": auction.current_price,
             "highest_bidder": auction.highest_bidder.RSI_handle if auction.highest_bidder else None,
-            "item_holder": auction.item_holder.RSI_handle
+            "item_holder": auction.item_holder.RSI_handle,
+            "division": auction.division.title if auction.division else None,
+            "department": auction.department.title if auction.department else None,
+            "closed": auction.closed
+            
         })
     return jsonify(auction_list), 200
 
@@ -146,6 +161,10 @@ def create_auction():
         401:
             $ref: "#/components/responses/unauthorized"
     """
+    
+    
+    
+    
     data = request.json
     try:
         auction = InfluenceSystemManager.create_auction(
@@ -155,6 +174,7 @@ def create_auction():
             department=data.get("department"),
             division=data.get("division"),
             owner=current_user,
+            
         )
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
@@ -205,7 +225,7 @@ def place_bet():
     auction_id = data.get("auction_id")
     amount = data.get("amount")
     try:
-        bet = InfluenceSystemManager.place_bid(
+        InfluenceSystemManager.place_bid(
             user=current_user,
             auction_id=auction_id,
             bid_amount=amount
@@ -213,6 +233,113 @@ def place_bet():
     except ValueError as e:
         return jsonify({'msg': str(e)}), 400
     return jsonify({'msg': "Bet placed successfully!"}), 200
+
+
+
+@api.route('/influence_system/auction', methods=['DELETE'])
+@manager_only
+def delete_auction():
+    """
+    Delete an auction by ID (ID in POST data)
+    ---
+    operationId: delete_auction
+    tags:
+        - Influence System
+    security:
+        - corp_access_pass: []
+    requestBody:
+        description: Auction ID to delete
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [auction_id]
+                    properties:
+                        auction_id:
+                            type: string
+                            example: "123e4567-e89b-12d3-a456-426614174000"
+    responses:
+        200:
+            description: Auction deleted successfully
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Auction deleted successfully!
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+    """
+    data = request.json
+    auction_id = data.get("auction_id")
+    if not auction_id:
+        return jsonify({'msg': 'auction_id is required'}), 400
+
+    auction = Inf_Auction.query.get(auction_id)
+    if not auction:
+        return jsonify({'msg': 'Auction not found'}), 400
+    
+    if auction.item_holder != current_user and not current_user.is_admin:
+        return jsonify({'msg': 'Only the item holder or an admin can delete this auction.'}), 401
+
+    try:
+        auction.delete()
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
+    return jsonify({'msg': 'Auction deleted successfully!'}), 200
+
+@api.route('/influence_system/auction/close', methods=['POST'])
+@manager_only
+def close_auction():
+    """
+    Close an auction by ID
+    ---
+    operationId: close_auction
+    tags:
+        - Influence System
+    security:
+        - corp_access_pass: []
+    requestBody:
+        description: Auction ID to close
+        content:
+            application/json:
+                schema:
+                    type: object
+                    required: [auction_id]
+                    properties:
+                        auction_id:
+                            type: string
+                            example: "123e4567-e89b-12d3-a456-426614174000"
+    responses:
+        200:
+            description: Auction closed successfully
+            content:
+                application/json:
+                    schema:
+                        type: object
+                        properties:
+                            msg:
+                                type: string
+                                example: Auction closed successfully!
+        400:
+            $ref: "#/components/responses/invalid"
+        401:
+            $ref: "#/components/responses/unauthorized"
+    """
+    data = request.json
+    auction_id = data.get("auction_id")
+    if not auction_id:
+        return jsonify({'msg': 'auction_id is required'}), 400
+
+    try:
+        InfluenceSystemManager.close_auction(current_user, auction_id)
+    except ValueError as e:
+        return jsonify({'msg': str(e)}), 400
+    return jsonify({'msg': 'Auction closed successfully!'}), 200
 
 
 

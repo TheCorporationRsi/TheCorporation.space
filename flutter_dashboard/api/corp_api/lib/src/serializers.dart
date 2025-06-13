@@ -19,6 +19,7 @@ import 'package:corp_api/src/model/add_user_role_request.dart';
 import 'package:corp_api/src/model/admin_add_tribute200_response.dart';
 import 'package:corp_api/src/model/admin_add_tribute_request.dart';
 import 'package:corp_api/src/model/change_password_request.dart';
+import 'package:corp_api/src/model/close_auction200_response.dart';
 import 'package:corp_api/src/model/create_auction201_response.dart';
 import 'package:corp_api/src/model/create_auction_request.dart';
 import 'package:corp_api/src/model/create_department200_response.dart';
@@ -29,6 +30,8 @@ import 'package:corp_api/src/model/create_rank200_response.dart';
 import 'package:corp_api/src/model/create_rank_request.dart';
 import 'package:corp_api/src/model/create_role201_response.dart';
 import 'package:corp_api/src/model/create_role_request.dart';
+import 'package:corp_api/src/model/delete_auction200_response.dart';
+import 'package:corp_api/src/model/delete_auction_request.dart';
 import 'package:corp_api/src/model/delete_department200_response.dart';
 import 'package:corp_api/src/model/delete_department_request.dart';
 import 'package:corp_api/src/model/delete_division200_response.dart';
@@ -94,6 +97,7 @@ part 'serializers.g.dart';
   AdminAddTribute200Response,
   AdminAddTributeRequest,
   ChangePasswordRequest,
+  CloseAuction200Response,
   CreateAuction201Response,
   CreateAuctionRequest,
   CreateDepartment200Response,
@@ -104,6 +108,8 @@ part 'serializers.g.dart';
   CreateRankRequest,
   CreateRole201Response,
   CreateRoleRequest,
+  DeleteAuction200Response,
+  DeleteAuctionRequest,
   DeleteDepartment200Response,
   DeleteDepartmentRequest,
   DeleteDivision200Response,

@@ -61,11 +61,18 @@ class Department(Base):
             
         
         from corp_system.models import Influence
+        from corp_system.models import Inf_Auction
         
         influences = Influence.query.filter_by(department=self).all()
         for influence in influences:
             influence.department_influence = False
             influence.department = None
+        
+        auctions = Inf_Auction.query.filter_by(department=self).all()
+        for auction in auctions:
+            auction.department = None
+            
+        
         
         db.session.delete(self)
         db.session.commit()

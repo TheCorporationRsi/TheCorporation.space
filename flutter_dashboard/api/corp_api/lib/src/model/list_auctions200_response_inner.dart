@@ -11,8 +11,11 @@ part 'list_auctions200_response_inner.g.dart';
 /// ListAuctions200ResponseInner
 ///
 /// Properties:
+/// * [closed]
 /// * [currentPrice]
+/// * [department]
 /// * [description]
+/// * [division]
 /// * [endTime]
 /// * [highestBidder]
 /// * [id]
@@ -24,11 +27,20 @@ abstract class ListAuctions200ResponseInner
     implements
         Built<ListAuctions200ResponseInner,
             ListAuctions200ResponseInnerBuilder> {
+  @BuiltValueField(wireName: r'closed')
+  bool? get closed;
+
   @BuiltValueField(wireName: r'current_price')
   num? get currentPrice;
 
+  @BuiltValueField(wireName: r'department')
+  String? get department;
+
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'division')
+  String? get division;
 
   @BuiltValueField(wireName: r'end_time')
   DateTime? get endTime;
@@ -78,6 +90,13 @@ class _$ListAuctions200ResponseInnerSerializer
     ListAuctions200ResponseInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    if (object.closed != null) {
+      yield r'closed';
+      yield serializers.serialize(
+        object.closed,
+        specifiedType: const FullType(bool),
+      );
+    }
     if (object.currentPrice != null) {
       yield r'current_price';
       yield serializers.serialize(
@@ -85,11 +104,25 @@ class _$ListAuctions200ResponseInnerSerializer
         specifiedType: const FullType(num),
       );
     }
+    if (object.department != null) {
+      yield r'department';
+      yield serializers.serialize(
+        object.department,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
         object.description,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.division != null) {
+      yield r'division';
+      yield serializers.serialize(
+        object.division,
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.endTime != null) {
@@ -159,6 +192,13 @@ class _$ListAuctions200ResponseInnerSerializer
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'closed':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.closed = valueDes;
+          break;
         case r'current_price':
           final valueDes = serializers.deserialize(
             value,
@@ -166,12 +206,28 @@ class _$ListAuctions200ResponseInnerSerializer
           ) as num;
           result.currentPrice = valueDes;
           break;
+        case r'department':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.department = valueDes;
+          break;
         case r'description':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
+          break;
+        case r'division':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.division = valueDes;
           break;
         case r'end_time':
           final valueDes = serializers.deserialize(

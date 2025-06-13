@@ -41,25 +41,53 @@ class Inf_Account(Base):
     def use_influence(self, amount, department=None, division=None):
         
         if self.current_influence(department=department, division=division) < amount:
-            return False
+            raise ValueError("Not enough influence points to use")
         
         left = amount
         from corp_system.models import Influence
-
+        
+        step = 0
         while left > 0:
             if division:
-                influence = Influence.query.filter(and_(Influence.account==self, Influence.division==division, Influence.division_influence==True, Influence.amount > 0)).order_by(Influence.created_at).first()
+                influence = Influence.query.filter(and_(Influence.account==self, Influence.division==division, Influence.division_influence==True, Influence.amount > 0)).order_by(Influence.created_on).first()
             elif department:
-                influence = Influence.query.filter(and_(Influence.account==self, Influence.department==department, Influence.department_influence==True, Influence.amount > 0)).order_by(Influence.created_at).first()
+                if step == 0:
+                    influence = Influence.query.filter(and_(Influence.account==self, Influence.department==department, Influence.department_influence==True, Influence.division_influence==False, Influence.amount > 0)).order_by(Influence.created_on).first()
+                if step == 1:
+                    for division in department.divisions:
+                        if self.current_available_influence(department=department, division=division) < 1:
+                            continue
+                        else:
+                            influence = Influence.query.filter(and_(Influence.account==self, Influence.division==division, Influence.division_influence==True, Influence.amount > 0)).order_by(Influence.created_on).first()
+                            break
             else:
-                influence = Influence.query.filter(and_(Influence.account==self, Influence.amount > 0)).order_by(Influence.created_at).first()
+                if step == 0:
+                    influence = Influence.query.filter(and_(Influence.account==self, Influence.department_influence==False, Influence.division_influence==False, Influence.amount > 0)).order_by(Influence.created_on).first()
+                elif step == 1:
+                    for department in self.user.departments:
+                        if self.current_available_influence(department=department) < 1:
+                            continue
+                        else:
+                            influence = Influence.query.filter(and_(Influence.account==self, Influence.department==department, Influence.department_influence==True, Influence.division_influence==False, Influence.amount > 0)).order_by(Influence.created_on).first()
+                            break
+                elif step == 2:
+                    for division in self.user.divisions:
+                        if self.current_available_influence(division=division) < 1:
+                            continue
+                        else:
+                            influence = Influence.query.filter(and_(Influence.account==self, Influence.division==division, Influence.division_influence==True, Influence.amount > 0)).order_by(Influence.created_on).first()
+                            break
 
-            if influence.amount >= left:
-                influence.amount -= left
-                left = 0
+            if not influence:
+                step += 1
             else:
-                left -= influence.amount
-                influence.amount = 0
+                print(f"Using influence")
+                if influence.amount >= left:
+                    influence.amount -= left
+                    left = 0
+                else:
+                    left -= influence.amount
+                    influence.amount = 0
                 
         db.session.commit()
     
@@ -116,11 +144,19 @@ class Inf_Account(Base):
     
     def current_influence_on_bets(self, division=None, department=None):
         if division:
-            return sum([bet.current_price for bet in self.auctions_purchases if (not bet.prize_claimed and bet.division == division)])
+            return sum([bet.current_price for bet in self.auctions_purchases if (not bet.closed and bet.division == division)])
         elif department:
-            return sum([bet.current_price for bet in self.auctions_purchases if (not bet.prize_claimed and bet.department == department)])
+            return sum([bet.current_price for bet in self.auctions_purchases if (not bet.closed and bet.department == department)])
         else:
-            return sum([bet.current_price for bet in self.auctions_purchases if not bet.prize_claimed])
+            return sum([bet.current_price for bet in self.auctions_purchases if not bet.closed])
+    
+    def current_available_influence(self, division=None, department=None):
+        if division:
+            return self.current_influence(division=division) - self.current_influence_on_bets(division=division)
+        elif department:
+            return self.current_influence(department=department) - self.current_influence_on_bets(department=department)
+        else:
+            return self.current_influence() - self.current_influence_on_bets()
 
     def get_weight_dict(self):
         from corp_system.models import Division

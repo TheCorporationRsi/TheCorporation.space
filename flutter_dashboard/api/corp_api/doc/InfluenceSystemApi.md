@@ -9,7 +9,9 @@ All URIs are relative to *https://thecorporation.space*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**closeAuction**](InfluenceSystemApi.md#closeauction) | **POST** /api/v0/influence_system/auction/close | Close an auction by ID
 [**createAuction**](InfluenceSystemApi.md#createauction) | **POST** /api/v0/influence_system/auction | Create a new auction
+[**deleteAuction**](InfluenceSystemApi.md#deleteauction) | **DELETE** /api/v0/influence_system/auction | Delete an auction by ID (ID in POST data)
 [**getInfluence**](InfluenceSystemApi.md#getinfluence) | **GET** /api/v0/influence_system/profile/{influence_type}/{type}/{title} | Get current influence
 [**getProfile**](InfluenceSystemApi.md#getprofile) | **GET** /api/v0/influence_system/profile | Get influence system profile
 [**getRanks**](InfluenceSystemApi.md#getranks) | **GET** /api/v0/influence_system/ranks | List of all influence system ranks
@@ -20,6 +22,47 @@ Method | HTTP request | Description
 [**sendTribute**](InfluenceSystemApi.md#sendtribute) | **POST** /api/v0/influence_system/transfer | Endpoint to send tribute to another corporateer
 [**updateAccount**](InfluenceSystemApi.md#updateaccount) | **GET** /api/v0/influence_system/update | Update influence system account
 
+
+# **closeAuction**
+> CloseAuction200Response closeAuction(deleteAuctionRequest)
+
+Close an auction by ID
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getInfluenceSystemApi();
+final DeleteAuctionRequest deleteAuctionRequest = ; // DeleteAuctionRequest | Auction ID to close
+
+try {
+    final response = api.closeAuction(deleteAuctionRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling InfluenceSystemApi->closeAuction: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteAuctionRequest** | [**DeleteAuctionRequest**](DeleteAuctionRequest.md)| Auction ID to close | [optional] 
+
+### Return type
+
+[**CloseAuction200Response**](CloseAuction200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createAuction**
 > CreateAuction201Response createAuction(createAuctionRequest)
@@ -50,6 +93,47 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CreateAuction201Response**](CreateAuction201Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteAuction**
+> DeleteAuction200Response deleteAuction(deleteAuctionRequest)
+
+Delete an auction by ID (ID in POST data)
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getInfluenceSystemApi();
+final DeleteAuctionRequest deleteAuctionRequest = ; // DeleteAuctionRequest | Auction ID to delete
+
+try {
+    final response = api.deleteAuction(deleteAuctionRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling InfluenceSystemApi->deleteAuction: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteAuctionRequest** | [**DeleteAuctionRequest**](DeleteAuctionRequest.md)| Auction ID to delete | [optional] 
+
+### Return type
+
+[**DeleteAuction200Response**](DeleteAuction200Response.md)
 
 ### Authorization
 
