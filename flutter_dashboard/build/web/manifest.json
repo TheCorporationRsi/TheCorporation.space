@@ -1,11 +1,11 @@
 {
-    "name": "The Corporation Dashboard",
-    "short_name": "TheCorporation",
+    "name": "flutter_dashboard",
+    "short_name": "flutter_dashboard",
     "start_url": ".",
-    "display": "minimal-ui",
-    "background_color": "#1C1C1C",
-    "theme_color": "#0083ff",
-    "description": "The multifunctional dashboard of The Corporation",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
