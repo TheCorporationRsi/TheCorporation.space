@@ -12,17 +12,16 @@ class _$DeleteRoleRequest extends DeleteRoleRequest {
 
   factory _$DeleteRoleRequest(
           [void Function(DeleteRoleRequestBuilder)? updates]) =>
-      (new DeleteRoleRequestBuilder()..update(updates))._build();
+      (DeleteRoleRequestBuilder()..update(updates))._build();
 
   _$DeleteRoleRequest._({this.roleTitle}) : super._();
-
   @override
   DeleteRoleRequest rebuild(void Function(DeleteRoleRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
   DeleteRoleRequestBuilder toBuilder() =>
-      new DeleteRoleRequestBuilder()..replace(this);
+      DeleteRoleRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -69,7 +68,6 @@ class DeleteRoleRequestBuilder
 
   @override
   void replace(DeleteRoleRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteRoleRequest;
   }
 
@@ -82,7 +80,10 @@ class DeleteRoleRequestBuilder
   DeleteRoleRequest build() => _build();
 
   _$DeleteRoleRequest _build() {
-    final _$result = _$v ?? new _$DeleteRoleRequest._(roleTitle: roleTitle);
+    final _$result = _$v ??
+        _$DeleteRoleRequest._(
+          roleTitle: roleTitle,
+        );
     replace(_$result);
     return _$result;
   }

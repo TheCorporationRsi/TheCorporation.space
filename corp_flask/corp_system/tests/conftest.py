@@ -113,8 +113,8 @@ def client():
                 db.session.add(Role(title='Corporateer'))
                 db.session.commit()
             
-            if Inf_Rank.query.filter_by(title='Corporateer').first() is None:
-                db.session.add(Inf_Rank(title='Corporateer',  required_lifetime_influence=0, weekly_amount=50))
+            if Inf_Rank.query.filter_by(title='Intern').first() is None:
+                db.session.add(Inf_Rank(title='Intern',  required_lifetime_influence=0, weekly_amount=50))
                 db.session.commit()
                 
             yield client
@@ -137,8 +137,8 @@ def request_context():
                 db.session.add(Role(title='Corporateer'))
                 db.session.commit()
             
-            if Inf_Rank.query.filter_by(title='Corporateer').first() is None:
-                db.session.add(Inf_Rank(title='Corporateer',  required_lifetime_influence=0, weekly_amount=50))
+            if Inf_Rank.query.filter_by(title='Intern').first() is None:
+                db.session.add(Inf_Rank(title='Intern',  required_lifetime_influence=0, weekly_amount=50))
                 db.session.commit()
                 
             with app.test_request_context() as context:

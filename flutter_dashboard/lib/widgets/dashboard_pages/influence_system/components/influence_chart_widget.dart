@@ -91,7 +91,7 @@ class InfluenceChartWidget extends StatelessWidget {
                   const SizedBox(height: defaultPadding),
                   if (filter == "All")
                     Text(
-                      stats.value.totalLifetimeInfluence.toString(),
+                      stats.value.totalInfluence.toString(),
                       style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
@@ -100,7 +100,7 @@ class InfluenceChartWidget extends StatelessWidget {
                     )
                   else
                   Text(
-                    stats.value.departments!.firstWhere((element) => element.departmentTitle == filter).lifetimeInfluence.toString(),
+                    stats.value.departments!.firstWhere((element) => element.departmentTitle == filter).influence.toString(),
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,

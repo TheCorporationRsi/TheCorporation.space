@@ -12,10 +12,9 @@ class _$SetWeights200Response extends SetWeights200Response {
 
   factory _$SetWeights200Response(
           [void Function(SetWeights200ResponseBuilder)? updates]) =>
-      (new SetWeights200ResponseBuilder()..update(updates))._build();
+      (SetWeights200ResponseBuilder()..update(updates))._build();
 
   _$SetWeights200Response._({this.msg}) : super._();
-
   @override
   SetWeights200Response rebuild(
           void Function(SetWeights200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$SetWeights200Response extends SetWeights200Response {
 
   @override
   SetWeights200ResponseBuilder toBuilder() =>
-      new SetWeights200ResponseBuilder()..replace(this);
+      SetWeights200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class SetWeights200ResponseBuilder
 
   @override
   void replace(SetWeights200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$SetWeights200Response;
   }
 
@@ -83,7 +81,10 @@ class SetWeights200ResponseBuilder
   SetWeights200Response build() => _build();
 
   _$SetWeights200Response _build() {
-    final _$result = _$v ?? new _$SetWeights200Response._(msg: msg);
+    final _$result = _$v ??
+        _$SetWeights200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

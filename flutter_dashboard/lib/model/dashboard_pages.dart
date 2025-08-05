@@ -5,13 +5,19 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/dashboard_widget.dart'
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/influence_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/transfer_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/pers_stats_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/auction_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/global_stats_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/ranks_widget.dart';
+
+
+import 'package:flutter_dashboard/widgets/dashboard_pages/tools/refinery_widget.dart';
 
 
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/user_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/department_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/division_manager_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/admin/role_manager_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/admin/rank_manager_widget.dart';
 
 import 'package:flutter_dashboard/widgets/dashboard_pages/main/welcome_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/main/structure_widget.dart';
@@ -47,6 +53,13 @@ final menu = <MenuModel>[
       
     ],
   ),
+  MenuModel(
+    icon: Icons.handyman,
+    title: 'Tools',
+    subMenu: [
+      MenuModel(icon: Icons.factory_sharp, title: 'Refinery', page: RefineryWidget()),
+    ],
+  ),
   if (current_user.status.value.cORPMember!)
   MenuModel(
     icon: Icons.person,
@@ -54,6 +67,8 @@ final menu = <MenuModel>[
     subMenu: [
       MenuModel(icon: Icons.military_tech, title: 'Personal Stats', page: InfPersonalStatsWidget()),
       MenuModel(icon: Icons.send, title: 'Transfer', page: InfTransferWidget()),
+      MenuModel(icon: Icons.bar_chart, title: 'Auction', page: AuctionWidget()),
+      MenuModel(icon: Icons.military_tech, title: 'Ranks', page: RanksDocumentationWidget()),
       //MenuModel(icon: Icons.query_stats, title: 'Global Stats', page: InfGlobalStatsWidget()),
     ],
   ),
@@ -66,6 +81,7 @@ final menu = <MenuModel>[
       MenuModel(icon: Icons.business, title: 'Departments', page: DepartmentManagerWidget()),
       MenuModel(icon: Icons.groups, title: 'Divisions', page: DivisionManagerWidget()),
       MenuModel(icon: Icons.assignment_ind, title: 'Roles', page: RoleManagerWidget()),
+      MenuModel(icon: Icons.military_tech, title: 'Rank', page: RankManagerWidget()),
     ],
   ),
   //MenuModel(icon: Icons.history, title: 'Stats', page: InfluenceWidget()),

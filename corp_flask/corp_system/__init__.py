@@ -204,6 +204,8 @@ def create_app(config_class=Config.ProductionConfig):
 
     # Import the models after initializing the database
     with app.app_context():
+        
+        
         from . import models
         from . import tasks
         from . import bot
@@ -219,22 +221,26 @@ def create_app(config_class=Config.ProductionConfig):
 
         # Register the API blueprint
         app.register_blueprint(api, url_prefix="/api")
+        
+        
+        
 
         # Create all database tables
         db.create_all()
+        
         
         from .models import Role, Inf_Rank
 
         # Check if the script is being run with Flask-Migrate
         if 'db' not in sys.argv:
-            if Role.query.filter_by(title="Corporateer").first() is None:
-                db.session.add(Role(title="Corporateer"))
+            if Role.query.filter_by(title="Intern").first() is None:
+                db.session.add(Role(title="Intern"))
                 db.session.commit()
 
-            if Inf_Rank.query.filter_by(title="Corporateer").first() is None:
+            if Inf_Rank.query.filter_by(title="Intern").first() is None:
                 db.session.add(
                     Inf_Rank(
-                        title="Corporateer", required_lifetime_influence=0, weekly_amount=50
+                        title="Intern", required_lifetime_influence=0, weekly_amount=50
                     )
                 )
                 db.session.commit()

@@ -1,51 +1,8 @@
-FROM ubuntu:latest
+# Use an official Nginx image as the base image
+FROM nginx:alpine
 
-RUN apt-get update && \
-    apt-get install build-essential curl file git ruby-full locales --no-install-recommends -y && \
-    rm -rf /var/lib/apt/lists/*
+# Remove default Nginx static assets
+RUN rm -rf /usr/share/nginx/html/*
 
-RUN localedef -i en_US -f UTF-8 en_US.UTF-8
-
-RUN useradd -m -s /bin/bash linuxbrew && \
-    echo 'linuxbrew ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
-
-USER linuxbrew
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-
-USER root
-ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
-
-RUN useradd Corp_FLutter
-
-USER linuxbrew
-### Installing fvm
-RUN brew tap leoafarias/fvm
-RUN brew install fvm
-
-
-### Copying the files to the /app/ directory and setting it as the working directory.
-#
-USER root
-
-RUN apt-get update 
-RUN apt-get install -y python3
-RUN apt-get clean
-
-COPY ./.fvmrc ./.fvmrc
-
-RUN fvm install
-
-RUN fvm flutter doctor -v
-
-RUN fvm flutter config --enable-web
-
-RUN mkdir /app/
-COPY . /app/
-WORKDIR /app/
-
-RUN fvm flutter pub get
-
-RUN fvm flutter build web --release --source-maps --web-renderer canvaskit
-
-RUN chmod +x /app/server/server.sh
-
+# Copy static website files to the Nginx document root
+COPY ./build/web/ /usr/share/nginx/html

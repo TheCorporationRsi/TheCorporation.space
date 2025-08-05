@@ -22,7 +22,7 @@ class _$GetUserInfluenceStats200Response
 
   factory _$GetUserInfluenceStats200Response(
           [void Function(GetUserInfluenceStats200ResponseBuilder)? updates]) =>
-      (new GetUserInfluenceStats200ResponseBuilder()..update(updates))._build();
+      (GetUserInfluenceStats200ResponseBuilder()..update(updates))._build();
 
   _$GetUserInfluenceStats200Response._(
       {this.departments,
@@ -31,7 +31,6 @@ class _$GetUserInfluenceStats200Response
       this.totalInfluence,
       this.totalLifetimeInfluence})
       : super._();
-
   @override
   GetUserInfluenceStats200Response rebuild(
           void Function(GetUserInfluenceStats200ResponseBuilder) updates) =>
@@ -39,7 +38,7 @@ class _$GetUserInfluenceStats200Response
 
   @override
   GetUserInfluenceStats200ResponseBuilder toBuilder() =>
-      new GetUserInfluenceStats200ResponseBuilder()..replace(this);
+      GetUserInfluenceStats200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -85,7 +84,7 @@ class GetUserInfluenceStats200ResponseBuilder
   ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>? _departments;
   ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>
       get departments => _$this._departments ??=
-          new ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>();
+          ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>();
   set departments(
           ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>?
               departments) =>
@@ -130,7 +129,6 @@ class GetUserInfluenceStats200ResponseBuilder
 
   @override
   void replace(GetUserInfluenceStats200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserInfluenceStats200Response;
   }
 
@@ -146,19 +144,20 @@ class GetUserInfluenceStats200ResponseBuilder
     _$GetUserInfluenceStats200Response _$result;
     try {
       _$result = _$v ??
-          new _$GetUserInfluenceStats200Response._(
-              departments: _departments?.build(),
-              generalInfluence: generalInfluence,
-              lifetimeGeneralInfluence: lifetimeGeneralInfluence,
-              totalInfluence: totalInfluence,
-              totalLifetimeInfluence: totalLifetimeInfluence);
+          _$GetUserInfluenceStats200Response._(
+            departments: _departments?.build(),
+            generalInfluence: generalInfluence,
+            lifetimeGeneralInfluence: lifetimeGeneralInfluence,
+            totalInfluence: totalInfluence,
+            totalLifetimeInfluence: totalLifetimeInfluence,
+          );
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'departments';
         _departments?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetUserInfluenceStats200Response', _$failedField, e.toString());
       }
       rethrow;

@@ -9,13 +9,61 @@ All URIs are relative to *https://thecorporation.space*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**adminAddTribute**](AdminApi.md#adminaddtribute) | **POST** /api/v0/influence_system/add_tribute | Admin: Add tribute to a user&#39;s account
 [**createDepartment**](AdminApi.md#createdepartment) | **POST** /api/v0/structure/departments | Department creation endpoint
 [**createDivision**](AdminApi.md#createdivision) | **POST** /api/v0/structure/divisions | Division creation endpoint
+[**createRank**](AdminApi.md#createrank) | **POST** /api/v0/influence_system/ranks | Allow to edit a rank of the influence system 
 [**deleteDepartment**](AdminApi.md#deletedepartment) | **DELETE** /api/v0/structure/departments | Department deletion endpoint
 [**deleteDivision**](AdminApi.md#deletedivision) | **DELETE** /api/v0/structure/divisions | Division deletion endpoint
+[**deleteRank**](AdminApi.md#deleterank) | **DELETE** /api/v0/influence_system/ranks | Allow to delete a rank of the influence system 
+[**editRank**](AdminApi.md#editrank) | **PATCH** /api/v0/influence_system/ranks | Allow to edit a rank of the influence system 
+[**setUserSecurityLevel**](AdminApi.md#setusersecuritylevel) | **PATCH** /api/v0/users/security_level | Set user security level
 [**updateDepartment**](AdminApi.md#updatedepartment) | **PATCH** /api/v0/structure/departments | Department update endpoint
 [**updateDivision**](AdminApi.md#updatedivision) | **PATCH** /api/v0/structure/divisions | Division update endpoint
 
+
+# **adminAddTribute**
+> AdminAddTribute200Response adminAddTribute(adminAddTributeRequest)
+
+Admin: Add tribute to a user's account
+
+<br/>Requires JSON body with 'rsi_handle' (str) and 'amount' (int).<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getAdminApi();
+final AdminAddTributeRequest adminAddTributeRequest = ; // AdminAddTributeRequest | 
+
+try {
+    final response = api.adminAddTribute(adminAddTributeRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminApi->adminAddTribute: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **adminAddTributeRequest** | [**AdminAddTributeRequest**](AdminAddTributeRequest.md)|  | 
+
+### Return type
+
+[**AdminAddTribute200Response**](AdminAddTribute200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createDepartment**
 > CreateDepartment200Response createDepartment(createDepartmentRequest)
@@ -103,6 +151,49 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **createRank**
+> CreateRank200Response createRank(createRankRequest)
+
+Allow to edit a rank of the influence system 
+
+<br/>Create a new influence system rank (admin only)<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getAdminApi();
+final CreateRankRequest createRankRequest = ; // CreateRankRequest | 
+
+try {
+    final response = api.createRank(createRankRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminApi->createRank: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createRankRequest** | [**CreateRankRequest**](CreateRankRequest.md)|  | 
+
+### Return type
+
+[**CreateRank200Response**](CreateRank200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **deleteDepartment**
 > DeleteDepartment200Response deleteDepartment(deleteDepartmentRequest)
 
@@ -177,6 +268,135 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeleteDivision200Response**](DeleteDivision200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteRank**
+> DeleteRank200Response deleteRank(deleteRankRequest)
+
+Allow to delete a rank of the influence system 
+
+<br/>Delete an influence system rank (admin only)<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getAdminApi();
+final DeleteRankRequest deleteRankRequest = ; // DeleteRankRequest | 
+
+try {
+    final response = api.deleteRank(deleteRankRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminApi->deleteRank: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteRankRequest** | [**DeleteRankRequest**](DeleteRankRequest.md)|  | 
+
+### Return type
+
+[**DeleteRank200Response**](DeleteRank200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **editRank**
+> EditRank200Response editRank(editRankRequest)
+
+Allow to edit a rank of the influence system 
+
+<br/>Edit an existing influence system rank (admin only)<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getAdminApi();
+final EditRankRequest editRankRequest = ; // EditRankRequest | 
+
+try {
+    final response = api.editRank(editRankRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminApi->editRank: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **editRankRequest** | [**EditRankRequest**](EditRankRequest.md)|  | 
+
+### Return type
+
+[**EditRank200Response**](EditRank200Response.md)
+
+### Authorization
+
+[corp_access_pass](../README.md#corp_access_pass)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **setUserSecurityLevel**
+> SetUserSecurityLevel200Response setUserSecurityLevel(setUserSecurityLevelRequest)
+
+Set user security level
+
+<br/>This endpoint sets the security level of a user<br/>
+
+### Example
+```dart
+import 'package:corp_api/api.dart';
+
+final api = CorpApi().getAdminApi();
+final SetUserSecurityLevelRequest setUserSecurityLevelRequest = ; // SetUserSecurityLevelRequest | 
+
+try {
+    final response = api.setUserSecurityLevel(setUserSecurityLevelRequest);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling AdminApi->setUserSecurityLevel: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **setUserSecurityLevelRequest** | [**SetUserSecurityLevelRequest**](SetUserSecurityLevelRequest.md)|  | 
+
+### Return type
+
+[**SetUserSecurityLevel200Response**](SetUserSecurityLevel200Response.md)
 
 ### Authorization
 

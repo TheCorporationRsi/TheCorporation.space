@@ -16,21 +16,13 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
 
   factory _$ChangePasswordRequest(
           [void Function(ChangePasswordRequestBuilder)? updates]) =>
-      (new ChangePasswordRequestBuilder()..update(updates))._build();
+      (ChangePasswordRequestBuilder()..update(updates))._build();
 
   _$ChangePasswordRequest._(
       {required this.confirmedPassword,
       required this.currentPassword,
       required this.newPassword})
-      : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        confirmedPassword, r'ChangePasswordRequest', 'confirmedPassword');
-    BuiltValueNullFieldError.checkNotNull(
-        currentPassword, r'ChangePasswordRequest', 'currentPassword');
-    BuiltValueNullFieldError.checkNotNull(
-        newPassword, r'ChangePasswordRequest', 'newPassword');
-  }
-
+      : super._();
   @override
   ChangePasswordRequest rebuild(
           void Function(ChangePasswordRequestBuilder) updates) =>
@@ -38,7 +30,7 @@ class _$ChangePasswordRequest extends ChangePasswordRequest {
 
   @override
   ChangePasswordRequestBuilder toBuilder() =>
-      new ChangePasswordRequestBuilder()..replace(this);
+      ChangePasswordRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -104,7 +96,6 @@ class ChangePasswordRequestBuilder
 
   @override
   void replace(ChangePasswordRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ChangePasswordRequest;
   }
 
@@ -118,15 +109,14 @@ class ChangePasswordRequestBuilder
 
   _$ChangePasswordRequest _build() {
     final _$result = _$v ??
-        new _$ChangePasswordRequest._(
-            confirmedPassword: BuiltValueNullFieldError.checkNotNull(
-                confirmedPassword,
-                r'ChangePasswordRequest',
-                'confirmedPassword'),
-            currentPassword: BuiltValueNullFieldError.checkNotNull(
-                currentPassword, r'ChangePasswordRequest', 'currentPassword'),
-            newPassword: BuiltValueNullFieldError.checkNotNull(
-                newPassword, r'ChangePasswordRequest', 'newPassword'));
+        _$ChangePasswordRequest._(
+          confirmedPassword: BuiltValueNullFieldError.checkNotNull(
+              confirmedPassword, r'ChangePasswordRequest', 'confirmedPassword'),
+          currentPassword: BuiltValueNullFieldError.checkNotNull(
+              currentPassword, r'ChangePasswordRequest', 'currentPassword'),
+          newPassword: BuiltValueNullFieldError.checkNotNull(
+              newPassword, r'ChangePasswordRequest', 'newPassword'),
+        );
     replace(_$result);
     return _$result;
   }

@@ -12,10 +12,9 @@ class _$DeleteDivision200Response extends DeleteDivision200Response {
 
   factory _$DeleteDivision200Response(
           [void Function(DeleteDivision200ResponseBuilder)? updates]) =>
-      (new DeleteDivision200ResponseBuilder()..update(updates))._build();
+      (DeleteDivision200ResponseBuilder()..update(updates))._build();
 
   _$DeleteDivision200Response._({this.msg}) : super._();
-
   @override
   DeleteDivision200Response rebuild(
           void Function(DeleteDivision200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$DeleteDivision200Response extends DeleteDivision200Response {
 
   @override
   DeleteDivision200ResponseBuilder toBuilder() =>
-      new DeleteDivision200ResponseBuilder()..replace(this);
+      DeleteDivision200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -71,7 +70,6 @@ class DeleteDivision200ResponseBuilder
 
   @override
   void replace(DeleteDivision200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteDivision200Response;
   }
 
@@ -84,7 +82,10 @@ class DeleteDivision200ResponseBuilder
   DeleteDivision200Response build() => _build();
 
   _$DeleteDivision200Response _build() {
-    final _$result = _$v ?? new _$DeleteDivision200Response._(msg: msg);
+    final _$result = _$v ??
+        _$DeleteDivision200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

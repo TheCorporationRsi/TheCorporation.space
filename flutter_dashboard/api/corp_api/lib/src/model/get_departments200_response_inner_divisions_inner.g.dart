@@ -26,8 +26,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
   factory _$GetDepartments200ResponseInnerDivisionsInner(
           [void Function(GetDepartments200ResponseInnerDivisionsInnerBuilder)?
               updates]) =>
-      (new GetDepartments200ResponseInnerDivisionsInnerBuilder()
-            ..update(updates))
+      (GetDepartments200ResponseInnerDivisionsInnerBuilder()..update(updates))
           ._build();
 
   _$GetDepartments200ResponseInnerDivisionsInner._(
@@ -39,7 +38,6 @@ class _$GetDepartments200ResponseInnerDivisionsInner
       this.restricted,
       this.title})
       : super._();
-
   @override
   GetDepartments200ResponseInnerDivisionsInner rebuild(
           void Function(GetDepartments200ResponseInnerDivisionsInnerBuilder)
@@ -48,7 +46,7 @@ class _$GetDepartments200ResponseInnerDivisionsInner
 
   @override
   GetDepartments200ResponseInnerDivisionsInnerBuilder toBuilder() =>
-      new GetDepartments200ResponseInnerDivisionsInnerBuilder()..replace(this);
+      GetDepartments200ResponseInnerDivisionsInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -103,8 +101,7 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   set description(String? description) => _$this._description = description;
 
   ListBuilder<String>? _leaders;
-  ListBuilder<String> get leaders =>
-      _$this._leaders ??= new ListBuilder<String>();
+  ListBuilder<String> get leaders => _$this._leaders ??= ListBuilder<String>();
   set leaders(ListBuilder<String>? leaders) => _$this._leaders = leaders;
 
   String? _logo;
@@ -116,8 +113,7 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
   set motto(String? motto) => _$this._motto = motto;
 
   ListBuilder<String>? _proxys;
-  ListBuilder<String> get proxys =>
-      _$this._proxys ??= new ListBuilder<String>();
+  ListBuilder<String> get proxys => _$this._proxys ??= ListBuilder<String>();
   set proxys(ListBuilder<String>? proxys) => _$this._proxys = proxys;
 
   bool? _restricted;
@@ -149,7 +145,6 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
 
   @override
   void replace(GetDepartments200ResponseInnerDivisionsInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetDepartments200ResponseInnerDivisionsInner;
   }
 
@@ -167,14 +162,15 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
     _$GetDepartments200ResponseInnerDivisionsInner _$result;
     try {
       _$result = _$v ??
-          new _$GetDepartments200ResponseInnerDivisionsInner._(
-              description: description,
-              leaders: _leaders?.build(),
-              logo: logo,
-              motto: motto,
-              proxys: _proxys?.build(),
-              restricted: restricted,
-              title: title);
+          _$GetDepartments200ResponseInnerDivisionsInner._(
+            description: description,
+            leaders: _leaders?.build(),
+            logo: logo,
+            motto: motto,
+            proxys: _proxys?.build(),
+            restricted: restricted,
+            title: title,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -184,7 +180,7 @@ class GetDepartments200ResponseInnerDivisionsInnerBuilder
         _$failedField = 'proxys';
         _proxys?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetDepartments200ResponseInnerDivisionsInner',
             _$failedField,
             e.toString());

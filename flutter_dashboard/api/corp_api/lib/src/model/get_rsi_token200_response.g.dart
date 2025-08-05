@@ -12,10 +12,9 @@ class _$GetRSIToken200Response extends GetRSIToken200Response {
 
   factory _$GetRSIToken200Response(
           [void Function(GetRSIToken200ResponseBuilder)? updates]) =>
-      (new GetRSIToken200ResponseBuilder()..update(updates))._build();
+      (GetRSIToken200ResponseBuilder()..update(updates))._build();
 
   _$GetRSIToken200Response._({this.rSIToken}) : super._();
-
   @override
   GetRSIToken200Response rebuild(
           void Function(GetRSIToken200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$GetRSIToken200Response extends GetRSIToken200Response {
 
   @override
   GetRSIToken200ResponseBuilder toBuilder() =>
-      new GetRSIToken200ResponseBuilder()..replace(this);
+      GetRSIToken200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class GetRSIToken200ResponseBuilder
 
   @override
   void replace(GetRSIToken200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetRSIToken200Response;
   }
 
@@ -83,7 +81,10 @@ class GetRSIToken200ResponseBuilder
   GetRSIToken200Response build() => _build();
 
   _$GetRSIToken200Response _build() {
-    final _$result = _$v ?? new _$GetRSIToken200Response._(rSIToken: rSIToken);
+    final _$result = _$v ??
+        _$GetRSIToken200Response._(
+          rSIToken: rSIToken,
+        );
     replace(_$result);
     return _$result;
   }

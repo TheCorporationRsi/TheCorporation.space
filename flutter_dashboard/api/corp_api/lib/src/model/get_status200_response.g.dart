@@ -20,7 +20,7 @@ class _$GetStatus200Response extends GetStatus200Response {
 
   factory _$GetStatus200Response(
           [void Function(GetStatus200ResponseBuilder)? updates]) =>
-      (new GetStatus200ResponseBuilder()..update(updates))._build();
+      (GetStatus200ResponseBuilder()..update(updates))._build();
 
   _$GetStatus200Response._(
       {this.cORPMember,
@@ -29,7 +29,6 @@ class _$GetStatus200Response extends GetStatus200Response {
       this.isAdmin,
       this.isManager})
       : super._();
-
   @override
   GetStatus200Response rebuild(
           void Function(GetStatus200ResponseBuilder) updates) =>
@@ -37,7 +36,7 @@ class _$GetStatus200Response extends GetStatus200Response {
 
   @override
   GetStatus200ResponseBuilder toBuilder() =>
-      new GetStatus200ResponseBuilder()..replace(this);
+      GetStatus200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -118,7 +117,6 @@ class GetStatus200ResponseBuilder
 
   @override
   void replace(GetStatus200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetStatus200Response;
   }
 
@@ -132,12 +130,13 @@ class GetStatus200ResponseBuilder
 
   _$GetStatus200Response _build() {
     final _$result = _$v ??
-        new _$GetStatus200Response._(
-            cORPMember: cORPMember,
-            rSIVerified: rSIVerified,
-            authentificated: authentificated,
-            isAdmin: isAdmin,
-            isManager: isManager);
+        _$GetStatus200Response._(
+          cORPMember: cORPMember,
+          rSIVerified: rSIVerified,
+          authentificated: authentificated,
+          isAdmin: isAdmin,
+          isManager: isManager,
+        );
     replace(_$result);
     return _$result;
   }

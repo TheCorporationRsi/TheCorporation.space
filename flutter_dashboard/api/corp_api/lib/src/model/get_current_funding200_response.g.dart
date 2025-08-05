@@ -14,10 +14,9 @@ class _$GetCurrentFunding200Response extends GetCurrentFunding200Response {
 
   factory _$GetCurrentFunding200Response(
           [void Function(GetCurrentFunding200ResponseBuilder)? updates]) =>
-      (new GetCurrentFunding200ResponseBuilder()..update(updates))._build();
+      (GetCurrentFunding200ResponseBuilder()..update(updates))._build();
 
   _$GetCurrentFunding200Response._({this.citizens, this.fund}) : super._();
-
   @override
   GetCurrentFunding200Response rebuild(
           void Function(GetCurrentFunding200ResponseBuilder) updates) =>
@@ -25,7 +24,7 @@ class _$GetCurrentFunding200Response extends GetCurrentFunding200Response {
 
   @override
   GetCurrentFunding200ResponseBuilder toBuilder() =>
-      new GetCurrentFunding200ResponseBuilder()..replace(this);
+      GetCurrentFunding200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -83,7 +82,6 @@ class GetCurrentFunding200ResponseBuilder
 
   @override
   void replace(GetCurrentFunding200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetCurrentFunding200Response;
   }
 
@@ -97,7 +95,10 @@ class GetCurrentFunding200ResponseBuilder
 
   _$GetCurrentFunding200Response _build() {
     final _$result = _$v ??
-        new _$GetCurrentFunding200Response._(citizens: citizens, fund: fund);
+        _$GetCurrentFunding200Response._(
+          citizens: citizens,
+          fund: fund,
+        );
     replace(_$result);
     return _$result;
   }

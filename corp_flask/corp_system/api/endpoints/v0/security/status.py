@@ -51,6 +51,8 @@ def get_status():
         current_user: User = User.query.filter_by(RSI_handle=get_jwt_identity()).first()
     else:
         current_user = None
+        
+    
     
     return jsonify({
         "authentificated": True if current_user is not None else False,

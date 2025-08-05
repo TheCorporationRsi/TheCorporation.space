@@ -17,12 +17,11 @@ class _$GetCorporateers200ResponseInner
 
   factory _$GetCorporateers200ResponseInner(
           [void Function(GetCorporateers200ResponseInnerBuilder)? updates]) =>
-      (new GetCorporateers200ResponseInnerBuilder()..update(updates))._build();
+      (GetCorporateers200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetCorporateers200ResponseInner._(
       {this.rSIHandle, this.rSIMoniker, this.picture})
       : super._();
-
   @override
   GetCorporateers200ResponseInner rebuild(
           void Function(GetCorporateers200ResponseInnerBuilder) updates) =>
@@ -30,7 +29,7 @@ class _$GetCorporateers200ResponseInner
 
   @override
   GetCorporateers200ResponseInnerBuilder toBuilder() =>
-      new GetCorporateers200ResponseInnerBuilder()..replace(this);
+      GetCorporateers200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -96,7 +95,6 @@ class GetCorporateers200ResponseInnerBuilder
 
   @override
   void replace(GetCorporateers200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetCorporateers200ResponseInner;
   }
 
@@ -110,8 +108,11 @@ class GetCorporateers200ResponseInnerBuilder
 
   _$GetCorporateers200ResponseInner _build() {
     final _$result = _$v ??
-        new _$GetCorporateers200ResponseInner._(
-            rSIHandle: rSIHandle, rSIMoniker: rSIMoniker, picture: picture);
+        _$GetCorporateers200ResponseInner._(
+          rSIHandle: rSIHandle,
+          rSIMoniker: rSIMoniker,
+          picture: picture,
+        );
     replace(_$result);
     return _$result;
   }

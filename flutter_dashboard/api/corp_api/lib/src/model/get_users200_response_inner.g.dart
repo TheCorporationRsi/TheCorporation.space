@@ -22,7 +22,7 @@ class _$GetUsers200ResponseInner extends GetUsers200ResponseInner {
 
   factory _$GetUsers200ResponseInner(
           [void Function(GetUsers200ResponseInnerBuilder)? updates]) =>
-      (new GetUsers200ResponseInnerBuilder()..update(updates))._build();
+      (GetUsers200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetUsers200ResponseInner._(
       {this.cORPConfirmed,
@@ -32,7 +32,6 @@ class _$GetUsers200ResponseInner extends GetUsers200ResponseInner {
       this.picture,
       this.securityLevel})
       : super._();
-
   @override
   GetUsers200ResponseInner rebuild(
           void Function(GetUsers200ResponseInnerBuilder) updates) =>
@@ -40,7 +39,7 @@ class _$GetUsers200ResponseInner extends GetUsers200ResponseInner {
 
   @override
   GetUsers200ResponseInnerBuilder toBuilder() =>
-      new GetUsers200ResponseInnerBuilder()..replace(this);
+      GetUsers200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -131,7 +130,6 @@ class GetUsers200ResponseInnerBuilder
 
   @override
   void replace(GetUsers200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUsers200ResponseInner;
   }
 
@@ -145,13 +143,14 @@ class GetUsers200ResponseInnerBuilder
 
   _$GetUsers200ResponseInner _build() {
     final _$result = _$v ??
-        new _$GetUsers200ResponseInner._(
-            cORPConfirmed: cORPConfirmed,
-            rSIConfirmed: rSIConfirmed,
-            rSIHandle: rSIHandle,
-            disabled: disabled,
-            picture: picture,
-            securityLevel: securityLevel);
+        _$GetUsers200ResponseInner._(
+          cORPConfirmed: cORPConfirmed,
+          rSIConfirmed: rSIConfirmed,
+          rSIHandle: rSIHandle,
+          disabled: disabled,
+          picture: picture,
+          securityLevel: securityLevel,
+        );
     replace(_$result);
     return _$result;
   }

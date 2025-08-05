@@ -1,4 +1,4 @@
-// Openapi Generator last run: : 2024-12-18T16:09:42.393573
+// Openapi Generator last run: : 2025-06-12T16:47:46.283974
 import 'package:corp_api/corp_api.dart';
 import 'package:flutter_dashboard/const/constant.dart';
 import 'package:flutter_dashboard/screens/dashboard.dart';
@@ -26,6 +26,7 @@ const corpApiUrl = "https://thecorporation.space/api/apispec.json";
   runSourceGenOnOutput: true,
   skipIfSpecIsUnchanged: false,
   outputDirectory: 'api/corp_api',
+  debugLogging: true
 )
 class Example {}
 

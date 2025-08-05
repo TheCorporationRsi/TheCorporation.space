@@ -8,6 +8,7 @@ networks:
 
 volumes:
   postgres_data:
+  flask_migrations:   # <-- Add this line
 
 
 services:
@@ -59,8 +60,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    #command: tail -f /dev/null
     command: bash -c "gunicorn -k gthread -w 1 --threads 4 -b 0.0.0.0:5000 --preload app:app"
+    volumes:
+      - flask_migrations:/home/thecorporation/flask/migrations
 
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -91,9 +93,8 @@ services:
     restart: always
     build: ./flutter_dashboard
     expose:
-      - "5000"
+      - "80"
     networks:
       - corp_cloudflared
     depends_on:
       - corp_system
-    command: bash -c "/app/server/server.sh"

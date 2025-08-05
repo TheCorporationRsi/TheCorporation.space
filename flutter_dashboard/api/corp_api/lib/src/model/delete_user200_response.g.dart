@@ -12,10 +12,9 @@ class _$DeleteUser200Response extends DeleteUser200Response {
 
   factory _$DeleteUser200Response(
           [void Function(DeleteUser200ResponseBuilder)? updates]) =>
-      (new DeleteUser200ResponseBuilder()..update(updates))._build();
+      (DeleteUser200ResponseBuilder()..update(updates))._build();
 
   _$DeleteUser200Response._({this.msg}) : super._();
-
   @override
   DeleteUser200Response rebuild(
           void Function(DeleteUser200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$DeleteUser200Response extends DeleteUser200Response {
 
   @override
   DeleteUser200ResponseBuilder toBuilder() =>
-      new DeleteUser200ResponseBuilder()..replace(this);
+      DeleteUser200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class DeleteUser200ResponseBuilder
 
   @override
   void replace(DeleteUser200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteUser200Response;
   }
 
@@ -83,7 +81,10 @@ class DeleteUser200ResponseBuilder
   DeleteUser200Response build() => _build();
 
   _$DeleteUser200Response _build() {
-    final _$result = _$v ?? new _$DeleteUser200Response._(msg: msg);
+    final _$result = _$v ??
+        _$DeleteUser200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

@@ -12,10 +12,9 @@ class _$GetUserDepartments200Response extends GetUserDepartments200Response {
 
   factory _$GetUserDepartments200Response(
           [void Function(GetUserDepartments200ResponseBuilder)? updates]) =>
-      (new GetUserDepartments200ResponseBuilder()..update(updates))._build();
+      (GetUserDepartments200ResponseBuilder()..update(updates))._build();
 
   _$GetUserDepartments200Response._({this.title}) : super._();
-
   @override
   GetUserDepartments200Response rebuild(
           void Function(GetUserDepartments200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$GetUserDepartments200Response extends GetUserDepartments200Response {
 
   @override
   GetUserDepartments200ResponseBuilder toBuilder() =>
-      new GetUserDepartments200ResponseBuilder()..replace(this);
+      GetUserDepartments200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class GetUserDepartments200ResponseBuilder
 
   @override
   void replace(GetUserDepartments200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetUserDepartments200Response;
   }
 
@@ -85,7 +83,10 @@ class GetUserDepartments200ResponseBuilder
   GetUserDepartments200Response build() => _build();
 
   _$GetUserDepartments200Response _build() {
-    final _$result = _$v ?? new _$GetUserDepartments200Response._(title: title);
+    final _$result = _$v ??
+        _$GetUserDepartments200Response._(
+          title: title,
+        );
     replace(_$result);
     return _$result;
   }

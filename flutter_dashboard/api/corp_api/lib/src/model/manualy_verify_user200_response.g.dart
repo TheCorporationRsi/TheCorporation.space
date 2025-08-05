@@ -12,10 +12,9 @@ class _$ManualyVerifyUser200Response extends ManualyVerifyUser200Response {
 
   factory _$ManualyVerifyUser200Response(
           [void Function(ManualyVerifyUser200ResponseBuilder)? updates]) =>
-      (new ManualyVerifyUser200ResponseBuilder()..update(updates))._build();
+      (ManualyVerifyUser200ResponseBuilder()..update(updates))._build();
 
   _$ManualyVerifyUser200Response._({this.msg}) : super._();
-
   @override
   ManualyVerifyUser200Response rebuild(
           void Function(ManualyVerifyUser200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$ManualyVerifyUser200Response extends ManualyVerifyUser200Response {
 
   @override
   ManualyVerifyUser200ResponseBuilder toBuilder() =>
-      new ManualyVerifyUser200ResponseBuilder()..replace(this);
+      ManualyVerifyUser200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -72,7 +71,6 @@ class ManualyVerifyUser200ResponseBuilder
 
   @override
   void replace(ManualyVerifyUser200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$ManualyVerifyUser200Response;
   }
 
@@ -85,7 +83,10 @@ class ManualyVerifyUser200ResponseBuilder
   ManualyVerifyUser200Response build() => _build();
 
   _$ManualyVerifyUser200Response _build() {
-    final _$result = _$v ?? new _$ManualyVerifyUser200Response._(msg: msg);
+    final _$result = _$v ??
+        _$ManualyVerifyUser200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

@@ -24,7 +24,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
 
   factory _$GetRoles200ResponseInner(
           [void Function(GetRoles200ResponseInnerBuilder)? updates]) =>
-      (new GetRoles200ResponseInnerBuilder()..update(updates))._build();
+      (GetRoles200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetRoles200ResponseInner._(
       {this.color,
@@ -35,7 +35,6 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
       this.title,
       this.type})
       : super._();
-
   @override
   GetRoles200ResponseInner rebuild(
           void Function(GetRoles200ResponseInnerBuilder) updates) =>
@@ -43,7 +42,7 @@ class _$GetRoles200ResponseInner extends GetRoles200ResponseInner {
 
   @override
   GetRoles200ResponseInnerBuilder toBuilder() =>
-      new GetRoles200ResponseInnerBuilder()..replace(this);
+      GetRoles200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -140,7 +139,6 @@ class GetRoles200ResponseInnerBuilder
 
   @override
   void replace(GetRoles200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetRoles200ResponseInner;
   }
 
@@ -154,14 +152,15 @@ class GetRoles200ResponseInnerBuilder
 
   _$GetRoles200ResponseInner _build() {
     final _$result = _$v ??
-        new _$GetRoles200ResponseInner._(
-            color: color,
-            department: department,
-            discordId: discordId,
-            division: division,
-            logo: logo,
-            title: title,
-            type: type);
+        _$GetRoles200ResponseInner._(
+          color: color,
+          department: department,
+          discordId: discordId,
+          division: division,
+          logo: logo,
+          title: title,
+          type: type,
+        );
     replace(_$result);
     return _$result;
   }

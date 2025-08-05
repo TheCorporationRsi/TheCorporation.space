@@ -24,7 +24,7 @@ class _$GetDepartments200Response extends GetDepartments200Response {
 
   factory _$GetDepartments200Response(
           [void Function(GetDepartments200ResponseBuilder)? updates]) =>
-      (new GetDepartments200ResponseBuilder()..update(updates))._build();
+      (GetDepartments200ResponseBuilder()..update(updates))._build();
 
   _$GetDepartments200Response._(
       {this.color,
@@ -35,7 +35,6 @@ class _$GetDepartments200Response extends GetDepartments200Response {
       this.proxys,
       this.title})
       : super._();
-
   @override
   GetDepartments200Response rebuild(
           void Function(GetDepartments200ResponseBuilder) updates) =>
@@ -43,7 +42,7 @@ class _$GetDepartments200Response extends GetDepartments200Response {
 
   @override
   GetDepartments200ResponseBuilder toBuilder() =>
-      new GetDepartments200ResponseBuilder()..replace(this);
+      GetDepartments200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -97,11 +96,11 @@ class GetDepartments200ResponseBuilder
 
   ListBuilder<String>? _division;
   ListBuilder<String> get division =>
-      _$this._division ??= new ListBuilder<String>();
+      _$this._division ??= ListBuilder<String>();
   set division(ListBuilder<String>? division) => _$this._division = division;
 
   ListBuilder<String>? _heads;
-  ListBuilder<String> get heads => _$this._heads ??= new ListBuilder<String>();
+  ListBuilder<String> get heads => _$this._heads ??= ListBuilder<String>();
   set heads(ListBuilder<String>? heads) => _$this._heads = heads;
 
   int? _memberCount;
@@ -113,8 +112,7 @@ class GetDepartments200ResponseBuilder
   set motto(String? motto) => _$this._motto = motto;
 
   ListBuilder<String>? _proxys;
-  ListBuilder<String> get proxys =>
-      _$this._proxys ??= new ListBuilder<String>();
+  ListBuilder<String> get proxys => _$this._proxys ??= ListBuilder<String>();
   set proxys(ListBuilder<String>? proxys) => _$this._proxys = proxys;
 
   String? _title;
@@ -142,7 +140,6 @@ class GetDepartments200ResponseBuilder
 
   @override
   void replace(GetDepartments200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetDepartments200Response;
   }
 
@@ -158,14 +155,15 @@ class GetDepartments200ResponseBuilder
     _$GetDepartments200Response _$result;
     try {
       _$result = _$v ??
-          new _$GetDepartments200Response._(
-              color: color,
-              division: _division?.build(),
-              heads: _heads?.build(),
-              memberCount: memberCount,
-              motto: motto,
-              proxys: _proxys?.build(),
-              title: title);
+          _$GetDepartments200Response._(
+            color: color,
+            division: _division?.build(),
+            heads: _heads?.build(),
+            memberCount: memberCount,
+            motto: motto,
+            proxys: _proxys?.build(),
+            title: title,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -177,7 +175,7 @@ class GetDepartments200ResponseBuilder
         _$failedField = 'proxys';
         _proxys?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetDepartments200Response', _$failedField, e.toString());
       }
       rethrow;

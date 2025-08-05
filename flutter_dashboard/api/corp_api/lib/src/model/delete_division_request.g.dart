@@ -12,13 +12,9 @@ class _$DeleteDivisionRequest extends DeleteDivisionRequest {
 
   factory _$DeleteDivisionRequest(
           [void Function(DeleteDivisionRequestBuilder)? updates]) =>
-      (new DeleteDivisionRequestBuilder()..update(updates))._build();
+      (DeleteDivisionRequestBuilder()..update(updates))._build();
 
-  _$DeleteDivisionRequest._({required this.divisionTitle}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        divisionTitle, r'DeleteDivisionRequest', 'divisionTitle');
-  }
-
+  _$DeleteDivisionRequest._({required this.divisionTitle}) : super._();
   @override
   DeleteDivisionRequest rebuild(
           void Function(DeleteDivisionRequestBuilder) updates) =>
@@ -26,7 +22,7 @@ class _$DeleteDivisionRequest extends DeleteDivisionRequest {
 
   @override
   DeleteDivisionRequestBuilder toBuilder() =>
-      new DeleteDivisionRequestBuilder()..replace(this);
+      DeleteDivisionRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -75,7 +71,6 @@ class DeleteDivisionRequestBuilder
 
   @override
   void replace(DeleteDivisionRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteDivisionRequest;
   }
 
@@ -89,9 +84,10 @@ class DeleteDivisionRequestBuilder
 
   _$DeleteDivisionRequest _build() {
     final _$result = _$v ??
-        new _$DeleteDivisionRequest._(
-            divisionTitle: BuiltValueNullFieldError.checkNotNull(
-                divisionTitle, r'DeleteDivisionRequest', 'divisionTitle'));
+        _$DeleteDivisionRequest._(
+          divisionTitle: BuiltValueNullFieldError.checkNotNull(
+              divisionTitle, r'DeleteDivisionRequest', 'divisionTitle'),
+        );
     replace(_$result);
     return _$result;
   }

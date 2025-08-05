@@ -10,7 +10,7 @@ def test_rank_creation(client):
 
     # Assert that the retrieved rank matches the created rank
     assert Inf_Rank.query.filter_by(title='Rank1').first() is not None
-    assert Inf_Rank.query.filter_by(title='Corporateer').first() is not None
+    assert Inf_Rank.query.filter_by(title='Intern').first() is not None
     assert rank.title == 'Rank1'
     assert rank.required_lifetime_influence == 100
     assert rank.weekly_amount == 50

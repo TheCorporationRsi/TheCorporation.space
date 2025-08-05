@@ -7,7 +7,7 @@ from flask import jsonify, request
 from corp_system.controllers.influence_system_manager import InfluenceSystemManager
 from corp_system.controllers.structure_manager import StructureManager
 
-from corp_system.models import Department, Division, Inf_Tribute, Inf_Account, Inf_Tribute
+from corp_system.models import Department, Division, Inf_Tribute, Inf_Account, Inf_Tribute, User
 
 
 @api.route('/influence_system/update', methods=['GET'])
@@ -78,7 +78,7 @@ def profile():
 	
 	profile = {
 			"tribute": account.tribute_amount,
-			"last_tribute_time": account.last_tribute_time,
+			"last_tribute_time": account.last_tribute_time.isoformat() if account.last_tribute_time else None,
 			"rank": account.rank.title,
 			"influence": account.current_influence(),
    			"lifetime_influence": account.lifetime_influence()
@@ -356,3 +356,66 @@ def sent_tribute(type, request, page):
 			
 	
 	return jsonify(tributes_list), 200
+
+@api.route('/influence_system/add_tribute', methods=['POST'])
+@admin_only
+def admin_add_tribute():
+    """
+    Admin: Add tribute to a user's account
+
+    Requires JSON body with 'rsi_handle' (str) and 'amount' (int).
+    ---
+    operationId: admin_add_tribute
+    tags:
+      - Admin
+    security:
+      - corp_access_pass: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              rsi_handle:
+                type: string
+                example: Cyber-Dreamer
+              amount:
+                type: integer
+                example: 100
+    responses:
+      200:
+        description: Tribute added successfully
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                msg:
+                  type: string
+                  example: Added tribute
+      400:
+        $ref: "#/components/responses/invalid"
+      401:
+        $ref: "#/components/responses/unauthorized"
+    """
+    data = request.get_json()
+    if not data or 'rsi_handle' not in data or 'amount' not in data:
+        return jsonify({'msg': 'rsi_handle and amount required'}), 400
+
+    rsi_handle = data['rsi_handle']
+    amount = data['amount']
+
+    if not isinstance(amount, int):
+        return jsonify({'msg': 'amount must be integer'}), 400
+
+    user = User.query.filter_by(RSI_handle=rsi_handle).first()
+    if not user or not hasattr(user, 'inf_account'):
+        return jsonify({'msg': 'User not found or no influence account'}), 404
+
+    user.inf_account.tribute_amount += amount
+    # If you need to commit, do so here:
+    from corp_system import db
+    db.session.commit()
+
+    return jsonify({'msg': f'Added tribute'}), 200

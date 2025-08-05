@@ -17,19 +17,17 @@ class _$EditRoleRequest extends EditRoleRequest {
   final String? roleTitle;
 
   factory _$EditRoleRequest([void Function(EditRoleRequestBuilder)? updates]) =>
-      (new EditRoleRequestBuilder()..update(updates))._build();
+      (EditRoleRequestBuilder()..update(updates))._build();
 
   _$EditRoleRequest._(
       {this.newColor, this.newDiscordId, this.newTitle, this.roleTitle})
       : super._();
-
   @override
   EditRoleRequest rebuild(void Function(EditRoleRequestBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  EditRoleRequestBuilder toBuilder() =>
-      new EditRoleRequestBuilder()..replace(this);
+  EditRoleRequestBuilder toBuilder() => EditRoleRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -101,7 +99,6 @@ class EditRoleRequestBuilder
 
   @override
   void replace(EditRoleRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EditRoleRequest;
   }
 
@@ -115,11 +112,12 @@ class EditRoleRequestBuilder
 
   _$EditRoleRequest _build() {
     final _$result = _$v ??
-        new _$EditRoleRequest._(
-            newColor: newColor,
-            newDiscordId: newDiscordId,
-            newTitle: newTitle,
-            roleTitle: roleTitle);
+        _$EditRoleRequest._(
+          newColor: newColor,
+          newDiscordId: newDiscordId,
+          newTitle: newTitle,
+          roleTitle: roleTitle,
+        );
     replace(_$result);
     return _$result;
   }

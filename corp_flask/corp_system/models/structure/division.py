@@ -102,11 +102,18 @@ class Division(Base):
                 role.delete()
                 
         from corp_system.models import Influence
+        from corp_system.models import Inf_Auction
         
         influences = Influence.query.filter_by(division=self).all()
         for influence in influences:
             influence.division_influence = False
             influence.division = None
+        
+        
+        auctions = Inf_Auction.query.filter_by(division=self).all()
+        for auction in auctions:
+            auction.division = None
+        db.session.commit()
         
     
         db.session.delete(self)

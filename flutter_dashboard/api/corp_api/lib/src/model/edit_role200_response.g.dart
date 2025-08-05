@@ -12,10 +12,9 @@ class _$EditRole200Response extends EditRole200Response {
 
   factory _$EditRole200Response(
           [void Function(EditRole200ResponseBuilder)? updates]) =>
-      (new EditRole200ResponseBuilder()..update(updates))._build();
+      (EditRole200ResponseBuilder()..update(updates))._build();
 
   _$EditRole200Response._({this.msg}) : super._();
-
   @override
   EditRole200Response rebuild(
           void Function(EditRole200ResponseBuilder) updates) =>
@@ -23,7 +22,7 @@ class _$EditRole200Response extends EditRole200Response {
 
   @override
   EditRole200ResponseBuilder toBuilder() =>
-      new EditRole200ResponseBuilder()..replace(this);
+      EditRole200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -70,7 +69,6 @@ class EditRole200ResponseBuilder
 
   @override
   void replace(EditRole200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$EditRole200Response;
   }
 
@@ -83,7 +81,10 @@ class EditRole200ResponseBuilder
   EditRole200Response build() => _build();
 
   _$EditRole200Response _build() {
-    final _$result = _$v ?? new _$EditRole200Response._(msg: msg);
+    final _$result = _$v ??
+        _$EditRole200Response._(
+          msg: msg,
+        );
     replace(_$result);
     return _$result;
   }

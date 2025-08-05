@@ -6,23 +6,36 @@ part of 'serializers.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializers _$serializers = (new Serializers().toBuilder()
+Serializers _$serializers = (Serializers().toBuilder()
       ..add(AddUserRole200Response.serializer)
       ..add(AddUserRoleRequest.serializer)
+      ..add(AdminAddTribute200Response.serializer)
+      ..add(AdminAddTributeRequest.serializer)
       ..add(ChangePasswordRequest.serializer)
+      ..add(CloseAuction200Response.serializer)
+      ..add(CreateAuction201Response.serializer)
+      ..add(CreateAuctionRequest.serializer)
       ..add(CreateDepartment200Response.serializer)
       ..add(CreateDepartmentRequest.serializer)
       ..add(CreateDivision200Response.serializer)
       ..add(CreateDivisionRequest.serializer)
+      ..add(CreateRank200Response.serializer)
+      ..add(CreateRankRequest.serializer)
       ..add(CreateRole201Response.serializer)
       ..add(CreateRoleRequest.serializer)
+      ..add(DeleteAuction200Response.serializer)
+      ..add(DeleteAuctionRequest.serializer)
       ..add(DeleteDepartment200Response.serializer)
       ..add(DeleteDepartmentRequest.serializer)
       ..add(DeleteDivision200Response.serializer)
       ..add(DeleteDivisionRequest.serializer)
+      ..add(DeleteRank200Response.serializer)
+      ..add(DeleteRankRequest.serializer)
       ..add(DeleteRole200Response.serializer)
       ..add(DeleteRoleRequest.serializer)
       ..add(DeleteUser200Response.serializer)
+      ..add(EditRank200Response.serializer)
+      ..add(EditRankRequest.serializer)
       ..add(GetCorporateers200ResponseInner.serializer)
       ..add(GetCurrentFunding200Response.serializer)
       ..add(GetDepartments200ResponseInner.serializer)
@@ -47,14 +60,19 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(GetUserRoles200ResponseInner.serializer)
       ..add(GetUsers200ResponseInner.serializer)
       ..add(JoinDivision200Response.serializer)
+      ..add(ListAuctions200ResponseInner.serializer)
       ..add(Login200Response.serializer)
       ..add(LoginRequest.serializer)
       ..add(ManualyVerifyUser200Response.serializer)
+      ..add(PlaceBet200Response.serializer)
+      ..add(PlaceBetRequest.serializer)
       ..add(RefreshToken200Response.serializer)
       ..add(Register200Response.serializer)
       ..add(RegisterRequest.serializer)
       ..add(RemoveUserRole200Response.serializer)
       ..add(SendTributeRequest.serializer)
+      ..add(SetUserSecurityLevel200Response.serializer)
+      ..add(SetUserSecurityLevelRequest.serializer)
       ..add(SetWeights200Response.serializer)
       ..add(SetWeightsRequestInner.serializer)
       ..add(UpdateDepartment200Response.serializer)
@@ -68,42 +86,41 @@ Serializers _$serializers = (new Serializers().toBuilder()
           const FullType(BuiltList, const [
             const FullType(GetDepartments200ResponseInnerDivisionsInner)
           ]),
-          () => new ListBuilder<GetDepartments200ResponseInnerDivisionsInner>())
+          () => ListBuilder<GetDepartments200ResponseInnerDivisionsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(
               BuiltList, const [const FullType(GetUser200ResponseRolesInner)]),
-          () => new ListBuilder<GetUser200ResponseRolesInner>())
+          () => ListBuilder<GetUser200ResponseRolesInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(GetUserInfluenceStats200ResponseDepartmentsInner)
           ]),
-          () => new ListBuilder<
-              GetUserInfluenceStats200ResponseDepartmentsInner>())
+          () => ListBuilder<GetUserInfluenceStats200ResponseDepartmentsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [
             const FullType(
                 GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner)
           ]),
-          () => new ListBuilder<
+          () => ListBuilder<
               GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>())
+          () => ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
-          () => new ListBuilder<String>()))
+          () => ListBuilder<String>()))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

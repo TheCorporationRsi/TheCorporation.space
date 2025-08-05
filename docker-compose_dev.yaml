@@ -77,9 +77,11 @@ services:
 
   flutter_web:
     restart: always
-    build: ./flutter_dashboard
+    build: 
+      context: ./flutter_dashboard
+      dockerfile: dockerfile_dev
     ports:
-      - "8000:5000"
+      - "8000:8000"
     depends_on:
       - corp_system
-    command: bash -c "fvm flutter run -d web-server --web-port 5000 --web-enable-expression-evaluation"
+    command: bash -c "flutter run -d web-server --web-port 8000 --web-enable-expression-evaluation"

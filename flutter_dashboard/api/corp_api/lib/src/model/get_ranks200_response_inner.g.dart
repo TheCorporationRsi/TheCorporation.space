@@ -16,12 +16,11 @@ class _$GetRanks200ResponseInner extends GetRanks200ResponseInner {
 
   factory _$GetRanks200ResponseInner(
           [void Function(GetRanks200ResponseInnerBuilder)? updates]) =>
-      (new GetRanks200ResponseInnerBuilder()..update(updates))._build();
+      (GetRanks200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetRanks200ResponseInner._(
       {this.requiredLifetimeInfluence, this.title, this.weeklyAmount})
       : super._();
-
   @override
   GetRanks200ResponseInner rebuild(
           void Function(GetRanks200ResponseInnerBuilder) updates) =>
@@ -29,7 +28,7 @@ class _$GetRanks200ResponseInner extends GetRanks200ResponseInner {
 
   @override
   GetRanks200ResponseInnerBuilder toBuilder() =>
-      new GetRanks200ResponseInnerBuilder()..replace(this);
+      GetRanks200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -95,7 +94,6 @@ class GetRanks200ResponseInnerBuilder
 
   @override
   void replace(GetRanks200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetRanks200ResponseInner;
   }
 
@@ -109,10 +107,11 @@ class GetRanks200ResponseInnerBuilder
 
   _$GetRanks200ResponseInner _build() {
     final _$result = _$v ??
-        new _$GetRanks200ResponseInner._(
-            requiredLifetimeInfluence: requiredLifetimeInfluence,
-            title: title,
-            weeklyAmount: weeklyAmount);
+        _$GetRanks200ResponseInner._(
+          requiredLifetimeInfluence: requiredLifetimeInfluence,
+          title: title,
+          weeklyAmount: weeklyAmount,
+        );
     replace(_$result);
     return _$result;
   }

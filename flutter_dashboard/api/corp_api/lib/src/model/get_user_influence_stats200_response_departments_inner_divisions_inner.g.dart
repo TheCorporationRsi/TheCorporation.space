@@ -19,14 +19,13 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner
           [void Function(
                   GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder)?
               updates]) =>
-      (new GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder()
+      (GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder()
             ..update(updates))
           ._build();
 
   _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner._(
       {this.divisionTitle, this.influence, this.lifetimeInfluence})
       : super._();
-
   @override
   GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner rebuild(
           void Function(
@@ -37,7 +36,7 @@ class _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner
   @override
   GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder
       toBuilder() =>
-          new GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder()
+          GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder()
             ..replace(this);
 
   @override
@@ -111,7 +110,6 @@ class GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder
   @override
   void replace(
       GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other
         as _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner;
   }
@@ -130,10 +128,11 @@ class GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInnerBuilder
 
   _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner _build() {
     final _$result = _$v ??
-        new _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner._(
-            divisionTitle: divisionTitle,
-            influence: influence,
-            lifetimeInfluence: lifetimeInfluence);
+        _$GetUserInfluenceStats200ResponseDepartmentsInnerDivisionsInner._(
+          divisionTitle: divisionTitle,
+          influence: influence,
+          lifetimeInfluence: lifetimeInfluence,
+        );
     replace(_$result);
     return _$result;
   }

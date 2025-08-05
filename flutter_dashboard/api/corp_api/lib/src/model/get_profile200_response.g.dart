@@ -20,7 +20,7 @@ class _$GetProfile200Response extends GetProfile200Response {
 
   factory _$GetProfile200Response(
           [void Function(GetProfile200ResponseBuilder)? updates]) =>
-      (new GetProfile200ResponseBuilder()..update(updates))._build();
+      (GetProfile200ResponseBuilder()..update(updates))._build();
 
   _$GetProfile200Response._(
       {this.influence,
@@ -29,7 +29,6 @@ class _$GetProfile200Response extends GetProfile200Response {
       this.rank,
       this.tribute})
       : super._();
-
   @override
   GetProfile200Response rebuild(
           void Function(GetProfile200ResponseBuilder) updates) =>
@@ -37,7 +36,7 @@ class _$GetProfile200Response extends GetProfile200Response {
 
   @override
   GetProfile200ResponseBuilder toBuilder() =>
-      new GetProfile200ResponseBuilder()..replace(this);
+      GetProfile200ResponseBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -119,7 +118,6 @@ class GetProfile200ResponseBuilder
 
   @override
   void replace(GetProfile200Response other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetProfile200Response;
   }
 
@@ -133,12 +131,13 @@ class GetProfile200ResponseBuilder
 
   _$GetProfile200Response _build() {
     final _$result = _$v ??
-        new _$GetProfile200Response._(
-            influence: influence,
-            lastTributeTime: lastTributeTime,
-            lifetimeInfluence: lifetimeInfluence,
-            rank: rank,
-            tribute: tribute);
+        _$GetProfile200Response._(
+          influence: influence,
+          lastTributeTime: lastTributeTime,
+          lifetimeInfluence: lifetimeInfluence,
+          rank: rank,
+          tribute: tribute,
+        );
     replace(_$result);
     return _$result;
   }

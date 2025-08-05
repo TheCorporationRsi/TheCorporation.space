@@ -19,13 +19,11 @@ class _$GetTributeHistory200ResponseInner
 
   factory _$GetTributeHistory200ResponseInner(
           [void Function(GetTributeHistory200ResponseInnerBuilder)? updates]) =>
-      (new GetTributeHistory200ResponseInnerBuilder()..update(updates))
-          ._build();
+      (GetTributeHistory200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetTributeHistory200ResponseInner._(
       {this.amount, this.message, this.method, this.receiver})
       : super._();
-
   @override
   GetTributeHistory200ResponseInner rebuild(
           void Function(GetTributeHistory200ResponseInnerBuilder) updates) =>
@@ -33,7 +31,7 @@ class _$GetTributeHistory200ResponseInner
 
   @override
   GetTributeHistory200ResponseInnerBuilder toBuilder() =>
-      new GetTributeHistory200ResponseInnerBuilder()..replace(this);
+      GetTributeHistory200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -107,7 +105,6 @@ class GetTributeHistory200ResponseInnerBuilder
 
   @override
   void replace(GetTributeHistory200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetTributeHistory200ResponseInner;
   }
 
@@ -122,11 +119,12 @@ class GetTributeHistory200ResponseInnerBuilder
 
   _$GetTributeHistory200ResponseInner _build() {
     final _$result = _$v ??
-        new _$GetTributeHistory200ResponseInner._(
-            amount: amount,
-            message: message,
-            method: method,
-            receiver: receiver);
+        _$GetTributeHistory200ResponseInner._(
+          amount: amount,
+          message: message,
+          method: method,
+          receiver: receiver,
+        );
     replace(_$result);
     return _$result;
   }

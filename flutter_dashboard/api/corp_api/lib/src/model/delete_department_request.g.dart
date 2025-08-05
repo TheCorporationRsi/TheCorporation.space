@@ -12,13 +12,9 @@ class _$DeleteDepartmentRequest extends DeleteDepartmentRequest {
 
   factory _$DeleteDepartmentRequest(
           [void Function(DeleteDepartmentRequestBuilder)? updates]) =>
-      (new DeleteDepartmentRequestBuilder()..update(updates))._build();
+      (DeleteDepartmentRequestBuilder()..update(updates))._build();
 
-  _$DeleteDepartmentRequest._({required this.departmentTitle}) : super._() {
-    BuiltValueNullFieldError.checkNotNull(
-        departmentTitle, r'DeleteDepartmentRequest', 'departmentTitle');
-  }
-
+  _$DeleteDepartmentRequest._({required this.departmentTitle}) : super._();
   @override
   DeleteDepartmentRequest rebuild(
           void Function(DeleteDepartmentRequestBuilder) updates) =>
@@ -26,7 +22,7 @@ class _$DeleteDepartmentRequest extends DeleteDepartmentRequest {
 
   @override
   DeleteDepartmentRequestBuilder toBuilder() =>
-      new DeleteDepartmentRequestBuilder()..replace(this);
+      DeleteDepartmentRequestBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -76,7 +72,6 @@ class DeleteDepartmentRequestBuilder
 
   @override
   void replace(DeleteDepartmentRequest other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$DeleteDepartmentRequest;
   }
 
@@ -90,11 +85,10 @@ class DeleteDepartmentRequestBuilder
 
   _$DeleteDepartmentRequest _build() {
     final _$result = _$v ??
-        new _$DeleteDepartmentRequest._(
-            departmentTitle: BuiltValueNullFieldError.checkNotNull(
-                departmentTitle,
-                r'DeleteDepartmentRequest',
-                'departmentTitle'));
+        _$DeleteDepartmentRequest._(
+          departmentTitle: BuiltValueNullFieldError.checkNotNull(
+              departmentTitle, r'DeleteDepartmentRequest', 'departmentTitle'),
+        );
     replace(_$result);
     return _$result;
   }

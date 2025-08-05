@@ -30,7 +30,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
 
   factory _$GetDivisions200ResponseInner(
           [void Function(GetDivisions200ResponseInnerBuilder)? updates]) =>
-      (new GetDivisions200ResponseInnerBuilder()..update(updates))._build();
+      (GetDivisions200ResponseInnerBuilder()..update(updates))._build();
 
   _$GetDivisions200ResponseInner._(
       {this.color,
@@ -44,7 +44,6 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
       this.restricted,
       this.title})
       : super._();
-
   @override
   GetDivisions200ResponseInner rebuild(
           void Function(GetDivisions200ResponseInnerBuilder) updates) =>
@@ -52,7 +51,7 @@ class _$GetDivisions200ResponseInner extends GetDivisions200ResponseInner {
 
   @override
   GetDivisions200ResponseInnerBuilder toBuilder() =>
-      new GetDivisions200ResponseInnerBuilder()..replace(this);
+      GetDivisions200ResponseInnerBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
@@ -124,8 +123,7 @@ class GetDivisions200ResponseInnerBuilder
   set description(String? description) => _$this._description = description;
 
   ListBuilder<String>? _leaders;
-  ListBuilder<String> get leaders =>
-      _$this._leaders ??= new ListBuilder<String>();
+  ListBuilder<String> get leaders => _$this._leaders ??= ListBuilder<String>();
   set leaders(ListBuilder<String>? leaders) => _$this._leaders = leaders;
 
   String? _logo;
@@ -141,8 +139,7 @@ class GetDivisions200ResponseInnerBuilder
   set motto(String? motto) => _$this._motto = motto;
 
   ListBuilder<String>? _proxys;
-  ListBuilder<String> get proxys =>
-      _$this._proxys ??= new ListBuilder<String>();
+  ListBuilder<String> get proxys => _$this._proxys ??= ListBuilder<String>();
   set proxys(ListBuilder<String>? proxys) => _$this._proxys = proxys;
 
   bool? _restricted;
@@ -177,7 +174,6 @@ class GetDivisions200ResponseInnerBuilder
 
   @override
   void replace(GetDivisions200ResponseInner other) {
-    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$GetDivisions200ResponseInner;
   }
 
@@ -193,17 +189,18 @@ class GetDivisions200ResponseInnerBuilder
     _$GetDivisions200ResponseInner _$result;
     try {
       _$result = _$v ??
-          new _$GetDivisions200ResponseInner._(
-              color: color,
-              departmentTitle: departmentTitle,
-              description: description,
-              leaders: _leaders?.build(),
-              logo: logo,
-              memberCount: memberCount,
-              motto: motto,
-              proxys: _proxys?.build(),
-              restricted: restricted,
-              title: title);
+          _$GetDivisions200ResponseInner._(
+            color: color,
+            departmentTitle: departmentTitle,
+            description: description,
+            leaders: _leaders?.build(),
+            logo: logo,
+            memberCount: memberCount,
+            motto: motto,
+            proxys: _proxys?.build(),
+            restricted: restricted,
+            title: title,
+          );
     } catch (_) {
       late String _$failedField;
       try {
@@ -213,7 +210,7 @@ class GetDivisions200ResponseInnerBuilder
         _$failedField = 'proxys';
         _proxys?.build();
       } catch (e) {
-        throw new BuiltValueNestedFieldError(
+        throw BuiltValueNestedFieldError(
             r'GetDivisions200ResponseInner', _$failedField, e.toString());
       }
       rethrow;
