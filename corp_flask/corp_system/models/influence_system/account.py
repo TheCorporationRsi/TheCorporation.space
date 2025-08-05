@@ -34,7 +34,7 @@ class Inf_Account(Base):
             self.RSI_handle = self.user.RSI_handle
         
         from corp_system.models import Inf_Rank
-        self.rank_id = Inf_Rank.query.filter_by(title='Corporateer').first().id
+        self.rank_id = Inf_Rank.query.filter_by(title='Intern').first().id
         
         db.session.commit()
     

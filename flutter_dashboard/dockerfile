@@ -5,4 +5,4 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy static website files to the Nginx document root
-COPY ./build/web/ /usr/share/nginx/html
+COPY ./web/ /usr/share/nginx/html

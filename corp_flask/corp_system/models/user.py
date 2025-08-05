@@ -337,7 +337,7 @@ class User(Base):
         
         from corp_system.models import Role
         if self.CORP_confirmed:
-            self.add_role(Role.query.filter_by(title='Corporateer').first())
+            self.add_role(Role.query.filter_by(title='Intern').first())
         
         try:
             from corp_system.bot.controller import Bot_controller

@@ -233,8 +233,8 @@ def create_app(config_class=Config.ProductionConfig):
 
         # Check if the script is being run with Flask-Migrate
         if 'db' not in sys.argv:
-            if Role.query.filter_by(title="Corporateer").first() is None:
-                db.session.add(Role(title="Corporateer"))
+            if Role.query.filter_by(title="Intern").first() is None:
+                db.session.add(Role(title="Intern"))
                 db.session.commit()
 
             if Inf_Rank.query.filter_by(title="Intern").first() is None:
