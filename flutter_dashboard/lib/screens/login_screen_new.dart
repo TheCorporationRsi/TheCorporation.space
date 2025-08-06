@@ -4,6 +4,7 @@ import 'package:flutter_dashboard/widgets/security/content/security_form_widget.
 import 'package:flutter_dashboard/services/service_locator.dart';
 import 'package:flutter_dashboard/services/asset_preloader.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
@@ -172,6 +173,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
           // Implement forgot password functionality
           _securityFormKey.currentState?.showError("Forgot password functionality coming soon");
         },
+        isLoading: _isLoading,
       ),
     );
   }

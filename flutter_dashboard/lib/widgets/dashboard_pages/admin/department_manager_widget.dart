@@ -1,11 +1,6 @@
-import 'package:corp_api/corp_api.dart';
-import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_details_card.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
 import 'package:flutter/material.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
-import 'package:flutter_dashboard/main.dart';
+import 'package:flutter_dashboard/services/service_locator.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
@@ -21,25 +16,19 @@ class DepartmentManagerWidget extends StatefulWidget {
 }
 
 class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
-  BuiltList<GetDepartments200ResponseInner> filteredItems =
-      information.departments.value.rebuild((b) => b.sort((a, b) => a.title!.compareTo(b.title!)));
+  List<Map<String, dynamic>> filteredItems = [];
   Map<int, bool> _dropdownOpen = {};
-  Map<int, GlobalKey<FormState>> _formKeys = {};
-
-  final corpStructureClient = corpApi.getStructureApi();
-  final corpAdminClient = corpApi.getAdminApi();
   String _searchQuery = '';
-  String _filter = 'All';
 
   void _applySearchAndFilter() {
     setState(() {
       filteredItems = information.departments.value.where((department) {
-        final matchesSearch = department.title
+        final matchesSearch = department['title']
             .toString()
             .toLowerCase()
             .contains(_searchQuery.toLowerCase());
         return matchesSearch;
-      }).toBuiltList().rebuild((b) => b.sort((a, b) => a.title!.compareTo(b.title!)));
+      }).toList()..sort((a, b) => a['title'].compareTo(b['title']));
     });
   }
 
@@ -174,19 +163,11 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   }
 
   void _addDepartment(String title) async {
-    final headers = await getAuthHeader();
-
-    final CreateDepartmentRequest createDepartmentRequest =
-        CreateDepartmentRequest((b) => b..title = title);
-
     try {
-      final response = await corpAdminClient.createDepartment(
-          headers: headers, createDepartmentRequest: createDepartmentRequest);
-
-      if (response.data!.msg == "Department created") {
-        await information.update();
-      }
-
+      final apiService = ServiceLocator().corpApiService;
+      await apiService.createDepartment(title: title);
+      
+      await information.update();
       _applySearchAndFilter();
     } catch (error) {
       print(error);
@@ -218,26 +199,26 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
   }
 
   Widget _buildDepartmentItem(
-      GetDepartments200ResponseInner department, int index) {
+      Map<String, dynamic> department, int index) {
     _dropdownOpen.putIfAbsent(index, () => false);
     return Card(
       color: cardBackgroundColor,
       child: Column(
         children: [
           ListTile(
-            leading: Icon(icons[department.logo] ?? Icons.error,
-                color: department.color != null
-                    ? cssColorToColor(department.color!)
+            leading: Icon(icons[department['logo']] ?? Icons.error,
+                color: department['color'] != null
+                    ? cssColorToColor(department['color']!)
                     : Colors.grey),
-            title: Text(department.title.toString(),
+            title: Text(department['title'].toString(),
                 style: TextStyle(
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+                  color: department['color'] != null
+                      ? cssColorToColor(department['color']!)
                       : Colors.grey,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            subtitle: Text(department.motto.toString()),
+            subtitle: Text(department['motto'].toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -266,7 +247,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _showDeleteDialog(GetDepartments200ResponseInner department) {
+  void _showDeleteDialog(Map<String, dynamic> department) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -277,7 +258,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
             borderRadius: BorderRadius.circular(15.0),
           ),
           title: Text(
-            'Deleting ${department.title.toString()}',
+            'Deleting ${department['title'].toString()}',
             style: TextStyle(
               color: primaryColor,
               fontSize: 24,
@@ -315,7 +296,7 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
                 ),
               ),
               onPressed: () {
-                if (confirmation == department.title.toString()) {
+                if (confirmation == department['title'].toString()) {
                   _deleteDepartment(department);
                   Navigator.of(context).pop();
                 } else {
@@ -341,41 +322,34 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _deleteDepartment(GetDepartments200ResponseInner department) async {
-    final headers = await getAuthHeader();
-
-    final DeleteDepartmentRequest deleteDepartmentRequest =
-        DeleteDepartmentRequest((b) => b..departmentTitle = department.title);
-
+  void _deleteDepartment(Map<String, dynamic> department) async {
     try {
-      final response = await corpAdminClient.deleteDepartment(
-          headers: headers, deleteDepartmentRequest: deleteDepartmentRequest);
-
-      if (response.data!.msg == "Department deleted") {
-        await information.update();
-        _applySearchAndFilter();
-      }
+      final apiService = ServiceLocator().corpApiService;
+      await apiService.deleteDepartment(departmentTitle: department['title'].toString());
+      
+      await information.update();
+      _applySearchAndFilter();
     } catch (error) {
       print(error);
     }
   }
 
-  Widget _buildDropdownContent(GetDepartments200ResponseInner department) {
-    Color currentColor = department.color != null
-        ? cssColorToColor(department.color!)
+  Widget _buildDropdownContent(Map<String, dynamic> department) {
+    Color currentColor = department['color'] != null
+        ? cssColorToColor(department['color']!)
         : Colors.grey;
-    String title = department.title ?? '';
-    String motto = department.motto ?? '';
-    String description = department.description ?? '';
-    String logo = department.logo ?? '';
+    String title = department['title'] ?? '';
+    String motto = department['motto'] ?? '';
+    String description = department['description'] ?? '';
+    String logo = department['logo'] ?? '';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildDetailRow('Heads', department.heads.toString()),
-          _buildDetailRow('Proxys', department.proxys.toString()),
+          _buildDetailRow('Heads', department['heads'].toString()),
+          _buildDetailRow('Proxys', department['proxys'].toString()),
           SizedBox(height: 10),
           TextField(
             controller: TextEditingController(text: title),
@@ -442,27 +416,20 @@ class _DepartmentManagerWidgetState extends State<DepartmentManagerWidget> {
     );
   }
 
-  void _updateDepartment(GetDepartments200ResponseInner department, Color color,
+  void _updateDepartment(Map<String, dynamic> department, Color color,
       String title, String motto, String logo, String description) async {
-    final headers = await getAuthHeader();
-
-    final UpdateDepartmentRequest updateDepartmentRequest =
-        UpdateDepartmentRequest((b) => b
-          ..departmentTitle = department.title
-          ..color = colorToCssColor(color)
-          ..newTitle = title
-          ..motto = motto
-          ..logo = logo
-          ..description = description);
-
     try {
-      final response = await corpAdminClient.updateDepartment(
-          headers: headers, updateDepartmentRequest: updateDepartmentRequest);
+      final apiService = ServiceLocator().corpApiService;
+      await apiService.updateDepartment(
+        departmentTitle: department['title'].toString(),
+        newTitle: title,
+        motto: motto,
+        logo: logo,
+        description: description,
+        color: colorToCssColor(color),
+      );
 
-      if (response.data!.msg == "Department updated") {
-        await information.update();
-      }
-
+      await information.update();
       _applySearchAndFilter();
     } catch (error) {
       print(error);

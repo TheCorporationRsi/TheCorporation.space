@@ -9,7 +9,7 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget_stub.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:corp_api/corp_api.dart';
 

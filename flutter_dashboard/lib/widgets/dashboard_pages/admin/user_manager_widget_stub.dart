@@ -214,3 +214,9 @@ class _UserManagerWidgetState extends State<UserManagerWidget> {
     );
   }
 }
+          ),
+        ),
+      ),
+    );
+  }
+}

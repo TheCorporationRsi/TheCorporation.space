@@ -3,7 +3,7 @@ import 'package:flutter_dashboard/widgets/security/content/security_form_widget.
 import 'package:url_launcher/url_launcher.dart';
 import 'package:crypto/crypto.dart'; // Add this import for hashing
 
-import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/services/service_locator.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'dart:convert';
 
@@ -87,32 +87,25 @@ class _RegisterScreenState extends State<RegisterScreen>
           buttonTitle1: 'Register',
           buttonTitle2: 'Login',
           buttonTitle3: 'Need Help?',
-          buttonAction1: () {
-            final RegisterRequest registerRequest = RegisterRequest((b) => b
-              ..username = handleController.text
-              ..password = _hashPassword(passwordController.text) // Hash the password
-              ..confirmedPassword = _hashPassword(confirmPasswordController.text)); // Hash the confirmed password
-
-            var corpSecurityClient = CorpApi().getSecurityApi();
-
-            corpSecurityClient
-                .register(registerRequest: registerRequest)
-                .then((response) async {
-              print(response);
-
-              if (response.data!.msg == 'User created') {
-                Navigator.pushNamed(context, '/login');
+          buttonAction1: () async {
+            try {
+              final apiService = ServiceLocator().corpApiService;
+              await apiService.register(
+                username: handleController.text,
+                password: _hashPassword(passwordController.text),
+                confirmedPassword: _hashPassword(confirmPasswordController.text),
+              );
+              
+              Navigator.pushNamed(context, '/login');
+            } catch (error) {
+              print(error);
+              if (error.toString().contains('400')) {
+                _securityFormKey.currentState
+                    ?.showError("Registration failed - please check your input");
               } else {
                 _securityFormKey.currentState?.showError("User not created, try again later");
               }
-            }).catchError((error) {
-              if (error.response.statusCode == 400) {
-                _securityFormKey.currentState
-                    ?.showError(jsonDecode(error.response.toString())['msg']);
-              } else {
-                print(error);
-              }
-            });
+            }
           },
           buttonAction2: () {
             Navigator.pushNamed(context, '/login');

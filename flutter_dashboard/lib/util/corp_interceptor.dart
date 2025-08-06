@@ -4,9 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart'
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
-import 'package:corp_api/corp_api.dart';
 import 'package:mutex/mutex.dart';
-import 'package:flutter_dashboard/main.dart';
 
 typedef TokenPair = ({String accessToken, String refreshToken});
 
@@ -60,12 +58,15 @@ class AuthInterceptor extends QueuedInterceptor {
     required this.secureStorage,
     this.shouldClearBeforeReset = false,
     required GlobalKey<NavigatorState> navigatorKey,
-  }) {
+  }) : navigatorKey = navigatorKey {
     refreshClient = Dio();
     refreshClient.options = BaseOptions(baseUrl: dio.options.baseUrl);
 
     retryClient = Dio();
     retryClient.options = BaseOptions(baseUrl: dio.options.baseUrl);
+    
+    // Use the same base URL as the main dio client for security operations
+    corpSecurityClient = Dio(BaseOptions(baseUrl: dio.options.baseUrl));
   }
 
   final Dio dio;
@@ -73,9 +74,9 @@ class AuthInterceptor extends QueuedInterceptor {
   final bool shouldClearBeforeReset;
   late final Dio refreshClient;
   late final Dio retryClient;
-  late final  GlobalKey<NavigatorState> navigatorKey;
+  final GlobalKey<NavigatorState> navigatorKey;
 
-  final corpSecurityClient = CorpApi().getSecurityApi();
+  late final Dio corpSecurityClient;
   final Mutex _errorMutex = Mutex();
 
   Future<String?> get _accessToken => secureStorage.read(key: 'corp_access_pass');
@@ -102,6 +103,19 @@ class AuthInterceptor extends QueuedInterceptor {
 
   Future<void> _clearRefreshToken() async {
     await secureStorage.delete(key: 'corp_refresh_pass');
+  }
+
+  Future<Map<String, dynamic>?> getAuthHeader() async {
+    final accessToken = await _accessToken;
+
+    if (accessToken != null) {
+      return {
+      'Authorization': 'Bearer $accessToken',
+      };
+    }
+    else {
+      return null;
+    }
   }
 
   /// Check if the token pair should be refreshed
@@ -139,18 +153,32 @@ class AuthInterceptor extends QueuedInterceptor {
       'Authorization': 'Bearer $refreshToken',
     };
       try {
-      final response = await corpSecurityClient.refreshToken(headers: headers);
+      final response = await corpSecurityClient.post(
+        '/api/v0/refresh_token',
+        options: Options(headers: headers),
+      );
       print(response);
 
-      if (response.data!.refreshed == true) {
-
-        if (response.data!.corpAccessPass != null) {
-          await _saveAccessToken(response.data!.corpAccessPass!);
+      if (response.data != null) {
+        final data = response.data as Map<String, dynamic>;
+        final refreshed = data['refreshed'] as bool?;
+        
+        if (refreshed == true) {
+          final newAccessToken = data['corp_access_pass'] as String?;
+          final newRefreshToken = data['corp_refresh_pass'] as String?;
+          
+          if (newAccessToken != null) {
+            await _saveAccessToken(newAccessToken);
+          }
+          if (newRefreshToken != null) {
+            await _saveRefreshToken(newRefreshToken);
+          }
+          print('Token refreshed');
+        } else {
+          await _clearAccessToken();
+          await _clearRefreshToken();
+          throw RevokeTokenException(requestOptions: options);
         }
-        if (response.data!.corpRefreshPass != null) {
-          await _saveRefreshToken(response.data!.corpRefreshPass!);
-        }
-        print('Token refreshed');
       } else {
         await _clearAccessToken();
         await _clearRefreshToken();
@@ -178,7 +206,7 @@ class AuthInterceptor extends QueuedInterceptor {
         sendTimeout: requestOptions.sendTimeout,
         receiveTimeout: requestOptions.receiveTimeout,
         extra: requestOptions.extra,
-        headers: requestOptions.headers = await getAuthHeader(),
+        headers: (await getAuthHeader()) ?? {},
         responseType: requestOptions.responseType,
         contentType: requestOptions.contentType,
         validateStatus: requestOptions.validateStatus,
@@ -190,6 +218,19 @@ class AuthInterceptor extends QueuedInterceptor {
         listFormat: requestOptions.listFormat,
       ),
     );
+  }
+
+  @override
+  Future<void> onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
+    // Add authorization header to all requests if available
+    final authHeader = await getAuthHeader();
+    if (authHeader != null) {
+      options.headers.addAll(authHeader);
+    }
+    return handler.next(options);
   }
 
   @override

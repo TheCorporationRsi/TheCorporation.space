@@ -1,34 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter_dashboard/main.dart';
-
-
-
+import 'package:flutter_dashboard/services/service_locator.dart';
 
 Future<void> checkSecurityLevel(BuildContext context, String requiredLevel) async {
   
-
   bool? authentificated = false;
   bool? rsi_verified = false;
   bool? corp_member = false;
   bool? isManager = false;
   bool? isAdmin = false;
 
-  
-  final corpSecurityClient = corpApi.getSecurityApi();
-
-  final headers = await getAuthHeader();
-
   try {
-    final response = await corpSecurityClient.getStatus(headers: headers);
+    final apiService = ServiceLocator().corpApiService;
+    final response = await apiService.getStatus();
+    
+    final statusData = response.data as Map<String, dynamic>;
 
-    //print(response);
-
-    authentificated = response.data!.authentificated;
-    rsi_verified = response.data!.rSIVerified;
-    corp_member = response.data!.cORPMember;
-    isManager = response.data!.isManager;
-    isAdmin = response.data!.isAdmin;
+    authentificated = statusData['authentificated'];
+    rsi_verified = statusData['RSI_verified'];
+    corp_member = statusData['corp_member'];
+    isManager = statusData['is_manager'];
+    isAdmin = statusData['is_admin'];
 
     if ((requiredLevel == "NotLoggedIn") && (authentificated == true)) {
       print('Already logged in');

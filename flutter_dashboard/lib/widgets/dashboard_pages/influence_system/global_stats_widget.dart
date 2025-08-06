@@ -6,8 +6,8 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_details_card.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_details_card_stub.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget_stub.dart';
 
 class InfGlobalStatsWidget extends StatefulWidget {
   const InfGlobalStatsWidget({super.key});

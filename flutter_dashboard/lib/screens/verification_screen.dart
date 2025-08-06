@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dashboard/widgets/security/content/verification_widget.dart'; // Ensure this path is correct
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
-import 'package:flutter_dashboard/main.dart';
+import 'package:flutter_dashboard/services/service_locator.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 
-final corpSecurityClient = corpApi.getSecurityApi();
 class VerificationScreen extends StatefulWidget {
   const VerificationScreen({super.key});
 
@@ -22,23 +21,22 @@ class _VerificationScreenState extends State<VerificationScreen>
       GlobalKey<VerificationWidgetState>();
 
   Future<void> getRsiToken() async {
-    // Simulate a network call or some asynchronous operation
-
-    final headers = await getAuthHeader();
-
     try {
-    corpSecurityClient.getRSIToken(headers: headers).then((response) {
-      final rsiToken = response.data!.rSIToken;
+      final apiService = ServiceLocator().corpApiService;
+      final response = await apiService.getRSIToken();
+      
+      final tokenData = response.data as Map<String, dynamic>;
+      final rsiToken = tokenData['RSI_token'];
+      
       if (rsiToken != null) {
         setState(() {
           verification_token = rsiToken;
         });
       }
-    });
     }
     catch (error) {
       print(error);
-    };
+    }
   }
 
   @override
@@ -80,14 +78,10 @@ Please enter the verification token in your RSI profile bio:''',
           buttonTitle2: 'RSI profile',
           buttonTitle3: 'Need Help?',
           buttonAction1: () async {
-
-            final headers = await getAuthHeader();
-
             try {
-            final response = await corpSecurityClient.verifyRSIToken(headers: headers)
-            .then((response) {
+              final apiService = ServiceLocator().corpApiService;
+              await apiService.verifyRSIToken();
               Navigator.pushNamed(context, '/dashboard');
-            });
             }
             catch (error) {
               if (error is DioException && error.response?.statusCode == 400) {

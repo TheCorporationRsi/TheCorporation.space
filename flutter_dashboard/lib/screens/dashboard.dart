@@ -5,7 +5,7 @@ import 'package:flutter_dashboard/widgets/dashboard_pages/dashboard_widget.dart'
 import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/header/side_menu_widget.dart';
 
-import 'package:corp_api/corp_api.dart';
+import 'package:flutter_dashboard/services/service_locator.dart';
 import 'package:flutter_dashboard/util/restrictions.dart';
 import 'package:flutter_dashboard/model/current_user.dart' as current_user;
 import 'package:flutter_dashboard/model/influence_account.dart' as infAccount;
@@ -33,9 +33,12 @@ class _MainScreenState extends State<MainScreen>
   final ValueNotifier<bool> _isRightSideMenuVisible = ValueNotifier<bool>(true);
 
   Future<void> _initialize() async {
+    // Ensure API is fully initialized before proceeding
+    await ServiceLocator().completeInitialization();
+    
     await checkSecurityLevel(context, 'rsiVerified');
     await current_user.update();
-    if (current_user.status.value.cORPMember!) {
+    if (current_user.status.value['corp_member'] == true) {
       await infAccount.update();
     }
     await information.update();

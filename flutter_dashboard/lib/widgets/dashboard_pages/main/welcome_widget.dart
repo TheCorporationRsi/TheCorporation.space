@@ -1,8 +1,3 @@
-import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_details_card.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/components/bar_graph_widget.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
-import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

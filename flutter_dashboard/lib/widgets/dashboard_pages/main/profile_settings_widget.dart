@@ -9,7 +9,7 @@ import 'package:flutter_dashboard/widgets/header/profile_widget.dart';
 import 'package:flutter_dashboard/widgets/dashboard_pages/components/custom_card_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget.dart';
+import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/weights_chart_widget_stub.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:corp_api/corp_api.dart';
 
@@ -118,10 +118,7 @@ class _ProfileSettingsWidgetState extends State<ProfileSettingsWidget> {
             CustomCard(
                 padding: const EdgeInsets.all(20),
                 child: Column(children: [
-                  WeightsChartWidget(
-                      category: "Settings",
-                      filter: "All",
-                      customDivisions: customDivisions),
+                  WeightsChartWidget(),
                   const SizedBox(height: 18),
                   ElevatedButton(
                     onPressed: () async {

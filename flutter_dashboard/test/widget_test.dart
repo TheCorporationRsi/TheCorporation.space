@@ -12,8 +12,9 @@ import 'package:flutter_dashboard/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    final navigatorKey = GlobalKey<NavigatorState>();
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(MyApp(navigatorKey: navigatorKey));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

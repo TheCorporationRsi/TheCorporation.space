@@ -1,25 +1,14 @@
-import 'package:corp_api/corp_api.dart';
-import 'package:flutter_dashboard/main.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dashboard/services/service_locator.dart';
 
+ValueNotifier<List<Map<String, dynamic>>> departments =
+    ValueNotifier([]);
 
+ValueNotifier<List<Map<String, dynamic>>> divisions =
+    ValueNotifier([]);
 
-
-ValueNotifier<BuiltList<GetDepartments200ResponseInner>> departments =
-    ValueNotifier(BuiltList<GetDepartments200ResponseInner>());
-
-ValueNotifier<BuiltList<GetDivisions200ResponseInner>> divisions =
-    ValueNotifier(BuiltList<GetDivisions200ResponseInner>());
-
-ValueNotifier<BuiltList<GetRoles200ResponseInner>> roles =
-    ValueNotifier(BuiltList<GetRoles200ResponseInner>());
-
-
-
-
-final corpInformationClient = corpApi.getInformationApi();
-final corpStructureClient = corpApi.getStructureApi();
+ValueNotifier<List<Map<String, dynamic>>> roles =
+    ValueNotifier([]);
 
 Future<void> update() async {
   await updateDepartments();
@@ -29,34 +18,36 @@ Future<void> update() async {
 
 Future<void> updateDepartments() async {
   try {
-    final response = await corpStructureClient.getDepartments();
-    if (response.data != null) {
-      departments.value = response.data ?? departments.value;
+    final apiService = ServiceLocator().corpApiService;
+    final response = await apiService.getDepartments();
+    if (response.data is List) {
+      departments.value = List<Map<String, dynamic>>.from(response.data);
     }
   } catch (error) {
-    print(error);
+    print('Error updating departments: $error');
   }
 }
 
-
 Future<void> updateDivisions() async {
   try {
-    final response = await corpStructureClient.getDivisions();
-    if (response.data != null) {
-      divisions.value = response.data ?? divisions.value;
+    final apiService = ServiceLocator().corpApiService;
+    final response = await apiService.getDivisions();
+    if (response.data is List) {
+      divisions.value = List<Map<String, dynamic>>.from(response.data);
     }
   } catch (error) {
-    print(error);
+    print('Error updating divisions: $error');
   }
 }
 
 Future<void> updateRoles() async {
   try {
-    final response = await corpStructureClient.getRoles();
-    if (response.data != null) {
-      roles.value = response.data ?? roles.value;
+    final apiService = ServiceLocator().corpApiService;
+    final response = await apiService.getRoles();
+    if (response.data is List) {
+      roles.value = List<Map<String, dynamic>>.from(response.data);
     }
   } catch (error) {
-    print(error);
+    print('Error updating roles: $error');
   }
 }

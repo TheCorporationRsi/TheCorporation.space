@@ -1,12 +1,5 @@
-import 'package:corp_api/corp_api.dart';
-import 'package:flutter_dashboard/util/responsive.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/influence_system/components/influence_details_card.dart';
-import 'package:flutter_dashboard/widgets/dashboard_pages/components/line_chart_card.dart';
 import 'package:flutter/material.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter_dashboard/const/constant.dart';
-import 'package:flutter_dashboard/main.dart';
-import 'package:flutter_dashboard/util/tooltip.dart';
 
 import 'package:flutter_dashboard/util/css_color.dart';
 import 'package:flutter_dashboard/util/icon_helper.dart';
@@ -51,26 +44,26 @@ class _StructureWidgetState extends State<StructureWidget> {
   }
 
   Widget _buildDepartmentItem(
-      GetDepartments200ResponseInner department, int index) {
+      Map<String, dynamic> department, int index) {
     _dropdownOpen.putIfAbsent(index, () => false);
     return Card(
       color: cardBackgroundColor,
       child: Column(
         children: [
           ListTile(
-            leading: Icon(icons[department.logo] ?? Icons.error,
-                color: department.color != null
-                    ? cssColorToColor(department.color!)
+            leading: Icon(icons[department['logo']] ?? Icons.error,
+                color: department['color'] != null
+                    ? cssColorToColor(department['color']!)
                     : Colors.grey),
-            title: Text(department.title.toString(),
+            title: Text(department['title'].toString(),
                 style: TextStyle(
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+                  color: department['color'] != null
+                      ? cssColorToColor(department['color']!)
                       : Colors.grey,
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            subtitle: Text(department.motto.toString()),
+            subtitle: Text(department['motto'].toString()),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -93,13 +86,13 @@ class _StructureWidgetState extends State<StructureWidget> {
     );
   }
 
-  Widget _buildDropdownContent(GetDepartments200ResponseInner department) {
-    Color currentColor = department.color != null
-        ? cssColorToColor(department.color!)
+  Widget _buildDropdownContent(Map<String, dynamic> department) {
+    Color currentColor = department['color'] != null
+        ? cssColorToColor(department['color']!)
         : Colors.grey;
-    String title = department.title ?? '';
-    String motto = department.motto ?? '';
-    String logo = department.logo ?? '';
+    String title = department['title'] ?? '';
+    String motto = department['motto'] ?? '';
+    String logo = department['logo'] ?? '';
 
     void _showLeaveDialog(String division_title) {
       showDialog(
@@ -210,22 +203,22 @@ class _StructureWidgetState extends State<StructureWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(department.description!,
+          Text(department['description']!,
               style: TextStyle(fontWeight: FontWeight.normal, fontSize: 15)),
           SizedBox(height: 10),
           Text("Head:", style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
-          ...department.heads!.map(
+          ...department['heads']!.map(
             (head) => Chip(
-              avatar: Icon(icons[department.logo] ?? Icons.error,
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+              avatar: Icon(icons[department['logo']] ?? Icons.error,
+                  color: department['color'] != null
+                      ? cssColorToColor(department['color']!)
                       : Colors.grey),
               label: Text(head ?? 'Unknown'),
               shape: StadiumBorder(
                 side: BorderSide(
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+                  color: department['color'] != null
+                      ? cssColorToColor(department['color']!)
                       : Colors.grey,
                 ),
               ),
@@ -234,17 +227,17 @@ class _StructureWidgetState extends State<StructureWidget> {
           SizedBox(height: 10),
           Text("Proxy:", style: TextStyle(fontWeight: FontWeight.bold)),
           SizedBox(height: 10),
-          ...department.proxys!.map(
+          ...department['proxys']!.map(
             (proxy) => Chip(
-              avatar: Icon(icons[department.logo] ?? Icons.error,
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+              avatar: Icon(icons[department['logo']] ?? Icons.error,
+                  color: department['color'] != null
+                      ? cssColorToColor(department['color']!)
                       : Colors.grey),
               label: Text(proxy ?? 'Unknown'),
               shape: StadiumBorder(
                 side: BorderSide(
-                  color: department.color != null
-                      ? cssColorToColor(department.color!)
+                  color: department['color'] != null
+                      ? cssColorToColor(department['color']!)
                       : Colors.grey,
                 ),
               ),
@@ -254,19 +247,19 @@ class _StructureWidgetState extends State<StructureWidget> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ...department.divisions!.map(
+              ...department['divisions']!.map(
                 (division) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      leading: (division.restricted! ||  !current_user.status.value.cORPMember! )
+                      leading: (division.restricted! ||  !current_user.status.value['corp_member']! )
                           ? null
                           : ValueListenableBuilder(
                               valueListenable: current_user.divisions,
                               builder: (context, value, child) => Tooltip(
                                   message: current_user.divisions.value.any(
                                           (element) =>
-                                              element.title == division.title)
+                                              element['title'] == division['title'])
                                       ? "Leave"
                                       : "Join",
                                   child: IconButton(
@@ -274,26 +267,26 @@ class _StructureWidgetState extends State<StructureWidget> {
                                     icon: Icon(
                                       current_user.divisions.value.any(
                                               (element) =>
-                                                  element.title ==
-                                                  division.title)
+                                                  element['title'] ==
+                                                  division['title'])
                                           ? Icons.group_remove
                                           : Icons.group_add,
                                       color: current_user.divisions.value.any(
                                               (element) =>
-                                                  element.title ==
-                                                  division.title)
+                                                  element['title'] ==
+                                                  division['title'])
                                           ? Colors.red
                                           : Colors.green,
                                     ),
                                     onPressed: () {
                                       if (current_user.divisions.value.any(
                                           (element) =>
-                                              element.title ==
-                                              division.title)) {
-                                        _showLeaveDialog(division.title!);
+                                              element['title'] ==
+                                              division['title'])) {
+                                        _showLeaveDialog(division['title']!);
                                       } else {
                                         current_user
-                                            .joinDivision(division.title!);
+                                            .joinDivision(division['title']!);
                                       }
                                     },
                                   ))),
@@ -301,16 +294,16 @@ class _StructureWidgetState extends State<StructureWidget> {
                         children: [
                           Icon(
                             icons[division.logo] ?? Icons.error,
-                            color: department.color != null
-                                ? cssColorToColor(department.color!)
+                            color: department['color'] != null
+                                ? cssColorToColor(department['color']!)
                                 : Colors.grey,
                           ),
                           SizedBox(width: 10),
                           Text(
-                            division.title.toString(),
+                            division['title'].toString(),
                             style: TextStyle(
-                              color: department.color != null
-                                  ? cssColorToColor(department.color!)
+                              color: department['color'] != null
+                                  ? cssColorToColor(department['color']!)
                                   : Colors.grey,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -338,14 +331,14 @@ class _StructureWidgetState extends State<StructureWidget> {
                           ...division.leaders!.map(
                             (head) => Chip(
                               avatar: Icon(icons[division.logo] ?? Icons.error,
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
+                                  color: department['color'] != null
+                                      ? cssColorToColor(department['color']!)
                                       : Colors.grey),
                               label: Text(head ?? 'Unknown'),
                               shape: StadiumBorder(
                                 side: BorderSide(
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
+                                  color: department['color'] != null
+                                      ? cssColorToColor(department['color']!)
                                       : Colors.grey,
                                 ),
                               ),
@@ -358,14 +351,14 @@ class _StructureWidgetState extends State<StructureWidget> {
                           ...division.proxys!.map(
                             (proxy) => Chip(
                               avatar: Icon(icons[division.logo] ?? Icons.error,
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
+                                  color: department['color'] != null
+                                      ? cssColorToColor(department['color']!)
                                       : Colors.grey),
                               label: Text(proxy ?? 'Unknown'),
                               shape: StadiumBorder(
                                 side: BorderSide(
-                                  color: department.color != null
-                                      ? cssColorToColor(department.color!)
+                                  color: department['color'] != null
+                                      ? cssColorToColor(department['color']!)
                                       : Colors.grey,
                                 ),
                               ),

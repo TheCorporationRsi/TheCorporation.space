@@ -45,17 +45,17 @@ class DepartmentSelectionCard extends StatelessWidget {
                         value: "All",
                         child: Text("All"),
                       ),
-                      ...value.departments!
-                          .map<DropdownMenuItem<String>>((value) {
+                      ...((value['departments'] as List?) ?? [])
+                          .map<DropdownMenuItem<String>>((dept) {
                         return DropdownMenuItem<String>(
-                          value: value.departmentTitle,
+                          value: dept['department_title'],
                           onTap: () {
                             print("Tapped");
                           },
                           child: Text(
-                            value.departmentTitle!,
+                            dept['department_title'] ?? 'Unknown',
                             style:
-                                TextStyle(color: cssColorToColor(value.color!)),
+                                TextStyle(color: cssColorToColor(dept['color'] ?? '#FFFFFF')),
                           ),
                         );
                       }).toList(),
